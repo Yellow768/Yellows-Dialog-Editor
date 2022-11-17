@@ -1,0 +1,427 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/Environments/DialogEditorTest.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Environments/Quest Avaiability.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Environments/Dialog Availability.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Environments/Faction Availability.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Environments/ScoreboardAvailability.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Environments/Select Quest.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Environments/FactionChange.tscn" type="PackedScene" id=7]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -467.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+right_disconnects = true
+use_snap = false
+minimap_size = Vector2( 150, 150 )
+
+[node name="TopPanel" type="Panel" parent="."]
+anchor_right = 1.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 1920, 50 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopPanel"]
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 1880.0
+margin_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 1870, 50 )
+
+[node name="BTN_AddNode" type="Button" parent="TopPanel/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "+"
+
+[node name="SidePanel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -464.0
+margin_right = -4.0
+rect_min_size = Vector2( 460, 1080 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SidePanel"]
+margin_left = 30.0
+margin_top = 54.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 400, 1080 )
+
+[node name="Label" type="Label" parent="SidePanel/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 14.0
+text = "Dialog Settings"
+align = 1
+
+[node name="DialogNodeTabs" type="TabContainer" parent="SidePanel"]
+visible = false
+margin_left = 8.0
+margin_top = 68.0
+margin_right = 452.0
+margin_bottom = 1055.0
+tab_align = 0
+
+[node name="DialogSettings" type="Tabs" parent="SidePanel/DialogNodeTabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="DialogSettings" type="Control" parent="SidePanel/DialogNodeTabs/DialogSettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="Label" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_right = 436.0
+margin_bottom = 14.0
+text = "Dialog Title"
+align = 1
+
+[node name="HideNPC" type="CheckBox" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 18.0
+margin_right = 436.0
+margin_bottom = 42.0
+text = "Hide NPC"
+
+[node name="ShowDialogWheel" type="CheckBox" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 46.0
+margin_right = 436.0
+margin_bottom = 70.0
+text = "Show Dialog Wheel"
+
+[node name="DisableEsc" type="CheckBox" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 74.0
+margin_right = 436.0
+margin_bottom = 98.0
+text = "Disable Using Esc"
+
+[node name="HSeparator3" type="HSeparator" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 102.0
+margin_right = 436.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label2" type="Label" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 126.0
+margin_right = 436.0
+margin_bottom = 140.0
+text = "Sound File"
+align = 1
+
+[node name="Soundfile" type="TextEdit" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 144.0
+margin_right = 436.0
+margin_bottom = 169.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HSeparator" type="HSeparator" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 173.0
+margin_right = 436.0
+margin_bottom = 193.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label" type="Label" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 197.0
+margin_right = 436.0
+margin_bottom = 211.0
+text = "Console Command"
+align = 1
+
+[node name="Command" type="TextEdit" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 215.0
+margin_right = 436.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HSeparator2" type="HSeparator" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 244.0
+margin_right = 436.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label3" type="Label" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 268.0
+margin_right = 436.0
+margin_bottom = 282.0
+text = "Faction Changes"
+align = 1
+
+[node name="FactionChange" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 7 )]
+margin_top = 286.0
+margin_bottom = 336.0
+
+[node name="FactionChange2" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 7 )]
+margin_top = 340.0
+margin_bottom = 390.0
+
+[node name="HSeparator4" type="HSeparator" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 394.0
+margin_right = 436.0
+margin_bottom = 414.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label4" type="Label" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 418.0
+margin_right = 436.0
+margin_bottom = 432.0
+text = "Start Quest"
+align = 1
+
+[node name="StartQuest" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 436.0
+margin_bottom = 486.0
+
+[node name="AvailabilitySettings" type="Tabs" parent="SidePanel/DialogNodeTabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 276.0
+scroll_horizontal_enabled = false
+
+[node name="Availability" type="Control" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer"]
+margin_right = 436.0
+margin_bottom = 2000.0
+rect_min_size = Vector2( 436, 2000 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = 129.0
+rect_min_size = Vector2( 435, 1080 )
+
+[node name="QuestLabel" type="Label" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_right = 435.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+text = "Quest Availabilities"
+align = 1
+valign = 1
+
+[node name="QuestOptions" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 29.0
+margin_right = 435.0
+margin_bottom = 241.0
+
+[node name="Quest Avaiability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+margin_right = 435.0
+
+[node name="Quest Avaiability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="Quest Avaiability3" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+margin_top = 108.0
+margin_right = 435.0
+margin_bottom = 158.0
+
+[node name="Quest Avaiability4" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+margin_top = 162.0
+margin_right = 435.0
+margin_bottom = 212.0
+
+[node name="HSeparator" type="HSeparator" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 245.0
+margin_right = 435.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="DialogLabel" type="Label" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 259.0
+margin_right = 435.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 0, 25 )
+text = "Dialog Availabilities"
+align = 1
+valign = 1
+
+[node name="DialogOptions" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 288.0
+margin_right = 435.0
+margin_bottom = 500.0
+
+[node name="DialogAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+margin_right = 435.0
+
+[node name="DialogAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="DialogAvailability3" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+margin_top = 108.0
+margin_right = 435.0
+margin_bottom = 158.0
+
+[node name="DialogAvailability4" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+margin_top = 162.0
+margin_right = 435.0
+margin_bottom = 212.0
+
+[node name="HSeparator2" type="HSeparator" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 504.0
+margin_right = 435.0
+margin_bottom = 514.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="DialogLabel2" type="Label" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 518.0
+margin_right = 435.0
+margin_bottom = 543.0
+rect_min_size = Vector2( 0, 25 )
+text = "Faction availabilites"
+align = 1
+valign = 1
+
+[node name="FactionOptions" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 547.0
+margin_right = 435.0
+margin_bottom = 651.0
+
+[node name="FactionAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 4 )]
+margin_right = 435.0
+
+[node name="FactionAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 4 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="HSeparator3" type="HSeparator" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 655.0
+margin_right = 435.0
+margin_bottom = 665.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="DialogLabel3" type="Label" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 669.0
+margin_right = 435.0
+margin_bottom = 694.0
+rect_min_size = Vector2( 0, 25 )
+text = "Scoreboard Availabilities"
+align = 1
+valign = 1
+
+[node name="ScoreboardOptions" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 698.0
+margin_right = 435.0
+margin_bottom = 802.0
+
+[node name="ScoreboardAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 5 )]
+margin_right = 435.0
+
+[node name="ScoreboardAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 5 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="HSeparator4" type="HSeparator" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 806.0
+margin_right = 435.0
+margin_bottom = 816.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="TimeandLevel" type="VBoxContainer" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 820.0
+margin_right = 435.0
+margin_bottom = 924.0
+
+[node name="Time" type="Control" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+margin_right = 435.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="Panel" type="Panel" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="OptionButton" type="OptionButton" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 9.5
+margin_top = -12.5
+margin_right = 152.5
+margin_bottom = 12.5
+text = "All Day"
+items = [ "All Day", null, false, 0, null, "During Night", null, false, 1, null, "During Day", null, false, 2, null ]
+selected = 0
+
+[node name="Label" type="Label" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 83.0
+margin_top = -7.0
+margin_right = 123.0
+margin_bottom = 7.0
+text = "Time:"
+
+[node name="PlayerLevel" type="Control" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="Panel" type="Panel" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="SpinBox" type="SpinBox" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -172.0
+margin_top = -12.0
+margin_right = -98.0
+margin_bottom = 12.0
+max_value = 10000.0
+align = 1
+
+[node name="Label" type="Label" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 42.0
+margin_top = -7.0
+margin_right = 189.0
+margin_bottom = 7.0
+text = "Minimum Player Level:"
+
+[connection signal="connection_request" from="GraphEdit" to="." method="_on_GraphEdit_connection_request"]
+[connection signal="disconnection_request" from="GraphEdit" to="." method="_on_GraphEdit_disconnection_request"]
+[connection signal="node_selected" from="GraphEdit" to="." method="_on_GraphEdit_node_selected"]
+[connection signal="node_unselected" from="GraphEdit" to="." method="_on_GraphEdit_node_unselected"]
+[connection signal="pressed" from="TopPanel/HBoxContainer/BTN_AddNode" to="." method="_on_BTN_AddNode_pressed"]
+[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="." method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="." method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="." method="_on_DisableEsc_pressed"]

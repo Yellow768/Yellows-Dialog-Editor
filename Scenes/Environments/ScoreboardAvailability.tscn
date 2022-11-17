@@ -1,0 +1,45 @@
+[gd_scene format=2]
+
+[node name="ScoreboardAvailability" type="Control"]
+margin_right = 400.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="OptionButton" type="OptionButton" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.0
+margin_top = -12.5
+margin_right = 100.0
+margin_bottom = 12.5
+text = "Equals"
+items = [ "Smaller", null, false, 0, null, "Equals", null, false, 1, null, "Bigger", null, false, 5, null ]
+selected = 1
+
+[node name="SpinBox" type="SpinBox" parent="Panel"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -74.0
+margin_top = -12.0
+margin_bottom = 12.0
+max_value = 10000.0
+value = 1.0
+align = 1
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 7.0
+margin_top = -12.0
+margin_right = 145.0
+margin_bottom = 12.0
+placeholder_text = "Objective Name"
