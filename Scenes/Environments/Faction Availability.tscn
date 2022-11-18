@@ -1,9 +1,12 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Environments/Faction Availability.gd" type="Script" id=1]
 
 [node name="FactionAvailability" type="Control"]
 margin_right = 400.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 350, 50 )
+script = ExtResource( 1 )
 
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -73,3 +76,6 @@ align = 1
 
 [connection signal="pressed" from="Panel/ChooseDialog" to="." method="_on_Choose_Quest_pressed"]
 [connection signal="index_pressed" from="Panel/ChooseDialog/FactionFinder" to="." method="_on_CategoryFinder_index_pressed"]
+[connection signal="item_selected" from="Panel/IsIsnotbutton" to="." method="_on_IsIsnotbutton_item_selected"]
+[connection signal="item_selected" from="Panel/StanceButton" to="." method="_on_StanceButton_item_selected"]
+[connection signal="value_changed" from="Panel/SpinBox" to="." method="_on_SpinBox_value_changed"]

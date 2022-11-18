@@ -16,6 +16,7 @@ var initial_y_offset = 0
 
 var to_dialog_ID
 
+signal set_self_as_selected
 signal delete_self
 
 func _ready():
@@ -46,6 +47,7 @@ func hide_button():
 func _on_PlayerResponseNode_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		selected = true
+		emit_signal("set_self_as_selected",self)
 		self.mouse_filter = Control.MOUSE_FILTER_STOP
 	else:
 		self.mouse_filter = Control.MOUSE_FILTER_PASS

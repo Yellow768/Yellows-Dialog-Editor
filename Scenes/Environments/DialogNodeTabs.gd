@@ -10,12 +10,29 @@ onready var faction_changes_1 = $DialogSettings/DialogSettings/VBoxContainer/Fac
 onready var faction_changes_2 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange2
 onready var start_quest = $DialogSettings/DialogSettings/VBoxContainer/StartQuest
 
-
-
-
-
+onready var availability_quests = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions
+onready var availability_dialogs = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions
+onready var availability_factions = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions
+onready var availability_scoreboard = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions
+onready var availability_time = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time
+onready var availability_level = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel
 var current_dialog
 
+func _ready():
+	for i in 4:
+		availability_quests.get_child(i).connect("id_changed",self,"quest_id_changed")
+		availability_quests.get_child(i).connect("type_changed",self,"quest_type_changed")
+		availability_dialogs.get_child(i).connect("id_changed",self,"dialog_id_changed")
+		availability_dialogs.get_child(i).connect("type_changed",self,"dialog_type_changed")
+	for i in 2:
+		availability_factions.get_child(i).connect("id_changed",self,"faction_id_changed")
+		availability_factions.get_child(i).connect("stance_changed",self,"faction_stance_changed")
+		availability_factions.get_child(i).connect("isisnot_changed",self,"faction_isisnot_changed")
+		
+		availability_scoreboard.get_child(i).connect("objective_name_changed",self,"scoreboard_objective_name_changed")
+		availability_scoreboard.get_child(i).connect("comparison_type_changed",self,"scoreboard_comparison_type_changed")
+		availability_scoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
+		
 func load_dialog_settings(dialog):
 	current_dialog = dialog
 	visible = true
@@ -26,10 +43,65 @@ func load_dialog_settings(dialog):
 	command_edit.text = current_dialog.command
 	playsound_edit.text = current_dialog.sound
 	
-	faction_changes_1.set_id(current_dialog.faction_changes[0].factionID)
+	faction_changes_1.set_id(current_dialog.faction_changes[0].faction_id)
 	faction_changes_1.set_points(current_dialog.faction_changes[0].points)
-	faction_changes_2.set_id(current_dialog.faction_changes[1].factionID)
+	faction_changes_2.set_id(current_dialog.faction_changes[1].faction_id)
 	faction_changes_2.set_points(current_dialog.faction_changes[1].points)
+	
+	availability_time.get_node("Panel/OptionButton").selected = current_dialog.time_availability
+	availability_level.get_node("Panel/SpinBox").value = current_dialog.min_level_availability
+	
+	for i in 4:
+		availability_quests.get_child(i).set_id(current_dialog.quest_availabilities[i].quest_id)
+		availability_quests.get_child(i).set_availability_type(current_dialog.quest_availabilities[i].availability_type)
+		availability_dialogs.get_child(i).set_id(current_dialog.dialog_availabilities[i].dialog_id)
+		availability_dialogs.get_child(i).set_availability_type(current_dialog.dialog_availabilities[i].availability_type)
+	for i in 2:
+		availability_factions.get_child(i).set_id(current_dialog.faction_availabilities[i].faction_id)
+		availability_factions.get_child(i).set_stance(current_dialog.faction_availabilities[i].stance_type)
+		availability_factions.get_child(i).set_isisnot(current_dialog.faction_availabilities[i].availability_operator)
+		
+		availability_scoreboard.get_child(i).set_objective_name(current_dialog.scoreboard_availabilities[i].objective_name)
+		availability_scoreboard.get_child(i).set_comparison_type(current_dialog.scoreboard_availabilities[i].comparison_type)
+		availability_scoreboard.get_child(i).set_value(current_dialog.scoreboard_availabilities[i].value)
+		
+func scoreboard_objective_name_changed(child,obj_name):
+	current_dialog.scoreboard_availabilities[availability_scoreboard.get_children().find(child)].objective_name = obj_name
+
+func scoreboard_comparison_type_changed(child,type):
+	current_dialog.scoreboard_availabilities[availability_scoreboard.get_children().find(child)].comparison_type = type
+	
+	
+func scoreboard_value_changed(child,value):
+	current_dialog.scoreboard_availabilities[availability_scoreboard.get_children().find(child)].value = value
+		
+func faction_id_changed(child,id):
+	current_dialog.faction_availabilities[availability_factions.get_children().find(child)].faction_id = id
+
+func faction_stance_changed(child,stance):
+	current_dialog.faction_availabilities[availability_factions.get_children().find(child)].stance_type = stance
+
+func faction_isisnot_changed(child,isisnot):
+	current_dialog.faction_availabilities[availability_factions.get_children().find(child)].availability_operator = isisnot
+
+
+func dialog_id_changed(child,id):
+	current_dialog.dialog_availabilities[availability_dialogs.get_children().find(child)].dialog_id = id
+
+	
+func dialog_type_changed(child,type):
+	current_dialog.dialog_availabilities[availability_dialogs.get_children().find(child)].availability_type = type
+
+
+
+
+func quest_id_changed(child,id):
+	current_dialog.quest_availabilities[availability_quests.get_children().find(child)].quest_id = id
+
+	
+func quest_type_changed(child,type):
+	current_dialog.quest_availabilities[availability_quests.get_children().find(child)].availability_type = type
+
 #Dialog Changes
 
 func _on_HideNPC_pressed():
@@ -46,11 +118,11 @@ func _on_DisableEsc_pressed():
 
 
 func _on_FactionChange_faction_id_changed(id):
-	current_dialog.faction_changes[0].factionID = id
+	current_dialog.faction_changes[0].faction_id = id
 
 
 func _on_FactionChange2_faction_id_changed(id):
-	current_dialog.faction_changes[1].factionID = id
+	current_dialog.faction_changes[1].faction_id = id
 
 
 func _on_FactionChange2_faction_points_changed(points):
@@ -63,3 +135,11 @@ func _on_FactionChange_faction_points_changed(points):
 
 func _on_Command_text_changed():
 	current_dialog.command = command_edit.text
+
+
+func _on_TimeButton_item_selected(index):
+	current_dialog.time_availability = index
+
+
+func _on_SLevelpinBox_value_changed(value):
+	current_dialog.min_level_availability = value

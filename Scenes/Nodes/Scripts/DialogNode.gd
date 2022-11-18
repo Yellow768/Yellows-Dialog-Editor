@@ -17,7 +17,7 @@ var initial_offset_y = 0
 export var dialog_title = 'New Dialog'
 
 #Immutable
-export var dialogID = -1
+export var dialog_id = -1
 
 #Display
 
@@ -60,7 +60,7 @@ func _ready():
 	connect("dialog_ready_for_deletion",dialog_editor,"delete_dialog_node")
 	connect("set_self_as_selected",dialog_editor,"_on_node_requests_selection")
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
-	$IDLabel.text = "ID: "+String(dialogID)
+	$IDLabel.text = "ID: "+String(dialog_id)
 	$TitleText.text = dialog_title
 	
 	for i in 4:
@@ -147,3 +147,76 @@ func _on_TitleText_gui_input(event):
 		selected = true
 		emit_signal("set_self_as_selected",self)
 		
+func save():
+	var save_quest_av = []
+	var save_dialog_av = []
+	var save_faction_av = []
+	var save_scoreboard_av = []
+	var save_fact_changes = []
+	var save_response_options = []
+	
+	for i in quest_availabilities:
+		save_quest_av.append({
+			"availability_type": i.availability_type,
+			"quest_id": i.quest_id
+		})
+	for i in dialog_availabilities:
+		save_dialog_av.append({
+			"availability_type" : i.availability_type,
+			"dialog_id": i.dialog_id
+		})
+	for i in faction_availabilities:
+		save_faction_av.append({
+			"faction_id" : i.faction_id,
+			"isisnot" : i.availability_operator,
+			"stance_type" : i.stance_type
+		})
+	for i in scoreboard_availabilities:
+		save_scoreboard_av.append({
+			"objective_name" : i.objective_name,
+			"comparison_type" : i.comparison_type,
+			"value" : i.value
+		})
+	for i in faction_changes:
+		save_fact_changes.append({
+			"faction_id" : i.faction_id,
+			"points" : i.points
+		})
+	
+	for i in response_options:
+		var connected_index = -1
+		if i.connected_dialog != null:
+			connected_index = i.connected_dialog.node_index
+		save_response_options.append({
+			"slot" : i.slot,
+			"option_type" : i.option_type,
+			"color_decimal" : i.color_decimal,
+			"command" : i.command,
+			"connected_dialog_index" : connected_index
+			}
+			)
+	
+	
+	var save_dict = {
+		"filename": get_filename(),
+		"offset.x" : offset.x,
+		"offset.y" : offset.y,
+		"node_index": node_index,
+		"dialog_id" : dialog_id,
+		"dialog_title": dialog_title,
+		"show_wheel" : show_wheel,
+		"hide_npc" : hide_npc,
+		"disable_esc" : disable_esc,
+		"sound" : sound,
+		"command" : command,
+		"start_quest" : start_quest,
+		"quest_availabilities": save_quest_av,
+		"dialog_availabilities" : save_dialog_av,
+		"faction_availabilities" : save_faction_av,
+		"scoreboard_availabilities" : save_scoreboard_av,
+		"faction_changes" : save_fact_changes,
+		"time_availability" : time_availability,
+		"min_level_availability" : min_level_availability,
+		"response_options":save_response_options
+	}
+	print(save_dict)

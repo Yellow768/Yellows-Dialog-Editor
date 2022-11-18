@@ -69,3 +69,5 @@ align = 1
 
 [connection signal="pressed" from="Panel/ChooseQuest" to="." method="_on_Choose_Quest_pressed"]
 [connection signal="index_pressed" from="Panel/ChooseQuest/CategoryFinder" to="." method="_on_CategoryFinder_index_pressed"]
+[connection signal="item_selected" from="Panel/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="value_changed" from="Panel/SpinBox" to="." method="_on_SpinBox_value_changed"]
