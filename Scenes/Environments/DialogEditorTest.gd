@@ -1,27 +1,31 @@
 extends Control
 
-enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 
-var sgn = load("res://Scenes/Nodes/DialogNode.tscn")
+
+var dialog_node_scene = load("res://Scenes/Nodes/DialogNode.tscn")
+var response_node_scene = load("res://Scenes/Nodes/Player Response Node.tscn")
+
 var initial_position = Vector2(300,300)
 var node_index = 0
 var selected_nodes = []
 var node_deletion_queue = []
 
-onready var hide_npc_checkbox = $SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC
-onready var show_wheel_checkbox = $SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel
-onready var disable_esc_checkbox = $SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc
-onready var title_label = $SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Title
+onready var dialog_settings_panel = $SidePanel/DialogNodeTabs
+
+
+
+
+
 func _ready():
 	OS.low_processor_usage_mode = true
 	$GraphEdit.get_zoom_hbox().visible = false
 	
-	$GraphEdit.add_valid_connection_type(CONNECTION_TYPES.PORT_FROM_RESPONSE,CONNECTION_TYPES.PORT_INTO_DIALOG)
-	$GraphEdit.add_valid_connection_type(CONNECTION_TYPES.PORT_INTO_RESPONSE,CONNECTION_TYPES.PORT_FROM_DIALOG)
+	$GraphEdit.add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
+	$GraphEdit.add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG)
 	
-	$GraphEdit.remove_valid_connection_type(CONNECTION_TYPES.PORT_FROM_DIALOG,CONNECTION_TYPES.PORT_INTO_RESPONSE)
-	$GraphEdit.add_valid_left_disconnect_type(CONNECTION_TYPES.PORT_INTO_DIALOG)
-	$GraphEdit.add_valid_right_disconnect_type(CONNECTION_TYPES.PORT_FROM_RESPONSE)
+	$GraphEdit.remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
+	$GraphEdit.add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
+	$GraphEdit.add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 
 func _process(delta):
 	if Input.is_action_pressed("ui_delete") and selected_nodes.size() > 0:
@@ -31,27 +35,43 @@ func _process(delta):
 			selected_nodes.erase(i)
 		
 
-
-func add_dialog_node(offset_base=initial_position,new_name = "New Dialog"):
-	var node = sgn.instance()
-	node.offset += offset_base + $GraphEdit.scroll_offset
-	node.title += ' - '+str(node_index)
-	node.node_index = node_index
-	node.graph = $GraphEdit
-	node.dialog_title = new_name
-	$GraphEdit.add_child(node)
+func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog"):
+	var new_node = dialog_node_scene.instance()
+	new_node.offset += offset_base + $GraphEdit.scroll_offset
+	new_node.title += ' - '+str(node_index)
+	new_node.node_index = node_index
+	new_node.graph = $GraphEdit
+	new_node.dialog_title = new_name
 	node_index += 1
-	return node
+	$GraphEdit.add_child(new_node)
+	return new_node
 
 
-func delete_dialog(dialog):
+func delete_dialog_node(dialog):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	check_selected_nodes()
 	dialog.queue_free()
 	node_index -=1
 
-func delete_player_response(dialog,response):
+
+func add_response_node(dialog):
+	var new_node = response_node_scene.instance()
+	var new_instance_offset = Vector2(400,40+(60*dialog.response_options.size()))
+	for i in dialog.response_options:
+		i.offset -= Vector2(0,60)
+	dialog.response_options.append(new_node)
+	
+	new_node.offset = dialog.offset + new_instance_offset
+	new_node.initial_y_offset = new_instance_offset.y
+	new_node.slot = dialog.response_options.size()
+	new_node.graph = $GraphEdit
+	new_node.connect("delete_self",dialog,"delete_response_node")
+	$GraphEdit.add_child(new_node)
+	$GraphEdit.connect_node(dialog.get_name(),0,new_node.get_name(),0)
+
+
+func delete_response_node(dialog,response):
 	$GraphEdit.disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		$GraphEdit.disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
@@ -106,51 +126,31 @@ func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 	else:
 		$GraphEdit.disconnect_node(from,from_slot,to,to_slot)
 
+
+
+func _on_GraphEdit_node_selected(node):
+	if selected_nodes.find(node,0) == -1 and node.node_type == "Dialog Node" :
+		selected_nodes.append(node)
+		dialog_settings_panel.load_dialog_settings(node)
+
 func _on_GraphEdit_node_unselected(node):
 	if node.node_type == "Dialog Node":
 		selected_nodes.erase(node)
 		if selected_nodes.size() < 1:
-			$SidePanel/DialogNodeTabs.visible = false
+			dialog_settings_panel.visible = false
 		else:
-			load_dialog_settings(selected_nodes[0])
-			
-	
-func _on_GraphEdit_node_selected(node):
-	if selected_nodes.find(node,0) == -1 and node.node_type == "Dialog Node" :
-		selected_nodes.append(node)
-		$SidePanel/DialogNodeTabs.visible = true
-		load_dialog_settings(node)
+			dialog_settings_panel.load_dialog_settings(selected_nodes[0])
 		
 func check_selected_nodes():
 	if selected_nodes.size() < 1:
-		$SidePanel/DialogNodeTabs.visible = false
+		dialog_settings_panel.visible = false
 	else:
 		if selected_nodes[0].node_type == "Dialog Node":
-			load_dialog_settings(selected_nodes[0])
+			dialog_settings_panel.load_dialog_settings(selected_nodes[0])
+
 		
-func load_dialog_settings(dialog):
-	title_label.text = dialog.dialog_title+" | Node "+String(dialog.node_index)
-	hide_npc_checkbox.pressed = dialog.hide_npc
-	show_wheel_checkbox.pressed = dialog.show_wheel
-	disable_esc_checkbox.pressed = dialog.disable_esc
-	
-	$SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Command.text = dialog.command
-	$SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Soundfile.text = dialog.sound
-
-#Dialog Changes
-
-func _on_HideNPC_pressed():
-	selected_nodes[0].hide_npc = hide_npc_checkbox.pressed
-
-
-func _on_ShowDialogWheel_pressed():
-	selected_nodes[0].show_wheel = show_wheel_checkbox.pressed
-
-
-func _on_DisableEsc_pressed():
-	selected_nodes[0].disable_esc = disable_esc_checkbox.pressed
-
 func _on_node_requests_selection(node):
 	$GraphEdit.set_selected(node)
 	_on_GraphEdit_node_selected(node)
-	print("selected node")
+
+

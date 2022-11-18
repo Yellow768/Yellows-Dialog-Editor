@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
 "base": "Resource",
 "class": "dialog_availability_object",
 "language": "GDScript",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://Resources/Availability Objects/scoreboard_availability_object.gd"
 } ]
 _global_script_class_icons={
+"GitAPI": "",
 "dialog_availability_object": "",
 "dialog_node": "",
 "faction_availability_object": "",
@@ -54,12 +60,25 @@ config/name="CNPC Dialog Editor"
 run/main_scene="res://Scenes/Environments/DialogEditorTest.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalDeclarations="*res://global_declarations.gd"
+
 [display]
 
 window/size/width=1920
 window/size/height=1080
 window/size/test_width=1280
 window/size/test_height=720
+
+[editor]
+
+version_control_autoload_on_startup=true
+version_control_plugin_name="GitAPI"
+
+[gdnative]
+
+singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
 [gui]
 

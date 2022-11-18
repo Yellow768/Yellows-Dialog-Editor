@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Environments/DialogEditorTest.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Environments/Quest Avaiability.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Environments/ScoreboardAvailability.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Environments/Select Quest.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Environments/FactionChange.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Environments/DialogNodeTabs.gd" type="Script" id=8]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -53,19 +54,6 @@ margin_left = -464.0
 margin_right = -4.0
 rect_min_size = Vector2( 460, 1080 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SidePanel"]
-margin_left = 30.0
-margin_top = 54.0
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 400, 1080 )
-
-[node name="Label" type="Label" parent="SidePanel/VBoxContainer"]
-margin_right = 400.0
-margin_bottom = 14.0
-text = "Dialog Settings"
-align = 1
-
 [node name="DialogNodeTabs" type="TabContainer" parent="SidePanel"]
 visible = false
 margin_left = 8.0
@@ -73,6 +61,7 @@ margin_top = 68.0
 margin_right = 452.0
 margin_bottom = 1055.0
 tab_align = 0
+script = ExtResource( 8 )
 
 [node name="DialogSettings" type="Tabs" parent="SidePanel/DialogNodeTabs"]
 anchor_right = 1.0
@@ -422,6 +411,11 @@ text = "Minimum Player Level:"
 [connection signal="node_selected" from="GraphEdit" to="." method="_on_GraphEdit_node_selected"]
 [connection signal="node_unselected" from="GraphEdit" to="." method="_on_GraphEdit_node_unselected"]
 [connection signal="pressed" from="TopPanel/HBoxContainer/BTN_AddNode" to="." method="_on_BTN_AddNode_pressed"]
-[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="." method="_on_HideNPC_pressed"]
-[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="." method="_on_ShowDialogWheel_pressed"]
-[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="." method="_on_DisableEsc_pressed"]
+[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="SidePanel/DialogNodeTabs" method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="SidePanel/DialogNodeTabs" method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="SidePanel/DialogNodeTabs" method="_on_DisableEsc_pressed"]
+[connection signal="text_changed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Command" to="SidePanel/DialogNodeTabs" method="_on_Command_text_changed"]
+[connection signal="faction_id_changed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="SidePanel/DialogNodeTabs" method="_on_FactionChange_faction_id_changed"]
+[connection signal="faction_points_changed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="SidePanel/DialogNodeTabs" method="_on_FactionChange_faction_points_changed"]
+[connection signal="faction_id_changed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="SidePanel/DialogNodeTabs" method="_on_FactionChange2_faction_id_changed"]
+[connection signal="faction_points_changed" from="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="SidePanel/DialogNodeTabs" method="_on_FactionChange2_faction_points_changed"]

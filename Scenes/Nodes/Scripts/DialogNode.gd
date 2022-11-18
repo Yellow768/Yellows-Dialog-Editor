@@ -2,6 +2,7 @@ class_name dialog_node
 extends GraphNode
 enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 
+onready var dialog_editor = get_parent().get_parent()
 
 var node_type = "Dialog Node"
 var graph
@@ -31,10 +32,10 @@ export var sound = ''
 
 
 #Availabilities
-export(Array,Resource) var dialog_availabilities
-export(Array,Resource) var quest_availabilities
-export(Array,Resource) var scoreboard_availabilities
-export(Array,Resource) var faction_availabilities
+var dialog_availabilities = []
+var quest_availabilities = []
+var scoreboard_availabilities = []
+var faction_availabilities = []
 
 export(int,"Always","Night","Day") var time_availability
 export var min_level_availability = 0
@@ -42,68 +43,39 @@ export var min_level_availability = 0
 
 
 #Outcomes
-export(Array,Resource) var faction_changes
+var faction_changes = []
 export var start_quest = -1
 
 
-
-signal dialog_deletion_request
-signal player_response_ready_for_deletion
+signal add_response_request
+signal delete_response_node
 signal dialog_ready_for_deletion
 signal set_self_as_selected
 
 func _ready():
 	initial_offset_y = offset.y
-	connect("player_response_ready_for_deletion",get_parent().get_parent(),"delete_player_response")
-	connect("dialog_ready_for_deletion",get_parent().get_parent(),"delete_dialog")
-	connect("set_self_as_selected",get_parent().get_parent(),"_on_node_requests_selection")
-	connect("dialog_deletion_request",get_parent().get_parent(),"handle_deletion_request")
+	
+	connect("add_response_request",dialog_editor,"add_response_node")
+	connect("delete_response_node",dialog_editor,"delete_response_node")
+	connect("dialog_ready_for_deletion",dialog_editor,"delete_dialog_node")
+	connect("set_self_as_selected",dialog_editor,"_on_node_requests_selection")
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
 	$IDLabel.text = "ID: "+String(dialogID)
 	$TitleText.text = dialog_title
+	
+	for i in 4:
+		dialog_availabilities.append(dialog_availability_object.new())
+		quest_availabilities.append(quest_availability_object.new())
+		
+	for i in 2:
+		scoreboard_availabilities.append(scoreboard_availability_object.new())
+		faction_availabilities.append(faction_availability_object.new())
+		faction_changes.append(faction_change_object.new())
 
 
 	
 func export_to_json():
 	pass
-	
-func add_new_response():
-	var new_prn = player_response_node.instance()
-	var new_instance_offset = Vector2(400,50+(60*response_options.size()))
-	for i in response_options:
-		i.offset -= Vector2(0,60)
-	
-	new_prn.offset = offset + new_instance_offset
-	new_prn.initial_y_offset = new_instance_offset.y
-	new_prn.slot = response_options.size()
-	new_prn.graph = graph
-	response_options.append(new_prn)
-	new_prn.connect("deleting_player_response",self,"handle_deleting_player_response")
-	graph.add_child(new_prn)
-	graph.connect_node(self.get_name(),0,new_prn.get_name(),0)
-
-
-
-func handle_deleting_player_response(deletion_slot,response_node):
-	for i in response_options:
-		if i.slot < deletion_slot:
-			i.offset += Vector2(0,60)
-		else:
-			i.offset -= Vector2(0,60)
-			i.slot -=1
-	
-	emit_signal("player_response_ready_for_deletion",self,response_node)
-	#get_parent().disconnect_node(self.get_name(),0,response_options[deletion_slot].get_name(),0)
-	response_options.remove(deletion_slot)
-
-func _on_AddPlayerResponse_pressed():
-	if response_options.size() < 6:
-		add_new_response()
-
-
-func _on_DialogNode_close_request():
-	delete_self()
-	
 
 func delete_self():
 	while response_options.size() > 0:
@@ -114,6 +86,33 @@ func delete_self():
 			i.disconnect_from_dialog()
 			connected_responses.erase(i)
 	emit_signal("dialog_ready_for_deletion",self)
+	
+func add_response_node():
+	emit_signal("add_response_request",self)
+
+
+func delete_response_node(deletion_slot,response_node):
+	for i in response_options:
+		if i.slot < deletion_slot:
+			i.offset += Vector2(0,60)
+		else:
+			i.offset -= Vector2(0,60)
+			i.slot -=1
+	response_options.erase(response_node)
+	emit_signal("delete_response_node",self,response_node)
+	
+
+
+func _on_AddPlayerResponse_pressed():
+	if response_options.size() < 6:
+		add_response_node()
+
+
+func _on_DialogNode_close_request():
+	delete_self()
+	
+
+
 
 func _on_DialogNode_offset_changed():
 	if response_options.size() > 0:

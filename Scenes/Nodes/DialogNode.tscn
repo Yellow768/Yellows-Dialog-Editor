@@ -1,87 +1,6 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Scenes/Nodes/Scripts/DialogNode.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Availability Objects/dialog_availability_object.gd" type="Script" id=2]
-[ext_resource path="res://Resources/Availability Objects/quest_availability_object.gd" type="Script" id=3]
-[ext_resource path="res://Resources/Availability Objects/scoreboard_availability_object.gd" type="Script" id=4]
-[ext_resource path="res://Resources/Availability Objects/faction_availability_object.gd" type="Script" id=5]
-[ext_resource path="res://Resources/faction_change_object.gd" type="Script" id=6]
-
-[sub_resource type="Resource" id=1]
-script = ExtResource( 2 )
-dialogID = -1
-availability_type = 0
-
-[sub_resource type="Resource" id=2]
-script = ExtResource( 2 )
-dialogID = -1
-availability_type = 0
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 2 )
-dialogID = -1
-availability_type = 0
-
-[sub_resource type="Resource" id=4]
-script = ExtResource( 2 )
-dialogID = -1
-availability_type = 0
-
-[sub_resource type="Resource" id=5]
-script = ExtResource( 3 )
-availability_type = 0
-quest_id = -1
-
-[sub_resource type="Resource" id=6]
-script = ExtResource( 3 )
-availability_type = 0
-quest_id = -1
-
-[sub_resource type="Resource" id=7]
-script = ExtResource( 3 )
-availability_type = 0
-quest_id = -1
-
-[sub_resource type="Resource" id=8]
-script = ExtResource( 3 )
-availability_type = 0
-quest_id = -1
-
-[sub_resource type="Resource" id=9]
-script = ExtResource( 4 )
-scoreboard_name = ""
-value = 0
-comparison = 0
-
-[sub_resource type="Resource" id=10]
-script = ExtResource( 4 )
-scoreboard_name = ""
-value = 0
-comparison = 0
-
-[sub_resource type="Resource" id=11]
-script = ExtResource( 5 )
-factionID = -1
-availability_operator = 0
-availability_type = 0
-
-[sub_resource type="Resource" id=12]
-script = ExtResource( 5 )
-factionID = -1
-availability_operator = 0
-availability_type = 0
-
-[sub_resource type="Resource" id=13]
-script = ExtResource( 6 )
-factionID = -1
-points = 100
-operator = 0
-
-[sub_resource type="Resource" id=14]
-script = ExtResource( 6 )
-factionID = -1
-points = 100
-operator = 0
 
 [node name="DialogNode" type="GraphNode"]
 anchor_left = 0.509
@@ -116,11 +35,6 @@ slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
-dialog_availabilities = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]
-quest_availabilities = [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ]
-scoreboard_availabilities = [ SubResource( 9 ), SubResource( 10 ) ]
-faction_availabilities = [ SubResource( 11 ), SubResource( 12 ) ]
-faction_changes = [ SubResource( 13 ), SubResource( 14 ) ]
 
 [node name="TitleText" type="TextEdit" parent="."]
 margin_left = 16.0
