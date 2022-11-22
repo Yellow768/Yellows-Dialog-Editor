@@ -1,27 +1,34 @@
 tool
 extends GraphNode
 
-
-var node_type = "Player Response Node"
-var graph
-
-
-var slot = -1
-export(int,"Close","Select Dialog","Disabled","Role","Command") var option_type = 1
-var color_decimal = 16777215
-
-var command = ''
-var connected_dialog = null #might delete
-var initial_y_offset = 0
-
-var to_dialog_ID
-
 signal set_self_as_selected
 signal delete_self
 
+var node_type = "Player Response Node"
+var graph
+var initial_color = Color(1,1,1)
+
+var slot = -1
+export(int,"Close","Select Dialog","Disabled","Role","Command") var option_type = 1
+
+var response_title = '' setget set_response_title
+var color_decimal = 16777215 setget set_color_decimal
+var command = '' setget set_command
+var connected_dialog = null setget set_connected_dialog
+var initial_y_offset = 0 setget set_initial_y_offset
+
+var to_dialog_id = -1 setget set_to_dialog_id
+
+
+
+
+
+
 func _ready():
 	set_slot(0,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,Color(0,1,0,1),true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,Color(0,0,1,1))
-
+	
+	$HBoxContainer/VBoxContainer/ColorPickerButton.color = initial_color
+	$HBoxContainer/VBoxContainer/TextEdit.text = response_title
 
 func external_delete():
 	emit_signal("delete_self",slot,self)
@@ -87,7 +94,20 @@ func _on_OptionButton_item_selected(index):
 
 
 func _on_ColorPickerButton_color_changed(color):
+	initial_color = color
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
 	
 	
+func set_response_title(new_title):
+	pass
+func set_color_decimal(new_color):
+	pass
+func set_command(new_command):
+	pass
+func set_connected_dialog(new_command):
+	pass
+func set_initial_y_offset(new_offset):
+	pass
+func set_to_dialog_id(new_id):
+	pass

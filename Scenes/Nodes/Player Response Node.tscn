@@ -12,7 +12,7 @@ margin_top = -50.0
 margin_right = 125.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 250, 100 )
-title = "Player Response"
+title = "Response Node"
 show_close = true
 comment = true
 slot/0/left_enabled = true
@@ -27,29 +27,30 @@ script = ExtResource( 1 )
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 270.0
-margin_bottom = 97.0
+margin_bottom = 107.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 200.0
-margin_bottom = 73.0
+margin_bottom = 83.0
 
-[node name="TextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
+[node name="ResponseText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
 margin_right = 200.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 200, 25 )
+margin_bottom = 35.0
+rect_min_size = Vector2( 200, 35 )
+wrap_enabled = true
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer/VBoxContainer"]
-margin_top = 29.0
+margin_top = 39.0
 margin_right = 200.0
-margin_bottom = 49.0
+margin_bottom = 59.0
 size_flags_vertical = 0
 color = Color( 1, 1, 1, 1 )
 edit_alpha = false
 
-[node name="OptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
-margin_top = 53.0
+[node name="OptionTypeButton" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
+margin_top = 63.0
 margin_right = 200.0
-margin_bottom = 73.0
+margin_bottom = 83.0
 text = "Dialog"
 align = 1
 items = [ "Dialog", null, false, 1, null, "Open Role Screen", null, false, 3, null, "Execute Command", null, false, 4, null, "Close Dialog", null, false, 0, null, "Disabled", null, false, 3, null ]
@@ -57,21 +58,21 @@ selected = 0
 
 [node name="CommandText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
 visible = false
-margin_top = 53.0
+margin_top = 77.0
 margin_right = 200.0
-margin_bottom = 78.0
+margin_bottom = 102.0
 rect_min_size = Vector2( 0, 25 )
 text = "Command"
 
 [node name="AddNewDialog" type="Button" parent="HBoxContainer"]
 margin_left = 204.0
 margin_right = 254.0
-margin_bottom = 73.0
+margin_bottom = 83.0
 rect_min_size = Vector2( 50, 50 )
 text = "+"
 
 [connection signal="close_request" from="." to="." method="_on_PlayerResponseNode_close_request"]
 [connection signal="gui_input" from="." to="." method="_on_PlayerResponseNode_gui_input"]
 [connection signal="color_changed" from="HBoxContainer/VBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/OptionTypeButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="HBoxContainer/AddNewDialog" to="." method="_on_AddNewDialog_pressed"]

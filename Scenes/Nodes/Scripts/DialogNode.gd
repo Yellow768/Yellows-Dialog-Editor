@@ -28,7 +28,7 @@ export var disable_esc = false
 #String Inputs
 export var command = ''
 export var sound = ''
-
+var text = ''
 
 
 #Availabilities
@@ -62,6 +62,7 @@ func _ready():
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
 	$IDLabel.text = "ID: "+String(dialog_id)
 	$TitleText.text = dialog_title
+	$HBoxContainer/DialogText.text = text
 	
 	for i in 4:
 		dialog_availabilities.append(dialog_availability_object.new())
@@ -78,6 +79,7 @@ func export_to_json():
 	pass
 
 func delete_self():
+	print(response_options)
 	while response_options.size() > 0:
 		for i in response_options:
 			i.external_delete()
@@ -127,23 +129,26 @@ func _on_TitleText_text_changed():
 
 
 func _on_TitleText_focus_entered():
-	selected = true
-	emit_signal("set_self_as_selected",self)
+	pass
+	#selected = true
+	#emit_signal("set_self_as_selected",self)
 
 
 func _on_DialogText_focus_entered():
-	selected = true
-	emit_signal("set_self_as_selected",self)
+	pass
+	#selected = true
+	#emit_signal("set_self_as_selected",self)
 
 
 func _on_DialogText_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		selected = true
 		emit_signal("set_self_as_selected",self)
 
 
 func _on_TitleText_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed  and event.button_index == BUTTON_LEFT:
+		
 		selected = true
 		emit_signal("set_self_as_selected",self)
 		
@@ -192,7 +197,10 @@ func save():
 			"option_type" : i.option_type,
 			"color_decimal" : i.color_decimal,
 			"command" : i.command,
-			"connected_dialog_index" : connected_index
+			"connected_dialog_index" : connected_index,
+			"initial_color" : i.initial_color,
+			"response_title": i.response_title,
+			"to_dialog_id" : i.to_dialog_id
 			}
 			)
 	
@@ -209,6 +217,7 @@ func save():
 		"disable_esc" : disable_esc,
 		"sound" : sound,
 		"command" : command,
+		"text" : text,
 		"start_quest" : start_quest,
 		"quest_availabilities": save_quest_av,
 		"dialog_availabilities" : save_dialog_av,
@@ -219,4 +228,9 @@ func save():
 		"min_level_availability" : min_level_availability,
 		"response_options":save_response_options
 	}
-	print(save_dict)
+	return save_dict
+	
+
+
+func _on_DialogText_text_changed():
+	text = $HBoxContainer/DialogText.text

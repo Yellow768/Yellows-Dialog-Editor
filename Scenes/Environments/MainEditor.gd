@@ -37,14 +37,19 @@ func _process(delta):
 			i.delete_self()
 			selected_responses.erase(i)
 
-func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog"):
+func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog",index = -1):
 	var new_node = dialog_node_scene.instance()
 	new_node.offset += offset_base + $GraphEdit.scroll_offset
-	new_node.title += ' - '+str(node_index)
-	new_node.node_index = node_index
+	
+	
 	new_node.graph = $GraphEdit
 	new_node.dialog_title = new_name
 	node_index += 1
+	if(index != -1):
+		new_node.node_index = index
+	else:
+		new_node.node_index = node_index
+	new_node.title += ' - '+str(node_index)
 	$GraphEdit.add_child(new_node)
 	return new_node
 
@@ -72,7 +77,8 @@ func add_response_node(dialog):
 	#new_node.connect("set_self_as_selected",self,"_on_node_requests_selection")
 	$GraphEdit.add_child(new_node)
 	$GraphEdit.connect_node(dialog.get_name(),0,new_node.get_name(),0)
-
+	
+	return new_node
 
 func delete_response_node(dialog,response):
 	$GraphEdit.disconnect_node(dialog.get_name(),0,response.get_name(),0)
@@ -85,14 +91,7 @@ func delete_response_node(dialog,response):
 	response.queue_free()
 
 
-
-
-
-func _on_BTN_AddNode_pressed():
-	add_dialog_node()
-
-
-func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
+func connect_nodes(from, from_slot, to, to_slot):
 	var response_node
 	
 	if $GraphEdit.get_node(from).node_type == "Player Response Node":
@@ -110,10 +109,8 @@ func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
 	$GraphEdit.connect_node(from,from_slot,to,to_slot)
 	response_node.hide_button()
 	response_node.connected_dialog.connected_responses.append(response_node)
-
-
-
-func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
+	
+func disconnect_nodes(from, from_slot, to, to_slot):
 	var response_node
 	var dialog
 	if $GraphEdit.get_node(from).node_type == "Player Response Node":
@@ -131,6 +128,17 @@ func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 	else:
 		$GraphEdit.disconnect_node(from,from_slot,to,to_slot)
 
+func _on_BTN_AddNode_pressed():
+	add_dialog_node()
+
+
+func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
+	connect_nodes(from, from_slot, to, to_slot)
+
+
+
+func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
+	disconnect_nodes(from, from_slot, to, to_slot)
 
 
 func _on_GraphEdit_node_selected(node):

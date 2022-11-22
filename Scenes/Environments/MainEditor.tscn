@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scenes/Environments/DialogEditorTest.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Environments/Quest Avaiability.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Environments/Dialog Availability.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Environments/Faction Availability.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Environments/ScoreboardAvailability.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Environments/Select Quest.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Environments/FactionChange.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Environments/DialogNodeTabs.gd" type="Script" id=8]
-[ext_resource path="res://Scenes/Environments/EditorNavigation.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Environments/MainEditor.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Environments/DialogNodeTabs.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Environments/EditorNavigation.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Environments/Select Quest.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Environments/Dialog Availability.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Environments/FactionChange.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Environments/Faction Availability.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Environments/Quest Avaiability.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Environments/ScoreboardAvailability.tscn" type="PackedScene" id=9]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -50,7 +50,7 @@ margin_top = -1.0
 margin_right = 1.0
 margin_bottom = 49.0
 rect_min_size = Vector2( 1920, 50 )
-script = ExtResource( 9 )
+script = ExtResource( 3 )
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
 anchor_right = 1.0
@@ -63,7 +63,7 @@ rect_min_size = Vector2( 1870, 50 )
 margin_right = 35.0
 margin_bottom = 50.0
 text = "File"
-items = [ "New Category", null, 0, false, false, 0, 0, null, "", false, "-", null, 0, false, false, 1, 0, null, "", true, "Save", null, 0, false, false, 2, 0, null, "", false, "Save As", null, 0, false, false, 3, 0, null, "", false, "-", null, 0, false, false, 4, 0, null, "", true, "Import Dialog", null, 0, false, false, 5, 0, null, "", false, "Import Category", null, 0, false, false, 6, 0, null, "", false, "Import CNPC Environment", null, 0, false, false, 7, 0, null, "", false, "-", null, 0, false, false, 8, 0, null, "", true, "Export", null, 0, false, false, 9, 0, null, "", false ]
+items = [ "New Category", null, 0, false, false, 0, 0, null, "", false, "-", null, 0, false, false, 1, 0, null, "", true, "Save", null, 0, false, false, 2, 0, null, "", false, "Save As", null, 0, false, false, 3, 0, null, "", false, "-", null, 0, false, false, 4, 0, null, "", true, "Import Dialog", null, 0, false, false, 5, 0, null, "", false, "Import Category", null, 0, false, false, 6, 0, null, "", false, "Import CNPC Environment", null, 0, false, false, 7, 0, null, "", false, "-", null, 0, false, false, 8, 0, null, "", true, "Export", null, 0, false, false, 9, 0, null, "", false, "Open Category", null, 0, false, false, 10, 0, null, "", false ]
 switch_on_hover = true
 
 [node name="SidePanel" type="Panel" parent="."]
@@ -81,7 +81,7 @@ margin_top = 68.0
 margin_right = 452.0
 margin_bottom = 1055.0
 tab_align = 0
-script = ExtResource( 8 )
+script = ExtResource( 2 )
 
 [node name="DialogSettings" type="Tabs" parent="SidePanel/DialogNodeTabs"]
 anchor_right = 1.0
@@ -174,11 +174,11 @@ margin_bottom = 282.0
 text = "Faction Changes"
 align = 1
 
-[node name="FactionChange" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 7 )]
+[node name="FactionChange" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 286.0
 margin_bottom = 336.0
 
-[node name="FactionChange2" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 7 )]
+[node name="FactionChange2" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 340.0
 margin_bottom = 390.0
 
@@ -195,7 +195,7 @@ margin_bottom = 432.0
 text = "Start Quest"
 align = 1
 
-[node name="StartQuest" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 6 )]
+[node name="StartQuest" parent="SidePanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 436.0
 margin_bottom = 486.0
 
@@ -239,20 +239,20 @@ margin_top = 29.0
 margin_right = 435.0
 margin_bottom = 241.0
 
-[node name="Quest Avaiability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+[node name="Quest Avaiability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
 margin_right = 435.0
 
-[node name="Quest Avaiability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+[node name="Quest Avaiability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
 margin_top = 54.0
 margin_right = 435.0
 margin_bottom = 104.0
 
-[node name="Quest Avaiability3" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+[node name="Quest Avaiability3" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
 margin_top = 108.0
 margin_right = 435.0
 margin_bottom = 158.0
 
-[node name="Quest Avaiability4" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 2 )]
+[node name="Quest Avaiability4" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
 margin_top = 162.0
 margin_right = 435.0
 margin_bottom = 212.0
@@ -277,20 +277,20 @@ margin_top = 288.0
 margin_right = 435.0
 margin_bottom = 500.0
 
-[node name="DialogAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+[node name="DialogAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
 margin_right = 435.0
 
-[node name="DialogAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+[node name="DialogAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
 margin_top = 54.0
 margin_right = 435.0
 margin_bottom = 104.0
 
-[node name="DialogAvailability3" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+[node name="DialogAvailability3" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
 margin_top = 108.0
 margin_right = 435.0
 margin_bottom = 158.0
 
-[node name="DialogAvailability4" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 3 )]
+[node name="DialogAvailability4" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
 margin_top = 162.0
 margin_right = 435.0
 margin_bottom = 212.0
@@ -315,10 +315,10 @@ margin_top = 547.0
 margin_right = 435.0
 margin_bottom = 651.0
 
-[node name="FactionAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 4 )]
+[node name="FactionAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 7 )]
 margin_right = 435.0
 
-[node name="FactionAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 4 )]
+[node name="FactionAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 7 )]
 margin_top = 54.0
 margin_right = 435.0
 margin_bottom = 104.0
@@ -343,10 +343,10 @@ margin_top = 698.0
 margin_right = 435.0
 margin_bottom = 802.0
 
-[node name="ScoreboardAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 5 )]
+[node name="ScoreboardAvailability" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 9 )]
 margin_right = 435.0
 
-[node name="ScoreboardAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 5 )]
+[node name="ScoreboardAvailability2" parent="SidePanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 9 )]
 margin_top = 54.0
 margin_right = 435.0
 margin_bottom = 104.0
