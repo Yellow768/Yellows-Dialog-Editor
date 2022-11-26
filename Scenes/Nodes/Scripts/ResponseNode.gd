@@ -6,7 +6,7 @@ signal delete_self
 signal connect_to_dialog_request
 signal disconnect_from_dialog_request
 
-var option_type = 0
+
 
 
 var node_type = "Player Response Node"
@@ -22,6 +22,7 @@ var command = '' setget set_command
 var connected_dialog = null setget set_connected_dialog
 var initial_y_offset = 0 setget set_initial_y_offset
 var to_dialog_id = -1 setget set_to_dialog_id
+var option_type = 0
 
 var parent_dialog
 var permanent_offset

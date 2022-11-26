@@ -80,8 +80,7 @@ func _ready():
 
 
 	
-func export_to_json():
-	pass
+
 
 func delete_self():
 	while response_options.size() > 0:
@@ -153,6 +152,8 @@ func _on_TitleText_gui_input(event):
 		selected = true
 		emit_signal("set_self_as_selected",self)
 
+func _on_DialogText_text_changed():
+	text = dialog_text_node.text
 
 
 		
@@ -235,6 +236,5 @@ func save():
 	return save_dict
 	
 
-
-func _on_DialogText_text_changed():
-	text = dialog_text_node.text
+func export_to_json():
+	pass
