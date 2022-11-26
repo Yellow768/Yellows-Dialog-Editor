@@ -36,10 +36,8 @@ func read_file():
 		write_category.store_line(i)
 	array_god = array_of_shit
 	write_category.close()
+
 func export_category():
-	
-	
-	
 	var exported_category_dir = Directory.new()
 	var save_nodes = get_tree().get_nodes_in_group("Save")
 
@@ -60,8 +58,9 @@ func export_category():
 
 func create_dialog_dict(dialog):
 	var options_array = []
-	for i in dialog.response_options:
-		var new_option_dict = create_option_dict(i)
+	for i in dialog.response_options.size():
+		print(String(i)+"  "+String(dialog.response_options.size()))
+		var new_option_dict = create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
 		for line in new_option_dict:
 			options_array.append(line)
 	
@@ -77,11 +76,11 @@ func create_dialog_dict(dialog):
 	'	"DialogId": '+String(dialog.dialog_id)+',',
 	'	"AvailabilityQuest": '+String(dialog.quest_availabilities[0].availability_type)+',',
 	'	"AvailabilityDialog4": '+String(dialog.dialog_availabilities[3].availability_type)+',',
-	'	"AvailabilityScoreboardObjective": '+String(dialog.scoreboard_availabilities[0].objective_name)+',',
+	'	"AvailabilityScoreboardObjective": "'+String(dialog.scoreboard_availabilities[0].objective_name)+'",',
 	'	"AvailabilityDialog3": '+String(dialog.dialog_availabilities[2].availability_type)+',',
 	'	"AvailabilityQuest2": '+String(dialog.quest_availabilities[1].availability_type)+',',
 	'	"AvailabilityQuest3": '+String(dialog.quest_availabilities[2].availability_type)+',',
-	'	"AvailabilityScoreboard2Objective": '+String(dialog.scoreboard_availabilities[1].objective_name)+',',
+	'	"AvailabilityScoreboard2Objective": "'+String(dialog.scoreboard_availabilities[1].objective_name)+'",',
 	'	"AvailabilityQuest4": '+String(dialog.quest_availabilities[3].availability_type)+',',
 	'	"ModRev": '+String(18)+',',
 	'	"DecreaseFaction1Points": '+String(dialog.faction_changes[0].operator)+'b,',
@@ -95,16 +94,16 @@ func create_dialog_dict(dialog):
 	'	"AvailabilityScoreboardValue": '+String(dialog.scoreboard_availabilities[0].value)+',',
 	'	"DialogDisableEsc": '+String(int(dialog.disable_esc))+'b,',
 	'	"AvailabilityFaction": '+String(dialog.faction_availabilities[0].availability_operator)+',',
-	'	"DialogTitle": '+String(dialog.dialog_title)+',',
+	'	"DialogTitle": "'+String(dialog.dialog_title)+'",',
 	'	"AvailabilityDialog": '+String(dialog.dialog_availabilities[0].availability_type)+',',
 	'	"AvailabilityScoreboard2Type": '+String(dialog.scoreboard_availabilities[1].comparison_type)+',',
 	'	"AvailabilityFaction2": '+String(dialog.faction_availabilities[1].availability_operator)+',',
 	'	"AvailabilityFactionId": '+String(dialog.faction_availabilities[0].faction_id)+',',
 	'	"AvailabilityFaction2Stance": '+String(dialog.faction_availabilities[1].stance_type)+',',
-	'	"DialogCommand":'+ String(dialog.command)+',',
+	'	"DialogCommand": "'+ String(dialog.command)+'",',
 	'	"AvailabilityDialogId": '+String(dialog.dialog_availabilities[0].dialog_id)+',',
 	'	"OptionFaction2Points": '+String(abs(dialog.faction_changes[1].points))+',',
-	'	"DialogText": '+String(dialog.text)+',',
+	'	"DialogText": "'+String(dialog.text)+'",',
 	'	"AvailabilityQuest4Id": '+String(dialog.quest_availabilities[3].quest_id)+',',
 	'	"AvailabilityQuest3Id": '+String(dialog.quest_availabilities[2].quest_id)+',',
 	'	"AvailabilityQuest2Id": '+String(dialog.quest_availabilities[1].quest_id)+',',
@@ -113,17 +112,17 @@ func create_dialog_dict(dialog):
 	'	"AvailabilityDialog4Id": '+String(dialog.dialog_availabilities[3].dialog_id)+',',
 	'	"AvailabilityMinPlayerLevel": '+String(dialog.min_level_availability)+',',
 	'	"DecreaseFaction2Points": '+String(dialog.faction_changes[0].operator)+'b,',
-		'"DialogMail": {',
-		'	"Sender": "",',
-		'	"BeenRead": 0,',
-		'	"Message": {',
-		'	},',
-		'	"MailItems": [',
-		'	],',
-		'	"MailQuest": -1,',
-		'	"TimePast": 1669491043541L,',
-		'	"Time": 0L,',
-		'	"Subject": ""',
+		'	"DialogMail": {',
+		'		"Sender": "",',
+		'		"BeenRead": 0,',
+		'		"Message": {',
+		'		},',
+		'		"MailItems": [',
+		'		],',
+		'		"MailQuest": -1,',
+		'		"TimePast": 1669491043541L,',
+		'		"Time": 0L,',
+		'		"Subject": ""',
 		'	}',
 	'}'
 	]
@@ -132,15 +131,27 @@ func create_dialog_dict(dialog):
 
 
 		
-func create_option_dict(response):
-	var response_dict = [
-			'\n		{\n			"OptionSlot": '+String(response.slot),
-			'\n			"Option": {\n				"DialogCommand": "'+String(response.command)+'"',
-				'\n				"Dialog": '+String(response.to_dialog_id),
-				'\n				"Title": '+String(response.response_title),
-				'\n				"DialogColor": '+String(response.color_decimal),
-				'\n				"OptionType": '+String(response.option_type)+"\n			}\n		}\n",	
-		]
+func create_option_dict(response,islast):
+	print(islast)
+	var response_dict = []
+	if islast == false:
+		response_dict = [
+				'\n		{\n			"OptionSlot": '+String(response.slot-1),
+				'\n			"Option": {\n				"DialogCommand": "'+String(response.command)+'"',
+					'\n				"Dialog": '+String(response.to_dialog_id),
+					'\n				"Title": "'+String(response.response_title)+'"',
+					'\n				"DialogColor": '+String(response.color_decimal),
+					'\n				"OptionType": '+String(response.option_type)+"\n			}\n		}",	
+			]
+	else:
+		response_dict = [
+				'\n		{\n			"OptionSlot": '+String(response.slot-1),
+				'\n			"Option": {\n				"DialogCommand": "'+String(response.command)+'"',
+					'\n				"Dialog": '+String(response.to_dialog_id),
+					'\n				"Title": "'+String(response.response_title)+'"',
+					'\n				"DialogColor": '+String(response.color_decimal),
+					'\n				"OptionType": '+String(response.option_type)+"\n			}\n		}\n	",	
+			]
 	return response_dict	
 	
 
