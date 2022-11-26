@@ -14,6 +14,7 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+_dialog_environment_path = NodePath("GraphEdit")
 
 [node name="GraphEdit" type="GraphEdit" parent="."]
 anchor_right = 1.0

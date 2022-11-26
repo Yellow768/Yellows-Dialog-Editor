@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scenes/Nodes/Scripts/Player Response Node.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Nodes/Scripts/ResponseNode.gd" type="Script" id=1]
 
-[node name="PlayerResponseNode" type="GraphNode"]
+[node name="PlayerResponseNode" type="GraphNode" groups=["Response_Nodes"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -22,6 +22,11 @@ slot/0/right_enabled = true
 slot/0/right_type = 3
 slot/0/right_color = Color( 0, 0, 1, 1 )
 script = ExtResource( 1 )
+_response_text_node_path = NodePath("HBoxContainer/VBoxContainer/ResponseText")
+_color_picker_node_path = NodePath("HBoxContainer/VBoxContainer/ColorPickerButton")
+_option_type_node_path = NodePath("HBoxContainer/VBoxContainer/OptionTypeButton")
+_command_text_node_path = NodePath("HBoxContainer/VBoxContainer/CommandText")
+_new_dialog_button_path = NodePath("HBoxContainer/AddNewDialog")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 16.0
@@ -53,7 +58,7 @@ margin_right = 200.0
 margin_bottom = 83.0
 text = "Dialog"
 align = 1
-items = [ "Dialog", null, false, 1, null, "Open Role Screen", null, false, 3, null, "Execute Command", null, false, 4, null, "Close Dialog", null, false, 0, null, "Disabled", null, false, 3, null ]
+items = [ "Dialog", null, false, 1, null, "Open Role Screen", null, false, 3, null, "Execute Command", null, false, 4, null, "Close Dialog", null, false, 0, null, "Disabled", null, false, 4, null ]
 selected = 0
 
 [node name="CommandText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
@@ -72,7 +77,10 @@ rect_min_size = Vector2( 50, 50 )
 text = "+"
 
 [connection signal="close_request" from="." to="." method="_on_PlayerResponseNode_close_request"]
+[connection signal="dragged" from="." to="." method="_on_PlayerResponseNode_dragged"]
 [connection signal="gui_input" from="." to="." method="_on_PlayerResponseNode_gui_input"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/ResponseText" to="." method="_on_ResponseText_text_changed"]
 [connection signal="color_changed" from="HBoxContainer/VBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/OptionTypeButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/CommandText" to="." method="_on_CommandText_text_changed"]
 [connection signal="pressed" from="HBoxContainer/AddNewDialog" to="." method="_on_AddNewDialog_pressed"]

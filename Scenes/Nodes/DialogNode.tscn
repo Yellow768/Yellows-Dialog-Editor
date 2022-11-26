@@ -35,6 +35,10 @@ slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
+_dialog_text_path = NodePath("HBoxContainer/DialogText")
+_title_text_path = NodePath("TitleText")
+_add_response_path = NodePath("HBoxContainer/AddPlayerResponse")
+_id_label_path = NodePath("IDLabel")
 
 [node name="TitleText" type="TextEdit" parent="."]
 margin_left = 16.0
@@ -79,7 +83,5 @@ text = "ID: -1"
 [connection signal="focus_entered" from="TitleText" to="." method="_on_TitleText_focus_entered"]
 [connection signal="gui_input" from="TitleText" to="." method="_on_TitleText_gui_input"]
 [connection signal="text_changed" from="TitleText" to="." method="_on_TitleText_text_changed"]
-[connection signal="focus_entered" from="HBoxContainer/DialogText" to="." method="_on_DialogText_focus_entered"]
-[connection signal="gui_input" from="HBoxContainer/DialogText" to="." method="_on_DialogText_gui_input"]
 [connection signal="text_changed" from="HBoxContainer/DialogText" to="." method="_on_DialogText_text_changed"]
 [connection signal="pressed" from="HBoxContainer/AddPlayerResponse" to="." method="_on_AddPlayerResponse_pressed"]

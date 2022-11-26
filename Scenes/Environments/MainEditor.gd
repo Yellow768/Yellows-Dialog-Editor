@@ -3,13 +3,18 @@ extends Control
 
 
 var dialog_node_scene = load("res://Scenes/Nodes/DialogNode.tscn")
-var response_node_scene = load("res://Scenes/Nodes/Player Response Node.tscn")
+var response_node_scene = load("res://Scenes/Nodes/ResponseNode.tscn")
 
 var initial_position = Vector2(300,300)
 var node_index = 0
 var selected_nodes = []
 var selected_responses = []
 
+export(NodePath) var _dialog_environment_path
+
+
+
+onready var dialog_graph = get_node(_dialog_environment_path)
 onready var dialog_settings_panel = $SidePanel/DialogNodeTabs
 
 
@@ -18,39 +23,41 @@ onready var dialog_settings_panel = $SidePanel/DialogNodeTabs
 
 func _ready():
 	OS.low_processor_usage_mode = true
-	$GraphEdit.get_zoom_hbox().visible = false
+	dialog_graph.get_zoom_hbox().visible = false
 	
-	$GraphEdit.add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
-	$GraphEdit.add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG)
+	dialog_graph.add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
+	dialog_graph.add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG)
 	
-	$GraphEdit.remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
-	$GraphEdit.add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
-	$GraphEdit.add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
+	dialog_graph.remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
+	dialog_graph.add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
+	dialog_graph.add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
 		for i in selected_nodes:
-			print(selected_nodes)
 			i.delete_self()
 			selected_nodes.erase(i)
 		for i in selected_responses:
 			i.delete_self()
 			selected_responses.erase(i)
 
-func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog",index = -1):
+func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog",new_index = -1):
 	var new_node = dialog_node_scene.instance()
-	new_node.offset += offset_base + $GraphEdit.scroll_offset
 	
-	
-	new_node.graph = $GraphEdit
+	new_node.offset += offset_base + dialog_graph.scroll_offset
 	new_node.dialog_title = new_name
 	node_index += 1
-	if(index != -1):
-		new_node.node_index = index
+	if new_index != -1:
+		new_node.node_index = new_index
 	else:
 		new_node.node_index = node_index
 	new_node.title += ' - '+str(node_index)
-	$GraphEdit.add_child(new_node)
+		
+	new_node.connect("add_response_request",self,"add_response_node")
+	new_node.connect("delete_response_node",self,"delete_response_node")
+	new_node.connect("dialog_ready_for_deletion",self,"delete_dialog_node")
+	new_node.connect("set_self_as_selected",self,"_on_node_requests_selection")
+	dialog_graph.add_child(new_node)
 	return new_node
 
 
@@ -64,7 +71,7 @@ func delete_dialog_node(dialog):
 
 func add_response_node(dialog):
 	var new_node = response_node_scene.instance()
-	var new_instance_offset = Vector2(350,40+(60*dialog.response_options.size()))
+	var new_instance_offset = Vector2(350,35+(60*dialog.response_options.size()))
 	for i in dialog.response_options:
 		i.offset -= Vector2(0,60)
 	dialog.response_options.append(new_node)
@@ -72,19 +79,24 @@ func add_response_node(dialog):
 	new_node.offset = dialog.offset + new_instance_offset
 	new_node.initial_y_offset = new_instance_offset.y
 	new_node.slot = dialog.response_options.size()
-	new_node.graph = $GraphEdit
+	new_node.graph = dialog_graph
+	new_node.main_environment_path = $"."
+	new_node.parent_dialog = dialog
+	new_node.permanent_offset = new_node.offset
 	new_node.connect("delete_self",dialog,"delete_response_node")
+	new_node.connect("connect_to_dialog_request", self, "connect_nodes")
+	new_node.connect("disconnect_from_dialog_request",self,"disconnect_nodes")
 	#new_node.connect("set_self_as_selected",self,"_on_node_requests_selection")
-	$GraphEdit.add_child(new_node)
-	$GraphEdit.connect_node(dialog.get_name(),0,new_node.get_name(),0)
+	dialog_graph.add_child(new_node)
+	dialog_graph.connect_node(dialog.get_name(),0,new_node.get_name(),0)
 	
 	return new_node
 
 func delete_response_node(dialog,response):
-	$GraphEdit.disconnect_node(dialog.get_name(),0,response.get_name(),0)
+	dialog_graph.disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
-		$GraphEdit.disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
-		response.connected_dialog.connected_responses.erase(response)
+		dialog_graph.disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
+		response.connected_dialog.remove_connected_response(response)
 		response.connected_dialog = null
 	if selected_responses.find(response) != -1:
 		selected_responses.erase(response)
@@ -92,41 +104,46 @@ func delete_response_node(dialog,response):
 
 
 func connect_nodes(from, from_slot, to, to_slot):
-	var response_node
+	var response
+	var dialog
 	
-	if $GraphEdit.get_node(from).node_type == "Player Response Node":
-		response_node = $GraphEdit.get_node(from)
+	if dialog_graph.get_node(from).node_type == "Player Response Node":
+		response = dialog_graph.get_node(from)
+		dialog = dialog_graph.get_node(to)
 	else:
-		response_node = $GraphEdit.get_node(to)
+		response = dialog_graph.get_node(to)
+		dialog = dialog_graph.get_node(from)
 	
 	
-	if response_node.connected_dialog == null:
-		response_node.connected_dialog = $GraphEdit.get_node(to)
-	else:
-		$GraphEdit.disconnect_node(response_node.get_name(),from_slot,response_node.connected_dialog.get_name(),to_slot)
-		response_node.connected_dialog = $GraphEdit.get_node(to)
-	
-	$GraphEdit.connect_node(from,from_slot,to,to_slot)
-	response_node.hide_button()
-	response_node.connected_dialog.connected_responses.append(response_node)
+	if response.connected_dialog != null:
+		dialog_graph.disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
+	response.connected_dialog = dialog
+	dialog_graph.connect_node(from,from_slot,to,to_slot)
+	dialog.add_connected_response(response)
+
 	
 func disconnect_nodes(from, from_slot, to, to_slot):
-	var response_node
+	var response
 	var dialog
-	if $GraphEdit.get_node(from).node_type == "Player Response Node":
-		response_node = $GraphEdit.get_node(from)
-		dialog = $GraphEdit.get_node(to)
-	else:
-		response_node = $GraphEdit.get_node(to)
-		dialog = $GraphEdit.get_node(from)
 	
-	if response_node.connected_dialog == dialog:
-		$GraphEdit.disconnect_node(from,from_slot,to,to_slot)
-		response_node.reveal_button()
-		dialog.connected_responses.erase(response_node)
-		response_node.connected_dialog = null
+	if dialog_graph.get_node(from).node_type == "Player Response Node":
+		response = dialog_graph.get_node(from)
+		dialog = dialog_graph.get_node(to)
 	else:
-		$GraphEdit.disconnect_node(from,from_slot,to,to_slot)
+		response = dialog_graph.get_node(to)
+		dialog = dialog_graph.get_node(from)
+	
+	if response.connected_dialog == dialog:
+		dialog_graph.disconnect_node(from,from_slot,to,to_slot)
+		dialog.remove_connected_response(response)
+		response.reveal_button()
+		response.connected_dialog = null
+		
+		
+	else:
+		dialog_graph.disconnect_node(from,from_slot,to,to_slot)
+		response.reveal_button()
+		
 
 func _on_BTN_AddNode_pressed():
 	add_dialog_node()
@@ -144,7 +161,6 @@ func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 func _on_GraphEdit_node_selected(node):
 	if node.node_type == "Player Response Node":
 		selected_responses.append(node)
-		print(selected_responses)
 	if selected_nodes.find(node,0) == -1 and node.node_type == "Dialog Node" :
 		selected_nodes.append(node)
 		dialog_settings_panel.load_dialog_settings(node)
@@ -152,7 +168,6 @@ func _on_GraphEdit_node_selected(node):
 func _on_GraphEdit_node_unselected(node):
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
-		print(selected_responses)
 	if node.node_type == "Dialog Node":
 		selected_nodes.erase(node)
 		if selected_nodes.size() < 1:
@@ -171,7 +186,7 @@ func check_selected_nodes():
 func _on_node_requests_selection(node):
 	selected_nodes = []
 	selected_responses = []
-	$GraphEdit.set_selected(node)
+	dialog_graph.set_selected(node)
 	_on_GraphEdit_node_selected(node)
 
 
@@ -179,7 +194,10 @@ func _on_node_requests_selection(node):
 
 
 
-################################Saving##########################################
+
+
+
+
 
 
 

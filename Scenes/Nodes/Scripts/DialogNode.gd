@@ -2,11 +2,25 @@ class_name dialog_node
 extends GraphNode
 enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 
+
+signal add_response_request
+signal delete_response_node
+signal dialog_ready_for_deletion
+signal set_self_as_selected
+
+export(NodePath) var _dialog_text_path
+export(NodePath) var _title_text_path
+export(NodePath) var _add_response_path
+export(NodePath) var _id_label_path
+
+onready var title_text_node = get_node(_title_text_path)
+onready var dialog_text_node = get_node(_dialog_text_path)
+onready var add_response_button_node = get_node(_add_response_path)
+onready var id_label_node = get_node(_id_label_path)
 onready var dialog_editor = get_parent().get_parent()
 
+
 var node_type = "Dialog Node"
-var graph
-var player_response_node = load("res://Scenes/Nodes/Player Response Node.tscn")
 var node_index = 0
 var response_options = []
 var connected_responses = []
@@ -37,7 +51,7 @@ var quest_availabilities = []
 var scoreboard_availabilities = []
 var faction_availabilities = []
 
-export(int,"Always","Night","Day") var time_availability
+export(int,"Always","Night","Day") var time_availability = 0
 export var min_level_availability = 0
 
 
@@ -47,22 +61,13 @@ var faction_changes = []
 export var start_quest = -1
 
 
-signal add_response_request
-signal delete_response_node
-signal dialog_ready_for_deletion
-signal set_self_as_selected
 
 func _ready():
 	initial_offset_y = offset.y
-	
-	connect("add_response_request",dialog_editor,"add_response_node")
-	connect("delete_response_node",dialog_editor,"delete_response_node")
-	connect("dialog_ready_for_deletion",dialog_editor,"delete_dialog_node")
-	connect("set_self_as_selected",dialog_editor,"_on_node_requests_selection")
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
-	$IDLabel.text = "ID: "+String(dialog_id)
-	$TitleText.text = dialog_title
-	$HBoxContainer/DialogText.text = text
+	id_label_node.text = "ID: "+String(dialog_id)
+	title_text_node.text = dialog_title
+	dialog_text_node.text = text
 	
 	for i in 4:
 		dialog_availabilities.append(dialog_availability_object.new())
@@ -79,16 +84,19 @@ func export_to_json():
 	pass
 
 func delete_self():
-	print(response_options)
 	while response_options.size() > 0:
 		for i in response_options:
-			i.external_delete()
+			i.delete_self()
 	while connected_responses.size() > 0:
 		for i in connected_responses:
-			i.disconnect_from_dialog()
+			if i.connected_dialog == self:
+				i.disconnect_from_dialog()
 			connected_responses.erase(i)
 	emit_signal("dialog_ready_for_deletion",self)
 	
+	
+
+
 func add_response_node():
 	emit_signal("add_response_request",self)
 
@@ -103,6 +111,11 @@ func delete_response_node(deletion_slot,response_node):
 	response_options.erase(response_node)
 	emit_signal("delete_response_node",self,response_node)
 	
+func add_connected_response(response):
+	connected_responses.append(response)
+	
+func remove_connected_response(response):
+	connected_responses.erase(response)
 
 
 func _on_AddPlayerResponse_pressed():
@@ -119,25 +132,13 @@ func _on_DialogNode_close_request():
 func _on_DialogNode_offset_changed():
 	if response_options.size() > 0:
 		for i in response_options:
-			i.offset = Vector2(offset.x+400,i.offset.y + (offset.y-initial_offset_y))
+			i.offset = Vector2(offset.x+350,i.offset.y + (offset.y-initial_offset_y))
 	initial_offset_y = offset.y
 			
 
 
 func _on_TitleText_text_changed():
-	dialog_title = $TitleText.text
-
-
-func _on_TitleText_focus_entered():
-	pass
-	#selected = true
-	#emit_signal("set_self_as_selected",self)
-
-
-func _on_DialogText_focus_entered():
-	pass
-	#selected = true
-	#emit_signal("set_self_as_selected",self)
+	dialog_title = title_text_node.text
 
 
 func _on_DialogText_gui_input(event):
@@ -151,6 +152,9 @@ func _on_TitleText_gui_input(event):
 		
 		selected = true
 		emit_signal("set_self_as_selected",self)
+
+
+
 		
 func save():
 	var save_quest_av = []
@@ -173,7 +177,7 @@ func save():
 	for i in faction_availabilities:
 		save_faction_av.append({
 			"faction_id" : i.faction_id,
-			"isisnot" : i.availability_operator,
+			"availability_operator" : i.availability_operator,
 			"stance_type" : i.stance_type
 		})
 	for i in scoreboard_availabilities:
@@ -233,4 +237,4 @@ func save():
 
 
 func _on_DialogText_text_changed():
-	text = $HBoxContainer/DialogText.text
+	text = dialog_text_node.text
