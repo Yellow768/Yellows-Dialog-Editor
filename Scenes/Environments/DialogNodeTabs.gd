@@ -34,8 +34,8 @@ func _ready():
 		availability_scoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
 		
 func load_dialog_settings(dialog):
+	get_parent().visible = true
 	current_dialog = dialog
-	visible = true
 	title_label.text = current_dialog.dialog_title+" | Node "+String(current_dialog.node_index)
 	hide_npc_checkbox.pressed = current_dialog.hide_npc
 	show_wheel_checkbox.pressed = current_dialog.show_wheel

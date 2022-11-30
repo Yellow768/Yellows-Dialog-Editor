@@ -1,6 +1,6 @@
 extends Control
 
-
+var current_directory
 
 var dialog_node_scene = load("res://Scenes/Nodes/DialogNode.tscn")
 var response_node_scene = load("res://Scenes/Nodes/ResponseNode.tscn")
@@ -15,10 +15,8 @@ export(NodePath) var _dialog_environment_path
 
 
 onready var dialog_graph = get_node(_dialog_environment_path)
-onready var dialog_settings_panel = $SidePanel/DialogNodeTabs
-
-
-
+onready var information_panel = $InformationPanel
+onready var dialog_settings_panel = $InformationPanel/DialogNodeTabs
 
 
 func _ready():
@@ -31,6 +29,83 @@ func _ready():
 	dialog_graph.remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
 	dialog_graph.add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	dialog_graph.add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
+	
+	scan_cnpc_directory()
+
+
+func get_filelist(scan_dir : String, filter_exts : Array = []) -> Array:
+	var my_files : Array = []
+	var dir := Directory.new()
+	if dir.open(scan_dir) != OK:
+		printerr("Warning: could not open directory: ", scan_dir)
+		return []
+
+	if dir.list_dir_begin(true, true) != OK:
+		printerr("Warning: could not list contents of: ", scan_dir)
+		return []
+
+	var file_name := dir.get_next()
+	while file_name != "":
+		if dir.current_is_dir():
+			my_files += get_filelist(dir.get_current_dir() + "/" + file_name, filter_exts)
+		else:
+			if filter_exts.size() == 0:
+				var json_pos = file_name.find(".json")
+				file_name.erase(json_pos,5)
+				if file_name.is_valid_integer():
+					my_files.append(int(file_name))
+			else:
+				for ext in filter_exts:
+					if file_name.get_extension() == ext:
+						var json_pos = file_name.find(".json")
+						file_name.erase(json_pos,5)
+						if file_name.is_valid_integer():
+							my_files.append(int(file_name))
+		file_name = dir.get_next()
+	return my_files
+
+
+
+
+
+func scan_cnpc_directory():
+	if current_directory != null:
+		var cnpc_directory = Directory.new()
+		scan_dialogs_directory(cnpc_directory)
+		scan_quest_directory(cnpc_directory)
+		scan_factions_directory(cnpc_directory)
+	else:
+		print("Editor loaded improperly. No directory selected")
+	 
+
+func scan_dialogs_directory(dir):
+	var categories = []
+	var numbers = []
+	var highest_id = 0
+	
+	if dir.open(current_directory+"/dialogs") == OK:
+		dir.list_dir_begin()
+		var category_name = dir.get_next()
+		while category_name != "":
+			if dir.current_is_dir() && (category_name != "." && category_name != ".."):
+				print("Found category "+category_name)
+				categories.append(category_name)
+			category_name = dir.get_next()
+	
+	numbers = get_filelist(current_directory+"/dialogs",["json"])
+	numbers.sort()
+	highest_id = numbers.back()
+	
+	$CategoryPanel.create_category_buttons(categories)
+	print("starting id is: "+String(highest_id))
+
+
+func scan_quest_directory(dir):
+	pass
+	
+func scan_factions_directory(dir):
+	pass
+
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
@@ -171,13 +246,13 @@ func _on_GraphEdit_node_unselected(node):
 	if node.node_type == "Dialog Node":
 		selected_nodes.erase(node)
 		if selected_nodes.size() < 1:
-			dialog_settings_panel.visible = false
+			information_panel.visible = false
 		else:
 			dialog_settings_panel.load_dialog_settings(selected_nodes[0])
 		
 func check_selected_nodes():
 	if selected_nodes.size() < 1:
-		dialog_settings_panel.visible = false
+		information_panel.visible = false
 	else:
 		if selected_nodes[0].node_type == "Dialog Node":
 			dialog_settings_panel.load_dialog_settings(selected_nodes[0])
@@ -188,16 +263,3 @@ func _on_node_requests_selection(node):
 	selected_responses = []
 	dialog_graph.set_selected(node)
 	_on_GraphEdit_node_selected(node)
-
-
-
-
-
-
-
-
-
-
-
-
-
