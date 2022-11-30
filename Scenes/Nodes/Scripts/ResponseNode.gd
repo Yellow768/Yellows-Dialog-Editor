@@ -126,7 +126,7 @@ func _on_AddNewDialog_pressed():
 	var new_name = "New Dialog"
 	if response_text_node.text != '':
 		new_name = response_text_node.text
-	var node = get_parent().get_parent().add_dialog_node((offset+Vector2(320,-40))-graph.scroll_offset,new_name)
+	var node = graph.add_dialog_node((offset+Vector2(320,-40))-graph.scroll_offset,new_name)
 	connected_dialog = node
 	connected_dialog.connected_responses.append(self)
 	emit_signal("connect_to_dialog_request",self.name,0,connected_dialog.name,0)

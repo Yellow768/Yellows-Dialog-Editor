@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Environments/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Environments/DialogNodeTabs.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Environments/Faction Availability.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Environments/Quest Avaiability.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Environments/ScoreboardAvailability.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Environments/DialogEditor.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/Environments/CategoryPanel.gd" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
@@ -27,7 +28,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 49 ), Vector2( -290, 49 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("GraphEdit:rect_position")
+tracks/1/path = NodePath("DialogEditor:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -39,7 +40,7 @@ tracks/1/keys = {
 "values": [ Vector2( 290, 0 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("GraphEdit:rect_size")
+tracks/2/path = NodePath("DialogEditor:rect_size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -51,7 +52,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1633, 1080 ), Vector2( 1920, 1080 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("GraphEdit:margin_left")
+tracks/3/path = NodePath("DialogEditor:margin_left")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -66,7 +67,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("GraphEdit:rect_size")
+tracks/0/path = NodePath("DialogEditor:rect_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -78,7 +79,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1920, 1080 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("GraphEdit:margin_left")
+tracks/1/path = NodePath("DialogEditor:margin_left")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -90,7 +91,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("GraphEdit:rect_position")
+tracks/2/path = NodePath("DialogEditor:rect_position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -130,7 +131,7 @@ tracks/4/keys = {
 resource_name = "RevealCategoryPanel"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("GraphEdit:rect_size")
+tracks/0/path = NodePath("DialogEditor:rect_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -142,7 +143,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1920, 1080 ), Vector2( 1633, 1080 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("GraphEdit:margin_left")
+tracks/1/path = NodePath("DialogEditor:margin_left")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -154,7 +155,7 @@ tracks/1/keys = {
 "values": [ 0.0, 287.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("GraphEdit:rect_position")
+tracks/2/path = NodePath("DialogEditor:rect_position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -178,13 +179,15 @@ tracks/3/keys = {
 "values": [ Vector2( -290, 49 ), Vector2( 0, 49 ) ]
 }
 
-[node name="Control" type="Control"]
+[node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-_dialog_environment_path = NodePath("GraphEdit")
+_dialog_editor_path = NodePath("DialogEditor")
+_information_panel_path = NodePath("InformationPanel")
+_dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
 
-[node name="GraphEdit" type="GraphEdit" parent="."]
+[node name="DialogEditor" type="GraphEdit" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 0
@@ -193,8 +196,9 @@ right_disconnects = true
 scroll_offset = Vector2( -1920, -1080 )
 use_snap = false
 minimap_size = Vector2( 150, 150 )
+script = ExtResource( 10 )
 
-[node name="BTN_AddNode" type="Button" parent="GraphEdit"]
+[node name="BTN_AddNode" type="Button" parent="DialogEditor"]
 margin_left = 50.0
 margin_top = 70.0
 margin_right = 90.0
@@ -606,11 +610,11 @@ anims/HideCategoryPanel = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 anims/RevealCategoryPanel = SubResource( 3 )
 
-[connection signal="connection_request" from="GraphEdit" to="." method="_on_GraphEdit_connection_request"]
-[connection signal="disconnection_request" from="GraphEdit" to="." method="_on_GraphEdit_disconnection_request"]
-[connection signal="node_selected" from="GraphEdit" to="." method="_on_GraphEdit_node_selected"]
-[connection signal="node_unselected" from="GraphEdit" to="." method="_on_GraphEdit_node_unselected"]
-[connection signal="pressed" from="GraphEdit/BTN_AddNode" to="." method="_on_BTN_AddNode_pressed"]
+[connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
+[connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
+[connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
+[connection signal="node_unselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
+[connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs" method="_on_HideNPC_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="InformationPanel/DialogNodeTabs" method="_on_ShowDialogWheel_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="InformationPanel/DialogNodeTabs" method="_on_DisableEsc_pressed"]

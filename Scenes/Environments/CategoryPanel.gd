@@ -2,6 +2,7 @@ extends Panel
 
 export(NodePath) var animation_player_path
 export(NodePath) var category_file_container_path
+export(String) var current_directory_path
 
 onready var _animation_player = get_node(animation_player_path)
 onready var _category_file_container = get_node(category_file_container_path)
@@ -20,11 +21,12 @@ func create_category_buttons(categories):
 
 
 func search_through_category(category_name : String):
-	pass
+	var category_dir = Directory.new()
+	category_dir.open(current_directory_path+"/"+category_name)
 
 
 func _category_button_pressed(button):
-	pass
+	search_through_category(button.text)
 
 
 func _on_CategoryPanel_mouse_entered():
