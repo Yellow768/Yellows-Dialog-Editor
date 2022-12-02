@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "DirectorySearch",
+"language": "GDScript",
+"path": "res://Scenes/Environments/DirectorySearcher.gd"
+}, {
+"base": "Node",
+"class": "EnvironmentIndexer",
+"language": "GDScript",
+"path": "res://EnvironmentIndexer.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
@@ -45,6 +55,8 @@ _global_script_classes=[ {
 "path": "res://Resources/Availability Objects/scoreboard_availability_object.gd"
 } ]
 _global_script_class_icons={
+"DirectorySearch": "",
+"EnvironmentIndexer": "",
 "GitAPI": "",
 "dialog_availability_object": "",
 "dialog_node": "",
@@ -57,7 +69,7 @@ _global_script_class_icons={
 [application]
 
 config/name="CNPC Dialog Editor"
-run/main_scene="res://Scenes/Environments/MainEditor.tscn"
+run/main_scene="res://Scenes/Environments/Program.tscn"
 config/icon="res://icon.png"
 
 [autoload]

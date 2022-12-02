@@ -2,6 +2,8 @@ class_name dialog_node
 extends GraphNode
 enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 
+const RESPONSE_VERTICAL_OFFSET = 60
+const RESPONSE_HORIZONTAL_OFFSET = 350
 
 signal add_response_request
 signal delete_response_node
@@ -20,7 +22,7 @@ onready var id_label_node = get_node(_id_label_path)
 onready var dialog_editor = get_parent().get_parent()
 
 
-var node_type = "Dialog Node"
+var node_type = "Dialog Node" 
 var node_index = 0
 var response_options = []
 var connected_responses = []
@@ -28,10 +30,10 @@ var initial_offset_y = 0
 
 ##Dialog Data#
 
-export var dialog_title = 'New Dialog'
+export var dialog_title = 'New Dialog' setget set_dialog_title
 
 #Immutable
-export var dialog_id = -1
+export var dialog_id = -1 setget set_dialog_id
 
 #Display
 
@@ -42,7 +44,7 @@ export var disable_esc = false
 #String Inputs
 export var command = ''
 export var sound = ''
-var text = ''
+var text = '' setget set_dialog_text
 
 
 #Availabilities
@@ -103,9 +105,9 @@ func add_response_node():
 func delete_response_node(deletion_slot,response_node):
 	for i in response_options:
 		if i.slot < deletion_slot:
-			i.offset += Vector2(0,60)
+			i.offset += Vector2(0,RESPONSE_VERTICAL_OFFSET)
 		else:
-			i.offset -= Vector2(0,60)
+			i.offset -= Vector2(0,RESPONSE_VERTICAL_OFFSET)
 			i.slot -=1
 	response_options.erase(response_node)
 	emit_signal("delete_response_node",self,response_node)
@@ -115,6 +117,17 @@ func add_connected_response(response):
 	
 func remove_connected_response(response):
 	connected_responses.erase(response)
+
+
+
+func set_dialog_title(string):
+	$TitleText.text = string
+	
+func set_dialog_text(string):
+	$HBoxContainer/DialogText.text = string
+
+func set_dialog_id(id):
+	$IDLabel.text = String(id)
 
 
 func _on_AddPlayerResponse_pressed():
@@ -131,7 +144,7 @@ func _on_DialogNode_close_request():
 func _on_DialogNode_offset_changed():
 	if response_options.size() > 0:
 		for i in response_options:
-			i.offset = Vector2(offset.x+350,i.offset.y + (offset.y-initial_offset_y))
+			i.offset = Vector2(offset.x+RESPONSE_HORIZONTAL_OFFSET,i.offset.y + (offset.y-initial_offset_y))
 	initial_offset_y = offset.y
 			
 

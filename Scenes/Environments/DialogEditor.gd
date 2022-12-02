@@ -39,14 +39,15 @@ func _process(_delta):
 
 func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog",new_index = -1):
 	var new_node = dialog_node_scene.instance()
-	
-	new_node.offset += offset_base + scroll_offset
-	new_node.dialog_title = new_name
 	node_index += 1
 	if new_index != -1:
 		new_node.node_index = new_index
 	else:
 		new_node.node_index = node_index
+	
+	
+	new_node.offset += offset_base + scroll_offset
+	new_node.dialog_title = new_name
 	new_node.title += ' - '+str(node_index)
 		
 	new_node.connect("add_response_request",self,"add_response_node")
@@ -101,7 +102,6 @@ func delete_response_node(dialog,response):
 func connect_nodes(from, from_slot, to, to_slot):
 	var response
 	var dialog
-	print("yop")
 	if get_node(from).node_type == "Player Response Node":
 		response = get_node(from)
 		dialog = get_node(to)

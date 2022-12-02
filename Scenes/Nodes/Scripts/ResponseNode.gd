@@ -11,18 +11,18 @@ signal disconnect_from_dialog_request
 
 var node_type = "Player Response Node"
 var graph
-var initial_color = "Color(1,1,1,1)"
+var initial_color = "Color(1,1,1,1)" setget set_initial_color
 
 var slot = -1
 
 
-var response_title = ''
+var response_title = '' setget set_response_title
 var color_decimal = 16777215 setget set_color_decimal
 var command = '' setget set_command
 var connected_dialog = null setget set_connected_dialog
 var initial_y_offset = 0 setget set_initial_y_offset
 var to_dialog_id = -1 setget set_to_dialog_id
-var option_type = 0
+var option_type = 0 setget set_option_type
 
 var parent_dialog
 var permanent_offset
@@ -47,7 +47,8 @@ func _ready():
 	set_slot(0,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,Color(0,1,0,1),true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,Color(0,0,1,1))
 	set_initial_color(initial_color)
 	response_text_node.text = response_title
-	option_type_node.selected = option_type
+	print($HBoxContainer/VBoxContainer/ColorPickerButton.color)
+	
 
 
 func delete_self():
@@ -67,16 +68,19 @@ func reveal_button():
 func hide_button():
 	new_dialog_button_node.visible = false
 	
+
+func get_option_id(option_int):
+	return $HBoxContainer/VBoxContainer/OptionTypeButton.get_item_index(option_int)
 	
 func set_response_title(new_title):
-	response_text_node.text = new_title
+	$HBoxContainer/VBoxContainer/ResponseText.text = new_title
 
 func set_option_type(new_type):
-	option_type_node.select(new_type)
+	$HBoxContainer/VBoxContainer/OptionTypeButton.selected = new_type
 	if new_type == 2:
-		command_text_node.visible = true
+		$HBoxContainer/VBoxContainer/CommandText.visible = true
 	else:
-		command_text_node.visible = false
+		$HBoxContainer/VBoxContainer/CommandText.visible = false
 	if new_type == 0:
 		reveal_button()
 		set_slot_enabled_right(0,true)
@@ -90,12 +94,13 @@ func set_option_type(new_type):
 			connected_dialog = null
 
 func set_initial_color(new_color):
-	color_picker_node.color = str2var(new_color)
+	$HBoxContainer/VBoxContainer/ColorPickerButton.color = str2var(new_color)
 
 func set_color_decimal(new_color):
 	color_decimal = new_color
+
 func set_command(new_command):
-	command_text_node.text = new_command
+	$HBoxContainer/VBoxContainer/CommandText.text = new_command
 
 func set_connected_dialog(new_connected_dialog):
 	connected_dialog = new_connected_dialog
@@ -134,7 +139,6 @@ func _on_AddNewDialog_pressed():
 
 
 func _on_OptionButton_item_selected(index):
-	option_type = index
 	set_option_type(index)
 
 

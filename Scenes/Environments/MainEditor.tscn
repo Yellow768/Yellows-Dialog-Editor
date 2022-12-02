@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Environments/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Environments/DialogNodeTabs.gd" type="Script" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://Scenes/Environments/ScoreboardAvailability.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Environments/DialogEditor.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/Environments/CategoryPanel.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/Environments/SaveLoad.gd" type="Script" id=12]
+[ext_resource path="res://EnvironmentIndexer.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/Environments/CategoryImporter.gd" type="Script" id=14]
 
 [sub_resource type="Animation" id=1]
 resource_name = "HideCategoryPanel"
@@ -184,12 +187,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 _dialog_editor_path = NodePath("DialogEditor")
+_category_list_path = NodePath("CategoryPanel")
 _information_panel_path = NodePath("InformationPanel")
 _dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
+_top_panel_path = NodePath("TopPanel")
+_save_load_path = NodePath("SaveLoad")
+
+[node name="EnvironmentIndex" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="SaveLoad" type="Node" parent="."]
+script = ExtResource( 12 )
+_dialog_editor_path = NodePath("../DialogEditor")
+_main_program_path = NodePath("..")
+
+[node name="FileDialog" type="FileDialog" parent="SaveLoad"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 58.0
+window_title = "Save Editor Category"
+dialog_text = "Saving a YDEC file"
+
+[node name="CategoryImporter" type="Node" parent="."]
+script = ExtResource( 14 )
+_main_program_path = NodePath("..")
+_dialog_list_vbox_path = NodePath("PopupPanel/VBoxContainer")
+_dialog_editor_path = NodePath("../DialogEditor")
+
+[node name="PopupPanel" type="PopupPanel" parent="CategoryImporter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 40.0
+
+[node name="Label" type="Label" parent="CategoryImporter/PopupPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -960.0
+margin_right = 960.0
+margin_bottom = 14.0
+text = "Choose a starting dialog for the tree"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CategoryImporter/PopupPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -956.0
+margin_top = -495.5
+margin_right = 956.0
+margin_bottom = 495.5
 
 [node name="DialogEditor" type="GraphEdit" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
@@ -596,10 +650,11 @@ anchor_bottom = 1.0
 margin_left = -290.0
 margin_top = 49.0
 margin_right = 10.0
-margin_bottom = 9.0
+margin_bottom = 1089.0
 script = ExtResource( 11 )
 animation_player_path = NodePath("../AnimationPlayer")
 category_file_container_path = NodePath("CategoryContainers")
+environment_index_path = NodePath("../EnvironmentIndex")
 
 [node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel"]
 margin_right = 285.0
@@ -610,11 +665,13 @@ anims/HideCategoryPanel = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 anims/RevealCategoryPanel = SubResource( 3 )
 
+[connection signal="dir_selected" from="SaveLoad/FileDialog" to="SaveLoad" method="_on_FileDialog_dir_selected"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
 [connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
 [connection signal="node_unselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
 [connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
+[connection signal="save_category_request" from="TopPanel" to="SaveLoad" method="_on_TopPanel_save_category_request"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs" method="_on_HideNPC_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="InformationPanel/DialogNodeTabs" method="_on_ShowDialogWheel_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="InformationPanel/DialogNodeTabs" method="_on_DisableEsc_pressed"]
@@ -625,5 +682,7 @@ anims/RevealCategoryPanel = SubResource( 3 )
 [connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange2_faction_points_changed"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel/DialogNodeTabs" method="_on_TimeButton_item_selected"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel/DialogNodeTabs" method="_on_SLevelpinBox_value_changed"]
+[connection signal="import_category_request" from="CategoryPanel" to="CategoryImporter" method="_on_CategoryPanel_import_category_request"]
+[connection signal="load_existing_category_request" from="CategoryPanel" to="SaveLoad" method="_on_CategoryPanel_load_existing_category_request"]
 [connection signal="mouse_entered" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_entered"]
 [connection signal="mouse_exited" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_exited"]
