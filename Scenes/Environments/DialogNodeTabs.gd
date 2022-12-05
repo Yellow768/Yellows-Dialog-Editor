@@ -9,6 +9,7 @@ onready var playsound_edit = $DialogSettings/DialogSettings/VBoxContainer/Soundf
 onready var faction_changes_1 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange
 onready var faction_changes_2 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange2
 onready var start_quest = $DialogSettings/DialogSettings/VBoxContainer/StartQuest
+onready var dialog_text_edit = $DialogSettings/DialogSettings/VBoxContainer/DialogText
 
 onready var availability_quests = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions
 onready var availability_dialogs = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions
@@ -32,16 +33,33 @@ func _ready():
 		availability_scoreboard.get_child(i).connect("objective_name_changed",self,"scoreboard_objective_name_changed")
 		availability_scoreboard.get_child(i).connect("comparison_type_changed",self,"scoreboard_comparison_type_changed")
 		availability_scoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
+
+func disconnect_current_dialog(dialog):
+	print("what")
+	if current_dialog == dialog:
+		dialog.disconnect("text_changed",self,"update_text")
+		dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+	current_dialog = null
+
 		
 func load_dialog_settings(dialog):
 	get_parent().visible = true
+	if current_dialog != null:
+		current_dialog.disconnect("text_changed",self,"update_text")
+		current_dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+	
 	current_dialog = dialog
+	current_dialog.connect("text_changed",self,"update_text")
+	current_dialog.connect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+	
 	title_label.text = current_dialog.dialog_title+" | Node "+String(current_dialog.node_index)
 	hide_npc_checkbox.pressed = current_dialog.hide_npc
 	show_wheel_checkbox.pressed = current_dialog.show_wheel
 	disable_esc_checkbox.pressed = current_dialog.disable_esc
 	command_edit.text = current_dialog.command
 	playsound_edit.text = current_dialog.sound
+	start_quest.set_id(current_dialog.start_quest)
+	dialog_text_edit.text = current_dialog.text
 	
 	faction_changes_1.set_id(current_dialog.faction_changes[0].faction_id)
 	faction_changes_1.set_points(current_dialog.faction_changes[0].points)
@@ -143,3 +161,15 @@ func _on_TimeButton_item_selected(index):
 
 func _on_SLevelpinBox_value_changed(value):
 	current_dialog.min_level_availability = value
+
+
+
+func _on_DialogText_text_changed():
+	current_dialog.text = dialog_text_edit.text
+
+func update_text(text):
+	dialog_text_edit.text = text
+
+
+func _on_StartQuest_id_changed(value):
+	current_dialog.start_quest = value

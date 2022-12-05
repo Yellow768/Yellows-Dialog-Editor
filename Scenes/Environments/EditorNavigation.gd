@@ -1,6 +1,6 @@
 extends Panel
 signal save_category_request
-
+signal export_category_request
 
 
 
@@ -16,6 +16,8 @@ func file_menu(id):
 	match id:
 		2:
 			emit_signal("save_category_request")
+		9:
+			emit_signal("export_category_request")
 
 
 	

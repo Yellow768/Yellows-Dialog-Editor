@@ -1,10 +1,13 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="Quest Avaiability3" type="Control"]
-margin_top = 418.0
+[ext_resource path="res://Scenes/Environments/StartQuest.gd" type="Script" id=1]
+
+[node name="StartQuest" type="Control"]
+margin_top = 740.0
 margin_right = 436.0
-margin_bottom = 468.0
+margin_bottom = 790.0
 rect_min_size = Vector2( 350, 50 )
+script = ExtResource( 1 )
 
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -58,3 +61,4 @@ max_value = 1e+07
 
 [connection signal="pressed" from="Panel/ChooseQuest" to="." method="_on_Choose_Quest_pressed"]
 [connection signal="index_pressed" from="Panel/ChooseQuest/CategoryFinder" to="." method="_on_CategoryFinder_index_pressed"]
+[connection signal="value_changed" from="Panel/QuestID" to="." method="_on_QuestID_value_changed"]

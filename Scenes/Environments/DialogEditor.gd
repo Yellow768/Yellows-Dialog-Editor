@@ -1,7 +1,10 @@
 extends GraphEdit
 
+const RESPONSE_NODE_VERTICAL_OFFSET = 100
+
 signal no_dialog_selected
 signal dialog_selected
+signal editor_cleared
 
 
 var dialog_node_scene = load("res://Scenes/Nodes/DialogNode.tscn")
@@ -44,11 +47,14 @@ func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String
 		new_node.node_index = new_index
 	else:
 		new_node.node_index = node_index
-	
+	if !CurrentEnvironment.loading_stage:
+		new_node.dialog_id = CurrentEnvironment.highest_id+1
+		CurrentEnvironment.highest_id += 1
 	
 	new_node.offset += offset_base + scroll_offset
 	new_node.dialog_title = new_name
 	new_node.title += ' - '+str(node_index)
+	
 		
 	new_node.connect("add_response_request",self,"add_response_node")
 	new_node.connect("delete_response_node",self,"delete_response_node")
@@ -62,15 +68,17 @@ func delete_dialog_node(dialog):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	check_selected_nodes()
+	if dialog.dialog_id == CurrentEnvironment.highest_id:
+		CurrentEnvironment.highest_id -= 1
 	dialog.queue_free()
 	node_index -=1
 
 
 func add_response_node(dialog):
 	var new_node = response_node_scene.instance()
-	var new_instance_offset = Vector2(350,35+(60*dialog.response_options.size()))
+	var new_instance_offset = Vector2(350,0+(RESPONSE_NODE_VERTICAL_OFFSET*dialog.response_options.size()))
 	for i in dialog.response_options:
-		i.offset -= Vector2(0,60)
+		i.offset -= Vector2(0,RESPONSE_NODE_VERTICAL_OFFSET)
 	dialog.response_options.append(new_node)
 	
 	new_node.offset = dialog.offset + new_instance_offset
@@ -85,7 +93,8 @@ func add_response_node(dialog):
 	new_node.connect("disconnect_from_dialog_request",self,"disconnect_nodes")
 	add_child(new_node)
 	connect_node(dialog.get_name(),0,new_node.get_name(),0)
-	
+	#print(new_node)
+	#print(new_node)
 	return new_node
 
 func delete_response_node(dialog,response):
@@ -113,8 +122,10 @@ func connect_nodes(from, from_slot, to, to_slot):
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
 	response.connected_dialog = dialog
-	connect_node(from,from_slot,to,to_slot)
+	if(response.offset.distance_to(dialog.offset) < 1000):
+		connect_node(from,from_slot,to,to_slot)
 	dialog.add_connected_response(response)
+
 
 	
 func disconnect_nodes(from, from_slot, to, to_slot):
@@ -129,16 +140,40 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 		dialog = get_node(from)
 	
 	if response.connected_dialog == dialog:
+		response.set_connection_shown()
 		disconnect_node(from,from_slot,to,to_slot)
 		dialog.remove_connected_response(response)
 		response.reveal_button()
+		
 		response.connected_dialog = null
 		
 		
 	else:
 		disconnect_node(from,from_slot,to,to_slot)
 		response.reveal_button()
-		
+
+func hide_connection_line(from,to):
+	print("Disconnecting Node")
+	disconnect_node(from,0,to,0)
+
+
+func show_connection_line(from,to):
+	connect_node(from,0,to,0)
+
+func clear_editor():
+
+	selected_responses = []
+	selected_nodes = []
+	
+	var save_nodes = get_tree().get_nodes_in_group("Save")
+	var response_nodes = get_tree().get_nodes_in_group("Response_Nodes")
+	for i in save_nodes:
+		i.delete_self()
+	for i in response_nodes:
+		i.delete_self()	
+	node_index = 0
+	emit_signal("editor_cleared")
+	
 
 func _on_BTN_AddNode_pressed():
 	add_dialog_node()
@@ -180,3 +215,12 @@ func _on_node_requests_selection(node):
 	selected_responses = []
 	set_selected(node)
 	_on_DialogEditor_node_selected(node)
+
+
+func _on_CategoryImporter_clear_editor_request():
+	clear_editor()
+
+
+func _on_SaveLoad_clear_editor_request():
+	clear_editor()
+

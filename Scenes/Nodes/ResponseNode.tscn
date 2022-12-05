@@ -11,7 +11,7 @@ margin_left = -125.0
 margin_top = -50.0
 margin_right = 125.0
 margin_bottom = 50.0
-rect_min_size = Vector2( 250, 100 )
+rect_min_size = Vector2( 300, 180 )
 title = "Response Node"
 show_close = true
 comment = true
@@ -21,6 +21,12 @@ slot/0/left_color = Color( 0, 1, 0, 1 )
 slot/0/right_enabled = true
 slot/0/right_type = 3
 slot/0/right_color = Color( 0, 0, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
 _response_text_node_path = NodePath("HBoxContainer/VBoxContainer/ResponseText")
 _color_picker_node_path = NodePath("HBoxContainer/VBoxContainer/ColorPickerButton")
@@ -31,7 +37,7 @@ _new_dialog_button_path = NodePath("HBoxContainer/AddNewDialog")
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 270.0
+margin_right = 284.0
 margin_bottom = 107.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -76,6 +82,43 @@ margin_bottom = 83.0
 rect_min_size = Vector2( 50, 50 )
 text = "+"
 
+[node name="VBOXRemoteConnection" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 16.0
+margin_top = 108.0
+margin_right = 284.0
+margin_bottom = 172.0
+
+[node name="ConnectedLabel" type="Label" parent="VBOXRemoteConnection"]
+margin_right = 268.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+text = "Connected to DialogTitle | Node 56"
+valign = 1
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBOXRemoteConnection"]
+margin_top = 44.0
+margin_right = 268.0
+margin_bottom = 64.0
+
+[node name="DisconnectButton" type="Button" parent="VBOXRemoteConnection/HBoxContainer"]
+margin_right = 84.0
+margin_bottom = 20.0
+text = "Disconnect"
+
+[node name="VSeparator" type="VSeparator" parent="VBOXRemoteConnection/HBoxContainer"]
+margin_left = 88.0
+margin_right = 148.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+
+[node name="JumpButton" type="Button" parent="VBOXRemoteConnection/HBoxContainer"]
+margin_left = 152.0
+margin_right = 253.0
+margin_bottom = 20.0
+text = "Jump To Node"
+
 [connection signal="close_request" from="." to="." method="_on_PlayerResponseNode_close_request"]
 [connection signal="dragged" from="." to="." method="_on_PlayerResponseNode_dragged"]
 [connection signal="gui_input" from="." to="." method="_on_PlayerResponseNode_gui_input"]
@@ -84,3 +127,5 @@ text = "+"
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/OptionTypeButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/CommandText" to="." method="_on_CommandText_text_changed"]
 [connection signal="pressed" from="HBoxContainer/AddNewDialog" to="." method="_on_AddNewDialog_pressed"]
+[connection signal="pressed" from="VBOXRemoteConnection/HBoxContainer/DisconnectButton" to="." method="_on_DisconnectButton_pressed"]
+[connection signal="pressed" from="VBOXRemoteConnection/HBoxContainer/JumpButton" to="." method="_on_JumpButton_pressed"]

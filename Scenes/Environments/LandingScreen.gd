@@ -2,12 +2,12 @@ extends Control
 var chosen_dir
 
 func _ready():
-	pass
+	OS.min_window_size = Vector2(1280,720)
 
 
 func change_to_editor(directory):
 	var editor = load("res://Scenes/Environments/MainEditor.tscn").instance()
-	editor.current_directory = directory
+	CurrentEnvironment.current_directory = directory
 	get_parent().add_child(editor)
 	queue_free()
 	
@@ -28,7 +28,7 @@ func _on_FileDialog_dir_selected(path):
 	chosen_dir = path
 	dir.open(path)
 	if !dir.dir_exists(path+'/dialogs'):
-		$Panel/InvalidFolderWarning.popup()
+		$Panel/InvalidFolderWarning.popup_centered()
 	else:
 		change_to_editor(path)
 

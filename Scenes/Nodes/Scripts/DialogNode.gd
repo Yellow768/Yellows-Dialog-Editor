@@ -9,6 +9,7 @@ signal add_response_request
 signal delete_response_node
 signal dialog_ready_for_deletion
 signal set_self_as_selected
+signal text_changed
 
 export(NodePath) var _dialog_text_path
 export(NodePath) var _title_text_path
@@ -69,8 +70,6 @@ func _ready():
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
 	id_label_node.text = "ID: "+String(dialog_id)
 	title_text_node.text = dialog_title
-	dialog_text_node.text = text
-	
 	for i in 4:
 		dialog_availabilities.append(dialog_availability_object.new())
 		quest_availabilities.append(quest_availability_object.new())
@@ -79,6 +78,13 @@ func _ready():
 		scoreboard_availabilities.append(scoreboard_availability_object.new())
 		faction_availabilities.append(faction_availability_object.new())
 		faction_changes.append(faction_change_object.new())
+		
+	for i in response_options:
+		i.check_dialog_distance()
+		i.update_connection_text()
+	for i in connected_responses:
+		i.check_dialog_distance()
+		i.update_connection_text()
 
 
 	
@@ -121,12 +127,20 @@ func remove_connected_response(response):
 
 
 func set_dialog_title(string):
+	dialog_title = string
 	$TitleText.text = string
+	for i in connected_responses:
+		i.update_connection_text()
+		print("checking the got danged text")
+	
 	
 func set_dialog_text(string):
-	$HBoxContainer/DialogText.text = string
+	
+	text = string
+	$HBoxContainer/DialogText.text = text
 
 func set_dialog_id(id):
+	dialog_id = id
 	$IDLabel.text = String(id)
 
 
@@ -145,28 +159,36 @@ func _on_DialogNode_offset_changed():
 	if response_options.size() > 0:
 		for i in response_options:
 			i.offset = Vector2(offset.x+RESPONSE_HORIZONTAL_OFFSET,i.offset.y + (offset.y-initial_offset_y))
+			i.check_dialog_distance()
+	if connected_responses.size() > 0:
+		for i in connected_responses:
+			i.check_dialog_distance()
 	initial_offset_y = offset.y
 			
 
 
 func _on_TitleText_text_changed():
 	dialog_title = title_text_node.text
-
+	if connected_responses.size() > 0:
+		for i in connected_responses:
+			i.update_connection_text()
 
 func _on_DialogText_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		selected = true
 		emit_signal("set_self_as_selected",self)
+		
 
 
 func _on_TitleText_gui_input(event):
 	if event is InputEventMouseButton and event.pressed  and event.button_index == BUTTON_LEFT:
-		
+		print(dialog_title)
 		selected = true
 		emit_signal("set_self_as_selected",self)
 
 func _on_DialogText_text_changed():
 	text = dialog_text_node.text
+	emit_signal("text_changed",text)
 
 
 		
