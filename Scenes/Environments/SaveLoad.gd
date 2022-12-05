@@ -35,7 +35,7 @@ func read_file():
 
 			
 func save_category(category_name):
-	if CurrentEnvironment.current_directory!= null :
+	if CurrentEnvironment.current_directory != null && CurrentEnvironment.current_category_name != null :
 		var save_category = File.new()
 		var save_nodes = get_tree().get_nodes_in_group("Save")
 		save_category.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",File.WRITE)
@@ -58,6 +58,7 @@ func save_category(category_name):
 		print("Nothing To Save")
 
 func load_category(category_name):
+	save_category(CurrentEnvironment.current_category_name)
 	CurrentEnvironment.loading_stage = true
 	emit_signal("clear_editor_request")
 	var current_category_path = CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec"
@@ -140,3 +141,5 @@ func _on_CategoryImporter_save_category_request(category_name):
 
 func _on_TopPanel_save_category_request():
 	save_category(CurrentEnvironment.current_category_name)
+
+

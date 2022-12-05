@@ -707,8 +707,11 @@ category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryC
 environment_index_path = NodePath("../EnvironmentIndex")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -130.0
+margin_right = 130.0
+margin_bottom = 461.0
 
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
 margin_right = 260.0
@@ -733,10 +736,16 @@ rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 11
 
-[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
 margin_top = 422.0
 margin_right = 260.0
-margin_bottom = 442.0
+margin_bottom = 437.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
+margin_top = 441.0
+margin_right = 260.0
+margin_bottom = 461.0
 text = "Create New Category"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -744,6 +753,9 @@ anims/HideCategoryPanel = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 anims/RevealCategoryPanel = SubResource( 3 )
 
+[connection signal="category_renamed" from="EnvironmentIndex" to="." method="refresh_category_list"]
+[connection signal="new_category_created" from="EnvironmentIndex" to="." method="refresh_category_list"]
+[connection signal="save_category_request" from="EnvironmentIndex" to="SaveLoad" method="save_category"]
 [connection signal="clear_editor_request" from="SaveLoad" to="DialogEditor" method="_on_SaveLoad_clear_editor_request"]
 [connection signal="update_current_category" from="SaveLoad" to="." method="update_current_category"]
 [connection signal="dir_selected" from="SaveLoad/FileDialog" to="SaveLoad" method="_on_FileDialog_dir_selected"]
@@ -776,3 +788,4 @@ anims/RevealCategoryPanel = SubResource( 3 )
 [connection signal="load_existing_category_request" from="CategoryPanel" to="SaveLoad" method="_on_CategoryPanel_load_existing_category_request"]
 [connection signal="mouse_entered" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_entered"]
 [connection signal="mouse_exited" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_exited"]
+[connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]

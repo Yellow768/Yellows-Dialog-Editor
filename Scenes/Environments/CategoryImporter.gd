@@ -26,8 +26,13 @@ func import_category(category_name):
 		emit_signal("save_category_request",CurrentEnvironment.current_category_name)
 	imported_dialogs = []
 	imported_dialogs = import_dialog_jsons(category_name)
-	create_initial_dialog_tree_buttons(imported_dialogs)
-	imported_category_name = category_name
+	if imported_dialogs == []:
+		emit_signal("clear_editor_request")
+		emit_signal("save_category_request",category_name)
+		emit_signal("update_current_category",category_name)
+	else:
+		create_initial_dialog_tree_buttons(imported_dialogs)
+		imported_category_name = category_name
 
 
 

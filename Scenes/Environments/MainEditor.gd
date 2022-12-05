@@ -21,7 +21,7 @@ func _ready():
 	EnvironmentIndex.index_categories()
 	DialogEditor.connect("no_dialog_selected",self,"hide_InformationPanel")
 	DialogEditor.connect("dialog_selected",self,"show_InformationPanel")
-	$CategoryPanel.create_category_buttons($EnvironmentIndex.indexed_dialog_categories)
+	refresh_category_list()
 
 
 func hide_InformationPanel():
@@ -43,3 +43,8 @@ func update_current_category(category_name):
 
 func _on_DialogEditor_editor_cleared():
 	DialogSettingsPanel.current_dialog = null
+
+
+
+func refresh_category_list():
+	$CategoryPanel.create_category_buttons($EnvironmentIndex.indexed_dialog_categories)
