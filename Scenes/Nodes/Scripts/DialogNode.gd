@@ -2,7 +2,7 @@ class_name dialog_node
 extends GraphNode
 enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 
-const RESPONSE_VERTICAL_OFFSET = 60
+const RESPONSE_VERTICAL_OFFSET = 100
 const RESPONSE_HORIZONTAL_OFFSET = 350
 
 signal add_response_request
@@ -85,6 +85,7 @@ func _ready():
 	for i in connected_responses:
 		i.check_dialog_distance()
 		i.update_connection_text()
+	print("My offset is "+String(offset))
 
 
 	
@@ -105,7 +106,8 @@ func delete_self():
 
 
 func add_response_node():
-	emit_signal("add_response_request",self)
+	if response_options.size() < 6:
+		emit_signal("add_response_request",self)
 
 
 func delete_response_node(deletion_slot,response_node):
@@ -124,7 +126,9 @@ func add_connected_response(response):
 func remove_connected_response(response):
 	connected_responses.erase(response)
 
-
+func set_focus_on_title():
+	title_text_node.grab_focus()
+	emit_signal("set_self_as_selected",self)
 
 func set_dialog_title(string):
 	dialog_title = string
@@ -135,7 +139,6 @@ func set_dialog_title(string):
 	
 	
 func set_dialog_text(string):
-	
 	text = string
 	$HBoxContainer/DialogText.text = text
 
@@ -145,8 +148,7 @@ func set_dialog_id(id):
 
 
 func _on_AddPlayerResponse_pressed():
-	if response_options.size() < 6:
-		add_response_node()
+	add_response_node()
 
 
 func _on_DialogNode_close_request():
@@ -167,8 +169,8 @@ func _on_DialogNode_offset_changed():
 			
 
 
-func _on_TitleText_text_changed():
-	dialog_title = title_text_node.text
+func _on_TitleText_text_changed(new_text):
+	dialog_title = new_text
 	if connected_responses.size() > 0:
 		for i in connected_responses:
 			i.update_connection_text()
@@ -273,3 +275,5 @@ func save():
 
 func export_to_json():
 	pass
+
+

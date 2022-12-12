@@ -12,7 +12,7 @@ margin_left = 69.0
 margin_right = 212.0
 margin_bottom = 56.0
 mouse_filter = 1
-items = [ "Rename", null, 0, false, false, 0, 0, null, "", false, "", null, 0, false, false, 1, 0, null, "", true, "", null, 0, false, false, 2, 0, null, "", true, "Delete", null, 0, false, false, 3, 0, null, "", false ]
+items = [ "Rename", null, 0, false, false, 0, 0, null, "", false, "Scan For Changes", null, 0, false, false, 1, 0, null, "", true, "", null, 0, false, false, 2, 0, null, "", true, "Reimport Category", null, 0, false, false, 3, 0, null, "", false, "Delete", null, 0, false, false, 4, 0, null, "", false ]
 
 [node name="LineEdit" type="LineEdit" parent="."]
 visible = false

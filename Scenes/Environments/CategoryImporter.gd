@@ -22,23 +22,18 @@ onready var DialogEditor = get_node(_dialog_editor_path)
 
 
 func import_category(category_name):
-	if(CurrentEnvironment.current_category_name != null):
-		emit_signal("save_category_request",CurrentEnvironment.current_category_name)
-	imported_dialogs = []
-	imported_dialogs = import_dialog_jsons(category_name)
-	if imported_dialogs == []:
+	emit_signal("save_category_request")
+	imported_dialogs = return_valid_dialog_jsons(category_name)
+	if imported_dialogs.empty():
 		emit_signal("clear_editor_request")
-		emit_signal("save_category_request",category_name)
 		emit_signal("update_current_category",category_name)
+		emit_signal("save_category_request")	
 	else:
 		create_initial_dialog_tree_buttons(imported_dialogs)
-		imported_category_name = category_name
 
-
-
-func import_dialog_jsons(category_name : String) -> Array:
+func return_valid_dialog_jsons(category_name : String) -> Array:
+	current_category_directory = CurrentEnvironment.current_dialog_directory+"/"+category_name
 	var parsed_jsons = []
-	current_category_directory = CurrentEnvironment.current_directory+"/dialogs/"+category_name
 	var dir_search = DirectorySearch.new()
 	var files = dir_search.scan_all_subdirectories(current_category_directory,["json"])
 	if files.size() == 0 :
@@ -46,29 +41,37 @@ func import_dialog_jsons(category_name : String) -> Array:
 	else:
 		var current_dialog = File.new()
 		for file in files:
-			current_dialog.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+file,File.READ)
-			var dialog_file_text = current_dialog.get_as_text()
-			while(current_dialog.get_position() < current_dialog.get_len()):
-				var current_line = current_dialog.get_line()
-				if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
-					var replace_line = current_line
-					replace_line = current_line.replace("0b","0")
-					replace_line = replace_line.replace("1b","1")
-					dialog_file_text = dialog_file_text.replace(current_line,replace_line)
-				if '"TimePast"' in current_line or '"Time' in current_line:
-					var replace_line = current_line
-					replace_line = current_line.replace("L","")
-					dialog_file_text = dialog_file_text.replace(current_line,replace_line)
-			if JSON.parse(dialog_file_text).error == OK:
-				var json_result = JSON.parse(dialog_file_text).result
-				if validate_dialog_json(json_result):
-					parsed_jsons.append(json_result)
+			current_dialog.open(current_category_directory+"/"+file,File.READ)
+			var dialog_json_with_bad_values_replaced = JSON.parse(replace_unparseable_dialog_json_values(current_dialog))
+			if !is_file_valid_dialog_json(dialog_json_with_bad_values_replaced):
+				printerr("Error parsing JSON "+file+", skipping")
 			else:
-				printerr("Invalid Dialog JSON "+file+", skipping")
+				parsed_jsons.append(dialog_json_with_bad_values_replaced)		
 		parsed_jsons.sort_custom(self,"sort_array_by_dialog_title")
 	return parsed_jsons
 
-func validate_dialog_json(dialog_json):
+func replace_unparseable_dialog_json_values(json_file):
+	var final_result = json_file.get_as_text()
+	while(json_file.get_position() < json_file.get_len()):
+		var current_line = json_file.get_line()
+		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
+			var replace_line = current_line
+			replace_line = current_line.replace("0b","0")
+			replace_line = replace_line.replace("1b","1")
+			final_result = final_result.replace(current_line,replace_line)
+		if '"TimePast"' in current_line or '"Time' in current_line:
+			var replace_line = current_line
+			replace_line = current_line.replace("L","")
+			final_result = final_result.replace(current_line,replace_line)
+	return final_result
+
+func is_file_valid_dialog_json(json_file):
+	if json_file.error != OK:
+		return false
+	if is_json_valid_dialog_format(json_file):
+		return true	
+
+func is_json_valid_dialog_format(dialog_json):
 	if !dialog_json.has("DialogTitle") or typeof(dialog_json["DialogTitle"]) != TYPE_STRING:
 		printerr("DialogTitle is malformed")
 		return false
@@ -184,12 +187,12 @@ func sort_array_by_dialog_title(a,b):
 		return a["DialogTitle"]  < b["DialogTitle"] 
 
 	
-func create_initial_dialog_tree_buttons(all_dialogs):
-	for button in $PopupPanel/ScrollContainer/VBoxContainer.get_children():
+func create_initial_dialog_tree_buttons(dialogs_found_in_directory):
+	for button in DialogButtonList.get_children():
 		button.queue_free()
-	for i in all_dialogs.size():
+	for i in dialogs_found_in_directory.size():
 		var dialog_button = Button.new()
-		dialog_button.text = all_dialogs[i]["DialogTitle"]
+		dialog_button.text = dialogs_found_in_directory[i]["DialogTitle"]
 		dialog_button.connect("pressed",self,"create_tree_from_inital_dialog",[dialog_button])
 		DialogButtonList.add_child(dialog_button)	
 	$PopupPanel.visible = true
@@ -199,7 +202,7 @@ func create_initial_dialog_tree_buttons(all_dialogs):
 var loaded_dialog_nodes = []
 var loaded_responses = []
 
-func create_tree_from_inital_dialog(button_chosen):
+func create_nodes_from_inital_chosen_dialog(button_chosen):
 	emit_signal("clear_editor_request")
 	CurrentEnvironment.loading_stage = true
 	loaded_dialog_nodes = []
@@ -223,10 +226,7 @@ func create_tree_from_inital_dialog(button_chosen):
 	for button in $PopupPanel/ScrollContainer/VBoxContainer.get_children():
 		button.queue_free()
 	CurrentEnvironment.current_category_name = imported_category_name
-	emit_signal("save_category_request",imported_category_name)
 	
-
-
 func create_dialog_from_json_array(index,offset):
 	
 	var new_node = DialogEditor.add_dialog_node(offset)
@@ -295,6 +295,64 @@ func create_dialogs_from_responses(dialog):
 			loaded_responses.append(response)
 
 				
+func reimport_category(category_name):
+	emit_signal("clear_editor_request")
+	import_category(category_name)
+
+func scan_category_for_changes(category_name):
+	loaded_responses = []
+	var parsed_jsons = import_category(category_name)
+	var processed_jsons = parsed_jsons
+	var current_dialog_nodes = get_tree().get_nodes_in_group("Save")
+	
+	for json in parsed_jsons:
+		for current in current_dialog_nodes:
+			if json["DialogId"] == current.dialog_id:
+				current.clear_responses()
+				update_dialog_node(current,json)
+				processed_jsons.append(json)
+	
+
+func update_dialog_node(node,json):
+	node.dialog_title = json["DialogTitle"]
+	node.dialog_id = json["DialogId"]
+	node.text = json["DialogText"]
+	node.disable_esc = bool(json["DialogDisableEsc"])
+	node.show_wheel = bool(json["DialogShowWheel"])
+	node.start_quest = json["DialogQuest"]
+	node.min_level_availability = json["AvailabilityMinPlayerLevel"]
+	node.time_availability = json["AvailabilityDayTime"]
+	var id = ["","2","3","4"]
+	for i in 4:
+		node.quest_availabilities[i].quest_id = json["AvailabilityQuest"+id[i]+"Id"]
+		node.quest_availabilities[i].availability_type = json["AvailabilityQuest"+id[i]]
+		node.dialog_availabilities[i].dialog_id = json["AvailabilityDialog"+id[i]+"Id"]
+		node.dialog_availabilities[i].availability_type = json["AvailabilityDialog"+id[i]]
+	for i in 2:
+		node.scoreboard_availabilities[i].objective_name = json["AvailabilityScoreboard"+id[i]+"Objective"]
+		node.scoreboard_availabilities[i].value = json["AvailabilityScoreboard"+id[i]+"Value"]
+		node.scoreboard_availabilities[i].comparison_type = json["AvailabilityScoreboard"+id[i]+"Type"]
+		
+		node.faction_availabilities[i].faction_id = json["AvailabilityFaction"+id[i]+"Id"]
+		node.faction_availabilities[i].stance_type = json["AvailabilityFaction"+id[i]+"Stance"]
+		node.faction_availabilities[i].availability_operator = json["AvailabilityFaction"+id[i]]
+		
+		var operator = [1,-1]
+		node.faction_changes[i].faction_id = json["OptionFactions"+String(i+1)]
+		node.faction_changes[i].points = json["OptionFaction"+String(i+1)+"Points"] * operator[json["DecreaseFaction"+String(i+1)+"Points"]]
+	
+	for i in json["Options"]:
+		var response = DialogEditor.add_response_node(node)
+		response.slot = i["OptionSlot"]
+		response.command = i["Option"]["DialogCommand"]
+		response.to_dialog_id = i["Option"]["Dialog"]
+		response.response_title = i["Option"]["Title"]
+		response.color_decimal = i["Option"]["DialogColor"]
+		response.initial_color = "Color("+String(int_to_color(int(i["Option"]["DialogColor"])))+")"
+		response.option_type = response.get_option_id(i["Option"]["OptionType"])
+		response.currently_importing = true		
+	loaded_dialog_nodes.append([node,json["DialogId"]])
+
 
 
 
@@ -316,3 +374,5 @@ func _on_CategoryPanel_import_category_request(category_name):
 
 func _on_CancelButton_pressed():
 	$PopupPanel.visible = false
+
+

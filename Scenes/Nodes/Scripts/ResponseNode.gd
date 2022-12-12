@@ -13,7 +13,7 @@ var node_type = "Player Response Node"
 var graph
 var initial_color = "Color(1,1,1,1)" setget set_initial_color
 
-var slot = -1
+var slot = -1 setget set_response_slot
 
 
 var response_title = '' setget set_response_title
@@ -51,11 +51,7 @@ func _ready():
 	response_text_node.text = response_title
 	check_dialog_distance()
 	update_connection_text()
-	
-	
-func _process(delta):
-	check_dialog_distance()
-	update_connection_text()
+	print(slot)
 
 func delete_self():
 	if(connected_dialog != null):
@@ -82,7 +78,8 @@ func set_connection_text(dialog_name,dialog_node_index):
 
 func update_connection_text():
 	if connected_dialog != null:
-		$VBOXRemoteConnection/ConnectedLabel.text = "Connected to "+connected_dialog.dialog_title+" | Node "+String(connected_dialog.node_index)
+		var format_string = "Connected to %s | Node "+String(connected_dialog.node_index)
+		$VBOXRemoteConnection/ConnectedLabel.text = format_string % connected_dialog.dialog_title.left(10)
 
 func check_dialog_distance():
 	
@@ -112,6 +109,15 @@ func set_connection_shown():
 
 func get_option_id(option_int):
 	return $HBoxContainer/VBoxContainer/OptionTypeButton.get_item_index(option_int)
+
+func set_response_slot(value):
+	slot = value
+	title = "Response Option "+String(value) 
+
+
+func set_focus_on_title():
+	response_text_node.grab_focus()
+
 	
 func set_response_title(new_title):
 	response_title = new_title
@@ -179,7 +185,7 @@ func _on_AddNewDialog_pressed():
 	var new_name = "New Dialog"
 	if response_text_node.text != '':
 		new_name = response_text_node.text
-	var node = graph.add_dialog_node((offset+Vector2(320,0))-graph.scroll_offset,new_name)
+	var node = graph.add_dialog_node((offset+Vector2(320,0))-(graph.scroll_offset/graph.zoom),new_name)
 	connected_dialog = node
 	connected_dialog.connected_responses.append(self)
 	emit_signal("connect_to_dialog_request",self.name,0,connected_dialog.name,0)

@@ -35,7 +35,6 @@ func _ready():
 		availability_scoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
 
 func disconnect_current_dialog(dialog):
-	print("what")
 	if current_dialog == dialog:
 		dialog.disconnect("text_changed",self,"update_text")
 		dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
@@ -43,7 +42,7 @@ func disconnect_current_dialog(dialog):
 
 		
 func load_dialog_settings(dialog):
-	get_parent().visible = true
+	visible = true
 	if current_dialog != null:
 		current_dialog.disconnect("text_changed",self,"update_text")
 		current_dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
@@ -173,3 +172,15 @@ func update_text(text):
 
 func _on_StartQuest_id_changed(value):
 	current_dialog.start_quest = value
+
+
+func no_dialog_selected():
+	visible = false
+
+
+func _on_ToggleVisiblity_toggled(button_pressed):
+	if button_pressed:
+		
+		emit_signal("hide_information_panel")
+	else:
+		emit_signal("show_information_panel")

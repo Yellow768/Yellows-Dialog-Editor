@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Nodes/Scripts/DialogNode.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Nodes/DialogText.gd" type="Script" id=2]
 
 [node name="DialogNode" type="GraphNode" groups=["Save"]]
 anchor_left = 0.509
@@ -40,30 +41,33 @@ _title_text_path = NodePath("TitleText")
 _add_response_path = NodePath("HBoxContainer/AddPlayerResponse")
 _id_label_path = NodePath("IDLabel")
 
-[node name="TitleText" type="TextEdit" parent="."]
+[node name="TitleText" type="LineEdit" parent="."]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 216.0
-margin_bottom = 44.0
+margin_bottom = 48.0
 rect_min_size = Vector2( 200, 20 )
 hint_tooltip = "Title of the dialog"
 size_flags_horizontal = 0
 text = "New Dialog"
-wrap_enabled = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 16.0
-margin_top = 45.0
+margin_top = 49.0
 margin_right = 290.0
-margin_bottom = 156.0
+margin_bottom = 160.0
 
 [node name="DialogText" type="TextEdit" parent="HBoxContainer"]
 margin_right = 250.0
 margin_bottom = 111.0
 rect_min_size = Vector2( 250, 111 )
 size_flags_horizontal = 0
+custom_colors/member_variable_color = Color( 1, 1, 1, 1 )
+custom_colors/function_color = Color( 0, 0, 0, 1 )
+custom_colors/number_color = Color( 1, 1, 1, 1 )
 syntax_highlighting = true
 wrap_enabled = true
+script = ExtResource( 2 )
 
 [node name="AddPlayerResponse" type="Button" parent="HBoxContainer"]
 margin_left = 254.0
@@ -73,9 +77,9 @@ text = "+"
 
 [node name="IDLabel" type="Label" parent="."]
 margin_left = 16.0
-margin_top = 157.0
+margin_top = 161.0
 margin_right = 290.0
-margin_bottom = 171.0
+margin_bottom = 175.0
 text = "ID: -1"
 
 [connection signal="close_request" from="." to="." method="_on_DialogNode_close_request"]

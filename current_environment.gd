@@ -1,6 +1,7 @@
 extends Node
 
 var current_directory
+var current_dialog_directory
 var current_category_name
 var highest_id = 0 setget set_highest_id
 var loading_stage = false

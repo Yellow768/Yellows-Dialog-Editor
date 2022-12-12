@@ -10,23 +10,21 @@ signal editor_cleared
 var dialog_node_scene = load("res://Scenes/Nodes/DialogNode.tscn")
 var response_node_scene = load("res://Scenes/Nodes/ResponseNode.tscn")
 
-var initial_position = Vector2(300,300)
 var node_index = 0
 var selected_nodes = []
 var selected_responses = []
-
+var previous_zoom = 1
 
 
 func _ready():
 	get_zoom_hbox().visible = false
-	
 	add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG)
 	
 	remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
-
+	set_process_input(false)
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
@@ -36,11 +34,14 @@ func _process(_delta):
 		for i in selected_responses:
 			i.delete_self()
 			selected_responses.erase(i)
+	
+func sort_array_by_dialog_id(a,b):
+	if a.dialog_id != b.dialog_id:
+		return a.dialog_id < b.dialog_id
+	else:
+		return a.dialog_id  < b.dialog_id
 
-
-
-
-func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String = "New Dialog",new_index = -1):
+func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String = "New Dialog",new_index = -1):
 	var new_node = dialog_node_scene.instance()
 	node_index += 1
 	if new_index != -1:
@@ -50,8 +51,7 @@ func add_dialog_node(offset_base : Vector2 = initial_position, new_name : String
 	if !CurrentEnvironment.loading_stage:
 		new_node.dialog_id = CurrentEnvironment.highest_id+1
 		CurrentEnvironment.highest_id += 1
-	
-	new_node.offset += offset_base + scroll_offset
+	new_node.offset = (offset_base+scroll_offset)/zoom
 	new_node.dialog_title = new_name
 	new_node.title += ' - '+str(node_index)
 	
@@ -80,7 +80,6 @@ func add_response_node(dialog):
 	for i in dialog.response_options:
 		i.offset -= Vector2(0,RESPONSE_NODE_VERTICAL_OFFSET)
 	dialog.response_options.append(new_node)
-	
 	new_node.offset = dialog.offset + new_instance_offset
 	new_node.initial_y_offset = new_instance_offset.y
 	new_node.slot = dialog.response_options.size()
@@ -93,8 +92,7 @@ func add_response_node(dialog):
 	new_node.connect("disconnect_from_dialog_request",self,"disconnect_nodes")
 	add_child(new_node)
 	connect_node(dialog.get_name(),0,new_node.get_name(),0)
-	#print(new_node)
-	#print(new_node)
+	new_node.set_focus_on_title()
 	return new_node
 
 func delete_response_node(dialog,response):
@@ -206,8 +204,8 @@ func check_selected_nodes():
 	if selected_nodes.size() < 1:
 		emit_signal("no_dialog_selected")
 	else:
-		if selected_nodes[0].node_type == "Dialog Node":
-			emit_signal("dialog_selected",selected_nodes[0])
+		if selected_nodes.back().node_type == "Dialog Node":
+			emit_signal("dialog_selected",selected_nodes.back())
 
 		
 func _on_node_requests_selection(node):
@@ -224,3 +222,22 @@ func _on_CategoryImporter_clear_editor_request():
 func _on_SaveLoad_clear_editor_request():
 	clear_editor()
 
+
+
+
+
+
+
+
+
+func _on_DialogEditor_gui_input(event):
+	if event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_UP:
+		if !Input.is_action_pressed("shift"):
+			accept_event()
+		else:
+			zoom += .02
+	if event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_DOWN:
+		if !Input.is_action_pressed("shift"):
+			accept_event()
+		else:
+			zoom -= .02

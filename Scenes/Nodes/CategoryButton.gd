@@ -1,6 +1,7 @@
 extends Button
 signal rename_category_request
 signal delete_category_request
+signal reimport_category_request
 
 
 var index = 0
@@ -36,6 +37,8 @@ func _on_PopupMenu_index_pressed(index):
 			$LineEdit.text = text
 			$LineEdit.caret_position = $LineEdit.text.length()
 		3:
+			emit_signal("reimport_category_request",text)
+		4:
 			emit_signal("delete_category_request",text)
 		
 

@@ -14,10 +14,15 @@ func _ready():
 
 func file_menu(id):
 	match id:
+		
 		2:
 			emit_signal("save_category_request")
 		9:
 			emit_signal("export_category_request")
+		11:
+			var landing_page = load("res://Scenes/Environments/LandingScreen.tscn").instance()
+			get_parent().get_parent().add_child(landing_page)
+			get_parent().queue_free()
 
 
 	

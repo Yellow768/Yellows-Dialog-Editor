@@ -4,8 +4,8 @@ class_name EnvironmentIndexer
 signal save_category_request
 signal new_category_created
 signal category_renamed
-
-
+signal category_deleted
+signal clear_editor_request
 
 
 
@@ -18,10 +18,13 @@ func _ready():
 	pass
 
 func index_categories():
+	unindexed_dialog_categories = []
+	indexed_dialog_categories = []
 	var dir_search = DirectorySearch.new()
 	unindexed_dialog_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/dialogs")
 	discover_existing_ydecs()
 	CurrentEnvironment.highest_id = find_highest_index()
+	
 	
 func find_highest_index():
 	var file = File.new()
@@ -125,8 +128,9 @@ func rename_category(category_name,new_name):
 
 	
 func delete_category(category_name):
+	emit_signal("clear_editor_request")
 	var dir = Directory.new()
-	
+	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if dir.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
@@ -137,4 +141,6 @@ func delete_category(category_name):
 				dir.remove(file_name)
 			file_name = dir.get_next()
 		dir.remove(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
-		
+	index_categories()
+	emit_signal("category_deleted")
+	CurrentEnvironment.current_category_name = null

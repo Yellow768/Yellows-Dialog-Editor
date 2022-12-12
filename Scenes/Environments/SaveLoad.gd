@@ -34,11 +34,11 @@ func read_file():
 
 
 			
-func save_category(category_name):
+func save_category():
 	if CurrentEnvironment.current_directory != null && CurrentEnvironment.current_category_name != null :
 		var save_category = File.new()
 		var save_nodes = get_tree().get_nodes_in_group("Save")
-		save_category.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",File.WRITE)
+		save_category.open(CurrentEnvironment.current_directory+"/dialogs/"+CurrentEnvironment.current_category_name+"/"+CurrentEnvironment.current_category_name+".ydec",File.WRITE)
 		for node in save_nodes:
 			if node.filename.empty():
 				print("Node '%s' is not instanced, skipped" % node.name)
@@ -52,13 +52,13 @@ func save_category(category_name):
 			
 			save_category.store_line(to_json(category_data))
 		save_category.close()
-		if !EnvironmentIndex.get_category_has_ydec(category_name):
-			EnvironmentIndex.add_ydec_to_indexed_category(category_name)
+		if !EnvironmentIndex.get_category_has_ydec(CurrentEnvironment.current_category_name):
+			EnvironmentIndex.add_ydec_to_indexed_category(CurrentEnvironment.current_category_name)
 	else:
 		print("Nothing To Save")
 
 func load_category(category_name):
-	save_category(CurrentEnvironment.current_category_name)
+	save_category()
 	CurrentEnvironment.loading_stage = true
 	emit_signal("clear_editor_request")
 	var current_category_path = CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec"
@@ -135,11 +135,11 @@ func _on_CategoryPanel_load_existing_category_request(category_name):
 	load_category(category_name)
 
 
-func _on_CategoryImporter_save_category_request(category_name):
-	save_category(category_name)
+func _on_CategoryImporter_save_category_request():
+	save_category()
 
 
 func _on_TopPanel_save_category_request():
-	save_category(CurrentEnvironment.current_category_name)
+	save_category()
 
 
