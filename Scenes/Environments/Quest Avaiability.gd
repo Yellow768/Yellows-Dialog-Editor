@@ -30,9 +30,24 @@ func _on_CategoryFinder_index_pressed(_index):
 
 func _on_SpinBox_value_changed(value):
 	emit_signal("id_changed",self,value)
+	$Panel/ChooseQuest.text = find_quest_name_from_id(value)
 	
+		
+func find_quest_name_from_id(id):
+	if id == -1:
+		return "Select Quest"
+	for key in CurrentEnvironment.quest_dict.keys():
+		for title in CurrentEnvironment.quest_dict[key].keys():
+			if CurrentEnvironment.quest_dict[key][title] == id:
+				return title
+	return "Unindexed Quest"
 
 
 
 func _on_OptionButton_item_selected(index):
 	emit_signal("type_changed",self,index)
+
+
+func _on_ChooseQuest_quest_chosen(title,id):
+	$Panel/ChooseQuest.text = title
+	$Panel/SpinBox.value = id
