@@ -26,8 +26,10 @@ var option_type = 0 setget set_option_type
 
 var parent_dialog
 var permanent_offset
-var connection_hidden = false
 
+
+var connection_hidden = false
+var overlapping_response = null
 
 export(NodePath) var _response_text_node_path
 export(NodePath) var _color_picker_node_path
@@ -174,9 +176,6 @@ func _on_PlayerResponseNode_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		selected = true
 		emit_signal("set_self_as_selected",self)
-		self.mouse_filter = Control.MOUSE_FILTER_STOP
-	else:
-		self.mouse_filter = Control.MOUSE_FILTER_PASS
 
 
 func _on_PlayerResponseNode_close_request():
@@ -209,15 +208,67 @@ func _on_ColorPickerButton_color_changed(color):
 
 
 
-func _on_PlayerResponseNode_dragged(from, _to):
+func _on_PlayerResponseNode_dragged(from, to):
 	if graph.selected_responses.size() > 0:
-		if graph.selected_nodes.find(parent_dialog) == -1:
+		if graph.selected_nodes.size() == 0:
+			handle_slot_changing(from,to)
+		elif graph.selected_nodes.find(parent_dialog) == -1:
 			offset = from
 		else:
 			permanent_offset = offset
 			check_dialog_distance()
 
-
+# warning-ignore:unused_argument
+func handle_slot_changing(old_offset,new_offset):
+	if overlapping_response != null:
+		
+		var initial_slot = slot
+		var overlap_slot = overlapping_response.slot
+		var initial_parent = parent_dialog
+		var overlap_parent = overlapping_response.parent_dialog
+		var initial_offset = old_offset
+		var overlap_offset = overlapping_response.offset 
+		
+		#Switch Slots
+		set_response_slot(overlap_slot)
+		overlapping_response.slot = initial_slot
+		
+		#Switch positions
+		offset = overlap_offset
+		overlapping_response.offset = initial_offset
+		
+		#Remove from parents array
+		parent_dialog.response_options.erase(self)
+		graph.disconnect_node(parent_dialog.get_name(),0,self.name,0)
+		disconnect("delete_self",parent_dialog,"delete_response_node")
+		
+		overlapping_response.parent_dialog.response_options.erase(overlapping_response)
+		graph.disconnect_node(overlapping_response.parent_dialog.get_name(),0,overlapping_response.get_name(),0)
+		overlapping_response.disconnect("delete_self",overlapping_response.parent_dialog,"delete_response_node")
+		
+		#Switch to other parents array. Make sure slot isn't invalid
+		if parent_dialog.response_options.size() >= overlapping_response.slot:
+			parent_dialog.response_options.insert(overlapping_response.slot,overlapping_response)
+		else:
+			parent_dialog.response_options.append(overlapping_response)
+		graph.connect_node(parent_dialog.get_name(),0,overlapping_response.get_name(),0)
+		
+		if overlapping_response.parent_dialog.response_options.size() >= slot:
+			overlapping_response.parent_dialog.response_options.insert(slot,self)
+		else:
+			overlapping_response.parent_dialog.response_options.append(self)
+		graph.connect_node(overlapping_response.parent_dialog.get_name(),0,self.get_name(),0)
+		
+		#Switch Parents
+		parent_dialog = overlap_parent
+		overlapping_response.parent_dialog = initial_parent
+		
+		connect("delete_self",parent_dialog,"delete_response_node")
+		overlapping_response.connect("delete_self",overlapping_response.parent_dialog,"delete_response_node")
+	else:
+		offset = old_offset
+		
+		
 
 
 func _on_ResponseText_text_changed():
@@ -235,3 +286,15 @@ func _on_DisconnectButton_pressed():
 func _on_JumpButton_pressed():
 	graph.set_scroll_ofs((connected_dialog.offset * Vector2(graph.zoom,graph.zoom))-OS.window_size/2)
 	connected_dialog.emit_signal("set_self_as_selected",connected_dialog)
+
+
+func _on_ResponseNodeArea_area_entered(area):
+	overlapping_response = area.get_parent()
+	
+
+func _on_ResponseNodeArea_area_exited(_area):
+	if !$ResponseNodeArea.get_overlapping_areas().empty():
+		print($ResponseNodeArea.get_overlapping_areas().back().get_parent())
+		overlapping_response = $ResponseNodeArea.get_overlapping_areas().back().get_parent()
+	else:
+		overlapping_response = null

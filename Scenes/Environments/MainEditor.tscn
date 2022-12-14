@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scenes/Environments/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Environments/InformationPanel.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Scenes/Environments/CategoryExporter.gd" type="Script" id=15]
 [ext_resource path="res://Scenes/Environments/UIAnimations.gd" type="Script" id=16]
 [ext_resource path="res://Scenes/Nodes/DialogText.gd" type="Script" id=17]
+[ext_resource path="res://Scenes/Environments/QuestAndFactionsIndex.gd" type="Script" id=18]
 
 [sub_resource type="Animation" id=3]
 resource_name = "CategoryPanel"
@@ -265,16 +266,20 @@ _information_panel_path = NodePath("InformationPanel")
 _dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
 _top_panel_path = NodePath("TopPanel")
 _save_load_path = NodePath("SaveLoad")
-_environment_index_path = NodePath("EnvironmentIndex")
+_dialog_file_system_path = NodePath("DialogFileSystemIndex")
+_quest_and_factions_index_path = NodePath("QuestAndFactionsIndex")
 
-[node name="EnvironmentIndex" type="Node" parent="."]
+[node name="QuestAndFactionsIndex" type="Node" parent="."]
+script = ExtResource( 18 )
+
+[node name="DialogFileSystemIndex" type="Node" parent="."]
 script = ExtResource( 13 )
 
 [node name="SaveLoad" type="Node" parent="." groups=["File Access"]]
 script = ExtResource( 12 )
 _dialog_editor_path = NodePath("../DialogEditor")
 _main_program_path = NodePath("..")
-_environment_index_path = NodePath("../EnvironmentIndex")
+_environment_index_path = NodePath("../DialogFileSystemIndex")
 
 [node name="FileDialog" type="FileDialog" parent="SaveLoad"]
 anchor_right = 1.0
@@ -336,7 +341,6 @@ rect_min_size = Vector2( 1280, 720 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
-scroll_offset = Vector2( -1920, -1080 )
 use_snap = false
 show_zoom_label = true
 minimap_size = Vector2( 150, 150 )
@@ -784,7 +788,7 @@ size_flags_horizontal = 3
 script = ExtResource( 11 )
 animation_player_path = NodePath("../AnimationPlayer")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
-environment_index_path = NodePath("../EnvironmentIndex")
+environment_index_path = NodePath("../DialogFileSystemIndex")
 category_importer_path = NodePath("../CategoryImporter")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
@@ -836,11 +840,11 @@ anims/Initial = SubResource( 5 )
 anims/RESET = SubResource( 2 )
 script = ExtResource( 16 )
 
-[connection signal="category_deleted" from="EnvironmentIndex" to="." method="refresh_category_list"]
-[connection signal="category_renamed" from="EnvironmentIndex" to="." method="refresh_category_list"]
-[connection signal="clear_editor_request" from="EnvironmentIndex" to="DialogEditor" method="clear_editor"]
-[connection signal="new_category_created" from="EnvironmentIndex" to="." method="refresh_category_list"]
-[connection signal="save_category_request" from="EnvironmentIndex" to="SaveLoad" method="save_category"]
+[connection signal="category_deleted" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
+[connection signal="category_renamed" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
+[connection signal="clear_editor_request" from="DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
+[connection signal="new_category_created" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
+[connection signal="save_category_request" from="DialogFileSystemIndex" to="SaveLoad" method="save_category"]
 [connection signal="clear_editor_request" from="SaveLoad" to="DialogEditor" method="_on_SaveLoad_clear_editor_request"]
 [connection signal="update_current_category" from="SaveLoad" to="." method="update_current_category"]
 [connection signal="dir_selected" from="SaveLoad/FileDialog" to="SaveLoad" method="_on_FileDialog_dir_selected"]

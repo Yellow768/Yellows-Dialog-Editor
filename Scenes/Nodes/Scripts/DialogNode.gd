@@ -109,6 +109,16 @@ func add_response_node():
 	if response_options.size() < 6:
 		emit_signal("add_response_request",self)
 
+func reposition_response_nodes():
+	print("Repositioning")
+	for response in response_options:
+		response.offset = offset + Vector2(350,0)
+		response.offset.y += 200*response_options.find(response)
+		response.offset.y -= 200 
+	#var new_instance_offset = Vector2(350,0+(RESPONSE_NODE_VERTICAL_OFFSET*dialog.response_options.size()))
+	#for i in dialog.response_options:
+		#i.offset -= Vector2(0,RESPONSE_NODE_VERTICAL_OFFSET)
+	#new_node.offset = dialog.offset + new_instance_offset
 
 func delete_response_node(deletion_slot,response_node):
 	for i in response_options:

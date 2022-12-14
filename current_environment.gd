@@ -6,6 +6,10 @@ var current_category_name
 var highest_id = 0 setget set_highest_id
 var loading_stage = false
 
+
+var quest_dict
+var faction_dict
+
 func _ready():
 	pass
 

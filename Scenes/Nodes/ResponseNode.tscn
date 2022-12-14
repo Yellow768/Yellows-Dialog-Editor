@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Nodes/Scripts/ResponseNode.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 148.5, 87 )
 
 [node name="PlayerResponseNode" type="GraphNode" groups=["Response_Nodes"]]
 anchor_left = 0.5
@@ -12,6 +15,7 @@ margin_top = -50.0
 margin_right = 125.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 300, 180 )
+mouse_filter = 1
 title = "Response Node"
 show_close = true
 comment = true
@@ -119,6 +123,12 @@ margin_right = 253.0
 margin_bottom = 20.0
 text = "Jump To Node"
 
+[node name="ResponseNodeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResponseNodeArea"]
+position = Vector2( 150.5, 90 )
+shape = SubResource( 1 )
+
 [connection signal="close_request" from="." to="." method="_on_PlayerResponseNode_close_request"]
 [connection signal="dragged" from="." to="." method="_on_PlayerResponseNode_dragged"]
 [connection signal="gui_input" from="." to="." method="_on_PlayerResponseNode_gui_input"]
@@ -129,3 +139,5 @@ text = "Jump To Node"
 [connection signal="pressed" from="HBoxContainer/AddNewDialog" to="." method="_on_AddNewDialog_pressed"]
 [connection signal="pressed" from="VBOXRemoteConnection/HBoxContainer/DisconnectButton" to="." method="_on_DisconnectButton_pressed"]
 [connection signal="pressed" from="VBOXRemoteConnection/HBoxContainer/JumpButton" to="." method="_on_JumpButton_pressed"]
+[connection signal="area_entered" from="ResponseNodeArea" to="." method="_on_ResponseNodeArea_area_entered"]
+[connection signal="area_exited" from="ResponseNodeArea" to="." method="_on_ResponseNodeArea_area_exited"]

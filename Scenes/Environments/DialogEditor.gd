@@ -83,7 +83,7 @@ func add_response_node(dialog):
 	dialog.response_options.append(new_node)
 	new_node.offset = dialog.offset + new_instance_offset
 	new_node.initial_y_offset = new_instance_offset.y
-	new_node.slot = dialog.response_options.size()
+	new_node.slot = dialog.response_options.size()-1
 	new_node.graph = self
 	new_node.main_environment_path = $"."
 	new_node.parent_dialog = dialog

@@ -79,12 +79,6 @@ func get_category_has_ydec(category_name):
 	return false
 
 
-#Search through categories
-#Gather all the dialog files, and grab the dialog titles
-#Mark those that have a YDEC file
-#Mark the highest index
-
-
 func create_new_category(new_category_name):
 
 	emit_signal("save_category_request",CurrentEnvironment.current_category_name)

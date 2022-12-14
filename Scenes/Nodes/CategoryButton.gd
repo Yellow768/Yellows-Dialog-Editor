@@ -29,8 +29,8 @@ func _on_PopupMenu_mouse_exited():
 	$PopupMenu.visible = false
 
 
-func _on_PopupMenu_index_pressed(index):
-	match index:
+func _on_PopupMenu_index_pressed(button_index):
+	match button_index:
 		0:
 			$LineEdit.visible = true
 			$LineEdit.grab_focus()
