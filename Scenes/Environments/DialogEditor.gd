@@ -28,6 +28,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
+		handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
 			i.delete_self()
 			selected_nodes.erase(i)
@@ -37,9 +38,9 @@ func _process(_delta):
 	
 func sort_array_by_dialog_id(a,b):
 	if a.dialog_id != b.dialog_id:
-		return a.dialog_id < b.dialog_id
+		return a.dialog_id > b.dialog_id
 	else:
-		return a.dialog_id  < b.dialog_id
+		return a.dialog_id > b.dialog_id
 
 func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String = "New Dialog",new_index : int = -1, use_exact_offset : bool = false):
 	var new_node = dialog_node_scene.instance()
@@ -68,7 +69,6 @@ func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String
 
 
 func delete_dialog_node(dialog):
-	handle_subtracting_dialog_id(selected_nodes)
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	set_last_selected_node_as_selected()
@@ -165,8 +165,13 @@ func set_last_selected_node_as_selected():
 		if selected_nodes.back().node_type == "Dialog Node":
 			emit_signal("dialog_selected",selected_nodes.back())
 
-func handle_subtracting_dialog_id(dialogs_to_be_deleted):
-	pass
+func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array):
+	var sorted_ids = dialogs_to_be_deleted.duplicate()
+	sorted_ids.sort_custom(self,"sort_array_by_dialog_id")
+	for node in sorted_ids:
+		print(node.dialog_id)
+		if node.dialog_id == CurrentEnvironment.highest_id:
+			CurrentEnvironment.highest_id -= 1
 
 func clear_editor():
 	selected_responses = []
