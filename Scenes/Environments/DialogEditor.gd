@@ -41,7 +41,7 @@ func sort_array_by_dialog_id(a,b):
 	else:
 		return a.dialog_id  < b.dialog_id
 
-func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String = "New Dialog",new_index = -1):
+func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String = "New Dialog",new_index : int = -1, use_exact_offset : bool = false):
 	var new_node = dialog_node_scene.instance()
 	node_index += 1
 	if new_index != -1:
@@ -51,7 +51,10 @@ func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String
 	if !CurrentEnvironment.loading_stage:
 		new_node.dialog_id = CurrentEnvironment.highest_id+1
 		CurrentEnvironment.highest_id += 1
-	new_node.offset = (offset_base+scroll_offset)/zoom
+	if !use_exact_offset:
+		new_node.offset = (offset_base+scroll_offset)/zoom
+	else:
+		new_node.offset = offset_base
 	new_node.dialog_title = new_name
 	new_node.title += ' - '+str(node_index)
 	
@@ -65,14 +68,12 @@ func add_dialog_node(offset_base : Vector2 = OS.window_size/2, new_name : String
 
 
 func delete_dialog_node(dialog):
+	handle_subtracting_dialog_id(selected_nodes)
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
-	check_selected_nodes()
-	if dialog.dialog_id == CurrentEnvironment.highest_id:
-		CurrentEnvironment.highest_id -= 1
+	set_last_selected_node_as_selected()
 	dialog.queue_free()
 	node_index -=1
-
 
 func add_response_node(dialog):
 	var new_node = response_node_scene.instance()
@@ -151,18 +152,25 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 		response.reveal_button()
 
 func hide_connection_line(from,to):
-	print("Disconnecting Node")
 	disconnect_node(from,0,to,0)
 
 
 func show_connection_line(from,to):
 	connect_node(from,0,to,0)
+	
+func set_last_selected_node_as_selected():
+	if selected_nodes.size() < 1:
+		emit_signal("no_dialog_selected")
+	else:
+		if selected_nodes.back().node_type == "Dialog Node":
+			emit_signal("dialog_selected",selected_nodes.back())
+
+func handle_subtracting_dialog_id(dialogs_to_be_deleted):
+	pass
 
 func clear_editor():
-
 	selected_responses = []
 	selected_nodes = []
-	
 	var save_nodes = get_tree().get_nodes_in_group("Save")
 	var response_nodes = get_tree().get_nodes_in_group("Response_Nodes")
 	for i in save_nodes:
@@ -198,14 +206,9 @@ func _on_DialogEditor_node_unselected(node):
 		selected_responses.erase(node)
 	if node.node_type == "Dialog Node":
 		selected_nodes.erase(node)
-		check_selected_nodes()
+		set_last_selected_node_as_selected()
 		
-func check_selected_nodes():
-	if selected_nodes.size() < 1:
-		emit_signal("no_dialog_selected")
-	else:
-		if selected_nodes.back().node_type == "Dialog Node":
-			emit_signal("dialog_selected",selected_nodes.back())
+
 
 		
 func _on_node_requests_selection(node):
@@ -221,12 +224,6 @@ func _on_CategoryImporter_clear_editor_request():
 
 func _on_SaveLoad_clear_editor_request():
 	clear_editor()
-
-
-
-
-
-
 
 
 

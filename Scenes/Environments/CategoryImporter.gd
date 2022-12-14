@@ -29,6 +29,7 @@ func import_category(category_name):
 		emit_signal("update_current_category",category_name)
 		emit_signal("save_category_request")	
 	else:
+		imported_category_name = category_name
 		create_initial_dialog_tree_buttons(imported_dialogs)
 
 func return_valid_dialog_jsons(category_name : String) -> Array:
@@ -46,7 +47,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array:
 			if !is_file_valid_dialog_json(dialog_json_with_bad_values_replaced):
 				printerr("Error parsing JSON "+file+", skipping")
 			else:
-				parsed_jsons.append(dialog_json_with_bad_values_replaced)		
+				parsed_jsons.append(dialog_json_with_bad_values_replaced.result)		
 		parsed_jsons.sort_custom(self,"sort_array_by_dialog_title")
 	return parsed_jsons
 
@@ -68,7 +69,7 @@ func replace_unparseable_dialog_json_values(json_file):
 func is_file_valid_dialog_json(json_file):
 	if json_file.error != OK:
 		return false
-	if is_json_valid_dialog_format(json_file):
+	if is_json_valid_dialog_format(json_file.result):
 		return true	
 
 func is_json_valid_dialog_format(dialog_json):
@@ -193,7 +194,7 @@ func create_initial_dialog_tree_buttons(dialogs_found_in_directory):
 	for i in dialogs_found_in_directory.size():
 		var dialog_button = Button.new()
 		dialog_button.text = dialogs_found_in_directory[i]["DialogTitle"]
-		dialog_button.connect("pressed",self,"create_tree_from_inital_dialog",[dialog_button])
+		dialog_button.connect("pressed",self,"initial_dialog_chosen",[i])
 		DialogButtonList.add_child(dialog_button)	
 	$PopupPanel.visible = true
 	
@@ -201,119 +202,90 @@ func create_initial_dialog_tree_buttons(dialogs_found_in_directory):
 
 var loaded_dialog_nodes = []
 var loaded_responses = []
+var unimported_dialog_position = Vector2(300,300)
 
-func create_nodes_from_inital_chosen_dialog(button_chosen):
-	emit_signal("clear_editor_request")
+func initial_dialog_chosen(index):
+	emit_signal("clear_editor_request")	
+	create_nodes_from_index(index)
+
+
+func create_nodes_from_index(index : int = 0):
+	if index > imported_dialogs.size():
+		printerr("The set index was larger than imported_dialogs size")
+		index = 0
+	if imported_dialogs.empty():
+		printerr("There are no dialogs to import")
+		return
 	CurrentEnvironment.loading_stage = true
-	loaded_dialog_nodes = []
-	loaded_responses = []
-	var index = DialogButtonList.get_children().find(button_chosen)
-	var initial_dialog = create_dialog_from_json_array(index,Vector2(300,300))
-	create_dialogs_from_responses(initial_dialog)
-	var count = 0
-	for unimported_dialog in imported_dialogs:
-		count+= 1
-		var unconnected_dialog = create_dialog_from_json_array(imported_dialogs.find(unimported_dialog),Vector2(300*count,900+(300*count)))
-		create_dialogs_from_responses(unconnected_dialog)
-	for i in loaded_responses:
-		i.currently_importing = false
-		i.check_dialog_distance()
-		i.update_connection_text()
-	emit_signal("update_current_category",imported_category_name)
-	CurrentEnvironment.loading_stage = false
+	create_dialog_from_json(imported_dialogs[index],unimported_dialog_position)
+	if !imported_dialogs.empty():
+		unimported_dialog_position += Vector2(300,300)
+		create_nodes_from_index(0)
+	else:
+		unimported_dialog_position = Vector2(300,300)
+		emit_signal("update_current_category",imported_category_name)
+		emit_signal("save_category_request")
+		loaded_dialog_nodes = []
+		loaded_responses = []
+		CurrentEnvironment.loading_stage = false
 	
 	$PopupPanel.visible = false
-	for button in $PopupPanel/ScrollContainer/VBoxContainer.get_children():
-		button.queue_free()
-	CurrentEnvironment.current_category_name = imported_category_name
 	
-func create_dialog_from_json_array(index,offset):
-	
-	var new_node = DialogEditor.add_dialog_node(offset)
-	var current_json = imported_dialogs[index]
-	new_node.dialog_title = current_json["DialogTitle"]
-	new_node.dialog_id = current_json["DialogId"]
-	new_node.text = current_json["DialogText"]
-	new_node.disable_esc = bool(current_json["DialogDisableEsc"])
-	new_node.show_wheel = bool(current_json["DialogShowWheel"])
-	new_node.start_quest = current_json["DialogQuest"]
-	new_node.min_level_availability = current_json["AvailabilityMinPlayerLevel"]
-	new_node.time_availability = current_json["AvailabilityDayTime"]
-	var id = ["","2","3","4"]
-	for i in 4:
-		new_node.quest_availabilities[i].quest_id = current_json["AvailabilityQuest"+id[i]+"Id"]
-		new_node.quest_availabilities[i].availability_type = current_json["AvailabilityQuest"+id[i]]
-		new_node.dialog_availabilities[i].dialog_id = current_json["AvailabilityDialog"+id[i]+"Id"]
-		new_node.dialog_availabilities[i].availability_type = current_json["AvailabilityDialog"+id[i]]
-	for i in 2:
-		new_node.scoreboard_availabilities[i].objective_name = current_json["AvailabilityScoreboard"+id[i]+"Objective"]
-		new_node.scoreboard_availabilities[i].value = current_json["AvailabilityScoreboard"+id[i]+"Value"]
-		new_node.scoreboard_availabilities[i].comparison_type = current_json["AvailabilityScoreboard"+id[i]+"Type"]
-		
-		new_node.faction_availabilities[i].faction_id = current_json["AvailabilityFaction"+id[i]+"Id"]
-		new_node.faction_availabilities[i].stance_type = current_json["AvailabilityFaction"+id[i]+"Stance"]
-		new_node.faction_availabilities[i].availability_operator = current_json["AvailabilityFaction"+id[i]]
-		
-		var operator = [1,-1]
-		new_node.faction_changes[i].faction_id = current_json["OptionFactions"+String(i+1)]
-		new_node.faction_changes[i].points = current_json["OptionFaction"+String(i+1)+"Points"] * operator[current_json["DecreaseFaction"+String(i+1)+"Points"]]
-	
-	for i in current_json["Options"]:
-		var response = DialogEditor.add_response_node(new_node)
-		response.slot = i["OptionSlot"]
-		response.command = i["Option"]["DialogCommand"]
-		response.to_dialog_id = i["Option"]["Dialog"]
-		response.response_title = i["Option"]["Title"]
-		response.color_decimal = i["Option"]["DialogColor"]
-		response.initial_color = "Color("+String(int_to_color(int(i["Option"]["DialogColor"])))+")"
-		response.option_type = response.get_option_id(i["Option"]["OptionType"])
-		response.currently_importing = true
-	loaded_dialog_nodes.append([new_node,current_json["DialogId"]])
-	imported_dialogs.remove(index)
+func create_dialog_from_json(current_json,offset):
+	var new_node = DialogEditor.add_dialog_node(offset,current_json["DialogTitle"],-1,true)
+	new_node = update_dialog_node_information(new_node,current_json)
+	imported_dialogs.erase(current_json)
+	loaded_dialog_nodes.append(new_node)
+	create_dialogs_from_responses(new_node)
 	return new_node				
 
 func create_dialogs_from_responses(dialog):
+	print(dialog.dialog_title)
 	for response in dialog.response_options:
-		
-		if response.to_dialog_id != -1:
-			var dialog_already_loaded = false
+		print(response)
+		if response.to_dialog_id != -1 && response.option_type == 0:
 			for loaded_dialog in loaded_dialog_nodes:
-				if loaded_dialog[1] == response.to_dialog_id:
-					dialog_already_loaded = loaded_dialog[0]
-					
-			
-			if !dialog_already_loaded:
-				for json_dialog in imported_dialogs:
-					if json_dialog["DialogId"] == response.to_dialog_id:
-						var connected_dialog = create_dialog_from_json_array(imported_dialogs.find(json_dialog),response.offset+Vector2(320,0)-DialogEditor.scroll_offset)
-						DialogEditor.connect_nodes(response.get_name(),0,connected_dialog.get_name(),0)
-						create_dialogs_from_responses(connected_dialog)
-			
-			else:
-				
-				DialogEditor.connect_nodes(response.get_name(),0,dialog_already_loaded.get_name(),0)
-			loaded_responses.append(response)
+				if loaded_dialog.dialog_id == response.to_dialog_id:
+					DialogEditor.connect_nodes(response.get_name(),0,loaded_dialog.get_name(),0)
+			for json_dialog in imported_dialogs:
+				if json_dialog["DialogId"] == response.to_dialog_id:
+					var connected_dialog = create_dialog_from_json(json_dialog,response.offset+Vector2(320,0))
+					DialogEditor.connect_nodes(response.get_name(),0,connected_dialog.get_name(),0)
+		loaded_responses.append(response)
 
 				
-func reimport_category(category_name):
+func reimport_category(category_name = CurrentEnvironment.current_category_name):
 	emit_signal("clear_editor_request")
+	loaded_dialog_nodes = []
 	import_category(category_name)
 
-func scan_category_for_changes(category_name):
+func scan_category_for_changes(category_name = CurrentEnvironment.current_category_name):
+	loaded_dialog_nodes = []
 	loaded_responses = []
-	var parsed_jsons = import_category(category_name)
-	var processed_jsons = parsed_jsons
+	var updated_dialog_nodes = []
+	var parsed_jsons = return_valid_dialog_jsons(category_name)
+	imported_dialogs = parsed_jsons.duplicate()
+	imported_category_name = category_name
 	var current_dialog_nodes = get_tree().get_nodes_in_group("Save")
+	for current_dialog in current_dialog_nodes:
+		loaded_dialog_nodes.append(current_dialog)
 	
 	for json in parsed_jsons:
 		for current in current_dialog_nodes:
 			if json["DialogId"] == current.dialog_id:
 				current.clear_responses()
-				update_dialog_node(current,json)
-				processed_jsons.append(json)
+				update_dialog_node_information(current,json)
+				updated_dialog_nodes.append(current)
+				imported_dialogs.erase(json)
+	for updated_dialog in updated_dialog_nodes:
+		create_dialogs_from_responses(updated_dialog)
+	if !imported_dialogs.empty():
+		create_nodes_from_index(0)
+		
+	
 	
 
-func update_dialog_node(node,json):
+func update_dialog_node_information(node,json):
 	node.dialog_title = json["DialogTitle"]
 	node.dialog_id = json["DialogId"]
 	node.text = json["DialogText"]
@@ -350,8 +322,7 @@ func update_dialog_node(node,json):
 		response.color_decimal = i["Option"]["DialogColor"]
 		response.initial_color = "Color("+String(int_to_color(int(i["Option"]["DialogColor"])))+")"
 		response.option_type = response.get_option_id(i["Option"]["OptionType"])
-		response.currently_importing = true		
-	loaded_dialog_nodes.append([node,json["DialogId"]])
+	return node
 
 
 
@@ -374,5 +345,7 @@ func _on_CategoryPanel_import_category_request(category_name):
 
 func _on_CancelButton_pressed():
 	$PopupPanel.visible = false
+
+
 
 

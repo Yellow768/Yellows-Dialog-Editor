@@ -27,7 +27,7 @@ var option_type = 0 setget set_option_type
 var parent_dialog
 var permanent_offset
 var connection_hidden = false
-var currently_importing = false
+
 
 export(NodePath) var _response_text_node_path
 export(NodePath) var _color_picker_node_path
@@ -51,68 +51,14 @@ func _ready():
 	response_text_node.text = response_title
 	check_dialog_distance()
 	update_connection_text()
-	print(slot)
-
-func delete_self():
-	if(connected_dialog != null):
-		connected_dialog.remove_connected_response(self)
-	emit_signal("delete_self",slot,self)
-	
-func disconnect_from_dialog():
-	connected_dialog.remove_connected_response(self)
-	emit_signal("disconnect_from_dialog_request",self.name,0,connected_dialog.name,0)
-	
-	$VBOXRemoteConnection.visible = false
-	reveal_button()
-	
-func reveal_button():
-	new_dialog_button_node.visible = true
-
-	
-func hide_button():
-	new_dialog_button_node.visible = false
-	
-
-func set_connection_text(dialog_name,dialog_node_index):
-	$VBOXRemoteConnection/ConnectedLabel.text = "Connected to "+dialog_name+" | Node "+String(dialog_node_index)
-
-func update_connection_text():
-	if connected_dialog != null:
-		var format_string = "Connected to %s | Node "+String(connected_dialog.node_index)
-		$VBOXRemoteConnection/ConnectedLabel.text = format_string % connected_dialog.dialog_title.left(10)
-
-func check_dialog_distance():
-	
-	if connected_dialog != null && !currently_importing:
-		if offset.distance_to(connected_dialog.offset) > 1000 && !connection_hidden:
-			set_connection_hidden()	
-		if offset.distance_to(connected_dialog.offset) < 1000 && connection_hidden:
-			set_connection_shown()
-
-func set_connection_hidden():
-	graph.hide_connection_line(self.name,connected_dialog.name)
-	connection_hidden = true
-	$VBOXRemoteConnection.visible = true
-	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color_hidden)
-	set_slot_enabled_right(0,false)
-	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color_hidden)
-	update_connection_text()
-
-func set_connection_shown():
-	graph.show_connection_line(self.name,connected_dialog.name)
-	connection_hidden = false
-	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color)
-	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color)
-	set_slot_enabled_right(0,true)
-	$VBOXRemoteConnection.visible = false
-
 
 func get_option_id(option_int):
 	return $HBoxContainer/VBoxContainer/OptionTypeButton.get_item_index(option_int)
 
+
 func set_response_slot(value):
 	slot = value
-	title = "Response Option "+String(value) 
+	title = "Response Option "+String(value+1) 
 
 
 func set_focus_on_title():
@@ -167,6 +113,62 @@ func set_initial_y_offset(new_offset):
 func set_to_dialog_id(new_id):
 	to_dialog_id = new_id
 
+	
+func reveal_button():
+	new_dialog_button_node.visible = true
+
+	
+func hide_button():
+	new_dialog_button_node.visible = false
+	
+
+func set_connection_text(dialog_name,dialog_node_index):
+	$VBOXRemoteConnection/ConnectedLabel.text = "Connected to "+dialog_name+" | Node "+String(dialog_node_index)
+
+func update_connection_text():
+	if connected_dialog != null:
+		var format_string = "Connected to %s | Node "+String(connected_dialog.node_index)
+		$VBOXRemoteConnection/ConnectedLabel.text = format_string % connected_dialog.dialog_title.left(10)
+
+func check_dialog_distance():
+	if connected_dialog != null:
+		if offset.distance_to(connected_dialog.offset) > 1000 && !connection_hidden:
+			set_connection_hidden()	
+		if offset.distance_to(connected_dialog.offset) < 1000 && connection_hidden:
+			set_connection_shown()
+
+func set_connection_hidden():
+	graph.hide_connection_line(self.name,connected_dialog.name)
+	connection_hidden = true
+	$VBOXRemoteConnection.visible = true
+	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color_hidden)
+	set_slot_enabled_right(0,false)
+	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color_hidden)
+	update_connection_text()
+
+func set_connection_shown():
+	graph.show_connection_line(self.name,connected_dialog.name)
+	connection_hidden = false
+	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color)
+	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color)
+	set_slot_enabled_right(0,true)
+	$VBOXRemoteConnection.visible = false
+
+
+func disconnect_from_dialog():
+	connected_dialog.remove_connected_response(self)
+	emit_signal("disconnect_from_dialog_request",self.name,0,connected_dialog.name,0)
+	$VBOXRemoteConnection.visible = false
+	reveal_button()
+
+func delete_self():
+	if(connected_dialog != null):
+		connected_dialog.remove_connected_response(self)
+	emit_signal("delete_self",slot,self)
+	
+
+
+
 
 func _on_PlayerResponseNode_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
@@ -185,7 +187,8 @@ func _on_AddNewDialog_pressed():
 	var new_name = "New Dialog"
 	if response_text_node.text != '':
 		new_name = response_text_node.text
-	var node = graph.add_dialog_node((offset+Vector2(320,0))-(graph.scroll_offset/graph.zoom),new_name)
+	var offset_base = offset+Vector2(320,0)
+	var node = graph.add_dialog_node(offset_base,new_name,-1,true)
 	connected_dialog = node
 	connected_dialog.connected_responses.append(self)
 	emit_signal("connect_to_dialog_request",self.name,0,connected_dialog.name,0)

@@ -74,7 +74,7 @@ func load_category(category_name):
 			var node_data = parse_json(save_category.get_line())
 			var new_object = load(node_data["filename"]).instance()
 			
-			var currently_loaded_dialog = DialogEditor.add_dialog_node(Vector2(node_data["offset.x"],node_data["offset.y"]),new_object.dialog_title,new_object.node_index)
+			var currently_loaded_dialog = DialogEditor.add_dialog_node(Vector2(node_data["offset.x"],node_data["offset.y"]),new_object.dialog_title,new_object.node_index,true)
 
 			
 			for i in node_data.keys():

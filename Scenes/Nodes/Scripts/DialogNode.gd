@@ -85,7 +85,6 @@ func _ready():
 	for i in connected_responses:
 		i.check_dialog_distance()
 		i.update_connection_text()
-	print("My offset is "+String(offset))
 
 
 	
@@ -101,6 +100,7 @@ func delete_self():
 				i.disconnect_from_dialog()
 			connected_responses.erase(i)
 	emit_signal("dialog_ready_for_deletion",self)
+
 	
 	
 
@@ -119,7 +119,12 @@ func delete_response_node(deletion_slot,response_node):
 			i.slot -=1
 	response_options.erase(response_node)
 	emit_signal("delete_response_node",self,response_node)
-	
+
+func clear_responses():
+	for response in response_options:
+		emit_signal("delete_response_node",self,response)
+	response_options.clear()
+
 func add_connected_response(response):
 	connected_responses.append(response)
 	
@@ -135,7 +140,6 @@ func set_dialog_title(string):
 	$TitleText.text = string
 	for i in connected_responses:
 		i.update_connection_text()
-		print("checking the got danged text")
 	
 	
 func set_dialog_text(string):
@@ -184,7 +188,6 @@ func _on_DialogText_gui_input(event):
 
 func _on_TitleText_gui_input(event):
 	if event is InputEventMouseButton and event.pressed  and event.button_index == BUTTON_LEFT:
-		print(dialog_title)
 		selected = true
 		emit_signal("set_self_as_selected",self)
 
