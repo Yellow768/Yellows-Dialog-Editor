@@ -12,70 +12,88 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "DirectorySearch",
 "language": "GDScript",
-"path": "res://Scenes/Environments/DirectorySearcher.gd"
+"path": "res://src/UI/Util/Scripts/DirectorySearcher.gd"
 }, {
 "base": "Node",
 "class": "EnvironmentIndexer",
 "language": "GDScript",
-"path": "res://EnvironmentIndexer.gd"
+"path": "res://src/Classes/File System/EnvironmentIndexer.gd"
 }, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
+"base": "Node",
+"class": "category_loader",
+"language": "GDScript",
+"path": "res://src/Classes/File System/category_loader.gd"
+}, {
+"base": "Node",
+"class": "category_saver",
+"language": "GDScript",
+"path": "res://src/Classes/File System/category_saver.gd"
+}, {
 "base": "Resource",
 "class": "dialog_availability_object",
 "language": "GDScript",
-"path": "res://Resources/Availability Objects/dialog_availability_object.gd"
+"path": "res://src/Classes/Availability Objects/dialog_availability_object.gd"
 }, {
 "base": "GraphNode",
 "class": "dialog_node",
 "language": "GDScript",
-"path": "res://Scenes/Nodes/Scripts/DialogNode.gd"
+"path": "res://src/Nodes/Scripts/DialogNode.gd"
 }, {
 "base": "Resource",
 "class": "faction_availability_object",
 "language": "GDScript",
-"path": "res://Resources/Availability Objects/faction_availability_object.gd"
+"path": "res://src/Classes/Availability Objects/faction_availability_object.gd"
 }, {
 "base": "Resource",
 "class": "faction_change_object",
 "language": "GDScript",
-"path": "res://Resources/faction_change_object.gd"
+"path": "res://src/Classes/Availability Objects/faction_change_object.gd"
 }, {
 "base": "Resource",
 "class": "quest_availability_object",
 "language": "GDScript",
-"path": "res://Resources/Availability Objects/quest_availability_object.gd"
+"path": "res://src/Classes/Availability Objects/quest_availability_object.gd"
+}, {
+"base": "GraphNode",
+"class": "response_node",
+"language": "GDScript",
+"path": "res://src/Nodes/Scripts/ResponseNode.gd"
 }, {
 "base": "Resource",
 "class": "scoreboard_availability_object",
 "language": "GDScript",
-"path": "res://Resources/Availability Objects/scoreboard_availability_object.gd"
+"path": "res://src/Classes/Availability Objects/scoreboard_availability_object.gd"
 } ]
 _global_script_class_icons={
 "DirectorySearch": "",
 "EnvironmentIndexer": "",
 "GitAPI": "",
+"category_loader": "",
+"category_saver": "",
 "dialog_availability_object": "",
 "dialog_node": "",
 "faction_availability_object": "",
 "faction_change_object": "",
 "quest_availability_object": "",
+"response_node": "",
 "scoreboard_availability_object": ""
 }
 
 [application]
 
 config/name="CNPC Dialog Editor"
-run/main_scene="res://Scenes/Environments/Program.tscn"
+run/main_scene="res://src/UI/Program.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-GlobalDeclarations="*res://global_declarations.gd"
-CurrentEnvironment="*res://current_environment.gd"
+CurrentEnvironment="*res://src/Autoload/current_environment.gd"
+GlobalDeclarations="*res://src/Autoload/global_declarations.gd"
 
 [display]
 

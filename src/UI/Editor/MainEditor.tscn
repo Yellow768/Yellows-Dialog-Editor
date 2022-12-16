@@ -1,0 +1,877 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://src/UI/Editor/MainEditor.gd" type="Script" id=1]
+[ext_resource path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" type="Script" id=2]
+[ext_resource path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" type="Script" id=3]
+[ext_resource path="res://src/UI/Dialog Settings/StartQuest.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/UI/Dialog Settings/Dialog Availability.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/UI/Dialog Settings/FactionChange.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/UI/Dialog Settings/Faction Availability.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/UI/Editor/DialogEditor.gd" type="Script" id=10]
+[ext_resource path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" type="Script" id=11]
+[ext_resource path="res://src/Classes/File System/category_saver.gd" type="Script" id=12]
+[ext_resource path="res://src/Classes/File System/EnvironmentIndexer.gd" type="Script" id=13]
+[ext_resource path="res://src/Classes/File System/CategoryImporter.gd" type="Script" id=14]
+[ext_resource path="res://src/Classes/File System/CategoryExporter.gd" type="Script" id=15]
+[ext_resource path="res://src/UI/Util/Scripts/UIAnimations.gd" type="Script" id=16]
+[ext_resource path="res://src/Nodes/Scripts/DialogText.gd" type="Script" id=17]
+[ext_resource path="res://src/Classes/File System/QuestAndFactionsIndex.gd" type="Script" id=18]
+
+[sub_resource type="Animation" id=3]
+resource_name = "CategoryPanel"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CategoryPanel:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -250, 49 ), Vector2( 0, 49 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CategoryPanel:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.200747 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 260, 1030 ), Vector2( 260, 1030 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CategoryPanel/VBoxContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.00120407, 0.00963253 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "InformationPanel"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("InformationPanel:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1456, 0 ), Vector2( 1912, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("InformationPanel:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 460.001, 1080 ), Vector2( 460.001, 1080 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Initial"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CategoryPanel:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -250, 49 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("InformationPanel:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.072699 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1456, 0 ), Vector2( 1912, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("DialogEditor:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1920, 1080 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("InformationPanel:rect_size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 460.001, 1080 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("DialogEditor:rect_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1920, 1080 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DialogEditor:margin_left")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("DialogEditor:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CategoryPanel:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -290, 49 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CategoryPanel:rect_size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 1040 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CategoryPanel/VBoxContainer/ScrollContainer:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("InformationPanel:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1456, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("InformationPanel:rect_size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 460.001, 1080 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CategoryPanel/VBoxContainer:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+_dialog_editor_path = NodePath("DialogEditor")
+_category_list_path = NodePath("CategoryPanel")
+_information_panel_path = NodePath("InformationPanel")
+_dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
+_top_panel_path = NodePath("TopPanel")
+_save_load_path = NodePath("SaveLoad")
+_dialog_file_system_path = NodePath("DialogFileSystemIndex")
+_quest_and_factions_index_path = NodePath("QuestAndFactionsIndex")
+
+[node name="QuestAndFactionsIndex" type="Node" parent="."]
+script = ExtResource( 18 )
+
+[node name="DialogFileSystemIndex" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="SaveLoad" type="Node" parent="." groups=["File Access"]]
+script = ExtResource( 12 )
+
+[node name="CategoryExporter" type="Node" parent="."]
+script = ExtResource( 15 )
+
+[node name="CategoryImporter" type="Node" parent="."]
+script = ExtResource( 14 )
+_main_program_path = NodePath("..")
+_dialog_list_vbox_path = NodePath("PopupPanel/ScrollContainer/VBoxContainer")
+_dialog_editor_path = NodePath("../DialogEditor")
+
+[node name="PopupPanel" type="Panel" parent="CategoryImporter"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 49.0
+
+[node name="Label" type="Label" parent="CategoryImporter/PopupPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -114.0
+margin_right = 114.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+text = "Choose a starting dialog for the tree"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CategoryImporter/PopupPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -476.5
+margin_right = 476.5
+margin_bottom = 1000.0
+rect_min_size = Vector2( 900, 1000 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CategoryImporter/PopupPanel/ScrollContainer"]
+margin_right = 900.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 900, 1000 )
+
+[node name="CancelButton" type="Button" parent="CategoryImporter/PopupPanel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -54.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[node name="DialogEditor" type="GraphEdit" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+right_disconnects = true
+use_snap = false
+show_zoom_label = true
+minimap_size = Vector2( 150, 150 )
+script = ExtResource( 10 )
+
+[node name="BTN_AddNode" type="Button" parent="DialogEditor"]
+margin_left = 50.0
+margin_top = 70.0
+margin_right = 90.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "+"
+
+[node name="TopPanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.054
+margin_bottom = -8.32
+rect_min_size = Vector2( 1920, 50 )
+script = ExtResource( 3 )
+
+[node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 1870, 50 )
+
+[node name="File" type="MenuButton" parent="TopPanel/TopPanelContainer"]
+margin_right = 35.0
+margin_bottom = 50.0
+text = "File"
+items = [ "Add Dialog", null, 0, false, false, 0, 0, null, "", false, "-", null, 0, false, false, 1, 0, null, "", true, "Rename Category", null, 0, false, false, 2, 0, null, "", false, "Scan For Changes", null, 0, false, false, 3, 0, null, "", false, "Reimport Category", null, 0, false, false, 4, 0, null, "", false, "Delete Category", null, 0, false, false, 5, 0, null, "", false, "-", null, 0, false, false, 6, 0, null, "", true, "Save", null, 0, false, false, 7, 0, null, "", false, "Save As", null, 0, false, false, 8, 0, null, "", true, "-", null, 0, false, false, 9, 0, null, "", true, "Export Category", null, 0, false, false, 10, 0, null, "", false, "", null, 0, false, false, 11, 0, null, "", true, "Change Environment", null, 0, false, false, 12, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="InformationPanel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -464.0
+margin_top = -540.0
+margin_right = -3.99902
+margin_bottom = 540.0
+rect_min_size = Vector2( 460, 1080 )
+script = ExtResource( 2 )
+dialog_settings_tab_path = NodePath("DialogNodeTabs")
+hide_npc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC")
+show_wheel_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel")
+disable_esc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc")
+title_label_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Title")
+command_edit_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Command")
+playsound_edit_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Soundfile")
+faction_changes_1_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange")
+faction_changes_2_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2")
+start_quest_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/StartQuest")
+dialog_text_edit_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DialogText")
+availability_quests_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions")
+availability_dialogs_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions")
+availability_factions_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions")
+availability_scoreboard_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions")
+availability_time_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time")
+availability_level_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel")
+toggle_visiblity_path = NodePath("ToggleVisiblity")
+
+[node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
+margin_left = 8.0
+margin_top = 68.0
+margin_right = 452.0
+margin_bottom = 1055.0
+tab_align = 0
+
+[node name="DialogSettings" type="Tabs" parent="InformationPanel/DialogNodeTabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DialogSettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_right = 436.0
+margin_bottom = 14.0
+text = "Dialog Title"
+align = 1
+
+[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 18.0
+margin_right = 436.0
+margin_bottom = 318.0
+rect_min_size = Vector2( 0, 300 )
+syntax_highlighting = true
+wrap_enabled = true
+script = ExtResource( 17 )
+
+[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 322.0
+margin_right = 436.0
+margin_bottom = 346.0
+text = "Hide NPC"
+
+[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 350.0
+margin_right = 436.0
+margin_bottom = 374.0
+text = "Show Dialog Wheel"
+
+[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 378.0
+margin_right = 436.0
+margin_bottom = 402.0
+text = "Disable Using Esc"
+
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 406.0
+margin_right = 436.0
+margin_bottom = 426.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 430.0
+margin_right = 436.0
+margin_bottom = 444.0
+text = "Sound File"
+align = 1
+
+[node name="Soundfile" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 448.0
+margin_right = 436.0
+margin_bottom = 473.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 477.0
+margin_right = 436.0
+margin_bottom = 497.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 501.0
+margin_right = 436.0
+margin_bottom = 515.0
+text = "Console Command"
+align = 1
+
+[node name="Command" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 519.0
+margin_right = 436.0
+margin_bottom = 544.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 548.0
+margin_right = 436.0
+margin_bottom = 568.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label3" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 572.0
+margin_right = 436.0
+margin_bottom = 586.0
+text = "Faction Changes"
+align = 1
+
+[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 590.0
+margin_bottom = 640.0
+
+[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 644.0
+margin_bottom = 694.0
+
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 698.0
+margin_right = 436.0
+margin_bottom = 718.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
+margin_top = 722.0
+margin_right = 436.0
+margin_bottom = 736.0
+text = "Start Quest"
+align = 1
+
+[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer" instance=ExtResource( 4 )]
+
+[node name="AvailabilitySettings" type="Tabs" parent="InformationPanel/DialogNodeTabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 276.0
+scroll_horizontal_enabled = false
+
+[node name="Availability" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer"]
+margin_right = 436.0
+margin_bottom = 2000.0
+rect_min_size = Vector2( 436, 2000 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = 129.0
+rect_min_size = Vector2( 435, 1080 )
+
+[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_right = 435.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+text = "Quest Availabilities"
+align = 1
+valign = 1
+
+[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 29.0
+margin_right = 435.0
+margin_bottom = 241.0
+
+[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
+margin_right = 435.0
+
+[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
+margin_top = 108.0
+margin_right = 435.0
+margin_bottom = 158.0
+
+[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
+margin_top = 162.0
+margin_right = 435.0
+margin_bottom = 212.0
+
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 245.0
+margin_right = 435.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 259.0
+margin_right = 435.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 0, 25 )
+text = "Dialog Availabilities"
+align = 1
+valign = 1
+
+[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 288.0
+margin_right = 435.0
+margin_bottom = 500.0
+
+[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
+margin_right = 435.0
+
+[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
+margin_top = 108.0
+margin_right = 435.0
+margin_bottom = 158.0
+
+[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
+margin_top = 162.0
+margin_right = 435.0
+margin_bottom = 212.0
+
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 504.0
+margin_right = 435.0
+margin_bottom = 514.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="DialogLabel2" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 518.0
+margin_right = 435.0
+margin_bottom = 543.0
+rect_min_size = Vector2( 0, 25 )
+text = "Faction availabilites"
+align = 1
+valign = 1
+
+[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 547.0
+margin_right = 435.0
+margin_bottom = 651.0
+
+[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 7 )]
+margin_right = 435.0
+
+[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 7 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 655.0
+margin_right = 435.0
+margin_bottom = 665.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="DialogLabel3" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 669.0
+margin_right = 435.0
+margin_bottom = 694.0
+rect_min_size = Vector2( 0, 25 )
+text = "Scoreboard Availabilities"
+align = 1
+valign = 1
+
+[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 698.0
+margin_right = 435.0
+margin_bottom = 802.0
+
+[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 9 )]
+margin_right = 435.0
+
+[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 9 )]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 806.0
+margin_right = 435.0
+margin_bottom = 816.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+margin_top = 820.0
+margin_right = 435.0
+margin_bottom = 924.0
+
+[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+margin_right = 435.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 9.5
+margin_top = -12.5
+margin_right = 152.5
+margin_bottom = 12.5
+text = "All Day"
+items = [ "All Day", null, false, 0, null, "During Night", null, false, 1, null, "During Day", null, false, 2, null ]
+selected = 0
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 83.0
+margin_top = -7.0
+margin_right = 123.0
+margin_bottom = 7.0
+text = "Time:"
+
+[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+margin_top = 54.0
+margin_right = 435.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 350, 50 )
+
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -172.0
+margin_top = -12.0
+margin_right = -98.0
+margin_bottom = 12.0
+max_value = 10000.0
+align = 1
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 42.0
+margin_top = -7.0
+margin_right = 189.0
+margin_bottom = 7.0
+text = "Minimum Player Level:"
+
+[node name="ToggleVisiblity" type="Button" parent="InformationPanel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -19.0
+margin_top = -83.0
+margin_right = 1.0
+margin_bottom = 81.0
+toggle_mode = true
+pressed = true
+text = ">"
+
+[node name="CategoryPanel" type="Panel" parent="."]
+anchor_bottom = 1.0
+margin_left = -290.0
+margin_top = 49.0
+margin_right = 10.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 260, 1030 )
+rect_clip_content = true
+size_flags_horizontal = 3
+script = ExtResource( 11 )
+animation_player_path = NodePath("../AnimationPlayer")
+category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
+environment_index_path = NodePath("../DialogFileSystemIndex")
+category_importer_path = NodePath("../CategoryImporter")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -130.0
+margin_right = 130.0
+margin_bottom = 461.0
+
+[node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
+margin_right = 260.0
+margin_bottom = 14.0
+text = "Categories"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 260.0
+margin_bottom = 418.0
+rect_min_size = Vector2( 250, 400 )
+mouse_filter = 1
+size_flags_vertical = 15
+scroll_horizontal_enabled = false
+
+[node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer"]
+margin_right = 260.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 260, 400 )
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 11
+
+[node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
+margin_top = 422.0
+margin_right = 260.0
+margin_bottom = 437.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
+margin_top = 441.0
+margin_right = 260.0
+margin_bottom = 461.0
+text = "Create New Category"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CategoryPanel = SubResource( 3 )
+anims/InformationPanel = SubResource( 4 )
+anims/Initial = SubResource( 5 )
+anims/RESET = SubResource( 2 )
+script = ExtResource( 16 )
+
+[connection signal="category_deleted" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
+[connection signal="category_renamed" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
+[connection signal="clear_editor_request" from="DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
+[connection signal="new_category_created" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
+[connection signal="save_category_request" from="DialogFileSystemIndex" to="SaveLoad" method="save_category"]
+[connection signal="clear_editor_request" from="CategoryImporter" to="DialogEditor" method="_on_CategoryImporter_clear_editor_request"]
+[connection signal="save_category_request" from="CategoryImporter" to="SaveLoad" method="_on_CategoryImporter_save_category_request"]
+[connection signal="set_current_category_path" from="CategoryImporter" to="SaveLoad" method="_on_CategoryImporter_set_current_category_path"]
+[connection signal="update_current_category" from="CategoryImporter" to="." method="update_current_category"]
+[connection signal="pressed" from="CategoryImporter/PopupPanel/CancelButton" to="CategoryImporter" method="_on_CancelButton_pressed"]
+[connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
+[connection signal="dialog_selected" from="DialogEditor" to="InformationPanel" method="load_dialog_settings"]
+[connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
+[connection signal="editor_cleared" from="DialogEditor" to="." method="_on_DialogEditor_editor_cleared"]
+[connection signal="gui_input" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_gui_input"]
+[connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
+[connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
+[connection signal="node_unselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
+[connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
+[connection signal="export_category_request" from="TopPanel" to="CategoryExporter" method="export_category"]
+[connection signal="reimport_category_request" from="TopPanel" to="CategoryImporter" method="reimport_category"]
+[connection signal="save_category_request" from="TopPanel" to="SaveLoad" method="_on_TopPanel_save_category_request"]
+[connection signal="scan_for_changes_request" from="TopPanel" to="CategoryImporter" method="scan_category_for_changes"]
+[connection signal="hide_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_hide_information_panel"]
+[connection signal="show_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_show_information_panel"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange_faction_points_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange2_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange2_faction_points_changed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
+[connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
+[connection signal="hide_category_panel" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_hide_category_panel"]
+[connection signal="import_category_request" from="CategoryPanel" to="CategoryImporter" method="_on_CategoryPanel_import_category_request"]
+[connection signal="load_existing_category_request" from="CategoryPanel" to="SaveLoad" method="_on_CategoryPanel_load_existing_category_request"]
+[connection signal="mouse_entered" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_entered"]
+[connection signal="mouse_exited" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_exited"]
+[connection signal="reveal_category_panel" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_reveal_category_panel"]
+[connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
