@@ -2,10 +2,7 @@ class_name category_saver
 extends Node
 
 signal category_saved
-
-
-
-		
+	
 func save_category(category_name):
 	if CurrentEnvironment.current_directory != null && category_name != null :
 		var save_category = File.new()

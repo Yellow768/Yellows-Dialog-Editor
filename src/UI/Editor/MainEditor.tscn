@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/UI/Editor/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" type="Script" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/UI/Editor/DialogEditor.gd" type="Script" id=10]
 [ext_resource path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" type="Script" id=11]
-[ext_resource path="res://src/Classes/File System/category_saver.gd" type="Script" id=12]
 [ext_resource path="res://src/Classes/File System/EnvironmentIndexer.gd" type="Script" id=13]
 [ext_resource path="res://src/Classes/File System/CategoryImporter.gd" type="Script" id=14]
 [ext_resource path="res://src/Classes/File System/CategoryExporter.gd" type="Script" id=15]
@@ -265,7 +264,6 @@ _category_list_path = NodePath("CategoryPanel")
 _information_panel_path = NodePath("InformationPanel")
 _dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
 _top_panel_path = NodePath("TopPanel")
-_save_load_path = NodePath("SaveLoad")
 _dialog_file_system_path = NodePath("DialogFileSystemIndex")
 _quest_and_factions_index_path = NodePath("QuestAndFactionsIndex")
 
@@ -274,9 +272,6 @@ script = ExtResource( 18 )
 
 [node name="DialogFileSystemIndex" type="Node" parent="."]
 script = ExtResource( 13 )
-
-[node name="SaveLoad" type="Node" parent="." groups=["File Access"]]
-script = ExtResource( 12 )
 
 [node name="CategoryExporter" type="Node" parent="."]
 script = ExtResource( 15 )
@@ -834,10 +829,7 @@ script = ExtResource( 16 )
 [connection signal="category_renamed" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
 [connection signal="clear_editor_request" from="DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="new_category_created" from="DialogFileSystemIndex" to="." method="refresh_category_list"]
-[connection signal="save_category_request" from="DialogFileSystemIndex" to="SaveLoad" method="save_category"]
 [connection signal="clear_editor_request" from="CategoryImporter" to="DialogEditor" method="_on_CategoryImporter_clear_editor_request"]
-[connection signal="save_category_request" from="CategoryImporter" to="SaveLoad" method="_on_CategoryImporter_save_category_request"]
-[connection signal="set_current_category_path" from="CategoryImporter" to="SaveLoad" method="_on_CategoryImporter_set_current_category_path"]
 [connection signal="update_current_category" from="CategoryImporter" to="." method="update_current_category"]
 [connection signal="pressed" from="CategoryImporter/PopupPanel/CancelButton" to="CategoryImporter" method="_on_CancelButton_pressed"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
@@ -851,7 +843,6 @@ script = ExtResource( 16 )
 [connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryExporter" method="export_category"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryImporter" method="reimport_category"]
-[connection signal="save_category_request" from="TopPanel" to="SaveLoad" method="_on_TopPanel_save_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryImporter" method="scan_category_for_changes"]
 [connection signal="hide_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_hide_information_panel"]
 [connection signal="show_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_show_information_panel"]
@@ -870,7 +861,6 @@ script = ExtResource( 16 )
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="hide_category_panel" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="import_category_request" from="CategoryPanel" to="CategoryImporter" method="_on_CategoryPanel_import_category_request"]
-[connection signal="load_existing_category_request" from="CategoryPanel" to="SaveLoad" method="_on_CategoryPanel_load_existing_category_request"]
 [connection signal="mouse_entered" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_entered"]
 [connection signal="mouse_exited" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_exited"]
 [connection signal="reveal_category_panel" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_reveal_category_panel"]
