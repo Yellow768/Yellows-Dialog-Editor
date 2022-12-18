@@ -1,5 +1,7 @@
 extends Button
 
+var quest_dict
+
 signal quest_chosen
 
 export(NodePath) var quest_finder_path
@@ -24,7 +26,7 @@ func update_category_finder():
 	CategoryFinder.clear()
 	var id_counter = 1
 	CategoryFinder.add_item("[Cancel X]",0)
-	for key in CurrentEnvironment.quest_dict.keys():
+	for key in quest_dict.keys():
 		CategoryFinder.add_item(key,id_counter)
 		CategoryFinder.set_item_metadata(CategoryFinder.get_item_index(id_counter),key)
 		id_counter+=1
@@ -36,8 +38,8 @@ func _on_CategoryFinder_index_pressed(index):
 		var quest_category_name = CategoryFinder.get_item_metadata(index)
 		QuestFinder.clear()
 		QuestFinder.add_item("[Back...]",0)
-		for key in CurrentEnvironment.quest_dict[quest_category_name].keys():
-			QuestFinder.add_item(key,CurrentEnvironment.quest_dict[quest_category_name][key])
+		for key in quest_dict[quest_category_name].keys():
+			QuestFinder.add_item(key,quest_dict[quest_category_name][key])
 		
 		QuestFinder.popup()
 	

@@ -57,10 +57,12 @@ func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
 	set_slot(0,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 
-func get_option_id(option_int):
-	return OptionTypeNode.get_item_index(option_int)
+func set_option_from_json_index(option_int):
+	if not is_inside_tree(): yield(self,'ready')
+	set_option_type(OptionTypeNode.get_item_index(option_int))
 
 func set_focus_on_title():
+	if not is_inside_tree(): yield(self,'ready')
 	ResponseTextNode.grab_focus()
 
 func set_response_slot(value):
@@ -69,11 +71,12 @@ func set_response_slot(value):
 	
 func set_response_title(new_title):
 	response_title = new_title
+	if not is_inside_tree(): yield(self,'ready')
 	ResponseTextNode.text = new_title
 
 func set_option_type(new_type):
 	option_type = new_type
-	print("new type")
+	if not is_inside_tree(): yield(self,'ready')
 	if new_type == 2:
 		CommandTextNode.visible = true
 	else:
@@ -92,10 +95,12 @@ func set_color_decimal(new_color):
 
 func set_command(new_command):
 	command = new_command
+	if not is_inside_tree(): yield(self,'ready')
 	CommandTextNode.text = new_command
 
 func set_connected_dialog(new_connected_dialog):
 	connected_dialog = new_connected_dialog
+	if not is_inside_tree(): yield(self,'ready')
 	if connected_dialog != null:
 		hide_button()
 		update_connection_text()
@@ -109,6 +114,7 @@ func set_to_dialog_id(new_id):
 	to_dialog_id = new_id
 
 func set_connection_text(dialog_name,dialog_node_index):
+	if not is_inside_tree(): yield(self,'ready')
 	RemoteConnectionText.text = "Connected to "+dialog_name+" | Node "+String(dialog_node_index)
 	
 func reveal_button():

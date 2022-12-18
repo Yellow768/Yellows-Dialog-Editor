@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd" type="Script" id=1]
+
+[node name="ChooseInitialDIalogPopup" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 49.0
+script = ExtResource( 1 )
+_button_list_path = NodePath("ScrollContainer/VBoxContainer")
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -114.0
+margin_right = 114.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+text = "Choose a starting dialog for the tree"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -476.5
+margin_right = 476.5
+margin_bottom = 1000.0
+rect_min_size = Vector2( 900, 1000 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 900.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 900, 1000 )
+
+[node name="CancelButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -54.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[connection signal="pressed" from="CancelButton" to="." method="_on_CancelButton_pressed"]

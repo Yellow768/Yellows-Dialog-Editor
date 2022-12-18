@@ -24,9 +24,9 @@ func _on_QuestID_value_changed(value):
 func find_quest_name_from_id(id):
 	if id == -1:
 		return "Select Quest"
-	for key in CurrentEnvironment.quest_dict.keys():
-		for title in CurrentEnvironment.quest_dict[key].keys():
-			if CurrentEnvironment.quest_dict[key][title] == id:
+	for key in $Panel/ChooseQuest.quest_dict.keys():
+		for title in $Panel/ChooseQuest.quest_dict[key].keys():
+			if $Panel/ChooseQuest.quest_dict[key][title] == id:
 				return title
 	return "Unindexed Quest"
 		

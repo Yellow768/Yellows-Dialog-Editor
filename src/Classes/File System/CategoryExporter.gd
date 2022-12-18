@@ -1,3 +1,4 @@
+class_name category_exporter
 extends Node
 
 

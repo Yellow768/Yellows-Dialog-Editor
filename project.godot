@@ -25,6 +25,16 @@ _global_script_classes=[ {
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
 "base": "Node",
+"class": "category_exporter",
+"language": "GDScript",
+"path": "res://src/Classes/File System/CategoryExporter.gd"
+}, {
+"base": "Node",
+"class": "category_importer",
+"language": "GDScript",
+"path": "res://src/Classes/File System/CategoryImporter.gd"
+}, {
+"base": "Node",
 "class": "category_loader",
 "language": "GDScript",
 "path": "res://src/Classes/File System/category_loader.gd"
@@ -38,6 +48,11 @@ _global_script_classes=[ {
 "class": "dialog_availability_object",
 "language": "GDScript",
 "path": "res://src/Classes/Availability Objects/dialog_availability_object.gd"
+}, {
+"base": "Node",
+"class": "dialog_jsons_loader",
+"language": "GDScript",
+"path": "res://dialog_jsons_loader.gd"
 }, {
 "base": "GraphNode",
 "class": "dialog_node",
@@ -59,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Availability Objects/quest_availability_object.gd"
 }, {
+"base": "Node",
+"class": "quest_indexer",
+"language": "GDScript",
+"path": "res://src/Classes/File System/QuestAndFactionsIndex.gd"
+}, {
 "base": "GraphNode",
 "class": "response_node",
 "language": "GDScript",
@@ -73,13 +93,17 @@ _global_script_class_icons={
 "DirectorySearch": "",
 "EnvironmentIndexer": "",
 "GitAPI": "",
+"category_exporter": "",
+"category_importer": "",
 "category_loader": "",
 "category_saver": "",
 "dialog_availability_object": "",
+"dialog_jsons_loader": "",
 "dialog_node": "",
 "faction_availability_object": "",
 "faction_change_object": "",
 "quest_availability_object": "",
+"quest_indexer": "",
 "response_node": "",
 "scoreboard_availability_object": ""
 }

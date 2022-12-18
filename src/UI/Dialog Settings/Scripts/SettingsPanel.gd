@@ -51,8 +51,8 @@ onready var ToggleVisibility = get_node(toggle_visiblity_path)
 var current_dialog
 var dialog_availability_mode = false
 
-func _ready():
-	
+func _ready(): 
+	set_quest_dict()
 	for i in 4:
 		AvailabilityQuests.get_child(i).connect("id_changed",self,"quest_id_changed")
 		AvailabilityQuests.get_child(i).connect("type_changed",self,"quest_type_changed")
@@ -68,6 +68,11 @@ func _ready():
 		AvailabilityScoreboard.get_child(i).connect("comparison_type_changed",self,"scoreboard_comparison_type_changed")
 		AvailabilityScoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
 
+func set_quest_dict():
+	var access_to_quests = get_tree().get_nodes_in_group("quest_access")
+	for node in access_to_quests:
+		node.quest_dict = quest_indexer.new().index_quest_categories()
+
 func disconnect_current_dialog(dialog):
 	if current_dialog == dialog:
 		dialog.disconnect("text_changed",self,"update_text")
@@ -82,6 +87,14 @@ func dialog_selected(dialog):
 		var availability_dialog_id = dialog.dialog_id
 		var availability_dialog_title
 		
+func enter_dialog_availability_mode(availability_scene):
+	var current_dialog_id = current_dialog.dialog_id
+	var current_category = CurrentEnvironment.current_category_name
+	dialog_availability_mode = true
+	emit_signal("hide_information_panel")
+	ToggleVisibility.toggled = false
+	ToggleVisibility.text = "<"
+
 
 		
 func load_dialog_settings(dialog):
@@ -231,11 +244,6 @@ func _on_ToggleVisiblity_toggled(button_pressed):
 		emit_signal("show_information_panel")
 		ToggleVisibility.text = ">"
 
-func enter_dialog_availability_mode(availability_scene):
-	var current_dialog_id = current_dialog.dialog_id
-	var current_category = CurrentEnvironment.current_category_name
-	dialog_availability_mode = true
-	emit_signal("hide_information_panel")
-	ToggleVisibility.text = "<"
+
 	
 	

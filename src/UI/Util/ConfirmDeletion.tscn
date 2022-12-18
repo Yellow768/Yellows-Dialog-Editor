@@ -13,6 +13,7 @@ margin_right = 156.0
 margin_bottom = 35.0
 popup_exclusive = true
 dialog_text = "Are you sure you want to delete this category?"
+dialog_autowrap = true
 script = ExtResource( 1 )
 
 [connection signal="modal_closed" from="." to="." method="_on_ConfirmDeletion_modal_closed"]

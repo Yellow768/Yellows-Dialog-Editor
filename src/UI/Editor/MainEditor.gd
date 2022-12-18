@@ -6,23 +6,17 @@ export(NodePath) var _information_panel_path
 export(NodePath) var _dialog_settings_tabs_path
 export(NodePath) var _top_panel_path
 export(NodePath) var _save_load_path
-export(NodePath) var _dialog_file_system_path
-export(NodePath) var _quest_and_factions_index_path
+
 
 onready var DialogEditor = get_node(_dialog_editor_path)
 onready var InformationPanel = get_node(_information_panel_path)
 onready var DialogSettingsPanel = get_node(_dialog_settings_tabs_path)
 onready var CategoryList = get_node(_category_list_path)
 onready var TopPanel = get_node(_top_panel_path)
-onready var SaveLoad = get_node(_save_load_path)
-onready var DialogFileSystemIndex = get_node(_dialog_file_system_path)
-onready var QuestAndFactionsIndex = get_node(_quest_and_factions_index_path)
+
 
 func _ready():
 	OS.low_processor_usage_mode = true
-	DialogFileSystemIndex.index_categories()
-	QuestAndFactionsIndex.index_quest_categories()
-	refresh_category_list()
 	
 func _input(event):
 	if event.is_action_pressed("add_dialog_at_mouse"):
@@ -64,5 +58,7 @@ func _on_DialogEditor_editor_cleared():
 
 
 
-func refresh_category_list():
-	$CategoryPanel.create_category_buttons(DialogFileSystemIndex.indexed_dialog_categories)
+
+
+func _on_DialogFileSystemIndex_category_deleted():
+	pass # Replace with function body.

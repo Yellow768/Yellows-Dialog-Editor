@@ -24,6 +24,7 @@ func save_category(category_name):
 		emit_signal("category_saved")
 	else:
 		print("Nothing To Save")
+	queue_free()
 
 
 	

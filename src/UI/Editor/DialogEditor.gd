@@ -3,11 +3,15 @@ extends GraphEdit
 signal no_dialog_selected
 signal dialog_selected
 signal editor_cleared
+signal finished_loading
 
 var node_index = 0
 var selected_nodes = []
 var selected_responses = []
 var previous_zoom = 1
+
+var all_loaded_dialogs = []
+
 
 
 func _ready():
@@ -32,12 +36,14 @@ func _process(_delta):
 
 func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use_exact_offset : bool = false):
 	#Adds a new dialog node into the editor.
+	
 	if new_dialog.node_index == 0:
 		new_dialog.node_index = node_index
 	node_index += 1
-	if new_dialog.dialog_id != -1:
+	if new_dialog.dialog_id == -1:
 		new_dialog.dialog_id = CurrentEnvironment.highest_id+1
 		CurrentEnvironment.highest_id += 1
+		
 	if new_dialog.offset == Vector2.ZERO:
 		new_dialog.offset = OS.window_size/2
 	if !use_exact_offset: 
@@ -48,15 +54,21 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use
 	new_dialog.connect("dialog_ready_for_deletion",self,"delete_dialog_node")
 	new_dialog.connect("set_self_as_selected",self,"_on_node_requests_selection")
 	add_child(new_dialog)
+	add_dialog_to_loaded(new_dialog)
+	
 	return new_dialog
 
 
-func delete_dialog_node(dialog):
+func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	set_last_selected_node_as_selected()
 	dialog.queue_free()
 	node_index -=1
+	if remove_from_loaded_list:
+		for i in all_loaded_dialogs:
+			if i["dialog_id"] == dialog.dialog_id:
+				all_loaded_dialogs.erase(i)
 
 func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instance()):
 	var new_instance_offset = Vector2(350,GlobalDeclarations.RESPONSE_NODE_VERTICAL_OFFSET*parent_dialog.response_options.size())
@@ -88,6 +100,20 @@ func delete_response_node(dialog,response):
 	if selected_responses.find(response) != -1:
 		selected_responses.erase(response)
 	response.queue_free()
+
+func add_dialog_to_loaded(dialog):
+	var dialog_loaded = false
+	for i in all_loaded_dialogs.size():
+		if dialog.dialog_id == all_loaded_dialogs[i]["dialog_id"]:
+			all_loaded_dialogs[i] = {
+				"dialog_id" : dialog.dialog_id,
+				"dialog_title" : dialog.dialog_title
+			}
+	if !dialog_loaded:
+		all_loaded_dialogs.append({
+				"dialog_id" : dialog.dialog_id,
+				"dialog_title" : dialog.dialog_title
+			})
 
 func response_node_dragged(from,to,response_node):
 	if selected_nodes.size() == 0:
@@ -216,6 +242,52 @@ func sort_array_by_dialog_id(a,b):
 	else:
 		return a.dialog_id > b.dialog_id
 		
+func _on_CategoryPanel_request_load_category(category_name):
+	var new_category_loader = category_loader.new()
+	new_category_loader.connect("add_dialog",self,"add_dialog_node")
+	new_category_loader.connect("add_response",self,"add_response_node")
+	new_category_loader.connect("no_ydec_found",self,"initialize_category_import")
+	new_category_loader.connect("clear_editor_request",self,"clear_editor")
+	new_category_loader.connect("request_connect_nodes",self,"connect_nodes")
+	if new_category_loader.load_category(category_name) == OK:
+		emit_signal("finished_loading",category_name)
+		visible = true
+		
+	
+func initialize_category_import(category_name):
+	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instance()
+	choose_dialog_popup.connect("initial_dialog_chosen",self,"import_category")
+	choose_dialog_popup.connect("no_dialogs",self,"on_no_dialogs",[category_name])
+	add_child(choose_dialog_popup)
+	choose_dialog_popup.create_dialog_buttons(category_name)
+	
+func import_category(category_name,all_dialogs,index):
+	var new_category_importer = category_importer.new()
+	new_category_importer.connect("request_add_dialog",self,"add_dialog_node")
+	new_category_importer.connect("request_add_response",self,"add_response_node")
+	new_category_importer.connect("request_connect_nodes",self,"connect_nodes")
+	new_category_importer.connect("clear_editor_request",self,"clear_editor")
+	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
+	var new_cat_save = category_saver.new()
+	add_child(new_cat_save)
+	new_cat_save.save_category(category_name)	
+	emit_signal("finished_loading",category_name)
+	visible = true	
+		
+func on_no_dialogs(category_name):
+	clear_editor()
+	emit_signal("finished_loading",category_name)
+	visible = true
+
+func scan_for_changes(category_name):
+	var new_category_importer = category_importer.new()
+	new_category_importer.connect("request_add_dialog",self,"add_dialog_node")
+	new_category_importer.connect("request_add_response",self,"add_response_node")
+	new_category_importer.connect("request_connect_nodes",self,"connect_nodes")
+	add_child(new_category_importer)
+	new_category_importer.scan_category_for_changes(category_name)
+	
+		
 func clear_editor():
 	selected_responses = []
 	selected_nodes = []
@@ -282,3 +354,8 @@ func _on_DialogEditor_gui_input(event):
 			accept_event()
 		else:
 			zoom -= .02
+
+
+func _on_CategoryPanel_current_category_deleted():
+	clear_editor()
+	visible = false

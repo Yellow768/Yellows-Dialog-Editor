@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/UI/Dialog Settings/Scripts/ChooseQuest.gd" type="Script" id=1]
 
-[node name="ChooseQuest" type="Button"]
+[node name="ChooseQuest" type="Button" groups=["quest_access"]]
 margin_right = 94.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 140, 20 )

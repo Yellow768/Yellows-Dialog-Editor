@@ -108,6 +108,7 @@ func set_focus_on_title():
 
 func set_dialog_title(string):
 	dialog_title = string
+	if not is_inside_tree(): yield(self,'ready')
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
@@ -115,10 +116,12 @@ func set_dialog_title(string):
 	
 func set_dialog_text(string):
 	text = string
+	if not is_inside_tree(): yield(self,'ready')
 	DialogTextNode.text = text
 
 func set_dialog_id(id):
 	dialog_id = id
+	if not is_inside_tree(): yield(self,'ready')
 	IdLabelNode.text = String(id)
 
 func set_node_index(index):
@@ -212,7 +215,6 @@ func save():
 			"color_decimal" : i.color_decimal,
 			"command" : i.command,
 			"connected_dialog_index" : connected_index,
-			"initial_color" : i.initial_color,
 			"response_title": i.response_title,
 			"to_dialog_id" : i.to_dialog_id
 			}

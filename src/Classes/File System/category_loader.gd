@@ -5,19 +5,22 @@ signal clear_editor_request
 signal update_current_category
 signal add_dialog
 signal add_response
-
+signal request_connect_nodes
+signal no_ydec_found
 
 func load_category(category_name):
-	emit_signal("clear_editor_request")
 	var current_category_path = CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec"
 	var save_category = File.new()
 	if not save_category.file_exists(current_category_path):
-		print("Not a valid path")
+		emit_signal("no_ydec_found",category_name)
+		return ERR_DOES_NOT_EXIST
 	else:
+		emit_signal("clear_editor_request")
 		var loaded_dialogs = []
 		var loaded_responses = []	
 		if save_category.open(current_category_path,File.READ) != OK:
-			pass
+			printerr("There was an error in opening the YDEC file.")
+			return ERR_FILE_CANT_READ
 		else:
 			while(save_category.get_position() < save_category.get_len()):
 				var node_data = parse_json(save_category.get_line())
@@ -34,9 +37,10 @@ func load_category(category_name):
 					if dialog.dialog_id == i.to_dialog_id:
 						connected_dialog = dialog
 				if i.to_dialog_id > 0:
-					emit_signal("connect_nodes",i.name,0,connected_dialog.name,0)
+					emit_signal("request_connect_nodes",i.name,0,connected_dialog.name,0)
 			save_category.close()
 			emit_signal("update_current_category",category_name)
+		return OK
 
 
 func create_new_dialog_node_from_ydec(node_data):

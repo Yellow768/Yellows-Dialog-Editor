@@ -1,3 +1,4 @@
+class_name quest_indexer
 extends Node
 
 var quest_dict = {}
@@ -17,7 +18,7 @@ func index_quest_categories():
 	indexed_quest_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/quests")
 	for quest_category in indexed_quest_categories:
 		quest_dict[quest_category] = index_quest_names(quest_category)
-	CurrentEnvironment.quest_dict = quest_dict
+	return quest_dict
 	
 func index_quest_names(quest_category):
 	var quest_names_dict = {}

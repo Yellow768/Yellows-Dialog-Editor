@@ -21,6 +21,7 @@ var response_right_slot_color_hidden = Color(1,0,1)
 var dialog_left_slot_color_hidden = Color(1,0,1)
 
 func int_to_color(integer):
+	integer = int(integer)
 	var r = (integer >> 16) & 0xff
 	var g = (integer >> 8) & 0xff
 	var b = integer & 0xff
