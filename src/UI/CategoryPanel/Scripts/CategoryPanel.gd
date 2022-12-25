@@ -46,7 +46,7 @@ func create_category_buttons(categories):
 		category_button.connect("reimport_category_request",self,"reimport_category_popup")
 		category_button.connect("delete_category_request",self,"request_deletion_popup")
 		category_file_container.add_child(category_button)
-	$VBoxContainer/ScrollContainer.ensure_control_visible($VBoxContainer/ScrollContainer/CategoryContainers.get_children().back())
+	
 		
 
 
@@ -115,3 +115,15 @@ func _on_DialogEditor_finished_loading(category_name):
 func _on_TopPanel_scan_for_changes_request():
 	emit_signal("scan_for_changes",current_category)
 	
+var stored_category
+
+
+func _on_InformationPanel_request_store_current_category():
+	stored_category = current_category
+	
+
+
+
+func _on_InformationPanel_request_switch_to_stored_category():
+	if stored_category != current_category:
+		emit_signal("request_load_category",stored_category)

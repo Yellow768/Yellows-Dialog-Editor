@@ -5,6 +5,11 @@ signal dialog_selected
 signal editor_cleared
 signal finished_loading
 
+
+signal dialog_node_added
+signal dialog_node_perm_deleted
+signal node_double_clicked
+
 var node_index = 0
 var selected_nodes = []
 var selected_responses = []
@@ -53,9 +58,9 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use
 	new_dialog.connect("delete_response_node",self,"delete_response_node")
 	new_dialog.connect("dialog_ready_for_deletion",self,"delete_dialog_node")
 	new_dialog.connect("set_self_as_selected",self,"_on_node_requests_selection")
+	new_dialog.connect("node_double_clicked",self,"emit_signal",["node_double_clicked",new_dialog])
 	add_child(new_dialog)
-	add_dialog_to_loaded(new_dialog)
-	
+	emit_signal("dialog_node_added",new_dialog)
 	return new_dialog
 
 
@@ -63,12 +68,11 @@ func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	set_last_selected_node_as_selected()
+	if remove_from_loaded_list:
+		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
 	dialog.queue_free()
 	node_index -=1
-	if remove_from_loaded_list:
-		for i in all_loaded_dialogs:
-			if i["dialog_id"] == dialog.dialog_id:
-				all_loaded_dialogs.erase(i)
+	
 
 func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instance()):
 	var new_instance_offset = Vector2(350,GlobalDeclarations.RESPONSE_NODE_VERTICAL_OFFSET*parent_dialog.response_options.size())
@@ -101,19 +105,7 @@ func delete_response_node(dialog,response):
 		selected_responses.erase(response)
 	response.queue_free()
 
-func add_dialog_to_loaded(dialog):
-	var dialog_loaded = false
-	for i in all_loaded_dialogs.size():
-		if dialog.dialog_id == all_loaded_dialogs[i]["dialog_id"]:
-			all_loaded_dialogs[i] = {
-				"dialog_id" : dialog.dialog_id,
-				"dialog_title" : dialog.dialog_title
-			}
-	if !dialog_loaded:
-		all_loaded_dialogs.append({
-				"dialog_id" : dialog.dialog_id,
-				"dialog_title" : dialog.dialog_title
-			})
+
 
 func response_node_dragged(from,to,response_node):
 	if selected_nodes.size() == 0:
@@ -289,6 +281,7 @@ func scan_for_changes(category_name):
 	
 		
 func clear_editor():
+	
 	selected_responses = []
 	selected_nodes = []
 	var save_nodes = get_tree().get_nodes_in_group("Save")

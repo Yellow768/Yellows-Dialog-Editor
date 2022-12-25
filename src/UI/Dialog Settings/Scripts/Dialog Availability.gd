@@ -1,9 +1,13 @@
 extends Control
+var dialog_list
 
 signal type_changed
 signal id_changed
 signal enter_dialog_availability_mode
+signal request_dialog_list_injection
 
+func _ready():
+	emit_signal("request_dialog_list_injection",self)
 
 func get_id():
 	return $Panel/SpinBox.value
@@ -13,6 +17,7 @@ func get_availability_type():
 	
 func set_id(value):
 	$Panel/SpinBox.value = value
+	
 	
 func set_availability_type(value):
 	$Panel/OptionButton.selected = value
@@ -34,4 +39,8 @@ func _on_OptionButton_item_selected(index):
 
 
 func _on_SpinBox_value_changed(value):
+	if value == -1 or value == 0:
+		$Panel/ChooseDialog.text = "Select Dialog"
+	if dialog_list != null:
+		$Panel/ChooseDialog.text = dialog_list.get_title_from_id(value)
 	emit_signal("id_changed",self,value)

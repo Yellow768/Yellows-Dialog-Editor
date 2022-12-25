@@ -18,11 +18,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -6.0
+margin_left = -28.0
 margin_top = -10.0
-margin_right = 88.0
+margin_right = 113.0
 margin_bottom = 10.0
 text = "Select Dialog"
+clip_text = true
 
 [node name="OptionButton" type="OptionButton" parent="Panel"]
 anchor_left = 0.5

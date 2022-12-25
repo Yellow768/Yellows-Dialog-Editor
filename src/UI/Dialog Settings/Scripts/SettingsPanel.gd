@@ -3,6 +3,12 @@ extends Panel
 signal hide_information_panel
 signal show_information_panel
 
+signal request_store_current_category
+signal request_switch_to_stored_category
+signal availability_mode_entered
+signal availability_mode_exited
+signal ready_to_set_availability
+
 export(NodePath) var dialog_settings_tab_path
 
 
@@ -26,6 +32,9 @@ export(NodePath) var availability_level_path
 
 export(NodePath) var toggle_visiblity_path
 
+export(NodePath) var dialog_editor_path
+
+
 onready var DialogSettingsTab = get_node(dialog_settings_tab_path)
 
 onready var HideNpcCheckbox = get_node(hide_npc_checkbox_path)
@@ -47,9 +56,13 @@ onready var AvailabilityTime = get_node(availability_time_path)
 onready var AvailabilityLevel = get_node(availability_level_path)
 
 onready var ToggleVisibility = get_node(toggle_visiblity_path)
+onready var DialogEditor = get_node(dialog_editor_path)
 
 var current_dialog
 var dialog_availability_mode = false
+var availability_slot
+var stored_current_dialog_id
+var dialog_editor_is_loaded = false
 
 func _ready(): 
 	set_quest_dict()
@@ -77,24 +90,61 @@ func disconnect_current_dialog(dialog):
 	if current_dialog == dialog:
 		dialog.disconnect("text_changed",self,"update_text")
 		dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+		current_dialog.disconnect("title_changed",self,"update_title")
 	current_dialog = null
 
 
 func dialog_selected(dialog):
 	if !dialog_availability_mode:
 		load_dialog_settings(dialog)
-	else:
-		var availability_dialog_id = dialog.dialog_id
-		var availability_dialog_title
+		
+		
 		
 func enter_dialog_availability_mode(availability_scene):
-	var current_dialog_id = current_dialog.dialog_id
-	var current_category = CurrentEnvironment.current_category_name
+	stored_current_dialog_id = current_dialog.dialog_id
+	availability_slot = AvailabilityDialogs.get_children().find(availability_scene)
 	dialog_availability_mode = true
 	emit_signal("hide_information_panel")
-	ToggleVisibility.toggled = false
+	emit_signal("request_store_current_category")
+	ToggleVisibility.pressed = false
 	ToggleVisibility.text = "<"
+	print("Availability Mode Entered")
 
+	
+func set_dialog_availability_from_selected_node(node_selected):
+	if dialog_availability_mode:
+		dialog_editor_is_loaded = false
+		var avail_id = node_selected.dialog_id
+		exit_dialog_availability_mode()
+		var initial_dialog = find_dialog_node_from_id(stored_current_dialog_id)
+		load_dialog_settings(initial_dialog)
+		initial_dialog.dialog_availabilities[availability_slot].dialog_id = node_selected.dialog_id
+		AvailabilityDialogs.get_child(availability_slot).set_id(node_selected.dialog_id)
+		initial_dialog.selected = true
+		initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
+		dialog_availability_mode = false
+		print("node was selected")
+		
+
+func find_dialog_node_from_id(id):
+	var dialog_nodes = get_tree().get_nodes_in_group("Save")
+	for dialog in dialog_nodes:
+		if dialog.dialog_id == stored_current_dialog_id:
+			return dialog
+
+func exit_dialog_availability_mode():
+	emit_signal("request_switch_to_stored_category")
+	emit_signal("show_information_panel")
+	emit_signal("availability_mode_exited")
+	print("Availability Mode Exited")
+	
+	
+	
+
+func set_title_text(title_text : String,node_index):
+	if title_text.length() > 35:
+		title_text = title_text.left(35)+"..."
+	TitleLabel.text = title_text+"| Node "+String(node_index)
 
 		
 func load_dialog_settings(dialog):
@@ -103,13 +153,13 @@ func load_dialog_settings(dialog):
 		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed",self,"update_text"):
 			current_dialog.disconnect("text_changed",self,"update_text")
 			current_dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+			current_dialog.disconnect("title_changed",self,"update_title")
 		current_dialog = dialog
 		if !current_dialog.is_connected("text_changed",self,"update_text"):
 			current_dialog.connect("text_changed",self,"update_text")
 			current_dialog.connect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
-		
-		
-	TitleLabel.text = current_dialog.dialog_title+" | Node "+String(current_dialog.node_index)
+			current_dialog.connect("title_changed",self,"update_title",[current_dialog])
+	set_title_text(current_dialog.dialog_title,current_dialog.node_index)	
 	HideNpcCheckbox.pressed = current_dialog.hide_npc
 	ShowWheelCheckbox.pressed = current_dialog.show_wheel
 	DisableEscCheckbox.pressed = current_dialog.disable_esc
@@ -227,6 +277,8 @@ func _on_DialogText_text_changed():
 func update_text(text):
 	DialogTextEdit.text = text
 
+func update_title(dialog):
+	set_title_text(dialog.dialog_title,dialog.node_index)
 
 func _on_StartQuest_id_changed(value):
 	current_dialog.start_quest = value
@@ -247,3 +299,8 @@ func _on_ToggleVisiblity_toggled(button_pressed):
 
 	
 	
+
+
+func _on_DialogEditor_finished_loading(_category_name):
+	emit_signal("ready_to_set_availability")
+	print("dialog editor has loaded") 

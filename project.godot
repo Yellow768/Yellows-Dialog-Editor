@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "dialog_jsons_loader",
 "language": "GDScript",
-"path": "res://dialog_jsons_loader.gd"
+"path": "res://src/Classes/File System/dialog_jsons_loader.gd"
 }, {
 "base": "GraphNode",
 "class": "dialog_node",
@@ -68,6 +68,11 @@ _global_script_classes=[ {
 "class": "faction_change_object",
 "language": "GDScript",
 "path": "res://src/Classes/Availability Objects/faction_change_object.gd"
+}, {
+"base": "Node",
+"class": "faction_loader",
+"language": "GDScript",
+"path": "res://src/UI/Util/Scripts/FactionLoader.gd"
 }, {
 "base": "Resource",
 "class": "quest_availability_object",
@@ -102,6 +107,7 @@ _global_script_class_icons={
 "dialog_node": "",
 "faction_availability_object": "",
 "faction_change_object": "",
+"faction_loader": "",
 "quest_availability_object": "",
 "quest_indexer": "",
 "response_node": "",

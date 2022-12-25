@@ -95,6 +95,16 @@ margin_right = -123.0
 margin_bottom = -25.0
 text = "Cancel"
 
+[node name="PrevDirsContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -501.0
+margin_top = -499.0
+margin_right = 525.0
+rect_min_size = Vector2( 460, 580 )
+
 [connection signal="pressed" from="Panel/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="confirmed" from="Panel/FileDialog" to="." method="_on_FileDialog_confirmed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]

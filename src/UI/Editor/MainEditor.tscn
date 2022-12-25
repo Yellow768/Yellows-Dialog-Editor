@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/UI/Editor/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/UI/Editor/DialogEditor.gd" type="Script" id=10]
 [ext_resource path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" type="Script" id=11]
+[ext_resource path="res://src/Classes/dialog_titles_index.gd" type="Script" id=12]
 [ext_resource path="res://src/Classes/File System/EnvironmentIndexer.gd" type="Script" id=13]
 [ext_resource path="res://src/UI/Util/Scripts/UIAnimations.gd" type="Script" id=16]
 [ext_resource path="res://src/Nodes/Scripts/DialogText.gd" type="Script" id=17]
@@ -262,6 +263,9 @@ _information_panel_path = NodePath("InformationPanel")
 _dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
 _top_panel_path = NodePath("TopPanel")
 
+[node name="DialogList" type="Node" parent="."]
+script = ExtResource( 12 )
+
 [node name="StartingLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -276,10 +280,13 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 rect_min_size = Vector2( 1280, 720 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
+scroll_offset = Vector2( -1920, -1080 )
 use_snap = false
 show_zoom_label = true
 minimap_size = Vector2( 150, 150 )
@@ -316,15 +323,21 @@ text = "File"
 items = [ "Add Dialog", null, 0, false, false, 0, 0, null, "", false, "-", null, 0, false, false, 1, 0, null, "", true, "Rename Category", null, 0, false, false, 2, 0, null, "", false, "Scan For Changes", null, 0, false, false, 3, 0, null, "", false, "Reimport Category", null, 0, false, false, 4, 0, null, "", false, "Delete Category", null, 0, false, false, 5, 0, null, "", false, "-", null, 0, false, false, 6, 0, null, "", true, "Save", null, 0, false, false, 7, 0, null, "", false, "Save As", null, 0, false, false, 8, 0, null, "", true, "-", null, 0, false, false, 9, 0, null, "", true, "Export Category", null, 0, false, false, 10, 0, null, "", false, "", null, 0, false, false, 11, 0, null, "", true, "Change Environment", null, 0, false, false, 12, 0, null, "", false ]
 switch_on_hover = true
 
+[node name="Environment" type="MenuButton" parent="TopPanel/TopPanelContainer"]
+margin_left = 39.0
+margin_right = 132.0
+margin_bottom = 50.0
+text = "Environment"
+items = [ "Import Faction Data", null, 0, false, false, 0, 0, null, "", false ]
+
 [node name="InformationPanel" type="Panel" parent="."]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -464.0
-margin_top = -540.0
-margin_right = -3.99902
-margin_bottom = 540.0
+margin_left = 1456.0
+margin_right = 1916.0
+margin_bottom = 1080.0
 rect_min_size = Vector2( 460, 1080 )
 script = ExtResource( 2 )
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
@@ -345,6 +358,7 @@ availability_scoreboard_path = NodePath("DialogNodeTabs/AvailabilitySettings/Scr
 availability_time_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time")
 availability_level_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
+dialog_editor_path = NodePath("../DialogEditor")
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
 visible = false
@@ -375,6 +389,7 @@ margin_right = 436.0
 margin_bottom = 14.0
 text = "Dialog Title"
 align = 1
+clip_text = true
 
 [node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer"]
 margin_top = 18.0
@@ -720,7 +735,7 @@ anchor_bottom = 1.0
 margin_left = -290.0
 margin_top = 49.0
 margin_right = 10.0
-margin_bottom = 9.0
+margin_bottom = 1089.0
 rect_min_size = Vector2( 260, 1030 )
 rect_clip_content = true
 size_flags_horizontal = 3
@@ -781,30 +796,43 @@ anims/Initial = SubResource( 5 )
 anims/RESET = SubResource( 2 )
 script = ExtResource( 16 )
 
+[connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
+[connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
+[connection signal="dialog_node_added" from="DialogEditor" to="DialogList" method="dialog_node_added"]
+[connection signal="dialog_node_perm_deleted" from="DialogEditor" to="DialogList" method="dialog_deleted"]
 [connection signal="dialog_selected" from="DialogEditor" to="InformationPanel" method="load_dialog_settings"]
 [connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
 [connection signal="editor_cleared" from="DialogEditor" to="." method="_on_DialogEditor_editor_cleared"]
+[connection signal="finished_loading" from="DialogEditor" to="InformationPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="finished_loading" from="DialogEditor" to="CategoryPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="gui_input" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_gui_input"]
 [connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
+[connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
 [connection signal="node_unselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
 [connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
+[connection signal="import_faction_popup" from="TopPanel" to="." method="_on_TopPanel_import_faction_popup"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]
 [connection signal="hide_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_hide_information_panel"]
+[connection signal="request_store_current_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_store_current_category"]
+[connection signal="request_switch_to_stored_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_switch_to_stored_category"]
 [connection signal="show_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_show_information_panel"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange_faction_points_changed"]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange2_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs" method="_on_FactionChange2_faction_points_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_points_changed"]
 [connection signal="id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability2" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability3" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]

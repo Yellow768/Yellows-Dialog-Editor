@@ -10,6 +10,8 @@ signal delete_response_node
 signal dialog_ready_for_deletion
 signal set_self_as_selected
 signal text_changed
+signal title_changed
+signal node_double_clicked
 
 export(NodePath) var _dialog_text_path
 export(NodePath) var _title_text_path
@@ -65,7 +67,7 @@ export var start_quest = -1
 
 func _ready():
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
-	emit_signal("set_self_as_selected",self)
+	#emit_signal("set_self_as_selected",self)
 
 func add_response_node():
 	if response_options.size() < 6:
@@ -112,6 +114,7 @@ func set_dialog_title(string):
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
+	emit_signal("title_changed")
 	
 	
 func set_dialog_text(string):
@@ -150,11 +153,15 @@ func _on_TitleText_text_changed(new_text):
 	if connected_responses.size() > 0:
 		for i in connected_responses:
 			i.update_connection_text()
+	emit_signal("title_changed")
 
 func _on_DialogText_gui_input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
-		selected = true
-		emit_signal("set_self_as_selected",self)
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == BUTTON_LEFT:
+			selected = true
+			emit_signal("set_self_as_selected",self)
+		if event.doubleclick:
+			emit_signal("node_double_clicked")
 		
 
 
