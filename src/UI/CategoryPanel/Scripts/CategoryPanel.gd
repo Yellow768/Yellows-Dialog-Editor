@@ -13,7 +13,7 @@ export(NodePath) var animation_player_path
 export(NodePath) var category_file_container_path
 export(NodePath) var environment_index_path
 
-
+var loading_category : bool = false
 
 var current_directory_path
 var current_category
@@ -51,7 +51,9 @@ func create_category_buttons(categories):
 
 
 func _category_button_pressed(category_button):
-	if category_button.text != current_category:
+	
+	if !loading_category and category_button.text != current_category:
+		loading_category = true
 		var new_saver = category_saver.new()
 		add_child(new_saver)
 		new_saver.save_category(current_category)
@@ -97,7 +99,6 @@ func reimport_category_popup(reimport_name):
 	confirm_reimport_popup.dialog_text = "Are you want to reimport "+reimport_name+"?\nAll current dialog nodes will be permanently deleted.\n The category will create new nodes from the existing JSON files in the directory."
 	$".".add_child(confirm_reimport_popup)
 	confirm_reimport_popup.popup_centered()
-	connect("request_load_category",confirm_reimport_popup,"queue_free")
 
 
 func _on_TopPanel_reimport_category_request():
@@ -110,6 +111,8 @@ func _on_DialogEditor_finished_importing(category_name):
 
 func _on_DialogEditor_finished_loading(category_name):
 	current_category = category_name
+	loading_category = false
+
 
 
 func _on_TopPanel_scan_for_changes_request():

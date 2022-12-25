@@ -8,6 +8,12 @@ signal add_response
 signal request_connect_nodes
 signal no_ydec_found
 
+signal set_scroll_offset
+signal set_zoom
+
+var loaded_dialogs = []
+var loaded_responses = []	
+
 func load_category(category_name):
 	var current_category_path = CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec"
 	var save_category = File.new()
@@ -16,31 +22,35 @@ func load_category(category_name):
 		return ERR_DOES_NOT_EXIST
 	else:
 		emit_signal("clear_editor_request")
-		var loaded_dialogs = []
-		var loaded_responses = []	
 		if save_category.open(current_category_path,File.READ) != OK:
 			printerr("There was an error in opening the YDEC file.")
 			return ERR_FILE_CANT_READ
 		else:
 			while(save_category.get_position() < save_category.get_len()):
-				var node_data = parse_json(save_category.get_line())
-				var currently_loaded_dialog = create_new_dialog_node_from_ydec(node_data)
-				emit_signal("add_dialog",currently_loaded_dialog,true)
-				for response_data in node_data["response_options"]:
-					var currently_loaded_response = create_response_node_from_ydec(response_data)
-					emit_signal("add_response",currently_loaded_dialog,currently_loaded_response)
-					loaded_responses.append(currently_loaded_response)
-				loaded_dialogs.append(currently_loaded_dialog)
-			for i in loaded_responses:
-				var connected_dialog
-				for dialog in loaded_dialogs:
-					if dialog.dialog_id == i.to_dialog_id:
-						connected_dialog = dialog
-				if i.to_dialog_id > 0:
-					emit_signal("request_connect_nodes",i.name,0,connected_dialog.name,0)
+				var node_data : Dictionary = parse_json(save_category.get_line())
+				load_dialog_data(node_data)	
+			connect_all_responses()
 			save_category.close()
 			emit_signal("update_current_category",category_name)
 		return OK
+
+func load_dialog_data(node_data):
+	var currently_loaded_dialog = create_new_dialog_node_from_ydec(node_data)
+	emit_signal("add_dialog",currently_loaded_dialog,true)
+	for response_data in node_data["response_options"]:
+		var currently_loaded_response = create_response_node_from_ydec(response_data)
+		emit_signal("add_response",currently_loaded_dialog,currently_loaded_response)
+		loaded_responses.append(currently_loaded_response)
+	loaded_dialogs.append(currently_loaded_dialog)
+	
+func connect_all_responses():
+	for response in loaded_responses:
+		var connected_dialog
+		for dialog in loaded_dialogs:
+			if dialog.dialog_id == response.to_dialog_id:
+				connected_dialog = dialog
+		if response.to_dialog_id > 0:
+			emit_signal("request_connect_nodes",response.name,0,connected_dialog.name,0)
 
 
 func create_new_dialog_node_from_ydec(node_data):

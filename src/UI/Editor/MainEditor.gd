@@ -16,10 +16,11 @@ onready var TopPanel = get_node(_top_panel_path)
 
 
 func _ready():
-	OS.low_processor_usage_mode = true
 	var file = File.new()
 	if file.open(CurrentEnvironment.current_directory+"/environment_settings.json",File.READ) == OK:
-		$DialogList.all_loaded_dialogs = parse_json(file.get_line())
+		var loaded_list = parse_json(file.get_line())
+		if loaded_list != null:
+			$DialogList.all_loaded_dialogs = loaded_list
 		file.close()
 	var faction_choosers = get_tree().get_nodes_in_group("faction_access")
 	var fact_loader = faction_loader.new()

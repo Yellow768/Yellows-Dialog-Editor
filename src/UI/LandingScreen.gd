@@ -24,7 +24,12 @@ func change_to_editor(directory):
 	
 func add_directory_to_config(directory : String):
 	var config = ConfigFile.new()
-	if config.get_value(directory,"name",null) == null:
+	config.load(prev_dirs_config_path)
+	for section in config.get_sections():
+		config.set_value(section,"name",config.get_value(section,"name"))
+	if config.get_value(directory,"name",null):
+		return
+	else:
 		config.set_value(directory,"name",directory.get_base_dir())
 		config.save(prev_dirs_config_path)
 
@@ -36,13 +41,10 @@ func find_valid_customnpcs_dir(dir : String):
 	if dir.replace(dir.get_base_dir()+"/","") == "customnpcs":
 		return dir
 	print(dir_search.scan_directory_for_folders(dir))
-	if "customnpcs" in dir_search.scan_directory_for_folders(dir):
-		if directory.dir_exists(dir+"/customnpcs+/dialogs"):
+	if dir_search.scan_directory_for_folders(dir).has("customnpcs"):
+		if directory.dir_exists(dir+"/customnpcs/dialogs"):
 			return dir+"/customnpcs"
 	return ""
-	#Need to check if the directory is named customNPCS and has the proper folders
-	#If not, check if there IS a folder in this dir named CNPCS and has the proper folders
-	#If not, prompt the user asking them if they'd like to proceed
 
 	
 func _on_Open_Environment_pressed():

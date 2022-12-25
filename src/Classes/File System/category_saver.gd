@@ -20,6 +20,10 @@ func save_category(category_name):
 			var category_data = node.call("save")
 			
 			save_category.store_line(to_json(category_data))
+		var editors = get_tree().get_nodes_in_group("editor")
+		for editor in editors:
+			var editor_data = editor.call("save")
+			save_category.store_line(to_json(editor_data))
 		save_category.close()
 		emit_signal("category_saved")
 	else:

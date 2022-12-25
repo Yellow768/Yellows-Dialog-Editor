@@ -3,7 +3,7 @@ extends Node
 signal dialog_title_changed
 signal dialog_added_to_list
 
-var all_loaded_dialogs = []
+var all_loaded_dialogs : Array = []
 
 func get_title_from_index(index):
 	if index > all_loaded_dialogs.size() or index < 0:

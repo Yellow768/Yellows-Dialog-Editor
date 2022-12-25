@@ -303,4 +303,4 @@ func _on_ToggleVisiblity_toggled(button_pressed):
 
 func _on_DialogEditor_finished_loading(_category_name):
 	emit_signal("ready_to_set_availability")
-	print("dialog editor has loaded") 
+

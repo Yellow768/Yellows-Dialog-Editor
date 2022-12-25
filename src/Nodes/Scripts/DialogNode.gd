@@ -163,6 +163,7 @@ func _on_DialogText_gui_input(event):
 		if event.doubleclick:
 			emit_signal("node_double_clicked")
 		
+		
 
 
 func _on_TitleText_gui_input(event):

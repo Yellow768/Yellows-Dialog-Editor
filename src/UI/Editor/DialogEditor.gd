@@ -159,9 +159,16 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 	else:
 		response_node.offset = from
 
+func set_cat_zoom(new_zoom):
+	zoom = new_zoom
 
-func set_scroll_offset(new_offset):
-	set_scroll_ofs((new_offset * zoom)-OS.window_size/2)	
+func set_scroll_offset(new_offset,ignore_zoom : bool = false):
+	if ignore_zoom:
+		set_scroll_ofs((new_offset * zoom)-OS.window_size/2)
+	else:
+		set_scroll_ofs(new_offset-(OS.window_size/2))	
+	
+
 
 func connect_nodes(from, from_slot, to, to_slot):
 	var response
@@ -233,7 +240,9 @@ func sort_array_by_dialog_id(a,b):
 		return a.dialog_id > b.dialog_id
 	else:
 		return a.dialog_id > b.dialog_id
-		
+	
+	
+
 func _on_CategoryPanel_request_load_category(category_name):
 	var new_category_loader = category_loader.new()
 	new_category_loader.connect("add_dialog",self,"add_dialog_node")
@@ -241,6 +250,8 @@ func _on_CategoryPanel_request_load_category(category_name):
 	new_category_loader.connect("no_ydec_found",self,"initialize_category_import")
 	new_category_loader.connect("clear_editor_request",self,"clear_editor")
 	new_category_loader.connect("request_connect_nodes",self,"connect_nodes")
+	new_category_loader.connect("set_scroll_offset",self,"set_scroll_offset",[true])
+	new_category_loader.connect("set_zoom",self,"set_cat_zoom")
 	if new_category_loader.load_category(category_name) == OK:
 		emit_signal("finished_loading",category_name)
 		visible = true
@@ -292,6 +303,9 @@ func clear_editor():
 		i.delete_self()	
 	node_index = 0
 	emit_signal("editor_cleared")
+
+
+
 	
 func _on_BTN_AddNode_pressed():
 	add_dialog_node()
