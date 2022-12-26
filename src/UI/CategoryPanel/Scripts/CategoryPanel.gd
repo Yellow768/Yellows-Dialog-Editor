@@ -9,6 +9,7 @@ signal reimport_category
 signal current_category_deleted
 signal scan_for_changes
 
+
 export(NodePath) var animation_player_path
 export(NodePath) var category_file_container_path
 export(NodePath) var environment_index_path
@@ -130,3 +131,9 @@ func _on_InformationPanel_request_store_current_category():
 func _on_InformationPanel_request_switch_to_stored_category():
 	if stored_category != current_category:
 		emit_signal("request_load_category",stored_category)
+
+
+func save_category_request():
+	var cat_save = category_saver.new()
+	add_child(cat_save)
+	cat_save.save_category(current_category)

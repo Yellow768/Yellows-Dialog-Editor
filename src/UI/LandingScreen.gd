@@ -4,6 +4,7 @@ const prev_dirs_config_path = "user://prev_dirs.cfg"
 var chosen_dir
 
 func _ready():
+	OS.low_processor_usage_mode = true
 	OS.min_window_size = Vector2(1280,720)
 	var config = ConfigFile.new()
 	config.load(prev_dirs_config_path)

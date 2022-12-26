@@ -28,6 +28,8 @@ var node_type = "Dialog Node"
 var node_index = 0 setget set_node_index
 var response_options = []
 var connected_responses = []
+
+var initial_offset_x = 0
 var initial_offset_y = 0
 
 ##Dialog Data#
@@ -68,6 +70,8 @@ export var start_quest = -1
 func _ready():
 	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
 	#emit_signal("set_self_as_selected",self)
+	initial_offset_y = offset.y
+	initial_offset_x = offset.x
 
 func add_response_node():
 	if response_options.size() < 6:
@@ -75,10 +79,7 @@ func add_response_node():
 
 func delete_response_node(deletion_slot,response_node):
 	for i in response_options:
-		if i.slot < deletion_slot:
-			i.offset += Vector2(0,RESPONSE_VERTICAL_OFFSET)
-		else:
-			i.offset -= Vector2(0,RESPONSE_VERTICAL_OFFSET)
+		if i.slot > deletion_slot:
 			i.slot -=1
 	response_options.erase(response_node)
 	emit_signal("delete_response_node",self,response_node)
@@ -139,13 +140,15 @@ func _on_DialogNode_close_request():
 	delete_self()
 	
 func _on_DialogNode_offset_changed():
-	if response_options.size() > 0:
-		for i in response_options:
-			i.offset = Vector2(offset.x+RESPONSE_HORIZONTAL_OFFSET,i.offset.y + (offset.y-initial_offset_y))
-			i.check_dialog_distance()
-	if connected_responses.size() > 0:
-		for i in connected_responses:
-			i.check_dialog_distance()
+	if !Input.is_action_pressed("drag_without_responses"):
+		if response_options.size() > 0:
+			for i in response_options:
+				i.offset += offset - Vector2(initial_offset_x,initial_offset_y)
+				i.check_dialog_distance()
+		if connected_responses.size() > 0:
+			for i in connected_responses:
+				i.check_dialog_distance()
+	initial_offset_x = offset.x
 	initial_offset_y = offset.y
 			
 func _on_TitleText_text_changed(new_text):

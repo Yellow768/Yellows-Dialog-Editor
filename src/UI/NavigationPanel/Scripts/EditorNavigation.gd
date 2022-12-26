@@ -18,7 +18,7 @@ func _ready():
 func file_menu(id):
 	match id:
 		
-		2:
+		7:
 			emit_signal("save_category_request")
 		3:
 			emit_signal("scan_for_changes_request")

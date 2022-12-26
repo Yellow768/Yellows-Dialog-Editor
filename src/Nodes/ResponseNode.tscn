@@ -15,7 +15,6 @@ margin_top = -50.0
 margin_right = 125.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 300, 180 )
-mouse_filter = 1
 title = "Response Node"
 show_close = true
 comment = true

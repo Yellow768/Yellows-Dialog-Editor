@@ -32,6 +32,7 @@ signal request_connection_line_shown
 signal request_connection_line_hidden
 signal request_add_dialog
 signal request_set_scroll_offset
+signal response_double_clicked
 
 
 
@@ -172,9 +173,8 @@ func delete_self():
 
 
 func _on_PlayerResponseNode_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		selected = true
-		emit_signal("set_self_as_selected",self)
+	if event is InputEventMouseButton and event.doubleclick:
+		emit_signal("response_double_clicked")
 
 
 func _on_PlayerResponseNode_close_request():

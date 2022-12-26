@@ -276,7 +276,7 @@ margin_bottom = 108.0
 text = "Choose or create a category to start editing"
 align = 1
 
-[node name="DialogEditor" type="GraphEdit" parent="."]
+[node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1280, 720 )
@@ -318,7 +318,7 @@ rect_min_size = Vector2( 1870, 50 )
 margin_right = 35.0
 margin_bottom = 50.0
 text = "File"
-items = [ "Add Dialog", null, 0, false, false, 0, 0, null, "", false, "-", null, 0, false, false, 1, 0, null, "", true, "Rename Category", null, 0, false, false, 2, 0, null, "", false, "Scan For Changes", null, 0, false, false, 3, 0, null, "", false, "Reimport Category", null, 0, false, false, 4, 0, null, "", false, "Delete Category", null, 0, false, false, 5, 0, null, "", false, "-", null, 0, false, false, 6, 0, null, "", true, "Save", null, 0, false, false, 7, 0, null, "", false, "Save As", null, 0, false, false, 8, 0, null, "", true, "-", null, 0, false, false, 9, 0, null, "", true, "Export Category", null, 0, false, false, 10, 0, null, "", false, "", null, 0, false, false, 11, 0, null, "", true, "Change Environment", null, 0, false, false, 12, 0, null, "", false ]
+items = [ "Add Dialog", null, 0, false, false, 0, 0, null, "", false, "-", null, 0, false, false, 1, 0, null, "", true, "Rename Category", null, 0, false, false, 2, 0, null, "", false, "Scan For Changes", null, 0, false, false, 3, 0, null, "", false, "Reimport Category", null, 0, false, false, 4, 0, null, "", false, "Delete Category", null, 0, false, false, 5, 0, null, "", false, "-", null, 0, false, false, 6, 0, null, "", true, "Save", null, 0, false, false, 7, 0, null, "", false, "Save As", null, 0, false, false, 8, 0, null, "", false, "-", null, 0, false, false, 9, 0, null, "", true, "Export Category", null, 0, false, false, 10, 0, null, "", false, "", null, 0, false, false, 11, 0, null, "", true, "Change Environment", null, 0, false, false, 12, 0, null, "", false ]
 switch_on_hover = true
 
 [node name="Environment" type="MenuButton" parent="TopPanel/TopPanelContainer"]
@@ -813,6 +813,7 @@ script = ExtResource( 16 )
 [connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
 [connection signal="import_faction_popup" from="TopPanel" to="." method="_on_TopPanel_import_faction_popup"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
+[connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]
 [connection signal="hide_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_hide_information_panel"]
 [connection signal="request_store_current_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_store_current_category"]

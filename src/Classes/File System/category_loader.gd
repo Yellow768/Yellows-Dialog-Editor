@@ -8,8 +8,8 @@ signal add_response
 signal request_connect_nodes
 signal no_ydec_found
 
-signal set_scroll_offset
-signal set_zoom
+signal editor_offset_loaded
+signal zoom_loaded
 
 var loaded_dialogs = []
 var loaded_responses = []	
@@ -28,12 +28,20 @@ func load_category(category_name):
 		else:
 			while(save_category.get_position() < save_category.get_len()):
 				var node_data : Dictionary = parse_json(save_category.get_line())
-				load_dialog_data(node_data)	
+				if node_data.has("editor_offset.x"):
+					load_editor_settings(node_data)
+				else:
+					load_dialog_data(node_data)	
 			connect_all_responses()
 			save_category.close()
 			emit_signal("update_current_category",category_name)
 		return OK
 
+func load_editor_settings(node_data):
+	emit_signal("zoom_loaded",node_data["zoom"])
+	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
+	
+	
 func load_dialog_data(node_data):
 	var currently_loaded_dialog = create_new_dialog_node_from_ydec(node_data)
 	emit_signal("add_dialog",currently_loaded_dialog,true)
