@@ -286,36 +286,11 @@ right_disconnects = true
 scroll_offset = Vector2( -1920, -1080 )
 use_snap = false
 show_zoom_label = true
+minimap_enabled = false
 minimap_size = Vector2( 150, 150 )
 script = ExtResource( 10 )
 
 [node name="BTN_AddNode" type="Button" parent="DialogEditor"]
-margin_left = 50.0
-margin_top = 70.0
-margin_right = 90.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 40, 40 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "+"
-
-[node name="DialogEditor2" type="GraphEdit" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 11520.0
-margin_bottom = 6480.0
-rect_min_size = Vector2( 1280, 720 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-right_disconnects = true
-scroll_offset = Vector2( -1920, -1080 )
-use_snap = false
-show_zoom_label = true
-minimap_size = Vector2( 150, 150 )
-script = ExtResource( 10 )
-
-[node name="BTN_AddNode" type="Button" parent="DialogEditor2"]
 margin_left = 50.0
 margin_top = 70.0
 margin_right = 90.0
@@ -836,20 +811,6 @@ script = ExtResource( 16 )
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
 [connection signal="node_unselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
 [connection signal="pressed" from="DialogEditor/BTN_AddNode" to="DialogEditor" method="_on_BTN_AddNode_pressed"]
-[connection signal="connection_request" from="DialogEditor2" to="DialogEditor2" method="_on_DialogEditor_connection_request"]
-[connection signal="dialog_node_added" from="DialogEditor2" to="DialogList" method="dialog_node_added"]
-[connection signal="dialog_node_perm_deleted" from="DialogEditor2" to="DialogList" method="dialog_deleted"]
-[connection signal="dialog_selected" from="DialogEditor2" to="InformationPanel" method="load_dialog_settings"]
-[connection signal="disconnection_request" from="DialogEditor2" to="DialogEditor2" method="_on_DialogEditor_disconnection_request"]
-[connection signal="editor_cleared" from="DialogEditor2" to="." method="_on_DialogEditor_editor_cleared"]
-[connection signal="finished_loading" from="DialogEditor2" to="InformationPanel" method="_on_DialogEditor_finished_loading"]
-[connection signal="finished_loading" from="DialogEditor2" to="CategoryPanel" method="_on_DialogEditor_finished_loading"]
-[connection signal="gui_input" from="DialogEditor2" to="DialogEditor2" method="_on_DialogEditor_gui_input"]
-[connection signal="no_dialog_selected" from="DialogEditor2" to="InformationPanel" method="no_dialog_selected"]
-[connection signal="node_double_clicked" from="DialogEditor2" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
-[connection signal="node_selected" from="DialogEditor2" to="DialogEditor2" method="_on_DialogEditor_node_selected"]
-[connection signal="node_unselected" from="DialogEditor2" to="DialogEditor2" method="_on_DialogEditor_node_unselected"]
-[connection signal="pressed" from="DialogEditor2/BTN_AddNode" to="DialogEditor2" method="_on_BTN_AddNode_pressed"]
 [connection signal="import_faction_popup" from="TopPanel" to="." method="_on_TopPanel_import_faction_popup"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]

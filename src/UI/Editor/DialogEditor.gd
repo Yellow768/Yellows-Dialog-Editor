@@ -361,6 +361,9 @@ func _on_DialogEditor_gui_input(event):
 			accept_event()
 		else:
 			zoom -= .02
+	if Input.is_action_just_pressed("show_minimap"):
+		minimap_enabled = !minimap_enabled
+
 
 
 func _on_CategoryPanel_current_category_deleted():
