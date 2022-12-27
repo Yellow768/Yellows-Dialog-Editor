@@ -1,0 +1,48 @@
+{
+    "CompleterNpc": "Strange Man",
+    "NextQuestId": -1,
+    "RandomReward": 0b,
+    "QuestRepeat": 0,
+    "QuestCompletion": 1,
+    "Title": "Lay your hands on the Remnant of Safety",
+    "Text": "~Stone Mound | Shallow Isles~
+
+This strange man has shown me something called a Remnant of Safety. He claims that when I die, my body will be brought back here, fully healed.
+
+He says that to lock my soul onto it, all I have to do is lay my hands upon it. Might as well.",
+    "QuestFactionPoints": {
+        "DecreaseFaction1Points": 0b,
+        "OptionFaction2Points": 100,
+        "OptionFactions1": -1,
+        "OptionFactions2": -1,
+        "OptionFaction1Points": 100,
+        "DecreaseFaction2Points": 0b
+    },
+    "RewardExp": 0,
+    "QuestCommand": "",
+    "ModRev": 18,
+    "Type": 5,
+    "QuestMail": {
+        "Sender": "",
+        "BeenRead": 0b,
+        "Message": {
+        },
+        "MailItems": [
+        ],
+        "MailQuest": -1,
+        "TimePast": 1668071304441L,
+        "Time": 0L,
+        "Subject": ""
+    },
+    "Rewards": {
+        "NpcMiscInv": [
+        ]
+    },
+    "CompleteText": "",
+    "QuestManual": [
+        {
+            "Value": 1,
+            "Slot": "Lay your hands on the Remnant of Safety"
+        }
+    ]
+}

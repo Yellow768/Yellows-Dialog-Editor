@@ -1,0 +1,25 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "You Have Reached Level 2!",
+            "bold": true
+        },
+        "description": {
+            "text": "You've discovered some things about your new self. Earned a perk point"
+        },
+        "icon": {
+            "item": "minecraft:paper"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "command": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "iob:root"
+}

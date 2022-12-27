@@ -1,0 +1,41 @@
+{
+    "QuestEvent.QuestStartEvent": {
+        "prefix": "questStart",
+        "body": [
+        "/**",
+        " * @param {QuestEvent.QuestStartEvent} event",
+        " */",
+        "function questStart(event){",
+        "    ",
+        "}"
+        ],
+        "description": "QuestEvent.QuestStartEvent",
+        "scope": "javascript,typescript"
+    },
+    "QuestEvent.QuestCompletedEvent": {
+        "prefix": "questCompleted",
+        "body": [
+        "/**",
+        " * @param {QuestEvent.QuestCompletedEvent} event",
+        " */",
+        "function questCompleted(event){",
+        "    ",
+        "}"
+        ],
+        "description": "QuestEvent.QuestCompletedEvent",
+        "scope": "javascript,typescript"
+    },
+    "QuestEvent.QuestTurnedInEvent": {
+        "prefix": "questTurnIn",
+        "body": [
+        "/**",
+        " * @param {QuestEvent.QuestTurnedInEvent} event",
+        " */",
+        "function questTurnIn(event){",
+        "    ",
+        "}"
+        ],
+        "description": "QuestEvent.QuestTurnedInEvent",
+        "scope": "javascript,typescript"
+    }
+}

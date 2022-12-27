@@ -26,8 +26,10 @@ func save_category(category_name):
 			save_category.store_line(to_json(editor_data))
 		save_category.close()
 		emit_signal("category_saved")
+		return OK
 	else:
 		print("Nothing To Save")
+		return ERR_DOES_NOT_EXIST
 	queue_free()
 
 

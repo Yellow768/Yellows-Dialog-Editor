@@ -1,0 +1,24 @@
+{
+    "__comment": "",
+    "display": {
+        "title": {
+            "text": "You Have Reached Level 17!"
+        },
+        "description": {
+            "text": "The ground quakes before you. You're almost at your peak."
+        },
+        "icon": {
+            "item": "minecraft:paper"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "command": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "iob:level16"
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/UI/Editor/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" type="Script" id=2]
@@ -54,6 +54,22 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "FailFlash"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/FailSave:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -245,6 +261,46 @@ tracks/8/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("AnimationPlayer/SaveLAbel:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("AnimationPlayer/FailSave:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "SaveFlash"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/SaveLAbel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Main" type="Control"]
@@ -790,10 +846,29 @@ script = ExtResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/CategoryPanel = SubResource( 3 )
+anims/FailFlash = SubResource( 7 )
 anims/InformationPanel = SubResource( 4 )
 anims/Initial = SubResource( 5 )
 anims/RESET = SubResource( 2 )
+anims/SaveFlash = SubResource( 6 )
 script = ExtResource( 16 )
+
+[node name="SaveLAbel" type="Label" parent="AnimationPlayer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 121.0
+margin_top = 81.0
+margin_right = 637.0
+margin_bottom = 104.0
+text = "Category %s saved..."
+
+[node name="FailSave" type="Label" parent="AnimationPlayer"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 122.0
+margin_top = 80.0
+margin_right = 292.0
+margin_bottom = 94.0
+text = "The category failed to save"
 
 [connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
@@ -814,6 +889,7 @@ script = ExtResource( 16 )
 [connection signal="import_faction_popup" from="TopPanel" to="." method="_on_TopPanel_import_faction_popup"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
+[connection signal="save_category_request" from="TopPanel" to="AnimationPlayer" method="_on_TopPanel_save_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]
 [connection signal="hide_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_hide_information_panel"]
 [connection signal="request_store_current_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_store_current_category"]
@@ -836,6 +912,8 @@ script = ExtResource( 16 )
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
+[connection signal="category_failed_save" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_category_failed_save"]
+[connection signal="category_succesfully_saved" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_category_succesfully_saved"]
 [connection signal="current_category_deleted" from="CategoryPanel" to="DialogEditor" method="_on_CategoryPanel_current_category_deleted"]
 [connection signal="hide_category_panel" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="mouse_entered" from="CategoryPanel" to="CategoryPanel" method="_on_CategoryPanel_mouse_entered"]

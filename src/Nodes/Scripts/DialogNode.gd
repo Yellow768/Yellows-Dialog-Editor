@@ -103,7 +103,7 @@ func delete_self():
 		for i in connected_responses:
 			i.disconnect_from_dialog()
 			connected_responses.erase(i)
-	emit_signal("dialog_ready_for_deletion",self)
+	emit_signal("dialog_ready_for_deletion",self,true)
 
 func set_focus_on_title():
 	TitleTextNode.grab_focus()
@@ -161,7 +161,6 @@ func _on_TitleText_text_changed(new_text):
 func _on_DialogText_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
-			selected = true
 			emit_signal("set_self_as_selected",self)
 		if event.doubleclick:
 			emit_signal("node_double_clicked")
@@ -171,7 +170,6 @@ func _on_DialogText_gui_input(event):
 
 func _on_TitleText_gui_input(event):
 	if event is InputEventMouseButton and event.pressed  and event.button_index == BUTTON_LEFT:
-		selected = true
 		emit_signal("set_self_as_selected",self)
 
 func _on_DialogText_text_changed():

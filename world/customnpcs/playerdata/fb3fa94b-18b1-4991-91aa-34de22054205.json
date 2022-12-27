@@ -1,0 +1,122 @@
+{
+    "TransportData": [
+    ],
+    "NpcsTimers": [
+    ],
+    "FactionData": [
+        {
+            "Points": 2000,
+            "Faction": 0
+        },
+        {
+            "Points": 0,
+            "Faction": 2
+        },
+        {
+            "Points": 1500,
+            "Faction": 4
+        },
+        {
+            "Points": 1000,
+            "Faction": 12
+        }
+    ],
+    "BankData": [
+    ],
+    "ItemGiversList": [
+    ],
+    "QuestData": {
+        "CompletedQuests": [
+            {
+                "Quest": 5,
+                "Date": 268554437L
+            }
+        ],
+        "ActiveQuests": [
+        ]
+    },
+    "PlayerCompanionId": 0,
+    "DialogData": [
+        {
+            "Dialog": 64
+        },
+        {
+            "Dialog": 67
+        },
+        {
+            "Dialog": 68
+        },
+        {
+            "Dialog": 69
+        },
+        {
+            "Dialog": 70
+        },
+        {
+            "Dialog": 76
+        },
+        {
+            "Dialog": 46
+        },
+        {
+            "Dialog": 79
+        },
+        {
+            "Dialog": 80
+        },
+        {
+            "Dialog": 81
+        },
+        {
+            "Dialog": 82
+        },
+        {
+            "Dialog": 84
+        },
+        {
+            "Dialog": 21
+        },
+        {
+            "Dialog": 85
+        },
+        {
+            "Dialog": 22
+        },
+        {
+            "Dialog": 86
+        },
+        {
+            "Dialog": 23
+        },
+        {
+            "Dialog": 87
+        },
+        {
+            "Dialog": 24
+        },
+        {
+            "Dialog": 25
+        },
+        {
+            "Dialog": 26
+        },
+        {
+            "Dialog": 27
+        },
+        {
+            "Dialog": 29
+        }
+    ],
+    "ItemGiverChained": [
+    ],
+    "MailData": [
+    ],
+    "PlayerName": "Yellow768",
+    "UUID": "fb3fa94b-18b1-4991-91aa-34de22054205",
+    "ScriptStoreddata": {
+        "spawnX": "4527",
+        "spawnZ": "6679",
+        "spawnY": "82",
+        "remnantUUID": "40393ad2-ba33-45b7-86e2-3fa91bc98e6f"
+    }
+}

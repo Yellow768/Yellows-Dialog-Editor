@@ -86,7 +86,7 @@ func set_quest_dict():
 	for node in access_to_quests:
 		node.quest_dict = quest_indexer.new().index_quest_categories()
 
-func disconnect_current_dialog(dialog):
+func disconnect_current_dialog(dialog,_bool):
 	if current_dialog == dialog:
 		dialog.disconnect("text_changed",self,"update_text")
 		dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")

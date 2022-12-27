@@ -19,6 +19,7 @@ func get_title_from_id(id):
 
 func add_dialog_to_loaded(dialog):
 	if all_loaded_dialogs.has(dialog.dialog_id):
+		print("already have dialog")
 		return
 	all_loaded_dialogs[dialog.dialog_id] = dialog.dialog_title
 	emit_signal("dialog_added_to_list")

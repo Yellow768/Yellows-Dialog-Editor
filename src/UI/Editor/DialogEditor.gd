@@ -67,6 +67,7 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use
 func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
+	handle_subtracting_dialog_id([dialog])
 	set_last_selected_node_as_selected()
 	if remove_from_loaded_list:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
@@ -332,10 +333,15 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(from, from_slot, to, to_slot)
 
 func _on_DialogEditor_node_selected(node):
-	if selected_responses.find(node,0) == -1 and node.node_type == "Player Response Node":
-		selected_responses.append(node)
-	if selected_nodes.find(node,0) == -1 and node.node_type == "Dialog Node" :
-		selected_nodes.append(node)
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and InputEventMouseMotion:
+		if selected_responses.find(node,0) == -1 and node.node_type == "Player Response Node":
+			selected_responses.append(node)
+			
+		if selected_nodes.find(node,0) == -1 and node.node_type == "Dialog Node" :
+			selected_nodes.append(node)
+	else:
+		set_selected(node)
+	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
 
 func _on_DialogEditor_node_unselected(node):
@@ -349,18 +355,33 @@ func _on_DialogEditor_node_unselected(node):
 
 		
 func _on_node_requests_selection(node):
-	selected_nodes = []
-	selected_responses = []
-	set_selected(node)
-	_on_DialogEditor_node_selected(node)
+	if !Input.is_action_pressed("control"):
+		selected_nodes = []
+		selected_responses = []
+		node.selected = true
+		set_selected(node)
+		if node.node_type == "Dialog Node":
+			emit_signal("dialog_selected",node)
+	elif node.selected:
+		if node.node_type == "Dialog Node":
+			selected_nodes.erase(node)
+			set_last_selected_node_as_selected()
+		else:
+			selected_responses.erase(node)
+		node.selected = false
+	else:
+		if node.node_type == "Dialog Node":
+			emit_signal("dialog_selected",node)
+		_on_DialogEditor_node_selected(node)
 
 func handle_double_click(node):
+	
 	if node.node_type == "Dialog Node":
 		for response in node.response_options:
 			if !response.selected:
 				response.selected = true
 				handle_double_click(response)
-				
+		emit_signal("node_double_clicked",node)			
 	if node.node_type == "Player Response Node":
 		if node.connected_dialog != null and !node.connected_dialog.selected:
 			node.connected_dialog.selected = true

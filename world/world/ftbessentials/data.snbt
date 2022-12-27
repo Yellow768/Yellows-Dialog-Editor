@@ -1,0 +1,11 @@
+{
+	warps: {
+		rainmire: { dim: "minecraft:overworld", x: 5000, y: 76, z: 4993, time: 1644649765752L }
+		d: { dim: "minecraft:overworld", x: -90, y: 76, z: -85, time: 1644650038800L }
+		developer_area: { dim: "minecraft:overworld", x: -90, y: 76, z: -85, time: 1644650044383L }
+		shilo: { dim: "minecraft:overworld", x: 4873, y: 84, z: 6510, time: 1645945499281L }
+		upperlake: { dim: "minecraft:overworld", x: 5362, y: 117, z: 4806, time: 1648883244804L }
+		swamp: { dim: "minecraft:overworld", x: 4071, y: 78, z: 5413, time: 1654486551039L }
+		riverjoins: { dim: "minecraft:overworld", x: 4485, y: 106, z: 5123, time: 1654546323740L }
+	}
+}

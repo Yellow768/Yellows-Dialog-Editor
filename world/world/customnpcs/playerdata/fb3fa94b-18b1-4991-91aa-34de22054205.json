@@ -1,0 +1,61 @@
+{
+    "TransportData": [
+    ],
+    "NpcsTimers": [
+    ],
+    "FactionData": [
+        {
+            "Points": 2000,
+            "Faction": 0
+        },
+        {
+            "Points": 1000,
+            "Faction": 1
+        },
+        {
+            "Points": 1500,
+            "Faction": 4
+        },
+        {
+            "Points": 1800,
+            "Faction": 6
+        },
+        {
+            "Points": 0,
+            "Faction": 7
+        },
+        {
+            "Points": 1000,
+            "Faction": 8
+        }
+    ],
+    "BankData": [
+    ],
+    "ItemGiversList": [
+    ],
+    "QuestData": {
+        "CompletedQuests": [
+        ],
+        "ActiveQuests": [
+        ]
+    },
+    "PlayerCompanionId": 0,
+    "DialogData": [
+        {
+            "Dialog": 19
+        }
+    ],
+    "ItemGiverChained": [
+    ],
+    "MailData": [
+    ],
+    "PlayerName": "Yellow768",
+    "UUID": "fb3fa94b-18b1-4991-91aa-34de22054205",
+    "ScriptStoreddata": {
+        "LockModifier": 10.0d,
+        "spawnX": "4488",
+        "spawnZ": "5271",
+        "spawnY": "74",
+        "remnantUUID": "eabb1cca-227c-4337-abe9-f8814246a993"
+    }
+}

@@ -9,6 +9,8 @@ signal reimport_category
 signal current_category_deleted
 signal scan_for_changes
 
+signal category_succesfully_saved
+signal category_failed_save
 
 export(NodePath) var animation_player_path
 export(NodePath) var category_file_container_path
@@ -136,4 +138,7 @@ func _on_InformationPanel_request_switch_to_stored_category():
 func save_category_request():
 	var cat_save = category_saver.new()
 	add_child(cat_save)
-	cat_save.save_category(current_category)
+	if cat_save.save_category(current_category) == OK:
+		emit_signal("category_succesfully_saved",current_category)
+	else:
+		emit_signal("category_failed_save",current_category)

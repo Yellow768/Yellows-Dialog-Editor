@@ -1,0 +1,474 @@
+{
+    "ScriptEnabled": 1b,
+    "ScriptConsole": [
+        {
+            "Long": 1667464388273L,
+            "String": "tab 1:
+javax.script.ScriptException: TypeError: null has no such function \"substr\" in <eval> at line number 235
+	at jdk.nashorn.api.scripting.NashornScriptEngine.throwAsScriptException(NashornScriptEngine.java:470)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeImpl(NashornScriptEngine.java:392)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeFunction(NashornScriptEngine.java:190)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:153)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:110)
+	at noppes.npcs.controllers.data.PlayerScriptData.runScript(PlayerScriptData.java:88)
+	at noppes.npcs.EventHooks.onPlayerKeyEvent(EventHooks.java:417)
+	at noppes.npcs.packets.server.SPacketPlayerKeyPressed.handle(SPacketPlayerKeyPressed.java:52)
+	at noppes.npcs.packets.PacketServerBasic.lambda$handle$0(PacketServerBasic.java:47)
+	at net.minecraftforge.fml.network.NetworkEvent$Context.enqueueWork(NetworkEvent.java:215)
+	at noppes.npcs.packets.PacketServerBasic.handle(PacketServerBasic.java:33)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.lambda$tryDecode$3(IndexedMessageCodec.java:128)
+	at java.util.Optional.ifPresent(Unknown Source)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.tryDecode(IndexedMessageCodec.java:128)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.consume(IndexedMessageCodec.java:162)
+	at net.minecraftforge.fml.network.simple.SimpleChannel.networkEventListener(SimpleChannel.java:80)
+	at net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:247)
+	at net.minecraftforge.eventbus.EventBus.lambda$addListener$11(EventBus.java:239)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283)
+	at net.minecraftforge.fml.network.NetworkInstance.dispatch(NetworkInstance.java:86)
+	at net.minecraftforge.fml.network.NetworkHooks.lambda$onCustomPayload$1(NetworkHooks.java:91)
+	at java.util.Optional.map(Unknown Source)
+	at net.minecraftforge.fml.network.NetworkHooks.onCustomPayload(NetworkHooks.java:91)
+	at net.minecraft.network.play.ServerPlayNetHandler.func_147349_a(ServerPlayNetHandler.java:1413)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:42)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:12)
+	at net.minecraft.network.PacketThreadUtil.func_225383_a(SourceFile:21)
+	at net.minecraft.util.concurrent.TickDelayedTask.run(SourceFile:18)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213166_h(SourceFile:144)
+	at net.minecraft.util.concurrent.RecursiveEventLoop.func_213166_h(SourceFile:23)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:734)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:159)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213168_p(SourceFile:118)
+	at net.minecraft.server.MinecraftServer.func_213205_aW(MinecraftServer.java:717)
+	at net.minecraft.server.MinecraftServer.func_213168_p(MinecraftServer.java:711)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213160_bf(SourceFile:103)
+	at net.minecraft.server.MinecraftServer.func_213202_o(MinecraftServer.java:696)
+	at net.minecraft.server.MinecraftServer.func_240802_v_(MinecraftServer.java:646)
+	at net.minecraft.server.MinecraftServer.func_240783_a_(MinecraftServer.java:232)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: <eval>:235 TypeError: null has no such function \"substr\"
+	at jdk.nashorn.internal.runtime.ECMAErrors.error(ECMAErrors.java:57)
+	at jdk.nashorn.internal.runtime.ECMAErrors.typeError(ECMAErrors.java:213)
+	at jdk.nashorn.internal.runtime.ECMAErrors.typeError(ECMAErrors.java:185)
+	at jdk.nashorn.internal.runtime.ECMAErrors.typeError(ECMAErrors.java:172)
+	at jdk.nashorn.internal.runtime.linker.NashornBottomLinker.linkNull(NashornBottomLinker.java:180)
+	at jdk.nashorn.internal.runtime.linker.NashornBottomLinker.getGuardedInvocation(NashornBottomLinker.java:66)
+	at jdk.internal.dynalink.support.CompositeGuardingDynamicLinker.getGuardedInvocation(CompositeGuardingDynamicLinker.java:124)
+	at jdk.internal.dynalink.support.LinkerServicesImpl.getGuardedInvocation(LinkerServicesImpl.java:154)
+	at jdk.internal.dynalink.DynamicLinker.relink(DynamicLinker.java:253)
+	at jdk.nashorn.internal.scripts.Script$Recompilation$6798$6612$\\^eval\\_.toggleCommandFeedback(<eval>:235)
+	at jdk.nashorn.internal.scripts.Script$Recompilation$6791$2635A$\\^eval\\_.keyPressed(<eval>:126)
+	at jdk.nashorn.internal.runtime.ScriptFunctionData.invoke(ScriptFunctionData.java:639)
+	at jdk.nashorn.internal.runtime.ScriptFunction.invoke(ScriptFunction.java:494)
+	at jdk.nashorn.internal.runtime.ScriptRuntime.apply(ScriptRuntime.java:393)
+	at jdk.nashorn.api.scripting.ScriptObjectMirror.callMember(ScriptObjectMirror.java:199)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeImpl(NashornScriptEngine.java:386)
+	... 39 more"
+        },
+        {
+            "Long": 1667464405160L,
+            "String": "tab 1:
+javax.script.ScriptException: TypeError: null has no such function \"substr\" in <eval> at line number 235
+	at jdk.nashorn.api.scripting.NashornScriptEngine.throwAsScriptException(NashornScriptEngine.java:470)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeImpl(NashornScriptEngine.java:392)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeFunction(NashornScriptEngine.java:190)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:153)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:110)
+	at noppes.npcs.controllers.data.PlayerScriptData.runScript(PlayerScriptData.java:88)
+	at noppes.npcs.EventHooks.onPlayerKeyEvent(EventHooks.java:417)
+	at noppes.npcs.packets.server.SPacketPlayerKeyPressed.handle(SPacketPlayerKeyPressed.java:52)
+	at noppes.npcs.packets.PacketServerBasic.lambda$handle$0(PacketServerBasic.java:47)
+	at net.minecraftforge.fml.network.NetworkEvent$Context.enqueueWork(NetworkEvent.java:215)
+	at noppes.npcs.packets.PacketServerBasic.handle(PacketServerBasic.java:33)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.lambda$tryDecode$3(IndexedMessageCodec.java:128)
+	at java.util.Optional.ifPresent(Unknown Source)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.tryDecode(IndexedMessageCodec.java:128)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.consume(IndexedMessageCodec.java:162)
+	at net.minecraftforge.fml.network.simple.SimpleChannel.networkEventListener(SimpleChannel.java:80)
+	at net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:247)
+	at net.minecraftforge.eventbus.EventBus.lambda$addListener$11(EventBus.java:239)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283)
+	at net.minecraftforge.fml.network.NetworkInstance.dispatch(NetworkInstance.java:86)
+	at net.minecraftforge.fml.network.NetworkHooks.lambda$onCustomPayload$1(NetworkHooks.java:91)
+	at java.util.Optional.map(Unknown Source)
+	at net.minecraftforge.fml.network.NetworkHooks.onCustomPayload(NetworkHooks.java:91)
+	at net.minecraft.network.play.ServerPlayNetHandler.func_147349_a(ServerPlayNetHandler.java:1413)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:42)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:12)
+	at net.minecraft.network.PacketThreadUtil.func_225383_a(SourceFile:21)
+	at net.minecraft.util.concurrent.TickDelayedTask.run(SourceFile:18)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213166_h(SourceFile:144)
+	at net.minecraft.util.concurrent.RecursiveEventLoop.func_213166_h(SourceFile:23)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:734)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:159)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213168_p(SourceFile:118)
+	at net.minecraft.server.MinecraftServer.func_213205_aW(MinecraftServer.java:717)
+	at net.minecraft.server.MinecraftServer.func_213168_p(MinecraftServer.java:711)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213160_bf(SourceFile:103)
+	at net.minecraft.server.MinecraftServer.func_213202_o(MinecraftServer.java:696)
+	at net.minecraft.server.MinecraftServer.func_240802_v_(MinecraftServer.java:646)
+	at net.minecraft.server.MinecraftServer.func_240783_a_(MinecraftServer.java:232)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: <eval>:235 TypeError: null has no such function \"substr\"
+	at jdk.nashorn.internal.runtime.ECMAErrors.error(ECMAErrors.java:57)
+	at jdk.nashorn.internal.runtime.ECMAErrors.typeError(ECMAErrors.java:213)
+	at jdk.nashorn.internal.runtime.ECMAErrors.typeError(ECMAErrors.java:185)
+	at jdk.nashorn.internal.runtime.ECMAErrors.typeError(ECMAErrors.java:172)
+	at jdk.nashorn.internal.runtime.linker.NashornBottomLinker.linkNull(NashornBottomLinker.java:180)
+	at jdk.nashorn.internal.runtime.linker.NashornBottomLinker.getGuardedInvocation(NashornBottomLinker.java:66)
+	at jdk.internal.dynalink.support.CompositeGuardingDynamicLinker.getGuardedInvocation(CompositeGuardingDynamicLinker.java:124)
+	at jdk.internal.dynalink.support.LinkerServicesImpl.getGuardedInvocation(LinkerServicesImpl.java:154)
+	at jdk.internal.dynalink.DynamicLinker.relink(DynamicLinker.java:253)
+	at jdk.nashorn.internal.scripts.Script$Recompilation$6861$6612$\\^eval\\_.toggleCommandFeedback(<eval>:235)
+	at jdk.nashorn.internal.scripts.Script$Recompilation$6860$2635A$\\^eval\\_.keyPressed(<eval>:126)
+	at jdk.nashorn.internal.runtime.ScriptFunctionData.invoke(ScriptFunctionData.java:639)
+	at jdk.nashorn.internal.runtime.ScriptFunction.invoke(ScriptFunction.java:494)
+	at jdk.nashorn.internal.runtime.ScriptRuntime.apply(ScriptRuntime.java:393)
+	at jdk.nashorn.api.scripting.ScriptObjectMirror.callMember(ScriptObjectMirror.java:199)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeImpl(NashornScriptEngine.java:386)
+	... 39 more"
+        },
+        {
+            "Long": 1668058096702L,
+            "String": "tab 1:
+javax.script.ScriptException: ReferenceError: \"e\" is not defined in <eval> at line number 474
+	at jdk.nashorn.api.scripting.NashornScriptEngine.throwAsScriptException(NashornScriptEngine.java:470)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeImpl(NashornScriptEngine.java:392)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeFunction(NashornScriptEngine.java:190)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:153)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:110)
+	at noppes.npcs.controllers.data.PlayerScriptData.runScript(PlayerScriptData.java:88)
+	at noppes.npcs.EventHooks.onPlayerKeyEvent(EventHooks.java:417)
+	at noppes.npcs.packets.server.SPacketPlayerKeyPressed.handle(SPacketPlayerKeyPressed.java:52)
+	at noppes.npcs.packets.PacketServerBasic.lambda$handle$0(PacketServerBasic.java:47)
+	at net.minecraftforge.fml.network.NetworkEvent$Context.enqueueWork(NetworkEvent.java:215)
+	at noppes.npcs.packets.PacketServerBasic.handle(PacketServerBasic.java:33)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.lambda$tryDecode$3(IndexedMessageCodec.java:128)
+	at java.util.Optional.ifPresent(Unknown Source)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.tryDecode(IndexedMessageCodec.java:128)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.consume(IndexedMessageCodec.java:162)
+	at net.minecraftforge.fml.network.simple.SimpleChannel.networkEventListener(SimpleChannel.java:80)
+	at net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:247)
+	at net.minecraftforge.eventbus.EventBus.lambda$addListener$11(EventBus.java:239)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283)
+	at net.minecraftforge.fml.network.NetworkInstance.dispatch(NetworkInstance.java:86)
+	at net.minecraftforge.fml.network.NetworkHooks.lambda$onCustomPayload$1(NetworkHooks.java:91)
+	at java.util.Optional.map(Unknown Source)
+	at net.minecraftforge.fml.network.NetworkHooks.onCustomPayload(NetworkHooks.java:91)
+	at net.minecraft.network.play.ServerPlayNetHandler.func_147349_a(ServerPlayNetHandler.java:1413)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:42)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:12)
+	at net.minecraft.network.PacketThreadUtil.func_225383_a(SourceFile:21)
+	at net.minecraft.util.concurrent.TickDelayedTask.run(SourceFile:18)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213166_h(SourceFile:144)
+	at net.minecraft.util.concurrent.RecursiveEventLoop.func_213166_h(SourceFile:23)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:734)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:159)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213168_p(SourceFile:118)
+	at net.minecraft.server.MinecraftServer.func_213205_aW(MinecraftServer.java:717)
+	at net.minecraft.server.MinecraftServer.func_213168_p(MinecraftServer.java:711)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213160_bf(SourceFile:103)
+	at net.minecraft.server.MinecraftServer.func_213202_o(MinecraftServer.java:696)
+	at net.minecraft.server.MinecraftServer.func_240802_v_(MinecraftServer.java:646)
+	at net.minecraft.server.MinecraftServer.func_240783_a_(MinecraftServer.java:232)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: <eval>:474 ReferenceError: \"e\" is not defined
+	at jdk.nashorn.internal.runtime.ECMAErrors.error(ECMAErrors.java:57)
+	at jdk.nashorn.internal.runtime.ECMAErrors.referenceError(ECMAErrors.java:319)
+	at jdk.nashorn.internal.runtime.ECMAErrors.referenceError(ECMAErrors.java:291)
+	at jdk.nashorn.internal.objects.Global.__noSuchProperty__(Global.java:1442)
+	at jdk.nashorn.internal.scripts.Script$Recompilation$472$15757$\\^eval\\_.copyCoordinates(<eval>:474)
+	at jdk.nashorn.internal.scripts.Script$Recompilation$460$2635A$\\^eval\\_.keyPressed(<eval>:136)
+	at jdk.nashorn.internal.runtime.ScriptFunctionData.invoke(ScriptFunctionData.java:639)
+	at jdk.nashorn.internal.runtime.ScriptFunction.invoke(ScriptFunction.java:494)
+	at jdk.nashorn.internal.runtime.ScriptRuntime.apply(ScriptRuntime.java:393)
+	at jdk.nashorn.api.scripting.ScriptObjectMirror.callMember(ScriptObjectMirror.java:199)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.invokeImpl(NashornScriptEngine.java:386)
+	... 39 more"
+        },
+        {
+            "Long": 1668141822675L,
+            "String": " tab 2:
+javax.script.ScriptException: <eval>:272:158 Expected , but found s Soulbound Horse\"}\\',ArmorItem:{}}
+		executeCommand('/summon horse ~ ~ ~ {CustomNameVisible:1b,Tame:1b,Variant:256,Tags:[\"' + e.player.name + '\"],CustomName:\\'{\"text\":\"' + e.player.name + '\\'''s Soulbound Horse\"}\\',ArmorItem:{}}')
+		                                                                                                                                                            ^ in <eval> at line number 272 at column number 158
+	at jdk.nashorn.api.scripting.NashornScriptEngine.throwAsScriptException(NashornScriptEngine.java:470)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:537)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:524)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.evalImpl(NashornScriptEngine.java:402)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.eval(NashornScriptEngine.java:155)
+	at javax.script.AbstractScriptEngine.eval(Unknown Source)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:136)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:110)
+	at noppes.npcs.controllers.data.PlayerScriptData.runScript(PlayerScriptData.java:88)
+	at noppes.npcs.EventHooks.onPlayerKeyEvent(EventHooks.java:417)
+	at noppes.npcs.packets.server.SPacketPlayerKeyPressed.handle(SPacketPlayerKeyPressed.java:52)
+	at noppes.npcs.packets.PacketServerBasic.lambda$handle$0(PacketServerBasic.java:47)
+	at net.minecraftforge.fml.network.NetworkEvent$Context.enqueueWork(NetworkEvent.java:215)
+	at noppes.npcs.packets.PacketServerBasic.handle(PacketServerBasic.java:33)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.lambda$tryDecode$3(IndexedMessageCodec.java:128)
+	at java.util.Optional.ifPresent(Unknown Source)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.tryDecode(IndexedMessageCodec.java:128)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.consume(IndexedMessageCodec.java:162)
+	at net.minecraftforge.fml.network.simple.SimpleChannel.networkEventListener(SimpleChannel.java:80)
+	at net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:247)
+	at net.minecraftforge.eventbus.EventBus.lambda$addListener$11(EventBus.java:239)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283)
+	at net.minecraftforge.fml.network.NetworkInstance.dispatch(NetworkInstance.java:86)
+	at net.minecraftforge.fml.network.NetworkHooks.lambda$onCustomPayload$1(NetworkHooks.java:91)
+	at java.util.Optional.map(Unknown Source)
+	at net.minecraftforge.fml.network.NetworkHooks.onCustomPayload(NetworkHooks.java:91)
+	at net.minecraft.network.play.ServerPlayNetHandler.func_147349_a(ServerPlayNetHandler.java:1413)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:42)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:12)
+	at net.minecraft.network.PacketThreadUtil.func_225383_a(SourceFile:21)
+	at net.minecraft.util.concurrent.TickDelayedTask.run(SourceFile:18)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213166_h(SourceFile:144)
+	at net.minecraft.util.concurrent.RecursiveEventLoop.func_213166_h(SourceFile:23)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:734)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:159)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213168_p(SourceFile:118)
+	at net.minecraft.server.MinecraftServer.func_213205_aW(MinecraftServer.java:717)
+	at net.minecraft.server.MinecraftServer.func_213168_p(MinecraftServer.java:711)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213161_c(SourceFile:127)
+	at net.minecraft.server.MinecraftServer.func_213202_o(MinecraftServer.java:697)
+	at net.minecraft.server.MinecraftServer.func_240802_v_(MinecraftServer.java:646)
+	at net.minecraft.server.MinecraftServer.func_240783_a_(MinecraftServer.java:232)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: jdk.nashorn.internal.runtime.ParserException: <eval>:272:158 Expected , but found s Soulbound Horse\"}\\',ArmorItem:{}}
+		executeCommand('/summon horse ~ ~ ~ {CustomNameVisible:1b,Tame:1b,Variant:256,Tags:[\"' + e.player.name + '\"],CustomName:\\'{\"text\":\"' + e.player.name + '\\'''s Soulbound Horse\"}\\',ArmorItem:{}}')
+		                                                                                                                                                            ^
+	at jdk.nashorn.internal.parser.AbstractParser.error(AbstractParser.java:294)
+	at jdk.nashorn.internal.parser.AbstractParser.error(AbstractParser.java:279)
+	at jdk.nashorn.internal.parser.AbstractParser.expectDontAdvance(AbstractParser.java:350)
+	at jdk.nashorn.internal.parser.AbstractParser.expect(AbstractParser.java:337)
+	at jdk.nashorn.internal.parser.Parser.argumentList(Parser.java:2582)
+	at jdk.nashorn.internal.parser.Parser.leftHandSideExpression(Parser.java:2375)
+	at jdk.nashorn.internal.parser.Parser.unaryExpression(Parser.java:3147)
+	at jdk.nashorn.internal.parser.Parser.expression(Parser.java:3282)
+	at jdk.nashorn.internal.parser.Parser.expressionStatement(Parser.java:1150)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:967)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:863)
+	at jdk.nashorn.internal.parser.Parser.statementList(Parser.java:1013)
+	at jdk.nashorn.internal.parser.Parser.getBlock(Parser.java:531)
+	at jdk.nashorn.internal.parser.Parser.getStatement(Parser.java:555)
+	at jdk.nashorn.internal.parser.Parser.ifStatement(Parser.java:1187)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:890)
+	at jdk.nashorn.internal.parser.Parser.sourceElements(Parser.java:773)
+	at jdk.nashorn.internal.parser.Parser.functionBody(Parser.java:2901)
+	at jdk.nashorn.internal.parser.Parser.functionExpression(Parser.java:2663)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:875)
+	at jdk.nashorn.internal.parser.Parser.sourceElements(Parser.java:773)
+	at jdk.nashorn.internal.parser.Parser.program(Parser.java:709)
+	at jdk.nashorn.internal.parser.Parser.parse(Parser.java:283)
+	at jdk.nashorn.internal.parser.Parser.parse(Parser.java:249)
+	at jdk.nashorn.internal.runtime.Context.compile(Context.java:1284)
+	at jdk.nashorn.internal.runtime.Context.compileScript(Context.java:1251)
+	at jdk.nashorn.internal.runtime.Context.compileScript(Context.java:627)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:535)
+	... 42 more"
+        },
+        {
+            "Long": 1668141822791L,
+            "String": " tab 2:
+javax.script.ScriptException: <eval>:272:158 Expected , but found s Soulbound Horse\"}\\',ArmorItem:{}}
+		executeCommand('/summon horse ~ ~ ~ {CustomNameVisible:1b,Tame:1b,Variant:256,Tags:[\"' + e.player.name + '\"],CustomName:\\'{\"text\":\"' + e.player.name + '\\'''s Soulbound Horse\"}\\',ArmorItem:{}}')
+		                                                                                                                                                            ^ in <eval> at line number 272 at column number 158
+	at jdk.nashorn.api.scripting.NashornScriptEngine.throwAsScriptException(NashornScriptEngine.java:470)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:537)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:524)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.evalImpl(NashornScriptEngine.java:402)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.eval(NashornScriptEngine.java:155)
+	at javax.script.AbstractScriptEngine.eval(Unknown Source)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:136)
+	at noppes.npcs.controllers.ScriptContainer.run(ScriptContainer.java:110)
+	at noppes.npcs.controllers.data.PlayerScriptData.runScript(PlayerScriptData.java:88)
+	at noppes.npcs.EventHooks.onPlayerInit(EventHooks.java:295)
+	at noppes.npcs.controllers.data.PlayerScriptData.runScript(PlayerScriptData.java:82)
+	at noppes.npcs.EventHooks.onPlayerKeyEvent(EventHooks.java:412)
+	at noppes.npcs.packets.server.SPacketPlayerKeyPressed.handle(SPacketPlayerKeyPressed.java:52)
+	at noppes.npcs.packets.PacketServerBasic.lambda$handle$0(PacketServerBasic.java:47)
+	at net.minecraftforge.fml.network.NetworkEvent$Context.enqueueWork(NetworkEvent.java:215)
+	at noppes.npcs.packets.PacketServerBasic.handle(PacketServerBasic.java:33)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.lambda$tryDecode$3(IndexedMessageCodec.java:128)
+	at java.util.Optional.ifPresent(Unknown Source)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.tryDecode(IndexedMessageCodec.java:128)
+	at net.minecraftforge.fml.network.simple.IndexedMessageCodec.consume(IndexedMessageCodec.java:162)
+	at net.minecraftforge.fml.network.simple.SimpleChannel.networkEventListener(SimpleChannel.java:80)
+	at net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:247)
+	at net.minecraftforge.eventbus.EventBus.lambda$addListener$11(EventBus.java:239)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302)
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283)
+	at net.minecraftforge.fml.network.NetworkInstance.dispatch(NetworkInstance.java:86)
+	at net.minecraftforge.fml.network.NetworkHooks.lambda$onCustomPayload$1(NetworkHooks.java:91)
+	at java.util.Optional.map(Unknown Source)
+	at net.minecraftforge.fml.network.NetworkHooks.onCustomPayload(NetworkHooks.java:91)
+	at net.minecraft.network.play.ServerPlayNetHandler.func_147349_a(ServerPlayNetHandler.java:1413)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:42)
+	at net.minecraft.network.play.client.CCustomPayloadPacket.func_148833_a(CCustomPayloadPacket.java:12)
+	at net.minecraft.network.PacketThreadUtil.func_225383_a(SourceFile:21)
+	at net.minecraft.util.concurrent.TickDelayedTask.run(SourceFile:18)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213166_h(SourceFile:144)
+	at net.minecraft.util.concurrent.RecursiveEventLoop.func_213166_h(SourceFile:23)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:734)
+	at net.minecraft.server.MinecraftServer.func_213166_h(MinecraftServer.java:159)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213168_p(SourceFile:118)
+	at net.minecraft.server.MinecraftServer.func_213205_aW(MinecraftServer.java:717)
+	at net.minecraft.server.MinecraftServer.func_213168_p(MinecraftServer.java:711)
+	at net.minecraft.util.concurrent.ThreadTaskExecutor.func_213160_bf(SourceFile:103)
+	at net.minecraft.server.MinecraftServer.func_213202_o(MinecraftServer.java:696)
+	at net.minecraft.server.MinecraftServer.func_240802_v_(MinecraftServer.java:646)
+	at net.minecraft.server.MinecraftServer.func_240783_a_(MinecraftServer.java:232)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: jdk.nashorn.internal.runtime.ParserException: <eval>:272:158 Expected , but found s Soulbound Horse\"}\\',ArmorItem:{}}
+		executeCommand('/summon horse ~ ~ ~ {CustomNameVisible:1b,Tame:1b,Variant:256,Tags:[\"' + e.player.name + '\"],CustomName:\\'{\"text\":\"' + e.player.name + '\\'''s Soulbound Horse\"}\\',ArmorItem:{}}')
+		                                                                                                                                                            ^
+	at jdk.nashorn.internal.parser.AbstractParser.error(AbstractParser.java:294)
+	at jdk.nashorn.internal.parser.AbstractParser.error(AbstractParser.java:279)
+	at jdk.nashorn.internal.parser.AbstractParser.expectDontAdvance(AbstractParser.java:350)
+	at jdk.nashorn.internal.parser.AbstractParser.expect(AbstractParser.java:337)
+	at jdk.nashorn.internal.parser.Parser.argumentList(Parser.java:2582)
+	at jdk.nashorn.internal.parser.Parser.leftHandSideExpression(Parser.java:2375)
+	at jdk.nashorn.internal.parser.Parser.unaryExpression(Parser.java:3147)
+	at jdk.nashorn.internal.parser.Parser.expression(Parser.java:3282)
+	at jdk.nashorn.internal.parser.Parser.expressionStatement(Parser.java:1150)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:967)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:863)
+	at jdk.nashorn.internal.parser.Parser.statementList(Parser.java:1013)
+	at jdk.nashorn.internal.parser.Parser.getBlock(Parser.java:531)
+	at jdk.nashorn.internal.parser.Parser.getStatement(Parser.java:555)
+	at jdk.nashorn.internal.parser.Parser.ifStatement(Parser.java:1187)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:890)
+	at jdk.nashorn.internal.parser.Parser.sourceElements(Parser.java:773)
+	at jdk.nashorn.internal.parser.Parser.functionBody(Parser.java:2901)
+	at jdk.nashorn.internal.parser.Parser.functionExpression(Parser.java:2663)
+	at jdk.nashorn.internal.parser.Parser.statement(Parser.java:875)
+	at jdk.nashorn.internal.parser.Parser.sourceElements(Parser.java:773)
+	at jdk.nashorn.internal.parser.Parser.program(Parser.java:709)
+	at jdk.nashorn.internal.parser.Parser.parse(Parser.java:283)
+	at jdk.nashorn.internal.parser.Parser.parse(Parser.java:249)
+	at jdk.nashorn.internal.runtime.Context.compile(Context.java:1284)
+	at jdk.nashorn.internal.runtime.Context.compileScript(Context.java:1251)
+	at jdk.nashorn.internal.runtime.Context.compileScript(Context.java:627)
+	at jdk.nashorn.api.scripting.NashornScriptEngine.compileImpl(NashornScriptEngine.java:535)
+	... 44 more"
+        }
+    ],
+    "Scripts": [
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                },
+                {
+                    "Line": "devtools.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                },
+                {
+                    "Line": "lockpicking.js"
+                },
+                {
+                    "Line": "mechanics.js"
+                },
+                {
+                    "Line": "powerupmechanics.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                },
+                {
+                    "Line": "stats.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                },
+                {
+                    "Line": "weaponmechanics.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                },
+                {
+                    "Line": "respawn.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "moretraderlinesplayercounterpart.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+                {
+                    "Line": "commonfunctions.js"
+                },
+                {
+                    "Line": "keybinds.js"
+                }
+            ]
+        },
+        {
+            "Script": "",
+            "Console": [
+            ],
+            "ScriptList": [
+            ]
+        }
+    ],
+    "ScriptLanguage": "ECMAScript"
+}

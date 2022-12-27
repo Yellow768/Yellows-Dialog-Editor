@@ -19,8 +19,10 @@ func _ready():
 	var file = File.new()
 	if file.open(CurrentEnvironment.current_directory+"/environment_settings.json",File.READ) == OK:
 		var loaded_list = parse_json(file.get_line())
-		if loaded_list != null:
+		if loaded_list is Dictionary:
 			$DialogList.all_loaded_dialogs = loaded_list
+		else:
+			push_warning("Loaded Dialogs List not valid.")
 		file.close()
 	var faction_choosers = get_tree().get_nodes_in_group("faction_access")
 	var fact_loader = faction_loader.new()

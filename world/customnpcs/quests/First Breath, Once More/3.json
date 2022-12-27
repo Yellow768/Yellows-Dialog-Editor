@@ -1,0 +1,48 @@
+{
+    "CompleterNpc": "Dawie Amira",
+    "NextQuestId": -1,
+    "RandomReward": 0b,
+    "QuestRepeat": 0,
+    "QuestCompletion": 1,
+    "Title": "Get your bearings",
+    "Text": "Just moments ago, I was being executed by Count Athelric, for some \"greater purpose\". I fell into the ocean.
+
+And now, I wake up, surrounded by islands in some shallow part of the ocean. I was sure I'd have drowned.
+
+I need to get my bearings, figure out where I am.",
+    "QuestFactionPoints": {
+        "DecreaseFaction1Points": 0b,
+        "OptionFaction2Points": 100,
+        "OptionFactions1": -1,
+        "OptionFactions2": -1,
+        "OptionFaction1Points": 100,
+        "DecreaseFaction2Points": 0b
+    },
+    "RewardExp": 0,
+    "QuestCommand": "",
+    "ModRev": 18,
+    "Type": 5,
+    "QuestMail": {
+        "Sender": "",
+        "BeenRead": 0b,
+        "Message": {
+        },
+        "MailItems": [
+        ],
+        "MailQuest": -1,
+        "TimePast": 1668051062473L,
+        "Time": 0L,
+        "Subject": ""
+    },
+    "Rewards": {
+        "NpcMiscInv": [
+        ]
+    },
+    "CompleteText": "",
+    "QuestManual": [
+        {
+            "Value": 1,
+            "Slot": "Get your bearings"
+        }
+    ]
+}
