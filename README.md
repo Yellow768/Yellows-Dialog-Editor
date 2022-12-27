@@ -1,122 +1,40 @@
-gdunzip
-=======
+Yellow's CustomNPC's Dialog Editor
+===================================
+Yellow's CustomNPC's Dialog Editor is a node based, dialog tree editor aiming to make creating branching dialog trees for the Minecraft mod CustomNPCS faster and easier.
 
-Gdunzip is a  zip file browser/decompressor written entirely in a single
-GDScript file. You can use this in games you're building with the Godot game
-engine. This script is meant for modest zip decompressing purposes, since the
-inflate algorithm it contains isn't super fast and gdunzip doesn't do CRC
-checks of the uncompressed files. However, gdunzip works fine if you only need
-to decompress small files, or when your zip files contain precompressed files
-like png's.
+Why?
+============
 
-In order to create gdunzip, I have made a GDScript port of Jørgen Ibsen's
-excellent tiny inflate library: [tinf](https://bitbucket.org/jibsen/tinf) for
-decompressing the deflate streams. Since the original was written in C and used
-some nifty pointer arithmetic, I had to make some minor changes
-here and there to be able to translate it. However, I tried to stay as close to
-the original code as possible.
+The in game editor and other external editors have been lackluster and have been hindering my performance. The in-game editor has submenu after submenu, no way to
+visualise the connections between dialogs, and most frustrating of all is no way to create and connect two dialogs in one fell swoop.
 
-The zip file format parsing is all written from scratch and performs pretty
-well.
+Instead, you must make the dialog you want first, then go back into the starting dialog, open the response options, edit response option 1, select dialog, and then find it in the list
 
-Why I wrote gdunzip
--------------------
-I'm working on a little sideproject in Godot: a memorize app. In this app I
-will allow the user to import an ODS-file: the spreadsheet file format used by
-LibreOffice and OpenOffice. ODS-files are actually zip files, containing a
-bunch of xml files and some other assets. I couldn't find a ready-made ODS
-library for Godot, so I set out creating one. It would have been faster to just
-use GDNative and hand all the work to a C++ library, but since this is a hobby
-project and I haven't got much GDScript experience, I thought it would be fun
-to create it myself. The first step was of course to get an unzipper up and
-running. I found out that Godot's PoolByteArray has a "decompress" function
-that supports deflate streams, however these were all in the Zlib format, so
-you can't use it with regular zip files (zlib uses an Adler-32 checksum to
-verify decompressed data, but zip files only contain a CRC-32 checksum).
+There have only been two external editors (that I could find). The first is the official one released by Noppes, which is just the in-game editor but now as it's own program. It
+suffers from the same issues as above.
 
-A more sensible person might have just stepped back and pulled some
-pre-existing C++ library off the shelf, however I thought it would be fun to
-dive in and gdunzip is the result :-).
+The only other one had terrible UX and UI, felt clunky and horrible to use.
 
-Using gdunzip
--------------
-- Grab
-  [gdunzip.gd](https://raw.githubusercontent.com/jellehermsen/gdunzip/master/addons/gdunzip/gdunzip.gd).
-- Put gdunzip.gd somewhere in your Godot project.
-- Make an instance, load a file and start uncompressing:
+Additionally, both external editors lacked the functionality of seeing and selecting quests and factions by name, instead relying on the user to know the faction and quest ID.
+Connections between dialogs was also handled by IDs.
 
-```gdscript
-# Instance the gdunzip script
-var gdunzip = load('res://addons/gdunzip/gdunzip.gd').new()
+Other dialog editors, unrelated to CustomNPCs, are not designed for this mod's specific architecture. There's lots of features that don't apply, and no way to natively export
+it into the Minecraft world, meaning that in the end, you still need to deal with the in-game editors interface.
 
-# Load a zip file
-var loaded = gdunzip.load('res://test.zip')
+So what does this do?
+========
 
-# Uncompress a file, getting a PoolByteArray in return 
-# (or false if it failed uncompressing) 
-if loaded:
-    var uncompressed = gdunzip.uncompress('lorem.txt')
-    if !uncompressed:
-        print('Failed uncompressing lorem.txt')
-    else:
-        print(uncompressed.get_string_from_utf8())
-else:
-    print('Failed loading zip file')
-```
+This editor aims to make everything about making dialogs convienent and intuitve. Features and settings are readily accesible, but out of sight when not needed. Clicking has
+been way reduced.
 
-- When gdunzip has loaded a zip file, you can iterate over all the files inside, by
-  looping through the "files" attribute:
-```gdscript
-for f in gdunzip.files.values():
-    print('File name: ' + f['file_name'])
+There are two types of nodes, a Dialog Node, which has a text box for both the title and the actual text itself right on it. As soon as a dialog is created, we can start writing.
 
-    # "compression_method" will be either -1 for uncompressed data, or
-    # File.COMPRESSION_DEFLATE for deflate streams
-    print('Compression method: ' + str(f['compression_method']))
+The other node is a Response Node. Response Nodes are tethered to the Dialog Node, and are created by clicking the plus button, or by hitting "Ctrl-R" while selecting a node.
 
-    print('Compressed size: ' + str(f['compressed_size']))
+Response nodes may connect to one dialog node, either by dragging the connection line to an existing dialog, or by clicking the plus button to automatically create a new dialog
+with a defined title.
 
-    print('Uncompressed size: ' + str(f['uncompressed_size']))
-```
 
-Class documentation
--------------------
+I also automatically load in quest and faction data, and keep in memory a list of all dialogs, that way they can be referenced by name. The editor can also natively export dialogs directly to the world, all that is required from there is a simple run of the command "/noppes dialog reload"
 
-### Member functions
-| Returns                          | Function name          |
-| -------------------------------- | ---------------------- |
-| bool                             | load(String path)      |
-| PoolByteArray                    | uncompress(String file_name)|
-| PoolByteArray | get_compressed(String file_name) |
-
-### Member function description
-
-- bool **load**(String path)
-
-Tries to load a zip file with a given path. Returns false if it failed
-loading the zip, or true if it was successfull.
-
-- PoolByteArray **uncompress**(String file_name)
-
-Try to uncompress the given file in the loaded zip. The file_name can include
-directories. This function returns *false* if the file can't be found, or if
-there's an error during uncompression. 
-
-- PoolByteArray **get_compressed**(String file_name)
-
-Returns the compressed data for a given file name (or false if the file can't
-be found). Depending on the file compression it can be either uncompressed or a
-raw deflate stream. This function returns *false* if the file can't be found.
-
-### files attribute
-After you have loaded a file, the gdunzip instance will have a pre-filled
-"files" attribute. This is simply an dictionary containing the meta data for
-the files that reside in the zip. The dictionary is a mapping from file name
-(including directory) to another dictionary with the following keys:
-
-- file_name: the file name
-- compression_method: -1 if uncompressed or File.COMPRESSION_DEFLATE
-- file_header_offset: the exact byte location of this file's compressed data
-  inside the zip file
-- compressed_size: the compressed file size in bytes
-- uncompressed_size: the uncompressed file size in bytes
+The editor can also import in existing dialogs, both from the minecraft world, and on their own, and will automatically create the correct IDs for it.
