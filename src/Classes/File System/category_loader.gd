@@ -42,13 +42,14 @@ func load_editor_settings(node_data):
 	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
 	
 	
-func load_dialog_data(node_data):
+func load_dialog_data(node_data : Dictionary):
 	var currently_loaded_dialog = create_new_dialog_node_from_ydec(node_data)
 	emit_signal("add_dialog",currently_loaded_dialog,true)
-	for response_data in node_data["response_options"]:
-		var currently_loaded_response = create_response_node_from_ydec(response_data)
-		emit_signal("add_response",currently_loaded_dialog,currently_loaded_response)
-		loaded_responses.append(currently_loaded_response)
+	if node_data.has("response_options"):
+		for response_data in node_data["response_options"]:
+			var currently_loaded_response = create_response_node_from_ydec(response_data)
+			emit_signal("add_response",currently_loaded_dialog,currently_loaded_response)
+			loaded_responses.append(currently_loaded_response)
 	loaded_dialogs.append(currently_loaded_dialog)
 	
 func connect_all_responses():
@@ -61,8 +62,11 @@ func connect_all_responses():
 			emit_signal("request_connect_nodes",response.name,0,connected_dialog.name,0)
 
 
-func create_new_dialog_node_from_ydec(node_data):
+func create_new_dialog_node_from_ydec(node_data : Dictionary):
 	var currently_loaded_dialog = GlobalDeclarations.DIALOG_NODE.instance()
+	if !node_data.has("offset.x"):
+		printerr("Line does not contain offset data, considered to be invalid")
+		return currently_loaded_dialog
 	currently_loaded_dialog.offset = Vector2(node_data["offset.x"],node_data["offset.y"])
 	for i in node_data.keys():
 		if i == "offset.x" or i == "offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options":

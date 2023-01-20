@@ -37,7 +37,6 @@ func create_faction_dict_from_dat_file(file : File):
 	var uncompressed_dat_file : PoolByteArray = file.get_buffer(file.get_len()).decompress_dynamic(-1,File.COMPRESSION_GZIP)
 	var faction_dict = {}
 	var cursor_position = 0
-	var test_string = ""
 	while cursor_position < uncompressed_dat_file.size():
 		var s_slot = uncompressed_dat_file.find(83,cursor_position)
 		if s_slot == -1:

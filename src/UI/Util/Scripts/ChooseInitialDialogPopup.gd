@@ -35,3 +35,14 @@ func initial_dialog_chosen(index_chosen):
 
 func _on_CancelButton_pressed():
 	queue_free()
+
+
+func _on_Searchbar_text_changed(new_text):
+	for button in $ScrollContainer/VBoxContainer.get_children():
+		if new_text == "":
+			button.visible = true
+		else:
+			if new_text.capitalize() in button.text.capitalize():
+				button.visible = true
+			else:
+				button.visible = false

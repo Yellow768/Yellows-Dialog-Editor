@@ -57,6 +57,20 @@ func create_dialog_from_json(current_json,offset):
 	create_dialogs_from_responses(new_node)
 	return new_node				
 
+func create_response_nodes_from_json(node,json):
+	var total_num_of_responses = 0
+	for i in json["Options"]:
+		var response = GlobalDeclarations.RESPONSE_NODE.instance() 
+		response.slot = i["OptionSlot"]
+		response.command = i["Option"]["DialogCommand"]
+		response.to_dialog_id = i["Option"]["Dialog"]
+		response.response_title = i["Option"]["Title"]
+		response.color_decimal = i["Option"]["DialogColor"]
+		response.set_option_from_json_index(i["Option"]["OptionType"])
+		emit_signal("request_add_response",node,response)
+	return total_num_of_responses
+	
+
 func create_dialogs_from_responses(dialog):
 	for response in dialog.response_options:
 		if response.to_dialog_id != -1 && response.option_type == 0:
@@ -131,13 +145,4 @@ func update_dialog_node_information(node,json):
 	return node
 
 
-func create_response_nodes_from_json(node,json):
-	for i in json["Options"]:
-		var response = GlobalDeclarations.RESPONSE_NODE.instance() 
-		response.slot = i["OptionSlot"]
-		response.command = i["Option"]["DialogCommand"]
-		response.to_dialog_id = i["Option"]["Dialog"]
-		response.response_title = i["Option"]["Title"]
-		response.color_decimal = i["Option"]["DialogColor"]
-		response.set_option_from_json_index(i["Option"]["OptionType"])
-		emit_signal("request_add_response",node,response)
+

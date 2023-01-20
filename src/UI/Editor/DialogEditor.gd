@@ -28,6 +28,7 @@ func _ready():
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 	set_process_input(false)
+	rect_size = Vector2(1920,1100)
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
@@ -50,7 +51,7 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use
 		CurrentEnvironment.highest_id += 1
 		
 	if new_dialog.offset == Vector2.ZERO:
-		new_dialog.offset = OS.window_size/2
+		new_dialog.offset = OS.window_size/3
 	if !use_exact_offset: 
 		#Adjust the offset so that it's relative to the current position of the graph's view.
 		new_dialog.offset = (new_dialog.offset+scroll_offset)/zoom	
@@ -273,6 +274,7 @@ func _on_CategoryPanel_request_load_category(category_name):
 		visible = true
 	
 func initialize_category_import(category_name):
+	visible = true
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instance()
 	choose_dialog_popup.connect("initial_dialog_chosen",self,"import_category")
 	choose_dialog_popup.connect("no_dialogs",self,"on_no_dialogs",[category_name])
@@ -318,12 +320,6 @@ func clear_editor():
 		i.delete_self()	
 	node_index = 0
 	emit_signal("editor_cleared")
-
-
-
-	
-func _on_BTN_AddNode_pressed():
-	add_dialog_node()
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):
@@ -418,3 +414,8 @@ func _on_DialogEditor_gui_input(event):
 func _on_CategoryPanel_current_category_deleted():
 	clear_editor()
 	visible = false
+
+
+
+
+

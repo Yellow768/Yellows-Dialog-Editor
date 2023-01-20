@@ -112,3 +112,8 @@ func give_factions_to_nodes(json):
 
 func _on_FactionChange2_faction_id_changed():
 	pass # Replace with function body.
+
+
+func _on_HomeButton_pressed():
+	get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instance())
+	queue_free()

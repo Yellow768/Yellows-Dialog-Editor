@@ -50,13 +50,20 @@ var option_type = 0 setget set_option_type
 
 var parent_dialog
 
+var total_height
+
 var connection_hidden = false
 var overlapping_response = null
 
 
 func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
-	set_slot(0,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
+	set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
+	$HBoxContainer/VBoxContainer/OptionTypeButton.select(option_type)
+
+func get_option_id_from_index(index):
+	return $HBoxContainer/VBoxContainer/OptionTypeButton.get_item_id(index)
+
 
 func set_option_from_json_index(option_int):
 	if not is_inside_tree(): yield(self,'ready')
@@ -82,12 +89,13 @@ func set_option_type(new_type):
 		CommandTextNode.visible = true
 	else:
 		CommandTextNode.visible = false
+		rect_size.y = 215
 	if new_type == 0:
 		reveal_button()
-		set_slot_enabled_right(0,true)
+		set_slot_enabled_right(1,true)
 	else:
 		hide_button()
-		set_slot_enabled_right(0,false)
+		set_slot_enabled_right(1,false)
 		if connected_dialog != null:
 			emit_signal("disconnect_from_dialog_request",self.name,0,connected_dialog.name,0)
 	
@@ -144,7 +152,7 @@ func set_connection_hidden():
 	connection_hidden = true
 	RemoteConnectionContainer.visible = true
 	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color_hidden)
-	set_slot_enabled_right(0,false)
+	set_slot_enabled_right(1,false)
 	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color_hidden)
 	update_connection_text()
 
@@ -153,7 +161,7 @@ func set_connection_shown():
 	connection_hidden = false
 	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color)
 	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color)
-	set_slot_enabled_right(0,true)
+	set_slot_enabled_right(1,true)
 	RemoteConnectionContainer.visible = false
 	
 
@@ -161,6 +169,7 @@ func disconnect_from_dialog():
 	connected_dialog.remove_connected_response(self)
 	emit_signal("disconnect_from_dialog_request",self.name,0,connected_dialog.name,0)
 	connected_dialog = null
+	to_dialog_id = -1
 	RemoteConnectionContainer.visible = false
 
 func delete_self():
@@ -199,9 +208,11 @@ func _on_OptionButton_item_selected(index):
 func _on_ColorPickerButton_color_changed(color):
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
+	
 
-func _on_ResponseText_text_changed():
-	response_title = ResponseTextNode.text
+
+func _on_ResponseText_text_changed(text):
+	response_title = text
 
 func _on_CommandText_text_changed():
 	command = CommandTextNode.text
@@ -230,3 +241,10 @@ func _on_ResponseNodeArea_area_exited(_area):
 
 func _on_PlayerResponseNode_offset_changed():
 	check_dialog_distance()
+	
+	
+func get_full_tree(all_children : Array = []):
+	if connected_dialog != null and connected_dialog.original_parent == self:
+		all_children.append(connected_dialog)
+		all_children = connected_dialog.get_full_tree(all_children)
+	return all_children

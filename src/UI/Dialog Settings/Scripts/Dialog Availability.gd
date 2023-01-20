@@ -34,6 +34,10 @@ func _on_ChooseDialog_pressed():
 
 func _on_OptionButton_item_selected(index):
 	emit_signal("type_changed",self,index)
+	if index != 0:
+		$Panel/ChooseDialog.disabled = false
+	else:
+		$Panel/ChooseDialog.disabled = true
 	
 
 

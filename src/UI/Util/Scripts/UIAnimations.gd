@@ -37,3 +37,14 @@ func _on_CategoryPanel_category_succesfully_saved(cname):
 
 func _on_CategoryPanel_category_failed_save():
 	play("FailFlash")
+
+
+func _on_CategoryPanel_category_export_failed(cname):
+	$ExportFail.text = "Category failed to export..."
+	play("ExportFailed")
+
+
+func _on_CategoryPanel_category_succesfully_exported(cname):
+	var string = "Category %s succesfully exported..."
+	$ExportLabel.text = string % cname
+	play("ExportSuccess")

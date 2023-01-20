@@ -26,8 +26,15 @@ onready var IdLabelNode = get_node(_id_label_path)
 
 var node_type = "Dialog Node" 
 var node_index = 0 setget set_node_index
+
+
 var response_options = []
 var connected_responses = []
+
+
+
+var original_parent
+var total_height
 
 var initial_offset_x = 0
 var initial_offset_y = 0
@@ -68,7 +75,7 @@ export var start_quest = -1
 
 
 func _ready():
-	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,Color(0,0,1,1),true,CONNECTION_TYPES.PORT_FROM_DIALOG,Color(0,1,0,1))
+	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,GlobalDeclarations.dialog_left_slot_color,true,CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.dialog_right_slot_color)
 	#emit_signal("set_self_as_selected",self)
 	initial_offset_y = offset.y
 	initial_offset_x = offset.x
@@ -126,7 +133,7 @@ func set_dialog_text(string):
 func set_dialog_id(id):
 	dialog_id = id
 	if not is_inside_tree(): yield(self,'ready')
-	IdLabelNode.text = String(id)
+	IdLabelNode.text = "ID: "+String(id)
 
 func set_node_index(index):
 	node_index = index
@@ -158,19 +165,26 @@ func _on_TitleText_text_changed(new_text):
 			i.update_connection_text()
 	emit_signal("title_changed")
 
-func _on_DialogText_gui_input(event):
+func handle_clicking(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
 			emit_signal("set_self_as_selected",self)
 		if event.doubleclick:
 			emit_signal("node_double_clicked")
-		
-		
+		if event.pressed and event.button_index == BUTTON_RIGHT:
+			$PopupMenu.popup()
 
+
+func _on_DialogNode_gui_input(event):
+	handle_clicking(event)
+
+
+func _on_DialogText_gui_input(event):
+	handle_clicking(event)
+		
 
 func _on_TitleText_gui_input(event):
-	if event is InputEventMouseButton and event.pressed  and event.button_index == BUTTON_LEFT:
-		emit_signal("set_self_as_selected",self)
+	handle_clicking(event)
 
 func _on_DialogText_text_changed():
 	text = DialogTextNode.text
@@ -254,3 +268,11 @@ func save():
 		"response_options":save_response_options
 	}
 	return save_dict
+
+
+func get_full_tree(all_children : Array = []):
+	for response in response_options:
+		all_children.append(response)
+		all_children = response.get_full_tree(all_children)
+	return all_children
+

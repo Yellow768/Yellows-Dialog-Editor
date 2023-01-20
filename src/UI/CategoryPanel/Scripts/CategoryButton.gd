@@ -36,9 +36,9 @@ func _on_PopupMenu_index_pressed(button_index):
 			$LineEdit.grab_focus()
 			$LineEdit.text = text
 			$LineEdit.caret_position = $LineEdit.text.length()
-		3:
+		2:
 			emit_signal("reimport_category_request",text)
-		4:
+		3:
 			emit_signal("delete_category_request",text)
 		
 

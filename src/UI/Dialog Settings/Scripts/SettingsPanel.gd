@@ -81,6 +81,13 @@ func _ready():
 		AvailabilityScoreboard.get_child(i).connect("comparison_type_changed",self,"scoreboard_comparison_type_changed")
 		AvailabilityScoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
 
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		if dialog_availability_mode:
+			exit_dialog_availability_mode()
+
+
+
 func set_quest_dict():
 	var access_to_quests = get_tree().get_nodes_in_group("quest_access")
 	for node in access_to_quests:
@@ -122,7 +129,7 @@ func set_dialog_availability_from_selected_node(node_selected):
 		AvailabilityDialogs.get_child(availability_slot).set_id(node_selected.dialog_id)
 		initial_dialog.selected = true
 		initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
-		dialog_availability_mode = false
+		
 		print("node was selected")
 		
 
@@ -136,6 +143,7 @@ func exit_dialog_availability_mode():
 	emit_signal("request_switch_to_stored_category")
 	emit_signal("show_information_panel")
 	emit_signal("availability_mode_exited")
+	dialog_availability_mode = false
 	print("Availability Mode Exited")
 	
 	

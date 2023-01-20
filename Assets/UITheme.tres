@@ -1,0 +1,65 @@
+[gd_resource type="Theme" load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Font/Inter-VariableFont_slnt,wght.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = 14
+extra_spacing_bottom = 14
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 20
+shadow_offset = Vector2( 0, 2 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 20
+shadow_offset = Vector2( 0, 2 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.113725, 0.109804, 0.109804, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 20
+shadow_offset = Vector2( 0, 2 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 57
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.0862745, 0.0862745, 0.0862745, 1 )
+
+[resource]
+Button/fonts/font = SubResource( 3 )
+Button/styles/hover = SubResource( 4 )
+Button/styles/normal = SubResource( 1 )
+Button/styles/pressed = SubResource( 5 )
+CategoryButton/fonts/Font = SubResource( 9 )
+GraphEdit/styles/bg = SubResource( 8 )
+Label/fonts/font = SubResource( 6 )
+Panel/styles/panel = SubResource( 7 )

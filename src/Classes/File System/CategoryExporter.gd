@@ -8,10 +8,11 @@ func _ready():
 func export_category(directory : String = CurrentEnvironment.current_directory+"/dialogs/",category_name : String = CurrentEnvironment.current_category_name):
 	var exported_category_dir = Directory.new()
 	var save_nodes = get_tree().get_nodes_in_group("Save")
-
+	
 	
 	if !exported_category_dir.dir_exists(directory+category_name):
 		exported_category_dir.make_dir(directory+category_name)
+	empty_category_jsons(category_name)
 	for i in save_nodes:
 		var dialog_file = File.new()
 		dialog_file.open(directory+category_name+"/"+String(i.dialog_id)+".json",File.WRITE)
@@ -21,6 +22,19 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 			dialog_file.store_line(line)
 		dialog_file.close()
 		
+func empty_category_jsons(category_name):
+	var dir = Directory.new()
+	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
+	if dir.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name) == OK:
+		dir.list_dir_begin(true)
+		var file_name : String = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				empty_category_jsons(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+file_name)
+			else:
+				if file_name.get_extension() == "json":
+					dir.remove(file_name)
+			file_name = dir.get_next()
 		
 
 func create_dialog_dict(dialog):
@@ -60,7 +74,7 @@ func create_dialog_dict(dialog):
 	'	"AvailabilityScoreboardValue": '+String(dialog.scoreboard_availabilities[0].value)+',',
 	'	"DialogDisableEsc": '+String(int(dialog.disable_esc))+'b,',
 	'	"AvailabilityFaction": '+String(dialog.faction_availabilities[0].availability_operator)+',',
-	'	"DialogTitle": "'+String(dialog.dialog_title)+'",',
+	'	"DialogTitle": "'+String(dialog.dialog_title).c_escape()+'",',
 	'	"AvailabilityDialog": '+String(dialog.dialog_availabilities[0].availability_type)+',',
 	'	"AvailabilityScoreboard2Type": '+String(dialog.scoreboard_availabilities[1].comparison_type)+',',
 	'	"AvailabilityFaction2": '+String(dialog.faction_availabilities[1].availability_operator)+',',
@@ -69,7 +83,7 @@ func create_dialog_dict(dialog):
 	'	"DialogCommand": "'+ String(dialog.command)+'",',
 	'	"AvailabilityDialogId": '+String(dialog.dialog_availabilities[0].dialog_id)+',',
 	'	"OptionFaction2Points": '+String(abs(dialog.faction_changes[1].points))+',',
-	'	"DialogText": "'+String(dialog.text)+'",',
+	'	"DialogText": "'+String(dialog.text).c_escape()+'",',
 	'	"AvailabilityQuest4Id": '+String(dialog.quest_availabilities[3].quest_id)+',',
 	'	"AvailabilityQuest3Id": '+String(dialog.quest_availabilities[2].quest_id)+',',
 	'	"AvailabilityQuest2Id": '+String(dialog.quest_availabilities[1].quest_id)+',',
@@ -98,20 +112,20 @@ func create_option_dict(response,islast):
 	var response_dict = []
 	if islast == false:
 		response_dict = [
-				'\n		{\n			"OptionSlot": '+String(response.slot-1),
-				'\n			"Option": {\n				"DialogCommand": "'+String(response.command)+'"',
+				'\n		{\n			"OptionSlot": '+String(response.slot),
+				'\n			"Option": {\n				"DialogCommand": "'+String(response.command).c_escape()+'"',
 					'\n				"Dialog": '+String(response.to_dialog_id),
-					'\n				"Title": "'+String(response.response_title)+'"',
+					'\n				"Title": "'+String(response.response_title).c_escape()+'"',
 					'\n				"DialogColor": '+String(response.color_decimal),
-					'\n				"OptionType": '+String(response.option_type)+"\n			}\n		}",	
+					'\n				"OptionType": '+String(response.get_option_id_from_index(response.option_type))+"\n			}\n		}",	
 			]
 	else:
 		response_dict = [
-				'\n		{\n			"OptionSlot": '+String(response.slot-1),
-				'\n			"Option": {\n				"DialogCommand": "'+String(response.command)+'"',
+				'\n		{\n			"OptionSlot": '+String(response.slot),
+				'\n			"Option": {\n				"DialogCommand": "'+String(response.command).c_escape()+'"',
 					'\n				"Dialog": '+String(response.to_dialog_id),
-					'\n				"Title": "'+String(response.response_title)+'"',
+					'\n				"Title": "'+String(response.response_title).c_escape()+'"',
 					'\n				"DialogColor": '+String(response.color_decimal),
-					'\n				"OptionType": '+String(response.option_type)+"\n			}\n		}\n	",	
+					'\n				"OptionType": '+String(response.get_option_id_from_index(response.option_type))+"\n			}\n		}\n	",	
 			]
 	return response_dict	
