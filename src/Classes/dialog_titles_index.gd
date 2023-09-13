@@ -34,6 +34,7 @@ func dialog_title_changed(dialog):
 			
 			
 func dialog_deleted(dialog_id):
+	
 	all_loaded_dialogs.erase(dialog_id)
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://src/UI/Editor/MainEditor.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" type="Script" id=2]
@@ -42,6 +42,23 @@ corner_radius_bottom_left = 8
 [sub_resource type="StyleBoxEmpty" id=18]
 
 [sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="Animation" id=25]
+resource_name = "AvailabilityMode"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/AvailabilityMode:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=11]
 length = 0.2
@@ -141,7 +158,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1470, 50 ), Vector2( 1912, 50 ) ]
+"values": [ Vector2( 1459.5, 50 ), Vector2( 1912, 50 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("InformationPanel:rect_size")
@@ -265,6 +282,118 @@ tracks/8/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "InitialReset"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CategoryPanel:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 49 ), Vector2( 0, 49 ), Vector2( -350, 49 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("InformationPanel:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1470, 50 ), Vector2( 1470, 50 ), Vector2( 1912, 50 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("InformationPanel:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 460.001, 1080 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CategoryPanel:rect_size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 360, 1030 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AnimationPlayer/SaveLAbel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AnimationPlayer/FailSave:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AnimationPlayer/ExportLabel:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AnimationPlayer/ExportFail:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CategoryPanel/VBoxContainer:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -425,6 +554,18 @@ tracks/12/keys = {
 "update": 0,
 "values": [ Color( 1, 0, 0, 0 ) ]
 }
+tracks/13/type = "value"
+tracks/13/path = NodePath("AnimationPlayer/AvailabilityMode:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=15]
 length = 1.7
@@ -439,6 +580,32 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFontData" id=23]
+font_path = "res://Assets/Font/Lexend-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=24]
+size = 33
+outline_color = Color( 0.0784314, 0, 1, 1 )
+extra_spacing_bottom = -10
+font_data = SubResource( 23 )
+
+[sub_resource type="Animation" id=26]
+resource_name = "AvailabilityMode"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/AvailabilityMode:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Main" type="Control"]
@@ -965,6 +1132,7 @@ rect_min_size = Vector2( 350, 50 )
 [node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -15.0
 rect_min_size = Vector2( 350, 50 )
 
 [node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
@@ -999,6 +1167,8 @@ rect_min_size = Vector2( 350, 50 )
 [node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -0.952
+margin_right = -15.952
 rect_min_size = Vector2( 350, 50 )
 
 [node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
@@ -1006,9 +1176,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -150.0
+margin_left = -133.548
 margin_top = -11.0
-margin_right = -74.0
+margin_right = -57.548
 margin_bottom = 13.0
 max_value = 10000.0
 align = 1
@@ -1030,8 +1200,11 @@ margin_top = -83.0
 margin_right = 1.0
 margin_bottom = 81.0
 toggle_mode = true
-pressed = true
-text = ">"
+text = "<"
+
+[node name="availability_timer" type="Timer" parent="InformationPanel"]
+wait_time = 0.05
+one_shot = true
 
 [node name="CategoryPanel" type="Panel" parent="."]
 anchor_bottom = 1.0
@@ -1101,12 +1274,15 @@ text = "Create New Category"
 script = ExtResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "InitialReset"
+anims/AvailabilityMode = SubResource( 25 )
 anims/CategoryPanel = SubResource( 11 )
 anims/ExportFailed = SubResource( 20 )
 anims/ExportSuccess = SubResource( 21 )
 anims/FailFlash = SubResource( 12 )
 anims/InformationPanel = SubResource( 13 )
 anims/Initial = SubResource( 14 )
+anims/InitialReset = SubResource( 22 )
 anims/RESET = SubResource( 2 )
 anims/SaveFlash = SubResource( 15 )
 script = ExtResource( 16 )
@@ -1142,6 +1318,27 @@ margin_right = 474.0
 margin_bottom = 87.0
 text = "%s failed to export."
 
+[node name="AvailabilityMode" type="Label" parent="AnimationPlayer"]
+visible = false
+margin_left = 617.0
+margin_top = 23.0
+margin_right = 1267.0
+margin_bottom = 155.0
+custom_colors/font_color = Color( 0, 0.341176, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.454902 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 24 )
+text = "Dialog Availability Mode
+Double click to select"
+align = 1
+valign = 1
+
+[node name="Animation" type="AnimationPlayer" parent="AnimationPlayer/AvailabilityMode"]
+root_node = NodePath("../../..")
+anims/AvailabilityMode = SubResource( 26 )
+script = ExtResource( 16 )
+
 [connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
@@ -1169,7 +1366,12 @@ text = "%s failed to export."
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ReimportButton" to="TopPanel" method="_on_ReimportButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ScanButton" to="TopPanel" method="_on_ScanButton_pressed"]
 [connection signal="pressed" from="TopPanel/EditorContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="availability_mode_entered" from="InformationPanel" to="DialogEditor" method="_on_InformationPanel_availability_mode_entered"]
 [connection signal="availability_mode_entered" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_availability_mode_entered"]
+[connection signal="availability_mode_entered" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_availability_mode_entered"]
+[connection signal="availability_mode_exited" from="InformationPanel" to="." method="_on_InformationPanel_availability_mode_exited"]
+[connection signal="availability_mode_exited" from="InformationPanel" to="DialogEditor" method="_on_InformationPanel_availability_mode_exited"]
+[connection signal="availability_mode_exited" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_availability_mode_exited"]
 [connection signal="hide_information_panel" from="InformationPanel" to="AnimationPlayer" method="_on_InformationPanel_hide_information_panel"]
 [connection signal="request_store_current_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_store_current_category"]
 [connection signal="request_switch_to_stored_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_switch_to_stored_category"]
@@ -1191,6 +1393,7 @@ text = "%s failed to export."
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
+[connection signal="timeout" from="InformationPanel/availability_timer" to="InformationPanel" method="_on_availability_timer_timeout"]
 [connection signal="category_export_failed" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_category_failed_save"]
 [connection signal="category_succesfully_exported" from="CategoryPanel" to="AnimationPlayer" method="_on_CategoryPanel_category_succesfully_exported"]

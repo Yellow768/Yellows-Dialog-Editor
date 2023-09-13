@@ -17,7 +17,7 @@ var previous_zoom = 1
 
 var all_loaded_dialogs = []
 
-
+var ignore_double_clicks = false
 
 func _ready():
 	get_zoom_hbox().visible = false
@@ -34,7 +34,7 @@ func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
 		handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
-			i.delete_self()
+			i.delete_self(true)
 			selected_nodes.erase(i)
 		for i in selected_responses:
 			i.delete_self()
@@ -217,14 +217,11 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 		response.set_connection_shown()
 		disconnect_node(from,from_slot,to,to_slot)
 		dialog.remove_connected_response(response)
-		response.reveal_button()
-		
-		response.connected_dialog = null
-		
-		
-	else:
-		disconnect_node(from,from_slot,to,to_slot)
-		response.reveal_button()
+		response.reveal_button()	
+		response.connected_dialog = null	
+	#else:
+		#disconnect_node(from,from_slot,to,to_slot)
+		#//response.reveal_button()
 
 func hide_connection_line(from,to):
 	disconnect_node(from.name,0,to.name,0)
@@ -243,7 +240,6 @@ func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array):
 	var sorted_ids = dialogs_to_be_deleted.duplicate()
 	sorted_ids.sort_custom(self,"sort_array_by_dialog_id")
 	for node in sorted_ids:
-		print(node.dialog_id)
 		if node.dialog_id == CurrentEnvironment.highest_id:
 			CurrentEnvironment.highest_id -= 1
 
@@ -279,6 +275,7 @@ func initialize_category_import(category_name):
 	choose_dialog_popup.connect("initial_dialog_chosen",self,"import_category")
 	choose_dialog_popup.connect("no_dialogs",self,"on_no_dialogs",[category_name])
 	add_child(choose_dialog_popup)
+	choose_dialog_popup
 	choose_dialog_popup.create_dialog_buttons(category_name)
 	
 func import_category(category_name,all_dialogs,index):
@@ -287,6 +284,7 @@ func import_category(category_name,all_dialogs,index):
 	new_category_importer.connect("request_add_response",self,"add_response_node")
 	new_category_importer.connect("request_connect_nodes",self,"connect_nodes")
 	new_category_importer.connect("clear_editor_request",self,"clear_editor")
+	new_category_importer.connect("editor_offset_loaded",self,"set_scroll_ofs")
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
 	var new_cat_save = category_saver.new()
 	add_child(new_cat_save)
@@ -315,7 +313,7 @@ func clear_editor():
 	var save_nodes = get_tree().get_nodes_in_group("Save")
 	var response_nodes = get_tree().get_nodes_in_group("Response_Nodes")
 	for i in save_nodes:
-		i.delete_self()
+		i.delete_self(false)
 	for i in response_nodes:
 		i.delete_self()	
 	node_index = 0
@@ -371,18 +369,22 @@ func _on_node_requests_selection(node):
 		_on_DialogEditor_node_selected(node)
 
 func handle_double_click(node):
+	print(ignore_double_clicks)
 	
 	if node.node_type == "Dialog Node":
-		for response in node.response_options:
-			if !response.selected:
-				response.selected = true
-				handle_double_click(response)
-		emit_signal("node_double_clicked",node)			
+		emit_signal("node_double_clicked",node)	
+		if !ignore_double_clicks:
+			for response in node.response_options:
+				if !response.selected:
+					response.selected = true
+					handle_double_click(response)
+				
 	if node.node_type == "Player Response Node":
-		if node.connected_dialog != null and !node.connected_dialog.selected:
-			node.connected_dialog.selected = true
-			handle_double_click(node.connected_dialog)
-			node.connected_dialog.emit_signal("node_double_clicked")
+		if !ignore_double_clicks:
+			if node.connected_dialog != null and !node.connected_dialog.selected:
+				node.connected_dialog.selected = true
+				handle_double_click(node.connected_dialog)
+				node.connected_dialog.emit_signal("node_double_clicked")
 			
 
 
@@ -419,3 +421,11 @@ func _on_CategoryPanel_current_category_deleted():
 
 
 
+
+
+func _on_InformationPanel_availability_mode_entered() -> void:
+	ignore_double_clicks = true
+
+
+func _on_InformationPanel_availability_mode_exited() -> void:
+	ignore_double_clicks = false

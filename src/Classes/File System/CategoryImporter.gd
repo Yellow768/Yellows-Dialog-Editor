@@ -7,7 +7,7 @@ signal update_current_category
 signal request_add_dialog
 signal request_add_response
 signal request_connect_nodes
-
+signal editor_offset_loaded
 
 var current_category_directory
 var imported_category_name
@@ -49,6 +49,7 @@ func create_nodes_from_index(category_name, index : int = 0):
 func create_dialog_from_json(current_json,offset):
 	var new_node = GlobalDeclarations.DIALOG_NODE.instance()
 	new_node.offset = offset
+	#emit_signal("editor_offset_loaded",new_node.offset)
 	new_node = update_dialog_node_information(new_node,current_json)
 	imported_dialogs.erase(current_json)
 	loaded_dialog_nodes.append(new_node)

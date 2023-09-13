@@ -63,6 +63,7 @@ var dialog_availability_mode = false
 var availability_slot
 var stored_current_dialog_id
 var dialog_editor_is_loaded = false
+var glob_node_selected_id
 
 func _ready(): 
 	set_quest_dict()
@@ -113,6 +114,7 @@ func enter_dialog_availability_mode(availability_scene):
 	dialog_availability_mode = true
 	emit_signal("hide_information_panel")
 	emit_signal("request_store_current_category")
+	emit_signal("availability_mode_entered")
 	ToggleVisibility.pressed = false
 	ToggleVisibility.text = "<"
 	print("Availability Mode Entered")
@@ -121,16 +123,9 @@ func enter_dialog_availability_mode(availability_scene):
 func set_dialog_availability_from_selected_node(node_selected):
 	if dialog_availability_mode:
 		dialog_editor_is_loaded = false
-		var avail_id = node_selected.dialog_id
+		glob_node_selected_id = node_selected.dialog_id
 		exit_dialog_availability_mode()
-		var initial_dialog = find_dialog_node_from_id(stored_current_dialog_id)
-		load_dialog_settings(initial_dialog)
-		initial_dialog.dialog_availabilities[availability_slot].dialog_id = node_selected.dialog_id
-		AvailabilityDialogs.get_child(availability_slot).set_id(node_selected.dialog_id)
-		initial_dialog.selected = true
-		initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
-		
-		print("node was selected")
+		$availability_timer.start()
 		
 
 func find_dialog_node_from_id(id):
@@ -189,6 +184,7 @@ func load_dialog_settings(dialog):
 		AvailabilityQuests.get_child(i).set_availability_type(current_dialog.quest_availabilities[i].availability_type)
 		AvailabilityDialogs.get_child(i).set_id(current_dialog.dialog_availabilities[i].dialog_id)
 		AvailabilityDialogs.get_child(i).set_availability_type(current_dialog.dialog_availabilities[i].availability_type)
+		AvailabilityDialogs.get_child(i).set_choose_dialog_disbaled_proper()
 	for i in 2:
 		AvailabilityFactions.get_child(i).set_id(current_dialog.faction_availabilities[i].faction_id)
 		AvailabilityFactions.get_child(i).set_stance(current_dialog.faction_availabilities[i].stance_type)
@@ -312,3 +308,13 @@ func _on_ToggleVisiblity_toggled(button_pressed):
 func _on_DialogEditor_finished_loading(_category_name):
 	emit_signal("ready_to_set_availability")
 
+
+
+func _on_availability_timer_timeout() -> void:
+	#fixes a dumb issue where the information panel doesn't update, by just delaying iy
+	var initial_dialog = find_dialog_node_from_id(stored_current_dialog_id)
+	load_dialog_settings(initial_dialog)
+	initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
+	AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
+	initial_dialog.selected = true
+	initial_dialog.emit_signal("set_self_as_selected",initial_dialog)

@@ -1,12 +1,5 @@
 extends AnimationPlayer
 
-
-func _ready():
-	play("Initial")
-
-
-
-
 func _on_InformationPanel_show_information_panel():
 	play_backwards("InformationPanel")
 	
@@ -48,3 +41,17 @@ func _on_CategoryPanel_category_succesfully_exported(cname):
 	var string = "Category %s succesfully exported..."
 	$ExportLabel.text = string % cname
 	play("ExportSuccess")
+
+
+func _on_InformationPanel_availability_mode_entered() -> void:
+	$AvailabilityMode.visible = true
+	$AvailabilityMode/Animation.play("AvailabilityMode")
+
+
+func _on_InformationPanel_availability_mode_exited() -> void:
+	$AvailabilityMode.visible = false
+	$AvailabilityMode/Animation.stop(true)
+	
+
+
+

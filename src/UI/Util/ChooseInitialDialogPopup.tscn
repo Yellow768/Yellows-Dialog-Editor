@@ -4,9 +4,9 @@
 [ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=2]
 
 [node name="ChooseInitialDIalogPopup" type="Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 49.0
+margin_top = 40.0
+margin_right = 1920.0
+margin_bottom = 1027.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 _button_list_path = NodePath("ScrollContainer/VBoxContainer")

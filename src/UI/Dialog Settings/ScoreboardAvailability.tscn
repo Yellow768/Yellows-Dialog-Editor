@@ -20,13 +20,13 @@ rect_min_size = Vector2( 350, 50 )
 custom_styles/panel = SubResource( 1 )
 
 [node name="OptionButton" type="OptionButton" parent="Panel"]
-anchor_left = 0.5
+anchor_left = 0.475
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -34.0
 margin_top = -9.5
-margin_right = 100.0
+margin_right = 90.0
 margin_bottom = 9.5
 custom_fonts/font = ExtResource( 3 )
 text = "Equals"
@@ -38,9 +38,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -75.0
+margin_left = -100.0
 margin_top = -12.0
-margin_right = 1.0
+margin_right = -24.0
 margin_bottom = 12.0
 max_value = 10000.0
 value = 1.0

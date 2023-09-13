@@ -58,7 +58,7 @@ var overlapping_response = null
 
 func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
-	set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
+	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 	$HBoxContainer/VBoxContainer/OptionTypeButton.select(option_type)
 
 func get_option_id_from_index(index):
@@ -248,3 +248,5 @@ func get_full_tree(all_children : Array = []):
 		all_children.append(connected_dialog)
 		all_children = connected_dialog.get_full_tree(all_children)
 	return all_children
+
+

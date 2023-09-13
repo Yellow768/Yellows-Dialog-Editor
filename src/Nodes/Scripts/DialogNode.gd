@@ -75,7 +75,7 @@ export var start_quest = -1
 
 
 func _ready():
-	set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,GlobalDeclarations.dialog_left_slot_color,true,CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.dialog_right_slot_color)
+	#set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,GlobalDeclarations.dialog_left_slot_color,true,CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.dialog_right_slot_color)
 	#emit_signal("set_self_as_selected",self)
 	initial_offset_y = offset.y
 	initial_offset_x = offset.x
@@ -102,7 +102,7 @@ func add_connected_response(response):
 func remove_connected_response(response):
 	connected_responses.erase(response)
 
-func delete_self():
+func delete_self(perm = true):
 	while response_options.size() > 0:
 		for i in response_options:
 			i.delete_self()
@@ -110,7 +110,7 @@ func delete_self():
 		for i in connected_responses:
 			i.disconnect_from_dialog()
 			connected_responses.erase(i)
-	emit_signal("dialog_ready_for_deletion",self,true)
+	emit_signal("dialog_ready_for_deletion",self,perm)
 
 func set_focus_on_title():
 	TitleTextNode.grab_focus()
@@ -144,7 +144,7 @@ func _on_AddPlayerResponse_pressed():
 
 
 func _on_DialogNode_close_request():
-	delete_self()
+	delete_self(true)
 	
 func _on_DialogNode_offset_changed():
 	if !Input.is_action_pressed("drag_without_responses"):

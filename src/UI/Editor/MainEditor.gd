@@ -52,6 +52,8 @@ func _input(event):
 			var response = get_focus_owner().get_parent().get_parent().get_parent()
 			if response.slot != 1:
 				response.parent_dialog.response_options[response.slot-2].set_focus_on_title()
+	if Input.is_action_just_pressed("reset_gui"):
+		$AnimationPlayer.play("InitialReset")
 				
 
 
@@ -117,3 +119,5 @@ func _on_FactionChange2_faction_id_changed():
 func _on_HomeButton_pressed():
 	get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instance())
 	queue_free()
+
+

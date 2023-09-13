@@ -48,3 +48,6 @@ func _on_SpinBox_value_changed(value):
 	if dialog_list != null:
 		$Panel/ChooseDialog.text = dialog_list.get_title_from_id(value)
 	emit_signal("id_changed",self,value)
+
+func set_choose_dialog_disbaled_proper():
+	$Panel/ChooseDialog.disabled = ($Panel/OptionButton.selected==0)
