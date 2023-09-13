@@ -133,8 +133,8 @@ GlobalDeclarations="*res://src/Autoload/global_declarations.gd"
 
 [display]
 
-window/size/width=1920
-window/size/height=1036
+window/vsync/use_vsync=false
+window/stretch/aspect="keep"
 
 [editor]
 

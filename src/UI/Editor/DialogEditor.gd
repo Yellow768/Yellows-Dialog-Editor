@@ -28,7 +28,7 @@ func _ready():
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 	set_process_input(false)
-	rect_size = Vector2(1920,1100)
+	#rect_size = Vector2(1920,1100)
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_delete"):
@@ -274,8 +274,9 @@ func initialize_category_import(category_name):
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instance()
 	choose_dialog_popup.connect("initial_dialog_chosen",self,"import_category")
 	choose_dialog_popup.connect("no_dialogs",self,"on_no_dialogs",[category_name])
-	add_child(choose_dialog_popup)
-	choose_dialog_popup
+	get_parent().add_child(choose_dialog_popup)
+	choose_dialog_popup.rect_size = OS.window_size
+	choose_dialog_popup.rect_position = Vector2(0,0)
 	choose_dialog_popup.create_dialog_buttons(category_name)
 	
 func import_category(category_name,all_dialogs,index):

@@ -6,7 +6,6 @@
 [node name="Program" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 1280, 720 )
 theme = ExtResource( 2 )
 
 [node name="LandingScreen" parent="." instance=ExtResource( 1 )]

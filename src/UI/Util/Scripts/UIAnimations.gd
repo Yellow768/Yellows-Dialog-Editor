@@ -1,64 +1,63 @@
-extends AnimationPlayer
+extends Node
+
+export(NodePath) var InformationPanel
+export(NodePath) var CategoryPanel
+
+func tween(node,property,from,to,speed,type):
+	var tween = Tween.new()
+	tween.interpolate_property(node,property,from,to,speed,type)
+	add_child(tween)
+	tween.start()
+	tween.connect("tween_all_completed",tween,"queue_free")
+
 
 func _on_InformationPanel_show_information_panel():
-	var tween = Tween.new()
-	tween.interpolate_property(get_node("../InformationPanel"),"rect_position:x",OS.window_size.x-450,OS.window_size.x,.2,Tween.TRANS_LINEAR)
-	add_child(tween)
-	tween.start()
-	#tween.connect("tween_completed",tween,"queue_free")
-	
-
-
+	tween(get_node(InformationPanel),"rect_position:x",get_node(InformationPanel).rect_position.x,OS.window_size.x-450,.2,Tween.TRANS_LINEAR)
 
 func _on_InformationPanel_hide_information_panel():
-	var tween = Tween.new()
-	tween.interpolate_property(get_node("../InformationPanel"),"rect_position:x",OS.window_size.x,OS.window_size.x-450,.2,Tween.TRANS_LINEAR)
-	add_child(tween)
-	tween.start()
-	#tween.connect("tween_completed",tween,"queue_free")
-
+	tween(get_node(InformationPanel),"rect_position:x",get_node(InformationPanel).rect_position.x,OS.window_size.x,.2,Tween.TRANS_LINEAR)
 
 func _on_CategoryPanel_reveal_category_panel():
-	play("CategoryPanel")
+	tween(get_node(CategoryPanel),"rect_position:x",get_node(CategoryPanel).rect_position.x,0,.2,Tween.TRANS_LINEAR)
 
 
 func _on_CategoryPanel_hide_category_panel():
-	play_backwards("CategoryPanel")
+	tween(get_node(CategoryPanel),"rect_position:x",get_node(CategoryPanel).rect_position.x,-350,.2,Tween.TRANS_LINEAR)
 
 
 func _on_TopPanel_save_category_request():
-	play("SaveFlash")
+	tween($SaveLabel,"modulate",Color(1,1,1,1),Color(1,1,1,0),.1,Tween.TRANS_BACK)
+	
 
 
 func _on_CategoryPanel_category_succesfully_saved(cname):
 	var save_string = "Category %s saved..."
-	$SaveLAbel.text = save_string % cname
-	play("SaveFlash")
+	$SaveLabel.text = save_string % cname
+	tween($SaveLabel,"modulate",Color(1,1,1,1),Color(1,1,1,0),1,Tween.TRANS_EXPO)
 
 
 func _on_CategoryPanel_category_failed_save():
-	play("FailFlash")
+	tween($SaveFail,"modulate",Color(1,1,1,1),Color(1,1,1,0),1,Tween.TRANS_EXPO)
+	
 
 
 func _on_CategoryPanel_category_export_failed(cname):
-	$ExportFail.text = "Category failed to export..."
-	play("ExportFailed")
+	tween($ExportFail,"modulate",Color(1,1,1,1),Color(1,1,1,0),1,Tween.TRANS_EXPO)
 
 
 func _on_CategoryPanel_category_succesfully_exported(cname):
 	var string = "Category %s succesfully exported..."
-	$ExportLabel.text = string % cname
-	play("ExportSuccess")
+	$Export.text = string % cname
+	tween($Export,"modulate",Color(1,1,1,1),Color(1,1,1,0),1,Tween.TRANS_EXPO)
 
 
 func _on_InformationPanel_availability_mode_entered() -> void:
 	$AvailabilityMode.visible = true
-	$AvailabilityMode/Animation.play("AvailabilityMode")
 
 
 func _on_InformationPanel_availability_mode_exited() -> void:
 	$AvailabilityMode.visible = false
-	$AvailabilityMode/Animation.stop(true)
+
 	
 
 

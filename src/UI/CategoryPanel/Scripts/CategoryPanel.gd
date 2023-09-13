@@ -15,7 +15,6 @@ signal category_failed_save
 signal category_succesfully_exported
 signal category_export_failed
 
-export(NodePath) var animation_player_path
 export(NodePath) var category_file_container_path
 export(NodePath) var environment_index_path
 
@@ -25,7 +24,7 @@ var current_directory_path
 var current_category
 
 
-onready var animation_player = get_node(animation_player_path)
+
 onready var category_file_container = get_node(category_file_container_path)
 onready var EnvironmentIndex = get_node(environment_index_path)
 
@@ -33,7 +32,7 @@ onready var EnvironmentIndex = get_node(environment_index_path)
 var categoryPanelRevealed = false
 
 func _ready():
-	rect_position = Vector2(-290,50)
+	
 	create_category_buttons(EnvironmentIndex.index_categories())
 
 	
@@ -67,20 +66,15 @@ func _category_button_pressed(category_button):
 		emit_signal("request_load_category",category_button.text)
 
 
-func _on_CategoryPanel_mouse_entered():
-	if !categoryPanelRevealed:
-		emit_signal("reveal_category_panel")
-		categoryPanelRevealed = true
 
 
-
-
-func _on_CategoryPanel_mouse_exited():
-	if not Rect2(Vector2(),rect_size).has_point(get_local_mouse_position()):
+func _process(delta):
+	if categoryPanelRevealed and not Rect2(Vector2(),rect_size).has_point(get_local_mouse_position()):
 		emit_signal("hide_category_panel")
 		categoryPanelRevealed = false
-
-
+	if !categoryPanelRevealed and Rect2(Vector2(),rect_size).has_point(get_local_mouse_position()):
+		emit_signal("reveal_category_panel")
+		categoryPanelRevealed = true
 
 
 
@@ -103,7 +97,7 @@ func request_deletion_popup(deletion_name):
 func reimport_category_popup(reimport_name):
 	var confirm_reimport_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instance()
 	confirm_reimport_popup.connect("confirmed",self,"emit_signal",["reimport_category",reimport_name])
-	confirm_reimport_popup.dialog_text = "Are you want to reimport "+reimport_name+"? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory."
+	confirm_reimport_popup.dialog_text = "Are you sure you want to reimport "+reimport_name+"? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory."
 	$".".add_child(confirm_reimport_popup)
 	confirm_reimport_popup.popup_centered()
 
