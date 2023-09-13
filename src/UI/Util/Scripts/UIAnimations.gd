@@ -1,13 +1,21 @@
 extends AnimationPlayer
 
 func _on_InformationPanel_show_information_panel():
-	play_backwards("InformationPanel")
+	var tween = Tween.new()
+	tween.interpolate_property(get_node("../InformationPanel"),"rect_position:x",OS.window_size.x-450,OS.window_size.x,.2,Tween.TRANS_LINEAR)
+	add_child(tween)
+	tween.start()
+	#tween.connect("tween_completed",tween,"queue_free")
 	
 
 
 
 func _on_InformationPanel_hide_information_panel():
-	play("InformationPanel")
+	var tween = Tween.new()
+	tween.interpolate_property(get_node("../InformationPanel"),"rect_position:x",OS.window_size.x,OS.window_size.x-450,.2,Tween.TRANS_LINEAR)
+	add_child(tween)
+	tween.start()
+	#tween.connect("tween_completed",tween,"queue_free")
 
 
 func _on_CategoryPanel_reveal_category_panel():

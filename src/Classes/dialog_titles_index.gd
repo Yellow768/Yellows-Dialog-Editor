@@ -13,8 +13,9 @@ func get_title_from_index(index):
 		return all_loaded_dialogs[index]
 		
 func get_title_from_id(id):
+	print(id)
 	if all_loaded_dialogs.has(id):
-		return all_loaded_dialogs[id]
+		return all_loaded_dialogs.get(id)
 	return "Unindexed Dialog"
 
 func add_dialog_to_loaded(dialog):

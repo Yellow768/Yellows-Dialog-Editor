@@ -132,7 +132,9 @@ func find_dialog_node_from_id(id):
 	var dialog_nodes = get_tree().get_nodes_in_group("Save")
 	for dialog in dialog_nodes:
 		if dialog.dialog_id == stored_current_dialog_id:
+			print("found dialog")
 			return dialog
+			
 
 func exit_dialog_availability_mode():
 	emit_signal("request_switch_to_stored_category")
