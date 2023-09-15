@@ -8,7 +8,7 @@ var dragging = false
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_MIDDLE and event.is_pressed():
+		if event.button_index == MOUSE_BUTTON_MIDDLE and event.is_pressed():
 			mouse_start_pos = event.position
 			screen_start_position = position
 			dragging = true
@@ -16,10 +16,10 @@ func _input(event):
 			dragging = false
 	elif event is InputEventMouseMotion and dragging:
 		position = zoom * (mouse_start_pos - event.position) + screen_start_position
-	if event is InputEventMouseButton and event.button_index == BUTTON_WHEEL_UP:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if zoom > Vector2(0.2,0.2):
 			zoom_at_point(1/1.1,event.position)
-	if event is InputEventMouseButton and event.button_index == BUTTON_WHEEL_DOWN:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		if zoom < Vector2(10,10):
 			zoom_at_point(1.1,event.position)
 			

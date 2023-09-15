@@ -9,7 +9,7 @@ func save_category(category_name):
 		var save_nodes = get_tree().get_nodes_in_group("Save")
 		save_category.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",File.WRITE)
 		for node in save_nodes:
-			if node.filename.empty():
+			if node.filename.is_empty():
 				print("Node '%s' is not instanced, skipped" % node.name)
 				continue
 			
@@ -19,11 +19,11 @@ func save_category(category_name):
 			
 			var category_data = node.call("save")
 			
-			save_category.store_line(to_json(category_data))
+			save_category.store_line(JSON.new().stringify(category_data))
 		var editors = get_tree().get_nodes_in_group("editor")
 		for editor in editors:
 			var editor_data = editor.call("save")
-			save_category.store_line(to_json(editor_data))
+			save_category.store_line(JSON.new().stringify(editor_data))
 		save_category.close()
 		emit_signal("category_saved")
 		return OK

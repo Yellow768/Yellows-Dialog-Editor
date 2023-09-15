@@ -1,60 +1,60 @@
 extends TabContainer
 
-onready var hide_npc_checkbox = $DialogSettings/DialogSettings/VBoxContainer/HideNPC
-onready var show_wheel_checkbox = $DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel
-onready var disable_esc_checkbox = $DialogSettings/DialogSettings/VBoxContainer/DisableEsc
-onready var title_label = $DialogSettings/DialogSettings/VBoxContainer/Title
-onready var command_edit = $DialogSettings/DialogSettings/VBoxContainer/Command
-onready var playsound_edit = $DialogSettings/DialogSettings/VBoxContainer/Soundfile
-onready var faction_changes_1 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange
-onready var faction_changes_2 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange2
-onready var start_quest = $DialogSettings/DialogSettings/VBoxContainer/StartQuest
-onready var dialog_text_edit = $DialogSettings/DialogSettings/VBoxContainer/DialogText
+@onready var hide_npc_checkbox = $DialogSettings/DialogSettings/VBoxContainer/HideNPC
+@onready var show_wheel_checkbox = $DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel
+@onready var disable_esc_checkbox = $DialogSettings/DialogSettings/VBoxContainer/DisableEsc
+@onready var title_label = $DialogSettings/DialogSettings/VBoxContainer/Title
+@onready var command_edit = $DialogSettings/DialogSettings/VBoxContainer/Command
+@onready var playsound_edit = $DialogSettings/DialogSettings/VBoxContainer/Soundfile
+@onready var faction_changes_1 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange
+@onready var faction_changes_2 = $DialogSettings/DialogSettings/VBoxContainer/FactionChange2
+@onready var start_quest = $DialogSettings/DialogSettings/VBoxContainer/StartQuest
+@onready var dialog_text_edit = $DialogSettings/DialogSettings/VBoxContainer/DialogText
 
-onready var availability_quests = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions
-onready var availability_dialogs = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions
-onready var availability_factions = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions
-onready var availability_scoreboard = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions
-onready var availability_time = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time
-onready var availability_level = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel
+@onready var availability_quests = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions
+@onready var availability_dialogs = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions
+@onready var availability_factions = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions
+@onready var availability_scoreboard = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions
+@onready var availability_time = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time
+@onready var availability_level = $AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel
 var current_dialog
 
 func _ready():
 	for i in 4:
-		availability_quests.get_child(i).connect("id_changed",self,"quest_id_changed")
-		availability_quests.get_child(i).connect("type_changed",self,"quest_type_changed")
-		availability_dialogs.get_child(i).connect("id_changed",self,"dialog_id_changed")
-		availability_dialogs.get_child(i).connect("type_changed",self,"dialog_type_changed")
+		availability_quests.get_child(i).connect("id_changed", Callable(self, "quest_id_changed"))
+		availability_quests.get_child(i).connect("type_changed", Callable(self, "quest_type_changed"))
+		availability_dialogs.get_child(i).connect("id_changed", Callable(self, "dialog_id_changed"))
+		availability_dialogs.get_child(i).connect("type_changed", Callable(self, "dialog_type_changed"))
 	for i in 2:
-		availability_factions.get_child(i).connect("id_changed",self,"faction_id_changed")
-		availability_factions.get_child(i).connect("stance_changed",self,"faction_stance_changed")
-		availability_factions.get_child(i).connect("isisnot_changed",self,"faction_isisnot_changed")
+		availability_factions.get_child(i).connect("id_changed", Callable(self, "faction_id_changed"))
+		availability_factions.get_child(i).connect("stance_changed", Callable(self, "faction_stance_changed"))
+		availability_factions.get_child(i).connect("isisnot_changed", Callable(self, "faction_isisnot_changed"))
 		
-		availability_scoreboard.get_child(i).connect("objective_name_changed",self,"scoreboard_objective_name_changed")
-		availability_scoreboard.get_child(i).connect("comparison_type_changed",self,"scoreboard_comparison_type_changed")
-		availability_scoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
+		availability_scoreboard.get_child(i).connect("objective_name_changed", Callable(self, "scoreboard_objective_name_changed"))
+		availability_scoreboard.get_child(i).connect("comparison_type_changed", Callable(self, "scoreboard_comparison_type_changed"))
+		availability_scoreboard.get_child(i).connect("value_changed", Callable(self, "scoreboard_value_changed"))
 
 func disconnect_current_dialog(dialog):
 	if current_dialog == dialog:
-		dialog.disconnect("text_changed",self,"update_text")
-		dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+		dialog.disconnect("text_changed", Callable(self, "update_text"))
+		dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
 	current_dialog = null
 
 		
 func load_dialog_settings(dialog):
 	visible = true
 	if current_dialog != null:
-		current_dialog.disconnect("text_changed",self,"update_text")
-		current_dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+		current_dialog.disconnect("text_changed", Callable(self, "update_text"))
+		current_dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
 	
 	current_dialog = dialog
-	current_dialog.connect("text_changed",self,"update_text")
-	current_dialog.connect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
+	current_dialog.connect("text_changed", Callable(self, "update_text"))
+	current_dialog.connect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
 	
 	title_label.text = current_dialog.dialog_title+" | Node "+String(current_dialog.node_index)
-	hide_npc_checkbox.pressed = current_dialog.hide_npc
-	show_wheel_checkbox.pressed = current_dialog.show_wheel
-	disable_esc_checkbox.pressed = current_dialog.disable_esc
+	hide_npc_checkbox.button_pressed = current_dialog.hide_npc
+	show_wheel_checkbox.button_pressed = current_dialog.show_wheel
+	disable_esc_checkbox.button_pressed = current_dialog.disable_esc
 	command_edit.text = current_dialog.command
 	playsound_edit.text = current_dialog.sound
 	start_quest.set_id(current_dialog.start_quest)

@@ -4,11 +4,11 @@ var quest_dict
 
 signal quest_chosen
 
-export(NodePath) var quest_finder_path
-export(NodePath) var category_finder_path
+@export var quest_finder_path: NodePath
+@export var category_finder_path: NodePath
 
-onready var CategoryFinder = get_node(category_finder_path)
-onready var QuestFinder = get_node(quest_finder_path)
+@onready var CategoryFinder = get_node(category_finder_path)
+@onready var QuestFinder = get_node(quest_finder_path)
 
 var quest_list_updated = false
 	
@@ -17,8 +17,8 @@ var quest_list_updated = false
 func _on_ChooseQuest_pressed():
 	if !quest_list_updated:
 		update_category_finder()
-	CategoryFinder.rect_position = rect_global_position
-	QuestFinder.rect_position = rect_global_position
+	CategoryFinder.position = global_position
+	QuestFinder.position = global_position
 	CategoryFinder.popup()
 
 

@@ -10,7 +10,7 @@ func _ready():
 
 
 func _on_ChooseFaction_pressed():
-	$FactionFinder.rect_global_position = rect_global_position
+	$FactionFinder.global_position = global_position
 	$FactionFinder.popup()
 
 
@@ -42,5 +42,5 @@ func set_faction_name_from_id(id):
 	for key in faction_data.keys():
 		if faction_data[key] == id:
 			fact_name = key	
-	hint_tooltip = fact_name
+	tooltip_text = fact_name
 	text = fact_name

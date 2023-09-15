@@ -1,9 +1,9 @@
 extends Resource
 class_name faction_change_object
 
-export var faction_id = -1
-export var points = 100
-export(int,"Increase","Decrease") var operator
+@export var faction_id = -1
+@export var points = 100
+@export var operator # (int,"Increase","Decrease")
 
 
 signal operator_changed

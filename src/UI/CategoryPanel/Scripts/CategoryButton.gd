@@ -20,8 +20,8 @@ func _on_Button_pressed():
 func _on_Button_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
-			BUTTON_RIGHT:
-				$PopupMenu.rect_position = get_global_mouse_position()
+			MOUSE_BUTTON_RIGHT:
+				$PopupMenu.position = get_global_mouse_position()
 				$PopupMenu.popup()
 
 
@@ -35,7 +35,7 @@ func _on_PopupMenu_index_pressed(button_index):
 			$LineEdit.visible = true
 			$LineEdit.grab_focus()
 			$LineEdit.text = text
-			$LineEdit.caret_position = $LineEdit.text.length()
+			$LineEdit.caret_column = $LineEdit.text.length()
 		2:
 			emit_signal("reimport_category_request",text)
 		3:

@@ -1,3 +1,17 @@
-res://src/UI/Program.tscn
+res://default_env.tres
+res://src/Nodes/DialogNode.tscn
 res://Assets/MainEditor.tres
 res://Assets/UITheme.tres
+res://src/Nodes/Scripts/DialogText.gd
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/Nodes/Scripts/ResponseNode.gd
+res://src/UI/Program.tscn
+res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd
+res://src/UI/Util/Scripts/DirectorySearcher.gd
+res://src/UI/Util/Scripts/FactionFileDialogTest.gd
+res://src/UI/Editor/MainEditor.gd
+res://src/UI/Editor/MainEditor.tscn
+res://src/UI/Util/Scripts/FactionLoader.gd
+res://src/UI/Util/Scripts/UIAnimations.gd
+res://src/Autoload/current_environment.gd
+res://src/Classes/Availability Objects/dialog_availability_object.gd

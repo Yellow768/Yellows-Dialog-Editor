@@ -26,8 +26,10 @@ func load_category(category_name):
 			printerr("There was an error in opening the YDEC file.")
 			return ERR_FILE_CANT_READ
 		else:
-			while(save_category.get_position() < save_category.get_len()):
-				var node_data : Dictionary = parse_json(save_category.get_line())
+			while(save_category.get_position() < save_category.get_length()):
+				var test_json_conv = JSON.new()
+				test_json_conv.parse(save_category.get_line())
+				var node_data : Dictionary = test_json_conv.get_data()
 				if node_data.has("editor_offset.x"):
 					load_editor_settings(node_data)
 				else:
@@ -63,7 +65,7 @@ func connect_all_responses():
 
 
 func create_new_dialog_node_from_ydec(node_data : Dictionary):
-	var currently_loaded_dialog = GlobalDeclarations.DIALOG_NODE.instance()
+	var currently_loaded_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
 	if !node_data.has("offset.x"):
 		printerr("Line does not contain offset data, considered to be invalid")
 		return currently_loaded_dialog
@@ -94,7 +96,7 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 	return currently_loaded_dialog
 
 func create_response_node_from_ydec(response_data):
-	var currently_loaded_response = GlobalDeclarations.RESPONSE_NODE.instance()
+	var currently_loaded_response = GlobalDeclarations.RESPONSE_NODE.instantiate()
 	currently_loaded_response.slot = response_data.slot
 	currently_loaded_response.color_decimal = response_data.color_decimal
 	currently_loaded_response.to_dialog_id = response_data.to_dialog_id

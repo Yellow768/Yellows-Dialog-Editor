@@ -9,54 +9,54 @@ signal availability_mode_entered
 signal availability_mode_exited
 signal ready_to_set_availability
 
-export(NodePath) var dialog_settings_tab_path
+@export var dialog_settings_tab_path: NodePath
 
 
-export(NodePath) var hide_npc_checkbox_path
-export(NodePath) var show_wheel_checkbox_path
-export(NodePath) var disable_esc_checkbox_path
-export(NodePath) var title_label_path
-export(NodePath) var command_edit_path
-export(NodePath) var playsound_edit_path
-export(NodePath) var faction_changes_1_path
-export(NodePath) var faction_changes_2_path
-export(NodePath) var start_quest_path
-export(NodePath) var dialog_text_edit_path
+@export var hide_npc_checkbox_path: NodePath
+@export var show_wheel_checkbox_path: NodePath
+@export var disable_esc_checkbox_path: NodePath
+@export var title_label_path: NodePath
+@export var command_edit_path: NodePath
+@export var playsound_edit_path: NodePath
+@export var faction_changes_1_path: NodePath
+@export var faction_changes_2_path: NodePath
+@export var start_quest_path: NodePath
+@export var dialog_text_edit_path: NodePath
 
-export(NodePath) var availability_quests_path
-export(NodePath) var availability_dialogs_path 
-export(NodePath) var availability_factions_path 
-export(NodePath) var availability_scoreboard_path
-export(NodePath) var availability_time_path
-export(NodePath) var availability_level_path
+@export var availability_quests_path: NodePath
+@export var availability_dialogs_path: NodePath 
+@export var availability_factions_path: NodePath 
+@export var availability_scoreboard_path: NodePath
+@export var availability_time_path: NodePath
+@export var availability_level_path: NodePath
 
-export(NodePath) var toggle_visiblity_path
+@export var toggle_visiblity_path: NodePath
 
-export(NodePath) var dialog_editor_path
+@export var dialog_editor_path: NodePath
 
 
-onready var DialogSettingsTab = get_node(dialog_settings_tab_path)
+@onready var DialogSettingsTab = get_node(dialog_settings_tab_path)
 
-onready var HideNpcCheckbox = get_node(hide_npc_checkbox_path)
-onready var ShowWheelCheckbox = get_node(show_wheel_checkbox_path)
-onready var DisableEscCheckbox = get_node(disable_esc_checkbox_path)
-onready var TitleLabel = get_node(title_label_path)
-onready var CommandEdit = get_node(command_edit_path)
-onready var PlaysoundEdit = get_node(playsound_edit_path)
-onready var FactionChanges1 = get_node(faction_changes_1_path)
-onready var FactionChanges2 = get_node(faction_changes_2_path)
-onready var StartQuest = get_node(start_quest_path)
-onready var DialogTextEdit = get_node(dialog_text_edit_path)
+@onready var HideNpcCheckbox = get_node(hide_npc_checkbox_path)
+@onready var ShowWheelCheckbox = get_node(show_wheel_checkbox_path)
+@onready var DisableEscCheckbox = get_node(disable_esc_checkbox_path)
+@onready var TitleLabel = get_node(title_label_path)
+@onready var CommandEdit = get_node(command_edit_path)
+@onready var PlaysoundEdit = get_node(playsound_edit_path)
+@onready var FactionChanges1 = get_node(faction_changes_1_path)
+@onready var FactionChanges2 = get_node(faction_changes_2_path)
+@onready var StartQuest = get_node(start_quest_path)
+@onready var DialogTextEdit = get_node(dialog_text_edit_path)
 
-onready var AvailabilityQuests = get_node(availability_quests_path)
-onready var AvailabilityDialogs = get_node(availability_dialogs_path)
-onready var AvailabilityFactions = get_node(availability_factions_path)
-onready var AvailabilityScoreboard = get_node(availability_scoreboard_path)
-onready var AvailabilityTime = get_node(availability_time_path)
-onready var AvailabilityLevel = get_node(availability_level_path)
+@onready var AvailabilityQuests = get_node(availability_quests_path)
+@onready var AvailabilityDialogs = get_node(availability_dialogs_path)
+@onready var AvailabilityFactions = get_node(availability_factions_path)
+@onready var AvailabilityScoreboard = get_node(availability_scoreboard_path)
+@onready var AvailabilityTime = get_node(availability_time_path)
+@onready var AvailabilityLevel = get_node(availability_level_path)
 
-onready var ToggleVisibility = get_node(toggle_visiblity_path)
-onready var DialogEditor = get_node(dialog_editor_path)
+@onready var ToggleVisibility = get_node(toggle_visiblity_path)
+@onready var DialogEditor = get_node(dialog_editor_path)
 
 var current_dialog
 var dialog_availability_mode = false
@@ -68,19 +68,19 @@ var glob_node_selected_id
 func _ready(): 
 	set_quest_dict()
 	for i in 4:
-		AvailabilityQuests.get_child(i).connect("id_changed",self,"quest_id_changed")
-		AvailabilityQuests.get_child(i).connect("type_changed",self,"quest_type_changed")
-		AvailabilityDialogs.get_child(i).connect("id_changed",self,"dialog_id_changed")
-		AvailabilityDialogs.get_child(i).connect("type_changed",self,"dialog_type_changed")
-		AvailabilityDialogs.get_child(i).connect("enter_dialog_availability_mode",self,"enter_dialog_availability_mode",[AvailabilityDialogs.get_child(i)])
+		AvailabilityQuests.get_child(i).connect("id_changed", Callable(self, "quest_id_changed"))
+		AvailabilityQuests.get_child(i).connect("type_changed", Callable(self, "quest_type_changed"))
+		AvailabilityDialogs.get_child(i).connect("id_changed", Callable(self, "dialog_id_changed"))
+		AvailabilityDialogs.get_child(i).connect("type_changed", Callable(self, "dialog_type_changed"))
+		AvailabilityDialogs.get_child(i).connect("enter_dialog_availability_mode", Callable(self, "enter_dialog_availability_mode").bind(AvailabilityDialogs.get_child(i)))
 	for i in 2:
-		AvailabilityFactions.get_child(i).connect("id_changed",self,"faction_id_changed")
-		AvailabilityFactions.get_child(i).connect("stance_changed",self,"faction_stance_changed")
-		AvailabilityFactions.get_child(i).connect("isisnot_changed",self,"faction_isisnot_changed")
+		AvailabilityFactions.get_child(i).connect("id_changed", Callable(self, "faction_id_changed"))
+		AvailabilityFactions.get_child(i).connect("stance_changed", Callable(self, "faction_stance_changed"))
+		AvailabilityFactions.get_child(i).connect("isisnot_changed", Callable(self, "faction_isisnot_changed"))
 		
-		AvailabilityScoreboard.get_child(i).connect("objective_name_changed",self,"scoreboard_objective_name_changed")
-		AvailabilityScoreboard.get_child(i).connect("comparison_type_changed",self,"scoreboard_comparison_type_changed")
-		AvailabilityScoreboard.get_child(i).connect("value_changed",self,"scoreboard_value_changed")
+		AvailabilityScoreboard.get_child(i).connect("objective_name_changed", Callable(self, "scoreboard_objective_name_changed"))
+		AvailabilityScoreboard.get_child(i).connect("comparison_type_changed", Callable(self, "scoreboard_comparison_type_changed"))
+		AvailabilityScoreboard.get_child(i).connect("value_changed", Callable(self, "scoreboard_value_changed"))
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -96,9 +96,9 @@ func set_quest_dict():
 
 func disconnect_current_dialog(dialog,_bool):
 	if current_dialog == dialog:
-		dialog.disconnect("text_changed",self,"update_text")
-		dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
-		current_dialog.disconnect("title_changed",self,"update_title")
+		dialog.disconnect("text_changed", Callable(self, "update_text"))
+		dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
+		current_dialog.disconnect("title_changed", Callable(self, "update_title"))
 	current_dialog = null
 
 
@@ -115,7 +115,7 @@ func enter_dialog_availability_mode(availability_scene):
 	emit_signal("hide_information_panel")
 	emit_signal("request_store_current_category")
 	emit_signal("availability_mode_entered")
-	ToggleVisibility.pressed = false
+	ToggleVisibility.button_pressed = false
 	ToggleVisibility.text = "<"
 	print("Availability Mode Entered")
 
@@ -155,19 +155,19 @@ func set_title_text(title_text : String,node_index):
 func load_dialog_settings(dialog):
 	DialogSettingsTab.visible = true
 	if current_dialog != dialog:
-		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed",self,"update_text"):
-			current_dialog.disconnect("text_changed",self,"update_text")
-			current_dialog.disconnect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
-			current_dialog.disconnect("title_changed",self,"update_title")
+		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed", Callable(self, "update_text")):
+			current_dialog.disconnect("text_changed", Callable(self, "update_text"))
+			current_dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
+			current_dialog.disconnect("title_changed", Callable(self, "update_title"))
 		current_dialog = dialog
-		if !current_dialog.is_connected("text_changed",self,"update_text"):
-			current_dialog.connect("text_changed",self,"update_text")
-			current_dialog.connect("dialog_ready_for_deletion",self,"disconnect_current_dialog")
-			current_dialog.connect("title_changed",self,"update_title",[current_dialog])
+		if !current_dialog.is_connected("text_changed", Callable(self, "update_text")):
+			current_dialog.connect("text_changed", Callable(self, "update_text"))
+			current_dialog.connect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
+			current_dialog.connect("title_changed", Callable(self, "update_title").bind(current_dialog))
 	set_title_text(current_dialog.dialog_title,current_dialog.node_index)	
-	HideNpcCheckbox.pressed = current_dialog.hide_npc
-	ShowWheelCheckbox.pressed = current_dialog.show_wheel
-	DisableEscCheckbox.pressed = current_dialog.disable_esc
+	HideNpcCheckbox.button_pressed = current_dialog.hide_npc
+	ShowWheelCheckbox.button_pressed = current_dialog.show_wheel
+	DisableEscCheckbox.button_pressed = current_dialog.disable_esc
 	CommandEdit.text = current_dialog.command
 	PlaysoundEdit.text = current_dialog.sound
 	StartQuest.set_id(current_dialog.start_quest)

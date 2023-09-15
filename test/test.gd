@@ -1,7 +1,7 @@
 extends SceneTree
 
 func _init():
-	var escape = PoolByteArray([0x1B]).get_string_from_ascii()
+	var escape = PackedByteArray([0x1B]).get_string_from_ascii()
 
 	_test('Extracting a single small text file', 'res://test/lorem.zip', { 
 		'lorem.txt': '705e5a1242c9955ae2651effa14e2f57', 
@@ -24,12 +24,12 @@ func _init():
 	quit()
 
 func _green_text(text):
-	var escape = PoolByteArray([0x1B]).get_string_from_ascii()
+	var escape = PackedByteArray([0x1B]).get_string_from_ascii()
 	var code = "[1;32m"
 	return escape + code + text + escape + '[0;0m'
 
 func _red_text(text):
-	var escape = PoolByteArray([0x1B]).get_string_from_ascii()
+	var escape = PackedByteArray([0x1B]).get_string_from_ascii()
 	var code = "[1;31m"
 	return escape + code + text + escape + '[0;0m'
 
@@ -58,7 +58,7 @@ func _test(test_name, zip_file, files):
 		tmp_file.store_buffer(uncompressed)
 		tmp_file.close()
 		var md5 = tmp_file.get_md5('user://' + file.md5_text())
-		Directory.new().remove('user://' + tmp_file_name)
+		DirAccess.new().remove('user://' + tmp_file_name)
 
 		if md5 != files[file]:
 			print(_red_text('✗') + ' Failed uncompressing. MD5 of uncompressed ' + file + ' does not match')

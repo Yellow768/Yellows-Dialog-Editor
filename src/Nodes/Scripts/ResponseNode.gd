@@ -1,31 +1,31 @@
 class_name response_node
 extends GraphNode
 
-export(NodePath) var _response_text_node_path
-export(NodePath) var _color_picker_node_path
-export(NodePath) var _option_type_node_path
-export(NodePath) var _command_text_node_path
-export(NodePath) var _new_dialog_button_path
-export(NodePath) var _remote_connection_container_path
-export(NodePath) var _remote_connection_text_path
-export(NodePath) var _remote_connection_disconnect_button_path
-export(NodePath) var _remote_connection_jump_button_path
+@export var _response_text_node_path: NodePath
+@export var _color_picker_node_path: NodePath
+@export var _option_type_node_path: NodePath
+@export var _command_text_node_path: NodePath
+@export var _new_dialog_button_path: NodePath
+@export var _remote_connection_container_path: NodePath
+@export var _remote_connection_text_path: NodePath
+@export var _remote_connection_disconnect_button_path: NodePath
+@export var _remote_connection_jump_button_path: NodePath
 
-onready var ResponseTextNode = get_node(_response_text_node_path)
-onready var ColorPickerNode = get_node(_color_picker_node_path)
-onready var OptionTypeNode = get_node(_option_type_node_path)
-onready var CommandTextNode = get_node(_command_text_node_path)
-onready var NewDialogButtonNode = get_node(_new_dialog_button_path)
-onready var RemoteConnectionContainer = get_node(_remote_connection_container_path)
-onready var RemoteConnectionText = get_node(_remote_connection_text_path)
-onready var RemoteConnectionDisconnectButton = get_node(_remote_connection_disconnect_button_path)
-onready var RemoteConnectionJumpButton = get_node(_remote_connection_jump_button_path)
+@onready var ResponseTextNode = get_node(_response_text_node_path)
+@onready var ColorPickerNode = get_node(_color_picker_node_path)
+@onready var OptionTypeNode = get_node(_option_type_node_path)
+@onready var CommandTextNode = get_node(_command_text_node_path)
+@onready var NewDialogButtonNode = get_node(_new_dialog_button_path)
+@onready var RemoteConnectionContainer = get_node(_remote_connection_container_path)
+@onready var RemoteConnectionText = get_node(_remote_connection_text_path)
+@onready var RemoteConnectionDisconnectButton = get_node(_remote_connection_disconnect_button_path)
+@onready var RemoteConnectionJumpButton = get_node(_remote_connection_jump_button_path)
 
 
 
 
 signal set_self_as_selected
-signal delete_self
+signal request_delete_self
 signal connect_to_dialog_request
 signal disconnect_from_dialog_request
 signal request_connection_line_shown
@@ -38,15 +38,15 @@ signal response_double_clicked
 
 var node_type = "Player Response Node"
 
-var slot = -1 setget set_response_slot
+var slot = -1: set = set_response_slot
 
 
-var response_title = '' setget set_response_title
-var color_decimal = 16777215 setget set_color_decimal
-var command = '' setget set_command
-var connected_dialog = null setget set_connected_dialog
-var to_dialog_id = -1 setget set_to_dialog_id
-var option_type = 0 setget set_option_type
+var response_title = '': set = set_response_title
+var color_decimal = 16777215: set = set_color_decimal
+var command = '': set = set_meta_pressed
+var connected_dialog = null: set = set_connected_dialog
+var to_dialog_id = -1: set = set_to_dialog_id
+var option_type = 0: set = set_option_type
 
 var parent_dialog
 
@@ -66,11 +66,11 @@ func get_option_id_from_index(index):
 
 
 func set_option_from_json_index(option_int):
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	set_option_type(OptionTypeNode.get_item_index(option_int))
 
 func set_focus_on_title():
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	ResponseTextNode.grab_focus()
 
 func set_response_slot(value):
@@ -79,17 +79,17 @@ func set_response_slot(value):
 	
 func set_response_title(new_title):
 	response_title = new_title
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	ResponseTextNode.text = new_title
 
 func set_option_type(new_type):
 	option_type = new_type
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	if new_type == 2:
 		CommandTextNode.visible = true
 	else:
 		CommandTextNode.visible = false
-		rect_size.y = 215
+		size.y = 215
 	if new_type == 0:
 		reveal_button()
 		set_slot_enabled_right(1,true)
@@ -102,14 +102,14 @@ func set_option_type(new_type):
 func set_color_decimal(new_color):
 	color_decimal = new_color
 
-func set_command(new_command):
+func set_meta_pressed(new_command):
 	command = new_command
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	CommandTextNode.text = new_command
 
 func set_connected_dialog(new_connected_dialog):
 	connected_dialog = new_connected_dialog
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	if connected_dialog != null:
 		hide_button()
 		update_connection_text()
@@ -123,7 +123,7 @@ func set_to_dialog_id(new_id):
 	to_dialog_id = new_id
 
 func set_connection_text(dialog_name,dialog_node_index):
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	RemoteConnectionText.text = "Connected to "+dialog_name+" | Node "+String(dialog_node_index)
 	
 func reveal_button():
@@ -142,9 +142,9 @@ func update_connection_text():
 
 func check_dialog_distance():
 	if connected_dialog != null:
-		if offset.distance_to(connected_dialog.offset) > 1000 && !connection_hidden:
+		if position_offset.distance_to(connected_dialog.position_offset) > 1000 && !connection_hidden:
 			set_connection_hidden()	
-		if offset.distance_to(connected_dialog.offset) < 1000 && connection_hidden:
+		if position_offset.distance_to(connected_dialog.position_offset) < 1000 && connection_hidden:
 			set_connection_shown()
 
 func set_connection_hidden():
@@ -175,7 +175,7 @@ func disconnect_from_dialog():
 func delete_self():
 	if(connected_dialog != null):
 		connected_dialog.remove_connected_response(self)
-	emit_signal("delete_self",slot,self)
+	emit_signal("request_delete_self",slot,self)
 	
 
 
@@ -191,8 +191,8 @@ func _on_PlayerResponseNode_close_request():
 	
 
 func _on_AddNewDialog_pressed():
-	var new_dialog = GlobalDeclarations.DIALOG_NODE.instance()
-	new_dialog.offset = offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
+	var new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
+	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
 	if ResponseTextNode.text != '':
 		new_dialog.dialog_title = ResponseTextNode.text
 	connected_dialog = new_dialog
@@ -233,7 +233,7 @@ func _on_ResponseNodeArea_area_entered(area):
 	
 
 func _on_ResponseNodeArea_area_exited(_area):
-	if !$ResponseNodeArea.get_overlapping_areas().empty():
+	if !$ResponseNodeArea.get_overlapping_areas().is_empty():
 		overlapping_response = $ResponseNodeArea.get_overlapping_areas().back().get_parent()
 	else:
 		overlapping_response = null

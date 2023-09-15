@@ -1,8 +1,8 @@
 extends Resource
 class_name quest_availability_object
 
-export(int,"Always","After","Before","When Active","When Not Active","Completed") var availability_type = 0
-export(int) var quest_id = -1
+@export var availability_type = 0 # (int,"Always","After","Before","When Active","When Not Active","Completed")
+@export var quest_id: int = -1
 
 func reset():
 	set_id(-1)

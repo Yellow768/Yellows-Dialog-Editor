@@ -6,7 +6,7 @@ func _ready():
 	pass
 
 func export_category(directory : String = CurrentEnvironment.current_directory+"/dialogs/",category_name : String = CurrentEnvironment.current_category_name):
-	var exported_category_dir = Directory.new()
+	var exported_category_dir = DirAccess.new()
 	var save_nodes = get_tree().get_nodes_in_group("Save")
 	
 	
@@ -23,10 +23,10 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 		dialog_file.close()
 		
 func empty_category_jsons(category_name):
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if dir.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name) == OK:
-		dir.list_dir_begin(true)
+		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name : String = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():

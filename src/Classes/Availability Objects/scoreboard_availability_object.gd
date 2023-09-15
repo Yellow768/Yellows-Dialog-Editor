@@ -1,9 +1,9 @@
 extends Resource
 class_name scoreboard_availability_object
 
-export(String) var objective_name
-export(int) var value = 0
-export(int,"Smaller Than","Equal To","Bigger Than") var comparison_type = 1
+@export var objective_name: String
+@export var value: int = 0
+@export var comparison_type = 1 # (int,"Smaller Than","Equal To","Bigger Than")
 
 func reset():
 	set_name('')

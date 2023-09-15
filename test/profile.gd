@@ -12,9 +12,9 @@ func _init():
     var previous_average = 9355
     var sum_time = 0
     for i in range(0,5):
-        var time_before = OS.get_ticks_msec()
+        var time_before = Time.get_ticks_msec()
         gdunzip.uncompress('alice.txt')
-        var total_time = OS.get_ticks_msec() - time_before
+        var total_time = Time.get_ticks_msec() - time_before
         sum_time += total_time
         print('Uncompress time: ' + str(total_time) + 'ms')
         print('----------------------')

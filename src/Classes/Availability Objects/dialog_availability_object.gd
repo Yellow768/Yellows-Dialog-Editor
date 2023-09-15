@@ -4,8 +4,8 @@ class_name dialog_availability_object
 signal availability_changed
 signal id_changed
 
-export var dialog_id = -1
-export(int,"Always","After","Before") var availability_type
+@export var dialog_id = -1
+@export_enum("Always","After","Before") var availability_type = "Always"
 
 func reset():
 	dialog_id = -1

@@ -1,9 +1,9 @@
 extends Node
 
-var current_directory setget set_current_directory
+var current_directory : set = set_current_directory
 var current_dialog_directory
 var current_category_name
-var highest_id = 0 setget set_highest_id
+var highest_id = 0: set = set_highest_id
 var loading_stage = false
 
 
@@ -15,8 +15,7 @@ func _ready():
 
 func set_highest_id(new_id):
 	highest_id = new_id
-	var file = File.new()
-	file.open(current_directory+"/dialogs/highest_index.json",File.WRITE)
+	var file = FileAccess.open(current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 	file.store_line(String(highest_id))
 
 func set_current_directory(new_directory):

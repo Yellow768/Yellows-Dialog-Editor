@@ -7,12 +7,12 @@ var select_rect = RectangleShape2D.new()
 
 func _ready():
 	for i in 950:
-		var new_node = load("res://src/CustomGraphEdit/CustomDialogNode.tscn").instance()
-		new_node.rect_position = Vector2(rand_range(0,5020),rand_range(0,2080))
+		var new_node = load("res://src/CustomGraphEdit/CustomDialogNode.tscn").instantiate()
+		new_node.position = Vector2(randf_range(0,5020),randf_range(0,2080))
 		add_child(new_node)
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			# We only want to start a drag if there's no selection.
 			if selected.size() == 0:

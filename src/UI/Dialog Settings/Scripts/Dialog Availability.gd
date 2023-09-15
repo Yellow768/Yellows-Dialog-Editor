@@ -23,7 +23,7 @@ func set_availability_type(value):
 	$Panel/OptionButton.selected = value
 
 func _on_CategoryFinder_index_pressed(_index):
-	$Panel/ChooseDialog/CategoryFinder/DialogFinder.set_global_position($Panel/ChooseDialog.rect_global_position)
+	$Panel/ChooseDialog/CategoryFinder/DialogFinder.set_global_position($Panel/ChooseDialog.global_position)
 	$Panel/ChooseDialog/CategoryFinder/DialogFinder.popup()
 
 

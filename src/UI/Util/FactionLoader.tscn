@@ -3,8 +3,8 @@
 [ext_resource path="res://src/UI/Util/Scripts/FactionFileDialogTest.gd" type="Script" id=1]
 
 [node name="FileDialog" type="FileDialog"]
-margin_right = 679.0
-margin_bottom = 460.0
+offset_right = 679.0
+offset_bottom = 460.0
 window_title = "Open a File"
 mode = 0
 access = 2

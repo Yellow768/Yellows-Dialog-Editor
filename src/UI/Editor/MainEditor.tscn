@@ -1,55 +1,57 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=29 format=3 uid="uid://dm212olg3jtq4"]
 
-[ext_resource path="res://src/UI/Editor/MainEditor.gd" type="Script" id=1]
-[ext_resource path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" type="Script" id=2]
-[ext_resource path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" type="Script" id=3]
-[ext_resource path="res://src/UI/Dialog Settings/StartQuest.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/UI/Dialog Settings/Dialog Availability.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/UI/Dialog Settings/FactionChange.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/UI/Dialog Settings/Faction Availability.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/UI/Editor/DialogEditor.gd" type="Script" id=10]
-[ext_resource path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" type="Script" id=11]
-[ext_resource path="res://src/Classes/dialog_titles_index.gd" type="Script" id=12]
-[ext_resource path="res://src/Classes/File System/EnvironmentIndexer.gd" type="Script" id=13]
-[ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=14]
-[ext_resource path="res://src/UI/Util/Expandable Line Edit.tscn" type="PackedScene" id=15]
-[ext_resource path="res://src/UI/Util/Scripts/UIAnimations.gd" type="Script" id=16]
-[ext_resource path="res://src/Nodes/Scripts/DialogText.gd" type="Script" id=17]
-[ext_resource path="res://Assets/UI Textures/Icon Font/home-line.svg" type="Texture" id=18]
-[ext_resource path="res://Assets/UI Textures/Icon Font/plus-line.svg" type="Texture" id=19]
-[ext_resource path="res://Assets/UI Textures/Icon Font/save-line.svg" type="Texture" id=20]
-[ext_resource path="res://Assets/UI Textures/Icon Font/settings-cog-line.svg" type="Texture" id=21]
-[ext_resource path="res://Assets/UI Textures/Icon Font/reload-line.svg" type="Texture" id=22]
-[ext_resource path="res://Assets/UI Textures/Icon Font/share-line.svg" type="Texture" id=23]
-[ext_resource path="res://Assets/UI Textures/Icon Font/article-search-line.svg" type="Texture" id=24]
+[ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
+[ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
+[ext_resource type="Script" path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" id="3"]
+[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/StartQuest.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Dialog Availability.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/FactionChange.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Faction Availability.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" id="9"]
+[ext_resource type="Script" path="res://src/UI/Editor/DialogEditor.gd" id="10"]
+[ext_resource type="Script" path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" id="11"]
+[ext_resource type="Script" path="res://src/Classes/dialog_titles_index.gd" id="12"]
+[ext_resource type="Script" path="res://src/Classes/File System/EnvironmentIndexer.gd" id="13"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="14"]
+[ext_resource type="PackedScene" path="res://src/UI/Util/Expandable Line Edit.tscn" id="15"]
+[ext_resource type="Script" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
+[ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
+[ext_resource type="Texture2D" uid="uid://ich3ie40b3a1" path="res://Assets/UI Textures/Icon Font/home-line.svg" id="18"]
+[ext_resource type="Texture2D" uid="uid://ct6w626olkfsn" path="res://Assets/UI Textures/Icon Font/plus-line.svg" id="19"]
+[ext_resource type="Texture2D" uid="uid://dca6q5d5bdhtq" path="res://Assets/UI Textures/Icon Font/save-line.svg" id="20"]
+[ext_resource type="Texture2D" uid="uid://0bwhdngowwxu" path="res://Assets/UI Textures/Icon Font/settings-cog-line.svg" id="21"]
+[ext_resource type="Texture2D" uid="uid://3f3ybltgp46e" path="res://Assets/UI Textures/Icon Font/reload-line.svg" id="22"]
+[ext_resource type="Texture2D" uid="uid://c4ihc7e0totrn" path="res://Assets/UI Textures/Icon Font/share-line.svg" id="23"]
+[ext_resource type="Texture2D" uid="uid://cgpvy51ukhhvk" path="res://Assets/UI Textures/Icon Font/article-search-line.svg" id="24"]
 
-[sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0.223529, 0.223529, 0.223529, 1 )
+[sub_resource type="StyleBoxEmpty" id="18"]
+
+[sub_resource type="StyleBoxFlat" id="16"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 0.0117647, 0.0117647, 0.0117647, 1 )
+[sub_resource type="StyleBoxFlat" id="17"]
+bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxEmpty" id=18]
-
-[sub_resource type="StyleBoxEmpty" id=19]
+[sub_resource type="StyleBoxEmpty" id="19"]
 
 [node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = ExtResource( 14 )
-script = ExtResource( 1 )
+theme = ExtResource("14")
+script = ExtResource("1")
 _dialog_editor_path = NodePath("DialogEditor")
 _category_list_path = NodePath("CategoryPanel")
 _information_panel_path = NodePath("InformationPanel")
@@ -57,188 +59,169 @@ _dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
 _top_panel_path = NodePath("TopPanel")
 
 [node name="DialogList" type="Node" parent="."]
-script = ExtResource( 12 )
+script = ExtResource("12")
 
 [node name="StartingLabel" type="Label" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -236.0
-margin_top = 70.0
-margin_right = 236.0
-margin_bottom = 131.0
+offset_left = -236.0
+offset_top = 70.0
+offset_right = 236.0
+offset_bottom = 131.0
 text = "Choose or create a category to start editing
 "
-align = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
 visible = false
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 896.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 1280, 720 )
+offset_right = 896.0
+offset_bottom = 500.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
-scroll_offset = Vector2( -640, -360 )
+scroll_offset = Vector2(-640, -360)
 use_snap = false
 show_zoom_label = true
 minimap_enabled = false
-minimap_size = Vector2( 150, 150 )
-script = ExtResource( 10 )
+minimap_size = Vector2(150, 150)
+script = ExtResource("10")
 
 [node name="TopPanel" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 50.0
-script = ExtResource( 3 )
+offset_bottom = 50.0
+script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 6.0
-margin_top = -16.0
-margin_bottom = 16.0
+offset_left = 6.0
+offset_top = -16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Add Dialog" type="Button" parent="TopPanel/TopPanelContainer"]
-margin_right = 111.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-hint_tooltip = "Add a new dialog node into the category"
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Add a new dialog node into the category"
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Add Dialog"
-icon = ExtResource( 19 )
-align = 0
+icon = ExtResource("19")
 
 [node name="SecSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-margin_left = 115.0
-margin_right = 190.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 75, 0 )
-custom_styles/separator = SubResource( 19 )
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
 
 [node name="SaveButton" type="Button" parent="TopPanel/TopPanelContainer"]
-margin_left = 194.0
-margin_right = 267.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-hint_tooltip = "Save the dialog project"
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Save the dialog project"
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Save  "
-icon = ExtResource( 20 )
-align = 0
+icon = ExtResource("20")
 
 [node name="BttnSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-margin_left = 271.0
-margin_right = 286.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 15, 0 )
-custom_styles/separator = SubResource( 19 )
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
 
 [node name="ExportButton" type="Button" parent="TopPanel/TopPanelContainer"]
-margin_left = 290.0
-margin_right = 372.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-hint_tooltip = "Export the category, creating JSONS with the proper ID"
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Export the category, creating JSONS with the proper ID"
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Export "
-icon = ExtResource( 23 )
+icon = ExtResource("23")
 
 [node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-margin_left = 376.0
-margin_right = 451.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 75, 0 )
-custom_styles/separator = SubResource( 19 )
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
 
 [node name="ReimportButton" type="Button" parent="TopPanel/TopPanelContainer"]
-margin_left = 455.0
-margin_right = 631.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-hint_tooltip = "Reimport the category from the existing JSONS"
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Reimport the category from the existing JSONS"
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Reimport Category "
-icon = ExtResource( 22 )
+icon = ExtResource("22")
 
 [node name="BttnSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-margin_left = 635.0
-margin_right = 650.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 15, 0 )
-custom_styles/separator = SubResource( 19 )
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
 
 [node name="ScanButton" type="Button" parent="TopPanel/TopPanelContainer"]
-margin_left = 654.0
-margin_right = 823.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-hint_tooltip = "Scans for new JSONS and for changes in existing JSONS, and creates and/or modifies dialog and responses as needed"
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Scans for new JSONS and for changes in existing JSONS, and creates and/or modifies dialog and responses as needed"
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Scan For Changes "
-icon = ExtResource( 24 )
+icon = ExtResource("24")
 
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -332.0
-margin_top = -16.0
-margin_right = -12.0
-margin_bottom = 16.0
+offset_left = -332.0
+offset_top = -16.0
+offset_right = -12.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="EditorSettingsButton" type="Button" parent="TopPanel/EditorContainer"]
-margin_right = 144.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Editor Settings "
-icon = ExtResource( 21 )
+icon = ExtResource("21")
 
 [node name="VSeparator5" type="VSeparator" parent="TopPanel/EditorContainer"]
-margin_left = 148.0
-margin_right = 173.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 25, 0 )
-custom_styles/separator = SubResource( 19 )
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
 
 [node name="HomeButton" type="Button" parent="TopPanel/EditorContainer"]
-margin_left = 177.0
-margin_right = 332.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 30, 0 )
-custom_styles/hover = SubResource( 16 )
-custom_styles/pressed = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
 text = "Return To Home "
-icon = ExtResource( 18 )
+icon = ExtResource("18")
 
 [node name="InformationPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(462, 100)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -462.0
-margin_top = 49.0
-margin_bottom = 1080.0
-rect_min_size = Vector2( 462, 100 )
-script = ExtResource( 2 )
+offset_left = -462.0
+offset_top = 49.0
+offset_bottom = 1080.0
+script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
 hide_npc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
 show_wheel_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel")
@@ -260,384 +243,294 @@ toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
-margin_left = 8.0
-margin_top = 18.0
-margin_right = 452.0
-margin_bottom = 1005.0
-tab_align = 0
+layout_mode = 0
+offset_left = 8.0
+offset_top = 18.0
+offset_right = 452.0
+offset_bottom = 1005.0
 
-[node name="DialogSettings" type="Tabs" parent="InformationPanel/DialogNodeTabs"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 30.0
-margin_right = -20.0
+[node name="DialogSettings" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+layout_mode = 2
 
 [node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DialogSettings"]
+anchors_preset = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -478.5
-margin_right = 415.0
-margin_bottom = 478.5
+offset_top = -478.5
+offset_right = 415.0
+offset_bottom = 478.5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -468.5
-margin_right = 425.0
-margin_bottom = 469.5
-scroll_horizontal_enabled = false
+offset_top = -468.5
+offset_right = 425.0
+offset_bottom = 469.5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer"]
-margin_right = 405.0
-margin_bottom = 1500.0
-rect_min_size = Vector2( 0, 1500 )
+custom_minimum_size = Vector2(0, 1500)
+layout_mode = 2
 
 [node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_right = 405.0
-margin_bottom = 29.0
+layout_mode = 2
 text = "Dialog Title"
-align = 1
 clip_text = true
 
 [node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 33.0
-margin_right = 405.0
-margin_bottom = 333.0
-rect_min_size = Vector2( 0, 300 )
-syntax_highlighting = true
-wrap_enabled = true
-script = ExtResource( 17 )
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+script = ExtResource("17")
 
 [node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 337.0
-margin_right = 405.0
-margin_bottom = 369.0
+layout_mode = 2
 text = "Hide NPC"
 
 [node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 373.0
-margin_right = 405.0
-margin_bottom = 405.0
+layout_mode = 2
 text = "Show Dialog Wheel"
 
 [node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 409.0
-margin_right = 405.0
-margin_bottom = 441.0
+layout_mode = 2
 text = "Disable Using Esc"
 
 [node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 445.0
-margin_right = 405.0
-margin_bottom = 465.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 469.0
-margin_right = 405.0
-margin_bottom = 498.0
+layout_mode = 2
 text = "Sound File"
-align = 1
 
-[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource( 15 )]
-margin_right = 405.0
+[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+layout_mode = 2
 caret_blink = true
 
 [node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 531.0
-margin_right = 405.0
-margin_bottom = 551.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 555.0
-margin_right = 405.0
-margin_bottom = 584.0
+layout_mode = 2
 text = "Console Command"
-align = 1
 
-[node name="Command" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource( 15 )]
-margin_top = 588.0
-margin_right = 405.0
-margin_bottom = 613.0
+[node name="Command" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 617.0
-margin_right = 405.0
-margin_bottom = 637.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 641.0
-margin_right = 405.0
-margin_bottom = 670.0
+layout_mode = 2
 text = "Faction Changes"
-align = 1
 
-[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 674.0
-margin_bottom = 724.0
+[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
+layout_mode = 2
 
-[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 728.0
-margin_bottom = 778.0
+[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
+layout_mode = 2
 
 [node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 782.0
-margin_right = 405.0
-margin_bottom = 802.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
-margin_top = 806.0
-margin_right = 405.0
-margin_bottom = 835.0
+layout_mode = 2
 text = "Start Quest"
-align = 1
 
-[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 839.0
-margin_right = 405.0
-margin_bottom = 889.0
+[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
+layout_mode = 2
 
-[node name="AvailabilitySettings" type="Tabs" parent="InformationPanel/DialogNodeTabs"]
+[node name="AvailabilitySettings" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -221.0
-margin_top = -479.0
-margin_right = 221.0
-margin_bottom = 479.0
-scroll_horizontal_enabled = false
+offset_left = -221.0
+offset_top = -479.0
+offset_right = 221.0
+offset_bottom = 479.0
 
 [node name="Availability" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer"]
-margin_right = 436.0
-margin_bottom = 1500.0
-rect_min_size = Vector2( 436, 1500 )
+custom_minimum_size = Vector2(436, 1500)
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability"]
+custom_minimum_size = Vector2(435, 1080)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = 129.0
-rect_min_size = Vector2( 435, 1080 )
+offset_right = -1.0
+offset_bottom = 129.0
 
 [node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_right = 435.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "Quest Availabilities"
-align = 1
-valign = 1
 
 [node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 33.0
-margin_right = 435.0
-margin_bottom = 245.0
+layout_mode = 2
 
-[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
+[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+layout_mode = 2
 
-[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
-margin_top = 54.0
-margin_bottom = 104.0
+[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+layout_mode = 2
 
-[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
-margin_top = 108.0
-margin_bottom = 158.0
+[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+layout_mode = 2
 
-[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource( 8 )]
-margin_top = 162.0
-margin_bottom = 212.0
+[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 249.0
-margin_right = 435.0
-margin_bottom = 259.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 263.0
-margin_right = 435.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "Dialog Availabilities"
-align = 1
-valign = 1
 
 [node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 296.0
-margin_right = 435.0
-margin_bottom = 508.0
+layout_mode = 2
 
-[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
+[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+layout_mode = 2
 
-[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
-margin_top = 54.0
-margin_bottom = 104.0
+[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+layout_mode = 2
 
-[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
-margin_top = 108.0
-margin_bottom = 158.0
+[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+layout_mode = 2
 
-[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource( 5 )]
-margin_top = 162.0
-margin_bottom = 212.0
+[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 512.0
-margin_right = 435.0
-margin_bottom = 522.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="DialogLabel2" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 526.0
-margin_right = 435.0
-margin_bottom = 555.0
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "Faction availabilites"
-align = 1
-valign = 1
 
 [node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 559.0
-margin_right = 435.0
-margin_bottom = 663.0
+layout_mode = 2
 
-[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 7 )]
-margin_right = 435.0
+[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+layout_mode = 2
 
-[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource( 7 )]
-margin_top = 54.0
-margin_right = 435.0
-margin_bottom = 104.0
+[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+layout_mode = 2
 
 [node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 667.0
-margin_right = 435.0
-margin_bottom = 677.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="DialogLabel3" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 681.0
-margin_right = 435.0
-margin_bottom = 710.0
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "Scoreboard Availabilities"
-align = 1
-valign = 1
 
 [node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 714.0
-margin_right = 435.0
-margin_bottom = 818.0
+layout_mode = 2
 
-[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 9 )]
-margin_right = 435.0
+[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+layout_mode = 2
 
-[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource( 9 )]
-margin_top = 54.0
-margin_right = 435.0
-margin_bottom = 104.0
+[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+layout_mode = 2
 
 [node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 822.0
-margin_right = 435.0
-margin_bottom = 832.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
-margin_top = 836.0
-margin_right = 435.0
-margin_bottom = 940.0
+layout_mode = 2
 
 [node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
-margin_right = 435.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 350, 50 )
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 2
 
 [node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -15.0
-rect_min_size = Vector2( 350, 50 )
+offset_right = -15.0
 
 [node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 9.5
-margin_top = -17.0
-margin_right = 152.5
-margin_bottom = 15.0
-text = "All Day"
-align = 1
-items = [ "All Day", null, false, 0, null, "During Night", null, false, 1, null, "During Day", null, false, 2, null ]
-selected = 0
+offset_left = 9.5
+offset_top = -17.0
+offset_right = 152.5
+offset_bottom = 15.0
 
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 83.0
-margin_top = -15.0
-margin_right = 142.0
-margin_bottom = 14.0
+offset_left = 83.0
+offset_top = -15.0
+offset_right = 142.0
+offset_bottom = 14.0
 text = "Time:"
 
 [node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
-margin_top = 54.0
-margin_right = 435.0
-margin_bottom = 104.0
-rect_min_size = Vector2( 350, 50 )
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 2
 
 [node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -0.952
-margin_right = -15.952
-rect_min_size = Vector2( 350, 50 )
+offset_left = -0.952
+offset_right = -15.952
 
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 37.0
-margin_top = -13.0
-margin_right = 276.0
-margin_bottom = 16.0
+offset_left = 37.0
+offset_top = -13.0
+offset_right = 276.0
+offset_bottom = 16.0
 text = "Minimum Player Level:"
 
 [node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -133.548
-margin_top = -11.0
-margin_right = -57.548
-margin_bottom = 13.0
+offset_left = -133.548
+offset_top = -11.0
+offset_right = -57.548
+offset_bottom = 13.0
 max_value = 10000.0
-align = 1
 
 [node name="ToggleVisiblity" type="Button" parent="InformationPanel"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -19.0
-margin_top = -22.5
-margin_right = 5.0
-margin_bottom = 22.5
+offset_left = -19.0
+offset_top = -22.5
+offset_right = 5.0
+offset_bottom = 22.5
 toggle_mode = true
-pressed = true
 text = ">"
 
 [node name="availability_timer" type="Timer" parent="InformationPanel"]
@@ -645,156 +538,140 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CategoryPanel" type="Panel" parent="."]
-margin_top = 49.0
-margin_right = 360.0
-margin_bottom = 1079.0
-rect_min_size = Vector2( 360, 1030 )
-rect_clip_content = true
+clip_contents = true
+custom_minimum_size = Vector2(360, 1030)
+layout_mode = 0
+offset_top = 49.0
+offset_right = 360.0
+offset_bottom = 1079.0
 size_flags_horizontal = 3
-script = ExtResource( 11 )
+script = ExtResource("11")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
 environment_index_path = NodePath("DialogFileSystemIndex")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
+custom_minimum_size = Vector2(360, 700)
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -180.0
-margin_right = 180.0
-margin_bottom = 700.0
-rect_min_size = Vector2( 360, 700 )
+offset_left = -180.0
+offset_right = 180.0
+offset_bottom = 700.0
 
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
-margin_right = 360.0
-margin_bottom = 29.0
+layout_mode = 2
 text = "Categories"
-align = 1
 
 [node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer"]
-margin_top = 33.0
-margin_right = 360.0
-margin_bottom = 53.0
+layout_mode = 2
 placeholder_text = "Search"
-placeholder_alpha = 0.307
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
-margin_top = 57.0
-margin_right = 360.0
-margin_bottom = 645.0
-rect_min_size = Vector2( 340, 400 )
-mouse_filter = 1
+custom_minimum_size = Vector2(340, 400)
+layout_mode = 2
 size_flags_vertical = 15
-scroll_horizontal_enabled = false
 
 [node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer"]
-margin_right = 360.0
-margin_bottom = 588.0
-rect_min_size = Vector2( 260, 400 )
-rect_clip_content = true
+clip_contents = true
+custom_minimum_size = Vector2(260, 400)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 11
 
 [node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
-margin_top = 649.0
-margin_right = 360.0
-margin_bottom = 664.0
-rect_min_size = Vector2( 0, 15 )
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
 
 [node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
-margin_top = 668.0
-margin_right = 360.0
-margin_bottom = 700.0
+layout_mode = 2
 text = "Create New Category"
 
 [node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
-script = ExtResource( 13 )
+script = ExtResource("13")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="UI Anims" type="Node" parent="."]
-script = ExtResource( 16 )
+script = ExtResource("16")
 InformationPanel = NodePath("../InformationPanel")
 CategoryPanel = NodePath("../CategoryPanel")
 
 [node name="SaveLabel" type="Label" parent="UI Anims"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -92.5
-margin_top = 64.0
-margin_right = 92.5
-margin_bottom = 93.0
-theme = ExtResource( 14 )
+offset_left = -92.5
+offset_top = 64.0
+offset_right = 92.5
+offset_bottom = 93.0
+theme = ExtResource("14")
 text = "Saving YDEC File"
 
 [node name="ExportFail" type="Label" parent="UI Anims"]
-modulate = Color( 1, 0, 0, 0 )
-self_modulate = Color( 1, 0, 0, 1 )
+modulate = Color(1, 0, 0, 0)
+self_modulate = Color(1, 0, 0, 1)
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -150.5
-margin_top = 73.0
-margin_right = 150.5
-margin_bottom = 102.0
-theme = ExtResource( 14 )
+offset_left = -150.5
+offset_top = 73.0
+offset_right = 150.5
+offset_bottom = 102.0
+theme = ExtResource("14")
 text = "Category Failed To Export..."
 
 [node name="Export" type="Label" parent="UI Anims"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -192.5
-margin_top = 64.0
-margin_right = 192.5
-margin_bottom = 93.0
-theme = ExtResource( 14 )
+offset_left = -192.5
+offset_top = 64.0
+offset_right = 192.5
+offset_bottom = 93.0
+theme = ExtResource("14")
 text = "Category %s succesfully exported..."
 
 [node name="SaveFail" type="Label" parent="UI Anims"]
-modulate = Color( 1, 1, 1, 0 )
-self_modulate = Color( 1, 0, 0, 1 )
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 0, 0, 1)
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -114.0
-margin_top = 66.0
-margin_right = 114.0
-margin_bottom = 95.0
-theme = ExtResource( 14 )
+offset_left = -114.0
+offset_top = 66.0
+offset_right = 114.0
+offset_bottom = 95.0
+theme = ExtResource("14")
 text = "YDEC Failed To Save"
 
 [node name="AvailabilityMode" type="Label" parent="UI Anims"]
 visible = false
-modulate = Color( 0.129412, 0, 1, 1 )
+modulate = Color(0.129412, 0, 1, 1)
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -165.5
-margin_top = 82.0
-margin_right = 165.5
-margin_bottom = 111.0
-theme = ExtResource( 14 )
+offset_left = -165.5
+offset_top = 82.0
+offset_right = 165.5
+offset_bottom = 111.0
+theme = ExtResource("14")
 text = "Selecting Dialog for Availability"
 
-[connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
-[connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
-[connection signal="dialog_node_added" from="DialogEditor" to="DialogList" method="dialog_node_added"]
-[connection signal="dialog_node_perm_deleted" from="DialogEditor" to="DialogList" method="dialog_deleted"]
-[connection signal="dialog_selected" from="DialogEditor" to="InformationPanel" method="load_dialog_settings"]
 [connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
-[connection signal="editor_cleared" from="DialogEditor" to="." method="_on_DialogEditor_editor_cleared"]
-[connection signal="finished_loading" from="DialogEditor" to="TopPanel" method="_on_DialogEditor_finished_loading"]
-[connection signal="finished_loading" from="DialogEditor" to="InformationPanel" method="_on_DialogEditor_finished_loading"]
-[connection signal="finished_loading" from="DialogEditor" to="CategoryPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="gui_input" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_gui_input"]
-[connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
-[connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
+[connection signal="node_deselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
-[connection signal="node_unselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
@@ -844,7 +721,3 @@ text = "Selecting Dialog for Availability"
 [connection signal="scan_for_changes" from="CategoryPanel" to="DialogEditor" method="scan_for_changes"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
-[connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
-[connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
-[connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
-[connection signal="new_category_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]

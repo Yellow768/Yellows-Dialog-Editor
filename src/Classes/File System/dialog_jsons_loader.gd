@@ -15,17 +15,19 @@ func return_valid_dialog_jsons(category_name : String) -> Array:
 		var current_dialog = File.new()
 		for file in files:
 			current_dialog.open(current_category_directory+"/"+file,File.READ)
-			var dialog_json_with_bad_values_replaced = JSON.parse(replace_unparseable_dialog_json_values(current_dialog))
+			var test_json_conv = JSON.new()
+			test_json_conv.parse(replace_unparseable_dialog_json_values(current_dialog))
+			var dialog_json_with_bad_values_replaced = test_json_conv.get_data()
 			if !is_file_valid_dialog_json(dialog_json_with_bad_values_replaced):
 				printerr("Error parsing JSON "+file+", skipping")
 			else:
 				parsed_jsons.append(dialog_json_with_bad_values_replaced.result)		
-		parsed_jsons.sort_custom(self,"sort_array_by_dialog_title")
+		parsed_jsons.sort_custom(Callable(self, "sort_array_by_dialog_title"))
 	return parsed_jsons
 
 func replace_unparseable_dialog_json_values(json_file):
 	var final_result = json_file.get_as_text()
-	while(json_file.get_position() < json_file.get_len()):
+	while(json_file.get_position() < json_file.get_length()):
 		var current_line = json_file.get_line()
 		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
 			var replace_line = current_line
@@ -48,70 +50,70 @@ func is_json_valid_dialog_format(dialog_json):
 	if !dialog_json.has("DialogTitle") or typeof(dialog_json["DialogTitle"]) != TYPE_STRING:
 		printerr("DialogTitle is malformed")
 		return false
-	if !dialog_json.has("DialogId") or typeof(dialog_json["DialogId"]) != TYPE_REAL:
+	if !dialog_json.has("DialogId") or typeof(dialog_json["DialogId"]) != TYPE_FLOAT:
 		printerr("DialogId is malformed")
 		return false
 	if !dialog_json.has("DialogText") or typeof(dialog_json["DialogText"]) != TYPE_STRING:
 		printerr("DialogText is malformed")
 		return false
-	if !dialog_json.has("DialogQuest") or typeof(dialog_json["DialogQuest"]) != TYPE_REAL:
+	if !dialog_json.has("DialogQuest") or typeof(dialog_json["DialogQuest"]) != TYPE_FLOAT:
 		printerr("DialogQuest is malformed")
 		return false
-	if !dialog_json.has("DialogDisableEsc") or typeof(dialog_json["DialogDisableEsc"]) != TYPE_REAL:
+	if !dialog_json.has("DialogDisableEsc") or typeof(dialog_json["DialogDisableEsc"]) != TYPE_FLOAT:
 		printerr("DialogDisableEsc is malformed")
 		return false
-	if !dialog_json.has("DialogShowWheel") or typeof(dialog_json["DialogShowWheel"]) != TYPE_REAL:
+	if !dialog_json.has("DialogShowWheel") or typeof(dialog_json["DialogShowWheel"]) != TYPE_FLOAT:
 		printerr("DialogShowWheel is malformed")
 		return false
-	if !dialog_json.has("AvailabilityMinPlayerLevel") or typeof(dialog_json["AvailabilityMinPlayerLevel"]) != TYPE_REAL:
+	if !dialog_json.has("AvailabilityMinPlayerLevel") or typeof(dialog_json["AvailabilityMinPlayerLevel"]) != TYPE_FLOAT:
 		printerr("DialogLevelAvailability is malformed")
 		return false
-	if !dialog_json.has("AvailabilityDayTime") or typeof(dialog_json["AvailabilityDayTime"]) != TYPE_REAL:
+	if !dialog_json.has("AvailabilityDayTime") or typeof(dialog_json["AvailabilityDayTime"]) != TYPE_FLOAT:
 		printerr("DialogDaytimeAvail is malformed")
 		return false
 
 	var id = ["","2","3","4"]
 	for i in 4:
-		if !dialog_json.has("AvailabilityQuest"+id[i]+"Id") or typeof(dialog_json["AvailabilityQuest"+id[i]+"Id"]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityQuest"+id[i]+"Id") or typeof(dialog_json["AvailabilityQuest"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityQuest"+id[i]+"Id"+" is malformed")
 			return false
-		if !dialog_json.has("AvailabilityQuest"+id[i]) or typeof(dialog_json["AvailabilityQuest"+id[i]]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityQuest"+id[i]) or typeof(dialog_json["AvailabilityQuest"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityQuest"+id[i]+" is malformed")
 			return false
-		if !dialog_json.has("AvailabilityDialog"+id[i]+"Id") or typeof(dialog_json["AvailabilityDialog"+id[i]+"Id"]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityDialog"+id[i]+"Id") or typeof(dialog_json["AvailabilityDialog"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityDialog"+id[i]+"Id"+" is malformed")
 			return false
-		if !dialog_json.has("AvailabilityDialog"+id[i]) or typeof(dialog_json["AvailabilityDialog"+id[i]]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityDialog"+id[i]) or typeof(dialog_json["AvailabilityDialog"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityDialog"+id[i]+" is malformed")
 			return false
 	for i in 2:
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Objective") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Objective"]) != TYPE_STRING:
 			printerr("AvailabilityScoreboard"+id[i]+"Objective is malformed")
 			return false
-		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Value") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Value"]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Value") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Value"]) != TYPE_FLOAT:
 			printerr("AvailabilityScoreboard"+id[i]+"Value is malformed")
 			return false
-		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Type") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Type"]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Type") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Type"]) != TYPE_FLOAT:
 			printerr("AvailabilityScoreboard"+id[i]+"Type is malformed")
 			return false
 		
-		if !dialog_json.has("AvailabilityFaction"+id[i]+"Id") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Id"]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityFaction"+id[i]+"Id") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+"Id is malformed")
 			return false
-		if !dialog_json.has("AvailabilityFaction"+id[i]+"Stance") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Stance"]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityFaction"+id[i]+"Stance") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Stance"]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+"Stance is malformed")
 			return false
-		if !dialog_json.has("AvailabilityFaction"+id[i]) or typeof(dialog_json["AvailabilityFaction"+id[i]]) != TYPE_REAL:
+		if !dialog_json.has("AvailabilityFaction"+id[i]) or typeof(dialog_json["AvailabilityFaction"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+" is malformed")
 			return false
 
-		if !dialog_json.has("OptionFactions"+String(i+1)) or typeof(dialog_json["OptionFactions"+String(i+1)]) != TYPE_REAL:
+		if !dialog_json.has("OptionFactions"+String(i+1)) or typeof(dialog_json["OptionFactions"+String(i+1)]) != TYPE_FLOAT:
 			printerr("OptionFactions"+String(i+1)+" is malformed")
 			return false
-		if !dialog_json.has("OptionFaction"+String(i+1)+"Points") or typeof(dialog_json["OptionFaction"+String(i+1)+"Points"]) != TYPE_REAL:
+		if !dialog_json.has("OptionFaction"+String(i+1)+"Points") or typeof(dialog_json["OptionFaction"+String(i+1)+"Points"]) != TYPE_FLOAT:
 			printerr("OptionFactions"+String(i+1)+"Points is malformed")
 			return false
-		if !dialog_json.has("DecreaseFaction"+String(i+1)+"Points") or typeof(dialog_json["DecreaseFaction"+String(i+1)+"Points"]) != TYPE_REAL:
+		if !dialog_json.has("DecreaseFaction"+String(i+1)+"Points") or typeof(dialog_json["DecreaseFaction"+String(i+1)+"Points"]) != TYPE_FLOAT:
 			printerr("DecreaseFactions"+String(i+1)+"Points is malformed")
 			return false
 		
@@ -121,7 +123,7 @@ func is_json_valid_dialog_format(dialog_json):
 	
 	var response_options_are_valid = true
 	for i in dialog_json["Options"]:
-		if !i.has("OptionSlot") or typeof(i["OptionSlot"]) != TYPE_REAL:
+		if !i.has("OptionSlot") or typeof(i["OptionSlot"]) != TYPE_FLOAT:
 			printerr("A Response OptionSlot is malformed")
 			response_options_are_valid = false
 			return false
@@ -133,15 +135,15 @@ func is_json_valid_dialog_format(dialog_json):
 			printerr("A Response Title is malformed")
 			response_options_are_valid = false
 			return false
-		if !i["Option"].has("DialogColor") or typeof(i["Option"]["DialogColor"]) != TYPE_REAL:
+		if !i["Option"].has("DialogColor") or typeof(i["Option"]["DialogColor"]) != TYPE_FLOAT:
 			printerr("A Response Color is malformed")
 			response_options_are_valid = false
 			return false
-		if !i["Option"].has("OptionType") or typeof(i["Option"]["OptionType"]) != TYPE_REAL:
+		if !i["Option"].has("OptionType") or typeof(i["Option"]["OptionType"]) != TYPE_FLOAT:
 			printerr("A Response OptionType is malformed")
 			response_options_are_valid = false
 			return false
-		if !i["Option"].has("Dialog") or typeof(i["Option"]["Dialog"]) != TYPE_REAL:
+		if !i["Option"].has("Dialog") or typeof(i["Option"]["Dialog"]) != TYPE_FLOAT:
 			printerr("A Response Dialog is malformed")
 			response_options_are_valid = false
 			return false

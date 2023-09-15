@@ -96,7 +96,7 @@ func load(path):
 		return false
 
 	file.open(path, File.READ)
-	var file_length = file.get_len()
+	var file_length = file.get_length()
 	if file.get_32() != 0x04034B50:
 		return false
 
@@ -257,12 +257,12 @@ class Tinf:
 	# -- GDscript specific helper functions --
 	# ----------------------------------------
 	func make_pool_int_array(size):
-		var pool_int_array = PoolIntArray()
+		var pool_int_array = PackedInt32Array()
 		pool_int_array.resize(size)
 		return pool_int_array
 
 	func make_pool_byte_array(size):
-		var pool_byte_array = PoolByteArray()
+		var pool_byte_array = PackedByteArray()
 		pool_byte_array.resize(size)
 		return pool_byte_array
 
@@ -276,7 +276,7 @@ class Tinf:
 	}
 
 	var TINF_DATA = {
-		'source': PoolByteArray(),
+		'source': PackedByteArray(),
 		# sourcePtr is an "int" that's used to point at a location in "source".
 		# I added this since we don't have pointer arithmetic in GDScript.
 		'sourcePtr': 0,
@@ -284,7 +284,7 @@ class Tinf:
 		'tag': 0,
 		'bitcount': 0,
 
-		'dest': PoolByteArray(),
+		'dest': PackedByteArray(),
 		'destLen': 0,
 
 		# "Faux pointer" to dest.
@@ -314,7 +314,7 @@ class Tinf:
 		'dist_base': make_pool_int_array(30)
 	}
 
-	var clcidx = PoolByteArray([
+	var clcidx = PackedByteArray([
 	   16, 17, 18, 0, 8, 7, 9, 6,
 	   10, 5, 11, 4, 12, 3, 13, 2,
 	   14, 1, 15])

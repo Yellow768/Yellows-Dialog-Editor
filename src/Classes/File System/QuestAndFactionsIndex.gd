@@ -33,7 +33,7 @@ func index_quest_names(quest_category):
 	return quest_names_dict
 				
 func return_quest_title_key(file):
-	while(file.get_position() < file.get_len()):
+	while(file.get_position() < file.get_length()):
 		var current_line = file.get_line()
 		if '"Title"' in current_line:
 			current_line.erase(0,14)

@@ -6,124 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Node",
-"class": "DirectorySearch",
-"language": "GDScript",
-"path": "res://src/UI/Util/Scripts/DirectorySearcher.gd"
-}, {
-"base": "Node",
-"class": "EnvironmentIndexer",
-"language": "GDScript",
-"path": "res://src/Classes/File System/EnvironmentIndexer.gd"
-}, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
-"base": "Node",
-"class": "category_exporter",
-"language": "GDScript",
-"path": "res://src/Classes/File System/CategoryExporter.gd"
-}, {
-"base": "Node",
-"class": "category_importer",
-"language": "GDScript",
-"path": "res://src/Classes/File System/CategoryImporter.gd"
-}, {
-"base": "Node",
-"class": "category_loader",
-"language": "GDScript",
-"path": "res://src/Classes/File System/category_loader.gd"
-}, {
-"base": "Node",
-"class": "category_saver",
-"language": "GDScript",
-"path": "res://src/Classes/File System/category_saver.gd"
-}, {
-"base": "Resource",
-"class": "dialog_availability_object",
-"language": "GDScript",
-"path": "res://src/Classes/Availability Objects/dialog_availability_object.gd"
-}, {
-"base": "Node",
-"class": "dialog_jsons_loader",
-"language": "GDScript",
-"path": "res://src/Classes/File System/dialog_jsons_loader.gd"
-}, {
-"base": "GraphNode",
-"class": "dialog_node",
-"language": "GDScript",
-"path": "res://src/Nodes/Scripts/DialogNode.gd"
-}, {
-"base": "Resource",
-"class": "faction_availability_object",
-"language": "GDScript",
-"path": "res://src/Classes/Availability Objects/faction_availability_object.gd"
-}, {
-"base": "Resource",
-"class": "faction_change_object",
-"language": "GDScript",
-"path": "res://src/Classes/Availability Objects/faction_change_object.gd"
-}, {
-"base": "Node",
-"class": "faction_loader",
-"language": "GDScript",
-"path": "res://src/UI/Util/Scripts/FactionLoader.gd"
-}, {
-"base": "Node",
-"class": "mail_data_object",
-"language": "GDScript",
-"path": "res://src/Classes/mail_data_object.gd"
-}, {
-"base": "Resource",
-"class": "quest_availability_object",
-"language": "GDScript",
-"path": "res://src/Classes/Availability Objects/quest_availability_object.gd"
-}, {
-"base": "Node",
-"class": "quest_indexer",
-"language": "GDScript",
-"path": "res://src/Classes/File System/QuestAndFactionsIndex.gd"
-}, {
-"base": "GraphNode",
-"class": "response_node",
-"language": "GDScript",
-"path": "res://src/Nodes/Scripts/ResponseNode.gd"
-}, {
-"base": "Resource",
-"class": "scoreboard_availability_object",
-"language": "GDScript",
-"path": "res://src/Classes/Availability Objects/scoreboard_availability_object.gd"
-} ]
-_global_script_class_icons={
-"DirectorySearch": "",
-"EnvironmentIndexer": "",
-"GitAPI": "",
-"category_exporter": "",
-"category_importer": "",
-"category_loader": "",
-"category_saver": "",
-"dialog_availability_object": "",
-"dialog_jsons_loader": "",
-"dialog_node": "",
-"faction_availability_object": "",
-"faction_change_object": "",
-"faction_loader": "",
-"mail_data_object": "",
-"quest_availability_object": "",
-"quest_indexer": "",
-"response_node": "",
-"scoreboard_availability_object": ""
-}
+config_version=5
 
 [application]
 
 config/name="CNPC Dialog Editor"
 run/main_scene="res://src/UI/Program.tscn"
+config/features=PackedStringArray("4.1")
 config/icon="res://icon.png"
 
 [autoload]
@@ -133,8 +22,7 @@ GlobalDeclarations="*res://src/Autoload/global_declarations.gd"
 
 [display]
 
-window/vsync/use_vsync=false
-window/stretch/aspect="keep"
+window/vsync/vsync_mode=false
 
 [editor]
 
@@ -143,7 +31,7 @@ version_control_plugin_name="GitAPI"
 
 [gdnative]
 
-singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+singletons=["res://addons/godot-git-plugin/git_api.gdnlib"]
 
 [gui]
 
@@ -159,67 +47,67 @@ texture={
 
 ui_delete={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777224,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194312,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 create_response={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":82,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":82,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 add_dialog_at_mouse={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 scroll_in={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 control={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194326,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 shift={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 focus_response_above={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":81,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 focus_response_below={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":69,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 drag={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 show_minimap={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":77,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":77,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 drag_without_responses={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 swap_responses={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777240,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194328,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 reset_gui={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 
 [physics]
@@ -228,4 +116,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_environment="res://default_env.tres"

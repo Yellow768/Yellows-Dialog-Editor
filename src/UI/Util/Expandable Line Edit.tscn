@@ -4,10 +4,10 @@
 [ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=2]
 
 [node name="LineEdit" type="TextEdit"]
-margin_top = 502.0
-margin_right = 404.0
-margin_bottom = 527.0
-rect_min_size = Vector2( 0, 25 )
+offset_top = 502.0
+offset_right = 404.0
+offset_bottom = 527.0
+custom_minimum_size = Vector2( 0, 25 )
 theme = ExtResource( 2 )
 wrap_enabled = true
 script = ExtResource( 1 )
@@ -15,9 +15,9 @@ script = ExtResource( 1 )
 [node name="Button" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -22.0
-margin_right = 1.0
-margin_bottom = 32.0
+offset_left = -22.0
+offset_right = 1.0
+offset_bottom = 32.0
 toggle_mode = true
 text = "V"
 

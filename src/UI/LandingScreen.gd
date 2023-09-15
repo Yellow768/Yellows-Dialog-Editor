@@ -5,21 +5,21 @@ var chosen_dir
 
 func _ready():
 	OS.low_processor_usage_mode = true
-	OS.window_maximized = true
-	OS.min_window_size = Vector2(1280,720)
+	get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
+	get_window().min_size = Vector2(1280,720)
 	var config = ConfigFile.new()
 	config.load(prev_dirs_config_path)
 	for dir in config.get_sections():
 		var quick_dir_button = Button.new()
 		quick_dir_button.text = config.get_value(dir,"name")
-		quick_dir_button.connect("pressed",self,"change_to_editor",[dir])
+		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
 	
 
 
 func change_to_editor(directory):
 	add_directory_to_config(directory)
-	var editor = load("res://src/UI/Editor/MainEditor.tscn").instance()
+	var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
 	CurrentEnvironment.current_directory = directory
 	get_parent().add_child(editor)
 	queue_free()
@@ -37,7 +37,7 @@ func add_directory_to_config(directory : String):
 
 
 func find_valid_customnpcs_dir(dir : String):
-	var directory = Directory.new()
+	var directory = DirAccess.new()
 	var dir_search = DirectorySearch.new()
 	directory.open(dir)
 	if dir.replace(dir.get_base_dir()+"/","") == "customnpcs":
@@ -77,7 +77,7 @@ func _on_Cancel_button_up():
 
 
 func _on_Confirm_pressed():
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open(chosen_dir)
 	if chosen_dir.replace(chosen_dir.get_base_dir(),"") == "/customnpcs":
 		dir.make_dir(chosen_dir+"/dialogs")

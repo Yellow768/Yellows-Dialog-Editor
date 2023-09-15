@@ -33,7 +33,7 @@ func find_highest_index():
 		var proper_id_numbers = []
 		for number in id_numbers:
 			number = number.replace(".json","")
-			if number.is_valid_integer():
+			if number.is_valid_int():
 				proper_id_numbers.append(int(number))
 		proper_id_numbers.sort()
 		file.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",File.WRITE)
@@ -46,7 +46,7 @@ func find_highest_index():
 		
 	else:
 		var line = file.get_line()
-		if line.is_valid_integer():
+		if line.is_valid_int():
 			return int(line)
 		else:
 			printerr("highest_index.json does not contain a valid integer.")
@@ -61,7 +61,7 @@ func create_new_category(new_category_name):
 		if category == new_category_name:
 			new_category_name += "_"
 	
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open(CurrentEnvironment.current_directory+"/dialogs/")
 	dir.make_dir(CurrentEnvironment.current_directory+"/dialogs/"+new_category_name)
 	indexed_dialog_categories.append(new_category_name)
@@ -85,7 +85,7 @@ func rename_category(category_name,new_name):
 			indexed_dialog_categories[i] = new_name
 
 	indexed_dialog_categories.sort()
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
 	emit_signal("category_renamed",indexed_dialog_categories)
 
@@ -93,10 +93,10 @@ func rename_category(category_name,new_name):
 	
 func delete_category(category_name):
 	emit_signal("clear_editor_request")
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if dir.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name) == OK:
-		dir.list_dir_begin(true)
+		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():

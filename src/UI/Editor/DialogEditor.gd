@@ -40,7 +40,7 @@ func _process(_delta):
 			i.delete_self()
 			selected_responses.erase(i)
 
-func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use_exact_offset : bool = false):
+func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false):
 	#Adds a new dialog node into the editor.
 	
 	if new_dialog.node_index == 0:
@@ -51,15 +51,15 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instance(), use
 		CurrentEnvironment.highest_id += 1
 		
 	if new_dialog.offset == Vector2.ZERO:
-		new_dialog.offset = OS.window_size/3
+		new_dialog.offset = get_window().size/3
 	if !use_exact_offset: 
 		#Adjust the offset so that it's relative to the current position of the graph's view.
 		new_dialog.offset = (new_dialog.offset+scroll_offset)/zoom	
-	new_dialog.connect("add_response_request",self,"add_response_node")
-	new_dialog.connect("delete_response_node",self,"delete_response_node")
-	new_dialog.connect("dialog_ready_for_deletion",self,"delete_dialog_node")
-	new_dialog.connect("set_self_as_selected",self,"_on_node_requests_selection")
-	new_dialog.connect("node_double_clicked",self,"handle_double_click",[new_dialog])
+	new_dialog.connect("add_response_request", Callable(self, "add_response_node"))
+	new_dialog.connect("delete_response_node", Callable(self, "delete_response_node"))
+	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
+	new_dialog.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
+	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	add_child(new_dialog)
 	emit_signal("dialog_node_added",new_dialog)
 	return new_dialog
@@ -76,7 +76,7 @@ func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	node_index -=1
 	
 
-func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instance()):
+func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instantiate()):
 	var new_offset
 	if parent_dialog.response_options.size() == 0:
 		new_offset = parent_dialog.offset +Vector2(350,0)
@@ -86,16 +86,16 @@ func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclara
 	new_response.offset = new_offset
 	new_response.slot = parent_dialog.response_options.size()-1
 	new_response.parent_dialog = parent_dialog
-	new_response.connect("delete_self",parent_dialog,"delete_response_node")
-	new_response.connect("connect_to_dialog_request", self, "connect_nodes")
-	new_response.connect("disconnect_from_dialog_request",self,"disconnect_nodes")
-	new_response.connect("request_connection_line_shown",self,"show_connection_line")
-	new_response.connect("request_connection_line_hidden",self,"hide_connection_line")
-	new_response.connect("request_set_scroll_offset",self,"set_scroll_offset")
-	new_response.connect("request_add_dialog",self,"add_dialog_node")
-	new_response.connect("set_self_as_selected",self,"_on_node_requests_selection")
-	new_response.connect("dragged",self,"response_node_dragged",[new_response])
-	new_response.connect("response_double_clicked",self,"handle_double_click",[new_response])
+	new_response.connect("delete_self", Callable(parent_dialog, "delete_response_node"))
+	new_response.connect("connect_to_dialog_request", Callable(self, "connect_nodes"))
+	new_response.connect("disconnect_from_dialog_request", Callable(self, "disconnect_nodes"))
+	new_response.connect("request_connection_line_shown", Callable(self, "show_connection_line"))
+	new_response.connect("request_connection_line_hidden", Callable(self, "hide_connection_line"))
+	new_response.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
+	new_response.connect("request_add_dialog", Callable(self, "add_dialog_node"))
+	new_response.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
+	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
+	new_response.connect("response_double_clicked", Callable(self, "handle_double_click").bind(new_response))
 	add_child(new_response)
 	#new_response.set_focus_on_title()
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
@@ -136,7 +136,7 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#overlapping_response.offset = initial_offset
 		
 		var initial_tween = Tween.new()
-		initial_tween.connect("tween_all_completed",initial_tween,"queue_free")
+		initial_tween.connect("tween_all_completed", Callable(initial_tween, "queue_free"))
 		add_child(initial_tween)
 		initial_tween.interpolate_property(response_node,"offset",response_node.offset,overlapping_response.offset,.1,Tween.TRANS_LINEAR,Tween.EASE_IN)
 		initial_tween.interpolate_property(overlapping_response,"offset",overlapping_response.offset,from,.1,Tween.TRANS_LINEAR,Tween.EASE_IN)
@@ -144,11 +144,11 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#Remove from parents array
 		response_node.parent_dialog.response_options.erase(response_node)
 		disconnect_node(response_node.parent_dialog.get_name(),0,response_node.name,0)
-		response_node.disconnect("delete_self",response_node.parent_dialog,"delete_response_node")
+		response_node.disconnect("delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
 		
 		overlapping_response.parent_dialog.response_options.erase(overlapping_response)
 		disconnect_node(overlapping_response.parent_dialog.get_name(),0,overlapping_response.get_name(),0)
-		overlapping_response.disconnect("delete_self",overlapping_response.parent_dialog,"delete_response_node")
+		overlapping_response.disconnect("delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
 		
 		#Switch to other parents array. Make sure slot isn't invalid
 		if response_node.parent_dialog.response_options.size() >= overlapping_response.slot:
@@ -167,8 +167,8 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		response_node.parent_dialog = overlapping_response.parent_dialog
 		overlapping_response.parent_dialog = initial_parent
 		
-		response_node.connect("delete_self",response_node.parent_dialog,"delete_response_node")
-		overlapping_response.connect("delete_self",overlapping_response.parent_dialog,"delete_response_node")
+		response_node.connect("delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
+		overlapping_response.connect("delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
 	else:
 		pass
 		#response_node.offset = from
@@ -177,7 +177,7 @@ func set_cat_zoom(new_zoom):
 	zoom = new_zoom
 
 func set_scroll_offset(new_offset):
-	set_scroll_ofs((new_offset * zoom)-OS.window_size/2)
+	set_scroll_ofs((new_offset * zoom)-get_window().size/2)
 
 	
 
@@ -238,7 +238,7 @@ func set_last_selected_node_as_selected():
 
 func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array):
 	var sorted_ids = dialogs_to_be_deleted.duplicate()
-	sorted_ids.sort_custom(self,"sort_array_by_dialog_id")
+	sorted_ids.sort_custom(Callable(self, "sort_array_by_dialog_id"))
 	for node in sorted_ids:
 		if node.dialog_id == CurrentEnvironment.highest_id:
 			CurrentEnvironment.highest_id -= 1
@@ -258,34 +258,34 @@ func save():
 
 func _on_CategoryPanel_request_load_category(category_name):
 	var new_category_loader = category_loader.new()
-	new_category_loader.connect("add_dialog",self,"add_dialog_node")
-	new_category_loader.connect("add_response",self,"add_response_node")
-	new_category_loader.connect("no_ydec_found",self,"initialize_category_import")
-	new_category_loader.connect("clear_editor_request",self,"clear_editor")
-	new_category_loader.connect("request_connect_nodes",self,"connect_nodes")
-	new_category_loader.connect("editor_offset_loaded",self,"set_scroll_ofs")
-	new_category_loader.connect("zoom_loaded",self,"set_zoom")
+	new_category_loader.connect("add_dialog", Callable(self, "add_dialog_node"))
+	new_category_loader.connect("add_response", Callable(self, "add_response_node"))
+	new_category_loader.connect("no_ydec_found", Callable(self, "initialize_category_import"))
+	new_category_loader.connect("clear_editor_request", Callable(self, "clear_editor"))
+	new_category_loader.connect("request_connect_nodes", Callable(self, "connect_nodes"))
+	new_category_loader.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
+	new_category_loader.connect("zoom_loaded", Callable(self, "set_zoom"))
 	if new_category_loader.load_category(category_name) == OK:
 		emit_signal("finished_loading",category_name)
 		visible = true
 	
 func initialize_category_import(category_name):
 	visible = true
-	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instance()
-	choose_dialog_popup.connect("initial_dialog_chosen",self,"import_category")
-	choose_dialog_popup.connect("no_dialogs",self,"on_no_dialogs",[category_name])
+	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
+	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
+	choose_dialog_popup.connect("no_dialogs", Callable(self, "on_no_dialogs").bind(category_name))
 	get_parent().add_child(choose_dialog_popup)
-	choose_dialog_popup.rect_size = OS.window_size
-	choose_dialog_popup.rect_position = Vector2(0,0)
+	choose_dialog_popup.size = get_window().size
+	choose_dialog_popup.position = Vector2(0,0)
 	choose_dialog_popup.create_dialog_buttons(category_name)
 	
 func import_category(category_name,all_dialogs,index):
 	var new_category_importer = category_importer.new()
-	new_category_importer.connect("request_add_dialog",self,"add_dialog_node")
-	new_category_importer.connect("request_add_response",self,"add_response_node")
-	new_category_importer.connect("request_connect_nodes",self,"connect_nodes")
-	new_category_importer.connect("clear_editor_request",self,"clear_editor")
-	new_category_importer.connect("editor_offset_loaded",self,"set_scroll_ofs")
+	new_category_importer.connect("request_add_dialog", Callable(self, "add_dialog_node"))
+	new_category_importer.connect("request_add_response", Callable(self, "add_response_node"))
+	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
+	new_category_importer.connect("clear_editor_request", Callable(self, "clear_editor"))
+	new_category_importer.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
 	var new_cat_save = category_saver.new()
 	add_child(new_cat_save)
@@ -300,9 +300,9 @@ func on_no_dialogs(category_name):
 
 func scan_for_changes(category_name):
 	var new_category_importer = category_importer.new()
-	new_category_importer.connect("request_add_dialog",self,"add_dialog_node")
-	new_category_importer.connect("request_add_response",self,"add_response_node")
-	new_category_importer.connect("request_connect_nodes",self,"connect_nodes")
+	new_category_importer.connect("request_add_dialog", Callable(self, "add_dialog_node"))
+	new_category_importer.connect("request_add_response", Callable(self, "add_response_node"))
+	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	add_child(new_category_importer)
 	new_category_importer.scan_category_for_changes(category_name)
 	
@@ -328,7 +328,7 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(from, from_slot, to, to_slot)
 
 func _on_DialogEditor_node_selected(node):
-	if Input.is_mouse_button_pressed(BUTTON_LEFT) and InputEventMouseMotion:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion:
 		if selected_responses.find(node,0) == -1 and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
@@ -399,12 +399,12 @@ func _on_SaveLoad_clear_editor_request():
 
 
 func _on_DialogEditor_gui_input(event):
-	if event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_UP:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if !Input.is_action_pressed("shift"):
 			accept_event()
 		else:
 			zoom += .02
-	if event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_DOWN:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		if !Input.is_action_pressed("shift"):
 			accept_event()
 		else:

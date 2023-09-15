@@ -32,11 +32,11 @@ func create_nodes_from_index(category_name, index : int = 0):
 	if index > imported_dialogs.size():
 		printerr("The set index was larger than imported_dialogs size")
 		index = 0
-	if imported_dialogs.empty():
+	if imported_dialogs.is_empty():
 		printerr("There are no dialogs to import")
 		return
 	create_dialog_from_json(imported_dialogs[index],unimported_dialog_position)
-	if !imported_dialogs.empty():
+	if !imported_dialogs.is_empty():
 		unimported_dialog_position += Vector2(300,300)
 		create_nodes_from_index(category_name,0)
 	else:
@@ -47,7 +47,7 @@ func create_nodes_from_index(category_name, index : int = 0):
 		loaded_responses = []
 	
 func create_dialog_from_json(current_json,offset):
-	var new_node = GlobalDeclarations.DIALOG_NODE.instance()
+	var new_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_node.offset = offset
 	#emit_signal("editor_offset_loaded",new_node.offset)
 	new_node = update_dialog_node_information(new_node,current_json)
@@ -61,7 +61,7 @@ func create_dialog_from_json(current_json,offset):
 func create_response_nodes_from_json(node,json):
 	var total_num_of_responses = 0
 	for i in json["Options"]:
-		var response = GlobalDeclarations.RESPONSE_NODE.instance() 
+		var response = GlobalDeclarations.RESPONSE_NODE.instantiate() 
 		response.slot = i["OptionSlot"]
 		response.command = i["Option"]["DialogCommand"]
 		response.to_dialog_id = i["Option"]["Dialog"]
@@ -107,7 +107,7 @@ func scan_category_for_changes(category_name = CurrentEnvironment.current_catego
 				imported_dialogs.erase(json)
 	for updated_dialog in updated_dialog_nodes:
 		create_dialogs_from_responses(updated_dialog)
-	if !imported_dialogs.empty():
+	if !imported_dialogs.is_empty():
 		create_nodes_from_index(0)
 	
 		

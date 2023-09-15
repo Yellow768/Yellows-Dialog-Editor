@@ -1,126 +1,119 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://cmwat64q4hma3"]
 
-[ext_resource path="res://src/Nodes/Scripts/DialogNode.gd" type="Script" id=1]
-[ext_resource path="res://src/Nodes/Scripts/DialogText.gd" type="Script" id=2]
-[ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=3]
-[ext_resource path="res://Assets/Font/Inter-VariableFont_slnt,wght.ttf" type="DynamicFontData" id=4]
+[ext_resource type="Script" path="res://src/Nodes/Scripts/DialogNode.gd" id="1"]
+[ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="2"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="3"]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id="3"]
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.94902, 0.282353, 0.0784314, 1 )
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.192157, 0.192157, 0.192157, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-shadow_offset = Vector2( 2, 2 )
+shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.192157, 0.192157, 0.192157, 1 )
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.94902, 0.282353, 0.0784314, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-shadow_offset = Vector2( 2, 2 )
+shadow_offset = Vector2(2, 2)
 
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 4 )
+[sub_resource type="FontFile" id="1"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [node name="DialogNode" type="GraphNode" groups=["Save"]]
-margin_right = 335.0
-margin_bottom = 215.0
-rect_min_size = Vector2( 335, 215 )
+custom_minimum_size = Vector2(335, 215)
+offset_right = 335.0
+offset_bottom = 215.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = ExtResource( 3 )
+theme = ExtResource("3")
 title = "Dialog Node"
 show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
-slot/0/left_color = Color( 0.196078, 0.772549, 0.192157, 1 )
+slot/0/left_color = Color(0.196078, 0.772549, 0.192157, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = false
 slot/0/right_type = 1
-slot/0/right_color = Color( 0.133333, 0.360784, 0.713726, 1 )
+slot/0/right_color = Color(0.133333, 0.360784, 0.713726, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
 slot/1/left_enabled = true
 slot/1/left_type = 0
-slot/1/left_color = Color( 0.105882, 0.137255, 0.866667, 1 )
+slot/1/left_color = Color(0.105882, 0.137255, 0.866667, 1)
+slot/1/left_icon = null
 slot/1/right_enabled = true
 slot/1/right_type = 1
-slot/1/right_color = Color( 0.866667, 0.266667, 0.105882, 1 )
+slot/1/right_color = Color(0.866667, 0.266667, 0.105882, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 slot/2/left_enabled = false
 slot/2/left_type = 0
-slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
 slot/2/right_enabled = false
 slot/2/right_type = 0
-slot/2/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+script = ExtResource("1")
 _dialog_text_path = NodePath("HBoxContainer/VBoxContainer/DialogText")
 _title_text_path = NodePath("HBoxContainer/VBoxContainer/TitleText")
 _add_response_path = NodePath("HBoxContainer/AddPlayerResponse")
 _id_label_path = NodePath("IDLabel")
 
 [node name="HSeparator" type="HSeparator" parent="."]
-margin_left = 9.0
-margin_right = 314.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 mouse_filter = 2
-custom_styles/separator = SubResource( 3 )
+theme_override_styles/separator = SubResource("3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_left = 9.0
-margin_top = 32.0
-margin_right = 314.0
-margin_bottom = 167.0
-grow_vertical = 2
-rect_min_size = Vector2( 300, 0 )
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 275.0
-margin_bottom = 135.0
+layout_mode = 2
 
 [node name="TitleText" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
-margin_right = 275.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 275, 20 )
-hint_tooltip = "Title of the dialog"
+custom_minimum_size = Vector2(275, 20)
+layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Title of the dialog"
 text = "New Dialog"
 
 [node name="DialogText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
-margin_top = 24.0
-margin_right = 275.0
-margin_bottom = 135.0
-rect_min_size = Vector2( 275, 111 )
+custom_minimum_size = Vector2(275, 111)
+layout_mode = 2
 size_flags_horizontal = 0
-custom_colors/member_variable_color = Color( 1, 1, 1, 1 )
-custom_colors/function_color = Color( 0, 0, 0, 1 )
-custom_colors/number_color = Color( 1, 1, 1, 1 )
-syntax_highlighting = true
-wrap_enabled = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="AddPlayerResponse" type="Button" parent="HBoxContainer"]
-margin_left = 279.0
-margin_right = 304.0
-margin_bottom = 135.0
-rect_min_size = Vector2( 25, 110 )
-custom_styles/hover = SubResource( 2 )
-custom_styles/normal = SubResource( 4 )
+custom_minimum_size = Vector2(25, 110)
+layout_mode = 2
+theme_override_styles/normal = SubResource("4")
+theme_override_styles/hover = SubResource("2")
 text = "+"
 
 [node name="IDLabel" type="Label" parent="."]
-margin_left = 9.0
-margin_top = 169.0
-margin_right = 314.0
-margin_bottom = 189.0
-custom_fonts/font = SubResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = SubResource("1")
 text = "ID: -1"
 
 [connection signal="close_request" from="." to="." method="_on_DialogNode_close_request"]
 [connection signal="gui_input" from="." to="." method="_on_DialogNode_gui_input"]
-[connection signal="offset_changed" from="." to="." method="_on_DialogNode_offset_changed"]
+[connection signal="position_offset_changed" from="." to="." method="_on_DialogNode_offset_changed"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_gui_input"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_text_changed"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/DialogText" to="." method="_on_DialogText_gui_input"]

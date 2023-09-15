@@ -6,26 +6,26 @@ const RESPONSE_VERTICAL_OFFSET = 100
 const RESPONSE_HORIZONTAL_OFFSET = 350
 
 signal add_response_request
-signal delete_response_node
+signal request_delete_response_node
 signal dialog_ready_for_deletion
 signal set_self_as_selected
 signal text_changed
 signal title_changed
 signal node_double_clicked
 
-export(NodePath) var _dialog_text_path
-export(NodePath) var _title_text_path
-export(NodePath) var _add_response_path
-export(NodePath) var _id_label_path
+@export var _dialog_text_path: NodePath
+@export var _title_text_path: NodePath
+@export var _add_response_path: NodePath
+@export var _id_label_path: NodePath
 
-onready var TitleTextNode = get_node(_title_text_path)
-onready var DialogTextNode = get_node(_dialog_text_path)
-onready var AddResponseButtonNode = get_node(_add_response_path)
-onready var IdLabelNode = get_node(_id_label_path)
+@onready var TitleTextNode = get_node(_title_text_path)
+@onready var DialogTextNode = get_node(_dialog_text_path)
+@onready var AddResponseButtonNode = get_node(_add_response_path)
+@onready var IdLabelNode = get_node(_id_label_path)
 
 
 var node_type = "Dialog Node" 
-var node_index = 0 setget set_node_index
+var node_index = 0: set = set_node_index
 
 
 var response_options = []
@@ -41,21 +41,21 @@ var initial_offset_y = 0
 
 ##Dialog Data#
 
-export var dialog_title = 'New Dialog' setget set_dialog_title
+@export var dialog_title = 'New Dialog': set = set_dialog_title
 
 #Immutable
-export var dialog_id = -1 setget set_dialog_id
+@export var dialog_id = -1: set = set_dialog_id
 
 #Display
 
-export var show_wheel = false
-export var hide_npc = false
-export var disable_esc = false
+@export var show_wheel = false
+@export var hide_npc = false
+@export var disable_esc = false
 
 #String Inputs
-export var command = ''
-export var sound = ''
-var text = '' setget set_dialog_text
+@export var command = ''
+@export var sound = ''
+var text = '': set = set_dialog_text
 
 
 #Availabilities
@@ -65,20 +65,20 @@ var scoreboard_availabilities = [scoreboard_availability_object.new(),scoreboard
 var faction_availabilities = [faction_availability_object.new(),faction_availability_object.new()]
 var faction_changes = [faction_change_object.new(),faction_change_object.new()]
 
-export(int,"Always","Night","Day") var time_availability = 0
-export var min_level_availability = 0
+@export var time_availability = 0 # (int,"Always","Night","Day")
+@export var min_level_availability = 0
 
 
 
 #Outcomes
-export var start_quest = -1
+@export var start_quest = -1
 
 
 func _ready():
 	#set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,GlobalDeclarations.dialog_left_slot_color,true,CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.dialog_right_slot_color)
 	#emit_signal("set_self_as_selected",self)
-	initial_offset_y = offset.y
-	initial_offset_x = offset.x
+	initial_offset_y = position_offset.y
+	initial_offset_x = position_offset.x
 
 func add_response_node():
 	if response_options.size() < 6:
@@ -89,11 +89,11 @@ func delete_response_node(deletion_slot,response_node):
 		if i.slot > deletion_slot:
 			i.slot -=1
 	response_options.erase(response_node)
-	emit_signal("delete_response_node",self,response_node)
+	emit_signal("request_delete_response_node",self,response_node)
 
 func clear_responses():
 	for response in response_options:
-		emit_signal("delete_response_node",self,response)
+		emit_signal("request_delete_response_node",self,response)
 	response_options.clear()
 
 func add_connected_response(response):
@@ -118,7 +118,7 @@ func set_focus_on_title():
 
 func set_dialog_title(string):
 	dialog_title = string
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
@@ -127,12 +127,12 @@ func set_dialog_title(string):
 	
 func set_dialog_text(string):
 	text = string
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	DialogTextNode.text = text
 
 func set_dialog_id(id):
 	dialog_id = id
-	if not is_inside_tree(): yield(self,'ready')
+	if not is_inside_tree(): await self.ready
 	IdLabelNode.text = "ID: "+String(id)
 
 func set_node_index(index):
@@ -150,13 +150,13 @@ func _on_DialogNode_offset_changed():
 	if !Input.is_action_pressed("drag_without_responses"):
 		if response_options.size() > 0:
 			for i in response_options:
-				i.offset += offset - Vector2(initial_offset_x,initial_offset_y)
+				i.position_offset += position_offset - Vector2(initial_offset_x,initial_offset_y)
 				i.check_dialog_distance()
 		if connected_responses.size() > 0:
 			for i in connected_responses:
 				i.check_dialog_distance()
-	initial_offset_x = offset.x
-	initial_offset_y = offset.y
+	initial_offset_x = position_offset.x
+	initial_offset_y = position_offset.y
 			
 func _on_TitleText_text_changed(new_text):
 	dialog_title = new_text
@@ -167,11 +167,11 @@ func _on_TitleText_text_changed(new_text):
 
 func handle_clicking(event):
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == BUTTON_LEFT:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			emit_signal("set_self_as_selected",self)
 		if event.doubleclick:
 			emit_signal("node_double_clicked")
-		if event.pressed and event.button_index == BUTTON_RIGHT:
+		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 			$PopupMenu.popup()
 
 
@@ -245,9 +245,9 @@ func save():
 	
 	
 	var save_dict = {
-		"filename": get_filename(),
-		"offset.x" : offset.x,
-		"offset.y" : offset.y,
+		"filename": get_scene_file_path(),
+		"position_offset.x" : position_offset.x,
+		"position_offset.y" : position_offset.y,
 		"node_index": node_index,
 		"dialog_id" : dialog_id,
 		"dialog_title": dialog_title,

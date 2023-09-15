@@ -1,10 +1,10 @@
 extends Resource
 class_name faction_availability_object
 
-export var faction_id = -1
+@export var faction_id = -1
 
-export(int,"Always","Is","Is Not") var availability_operator
-export(int,"Friendly","Neutral","Unfriendly") var stance_type
+@export var availability_operator # (int,"Always","Is","Is Not")
+@export var stance_type # (int,"Friendly","Neutral","Unfriendly")
 
 signal availability_operator_changed
 signal id_changed
