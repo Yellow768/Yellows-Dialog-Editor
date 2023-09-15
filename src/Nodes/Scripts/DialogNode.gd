@@ -103,6 +103,7 @@ func remove_connected_response(response):
 	connected_responses.erase(response)
 
 func delete_self(perm = true):
+
 	while response_options.size() > 0:
 		for i in response_options:
 			i.delete_self()
@@ -117,8 +118,6 @@ func set_focus_on_title():
 	emit_signal("set_self_as_selected",self)
 
 func set_dialog_title(string):
-	dialog_title = string
-	if not is_inside_tree(): await self.ready
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
@@ -126,18 +125,16 @@ func set_dialog_title(string):
 	
 	
 func set_dialog_text(string):
-	text = string
-	if not is_inside_tree(): await self.ready
-	DialogTextNode.text = text
+	DialogTextNode.text = string
 
 func set_dialog_id(id):
 	dialog_id = id
 	if not is_inside_tree(): await self.ready
-	IdLabelNode.text = "ID: "+String(id)
+	IdLabelNode.text = "ID: "+str(id)
 
 func set_node_index(index):
 	node_index = index
-	title = "Dialog Node "+String(index)
+	title = "Dialog Node "+str(index)
 
 func _on_AddPlayerResponse_pressed():
 	add_response_node()
@@ -169,7 +166,7 @@ func handle_clicking(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			emit_signal("set_self_as_selected",self)
-		if event.doubleclick:
+		if event.double_click:
 			emit_signal("node_double_clicked")
 		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 			$PopupMenu.popup()
@@ -186,8 +183,8 @@ func _on_DialogText_gui_input(event):
 func _on_TitleText_gui_input(event):
 	handle_clicking(event)
 
-func _on_DialogText_text_changed():
-	text = DialogTextNode.text
+func _on_DialogText_text_changed(text):
+	text = text
 	emit_signal("text_changed",text)
 
 

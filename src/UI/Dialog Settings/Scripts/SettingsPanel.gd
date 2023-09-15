@@ -149,7 +149,7 @@ func exit_dialog_availability_mode():
 func set_title_text(title_text : String,node_index):
 	if title_text.length() > 35:
 		title_text = title_text.left(35)+"..."
-	TitleLabel.text = title_text+"| Node "+String(node_index)
+	TitleLabel.text = title_text+"| Node "+str(node_index)
 
 		
 func load_dialog_settings(dialog):

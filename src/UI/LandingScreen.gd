@@ -37,9 +37,8 @@ func add_directory_to_config(directory : String):
 
 
 func find_valid_customnpcs_dir(dir : String):
-	var directory = DirAccess.new()
+	var directory = DirAccess.open(dir)
 	var dir_search = DirectorySearch.new()
-	directory.open(dir)
 	if dir.replace(dir.get_base_dir()+"/","") == "customnpcs":
 		return dir
 	print(dir_search.scan_directory_for_folders(dir))
@@ -77,8 +76,7 @@ func _on_Cancel_button_up():
 
 
 func _on_Confirm_pressed():
-	var dir = DirAccess.new()
-	dir.open(chosen_dir)
+	var dir = DirAccess.open(chosen_dir)
 	if chosen_dir.replace(chosen_dir.get_base_dir(),"") == "/customnpcs":
 		dir.make_dir(chosen_dir+"/dialogs")
 	else:

@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmwat64q4hma3"]
+[gd_scene load_steps=7 format=3 uid="uid://cmwat64q4hma3"]
 
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogNode.gd" id="1"]
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="2"]
-[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="3"]
 
 [sub_resource type="StyleBoxEmpty" id="3"]
 
@@ -36,7 +35,6 @@ offset_right = 335.0
 offset_bottom = 215.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = ExtResource("3")
 title = "Dialog Node"
 show_close = true
 slot/0/left_enabled = false

@@ -1,52 +1,51 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://dro88tu4x6qee"]
 
-[ext_resource path="res://src/Nodes/Scripts/ResponseNode.gd" type="Script" id=1]
-[ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=2]
-[ext_resource path="res://Assets/UI Textures/Response.png" type="Texture2D" id=3]
-[ext_resource path="res://Assets/Font/Inter-VariableFont_slnt,wght.ttf" type="FontFile" id=4]
-[ext_resource path="res://Assets/UI Textures/ResponseNode.png" type="Texture2D" id=5]
+[ext_resource type="Script" path="res://src/Nodes/Scripts/ResponseNode.gd" id="1"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://dp06u4lm2g85h" path="res://Assets/UI Textures/Response.png" id="2_fs3ij"]
+[ext_resource type="Texture2D" uid="uid://dglt5gy2cfr6q" path="res://Assets/UI Textures/ResponseNode.png" id="3_klm7u"]
 
-[sub_resource type="StyleBoxTexture" id=7]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 267, 137 )
-offset_left = 6.0
-offset_right = 16.0
+[sub_resource type="StyleBoxTexture" id="8"]
+texture = ExtResource("2_fs3ij")
+region_rect = Rect2(0, 0, 267, 137)
 
-[sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 3 )
-region_rect = Rect2( 0, 0, 267, 137 )
-offset_left = 6.0
-offset_right = 16.0
+[sub_resource type="StyleBoxTexture" id="6"]
+texture = ExtResource("3_klm7u")
+region_rect = Rect2(0, 0, 267, 137)
 
-[sub_resource type="StyleBoxTexture" id=6]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 267, 137 )
-offset_left = 6.0
-offset_right = 16.0
+[sub_resource type="StyleBoxTexture" id="7"]
+region_rect = Rect2(0, 0, 267, 137)
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id="3"]
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.172549, 0.239216, 0.592157, 1 )
+[sub_resource type="StyleBoxFlat" id="9"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.2, 0.2, 0.2, 1 )
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.172549, 0.239216, 0.592157, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="FontFile" id=5]
-font_data = ExtResource( 4 )
+[sub_resource type="FontFile" id="5"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 148.5, 87 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(148.5, 87)
 
 [node name="PlayerResponseNode" type="GraphNode" groups=["Response_Nodes"]]
+custom_minimum_size = Vector2(335, 215)
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -55,32 +54,40 @@ offset_left = -125.0
 offset_top = -50.0
 offset_right = 210.0
 offset_bottom = 165.0
-custom_minimum_size = Vector2( 335, 215 )
-theme = ExtResource( 2 )
-theme_override_styles/comment_focus = SubResource( 7 )
-theme_override_styles/frame = SubResource( 8 )
-theme_override_styles/selected_frame = SubResource( 6 )
+theme = ExtResource("2")
+theme_override_styles/frame = SubResource("8")
+theme_override_styles/selected_frame = SubResource("6")
+theme_override_styles/comment_focus = SubResource("7")
 title = "Response Node"
 show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 1
-slot/0/left_color = Color( 0, 1, 0, 1 )
+slot/0/left_color = Color(0, 1, 0, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = false
 slot/0/right_type = 3
-slot/0/right_color = Color( 0, 0, 1, 1 )
+slot/0/right_color = Color(0, 0, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
 slot/1/left_enabled = true
 slot/1/left_type = 3
-slot/1/left_color = Color( 1, 0.294118, 0.105882, 1 )
+slot/1/left_color = Color(1, 0.294118, 0.105882, 1)
+slot/1/left_icon = null
 slot/1/right_enabled = true
 slot/1/right_type = 0
-slot/1/right_color = Color( 0.14902, 0, 1, 1 )
+slot/1/right_color = Color(0.14902, 0, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 slot/2/left_enabled = false
 slot/2/left_type = 0
-slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
 slot/2/right_enabled = false
 slot/2/right_type = 0
-slot/2/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+script = ExtResource("1")
 _response_text_node_path = NodePath("HBoxContainer/VBoxContainer/ResponseText")
 _color_picker_node_path = NodePath("HBoxContainer/VBoxContainer/ColorPickerButton")
 _option_type_node_path = NodePath("HBoxContainer/VBoxContainer/OptionTypeButton")
@@ -92,113 +99,91 @@ _remote_connection_disconnect_button_path = NodePath("VBOXRemoteConnection/HBoxC
 _remote_connection_jump_button_path = NodePath("VBOXRemoteConnection/HBoxContainer/JumpButton")
 
 [node name="HSeparator" type="HSeparator" parent="."]
-offset_left = 6.0
-offset_right = 319.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 0, 35 )
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
 mouse_filter = 1
-theme_override_styles/separator = SubResource( 3 )
+theme_override_styles/separator = SubResource("3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_left = 6.0
-offset_top = 37.0
-offset_right = 319.0
-offset_bottom = 144.0
-custom_minimum_size = Vector2( 310, 0 )
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-offset_right = 270.0
-offset_bottom = 107.0
-custom_minimum_size = Vector2( 270, 0 )
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
 
 [node name="ResponseText" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
-offset_right = 270.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 270, 35 )
+custom_minimum_size = Vector2(270, 35)
+layout_mode = 2
 placeholder_text = "Response Text"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer/VBoxContainer"]
-offset_top = 39.0
-offset_right = 270.0
-offset_bottom = 71.0
+layout_mode = 2
 size_flags_vertical = 0
-color = Color( 1, 1, 1, 1 )
+color = Color(1, 1, 1, 1)
 edit_alpha = false
 
 [node name="OptionTypeButton" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
-offset_top = 75.0
-offset_right = 270.0
-offset_bottom = 107.0
-text = "Dialog"
-align = 1
-items = [ "Dialog", null, false, 1, null, "Open Role Screen", null, false, 3, null, "Execute Command", null, false, 4, null, "Close Dialog", null, false, 0, null, "Disabled", null, false, 4, null ]
+layout_mode = 2
+item_count = 5
 selected = 0
+popup/item_0/text = "Dialog"
+popup/item_0/id = 1
+popup/item_1/text = "Open Role Screen"
+popup/item_1/id = 3
+popup/item_2/text = "Execute Command"
+popup/item_2/id = 4
+popup/item_3/text = "Close Dialog"
+popup/item_3/id = 0
+popup/item_4/text = "Disabled"
+popup/item_4/id = 0
 
 [node name="CommandText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
 visible = false
-offset_top = 111.0
-offset_right = 270.0
-offset_bottom = 136.0
-custom_minimum_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "Command"
 
 [node name="AddNewDialog" type="Button" parent="HBoxContainer"]
-offset_left = 274.0
-offset_right = 299.0
-offset_bottom = 107.0
-custom_minimum_size = Vector2( 25, 50 )
-theme_override_styles/hover = SubResource( 4 )
-theme_override_styles/normal = SubResource( 9 )
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("9")
+theme_override_styles/hover = SubResource("4")
 text = "+"
 
 [node name="VBOXRemoteConnection" type="VBoxContainer" parent="."]
 visible = false
-offset_left = 6.0
-offset_top = 146.0
-offset_right = 319.0
-offset_bottom = 212.0
+layout_mode = 2
 alignment = 1
 
 [node name="ConnectedLabel" type="Label" parent="VBOXRemoteConnection"]
-offset_right = 313.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 0, 30 )
-theme_override_fonts/font = SubResource( 5 )
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = SubResource("5")
 text = "Connected to DialogTitle | Node 56"
-align = 1
-valign = 1
-autowrap = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBOXRemoteConnection"]
-offset_top = 34.0
-offset_right = 313.0
-offset_bottom = 66.0
+layout_mode = 2
 alignment = 1
 
 [node name="DisconnectButton" type="Button" parent="VBOXRemoteConnection/HBoxContainer"]
-offset_left = 23.0
-offset_right = 108.0
-offset_bottom = 32.0
+layout_mode = 2
 text = "Disconnect"
 
 [node name="VSeparator" type="VSeparator" parent="VBOXRemoteConnection/HBoxContainer"]
-offset_left = 112.0
-offset_right = 172.0
-offset_bottom = 32.0
-custom_minimum_size = Vector2( 60, 0 )
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
 
 [node name="JumpButton" type="Button" parent="VBOXRemoteConnection/HBoxContainer"]
-offset_left = 176.0
-offset_right = 289.0
-offset_bottom = 32.0
+layout_mode = 2
 text = "Jump To Node"
 
 [node name="ResponseNodeArea" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponseNodeArea"]
-position = Vector2( 150.5, 90 )
-shape = SubResource( 1 )
+position = Vector2(150.5, 90)
+shape = SubResource("1")
 
 [connection signal="close_request" from="." to="." method="_on_PlayerResponseNode_close_request"]
 [connection signal="gui_input" from="." to="." method="_on_PlayerResponseNode_gui_input"]

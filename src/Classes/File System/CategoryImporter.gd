@@ -8,6 +8,7 @@ signal request_add_dialog
 signal request_add_response
 signal request_connect_nodes
 signal editor_offset_loaded
+signal request_arrange_nodes
 
 var current_category_directory
 var imported_category_name
@@ -26,6 +27,7 @@ func initial_dialog_chosen(category_name,dialog_jsons,index):
 	emit_signal("clear_editor_request")	
 	imported_dialogs = dialog_jsons
 	create_nodes_from_index(category_name,index)
+	emit_signal("request_arrange_nodes")
 
 
 func create_nodes_from_index(category_name, index : int = 0):
@@ -48,7 +50,7 @@ func create_nodes_from_index(category_name, index : int = 0):
 	
 func create_dialog_from_json(current_json,offset):
 	var new_node = GlobalDeclarations.DIALOG_NODE.instantiate()
-	new_node.offset = offset
+	new_node.position_offset = offset
 	#emit_signal("editor_offset_loaded",new_node.offset)
 	new_node = update_dialog_node_information(new_node,current_json)
 	imported_dialogs.erase(current_json)
@@ -77,13 +79,13 @@ func create_dialogs_from_responses(dialog):
 		if response.to_dialog_id != -1 && response.option_type == 0:
 			for loaded_dialog in loaded_dialog_nodes:
 				if loaded_dialog.dialog_id == response.to_dialog_id:
-					emit_signal("request_connect_nodes",response.get_name(),0,loaded_dialog.get_name(),0)
+					emit_signal("request_connect_nodes",response,0,loaded_dialog,0)
 					
 			for json_dialog in imported_dialogs:
 				if json_dialog["DialogId"] == response.to_dialog_id:
-					var connected_dialog = create_dialog_from_json(json_dialog,response.offset+Vector2(320,0))
+					var connected_dialog = create_dialog_from_json(json_dialog,response.position_offset+Vector2(320,0))
 					
-					emit_signal("request_connect_nodes",response.get_name(),0,connected_dialog.get_name(),0)		
+					emit_signal("request_connect_nodes",response,0,connected_dialog,0)		
 		loaded_responses.append(response)
 
 
@@ -139,8 +141,8 @@ func update_dialog_node_information(node,json):
 		node.faction_availabilities[i].availability_operator = json["AvailabilityFaction"+id[i]]
 		
 		var operator = [1,-1]
-		node.faction_changes[i].faction_id = json["OptionFactions"+String(i+1)]
-		node.faction_changes[i].points = json["OptionFaction"+String(i+1)+"Points"] * operator[json["DecreaseFaction"+String(i+1)+"Points"]]
+		node.faction_changes[i].faction_id = json["OptionFactions"+str(i+1)]
+		node.faction_changes[i].points = json["OptionFaction"+str(i+1)+"Points"] * operator[json["DecreaseFaction"+str(i+1)+"Points"]]
 	
 	
 	return node

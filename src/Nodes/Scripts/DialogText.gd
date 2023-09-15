@@ -2,6 +2,7 @@ extends TextEdit
 
 
 func _ready():
+	return
 	var color_highlighter = CodeHighlighter.new()
 	
 	color_highlighter.add_color_region("&r","",Color(1, 1, 1),true)

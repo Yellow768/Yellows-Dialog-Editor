@@ -10,7 +10,7 @@ func reset():
 	set_value(0)
 	set_comparison_type(0)
 	
-func set_name(new_name : String):
+func set_objective_name(new_name : String):
 	objective_name = new_name
 
 func set_value(new_value : int):

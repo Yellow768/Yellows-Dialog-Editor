@@ -16,6 +16,8 @@ extends Control
 
 
 func _ready():
+	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/environment_settings.json"):
+		FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
 	var file = FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.READ)
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_line())
@@ -33,7 +35,7 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("add_dialog_at_mouse"):
 		var new_dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
-		new_dialog_node.offset = get_local_mouse_position()
+		new_dialog_node.position_offset = get_local_mouse_position()
 		DialogEditor.add_dialog_node(new_dialog_node)
 	if event.is_action_pressed("create_response"):
 		for dialog in DialogEditor.selected_nodes:

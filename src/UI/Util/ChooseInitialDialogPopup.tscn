@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cld2vlhy3w3p6"]
 
-[ext_resource path="res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd" type="Script" id=1]
-[ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=2]
+[ext_resource type="Script" path="res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd" id="1"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 
 [node name="ChooseInitialDIalogPopup" type="Panel"]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -12,11 +13,12 @@ offset_left = -512.0
 offset_top = -300.0
 offset_right = 512.0
 offset_bottom = 300.0
-theme = ExtResource( 2 )
-script = ExtResource( 1 )
+theme = ExtResource("2")
+script = ExtResource("1")
 _button_list_path = NodePath("ScrollContainer/VBoxContainer")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -194.5
@@ -24,9 +26,9 @@ offset_top = 39.0
 offset_right = 194.5
 offset_bottom = 68.0
 text = "Choose a starting dialog for the tree"
-align = 1
 
 [node name="Searchbar" type="LineEdit" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -203.0
@@ -36,6 +38,7 @@ offset_bottom = 98.0
 placeholder_text = "Search"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -44,13 +47,13 @@ offset_left = -390.5
 offset_top = -208.0
 offset_right = 390.5
 offset_bottom = 208.0
-scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-offset_right = 500.0
-custom_minimum_size = Vector2( 500, 0 )
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
 
 [node name="CancelButton" type="Button" parent="."]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -245.0

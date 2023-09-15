@@ -29,7 +29,7 @@ func add_dialog_to_loaded(dialog):
 	
 	
 			
-func dialog_title_changed(dialog):
+func update_changed_dialog_title(dialog):
 	all_loaded_dialogs[dialog.dialog_id] = dialog.dialog_title
 	emit_signal("dialog_title_changed")
 			

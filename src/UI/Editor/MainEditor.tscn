@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
 [ext_resource type="Script" path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" id="3"]
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/StartQuest.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Dialog Availability.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://b8hqt3kn3abc2" path="res://src/UI/Dialog Settings/Dialog Availability.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/FactionChange.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Faction Availability.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" id="8"]
@@ -48,6 +48,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("14")
@@ -477,6 +479,14 @@ offset_left = 9.5
 offset_top = -17.0
 offset_right = 152.5
 offset_bottom = 15.0
+item_count = 3
+selected = 0
+popup/item_0/text = "Always"
+popup/item_0/id = 0
+popup/item_1/text = "Day"
+popup/item_1/id = 1
+popup/item_2/text = "Night"
+popup/item_2/id = 2
 
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
 layout_mode = 0
@@ -667,10 +677,21 @@ offset_bottom = 111.0
 theme = ExtResource("14")
 text = "Selecting Dialog for Availability"
 
+[connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
+[connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
+[connection signal="dialog_node_added" from="DialogEditor" to="DialogList" method="dialog_node_added"]
+[connection signal="dialog_node_perm_deleted" from="DialogEditor" to="DialogList" method="dialog_deleted"]
+[connection signal="dialog_selected" from="DialogEditor" to="InformationPanel" method="load_dialog_settings"]
 [connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
+[connection signal="editor_cleared" from="DialogEditor" to="." method="_on_DialogEditor_editor_cleared"]
+[connection signal="finished_loading" from="DialogEditor" to="TopPanel" method="_on_DialogEditor_finished_loading"]
+[connection signal="finished_loading" from="DialogEditor" to="InformationPanel" method="_on_DialogEditor_finished_loading"]
+[connection signal="finished_loading" from="DialogEditor" to="CategoryPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="gui_input" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_gui_input"]
+[connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
 [connection signal="node_deselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
+[connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
@@ -721,3 +742,7 @@ text = "Selecting Dialog for Availability"
 [connection signal="scan_for_changes" from="CategoryPanel" to="DialogEditor" method="scan_for_changes"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
+[connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
+[connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
+[connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
+[connection signal="new_category_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]

@@ -71,15 +71,14 @@ func set_option_from_json_index(option_int):
 
 func set_focus_on_title():
 	if not is_inside_tree(): await self.ready
-	ResponseTextNode.grab_focus()
+	pass
+	#ResponseTextNode.grab_focus()
 
 func set_response_slot(value):
 	slot = value
-	title = "Response Option "+String(value+1) 
+	title = "Response Option "+str(value+1) 
 	
 func set_response_title(new_title):
-	response_title = new_title
-	if not is_inside_tree(): await self.ready
 	ResponseTextNode.text = new_title
 
 func set_option_type(new_type):
@@ -137,7 +136,7 @@ func hide_button():
 
 func update_connection_text():
 	if connected_dialog != null:
-		var format_string = "Connected to %s | Node "+String(connected_dialog.node_index)
+		var format_string = "Connected to %s | Node "+str(connected_dialog.node_index)
 		RemoteConnectionText.text = format_string % connected_dialog.dialog_title.left(10)
 
 func check_dialog_distance():
@@ -167,7 +166,7 @@ func set_connection_shown():
 
 func disconnect_from_dialog():
 	connected_dialog.remove_connected_response(self)
-	emit_signal("disconnect_from_dialog_request",self.name,0,connected_dialog.name,0)
+	emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 	connected_dialog = null
 	to_dialog_id = -1
 	RemoteConnectionContainer.visible = false
@@ -182,7 +181,7 @@ func delete_self():
 
 
 func _on_PlayerResponseNode_gui_input(event):
-	if event is InputEventMouseButton and event.doubleclick:
+	if event is InputEventMouseButton and event.double_click:
 		emit_signal("response_double_clicked")
 
 
@@ -198,7 +197,7 @@ func _on_AddNewDialog_pressed():
 	connected_dialog = new_dialog
 	new_dialog.connected_responses.append(self)
 	emit_signal("request_add_dialog",new_dialog,true)
-	emit_signal("connect_to_dialog_request",self.name,0,connected_dialog.name,0)
+	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0)
 
 
 func _on_OptionButton_item_selected(index):

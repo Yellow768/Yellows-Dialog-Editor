@@ -45,7 +45,7 @@ func create_category_buttons(categories):
 		category_button.index = categories.find(i)
 		category_button.text = i
 		category_button.toggle_mode = true
-		category_button.group  = load("res://Assets/CategoryButtons.tres")
+		category_button.button_group  = load("res://Assets/CategoryButtons.tres")
 		category_button.theme_type_variation = "CategoryButton"
 		category_button.connect("open_category_request", Callable(self, "_category_button_pressed"))
 		category_button.connect("rename_category_request", Callable(EnvironmentIndex, "rename_category"))

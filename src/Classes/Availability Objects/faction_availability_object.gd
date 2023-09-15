@@ -3,8 +3,8 @@ class_name faction_availability_object
 
 @export var faction_id = -1
 
-@export var availability_operator # (int,"Always","Is","Is Not")
-@export var stance_type # (int,"Friendly","Neutral","Unfriendly")
+@export_enum("Always","Is","Is Not") var availability_operator : int = 0
+@export_enum("Friendly","Neutral","Unfriendly") var stance_type : int = 0
 
 signal availability_operator_changed
 signal id_changed

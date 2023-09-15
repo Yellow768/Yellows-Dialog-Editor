@@ -10,7 +10,7 @@ func _ready():
 
 
 func _on_ChooseFaction_pressed():
-	$FactionFinder.global_position = global_position
+	$FactionFinder.position = global_position
 	$FactionFinder.popup()
 
 

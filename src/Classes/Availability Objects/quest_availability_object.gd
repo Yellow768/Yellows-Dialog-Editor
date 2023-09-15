@@ -1,7 +1,7 @@
 extends Resource
 class_name quest_availability_object
 
-@export var availability_type = 0 # (int,"Always","After","Before","When Active","When Not Active","Completed")
+@export_enum("Always","After","Before","When Active","When Not Active","Completed") var availability_type :int = 0
 @export var quest_id: int = -1
 
 func reset():

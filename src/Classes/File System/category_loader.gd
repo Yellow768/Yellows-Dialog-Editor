@@ -16,13 +16,14 @@ var loaded_responses = []
 
 func load_category(category_name):
 	var current_category_path = CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec"
-	var save_category = File.new()
-	if not save_category.file_exists(current_category_path):
+	var save_category
+	if not FileAccess.file_exists(current_category_path):
 		emit_signal("no_ydec_found",category_name)
 		return ERR_DOES_NOT_EXIST
 	else:
+		save_category = FileAccess.open(current_category_path,FileAccess.READ)
 		emit_signal("clear_editor_request")
-		if save_category.open(current_category_path,File.READ) != OK:
+		if save_category.get_error() != OK:
 			printerr("There was an error in opening the YDEC file.")
 			return ERR_FILE_CANT_READ
 		else:
@@ -61,17 +62,17 @@ func connect_all_responses():
 			if dialog.dialog_id == response.to_dialog_id:
 				connected_dialog = dialog
 		if response.to_dialog_id > 0:
-			emit_signal("request_connect_nodes",response.name,0,connected_dialog.name,0)
+			emit_signal("request_connect_nodes",response,0,connected_dialog,0)
 
 
 func create_new_dialog_node_from_ydec(node_data : Dictionary):
 	var currently_loaded_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
-	if !node_data.has("offset.x"):
+	if !node_data.has("position_offset.x"):
 		printerr("Line does not contain offset data, considered to be invalid")
 		return currently_loaded_dialog
-	currently_loaded_dialog.offset = Vector2(node_data["offset.x"],node_data["offset.y"])
+	currently_loaded_dialog.position_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
 	for i in node_data.keys():
-		if i == "offset.x" or i == "offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options":
+		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options":
 			continue
 		currently_loaded_dialog.set(i, node_data[i])
 	currently_loaded_dialog.time_availability = node_data["time_availability"]

@@ -24,7 +24,7 @@ func create_dialog_buttons(importing_category_name):
 	for index in all_dialogs.size():
 		var dialog_button = Button.new()
 		dialog_button.text = all_dialogs[index]["DialogTitle"]
-		dialog_button.connect("pressed", Callable(self, "initial_dialog_chosen").bind(index))
+		dialog_button.connect("pressed", Callable(self, "emit_initial_dialog_chosen").bind(index))
 		$ScrollContainer/VBoxContainer.add_child(dialog_button)	
 	visible = true
 	

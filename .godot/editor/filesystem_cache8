@@ -1,6 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1694744338
-default_env.tres::Environment::-1::1694744258::0::1::::<><>::
+::res://::1694765396
+default_env.tres::Environment::8009894872529049898::1694765333::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1694736109::0::1::::<><>::
 factions_json_exporter.json::JSON::-1::1694736109::0::1::::<><>::
 gra.gd::GDScript::-1::1694744258::0::1::::<>GraphEdit<>::
@@ -24,23 +24,23 @@ THIRDPARTY.md::TextFile::-1::1668703891::0::1::::<><>::
 ::res://addons/godot-git-plugin/win64/release/::1668703891
 ::res://addons/godot-git-plugin/x11/::1668703891
 ::res://addons/godot-git-plugin/x11/release/::1668703891
-::res://Assets/::1694736109
+::res://Assets/::1694744799
 CategoryButtons.tres::ButtonGroup::-1::1694744259::0::1::::<><>::
 color_picker_style.tres::StyleBoxFlat::-1::1694744259::0::1::::<><>::
-MainEditor.tres::Theme::-1::1694744259::0::1::::<><>::res://Assets/Theme/DarkColorPanel.tres<>res://Assets/Font/Inter-VariableFont_slnt,wght.ttf<>res://Assets/UI Textures/Node.png<>res://Assets/UI Textures/NodeSelected.png<>res://Assets/Font/TinyFont.tres
-UITheme.tres::Theme::-1::1694744259::0::1::::<><>::res://Assets/Font/Inter-VariableFont_slnt,wght.ttf
-::res://Assets/Font/::1694736108
-Inter-VariableFont_slnt,wght.ttf::::-1::1694736108::1694744261::1::::<><>::
+MainEditor.tres::Theme::503887907441507524::1694744799::0::1::::<><>::res://Assets/Theme/DarkColorPanel.tres<>res://Assets/Font/TinyFont.tres
+UITheme.tres::Theme::5652905392392900358::1694744799::0::1::::<><>::
+::res://Assets/Font/::1694765396
+Inter-VariableFont_slnt_wght.ttf::::-1::1694736108::1694765401::0::::<><>::
 Lexend-VariableFont_wght.ttf::FontFile::6479758053655946946::1694736108::1694744261::1::::<><>::
-TinyFont.tres::FontFile::-1::1694744261::0::1::::<><>::res://Assets/Font/Inter-VariableFont_slnt,wght.ttf
+TinyFont.tres::FontFile::-1::1694765396::0::1::::<><>::res://Assets/Font/Inter-VariableFont_slnt_wght.ttf
 ::res://Assets/Theme/::1694736108
 DarkColorPanel.tres::StyleBoxFlat::-1::1694744261::0::1::::<><>::
-::res://Assets/UI Textures/::1694736109
+::res://Assets/UI Textures/::1694744346
 Node.png::CompressedTexture2D::7204819702253033026::1694736109::1694744346::1::::<><>::
 NodeSelected.png::CompressedTexture2D::4517693016145260816::1694736109::1694744346::1::::<><>::
 Response.png::CompressedTexture2D::8265623632906725543::1694736109::1694744346::1::::<><>::
 ResponseNode.png::CompressedTexture2D::7604310818326917914::1694736109::1694744346::1::::<><>::
-::res://Assets/UI Textures/Icon Font/::1694736109
+::res://Assets/UI Textures/Icon Font/::1694744348
 add-column-line.svg::CompressedTexture2D::9001227664917490112::1694736108::1694744347::1::::<><>::
 add-row-line.svg::CompressedTexture2D::3034314672653530817::1694736108::1694744347::1::::<><>::
 airplane-flight-2-line.svg::CompressedTexture2D::6289633532049916373::1694736108::1694744347::1::::<><>::
@@ -422,26 +422,26 @@ view-rows-line.svg::CompressedTexture2D::6008507491253266659::1694736109::169474
 watch-line.svg::CompressedTexture2D::657700303680017389::1694736109::1694744346::1::::<><>::
 yen-circle-line.svg::CompressedTexture2D::4460771171339374939::1694736109::1694744346::1::::<><>::
 ::res://src/::1694736109
-::res://src/Autoload/::1694736109
-current_environment.gd::GDScript::-1::1694744259::0::1::::<>Node<>::
+::res://src/Autoload/::1694747382
+current_environment.gd::GDScript::-1::1694747382::0::1::::<>Node<>::
 global_declarations.gd::GDScript::-1::1694744259::0::1::::<>Node<>::
-::res://src/Classes/::1694736109
-dialog_titles_index.gd::GDScript::-1::1694744258::0::1::::<>Node<>::
+::res://src/Classes/::1694747500
+dialog_titles_index.gd::GDScript::-1::1694747500::0::1::::<>Node<>::
 mail_data_object.gd::GDScript::-1::1694744258::0::1::::mail_data_object<>Node<>::
-::res://src/Classes/Availability Objects/::1694736109
-dialog_availability_object.gd::GDScript::-1::1694744258::0::1::::dialog_availability_object<>Resource<>::
-faction_availability_object.gd::GDScript::-1::1694744258::0::1::::faction_availability_object<>Resource<>::
-faction_change_object.gd::GDScript::-1::1694744258::0::1::::faction_change_object<>Resource<>::
+::res://src/Classes/Availability Objects/::1694746449
+dialog_availability_object.gd::GDScript::-1::1694746310::0::1::::dialog_availability_object<>Resource<>::
+faction_availability_object.gd::GDScript::-1::1694746413::0::1::::faction_availability_object<>Resource<>::
+faction_change_object.gd::GDScript::-1::1694746449::0::1::::faction_change_object<>Resource<>::
 quest_availability_object.gd::GDScript::-1::1694744258::0::1::::quest_availability_object<>Resource<>::
-scoreboard_availability_object.gd::GDScript::-1::1694744258::0::1::::scoreboard_availability_object<>Resource<>::
-::res://src/Classes/File System/::1694736109
-CategoryExporter.gd::GDScript::-1::1694744258::0::1::::category_exporter<>Node<>::
-CategoryImporter.gd::GDScript::-1::1694744258::0::1::::category_importer<>Node<>::
-category_loader.gd::GDScript::-1::1694744258::0::1::::category_loader<>Node<>::
-category_saver.gd::GDScript::-1::1694744258::0::1::::category_saver<>Node<>::
-dialog_jsons_loader.gd::GDScript::-1::1694744258::0::1::::dialog_jsons_loader<>Node<>::
-EnvironmentIndexer.gd::GDScript::-1::1694744258::0::1::::EnvironmentIndexer<>Node<>::
-QuestAndFactionsIndex.gd::GDScript::-1::1694744258::0::1::::quest_indexer<>Node<>::
+scoreboard_availability_object.gd::GDScript::-1::1694746366::0::1::::scoreboard_availability_object<>Resource<>::
+::res://src/Classes/File System/::1694765283
+CategoryExporter.gd::GDScript::-1::1694747180::0::1::::category_exporter<>Node<>::
+CategoryImporter.gd::GDScript::-1::1694749503::0::1::::category_importer<>Node<>::
+category_loader.gd::GDScript::-1::1694748016::0::1::::category_loader<>Node<>::
+category_saver.gd::GDScript::-1::1694765283::0::1::::category_saver<>Node<>::
+dialog_jsons_loader.gd::GDScript::-1::1694748945::0::1::::dialog_jsons_loader<>Node<>::
+EnvironmentIndexer.gd::GDScript::-1::1694748286::0::1::::EnvironmentIndexer<>Node<>::
+QuestAndFactionsIndex.gd::GDScript::-1::1694746609::0::1::::quest_indexer<>Node<>::
 ::res://src/Classes/Node Information/::1671226586
 ::res://src/CustomGraphEdit/::1694736109
 CustomDialogNode.gd::GDScript::-1::1694744258::0::1::::<>Panel<>::
@@ -449,33 +449,33 @@ CustomDialogNode.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/Cust
 CustomGraphEdit.gd::GDScript::-1::1694744258::0::1::::<>Container<>::
 CustomGraphEdit.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/CustomGraphEdit/editor_camera.gd<>res://src/CustomGraphEdit/CustomGraphEdit.gd<>res://icon.png
 editor_camera.gd::GDScript::-1::1694744258::0::1::::<>Camera2D<>::
-::res://src/Nodes/::1694736109
+::res://src/Nodes/::1694765332
 CategoryButton.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/CategoryPanel/Scripts/CategoryButton.gd<>res://Assets/MainEditor.tres
-DialogNode.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/Nodes/Scripts/DialogNode.gd<>res://src/Nodes/Scripts/DialogText.gd<>res://Assets/MainEditor.tres<>res://Assets/Font/Inter-VariableFont_slnt,wght.ttf
-ResponseNode.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/Nodes/Scripts/ResponseNode.gd<>res://Assets/MainEditor.tres<>res://Assets/UI Textures/Response.png<>res://Assets/Font/Inter-VariableFont_slnt,wght.ttf<>res://Assets/UI Textures/ResponseNode.png
-::res://src/Nodes/Scripts/::1694736109
-DialogNode.gd::GDScript::-1::1694744258::0::1::::dialog_node<>GraphNode<>::
-DialogText.gd::GDScript::-1::1694744258::0::1::::<>TextEdit<>::
-ResponseNode.gd::GDScript::-1::1694744258::0::1::::response_node<>GraphNode<>::
-::res://src/UI/::1694736109
-LandingScreen.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
-LandingScreen.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/LandingScreen.gd<>res://Assets/MainEditor.tres<>res://Assets/Font/Inter-VariableFont_slnt,wght.ttf
-Program.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/LandingScreen.tscn<>res://Assets/UITheme.tres
+DialogNode.tscn::PackedScene::5660559405505290900::1694765332::0::1::::<><>::res://src/Nodes/Scripts/DialogNode.gd<>res://src/Nodes/Scripts/DialogText.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres
+ResponseNode.tscn::PackedScene::8383437303632186580::1694765332::0::1::::<><>::res://src/Nodes/Scripts/ResponseNode.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres
+::res://src/Nodes/Scripts/::1694765322
+DialogNode.gd::GDScript::-1::1694765322::0::1::::dialog_node<>GraphNode<>::
+DialogText.gd::GDScript::-1::1694744799::0::1::::<>TextEdit<>::
+ResponseNode.gd::GDScript::-1::1694765207::0::1::::response_node<>GraphNode<>::
+::res://src/UI/::1694765332
+LandingScreen.gd::GDScript::-1::1694746478::0::1::::<>Control<>::
+LandingScreen.tscn::PackedScene::4373238059181527435::1694765332::0::1::::<><>::res://src/UI/LandingScreen.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres
+Program.tscn::PackedScene::8124061627061907711::1694765332::0::1::::<><>::uid://b3koueh5166hj::::res://src/UI/LandingScreen.tscn<>uid://cmskr47qlp4v7::::res://Assets/UITheme.tres
 ::res://src/UI/CategoryPanel/::1694736109
-::res://src/UI/CategoryPanel/Scripts/::1694736109
+::res://src/UI/CategoryPanel/Scripts/::1694747439
 CategoryButton.gd::GDScript::-1::1694744258::0::1::::<>Button<>::
-CategoryPanel.gd::GDScript::-1::1694744258::0::1::::<>Panel<>::
-::res://src/UI/Dialog Settings/::1694736109
+CategoryPanel.gd::GDScript::-1::1694747438::0::1::::<>Panel<>::
+::res://src/UI/Dialog Settings/::1694765333
 ChooseFaction.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/ChooseFaction.gd
 ChooseQuest.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/ChooseQuest.gd
-Dialog Availability.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Dialog Availability.gd<>res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
+Dialog Availability.tscn::PackedScene::4718110056724971971::1694765333::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Dialog Availability.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
 Faction Availability.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Faction Availability.gd<>res://src/UI/Dialog Settings/ChooseFaction.tscn<>res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
 FactionChange.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/FactionChange.gd<>res://src/UI/Dialog Settings/ChooseFaction.tscn<>res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
 Quest Avaiability.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Quest Avaiability.gd<>res://src/UI/Dialog Settings/ChooseQuest.tscn<>res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
 ScoreboardAvailability.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/ScoreboardAvailability.gd<>res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
 Select Quest.tscn::PackedScene::-1::1694744258::0::1::::<><>::
 StartQuest.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/StartQuest.gd<>res://src/UI/Dialog Settings/ChooseQuest.tscn<>res://Assets/MainEditor.tres<>res://Assets/Font/TinyFont.tres
-::res://src/UI/Dialog Settings/Scripts/::1694736109
+::res://src/UI/Dialog Settings/Scripts/::1694749917
 ChooseFaction.gd::GDScript::-1::1694744258::0::1::::<>Button<>::
 ChooseQuest.gd::GDScript::-1::1694744258::0::1::::<>Button<>::
 Dialog Availability.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
@@ -484,37 +484,37 @@ Faction Availability.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
 FactionChange.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
 Quest Avaiability.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
 ScoreboardAvailability.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
-SettingsPanel.gd::GDScript::-1::1694744258::0::1::::<>Panel<>::
+SettingsPanel.gd::GDScript::-1::1694749917::0::1::::<>Panel<>::
 StartQuest.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
-::res://src/UI/Editor/::1694736109
-DialogEditor.gd::GDScript::-1::1694744258::0::1::::<>GraphEdit<>::
-MainEditor.gd::GDScript::-1::1694744258::0::1::::<>Control<>::
-MainEditor.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Editor/MainEditor.gd<>res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd<>res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd<>res://src/UI/Dialog Settings/StartQuest.tscn<>res://src/UI/Dialog Settings/Dialog Availability.tscn<>res://src/UI/Dialog Settings/FactionChange.tscn<>res://src/UI/Dialog Settings/Faction Availability.tscn<>res://src/UI/Dialog Settings/Quest Avaiability.tscn<>res://src/UI/Dialog Settings/ScoreboardAvailability.tscn<>res://src/UI/Editor/DialogEditor.gd<>res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd<>res://src/Classes/dialog_titles_index.gd<>res://src/Classes/File System/EnvironmentIndexer.gd<>res://Assets/MainEditor.tres<>res://src/UI/Util/Expandable Line Edit.tscn<>res://src/UI/Util/Scripts/UIAnimations.gd<>res://src/Nodes/Scripts/DialogText.gd<>res://Assets/UI Textures/Icon Font/home-line.svg<>res://Assets/UI Textures/Icon Font/plus-line.svg<>res://Assets/UI Textures/Icon Font/save-line.svg<>res://Assets/UI Textures/Icon Font/settings-cog-line.svg<>res://Assets/UI Textures/Icon Font/reload-line.svg<>res://Assets/UI Textures/Icon Font/share-line.svg<>res://Assets/UI Textures/Icon Font/article-search-line.svg
+::res://src/UI/Editor/::1694765332
+DialogEditor.gd::GDScript::-1::1694749896::0::1::::<>GraphEdit<>::
+MainEditor.gd::GDScript::-1::1694748364::0::1::::<>Control<>::
+MainEditor.tscn::PackedScene::8058893984972822801::1694765332::0::1::::<><>::res://src/UI/Editor/MainEditor.gd<>res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd<>res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd<>res://src/UI/Dialog Settings/StartQuest.tscn<>uid://b8hqt3kn3abc2::::res://src/UI/Dialog Settings/Dialog Availability.tscn<>res://src/UI/Dialog Settings/FactionChange.tscn<>res://src/UI/Dialog Settings/Faction Availability.tscn<>res://src/UI/Dialog Settings/Quest Avaiability.tscn<>res://src/UI/Dialog Settings/ScoreboardAvailability.tscn<>res://src/UI/Editor/DialogEditor.gd<>res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd<>res://src/Classes/dialog_titles_index.gd<>res://src/Classes/File System/EnvironmentIndexer.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres<>res://src/UI/Util/Expandable Line Edit.tscn<>res://src/UI/Util/Scripts/UIAnimations.gd<>res://src/Nodes/Scripts/DialogText.gd<>uid://ich3ie40b3a1::::res://Assets/UI Textures/Icon Font/home-line.svg<>uid://ct6w626olkfsn::::res://Assets/UI Textures/Icon Font/plus-line.svg<>uid://dca6q5d5bdhtq::::res://Assets/UI Textures/Icon Font/save-line.svg<>uid://0bwhdngowwxu::::res://Assets/UI Textures/Icon Font/settings-cog-line.svg<>uid://3f3ybltgp46e::::res://Assets/UI Textures/Icon Font/reload-line.svg<>uid://c4ihc7e0totrn::::res://Assets/UI Textures/Icon Font/share-line.svg<>uid://cgpvy51ukhhvk::::res://Assets/UI Textures/Icon Font/article-search-line.svg
 ::res://src/UI/NavigationPanel/::1694736109
 ::res://src/UI/NavigationPanel/Scripts/::1694736109
 EditorNavigation.gd::GDScript::-1::1694744258::0::1::::<>Panel<>::
-::res://src/UI/Util/::1694736109
-ChooseInitialDialogPopup.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd<>res://Assets/MainEditor.tres
+::res://src/UI/Util/::1694765332
+ChooseInitialDialogPopup.tscn::PackedScene::5552789230842682685::1694765332::0::1::::<><>::res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres
 ConfirmDeletion.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Util/Scripts/DeleteCategoryMessage.gd<>res://Assets/MainEditor.tres
 DirectoryShortcutButton.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Util/Scripts/DirectoryShortcutButton.gd
 Expandable Line Edit.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Util/Scripts/Expandable Line Edit.gd<>res://Assets/MainEditor.tres
 FactionLoader.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Util/Scripts/FactionFileDialogTest.gd
 TextEnterConfirmTemplate.tscn::PackedScene::-1::1694744258::0::1::::<><>::res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
-::res://src/UI/Util/Scripts/::1694736109
-ChooseInitialDialogPopup.gd::GDScript::-1::1694744258::0::1::::<>Panel<>::
+::res://src/UI/Util/Scripts/::1694749448
+ChooseInitialDialogPopup.gd::GDScript::-1::1694749448::0::1::::<>Panel<>::
 DeleteCategoryMessage.gd::GDScript::-1::1694744258::0::1::::<>ConfirmationDialog<>::
-DirectorySearcher.gd::GDScript::-1::1694744258::0::1::::DirectorySearch<>Node<>::
+DirectorySearcher.gd::GDScript::-1::1694746530::0::1::::DirectorySearch<>Node<>::
 DirectoryShortcutButton.gd::GDScript::-1::1694744258::0::1::::<>Button<>::
 Expandable Line Edit.gd::GDScript::-1::1694744258::0::1::::<>TextEdit<>::
-FactionFileDialogTest.gd::GDScript::-1::1694744258::0::1::::<>FileDialog<>::
-FactionLoader.gd::GDScript::-1::1694744258::0::1::::faction_loader<>Node<>::
+FactionFileDialogTest.gd::GDScript::-1::1694745645::0::1::::<>FileDialog<>::
+FactionLoader.gd::GDScript::-1::1694746141::0::1::::faction_loader<>Node<>::
 ImportFactions.gd::GDScript::-1::1694744258::0::1::::<>FileDialog<>::
 TextEnterConfirmTemplate.gd::GDScript::-1::1694744258::0::1::::<>ConfirmationDialog<>::
-UIAnimations.gd::GDScript::-1::1694744258::0::1::::<>Node<>::
+UIAnimations.gd::GDScript::-1::1694747586::0::1::::<>Node<>::
 ::res://test/::1694736109
 profile.gd::GDScript::-1::1694744258::0::1::::<>SceneTree<>::
 test.gd::GDScript::-1::1694744258::0::1::::<>SceneTree<>::
-::res://world/::1694736112
+::res://world/::1694744346
 icon.png::CompressedTexture2D::5263775753380629335::1694736109::1694744346::1::::<><>::
 ::res://world/advancements/::1694736109
 0c2f57df-7333-4300-be5f-feb5e8bb11f5.json::JSON::-1::1694736109::0::1::::<><>::
@@ -720,7 +720,7 @@ README.txt::TextFile::-1::1694736112::0::1::::<><>::
 390f27fc-6716-402f-a04b-bf11927ea537.json::JSON::-1::1694736112::0::1::::<><>::
 b6ffde7a-73d8-4c71-b2f4-312307665796.json::JSON::-1::1694736112::0::1::::<><>::
 fb3fa94b-18b1-4991-91aa-34de22054205.json::JSON::-1::1694736112::0::1::::<><>::
-::res://world/world/::1694736115
+::res://world/world/::1694744346
 icon.png::CompressedTexture2D::2363249605421670769::1694736112::1694744346::1::::<><>::
 ::res://world/world/advancements/::1694736112
 0c2f57df-7333-4300-be5f-feb5e8bb11f5.json::JSON::-1::1694736112::0::1::::<><>::

@@ -6,9 +6,6 @@ extends Node
 func tween(node,property,to,speed,type):
 	var tween = get_tree().create_tween()
 	tween.tween_property(node,property,to,speed).set_trans(type)
-	add_child(tween)
-	tween.start()
-	tween.connect("tween_all_completed", Callable(tween, "queue_free"))
 
 
 func _on_InformationPanel_show_information_panel():

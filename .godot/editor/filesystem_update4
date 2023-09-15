@@ -15,3 +15,27 @@ res://src/UI/Util/Scripts/FactionLoader.gd
 res://src/UI/Util/Scripts/UIAnimations.gd
 res://src/Autoload/current_environment.gd
 res://src/Classes/Availability Objects/dialog_availability_object.gd
+res://src/Classes/Availability Objects/scoreboard_availability_object.gd
+res://src/Classes/Availability Objects/faction_availability_object.gd
+res://src/Classes/Availability Objects/faction_change_object.gd
+res://src/UI/LandingScreen.gd
+res://src/UI/LandingScreen.tscn
+res://src/Classes/File System/QuestAndFactionsIndex.gd
+res://src/Classes/File System/category_loader.gd
+res://src/Classes/File System/CategoryImporter.gd
+res://src/Classes/File System/dialog_jsons_loader.gd
+res://src/Classes/File System/category_saver.gd
+res://src/Classes/File System/CategoryExporter.gd
+res://src/Classes/File System/EnvironmentIndexer.gd
+res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
+res://src/Classes/dialog_titles_index.gd
+res://src/UI/Util/ChooseInitialDialogPopup.tscn
+res://src/UI/Editor/DialogEditor.gd
+res://src/Nodes/ResponseNode.tscn
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/Dialog Settings/Dialog Availability.tscn
+res://src/UI/Dialog Settings/Scripts/Dialog Availability.gd
+res://src/Classes/Availability Objects/quest_availability_object.gd
+res://src/UI/Dialog Settings/Scripts/ChooseFaction.gd
+res://src/UI/Dialog Settings/ChooseFaction.tscn
+res://test/l.tscn

@@ -25,8 +25,7 @@ func index_quest_names(quest_category):
 	var dir_search = DirectorySearch.new()
 	var quest_names = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/quests/"+quest_category,["json"])
 	for quest in quest_names:
-		var file = File.new()
-		file.open(CurrentEnvironment.current_directory+"/quests/"+quest_category+"/"+quest,File.READ)
+		var file = FileAccess.open(CurrentEnvironment.current_directory+"/quests/"+quest_category+"/"+quest,FileAccess.READ)
 		var title = return_quest_title_key(file)
 		var id = quest.replace(".json","")
 		quest_names_dict[title] = int(id)

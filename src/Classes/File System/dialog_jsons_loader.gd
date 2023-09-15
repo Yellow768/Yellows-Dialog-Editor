@@ -12,16 +12,16 @@ func return_valid_dialog_jsons(category_name : String) -> Array:
 	if files.size() == 0 :
 		return parsed_jsons
 	else:
-		var current_dialog = File.new()
+		var current_dialog
 		for file in files:
-			current_dialog.open(current_category_directory+"/"+file,File.READ)
+			current_dialog = FileAccess.open(current_category_directory+"/"+file,FileAccess.READ)
 			var test_json_conv = JSON.new()
 			test_json_conv.parse(replace_unparseable_dialog_json_values(current_dialog))
 			var dialog_json_with_bad_values_replaced = test_json_conv.get_data()
-			if !is_file_valid_dialog_json(dialog_json_with_bad_values_replaced):
-				printerr("Error parsing JSON "+file+", skipping")
+			if test_json_conv.get_error_line() != OK || !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced):
+				printerr("Error parsing JSON "+file+", skipping. ERR = "+str(test_json_conv.get_error_line())+" valid_dialog_format = "+str(is_json_valid_dialog_format(dialog_json_with_bad_values_replaced)))
 			else:
-				parsed_jsons.append(dialog_json_with_bad_values_replaced.result)		
+				parsed_jsons.append(dialog_json_with_bad_values_replaced)		
 		parsed_jsons.sort_custom(Callable(self, "sort_array_by_dialog_title"))
 	return parsed_jsons
 
@@ -107,14 +107,14 @@ func is_json_valid_dialog_format(dialog_json):
 			printerr("AvailabilityFaction"+id[i]+" is malformed")
 			return false
 
-		if !dialog_json.has("OptionFactions"+String(i+1)) or typeof(dialog_json["OptionFactions"+String(i+1)]) != TYPE_FLOAT:
-			printerr("OptionFactions"+String(i+1)+" is malformed")
+		if !dialog_json.has("OptionFactions"+str(i+1)) or typeof(dialog_json["OptionFactions"+str(i+1)]) != TYPE_FLOAT:
+			printerr("OptionFactions"+str(i+1)+" is malformed")
 			return false
-		if !dialog_json.has("OptionFaction"+String(i+1)+"Points") or typeof(dialog_json["OptionFaction"+String(i+1)+"Points"]) != TYPE_FLOAT:
-			printerr("OptionFactions"+String(i+1)+"Points is malformed")
+		if !dialog_json.has("OptionFaction"+str(i+1)+"Points") or typeof(dialog_json["OptionFaction"+str(i+1)+"Points"]) != TYPE_FLOAT:
+			printerr("OptionFactions"+str(i+1)+"Points is malformed")
 			return false
-		if !dialog_json.has("DecreaseFaction"+String(i+1)+"Points") or typeof(dialog_json["DecreaseFaction"+String(i+1)+"Points"]) != TYPE_FLOAT:
-			printerr("DecreaseFactions"+String(i+1)+"Points is malformed")
+		if !dialog_json.has("DecreaseFaction"+str(i+1)+"Points") or typeof(dialog_json["DecreaseFaction"+str(i+1)+"Points"]) != TYPE_FLOAT:
+			printerr("DecreaseFactions"+str(i+1)+"Points is malformed")
 			return false
 		
 		if !dialog_json.has("Options") or typeof(dialog_json["Options"]) != TYPE_ARRAY:

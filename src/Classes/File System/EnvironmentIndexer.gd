@@ -26,8 +26,9 @@ func index_categories():
 	
 	
 func find_highest_index():
-	var file = File.new()
-	if file.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",File.READ) != OK:
+	var file
+	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
+		
 		var dir_search = DirectorySearch.new()
 		var id_numbers = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
 		var proper_id_numbers = []
@@ -36,15 +37,16 @@ func find_highest_index():
 			if number.is_valid_int():
 				proper_id_numbers.append(int(number))
 		proper_id_numbers.sort()
-		file.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",File.WRITE)
+		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 		if proper_id_numbers != []:
-			file.store_line(String(proper_id_numbers.back()))
+			file.store_line(str(proper_id_numbers.back()))
 			return proper_id_numbers.back()
 		else:
-			file.store_line(String(0))
+			file.store_line(str(0))
 			return 0
 		
 	else:
+		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.READ)
 		var line = file.get_line()
 		if line.is_valid_int():
 			return int(line)
@@ -61,8 +63,7 @@ func create_new_category(new_category_name):
 		if category == new_category_name:
 			new_category_name += "_"
 	
-	var dir = DirAccess.new()
-	dir.open(CurrentEnvironment.current_directory+"/dialogs/")
+	var dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/")
 	dir.make_dir(CurrentEnvironment.current_directory+"/dialogs/"+new_category_name)
 	indexed_dialog_categories.append(new_category_name)
 	indexed_dialog_categories.sort()
@@ -85,7 +86,7 @@ func rename_category(category_name,new_name):
 			indexed_dialog_categories[i] = new_name
 
 	indexed_dialog_categories.sort()
-	var dir = DirAccess.new()
+	var dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
 	emit_signal("category_renamed",indexed_dialog_categories)
 
@@ -93,9 +94,9 @@ func rename_category(category_name,new_name):
 	
 func delete_category(category_name):
 	emit_signal("clear_editor_request")
-	var dir = DirAccess.new()
+	var dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
-	if dir.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name) == OK:
+	if DirAccess.get_open_error() == OK:
 		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name != "":

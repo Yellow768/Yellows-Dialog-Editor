@@ -50,13 +50,13 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate(), 
 		new_dialog.dialog_id = CurrentEnvironment.highest_id+1
 		CurrentEnvironment.highest_id += 1
 		
-	if new_dialog.offset == Vector2.ZERO:
-		new_dialog.offset = get_window().size/3
+	if new_dialog.position_offset == Vector2.ZERO:
+		new_dialog.position_offset = get_window().size/3
 	if !use_exact_offset: 
 		#Adjust the offset so that it's relative to the current position of the graph's view.
-		new_dialog.offset = (new_dialog.offset+scroll_offset)/zoom	
+		new_dialog.position_offset = (new_dialog.position_offset+scroll_offset)/zoom	
 	new_dialog.connect("add_response_request", Callable(self, "add_response_node"))
-	new_dialog.connect("delete_response_node", Callable(self, "delete_response_node"))
+	new_dialog.connect("request_delete_response_node", Callable(self, "delete_response_node"))
 	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
 	new_dialog.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
@@ -79,14 +79,14 @@ func delete_dialog_node(dialog,remove_from_loaded_list = false):
 func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instantiate()):
 	var new_offset
 	if parent_dialog.response_options.size() == 0:
-		new_offset = parent_dialog.offset +Vector2(350,0)
+		new_offset = parent_dialog.position_offset +Vector2(350,0)
 	else:
-		new_offset = Vector2(parent_dialog.offset.x+350,parent_dialog.response_options[parent_dialog.response_options.size()-1].offset.y+180)
+		new_offset = Vector2(parent_dialog.position_offset.x+350,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+180)
 	parent_dialog.response_options.append(new_response)
-	new_response.offset = new_offset
+	new_response.position_offset = new_offset
 	new_response.slot = parent_dialog.response_options.size()-1
 	new_response.parent_dialog = parent_dialog
-	new_response.connect("delete_self", Callable(parent_dialog, "delete_response_node"))
+	new_response.connect("request_delete_self", Callable(parent_dialog, "delete_response_node"))
 	new_response.connect("connect_to_dialog_request", Callable(self, "connect_nodes"))
 	new_response.connect("disconnect_from_dialog_request", Callable(self, "disconnect_nodes"))
 	new_response.connect("request_connection_line_shown", Callable(self, "show_connection_line"))
@@ -135,12 +135,10 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#response_node.offset = overlapping_response.offset
 		#overlapping_response.offset = initial_offset
 		
-		var initial_tween = Tween.new()
-		initial_tween.connect("tween_all_completed", Callable(initial_tween, "queue_free"))
-		add_child(initial_tween)
-		initial_tween.interpolate_property(response_node,"offset",response_node.offset,overlapping_response.offset,.1,Tween.TRANS_LINEAR,Tween.EASE_IN)
-		initial_tween.interpolate_property(overlapping_response,"offset",overlapping_response.offset,from,.1,Tween.TRANS_LINEAR,Tween.EASE_IN)
-		initial_tween.start()
+		var tween = get_tree().create_tween()
+		var initial_tween = get_tree().create_tween()
+		tween.tween_property(response_node,"position_offset",overlapping_response.position_offset,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+		initial_tween.tween_property(overlapping_response,"position_offset",from,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		#Remove from parents array
 		response_node.parent_dialog.response_options.erase(response_node)
 		disconnect_node(response_node.parent_dialog.get_name(),0,response_node.name,0)
@@ -185,19 +183,19 @@ func set_scroll_offset(new_offset):
 func connect_nodes(from, from_slot, to, to_slot):
 	var response
 	var dialog
-	if get_node(from).node_type == "Player Response Node":
-		response = get_node(from)
-		dialog = get_node(to)
+	if from.node_type == "Player Response Node":
+		response = from
+		dialog = to
 	else:
-		response = get_node(to)
-		dialog = get_node(from)
+		response = to
+		dialog = from
 	
 	
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
 	response.connected_dialog = dialog
-	if(response.offset.distance_to(dialog.offset) < 1000):
-		connect_node(from,from_slot,to,to_slot)
+	if(response.position_offset.distance_to(dialog.position_offset) < 1000):
+		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 	dialog.add_connected_response(response)
 
 
@@ -206,16 +204,16 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 	var response
 	var dialog
 	
-	if get_node(from).node_type == "Player Response Node":
-		response = get_node(from)
-		dialog = get_node(to)
+	if from.node_type == "Player Response Node":
+		response = from
+		dialog = to
 	else:
-		response = get_node(to)
-		dialog = get_node(from)
+		response = to
+		dialog = from
 	
 	if response.connected_dialog == dialog:
 		response.set_connection_shown()
-		disconnect_node(from,from_slot,to,to_slot)
+		disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 		dialog.remove_connected_response(response)
 		response.reveal_button()	
 		response.connected_dialog = null	
@@ -286,6 +284,7 @@ func import_category(category_name,all_dialogs,index):
 	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	new_category_importer.connect("clear_editor_request", Callable(self, "clear_editor"))
 	new_category_importer.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
+	#new_category_importer.connect("request_arrange_nodes",Callable(self,"arrange_nodes"))
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
 	var new_cat_save = category_saver.new()
 	add_child(new_cat_save)

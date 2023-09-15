@@ -16,7 +16,7 @@ func _ready():
 func set_highest_id(new_id):
 	highest_id = new_id
 	var file = FileAccess.open(current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
-	file.store_line(String(highest_id))
+	file.store_line(str(highest_id))
 
 func set_current_directory(new_directory):
 	current_directory = new_directory
