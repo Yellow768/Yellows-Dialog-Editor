@@ -284,7 +284,6 @@ func import_category(category_name,all_dialogs,index):
 	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	new_category_importer.connect("clear_editor_request", Callable(self, "clear_editor"))
 	new_category_importer.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
-	#new_category_importer.connect("request_arrange_nodes",Callable(self,"arrange_nodes"))
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
 	var new_cat_save = category_saver.new()
 	add_child(new_cat_save)
@@ -408,8 +407,9 @@ func _on_DialogEditor_gui_input(event):
 			accept_event()
 		else:
 			zoom -= .02
-	if Input.is_action_just_pressed("show_minimap"):
+	if Input.is_action_just_pressed("show_minimap"):	
 		minimap_enabled = !minimap_enabled
+		print(minimap_size)
 
 
 

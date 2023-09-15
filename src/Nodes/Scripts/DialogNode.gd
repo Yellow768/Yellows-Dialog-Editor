@@ -118,6 +118,7 @@ func set_focus_on_title():
 	emit_signal("set_self_as_selected",self)
 
 func set_dialog_title(string):
+	if not is_inside_tree(): await self.ready
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
@@ -125,6 +126,7 @@ func set_dialog_title(string):
 	
 	
 func set_dialog_text(string):
+	if not is_inside_tree(): await self.ready
 	DialogTextNode.text = string
 
 func set_dialog_id(id):

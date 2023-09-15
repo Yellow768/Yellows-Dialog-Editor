@@ -75,17 +75,16 @@ text = "Choose or create a category to start editing
 "
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
-visible = false
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 896.0
-offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
-scroll_offset = Vector2(-640, -360)
+scroll_offset = Vector2(-768, -428)
 use_snap = false
 show_zoom_label = true
 minimap_enabled = false

@@ -71,14 +71,14 @@ func set_option_from_json_index(option_int):
 
 func set_focus_on_title():
 	if not is_inside_tree(): await self.ready
-	pass
-	#ResponseTextNode.grab_focus()
+	ResponseTextNode.grab_focus()
 
 func set_response_slot(value):
 	slot = value
 	title = "Response Option "+str(value+1) 
 	
 func set_response_title(new_title):
+	if not is_inside_tree(): await self.ready
 	ResponseTextNode.text = new_title
 
 func set_option_type(new_type):
