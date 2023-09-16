@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/StartQuest.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://b8hqt3kn3abc2" path="res://src/UI/Dialog Settings/Dialog Availability.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/FactionChange.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Faction Availability.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://cvg34wikii27f" path="res://src/UI/Dialog Settings/Faction Availability.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://crwipqkebweam" path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://b38oc862r1lp2" path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" id="9"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogEditor.gd" id="10"]
 [ext_resource type="Script" path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" id="11"]
 [ext_resource type="Script" path="res://src/Classes/dialog_titles_index.gd" id="12"]
@@ -84,7 +84,6 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
-scroll_offset = Vector2(-768, -428)
 use_snap = false
 show_zoom_label = true
 minimap_enabled = false
@@ -540,6 +539,7 @@ offset_top = -22.5
 offset_right = 5.0
 offset_bottom = 22.5
 toggle_mode = true
+button_pressed = true
 text = ">"
 
 [node name="availability_timer" type="Timer" parent="InformationPanel"]
@@ -548,11 +548,11 @@ one_shot = true
 
 [node name="CategoryPanel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(360, 1030)
+custom_minimum_size = Vector2(360, 600)
 layout_mode = 0
 offset_top = 49.0
 offset_right = 360.0
-offset_bottom = 1079.0
+offset_bottom = 1062.0
 size_flags_horizontal = 3
 script = ExtResource("11")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
@@ -571,12 +571,17 @@ offset_bottom = 700.0
 layout_mode = 2
 text = "Categories"
 
+[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Create New Category"
+
 [node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Search"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(340, 400)
+custom_minimum_size = Vector2(340, 340)
 layout_mode = 2
 size_flags_vertical = 15
 
@@ -590,10 +595,6 @@ size_flags_vertical = 11
 [node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
-
-[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
-layout_mode = 2
-text = "Create New Category"
 
 [node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
 script = ExtResource("13")
@@ -739,8 +740,8 @@ text = "Selecting Dialog for Availability"
 [connection signal="request_load_category" from="CategoryPanel" to="DialogEditor" method="_on_CategoryPanel_request_load_category"]
 [connection signal="reveal_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_reveal_category_panel"]
 [connection signal="scan_for_changes" from="CategoryPanel" to="DialogEditor" method="scan_for_changes"]
-[connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
+[connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]

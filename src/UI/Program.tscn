@@ -15,5 +15,3 @@ metadata/_edit_use_anchors_ = true
 
 [node name="LandingScreen" parent="." instance=ExtResource("1")]
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2

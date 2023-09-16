@@ -55,7 +55,7 @@ var initial_offset_y = 0
 #String Inputs
 @export var command = ''
 @export var sound = ''
-var text = '': set = set_dialog_text
+var text = ''
 
 
 #Availabilities
@@ -79,6 +79,7 @@ func _ready():
 	#emit_signal("set_self_as_selected",self)
 	initial_offset_y = position_offset.y
 	initial_offset_x = position_offset.x
+	DialogTextNode.text = text
 
 func add_response_node():
 	if response_options.size() < 6:
@@ -119,15 +120,13 @@ func set_focus_on_title():
 
 func set_dialog_title(string):
 	if not is_inside_tree(): await self.ready
-	TitleTextNode.text = string
+	#TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
 	emit_signal("title_changed")
 	
 	
-func set_dialog_text(string):
-	if not is_inside_tree(): await self.ready
-	DialogTextNode.text = string
+
 
 func set_dialog_id(id):
 	dialog_id = id
@@ -185,9 +184,9 @@ func _on_DialogText_gui_input(event):
 func _on_TitleText_gui_input(event):
 	handle_clicking(event)
 
-func _on_DialogText_text_changed(text):
-	text = text
-	emit_signal("text_changed",text)
+func _on_DialogText_text_changed():
+	text = DialogTextNode.text
+	emit_signal("text_changed")
 
 
 		
@@ -238,7 +237,9 @@ func save():
 			"command" : i.command,
 			"connected_dialog_index" : connected_index,
 			"response_title": i.response_title,
-			"to_dialog_id" : i.to_dialog_id
+			"to_dialog_id" : i.to_dialog_id,
+			"position_offset_x" : i.position_offset.x,
+			"position_offset_y" : i.position_offset.y
 			}
 			)
 	

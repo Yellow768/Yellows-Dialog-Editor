@@ -37,10 +37,8 @@ bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 
 [resource]
-Button/fonts/font = null
 Button/styles/hover = SubResource("4")
 Button/styles/normal = SubResource("1")
 Button/styles/pressed = SubResource("5")
-CategoryButton/fonts/Font = null
 GraphEdit/styles/bg = SubResource("8")
 Panel/styles/panel = SubResource("7")

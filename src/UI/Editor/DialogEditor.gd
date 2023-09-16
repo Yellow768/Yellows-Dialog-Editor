@@ -78,7 +78,9 @@ func delete_dialog_node(dialog,remove_from_loaded_list = false):
 
 func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instantiate()):
 	var new_offset
-	if parent_dialog.response_options.size() == 0:
+	if new_response.position_offset!=Vector2(0,0):
+		new_offset = new_response.position_offset
+	elif parent_dialog.response_options.size() == 0:
 		new_offset = parent_dialog.position_offset +Vector2(350,0)
 	else:
 		new_offset = Vector2(parent_dialog.position_offset.x+350,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+180)

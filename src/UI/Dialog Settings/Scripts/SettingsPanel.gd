@@ -280,8 +280,8 @@ func _on_LevelSpinBox_value_changed(value):
 func _on_DialogText_text_changed():
 	current_dialog.text = DialogTextEdit.text
 
-func update_text(text):
-	DialogTextEdit.text = text
+func update_text():
+	DialogTextEdit.text = current_dialog.text
 
 func update_title(dialog):
 	set_title_text(dialog.dialog_title,dialog.node_index)
