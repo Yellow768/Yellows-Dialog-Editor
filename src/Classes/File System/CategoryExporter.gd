@@ -37,17 +37,19 @@ func empty_category_jsons(category_name):
 		
 
 func create_dialog_dict(dialog):
-	var options_array = []
-	for i in dialog.response_options.size():
-		var new_option_dict = create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
-		for line in new_option_dict:
-			options_array.append(line)
-	
 	var dialog_json_array = [
 	'{',
 	'	"DialogShowWheel": '+str(int(dialog.show_wheel))+'b,',
 	'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
-	'	"Options": '+str(options_array)+',',
+	'	"Options":['
+	]
+	var options_array = []
+	for i in dialog.response_options.size():
+		var new_option_dict = create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
+		for line in new_option_dict:
+			dialog_json_array.append(line)
+	var rest_of_dialog_json_array = [
+	'	],',
 	'	"AvailabilityScoreboardType": '+str(dialog.scoreboard_availabilities[0].comparison_type)+',',
 	'	"DialogHideNPC": '+str(int(dialog.hide_npc))+'b,',
 	'	"AvailabilityFactionStance": '+str(dialog.faction_availabilities[0].stance_type)+',',
@@ -105,26 +107,35 @@ func create_dialog_dict(dialog):
 		'	}',
 	'}'
 	]
+	dialog_json_array.append_array(rest_of_dialog_json_array)
 	return dialog_json_array
 	
 func create_option_dict(response,islast):
 	var response_dict = []
 	if islast == false:
 		response_dict = [
-				'\n		{\n			"OptionSlot": '+str(response.slot),
-				'\n			"Option": {\n				"DialogCommand": "'+str(response.command).c_escape()+'"',
-					'\n				"Dialog": '+str(response.to_dialog_id),
-					'\n				"Title": "'+str(response.response_title).c_escape()+'"',
-					'\n				"DialogColor": '+str(response.color_decimal),
-					'\n				"OptionType": '+str(response.get_option_id_from_index(response.option_type))+"\n			}\n		}",	
+					'		{',
+					'				"OptionSlot": '+str(response.slot)+',',
+					'				"Option": {',
+					'				"DialogCommand": "'+str(response.command).c_escape()+'",',
+					'				"Dialog": '+str(response.to_dialog_id)+',',
+					'				"Title": "'+str(response.response_title).c_escape()+'",',
+					'				"DialogColor": '+str(response.color_decimal)+',',
+					'				"OptionType": '+str(response.get_option_id_from_index(response.option_type)),
+					'			}',
+					'		},'
 			]
 	else:
 		response_dict = [
-				'\n		{\n			"OptionSlot": '+str(response.slot),
-				'\n			"Option": {\n				"DialogCommand": "'+str(response.command).c_escape()+'"',
-					'\n				"Dialog": '+str(response.to_dialog_id),
-					'\n				"Title": "'+str(response.response_title).c_escape()+'"',
-					'\n				"DialogColor": '+str(response.color_decimal),
-					'\n				"OptionType": '+str(response.get_option_id_from_index(response.option_type))+"\n			}\n		}\n	",	
+			'		{',
+				'			"OptionSlot": '+str(response.slot)+',',
+				'			"Option": {',
+					'				"DialogCommand": "'+str(response.command).c_escape()+'",',
+					'				"Dialog": '+str(response.to_dialog_id)+',',
+					'				"Title": "'+str(response.response_title).c_escape()+'",',
+					'				"DialogColor": '+str(response.color_decimal)+',',
+					'				"OptionType": '+str(response.get_option_id_from_index(response.option_type)),
+					"			}",
+					'		}'
 			]
 	return response_dict	

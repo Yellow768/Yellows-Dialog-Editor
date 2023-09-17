@@ -12,6 +12,7 @@ signal set_self_as_selected
 signal text_changed
 signal title_changed
 signal node_double_clicked
+signal request_set_scroll_offset
 
 @export var _dialog_text_path: NodePath
 @export var _title_text_path: NodePath
@@ -118,6 +119,12 @@ func delete_self(perm = true):
 func set_focus_on_title():
 	TitleTextNode.grab_focus()
 	emit_signal("set_self_as_selected",self)
+	emit_signal("request_set_scroll_offset",position_offset)
+	
+func set_focus_on_text():
+	DialogTextNode.grab_focus()
+	emit_signal("set_self_as_selected",self)
+	emit_signal("request_set_scroll_offset",position_offset)
 
 func set_dialog_title(string):
 	if not is_inside_tree(): await self.ready
@@ -173,6 +180,9 @@ func handle_clicking(event):
 			emit_signal("set_self_as_selected",self)
 		if event.double_click:
 			emit_signal("node_double_clicked")
+	else:
+		if Input.is_key_pressed(KEY_TAB):
+			emit_signal("set_self_as_selected",self)
 
 
 func _on_DialogNode_gui_input(event):

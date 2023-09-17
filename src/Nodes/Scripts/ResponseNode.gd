@@ -73,6 +73,8 @@ func set_option_from_json_index(option_int):
 func set_focus_on_title():
 	if not is_inside_tree(): await self.ready
 	ResponseTextNode.grab_focus()
+	emit_signal("set_self_as_selected",self)
+	emit_signal("request_set_scroll_offset",position_offset)
 
 func set_response_slot(value):
 	slot = value
@@ -192,6 +194,11 @@ func _on_PlayerResponseNode_close_request():
 	
 
 func _on_AddNewDialog_pressed():
+	add_new_connected_dialog()
+
+func add_new_connected_dialog():
+	if option_type != 0:
+		return
 	var new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
 	if ResponseTextNode.text != '':
@@ -200,7 +207,6 @@ func _on_AddNewDialog_pressed():
 	new_dialog.connected_responses.append(self)
 	emit_signal("request_add_dialog",new_dialog,true)
 	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0)
-
 
 func _on_OptionButton_item_selected(index):
 	set_option_type(index)

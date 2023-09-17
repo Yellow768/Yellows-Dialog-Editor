@@ -4,6 +4,8 @@ const prev_dirs_config_path = "user://prev_dirs.cfg"
 var chosen_dir
 
 func _ready():
+	get_tree().auto_accept_quit = true
+	DisplayServer.window_set_title("Home | CNPC Dialog Editor")
 	OS.low_processor_usage_mode = true
 	get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	get_window().min_size = Vector2(1280,720)

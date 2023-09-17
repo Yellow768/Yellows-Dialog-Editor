@@ -22,15 +22,16 @@ anchor_bottom = 1.0
 theme_override_styles/panel = SubResource("1")
 
 [node name="OptionButton" type="OptionButton" parent="Panel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.475
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -34.0
-offset_top = -9.5
+offset_top = -16.0
 offset_right = 90.0
-offset_bottom = 9.5
+offset_bottom = 15.0
 item_count = 3
 popup/item_0/text = "Smaller Than"
 popup/item_0/id = 0

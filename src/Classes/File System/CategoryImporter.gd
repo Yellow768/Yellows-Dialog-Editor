@@ -83,7 +83,7 @@ func create_dialogs_from_responses(dialog):
 					
 			for json_dialog in imported_dialogs:
 				if json_dialog["DialogId"] == response.to_dialog_id:
-					var connected_dialog = create_dialog_from_json(json_dialog,response.position_offset+Vector2(320,0))
+					var connected_dialog = create_dialog_from_json(json_dialog,response.position_offset+GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET)
 					
 					emit_signal("request_connect_nodes",response,0,connected_dialog,0)		
 		loaded_responses.append(response)

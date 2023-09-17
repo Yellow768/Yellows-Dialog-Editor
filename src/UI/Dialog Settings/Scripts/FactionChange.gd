@@ -23,3 +23,8 @@ func _on_FactionID_value_changed(value):
 	
 func _on_Factionpoints_value_changed(value):
 	emit_signal("faction_points_changed",value)
+	
+func _input(event):
+	if Input.is_key_pressed(KEY_ENTER):
+		print("what")
+		$Panel/Factionpoints.get_line_edit().release_focus()

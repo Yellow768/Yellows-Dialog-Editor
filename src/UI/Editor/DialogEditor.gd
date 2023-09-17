@@ -64,6 +64,7 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate(), 
 	new_dialog.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
+	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	emit_signal("dialog_node_added",new_dialog)
 	add_child(new_dialog)
 	#emit_signal("unsaved_changes",true)
@@ -372,6 +373,9 @@ func _on_node_requests_selection(node):
 		set_selected(node)
 		if node.node_type == "Dialog Node":
 			emit_signal("dialog_selected",node)
+			selected_nodes.append(node)
+		else:
+			selected_responses.append(node)
 	elif node.selected:
 		if node.node_type == "Dialog Node":
 			selected_nodes.erase(node)

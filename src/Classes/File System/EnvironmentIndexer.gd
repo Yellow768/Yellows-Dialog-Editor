@@ -80,7 +80,6 @@ func sort_array_by_category_name(a,b):
 
 
 func rename_category(category_name,new_name):
-	print("renaming categroy")
 	for i in indexed_dialog_categories.size():
 		if indexed_dialog_categories[i] == category_name:
 			indexed_dialog_categories[i] = new_name

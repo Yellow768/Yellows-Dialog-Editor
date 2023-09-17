@@ -3,7 +3,6 @@ res://src/UI/Program.tscn
 res://Assets/MainEditor.tres
 res://Assets/UITheme.tres
 res://Assets/Font/TinyFont.tres
-res://src/UI/Editor/DialogEditor.gd
 res://src/Nodes/DialogNode.tscn
 res://src/UI/Editor/MainEditor.tscn
 res://src/UI/LandingScreen.tscn
@@ -16,7 +15,14 @@ res://src/UI/Dialog Settings/Faction Availability.tscn
 res://src/UI/Dialog Settings/Quest Avaiability.tscn
 res://src/UI/Dialog Settings/ScoreboardAvailability.tscn
 res://src/UI/Util/ConfirmDeletion.tscn
-res://src/UI/LandingScreen.gd
-res://src/UI/Util/Scripts/FactionLoader.gd
-res://src/UI/Util/Scripts/DirectorySearcher.gd
-res://src/Classes/File System/QuestAndFactionsIndex.gd
+res://src/Classes/File System/CategoryImporter.gd
+res://src/Classes/Availability Objects/faction_change_object.gd
+res://src/UI/Dialog Settings/FactionChange.tscn
+res://src/Classes/File System/CategoryExporter.gd
+res://src/UI/Dialog Settings/Scripts/FactionChange.gd
+res://src/UI/Dialog Settings/StartQuest.tscn
+res://src/UI/Editor/MainEditor.gd
+res://src/Classes/File System/EnvironmentIndexer.gd
+res://src/Nodes/Scripts/ResponseNode.gd
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/UI/Editor/DialogEditor.gd

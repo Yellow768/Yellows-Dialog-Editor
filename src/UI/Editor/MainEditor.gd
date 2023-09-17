@@ -41,22 +41,49 @@ func _input(event):
 		new_dialog_node.position_offset = get_local_mouse_position()
 		DialogEditor.add_dialog_node(new_dialog_node)
 	if event.is_action_pressed("create_response"):
+		print(DialogEditor.selected_responses)
 		for dialog in DialogEditor.selected_nodes:
 			dialog.add_response_node()
-	if event.is_action_pressed("focus_response_below"):
-		if get_viewport().gui_get_focus_owner().get_name() != "ResponseText":
-			return
-		else:
-			var response = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-			if response.slot != response.parent_dialog.response_options.size():
-				response.parent_dialog.response_options[response.slot].set_focus_on_title()		
-	if Input.is_action_just_pressed("focus_response_above"):
-		if get_viewport().gui_get_focus_owner().get_name() != "ResponseText":
-			return
-		else:
-			var response = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-			if response.slot != 1:
-				response.parent_dialog.response_options[response.slot-2].set_focus_on_title()
+		for response in DialogEditor.selected_responses:
+			response.add_new_connected_dialog()
+	
+	if event.is_action_pressed("focus_below"):
+		match get_viewport().gui_get_focus_owner().get_name(): 
+			"ResponseText":
+				var response = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				if response.slot != response.parent_dialog.response_options.size()-1:
+					response.parent_dialog.response_options[response.slot+1].set_focus_on_title()
+			"TitleText":
+				var dialog = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				dialog.set_focus_on_text()	
+	if Input.is_action_just_pressed("focus_above"):
+		match get_viewport().gui_get_focus_owner().get_name(): 
+			"ResponseText":
+				var response = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				if response.slot != 0:
+					response.parent_dialog.response_options[response.slot-1].set_focus_on_title()
+			"DialogText":
+				var dialog = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				dialog.set_focus_on_title()
+	if Input.is_action_just_pressed("focus_left"):
+		print(str(DialogEditor.selected_responses.size()) + " "+ str(DialogEditor.selected_nodes.size()))
+		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
+			var response = DialogEditor.selected_responses[0]
+			response.parent_dialog.set_focus_on_text()
+		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_nodes.size() == 1:
+			var dialog = DialogEditor.selected_nodes[0]
+			if dialog.connected_responses.size() != 0:
+				dialog.connected_responses[0].set_focus_on_title()
+	if Input.is_action_just_pressed("focus_right"):
+		print(str(DialogEditor.selected_responses.size()) + " "+ str(DialogEditor.selected_nodes.size()))
+		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
+			var response = DialogEditor.selected_responses[0]
+			if response.connected_dialog != null:
+				response.connected_dialog	.set_focus_on_text()
+		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_nodes.size() == 1:
+			var dialog = DialogEditor.selected_nodes[0]
+			if dialog.response_options.size() != 0:
+				dialog.response_options[0].set_focus_on_title()
 				
 
 
