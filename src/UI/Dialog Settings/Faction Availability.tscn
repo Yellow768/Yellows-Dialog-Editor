@@ -25,7 +25,9 @@ theme_override_styles/panel = SubResource("1")
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.5
+anchor_top = 0.0
 anchor_right = 0.5
+anchor_bottom = 0.0
 offset_left = -16.5
 offset_top = -9.5
 offset_right = 91.5
@@ -39,6 +41,13 @@ offset_left = 11.0
 offset_top = -9.5
 offset_right = 75.0
 offset_bottom = 9.5
+item_count = 3
+popup/item_0/text = "Always"
+popup/item_0/id = 0
+popup/item_1/text = "Is"
+popup/item_1/id = 1
+popup/item_2/text = "Is Not"
+popup/item_2/id = 2
 
 [node name="StanceButton" type="OptionButton" parent="Panel"]
 layout_mode = 0
@@ -48,6 +57,13 @@ offset_left = 87.0
 offset_top = -9.5
 offset_right = 194.0
 offset_bottom = 9.5
+item_count = 3
+popup/item_0/text = "Friendly"
+popup/item_0/id = 0
+popup/item_1/text = "Neutral"
+popup/item_1/id = 1
+popup/item_2/text = "Unfriendly"
+popup/item_2/id = 2
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]
 layout_mode = 0

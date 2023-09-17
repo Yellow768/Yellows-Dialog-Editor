@@ -75,6 +75,7 @@ text = "Choose or create a category to start editing
 "
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,6 +98,7 @@ offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+visible = false
 layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -242,7 +244,20 @@ availability_level_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollCo
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 
+[node name="Label" type="Label" parent="InformationPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.0
+offset_top = -7.0
+offset_right = 70.0
+offset_bottom = 19.0
+grow_horizontal = 2
+text = "Information Panel"
+
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -280,6 +295,7 @@ clip_text = true
 [node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
+wrap_mode = 1
 script = ExtResource("17")
 
 [node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
@@ -570,6 +586,7 @@ offset_bottom = 700.0
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
 text = "Categories"
+horizontal_alignment = 1
 
 [node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2

@@ -1,22 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cumi1ckj5fjlj"]
 
-[ext_resource path="res://src/UI/Util/Scripts/DeleteCategoryMessage.gd" type="Script" id=1]
-[ext_resource path="res://Assets/MainEditor.tres" type="Theme" id=2]
+[ext_resource type="Script" path="res://src/UI/Util/Scripts/DeleteCategoryMessage.gd" id="1"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 
 [node name="ConfirmDeletion" type="ConfirmationDialog"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -106.5
-offset_right = 250.0
-offset_bottom = 106.5
-custom_minimum_size = Vector2( 500, 70 )
-theme = ExtResource( 2 )
-exclusive = true
+theme = ExtResource("2")
 dialog_text = "Are you want to reimport \"+reimport_name+\"?\\nAll current dialog nodes will be permanently deleted.\\n The category will create new nodes from the existing JSON files in the directory."
 dialog_autowrap = true
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[connection signal="modal_closed" from="." to="." method="_on_ConfirmDeletion_modal_closed"]
+[connection signal="canceled" from="." to="." method="_on_canceled"]

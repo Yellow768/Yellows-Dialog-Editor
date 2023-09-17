@@ -41,7 +41,7 @@ var node_type = "Player Response Node"
 var slot = -1: set = set_response_slot
 
 
-var response_title = '': set = set_response_title
+var response_title = ''
 var color_decimal = 16777215: set = set_color_decimal
 var command = '': set = set_meta_pressed
 var connected_dialog = null: set = set_connected_dialog
@@ -60,6 +60,7 @@ func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
 	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 	$HBoxContainer/VBoxContainer/OptionTypeButton.select(option_type)
+	ResponseTextNode.text = response_title
 
 func get_option_id_from_index(index):
 	return $HBoxContainer/VBoxContainer/OptionTypeButton.get_item_id(index)
@@ -77,9 +78,6 @@ func set_response_slot(value):
 	slot = value
 	title = "Response Option "+str(value+1) 
 	
-func set_response_title(new_title):
-	if not is_inside_tree(): await self.ready
-	ResponseTextNode.text = new_title
 
 func set_option_type(new_type):
 	option_type = new_type
@@ -210,8 +208,8 @@ func _on_ColorPickerButton_color_changed(color):
 	
 
 
-func _on_ResponseText_text_changed(text):
-	response_title = text
+func _on_ResponseText_text_changed(new_text):
+	response_title = ResponseTextNode.text
 
 func _on_CommandText_text_changed():
 	command = CommandTextNode.text

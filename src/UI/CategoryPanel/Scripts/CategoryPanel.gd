@@ -69,10 +69,10 @@ func _category_button_pressed(category_button):
 
 
 func _process(delta):
-	if categoryPanelRevealed and not Rect2(Vector2(),size).has_point(get_local_mouse_position()):
+	if (categoryPanelRevealed and not Rect2(Vector2(),size).has_point(get_local_mouse_position())) or get_global_mouse_position().x < 0:
 		emit_signal("hide_category_panel")
 		categoryPanelRevealed = false
-	if !categoryPanelRevealed and Rect2(Vector2(),size).has_point(get_local_mouse_position()):
+	if !categoryPanelRevealed and Rect2(Vector2(),size).has_point(get_local_mouse_position()) and get_global_mouse_position().x > 0:
 		emit_signal("reveal_category_panel")
 		categoryPanelRevealed = true
 

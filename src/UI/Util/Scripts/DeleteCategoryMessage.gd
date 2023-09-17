@@ -13,6 +13,5 @@ func deletion_message(text):
 	category_name = text
 	popup_centered()
 
-
-func _on_ConfirmDeletion_modal_closed():
+func _on_canceled():
 	queue_free()

@@ -95,6 +95,7 @@ text = "New Dialog"
 custom_minimum_size = Vector2(275, 111)
 layout_mode = 2
 size_flags_horizontal = 0
+wrap_mode = 1
 script = ExtResource("2")
 
 [node name="AddPlayerResponse" type="Button" parent="HBoxContainer"]

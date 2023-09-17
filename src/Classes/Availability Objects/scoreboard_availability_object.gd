@@ -3,7 +3,7 @@ class_name scoreboard_availability_object
 
 @export var objective_name: String
 @export var value: int = 0
-@export var comparison_type = 1 # (int,"Smaller Than","Equal To","Bigger Than")
+@export_enum("Smaller Than","Equal To","Bigger Than") var comparison_type = 1
 
 func reset():
 	set_name('')

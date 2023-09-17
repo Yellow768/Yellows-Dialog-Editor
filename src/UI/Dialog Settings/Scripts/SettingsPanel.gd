@@ -278,13 +278,13 @@ func _on_LevelSpinBox_value_changed(value):
 
 
 func _on_DialogText_text_changed():
-	current_dialog.text = DialogTextEdit.text
+	current_dialog.set_dialog_text(DialogTextEdit.text)
 
 func update_text():
 	DialogTextEdit.text = current_dialog.text
 
-func update_title(dialog):
-	set_title_text(dialog.dialog_title,dialog.node_index)
+func update_title(text):
+	set_title_text(current_dialog.dialog_title,current_dialog.node_index)
 
 func _on_StartQuest_id_changed(value):
 	current_dialog.start_quest = value

@@ -24,8 +24,8 @@ func add_dialog_to_loaded(dialog):
 		return
 	all_loaded_dialogs[dialog.dialog_id] = dialog.dialog_title
 	emit_signal("dialog_added_to_list")
-	if !dialog.is_connected("title_changed", Callable(self, "dialog_title_changed")):
-		dialog.connect("title_changed", Callable(self, "dialog_title_changed").bind(dialog))
+	if !dialog.is_connected("title_changed", Callable(self, "update_changed_dialog_title")):
+		dialog.connect("title_changed", Callable(self, "update_changed_dialog_title").bind(dialog))
 	
 	
 			

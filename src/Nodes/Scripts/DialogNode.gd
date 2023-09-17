@@ -41,7 +41,7 @@ var initial_offset_y = 0
 
 ##Dialog Data#
 
-@export var dialog_title = 'New Dialog': set = set_dialog_title
+@export var dialog_title = 'New Dialog'
 
 #Immutable
 @export var dialog_id = -1: set = set_dialog_id
@@ -80,6 +80,7 @@ func _ready():
 	initial_offset_y = position_offset.y
 	initial_offset_x = position_offset.x
 	DialogTextNode.text = text
+	TitleTextNode.text = dialog_title
 
 func add_response_node():
 	if response_options.size() < 6:
@@ -120,10 +121,13 @@ func set_focus_on_title():
 
 func set_dialog_title(string):
 	if not is_inside_tree(): await self.ready
-	#TitleTextNode.text = string
+	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
-	emit_signal("title_changed")
+		
+func set_dialog_text(string):
+	if not is_inside_tree(): await self.ready
+	DialogTextNode.text = string
 	
 	
 
@@ -157,7 +161,7 @@ func _on_DialogNode_offset_changed():
 	initial_offset_y = position_offset.y
 			
 func _on_TitleText_text_changed(new_text):
-	dialog_title = new_text
+	dialog_title = TitleTextNode.text
 	if connected_responses.size() > 0:
 		for i in connected_responses:
 			i.update_connection_text()

@@ -81,9 +81,9 @@ func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclara
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
 	elif parent_dialog.response_options.size() == 0:
-		new_offset = parent_dialog.position_offset +Vector2(350,0)
+		new_offset = parent_dialog.position_offset +Vector2(450,0)
 	else:
-		new_offset = Vector2(parent_dialog.position_offset.x+350,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+180)
+		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+220)
 	parent_dialog.response_options.append(new_response)
 	new_response.position_offset = new_offset
 	new_response.slot = parent_dialog.response_options.size()-1
@@ -322,10 +322,10 @@ func clear_editor():
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):
-	connect_nodes(from, from_slot, to, to_slot)
+	connect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
-	disconnect_nodes(from, from_slot, to, to_slot)
+	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func _on_DialogEditor_node_selected(node):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion:

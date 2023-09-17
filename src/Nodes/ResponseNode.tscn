@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dro88tu4x6qee"]
+[gd_scene load_steps=14 format=3 uid="uid://dro88tu4x6qee"]
 
 [ext_resource type="Script" path="res://src/Nodes/Scripts/ResponseNode.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
@@ -15,6 +15,9 @@ region_rect = Rect2(0, 0, 267, 137)
 
 [sub_resource type="StyleBoxTexture" id="7"]
 region_rect = Rect2(0, 0, 267, 137)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tx3bi"]
+content_margin_top = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="3"]
 
@@ -58,6 +61,7 @@ theme = ExtResource("2")
 theme_override_styles/frame = SubResource("8")
 theme_override_styles/selected_frame = SubResource("6")
 theme_override_styles/comment_focus = SubResource("7")
+theme_override_styles/slot = SubResource("StyleBoxEmpty_tx3bi")
 title = "Response Node"
 show_close = true
 slot/0/left_enabled = false
@@ -107,6 +111,7 @@ theme_override_styles/separator = SubResource("3")
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(310, 0)
 layout_mode = 2
+alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(270, 0)
@@ -125,6 +130,8 @@ edit_alpha = false
 
 [node name="OptionTypeButton" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
+expand_icon = true
 item_count = 5
 selected = 0
 popup/item_0/text = "Dialog"

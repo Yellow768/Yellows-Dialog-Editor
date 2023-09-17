@@ -31,6 +31,13 @@ offset_left = -34.0
 offset_top = -9.5
 offset_right = 90.0
 offset_bottom = 9.5
+item_count = 3
+popup/item_0/text = "Smaller Than"
+popup/item_0/id = 0
+popup/item_1/text = "Equals"
+popup/item_1/id = 1
+popup/item_2/text = "Bigger Than"
+popup/item_2/id = 2
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]
 layout_mode = 0
