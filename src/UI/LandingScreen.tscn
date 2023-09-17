@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=11 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
@@ -403,6 +403,9 @@ Label/fonts/font = SubResource("3")
 Window/fonts/title_font = SubResource("4")
 Window/styles/panel = SubResource("6")
 
+[sub_resource type="LabelSettings" id="LabelSettings_01jgx"]
+font_size = 22
+
 [node name="LandingScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -418,6 +421,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ProgramTitleLabe" type="Label" parent="Panel"]
 layout_mode = 1
@@ -458,7 +463,7 @@ autowrap_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="Panel"]
 mode = 3
-title = "Open world/customnpcs folder"
+title = "Open a Directory"
 position = Vector2i(160, 45)
 size = Vector2i(915, 600)
 min_size = Vector2i(240, 600)
@@ -521,6 +526,24 @@ offset_bottom = 129.192
 [node name="Label" type="Label" parent="PrevDirsContainer"]
 layout_mode = 2
 text = "Recently Opened Environments"
+
+[node name="InvalidDirectory" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -94.0
+offset_top = -70.0
+offset_right = 94.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Directory Does Not Exist"
+label_settings = SubResource("LabelSettings_01jgx")
 
 [connection signal="pressed" from="Panel/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]

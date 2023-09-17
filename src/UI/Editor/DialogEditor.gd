@@ -189,7 +189,8 @@ func set_cat_zoom(new_zoom):
 	zoom = new_zoom
 
 func set_scroll_offset(new_offset):
-	set_scroll_ofs((new_offset * zoom)-get_window().size/2)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self,"scroll_offset",(new_offset * zoom)-Vector2(get_window().size)/2,.6).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 
 	
 

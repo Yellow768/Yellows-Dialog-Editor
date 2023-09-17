@@ -16,8 +16,9 @@ func index_quest_categories():
 	var unindexed_quest_categories = []
 	var dir_search = DirectorySearch.new()
 	indexed_quest_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/quests")
-	for quest_category in indexed_quest_categories:
-		quest_dict[quest_category] = index_quest_names(quest_category)
+	if indexed_quest_categories != null:
+		for quest_category in indexed_quest_categories:
+			quest_dict[quest_category] = index_quest_names(quest_category)
 	return quest_dict
 	
 func index_quest_names(quest_category):

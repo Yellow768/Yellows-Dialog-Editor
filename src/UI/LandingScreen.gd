@@ -14,27 +14,38 @@ func _ready():
 		quick_dir_button.text = config.get_value(dir,"name")
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
+		$PrevDirsContainer.move_child(quick_dir_button,1)
 	
 
 
 func change_to_editor(directory):
 	add_directory_to_config(directory)
-	var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
-	CurrentEnvironment.current_directory = directory
-	get_parent().add_child(editor)
-	DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
-	queue_free()
+	if DirAccess.dir_exists_absolute(directory):
+		var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
+		CurrentEnvironment.current_directory = directory
+		get_parent().add_child(editor)
+		DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
+		queue_free()
+	else:
+		var tween = get_tree().create_tween()
+		$InvalidDirectory.modulate = Color(1,1,1,1)
+		tween.tween_property($InvalidDirectory,"modulate",Color(1,1,1,0),2).set_delay(1)
+		push_error("Directory does not exist")
 	
 func add_directory_to_config(directory : String):
 	var config = ConfigFile.new()
 	config.load(prev_dirs_config_path)
+	if config.has_section(directory):
+		config.erase_section(directory)
+		config.save(prev_dirs_config_path)
 	for section in config.get_sections():
 		config.set_value(section,"name",config.get_value(section,"name"))
-	if config.get_value(directory,"name",null):
-		return
-	else:
-		config.set_value(directory,"name",directory.get_base_dir())
-		config.save(prev_dirs_config_path)
+	if DirAccess.dir_exists_absolute(directory):
+		if config.get_value(directory,"name",null):
+			return
+		else:
+			config.set_value(directory,"name",directory.get_base_dir())
+			config.save(prev_dirs_config_path)
 
 
 func find_valid_customnpcs_dir(dir : String):

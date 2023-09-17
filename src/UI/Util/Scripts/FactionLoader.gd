@@ -10,6 +10,8 @@ signal no_faction_data
 
 func get_faction_data(directory):
 	var faction_file = FileAccess.open(directory+"/factions.dat",FileAccess.READ)
+	if faction_file==null:
+		return {}
 	if faction_file.get_error() == OK:
 		var fac_dic = create_faction_dict_from_dat_file(faction_file)
 		print(fac_dic)

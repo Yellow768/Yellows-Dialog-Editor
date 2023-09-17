@@ -4,6 +4,7 @@ class_name DirectorySearch
 func scan_directory_for_folders(scan_dir: String):
 	var folders = []
 	var dir = DirAccess.open(scan_dir)
+	if dir == null : return
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var file_name = dir.get_next()
 	while file_name != "":
