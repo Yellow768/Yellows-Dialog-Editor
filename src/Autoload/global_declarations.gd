@@ -1,7 +1,7 @@
 extends Node
 
 const RESPONSE_NODE_VERTICAL_OFFSET = 100
-const DIALOG_NODE_HORIZONTAL_OFFSET = 350
+const DIALOG_NODE_HORIZONTAL_OFFSET = 400
 
 
 var DIALOG_NODE = preload("res://src/Nodes/DialogNode.tscn")
@@ -19,6 +19,8 @@ var response_right_slot_color = Color(0.172549, 0.239216, 0.592157)
 
 var response_right_slot_color_hidden = Color(1,0,1)
 var dialog_left_slot_color_hidden = Color(1,0,1)
+
+var hide_connection_distance := 1000
 
 func int_to_color(integer):
 	integer = int(integer)

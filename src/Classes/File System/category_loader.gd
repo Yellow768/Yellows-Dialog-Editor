@@ -38,6 +38,7 @@ func load_category(category_name):
 			connect_all_responses()
 			save_category.close()
 			emit_signal("update_current_category",category_name)
+			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
 		return OK
 
 func load_editor_settings(node_data):

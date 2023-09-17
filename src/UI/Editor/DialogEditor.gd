@@ -9,6 +9,7 @@ signal finished_loading
 signal dialog_node_added
 signal dialog_node_perm_deleted
 signal node_double_clicked
+signal unsaved_changes
 
 var node_index = 0
 var selected_nodes = []
@@ -18,6 +19,8 @@ var previous_zoom = 1
 var all_loaded_dialogs = []
 
 var ignore_double_clicks = false
+
+
 
 func _ready():
 	get_zoom_hbox().visible = false
@@ -60,10 +63,14 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate(), 
 	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
 	new_dialog.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
-	add_child(new_dialog)
+	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	emit_signal("dialog_node_added",new_dialog)
+	add_child(new_dialog)
+	#emit_signal("unsaved_changes",true)
 	return new_dialog
 
+func relay_unsaved_changes():
+	emit_signal("unsaved_changes",true)
 
 func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	if selected_nodes.find(dialog,0) != -1:
@@ -73,6 +80,7 @@ func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	if remove_from_loaded_list:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
 	dialog.queue_free()
+	emit_signal("unsaved_changes",true)
 	node_index -=1
 	
 
@@ -81,7 +89,7 @@ func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclara
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
 	elif parent_dialog.response_options.size() == 0:
-		new_offset = parent_dialog.position_offset +Vector2(450,0)
+		new_offset = parent_dialog.position_offset +Vector2(400,0)
 	else:
 		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+220)
 	parent_dialog.response_options.append(new_response)
@@ -98,9 +106,12 @@ func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclara
 	new_response.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
 	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
 	new_response.connect("response_double_clicked", Callable(self, "handle_double_click").bind(new_response))
+	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
+	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
 	#new_response.set_focus_on_title()
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
+	emit_signal("unsaved_changes",true)
 	return new_response
 
 func delete_response_node(dialog,response):
@@ -112,6 +123,7 @@ func delete_response_node(dialog,response):
 	if selected_responses.find(response) != -1:
 		selected_responses.erase(response)
 	response.queue_free()
+	emit_signal("unsaved_changes",true)
 
 
 
@@ -199,7 +211,7 @@ func connect_nodes(from, from_slot, to, to_slot):
 	if(response.position_offset.distance_to(dialog.position_offset) < 1000):
 		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 	dialog.add_connected_response(response)
-
+	emit_signal("unsaved_changes",true)
 
 	
 func disconnect_nodes(from, from_slot, to, to_slot):
@@ -219,6 +231,7 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 		dialog.remove_connected_response(response)
 		response.reveal_button()	
 		response.connected_dialog = null	
+	emit_signal("unsaved_changes",true)
 	#else:
 		#disconnect_node(from,from_slot,to,to_slot)
 		#//response.reveal_button()
@@ -305,6 +318,7 @@ func scan_for_changes(category_name):
 	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	add_child(new_category_importer)
 	new_category_importer.scan_category_for_changes(category_name)
+	emit_signal("unsaved_changes",true)
 	
 		
 func clear_editor():
@@ -409,6 +423,19 @@ func _on_DialogEditor_gui_input(event):
 			accept_event()
 		else:
 			zoom -= .02
+	if Input.is_action_pressed("scroll_in"):
+		zoom += 0.2
+	if Input.is_action_pressed("scroll_out"):
+		zoom -= 0.2
+	if Input.is_key_pressed(KEY_CTRL):
+		if Input.is_action_pressed("ui_left"):
+			set_scroll_ofs(scroll_offset-Vector2(10,0))
+		if Input.is_action_pressed("ui_right"):
+			set_scroll_ofs(scroll_offset+Vector2(10,0))
+		if Input.is_action_pressed("ui_up"):
+			set_scroll_ofs(scroll_offset-Vector2(0,10))
+		if Input.is_action_pressed("ui_down"):
+			set_scroll_ofs(scroll_offset+Vector2(0,10))
 	if Input.is_action_just_pressed("show_minimap"):	
 		minimap_enabled = !minimap_enabled
 		print(minimap_size)

@@ -33,7 +33,7 @@ signal request_connection_line_hidden
 signal request_add_dialog
 signal request_set_scroll_offset
 signal response_double_clicked
-
+signal unsaved_change
 
 
 var node_type = "Player Response Node"
@@ -77,6 +77,7 @@ func set_focus_on_title():
 func set_response_slot(value):
 	slot = value
 	title = "Response Option "+str(value+1) 
+	emit_signal("unsaved_change")
 	
 
 func set_option_type(new_type):
@@ -94,15 +95,18 @@ func set_option_type(new_type):
 		hide_button()
 		set_slot_enabled_right(1,false)
 		if connected_dialog != null:
-			emit_signal("disconnect_from_dialog_request",self.name,0,connected_dialog.name,0)
+			emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
+	emit_signal("unsaved_change")
 	
 func set_color_decimal(new_color):
 	color_decimal = new_color
+	emit_signal("unsaved_change")
 
 func set_meta_pressed(new_command):
 	command = new_command
 	if not is_inside_tree(): await self.ready
 	CommandTextNode.text = new_command
+	emit_signal("unsaved_change")
 
 func set_connected_dialog(new_connected_dialog):
 	connected_dialog = new_connected_dialog
@@ -125,11 +129,11 @@ func set_connection_text(dialog_name,dialog_node_index):
 	
 func reveal_button():
 	if option_type == 0:
-		NewDialogButtonNode.visible = true
+		NewDialogButtonNode.modulate = Color(1,1,1,1)
 
 	
 func hide_button():
-	NewDialogButtonNode.visible = false
+	NewDialogButtonNode.modulate = Color(1,1,1,0)
 	
 
 func update_connection_text():
@@ -139,9 +143,9 @@ func update_connection_text():
 
 func check_dialog_distance():
 	if connected_dialog != null:
-		if position_offset.distance_to(connected_dialog.position_offset) > 1000 && !connection_hidden:
+		if position_offset.distance_to(connected_dialog.position_offset) > GlobalDeclarations.hide_connection_distance && !connection_hidden:
 			set_connection_hidden()	
-		if position_offset.distance_to(connected_dialog.position_offset) < 1000 && connection_hidden:
+		if position_offset.distance_to(connected_dialog.position_offset) < GlobalDeclarations.hide_connection_distance && connection_hidden:
 			set_connection_shown()
 
 func set_connection_hidden():
@@ -210,9 +214,11 @@ func _on_ColorPickerButton_color_changed(color):
 
 func _on_ResponseText_text_changed(new_text):
 	response_title = ResponseTextNode.text
+	emit_signal("unsaved_change")
 
 func _on_CommandText_text_changed():
 	command = CommandTextNode.text
+	emit_signal("unsaved_change")
 
 
 func _on_DisconnectButton_pressed():
@@ -220,7 +226,7 @@ func _on_DisconnectButton_pressed():
 
 
 func _on_JumpButton_pressed():
-	var dialog_location = connected_dialog.offset
+	var dialog_location = connected_dialog.position_offset
 	emit_signal("request_set_scroll_offset",dialog_location)
 	connected_dialog.emit_signal("set_self_as_selected",connected_dialog)
 

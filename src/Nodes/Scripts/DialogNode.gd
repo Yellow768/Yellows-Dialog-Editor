@@ -135,7 +135,7 @@ func set_dialog_text(string):
 func set_dialog_id(id):
 	dialog_id = id
 	if not is_inside_tree(): await self.ready
-	IdLabelNode.text = "ID: "+str(id)
+	IdLabelNode.text = "    ID: "+str(id)
 
 func set_node_index(index):
 	node_index = index
@@ -173,8 +173,6 @@ func handle_clicking(event):
 			emit_signal("set_self_as_selected",self)
 		if event.double_click:
 			emit_signal("node_double_clicked")
-		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-			$PopupMenu.popup()
 
 
 func _on_DialogNode_gui_input(event):
@@ -280,3 +278,7 @@ func get_full_tree(all_children : Array = []):
 		all_children = response.get_full_tree(all_children)
 	return all_children
 
+
+
+func _on_resize_request(new_minsize):
+	set_size(new_minsize)

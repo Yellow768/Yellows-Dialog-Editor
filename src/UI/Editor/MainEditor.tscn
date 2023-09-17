@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=34 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -6,24 +6,26 @@
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/StartQuest.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://b8hqt3kn3abc2" path="res://src/UI/Dialog Settings/Dialog Availability.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/FactionChange.tscn" id="6"]
+[ext_resource type="Texture2D" uid="uid://2vhumwny7qul" path="res://Assets/UI Textures/Icon Font/plus-line.png" id="6_xqxhf"]
 [ext_resource type="PackedScene" uid="uid://cvg34wikii27f" path="res://src/UI/Dialog Settings/Faction Availability.tscn" id="7"]
+[ext_resource type="Texture2D" uid="uid://j4j8hy74dmnx" path="res://Assets/UI Textures/Icon Font/save-line.png" id="7_6q1oh"]
 [ext_resource type="PackedScene" uid="uid://crwipqkebweam" path="res://src/UI/Dialog Settings/Quest Avaiability.tscn" id="8"]
+[ext_resource type="Texture2D" uid="uid://mdckhsyuc7am" path="res://Assets/UI Textures/Icon Font/share-line.png" id="8_vgh51"]
 [ext_resource type="PackedScene" uid="uid://b38oc862r1lp2" path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" id="9"]
+[ext_resource type="Texture2D" uid="uid://b5hvjqasdvdh5" path="res://Assets/UI Textures/Icon Font/reload-circle-line.png" id="9_mukh6"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogEditor.gd" id="10"]
+[ext_resource type="Texture2D" uid="uid://yboafh0lt84i" path="res://Assets/UI Textures/Icon Font/article-search-line.png" id="10_cc0sy"]
 [ext_resource type="Script" path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" id="11"]
+[ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="11_u3t51"]
 [ext_resource type="Script" path="res://src/Classes/dialog_titles_index.gd" id="12"]
+[ext_resource type="Texture2D" uid="uid://b0rt50ak2ixd4" path="res://Assets/UI Textures/Icon Font/home-line.png" id="12_jpjxe"]
 [ext_resource type="Script" path="res://src/Classes/File System/EnvironmentIndexer.gd" id="13"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="14"]
 [ext_resource type="PackedScene" path="res://src/UI/Util/Expandable Line Edit.tscn" id="15"]
 [ext_resource type="Script" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
-[ext_resource type="Texture2D" uid="uid://ich3ie40b3a1" path="res://Assets/UI Textures/Icon Font/home-line.svg" id="18"]
-[ext_resource type="Texture2D" uid="uid://ct6w626olkfsn" path="res://Assets/UI Textures/Icon Font/plus-line.svg" id="19"]
-[ext_resource type="Texture2D" uid="uid://dca6q5d5bdhtq" path="res://Assets/UI Textures/Icon Font/save-line.svg" id="20"]
-[ext_resource type="Texture2D" uid="uid://0bwhdngowwxu" path="res://Assets/UI Textures/Icon Font/settings-cog-line.svg" id="21"]
-[ext_resource type="Texture2D" uid="uid://3f3ybltgp46e" path="res://Assets/UI Textures/Icon Font/reload-line.svg" id="22"]
-[ext_resource type="Texture2D" uid="uid://c4ihc7e0totrn" path="res://Assets/UI Textures/Icon Font/share-line.svg" id="23"]
-[ext_resource type="Texture2D" uid="uid://cgpvy51ukhhvk" path="res://Assets/UI Textures/Icon Font/article-search-line.svg" id="24"]
+[ext_resource type="Script" path="res://src/UI/Editor/EditorSettings.gd" id="25_4pnbd"]
+[ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="26_1l2vh"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -42,6 +44,29 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxEmpty" id="19"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arin6"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 20
+shadow_size = 8
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owvrv"]
+content_margin_top = 15.0
+content_margin_right = 276.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np52e"]
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_size = 5
+shadow_offset = Vector2(0, 5)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -64,15 +89,17 @@ _top_panel_path = NodePath("TopPanel")
 script = ExtResource("12")
 
 [node name="StartingLabel" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -236.0
-offset_top = 70.0
+offset_top = 54.0
 offset_right = 236.0
-offset_bottom = 131.0
-text = "Choose or create a category to start editing
-"
+offset_bottom = 115.0
+grow_horizontal = 2
+text = "Choose or create a category to start editing"
+horizontal_alignment = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
 visible = false
@@ -80,11 +107,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 15.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
+scroll_offset = Vector2(-15, -21)
 use_snap = false
 show_zoom_label = true
 minimap_enabled = false
@@ -117,7 +147,7 @@ theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Add Dialog"
-icon = ExtResource("19")
+icon = ExtResource("6_xqxhf")
 
 [node name="SecSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(75, 0)
@@ -127,12 +157,12 @@ theme_override_styles/separator = SubResource("19")
 [node name="SaveButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Save the dialog project"
+tooltip_text = "Saves the category for the editor, creating a YDEC file. This does not make it appear in CustomNPCs"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Save  "
-icon = ExtResource("20")
+icon = ExtResource("7_6q1oh")
 
 [node name="BttnSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(15, 0)
@@ -142,12 +172,12 @@ theme_override_styles/separator = SubResource("19")
 [node name="ExportButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Export the category, creating JSONS with the proper ID"
+tooltip_text = "Exports the category, creating the proper JSON files for CustomNPCs"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Export "
-icon = ExtResource("23")
+icon = ExtResource("8_vgh51")
 
 [node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(75, 0)
@@ -157,12 +187,12 @@ theme_override_styles/separator = SubResource("19")
 [node name="ReimportButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Reimport the category from the existing JSONS"
+tooltip_text = "Reimport the category, deleting all nodes and creating a new YDEC file. Same as when you open a category that hasn't been imported yet "
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Reimport Category "
-icon = ExtResource("22")
+icon = ExtResource("9_mukh6")
 
 [node name="BttnSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(15, 0)
@@ -172,12 +202,12 @@ theme_override_styles/separator = SubResource("19")
 [node name="ScanButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Scans for new JSONS and for changes in existing JSONS, and creates and/or modifies dialog and responses as needed"
+tooltip_text = "Scans for new JSONS and for changes in existing JSONS, and creates and/or modifies dialog and response nodes as needed"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Scan For Changes "
-icon = ExtResource("24")
+icon = ExtResource("10_cc0sy")
 
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
 layout_mode = 0
@@ -199,7 +229,7 @@ theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Editor Settings "
-icon = ExtResource("21")
+icon = ExtResource("11_u3t51")
 
 [node name="VSeparator5" type="VSeparator" parent="TopPanel/EditorContainer"]
 custom_minimum_size = Vector2(25, 0)
@@ -209,11 +239,12 @@ theme_override_styles/separator = SubResource("19")
 [node name="HomeButton" type="Button" parent="TopPanel/EditorContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+tooltip_text = "Returns to the home page"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Return To Home "
-icon = ExtResource("18")
+icon = ExtResource("12_jpjxe")
 
 [node name="InformationPanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(462, 100)
@@ -694,6 +725,149 @@ offset_bottom = 111.0
 theme = ExtResource("14")
 text = "Selecting Dialog for Availability"
 
+[node name="EditorSettings" type="Panel" parent="."]
+visible = false
+self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_arin6")
+script = ExtResource("25_4pnbd")
+
+[node name="Label" type="Label" parent="EditorSettings"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.5
+offset_right = 56.5
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Editor Settings"
+
+[node name="HideConnectionDistance" type="Label" parent="EditorSettings"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -235.0
+offset_right = 231.0
+offset_bottom = -209.0
+grow_vertical = 2
+text = "Hide Connection Distance"
+
+[node name="HSlider" type="HSlider" parent="EditorSettings/HideConnectionDistance"]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 8.0
+offset_right = 544.0
+offset_bottom = 24.0
+theme_override_styles/slider = SubResource("StyleBoxFlat_owvrv")
+max_value = 10000.0
+value = 1000.0
+allow_greater = true
+
+[node name="ValueEdit" type="LineEdit" parent="EditorSettings/HideConnectionDistance/HSlider"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 20.0
+offset_right = 34.0
+offset_bottom = 46.0
+text = "1000"
+
+[node name="Resetbutton" type="Button" parent="EditorSettings/HideConnectionDistance/HSlider"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 15.0
+offset_right = 87.0
+offset_bottom = 47.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_constants/icon_max_width = -12
+icon = ExtResource("26_1l2vh")
+
+[node name="Button" type="Button" parent="EditorSettings"]
+layout_mode = 0
+offset_left = 575.0
+offset_right = 593.0
+offset_bottom = 31.0
+text = "X"
+
+[node name="UnsavedPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -112.5
+offset_right = 342.0
+offset_bottom = 112.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_np52e")
+
+[node name="Label" type="Label" parent="UnsavedPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -138.0
+offset_top = 14.5
+offset_right = 138.0
+offset_bottom = 40.5
+grow_horizontal = 2
+text = "This category has unsaved changes!"
+
+[node name="NoSave" type="Button" parent="UnsavedPanel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 171.0
+grow_vertical = 0
+text = "Close Without Saving"
+
+[node name="SaveAndClose" type="Button" parent="UnsavedPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -85.5
+offset_top = -31.0
+offset_right = 85.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Save and Close"
+
+[node name="Cancel" type="Button" parent="UnsavedPanel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -171.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Cancel"
+
 [connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
@@ -710,6 +884,7 @@ text = "Selecting Dialog for Availability"
 [connection signal="node_deselected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_unselected"]
 [connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
+[connection signal="unsaved_changes" from="DialogEditor" to="." method="set_unsaved_changes"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
@@ -719,6 +894,7 @@ text = "Selecting Dialog for Availability"
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ExportButton" to="TopPanel" method="_on_ExportButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ReimportButton" to="TopPanel" method="_on_ReimportButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ScanButton" to="TopPanel" method="_on_ScanButton_pressed"]
+[connection signal="pressed" from="TopPanel/EditorContainer/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="TopPanel/EditorContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
 [connection signal="availability_mode_entered" from="InformationPanel" to="DialogEditor" method="_on_InformationPanel_availability_mode_entered"]
 [connection signal="availability_mode_entered" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_availability_mode_entered"]
@@ -729,11 +905,14 @@ text = "Selecting Dialog for Availability"
 [connection signal="request_store_current_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_store_current_category"]
 [connection signal="request_switch_to_stored_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_switch_to_stored_category"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
+[connection signal="unsaved_change" from="InformationPanel" to="." method="set_unsaved_changes"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]
 [connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
 [connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
 [connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
@@ -763,3 +942,10 @@ text = "Selecting Dialog for Availability"
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="new_category_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
+[connection signal="value_changed" from="EditorSettings/HideConnectionDistance/HSlider" to="EditorSettings" method="_on_h_slider_value_changed"]
+[connection signal="text_submitted" from="EditorSettings/HideConnectionDistance/HSlider/ValueEdit" to="EditorSettings" method="_on_value_edit_text_submitted"]
+[connection signal="pressed" from="EditorSettings/HideConnectionDistance/HSlider/Resetbutton" to="EditorSettings" method="_on_resetbutton_pressed"]
+[connection signal="pressed" from="EditorSettings/Button" to="EditorSettings" method="_on_button_pressed"]
+[connection signal="pressed" from="UnsavedPanel/NoSave" to="." method="_on_no_save_pressed"]
+[connection signal="pressed" from="UnsavedPanel/SaveAndClose" to="." method="_on_save_and_close_pressed"]
+[connection signal="pressed" from="UnsavedPanel/Cancel" to="." method="_on_cancel_pressed"]

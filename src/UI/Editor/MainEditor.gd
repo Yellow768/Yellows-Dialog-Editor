@@ -1,5 +1,7 @@
 extends Control
 
+var unsaved_change := false
+
 @export var _dialog_editor_path: NodePath
 @export var _category_list_path: NodePath
 @export var _information_panel_path: NodePath
@@ -31,6 +33,7 @@ func _ready():
 	var fact_dict = fact_loader.get_faction_data(CurrentEnvironment.current_directory)
 	for node in faction_choosers:
 		node.load_faction_data(fact_dict)
+	get_tree().auto_accept_quit = false
 	
 func _input(event):
 	if event.is_action_pressed("add_dialog_at_mouse"):
@@ -54,8 +57,6 @@ func _input(event):
 			var response = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
 			if response.slot != 1:
 				response.parent_dialog.response_options[response.slot-2].set_focus_on_title()
-	if Input.is_action_just_pressed("reset_gui"):
-		$AnimationPlayer.play("InitialReset")
 				
 
 
@@ -116,9 +117,48 @@ func give_factions_to_nodes(json):
 func _on_FactionChange2_faction_id_changed():
 	pass # Replace with function body.
 
+var is_quit_return_to_home := false
 
 func _on_HomeButton_pressed():
-	get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
-	queue_free()
+	if !unsaved_change:
+		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
+		queue_free()
+	else:
+		$UnsavedPanel.visible = true
+		is_quit_return_to_home = true
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		is_quit_return_to_home = false
+		if !unsaved_change:
+			get_tree().quit()
+		else:
+			$UnsavedPanel.visible = true
+					
+func set_unsaved_changes(value:bool):
+	unsaved_change = value
 
 
+
+func _on_no_save_pressed():
+	if is_quit_return_to_home:
+		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
+		get_tree().auto_accept_quit = true
+		queue_free()
+		
+	else:
+		get_tree().quit()
+
+
+func _on_save_and_close_pressed():
+	$CategoryPanel.save_category_request()
+	if is_quit_return_to_home:
+		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
+		get_tree().auto_accept_quit = true
+		queue_free()
+	else:
+		get_tree().quit()
+
+
+func _on_cancel_pressed():
+	$UnsavedPanel.visible = false

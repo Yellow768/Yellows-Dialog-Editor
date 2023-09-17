@@ -22,6 +22,7 @@ func change_to_editor(directory):
 	var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
 	CurrentEnvironment.current_directory = directory
 	get_parent().add_child(editor)
+	DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
 	queue_free()
 	
 func add_directory_to_config(directory : String):
@@ -39,9 +40,15 @@ func add_directory_to_config(directory : String):
 func find_valid_customnpcs_dir(dir : String):
 	var directory = DirAccess.open(dir)
 	var dir_search = DirectorySearch.new()
+	print(dir)
 	if dir.replace(dir.get_base_dir()+"/","") == "customnpcs":
 		return dir
 	print(dir_search.scan_directory_for_folders(dir))
+	if dir_search.scan_directory_for_folders(dir).has("customnpcs"):
+		if directory.dir_exists(dir+"/customnpcs/dialogs"):
+			return dir+"/customnpcs"
+	directory.change_dir("..")
+	dir = directory.get_current_dir(true)
 	if dir_search.scan_directory_for_folders(dir).has("customnpcs"):
 		if directory.dir_exists(dir+"/customnpcs/dialogs"):
 			return dir+"/customnpcs"
@@ -49,12 +56,10 @@ func find_valid_customnpcs_dir(dir : String):
 
 	
 func _on_Open_Environment_pressed():
-	$Panel/FileDialog.popup()
+	$Panel/FileDialog.popup_centered()
 
 
-func _on_FileDialog_confirmed():
-	print("FileDialog_confirmed")
-	
+
 
 
 
@@ -62,7 +67,7 @@ func _on_FileDialog_dir_selected(path):
 	var valid_path = find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path
-		$Panel/InvalidFolderWarning.popup()
+		$Panel/InvalidFolderWarning.popup_centered()
 	else:
 		change_to_editor(valid_path)
 
@@ -71,7 +76,7 @@ func _on_FileDialog_dir_selected(path):
 
 
 func _on_Cancel_button_up():
-	$Panel/FileDialog.popup()
+	$Panel/FileDialog.popup_centered()
 	$Panel/InvalidFolderWarning.visible = false
 
 

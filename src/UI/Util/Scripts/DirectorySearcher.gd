@@ -21,6 +21,7 @@ func scan_directory_for_files(scan_dir: String):
 		if !dir.current_is_dir():
 			files.append(file_name)
 		file_name = dir.get_next()
+	
 	return files
 
 func scan_all_subdirectories(scan_dir : String, filter_exts : Array = []) -> Array:

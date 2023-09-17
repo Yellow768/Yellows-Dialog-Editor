@@ -17,16 +17,16 @@ region_rect = Rect2(0, 0, 267, 137)
 region_rect = Rect2(0, 0, 267, 137)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tx3bi"]
-content_margin_top = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="3"]
 
-[sub_resource type="StyleBoxFlat" id="9"]
-bg_color = Color(0.2, 0.2, 0.2, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfp23"]
+bg_color = Color(0.298039, 0.298039, 0.298039, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="4"]
 bg_color = Color(0.172549, 0.239216, 0.592157, 1)
@@ -109,7 +109,7 @@ mouse_filter = 1
 theme_override_styles/separator = SubResource("3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(310, 0)
+custom_minimum_size = Vector2(310, 135)
 layout_mode = 2
 alignment = 1
 
@@ -123,6 +123,7 @@ layout_mode = 2
 placeholder_text = "Response Text"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_vertical = 0
 color = Color(1, 1, 1, 1)
@@ -152,9 +153,9 @@ layout_mode = 2
 text = "Command"
 
 [node name="AddNewDialog" type="Button" parent="HBoxContainer"]
-custom_minimum_size = Vector2(25, 50)
+custom_minimum_size = Vector2(25, 60)
 layout_mode = 2
-theme_override_styles/normal = SubResource("9")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tfp23")
 theme_override_styles/hover = SubResource("4")
 text = "+"
 

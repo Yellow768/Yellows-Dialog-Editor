@@ -14,6 +14,7 @@ signal category_failed_save
 
 signal category_succesfully_exported
 signal category_export_failed
+signal unsaved_change
 
 @export var category_file_container_path: NodePath
 @export var environment_index_path: NodePath
@@ -141,6 +142,7 @@ func save_category_request():
 	add_child(cat_save)
 	if cat_save.save_category(current_category) == OK:
 		emit_signal("category_succesfully_saved",current_category)
+		emit_signal("unsaved_change",false)
 	else:
 		emit_signal("category_failed_save")
 

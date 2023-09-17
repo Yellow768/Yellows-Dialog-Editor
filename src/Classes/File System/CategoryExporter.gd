@@ -14,7 +14,7 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 		exported_category_dir.make_dir(directory+category_name)
 	empty_category_jsons(category_name)
 	for i in save_nodes:
-		var dialog_file = FileAccess.open(directory+category_name+"/"+String(i.dialog_id)+".json",FileAccess.WRITE)
+		var dialog_file = FileAccess.open(directory+category_name+"/"+str(i.dialog_id)+".json",FileAccess.WRITE)
 		var new_dict = create_dialog_dict(i)
 		#var jsonprint = JSON.print(new_dict,"\r\n")
 		for line in new_dict:

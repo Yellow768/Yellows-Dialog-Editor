@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmwat64q4hma3"]
+[gd_scene load_steps=8 format=3 uid="uid://cmwat64q4hma3"]
 
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogNode.gd" id="1"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="1_u84re"]
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="2"]
 
 [sub_resource type="StyleBoxEmpty" id="3"]
 
 [sub_resource type="StyleBoxFlat" id="4"]
-bg_color = Color(0.192157, 0.192157, 0.192157, 1)
+bg_color = Color(0.298039, 0.298039, 0.298039, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -35,6 +36,7 @@ offset_right = 335.0
 offset_bottom = 215.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("1_u84re")
 title = "Dialog Node"
 show_close = true
 slot/0/left_enabled = false
@@ -71,7 +73,7 @@ _add_response_path = NodePath("HBoxContainer/AddPlayerResponse")
 _id_label_path = NodePath("IDLabel")
 
 [node name="HSeparator" type="HSeparator" parent="."]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 33)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/separator = SubResource("3")
@@ -108,11 +110,12 @@ text = "+"
 [node name="IDLabel" type="Label" parent="."]
 layout_mode = 2
 theme_override_fonts/font = SubResource("1")
-text = "ID: -1"
+text = "    ID: -1"
 
 [connection signal="close_request" from="." to="." method="_on_DialogNode_close_request"]
 [connection signal="gui_input" from="." to="." method="_on_DialogNode_gui_input"]
 [connection signal="position_offset_changed" from="." to="." method="_on_DialogNode_offset_changed"]
+[connection signal="resize_request" from="." to="." method="_on_resize_request"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_gui_input"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_text_changed"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/DialogText" to="." method="_on_DialogText_gui_input"]
