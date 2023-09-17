@@ -36,35 +36,35 @@ signal unsaved_change
 @export var dialog_editor_path: NodePath
 
 
-@onready var DialogSettingsTab = get_node(dialog_settings_tab_path)
+@onready var DialogSettingsTab := get_node(dialog_settings_tab_path)
 
-@onready var HideNpcCheckbox = get_node(hide_npc_checkbox_path)
-@onready var ShowWheelCheckbox = get_node(show_wheel_checkbox_path)
-@onready var DisableEscCheckbox = get_node(disable_esc_checkbox_path)
-@onready var TitleLabel = get_node(title_label_path)
-@onready var CommandEdit = get_node(command_edit_path)
-@onready var PlaysoundEdit = get_node(playsound_edit_path)
-@onready var FactionChanges1 = get_node(faction_changes_1_path)
-@onready var FactionChanges2 = get_node(faction_changes_2_path)
-@onready var StartQuest = get_node(start_quest_path)
-@onready var DialogTextEdit = get_node(dialog_text_edit_path)
+@onready var HideNpcCheckbox := get_node(hide_npc_checkbox_path)
+@onready var ShowWheelCheckbox := get_node(show_wheel_checkbox_path)
+@onready var DisableEscCheckbox := get_node(disable_esc_checkbox_path)
+@onready var TitleLabel := get_node(title_label_path)
+@onready var CommandEdit := get_node(command_edit_path)
+@onready var PlaysoundEdit := get_node(playsound_edit_path)
+@onready var FactionChanges1 := get_node(faction_changes_1_path)
+@onready var FactionChanges2 := get_node(faction_changes_2_path)
+@onready var StartQuest := get_node(start_quest_path)
+@onready var DialogTextEdit := get_node(dialog_text_edit_path)
 
-@onready var AvailabilityQuests = get_node(availability_quests_path)
-@onready var AvailabilityDialogs = get_node(availability_dialogs_path)
-@onready var AvailabilityFactions = get_node(availability_factions_path)
-@onready var AvailabilityScoreboard = get_node(availability_scoreboard_path)
-@onready var AvailabilityTime = get_node(availability_time_path)
-@onready var AvailabilityLevel = get_node(availability_level_path)
+@onready var AvailabilityQuests := get_node(availability_quests_path)
+@onready var AvailabilityDialogs := get_node(availability_dialogs_path)
+@onready var AvailabilityFactions := get_node(availability_factions_path)
+@onready var AvailabilityScoreboard := get_node(availability_scoreboard_path)
+@onready var AvailabilityTime := get_node(availability_time_path)
+@onready var AvailabilityLevel := get_node(availability_level_path)
 
-@onready var ToggleVisibility = get_node(toggle_visiblity_path)
-@onready var DialogEditor = get_node(dialog_editor_path)
+@onready var ToggleVisibility := get_node(toggle_visiblity_path)
+@onready var DialogEditor := get_node(dialog_editor_path)
 
-var current_dialog
-var dialog_availability_mode = false
-var availability_slot
-var stored_current_dialog_id
-var dialog_editor_is_loaded = false
-var glob_node_selected_id
+var current_dialog : dialog_node
+var dialog_availability_mode := false
+var availability_slot : int
+var stored_current_dialog_id : int
+var dialog_editor_is_loaded := false
+var glob_node_selected_id : int
 
 func _ready(): 
 	set_quest_dict()
@@ -95,7 +95,7 @@ func set_quest_dict():
 	for node in access_to_quests:
 		node.quest_dict = quest_indexer.new().index_quest_categories()
 
-func disconnect_current_dialog(dialog,_bool):
+func disconnect_current_dialog(dialog : dialog_node,_bool : bool):
 	if current_dialog == dialog:
 		dialog.disconnect("text_changed", Callable(self, "update_text"))
 		dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
@@ -103,13 +103,13 @@ func disconnect_current_dialog(dialog,_bool):
 	current_dialog = null
 
 
-func dialog_selected(dialog):
+func dialog_selected(dialog : dialog_node):
 	if !dialog_availability_mode:
 		load_dialog_settings(dialog)
 		
 		
 		
-func enter_dialog_availability_mode(availability_scene):
+func enter_dialog_availability_mode(availability_scene : dialog_availability_object):
 	stored_current_dialog_id = current_dialog.dialog_id
 	availability_slot = AvailabilityDialogs.get_children().find(availability_scene)
 	dialog_availability_mode = true
@@ -121,7 +121,7 @@ func enter_dialog_availability_mode(availability_scene):
 	print("Availability Mode Entered")
 
 	
-func set_dialog_availability_from_selected_node(node_selected):
+func set_dialog_availability_from_selected_node(node_selected : dialog_node):
 	if dialog_availability_mode:
 		dialog_editor_is_loaded = false
 		glob_node_selected_id = node_selected.dialog_id
@@ -129,7 +129,7 @@ func set_dialog_availability_from_selected_node(node_selected):
 		$availability_timer.start()
 		
 
-func find_dialog_node_from_id(id):
+func find_dialog_node_from_id(id : int):
 	var dialog_nodes = get_tree().get_nodes_in_group("Save")
 	for dialog in dialog_nodes:
 		if dialog.dialog_id == stored_current_dialog_id:
@@ -147,13 +147,13 @@ func exit_dialog_availability_mode():
 	
 	
 
-func set_title_text(title_text : String,node_index):
+func set_title_text(title_text : String,node_index : int):
 	if title_text.length() > 35:
 		title_text = title_text.left(35)+"..."
 	TitleLabel.text = title_text+"| Node "+str(node_index)
 
 		
-func load_dialog_settings(dialog):
+func load_dialog_settings(dialog : dialog_node):
 	DialogSettingsTab.visible = true
 	if current_dialog != dialog:
 		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed", Callable(self, "update_text")):
@@ -197,42 +197,42 @@ func load_dialog_settings(dialog):
 		AvailabilityScoreboard.get_child(i).set_comparison_type(current_dialog.scoreboard_availabilities[i].comparison_type)
 		AvailabilityScoreboard.get_child(i).set_value(current_dialog.scoreboard_availabilities[i].value)
 		
-func scoreboard_objective_name_changed(child,obj_name):
+func scoreboard_objective_name_changed(child : scoreboard_availability_object,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name
 	emit_signal("unsaved_change",true)
-func scoreboard_comparison_type_changed(child,type):
+func scoreboard_comparison_type_changed(child,type : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].comparison_type = type
 	emit_signal("unsaved_change",true)
 	
-func scoreboard_value_changed(child,value):
+func scoreboard_value_changed(child : scoreboard_availability_object,value : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].value = value
 	emit_signal("unsaved_change",true)		
-func faction_id_changed(child,id):
+func faction_id_changed(child : faction_availability_object,id : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].faction_id = id
 	emit_signal("unsaved_change",true)
-func faction_stance_changed(child,stance):
+func faction_stance_changed(child : faction_availability_object,stance:int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].stance_type = stance
 	emit_signal("unsaved_change",true)
-func faction_isisnot_changed(child,isisnot):
+func faction_isisnot_changed(child : faction_availability_object,isisnot : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].availability_operator = isisnot
 	emit_signal("unsaved_change",true)
 
-func dialog_id_changed(child,id):
+func dialog_id_changed(child : dialog_availability_object,id : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].dialog_id = id
 	emit_signal("unsaved_change",true)
 	
-func dialog_type_changed(child,type):
+func dialog_type_changed(child : dialog_availability_object,type : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].availability_type = type
 	emit_signal("unsaved_change",true)
 
 
 
-func quest_id_changed(child,id):
+func quest_id_changed(child : quest_availability_object,id : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].quest_id = id
 	emit_signal("unsaved_change",true)
 
 	
-func quest_type_changed(child,type):
+func quest_type_changed(child : quest_availability_object,type : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].availability_type = type
 	emit_signal("unsaved_change",true)
 #Dialog Changes
@@ -250,19 +250,19 @@ func _on_DisableEsc_pressed():
 	emit_signal("unsaved_change",true)
 
 
-func _on_FactionChange_faction_id_changed(id):
+func _on_FactionChange_faction_id_changed(id : int):
 	current_dialog.faction_changes[0].faction_id = id
 	emit_signal("unsaved_change",true)
 
-func _on_FactionChange2_faction_id_changed(id):
+func _on_FactionChange2_faction_id_changed(id : int):
 	current_dialog.faction_changes[1].faction_id = id
 	emit_signal("unsaved_change",true)
 
-func _on_FactionChange2_faction_points_changed(points):
+func _on_FactionChange2_faction_points_changed(points : int):
 	current_dialog.faction_changes[1].points = points
 	emit_signal("unsaved_change",true)
 
-func _on_FactionChange_faction_points_changed(points):
+func _on_FactionChange_faction_points_changed(points : int):
 	current_dialog.faction_changes[0].points = points
 	emit_signal("unsaved_change",true)
 
@@ -270,11 +270,11 @@ func _on_Command_text_changed():
 	current_dialog.command = CommandEdit.text
 	emit_signal("unsaved_change",true)
 
-func _on_TimeButton_item_selected(index):
+func _on_TimeButton_item_selected(index : int):
 	current_dialog.time_availability = index
 	emit_signal("unsaved_change",true)
 
-func _on_LevelSpinBox_value_changed(value):
+func _on_LevelSpinBox_value_changed(value : int):
 	current_dialog.min_level_availability = value
 	emit_signal("unsaved_change",true)
 
@@ -290,7 +290,7 @@ func update_text():
 func update_title(text):
 	set_title_text(current_dialog.dialog_title,current_dialog.node_index)
 
-func _on_StartQuest_id_changed(value):
+func _on_StartQuest_id_changed(value : int):
 	current_dialog.start_quest = value
 	emit_signal("unsaved_change",true)
 
@@ -299,7 +299,7 @@ func no_dialog_selected():
 	DialogSettingsTab.visible = false
 
 
-func _on_ToggleVisiblity_toggled(button_pressed):
+func _on_ToggleVisiblity_toggled(button_pressed : bool):
 	if !button_pressed:
 		emit_signal("hide_information_panel")
 		ToggleVisibility.text = "<"
@@ -312,7 +312,7 @@ func _on_ToggleVisiblity_toggled(button_pressed):
 	
 
 
-func _on_DialogEditor_finished_loading(_category_name):
+func _on_DialogEditor_finished_loading(_category_name : String):
 	emit_signal("ready_to_set_availability")
 
 

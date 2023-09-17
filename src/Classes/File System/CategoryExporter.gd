@@ -6,23 +6,23 @@ func _ready():
 	pass
 
 func export_category(directory : String = CurrentEnvironment.current_directory+"/dialogs/",category_name : String = CurrentEnvironment.current_category_name):
-	var exported_category_dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs")
-	var save_nodes = get_tree().get_nodes_in_group("Save")
+	var exported_category_dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs")
+	var save_nodes := get_tree().get_nodes_in_group("Save")
 	
 	
 	if !exported_category_dir.dir_exists(directory+category_name):
 		exported_category_dir.make_dir(directory+category_name)
 	empty_category_jsons(category_name)
 	for i in save_nodes:
-		var dialog_file = FileAccess.open(directory+category_name+"/"+str(i.dialog_id)+".json",FileAccess.WRITE)
-		var new_dict = create_dialog_dict(i)
+		var dialog_file := FileAccess.open(directory+category_name+"/"+str(i.dialog_id)+".json",FileAccess.WRITE)
+		var new_dict : Array[String] = create_dialog_dict(i)
 		#var jsonprint = JSON.print(new_dict,"\r\n")
 		for line in new_dict:
 			dialog_file.store_line(line)
 		dialog_file.close()
 		
-func empty_category_jsons(category_name):
-	var dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
+func empty_category_jsons(category_name : String):
+	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if DirAccess.get_open_error() == OK:
 		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
@@ -36,19 +36,19 @@ func empty_category_jsons(category_name):
 			file_name = dir.get_next()
 		
 
-func create_dialog_dict(dialog):
-	var dialog_json_array = [
+func create_dialog_dict(dialog : dialog_node):
+	var dialog_json_array : Array[String] =  [
 	'{',
 	'	"DialogShowWheel": '+str(int(dialog.show_wheel))+'b,',
 	'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
 	'	"Options":['
 	]
-	var options_array = []
+	var options_array : Array[String]= []
 	for i in dialog.response_options.size():
-		var new_option_dict = create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
+		var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
 		for line in new_option_dict:
 			dialog_json_array.append(line)
-	var rest_of_dialog_json_array = [
+	var rest_of_dialog_json_array :Array[String]= [
 	'	],',
 	'	"AvailabilityScoreboardType": '+str(dialog.scoreboard_availabilities[0].comparison_type)+',',
 	'	"DialogHideNPC": '+str(int(dialog.hide_npc))+'b,',
@@ -110,8 +110,8 @@ func create_dialog_dict(dialog):
 	dialog_json_array.append_array(rest_of_dialog_json_array)
 	return dialog_json_array
 	
-func create_option_dict(response,islast):
-	var response_dict = []
+func create_option_dict(response:response_node,islast:bool):
+	var response_dict :Array[String]= []
 	if islast == false:
 		response_dict = [
 					'		{',

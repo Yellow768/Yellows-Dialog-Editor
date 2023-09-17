@@ -29,7 +29,7 @@ func _on_TopPanel_save_category_request():
 
 
 func _on_CategoryPanel_category_succesfully_saved(cname):
-	var save_string = "Category %s saved..."
+	var save_string := "Category %s saved..."
 	$SaveLabel.text = save_string % cname
 	$SaveLabel.modulate = Color(1,1,1,1)
 	tween($SaveLabel,"modulate",Color(1,1,1,0),1,Tween.TRANS_EXPO)
@@ -47,7 +47,7 @@ func _on_CategoryPanel_category_export_failed(cname):
 
 
 func _on_CategoryPanel_category_succesfully_exported(cname):
-	var string = "Category %s succesfully exported..."
+	var string := "Category %s succesfully exported..."
 	$Export.text = string % cname
 	$Export.modulate = Color(1,1,1,1)
 	tween($Export,"modulate",Color(1,1,1,0),1,Tween.TRANS_EXPO)

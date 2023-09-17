@@ -1,7 +1,7 @@
 extends Control
 const prev_dirs_config_path = "user://prev_dirs.cfg"
 
-var chosen_dir
+var chosen_dir : String
 
 func _ready():
 	get_tree().auto_accept_quit = true
@@ -9,10 +9,10 @@ func _ready():
 	OS.low_processor_usage_mode = true
 	get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	get_window().min_size = Vector2(1280,720)
-	var config = ConfigFile.new()
+	var config := ConfigFile.new()
 	config.load(prev_dirs_config_path)
 	for dir in config.get_sections():
-		var quick_dir_button = Button.new()
+		var quick_dir_button := Button.new()
 		quick_dir_button.text = config.get_value(dir,"name")
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
@@ -20,7 +20,7 @@ func _ready():
 	
 
 
-func change_to_editor(directory):
+func change_to_editor(directory : String) -> void:
 	add_directory_to_config(directory)
 	if DirAccess.dir_exists_absolute(directory):
 		var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
@@ -29,12 +29,12 @@ func change_to_editor(directory):
 		DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
 		queue_free()
 	else:
-		var tween = get_tree().create_tween()
+		var tween := get_tree().create_tween()
 		$InvalidDirectory.modulate = Color(1,1,1,1)
 		tween.tween_property($InvalidDirectory,"modulate",Color(1,1,1,0),2).set_delay(1)
 		push_error("Directory does not exist")
 	
-func add_directory_to_config(directory : String):
+func add_directory_to_config(directory : String) -> void:
 	var config = ConfigFile.new()
 	config.load(prev_dirs_config_path)
 	if config.has_section(directory):
@@ -50,9 +50,9 @@ func add_directory_to_config(directory : String):
 			config.save(prev_dirs_config_path)
 
 
-func find_valid_customnpcs_dir(dir : String):
-	var directory = DirAccess.open(dir)
-	var dir_search = DirectorySearch.new()
+func find_valid_customnpcs_dir(dir : String) -> String:
+	var directory := DirAccess.open(dir)
+	var dir_search := DirectorySearch.new()
 	print(dir)
 	if dir.replace(dir.get_base_dir()+"/","") == "customnpcs":
 		return dir
@@ -76,8 +76,8 @@ func _on_Open_Environment_pressed():
 
 
 
-func _on_FileDialog_dir_selected(path):
-	var valid_path = find_valid_customnpcs_dir(path)
+func _on_FileDialog_dir_selected(path : String):
+	var valid_path := find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path
 		$Panel/InvalidFolderWarning.popup_centered()
@@ -94,7 +94,7 @@ func _on_Cancel_button_up():
 
 
 func _on_Confirm_pressed():
-	var dir = DirAccess.open(chosen_dir)
+	var dir := DirAccess.open(chosen_dir)
 	if chosen_dir.replace(chosen_dir.get_base_dir(),"") == "/customnpcs":
 		dir.make_dir(chosen_dir+"/dialogs")
 	else:

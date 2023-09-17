@@ -26,3 +26,26 @@ res://src/Classes/File System/EnvironmentIndexer.gd
 res://src/Nodes/Scripts/ResponseNode.gd
 res://src/Nodes/Scripts/DialogNode.gd
 res://src/UI/Editor/DialogEditor.gd
+res://src/UI/CategoryPanel/Scripts/CategoryButton.gd
+res://src/Classes/File System/dialog_jsons_loader.gd
+res://src/Classes/dialog_titles_index.gd
+res://src/UI/Util/Scripts/DirectorySearcher.gd
+res://src/UI/Util/Scripts/DirectoryShortcutButton.gd
+res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
+res://src/UI/Editor/EditorSettings.gd
+res://src/UI/Util/Scripts/Expandable Line Edit.gd
+res://src/UI/Dialog Settings/Scripts/Faction Availability.gd
+res://src/UI/Util/Scripts/FactionLoader.gd
+res://src/UI/Util/FactionLoader.tscn
+res://src/Classes/Availability Objects/faction_availability_object.gd
+res://src/Autoload/global_declarations.gd
+res://src/UI/LandingScreen.gd
+res://src/UI/Dialog Settings/Scripts/Quest Avaiability.gd
+res://src/Classes/File System/QuestAndFactionsIndex.gd
+res://src/UI/Dialog Settings/Scripts/ScoreboardAvailability.gd
+res://src/Classes/Availability Objects/scoreboard_availability_object.gd
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/Dialog Settings/Scripts/StartQuest.gd
+res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
+res://src/UI/Util/Scripts/UIAnimations.gd
+res://src/Classes/File System/category_loader.gd

@@ -5,7 +5,7 @@ func _ready():
 	pass
 
 
-func _on_Button_toggled(button_pressed):
+func _on_Button_toggled(button_pressed : bool):
 	if button_pressed:
 		custom_minimum_size.y = 125
 		size.y = 125

@@ -1,9 +1,9 @@
 extends Resource
 class_name faction_change_object
 
-@export var faction_id = -1
-@export var points = 100
-@export_enum("Increase","Decrease") var operator = 0
+@export var faction_id := -1
+@export var points := 100
+@export_enum("Increase","Decrease") var operator := 0
 
 
 signal operator_changed

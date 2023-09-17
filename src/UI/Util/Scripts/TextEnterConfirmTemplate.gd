@@ -15,7 +15,7 @@ func _on_Confirm_Text_modal_closed():
 	queue_free()
 
 
-func _on_LineEdit_text_changed(new_text):
+func _on_LineEdit_text_changed(new_text : String):
 	text = new_text
 
 

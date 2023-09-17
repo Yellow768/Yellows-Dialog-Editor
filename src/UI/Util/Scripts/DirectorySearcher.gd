@@ -1,23 +1,23 @@
 extends Node
 class_name DirectorySearch
 
-func scan_directory_for_folders(scan_dir: String):
-	var folders = []
-	var dir = DirAccess.open(scan_dir)
-	if dir == null : return
+func scan_directory_for_folders(scan_dir: String) -> Array[String]:
+	var folders : Array[String] = []
+	var dir := DirAccess.open(scan_dir)
+	if dir == null : return []
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var file_name = dir.get_next()
+	var file_name := dir.get_next()
 	while file_name != "":
 		if dir.current_is_dir() && (file_name != "." && file_name != ".."):
 			folders.append(file_name)
 		file_name = dir.get_next()
 	return folders
 	
-func scan_directory_for_files(scan_dir: String):
-	var files = []
-	var dir = DirAccess.open(scan_dir)
+func scan_directory_for_files(scan_dir: String) -> Array[String]:
+	var files : Array[String]= []
+	var dir := DirAccess.open(scan_dir)
 	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	var file_name = dir.get_next()
+	var file_name := dir.get_next()
 	while file_name != "":
 		if !dir.current_is_dir():
 			files.append(file_name)
@@ -25,9 +25,9 @@ func scan_directory_for_files(scan_dir: String):
 	
 	return files
 
-func scan_all_subdirectories(scan_dir : String, filter_exts : Array = []) -> Array:
+func scan_all_subdirectories(scan_dir : String, filter_exts : Array = []) -> Array[String]:
 	var my_files : Array = []
-	var dir = DirAccess.open(scan_dir)
+	var dir := DirAccess.open(scan_dir)
 	if DirAccess.get_open_error() != OK:
 		printerr("Warning: could not open directory: ", scan_dir)
 		return []

@@ -23,5 +23,5 @@ func _on_ScanButton_pressed():
 	emit_signal("scan_for_changes_request")
 
 
-func _on_DialogEditor_finished_loading(category_name):
+func _on_DialogEditor_finished_loading(category_name : String):
 	$TopPanelContainer.visible = true

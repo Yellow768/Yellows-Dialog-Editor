@@ -1,14 +1,28 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://jxa8a7wvn5oh"]
 
-[ext_resource path="res://src/UI/Util/Scripts/FactionFileDialogTest.gd" type="Script" id=1]
+[sub_resource type="GDScript" id="GDScript_qbiqd"]
+script/source = "extends FileDialog
+
+func _ready():
+	popup()
+
+
+func _on_FileDialog_file_selected(path):
+	var file := FileAccess.open(path,FileAccess.READ)
+	var other_file := FileAccess.open(\"F:\\\\Daruma Project\\\\Isles of Rainmire DirAccess\\\\Tools\\\\output.txt\",FileAccess.WRITE)
+	var fct_load := faction_loader.new()
+	other_file.store_string(String(fct_load.create_faction_dict_from_dat_file(file)))
+	
+	file.close()
+	other_file.close()
+
+
+func _on_FileDialog_popup_hide():
+	popup()
+"
 
 [node name="FileDialog" type="FileDialog"]
-offset_right = 679.0
-offset_bottom = 460.0
-window_title = "Open a File"
-mode = 0
 access = 2
-script = ExtResource( 1 )
+script = SubResource("GDScript_qbiqd")
 
 [connection signal="file_selected" from="." to="." method="_on_FileDialog_file_selected"]
-[connection signal="popup_hide" from="." to="." method="_on_FileDialog_popup_hide"]

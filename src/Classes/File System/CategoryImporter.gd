@@ -11,26 +11,26 @@ signal editor_offset_loaded
 signal request_arrange_nodes
 
 var current_category_directory
-var imported_category_name
-var imported_dialogs = []
+var imported_category_name : String
+var imported_dialogs : Array[Dictionary] = []
 
 
 
 
 
 
-var loaded_dialog_nodes = []
-var loaded_responses = []
-var unimported_dialog_position = Vector2(300,300)
+var loaded_dialog_nodes :Array[dialog_node]= []
+var loaded_responses :Array[response_node]= []
+var unimported_dialog_position : Vector2 = Vector2(300,300)
 
-func initial_dialog_chosen(category_name,dialog_jsons,index):
+func initial_dialog_chosen(category_name : String,dialog_jsons : Array[Dictionary],index : int):
 	emit_signal("clear_editor_request")	
 	imported_dialogs = dialog_jsons
 	create_nodes_from_index(category_name,index)
 	emit_signal("request_arrange_nodes")
 
 
-func create_nodes_from_index(category_name, index : int = 0):
+func create_nodes_from_index(category_name : String, index : int = 0):
 	if index > imported_dialogs.size():
 		printerr("The set index was larger than imported_dialogs size")
 		index = 0
@@ -48,8 +48,8 @@ func create_nodes_from_index(category_name, index : int = 0):
 		loaded_dialog_nodes = []
 		loaded_responses = []
 	
-func create_dialog_from_json(current_json,offset):
-	var new_node = GlobalDeclarations.DIALOG_NODE.instantiate()
+func create_dialog_from_json(current_json :,offset) -> dialog_node:
+	var new_node : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_node.position_offset = offset
 	#emit_signal("editor_offset_loaded",new_node.offset)
 	new_node = update_dialog_node_information(new_node,current_json)
@@ -60,10 +60,10 @@ func create_dialog_from_json(current_json,offset):
 	create_dialogs_from_responses(new_node)
 	return new_node				
 
-func create_response_nodes_from_json(node,json):
+func create_response_nodes_from_json(node : dialog_node,json : Dictionary) -> int:
 	var total_num_of_responses = 0
 	for i in json["Options"]:
-		var response = GlobalDeclarations.RESPONSE_NODE.instantiate() 
+		var response : response_node = GlobalDeclarations.RESPONSE_NODE.instantiate() 
 		response.slot = i["OptionSlot"]
 		response.command = i["Option"]["DialogCommand"]
 		response.to_dialog_id = i["Option"]["Dialog"]
@@ -74,7 +74,7 @@ func create_response_nodes_from_json(node,json):
 	return total_num_of_responses
 	
 
-func create_dialogs_from_responses(dialog):
+func create_dialogs_from_responses(dialog : dialog_node):
 	for response in dialog.response_options:
 		if response.to_dialog_id != -1 && response.option_type == 0:
 			for loaded_dialog in loaded_dialog_nodes:
@@ -83,17 +83,17 @@ func create_dialogs_from_responses(dialog):
 					
 			for json_dialog in imported_dialogs:
 				if json_dialog["DialogId"] == response.to_dialog_id:
-					var connected_dialog = create_dialog_from_json(json_dialog,response.position_offset+GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET)
+					var connected_dialog : dialog_node = create_dialog_from_json(json_dialog,response.position_offset.x+GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET)
 					
 					emit_signal("request_connect_nodes",response,0,connected_dialog,0)		
 		loaded_responses.append(response)
 
 
-func scan_category_for_changes(category_name = CurrentEnvironment.current_category_name):
+func scan_category_for_changes(category_name : String = CurrentEnvironment.current_category_name):
 	loaded_dialog_nodes = []
 	loaded_responses = []
-	var updated_dialog_nodes = []
-	var parsed_jsons = dialog_jsons_loader.new().get_dialog_jsons(category_name)
+	var updated_dialog_nodes : Array[dialog_node]= []
+	var parsed_jsons := dialog_jsons_loader.new().get_dialog_jsons(category_name)
 	imported_dialogs = parsed_jsons.duplicate()
 	imported_category_name = category_name
 	var current_dialog_nodes = get_tree().get_nodes_in_group("Save")
@@ -110,13 +110,13 @@ func scan_category_for_changes(category_name = CurrentEnvironment.current_catego
 	for updated_dialog in updated_dialog_nodes:
 		create_dialogs_from_responses(updated_dialog)
 	if !imported_dialogs.is_empty():
-		create_nodes_from_index(0)
+		create_nodes_from_index(category_name,0)
 	
 		
 	
 	
 
-func update_dialog_node_information(node,json):
+func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dialog_node:
 	node.dialog_title = json["DialogTitle"]
 	node.dialog_id = json["DialogId"]
 	node.text = json["DialogText"]
@@ -125,7 +125,7 @@ func update_dialog_node_information(node,json):
 	node.start_quest = json["DialogQuest"]
 	node.min_level_availability = json["AvailabilityMinPlayerLevel"]
 	node.time_availability = json["AvailabilityDayTime"]
-	var id = ["","2","3","4"]
+	var id := ["","2","3","4"]
 	for i in 4:
 		node.quest_availabilities[i].quest_id = json["AvailabilityQuest"+id[i]+"Id"]
 		node.quest_availabilities[i].availability_type = json["AvailabilityQuest"+id[i]]
@@ -140,7 +140,7 @@ func update_dialog_node_information(node,json):
 		node.faction_availabilities[i].stance_type = json["AvailabilityFaction"+id[i]+"Stance"]
 		node.faction_availabilities[i].availability_operator = json["AvailabilityFaction"+id[i]]
 		
-		var operator = [1,-1]
+		var operator := [1,-1]
 		node.faction_changes[i].faction_id = json["OptionFactions"+str(i+1)]
 		node.faction_changes[i].points = json["OptionFaction"+str(i+1)+"Points"] * operator[json["DecreaseFaction"+str(i+1)+"Points"]]
 	

@@ -2,8 +2,8 @@ class_name dialog_node
 extends GraphNode
 enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 
-const RESPONSE_VERTICAL_OFFSET = 100
-const RESPONSE_HORIZONTAL_OFFSET = 350
+const RESPONSE_VERTICAL_OFFSET : int = 100
+const RESPONSE_HORIZONTAL_OFFSET :int = 350
 
 signal add_response_request
 signal request_delete_response_node
@@ -19,60 +19,60 @@ signal request_set_scroll_offset
 @export var _add_response_path: NodePath
 @export var _id_label_path: NodePath
 
-@onready var TitleTextNode = get_node(_title_text_path)
-@onready var DialogTextNode = get_node(_dialog_text_path)
-@onready var AddResponseButtonNode = get_node(_add_response_path)
-@onready var IdLabelNode = get_node(_id_label_path)
+@onready var TitleTextNode : LineEdit = get_node(_title_text_path)
+@onready var DialogTextNode : TextEdit = get_node(_dialog_text_path)
+@onready var AddResponseButtonNode : Button = get_node(_add_response_path)
+@onready var IdLabelNode :Label= get_node(_id_label_path)
 
 
-var node_type = "Dialog Node" 
-var node_index = 0: set = set_node_index
+var node_type :String = "Dialog Node" 
+var node_index :int = 0: set = set_node_index
 
 
-var response_options = []
-var connected_responses = []
+var response_options : Array[response_node]= []
+var connected_responses : Array[response_node]= []
 
 
 
-var original_parent
-var total_height
+var original_parent : response_node
+var total_height : int
 
-var initial_offset_x = 0
-var initial_offset_y = 0
+var initial_offset_x :int= 0
+var initial_offset_y :int= 0
 
 ##Dialog Data#
 
-@export var dialog_title = 'New Dialog'
+@export var dialog_title : String = 'New Dialog'
 
 #Immutable
-@export var dialog_id = -1: set = set_dialog_id
+@export var dialog_id : int = -1: set = set_dialog_id
 
 #Display
 
-@export var show_wheel = false
-@export var hide_npc = false
-@export var disable_esc = false
+@export var show_wheel : bool = false
+@export var hide_npc : bool = false
+@export var disable_esc : bool = false
 
 #String Inputs
-@export var command = ''
-@export var sound = ''
-var text = ''
+@export var command : String = ''
+@export var sound : String = ''
+var text : String = ''
 
 
 #Availabilities
-var dialog_availabilities = [dialog_availability_object.new(),dialog_availability_object.new(),dialog_availability_object.new(),dialog_availability_object.new()]
-var quest_availabilities = [quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new()]
-var scoreboard_availabilities = [scoreboard_availability_object.new(),scoreboard_availability_object.new()]
-var faction_availabilities = [faction_availability_object.new(),faction_availability_object.new()]
-var faction_changes = [faction_change_object.new(),faction_change_object.new()]
+var dialog_availabilities : Array[dialog_availability_object] = [dialog_availability_object.new(),dialog_availability_object.new(),dialog_availability_object.new(),dialog_availability_object.new()]
+var quest_availabilities : Array[quest_availability_object]= [quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new()]
+var scoreboard_availabilities :Array[scoreboard_availability_object]= [scoreboard_availability_object.new(),scoreboard_availability_object.new()]
+var faction_availabilities :Array[faction_availability_object]= [faction_availability_object.new(),faction_availability_object.new()]
+var faction_changes :Array[faction_change_object]= [faction_change_object.new(),faction_change_object.new()]
 
-@export var time_availability = 0 # (int,"Always","Night","Day")
-@export var min_level_availability = 0
+@export var time_availability : int = 0
+@export var min_level_availability : int = 0
 
 
 
 #Outcomes
-@export var start_quest = -1
+@export var start_quest : int = -1
 
 
 func _ready():
@@ -87,7 +87,7 @@ func add_response_node():
 	if response_options.size() < 6:
 		emit_signal("add_response_request",self)
 
-func delete_response_node(deletion_slot,response_node):
+func delete_response_node(deletion_slot : int,response_node : response_node):
 	for i in response_options:
 		if i.slot > deletion_slot:
 			i.slot -=1
@@ -99,13 +99,13 @@ func clear_responses():
 		emit_signal("request_delete_response_node",self,response)
 	response_options.clear()
 
-func add_connected_response(response):
+func add_connected_response(response : response_node):
 	connected_responses.append(response)
 	
-func remove_connected_response(response):
+func remove_connected_response(response : response_node):
 	connected_responses.erase(response)
 
-func delete_self(perm = true):
+func delete_self(perm := true):
 
 	while response_options.size() > 0:
 		for i in response_options:
@@ -126,25 +126,25 @@ func set_focus_on_text():
 	emit_signal("set_self_as_selected",self)
 	emit_signal("request_set_scroll_offset",position_offset)
 
-func set_dialog_title(string):
+func set_dialog_title(string : String):
 	if not is_inside_tree(): await self.ready
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
 		
-func set_dialog_text(string):
+func set_dialog_text(string : String):
 	if not is_inside_tree(): await self.ready
 	DialogTextNode.text = string
 	
 	
 
 
-func set_dialog_id(id):
+func set_dialog_id(id: int):
 	dialog_id = id
 	if not is_inside_tree(): await self.ready
 	IdLabelNode.text = "    ID: "+str(id)
 
-func set_node_index(index):
+func set_node_index(index : int):
 	node_index = index
 	title = "Dialog Node "+str(index)
 
@@ -167,14 +167,14 @@ func _on_DialogNode_offset_changed():
 	initial_offset_x = position_offset.x
 	initial_offset_y = position_offset.y
 			
-func _on_TitleText_text_changed(new_text):
+func _on_TitleText_text_changed(new_text : String):
 	dialog_title = TitleTextNode.text
 	if connected_responses.size() > 0:
 		for i in connected_responses:
 			i.update_connection_text()
 	emit_signal("title_changed")
 
-func handle_clicking(event):
+func handle_clicking(event : InputEvent):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			emit_signal("set_self_as_selected",self)
@@ -185,15 +185,15 @@ func handle_clicking(event):
 			emit_signal("set_self_as_selected",self)
 
 
-func _on_DialogNode_gui_input(event):
+func _on_DialogNode_gui_input(event : InputEvent):
 	handle_clicking(event)
 
 
-func _on_DialogText_gui_input(event):
+func _on_DialogText_gui_input(event : InputEvent):
 	handle_clicking(event)
 		
 
-func _on_TitleText_gui_input(event):
+func _on_TitleText_gui_input(event : InputEvent):
 	handle_clicking(event)
 
 func _on_DialogText_text_changed():
@@ -203,12 +203,12 @@ func _on_DialogText_text_changed():
 
 		
 func save():
-	var save_quest_av = []
-	var save_dialog_av = []
-	var save_faction_av = []
-	var save_scoreboard_av = []
-	var save_fact_changes = []
-	var save_response_options = []
+	var save_quest_av :Array[Dictionary]= []
+	var save_dialog_av :Array[Dictionary] = []
+	var save_faction_av :Array[Dictionary]= []
+	var save_scoreboard_av :Array[Dictionary]= []
+	var save_fact_changes :Array[Dictionary]= []
+	var save_response_options :Array[Dictionary]= []
 	
 	for i in quest_availabilities:
 		save_quest_av.append({
@@ -239,7 +239,7 @@ func save():
 		})
 	
 	for i in response_options:
-		var connected_index = -1
+		var connected_index := -1
 		if i.connected_dialog != null:
 			connected_index = i.connected_dialog.node_index
 		save_response_options.append({
@@ -282,13 +282,8 @@ func save():
 	return save_dict
 
 
-func get_full_tree(all_children : Array = []):
+func get_full_tree(all_children : Array[GraphNode] = []):
 	for response in response_options:
 		all_children.append(response)
 		all_children = response.get_full_tree(all_children)
 	return all_children
-
-
-
-func _on_resize_request(new_minsize):
-	set_size(new_minsize)

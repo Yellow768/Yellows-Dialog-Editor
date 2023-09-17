@@ -1,7 +1,7 @@
 extends Resource
 class_name faction_availability_object
 
-@export var faction_id = -1
+@export var faction_id := -1
 
 @export_enum("Always","Is","Is Not") var availability_operator : int = 0
 @export_enum("Friendly","Neutral","Unfriendly") var stance_type : int = 0
