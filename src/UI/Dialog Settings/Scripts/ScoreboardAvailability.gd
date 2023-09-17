@@ -1,4 +1,9 @@
 extends Control
+class_name scoreboard_availability_object
+
+@export var objective_name: String
+@export var value: int = 0
+@export_enum("Smaller Than","Equal To","Bigger Than") var comparison_type := 1
 
 signal comparison_type_changed
 signal objective_name_changed

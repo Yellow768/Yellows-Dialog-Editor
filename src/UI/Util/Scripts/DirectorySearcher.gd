@@ -26,7 +26,7 @@ func scan_directory_for_files(scan_dir: String) -> Array[String]:
 	return files
 
 func scan_all_subdirectories(scan_dir : String, filter_exts : Array = []) -> Array[String]:
-	var my_files : Array = []
+	var my_files : Array[String] = []
 	var dir := DirAccess.open(scan_dir)
 	if DirAccess.get_open_error() != OK:
 		printerr("Warning: could not open directory: ", scan_dir)

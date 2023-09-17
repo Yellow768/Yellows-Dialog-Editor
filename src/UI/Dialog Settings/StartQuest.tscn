@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dj443rk8yk0hi"]
 
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/StartQuest.gd" id="1"]
-[ext_resource type="PackedScene" path="res://src/UI/Dialog Settings/ChooseQuest.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://b3h2bvwm0hbhp" path="res://src/UI/Dialog Settings/ChooseQuest.tscn" id="2"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="3"]
 [ext_resource type="FontFile" uid="uid://baod7xnbr0oe7" path="res://Assets/Font/TinyFont.tres" id="4"]
 

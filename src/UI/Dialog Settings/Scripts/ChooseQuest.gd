@@ -7,10 +7,10 @@ signal quest_chosen
 @export var quest_finder_path: NodePath
 @export var category_finder_path: NodePath
 
-@onready var CategoryFinder = get_node(category_finder_path)
-@onready var QuestFinder = get_node(quest_finder_path)
+@onready var CategoryFinder : PopupMenu = get_node(category_finder_path)
+@onready var QuestFinder := get_node(quest_finder_path)
 
-var quest_list_updated = false
+var quest_list_updated := false
 	
 
 
@@ -24,7 +24,7 @@ func _on_ChooseQuest_pressed():
 
 func update_category_finder():
 	CategoryFinder.clear()
-	var id_counter = 1
+	var id_counter := 1
 	CategoryFinder.add_item("[Cancel X]",0)
 	for key in quest_dict.keys():
 		CategoryFinder.add_item(key,id_counter)
@@ -35,7 +35,7 @@ func update_category_finder():
 
 func _on_CategoryFinder_index_pressed(index):
 	if index != 0:
-		var quest_category_name = CategoryFinder.get_item_metadata(index)
+		var quest_category_name : PopupMenu = CategoryFinder.get_item_metadata(index)
 		QuestFinder.clear()
 		QuestFinder.add_item("[Back...]",0)
 		for key in quest_dict[quest_category_name].keys():
@@ -45,7 +45,7 @@ func _on_CategoryFinder_index_pressed(index):
 	
 
 
-func _on_QuestFinder_id_pressed(id):
+func _on_QuestFinder_id_pressed(id : int):
 	if id == 0:
 		CategoryFinder.popup()
 	else:

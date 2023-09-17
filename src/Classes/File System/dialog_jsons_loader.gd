@@ -6,7 +6,7 @@ func get_dialog_jsons(category_name : String) -> Array:
 
 func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 	var current_category_directory : String = CurrentEnvironment.current_directory+"/dialogs/"+category_name
-	var parsed_jsons = []
+	var parsed_jsons : Array[Dictionary]= []
 	var dir_search := DirectorySearch.new()
 	var files = dir_search.scan_all_subdirectories(current_category_directory,["json"])
 	if files.size() == 0 :

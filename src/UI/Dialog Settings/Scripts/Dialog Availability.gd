@@ -15,11 +15,11 @@ func get_id():
 func get_availability_type():
 	return $Panel/OptionButton.selected	
 	
-func set_id(value):
+func set_id(value : int):
 	$Panel/SpinBox.value = value
 	
 	
-func set_availability_type(value):
+func set_availability_type(value : int):
 	$Panel/OptionButton.selected = value
 
 func _on_CategoryFinder_index_pressed(_index):
@@ -32,7 +32,7 @@ func _on_ChooseDialog_pressed():
 
 
 
-func _on_OptionButton_item_selected(index):
+func _on_OptionButton_item_selected(index : int):
 	emit_signal("type_changed",self,index)
 	if index != 0:
 		$Panel/ChooseDialog.disabled = false
@@ -42,7 +42,7 @@ func _on_OptionButton_item_selected(index):
 
 
 
-func _on_SpinBox_value_changed(value):
+func _on_SpinBox_value_changed(value : int):
 	if value == -1 or value == 0:
 		$Panel/ChooseDialog.text = "Select Dialog"
 	if dialog_list != null:

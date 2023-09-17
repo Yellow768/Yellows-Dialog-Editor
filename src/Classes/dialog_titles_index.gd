@@ -43,5 +43,5 @@ func dialog_node_added(dialog : dialog_node) -> void:
 	add_dialog_to_loaded(dialog)
 
 
-func _on_DialogAvailability_request_dialog_list_injection(dialog_availability : dialog_availability_object) -> void:
+func _on_DialogAvailability_request_dialog_list_injection(dialog_availability) -> void:
 	dialog_availability.dialog_list = self

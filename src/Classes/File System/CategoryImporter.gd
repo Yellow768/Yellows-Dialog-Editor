@@ -48,7 +48,7 @@ func create_nodes_from_index(category_name : String, index : int = 0):
 		loaded_dialog_nodes = []
 		loaded_responses = []
 	
-func create_dialog_from_json(current_json :,offset) -> dialog_node:
+func create_dialog_from_json(current_json :Dictionary ,offset : Vector2) -> dialog_node:
 	var new_node : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_node.position_offset = offset
 	#emit_signal("editor_offset_loaded",new_node.offset)
@@ -83,7 +83,7 @@ func create_dialogs_from_responses(dialog : dialog_node):
 					
 			for json_dialog in imported_dialogs:
 				if json_dialog["DialogId"] == response.to_dialog_id:
-					var connected_dialog : dialog_node = create_dialog_from_json(json_dialog,response.position_offset.x+GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET)
+					var connected_dialog : dialog_node = create_dialog_from_json(json_dialog,response.position_offset+Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0))
 					
 					emit_signal("request_connect_nodes",response,0,connected_dialog,0)		
 		loaded_responses.append(response)

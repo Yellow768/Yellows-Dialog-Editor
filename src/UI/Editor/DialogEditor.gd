@@ -11,14 +11,14 @@ signal dialog_node_perm_deleted
 signal node_double_clicked
 signal unsaved_changes
 
-var node_index = 0
-var selected_nodes = []
-var selected_responses = []
-var previous_zoom = 1
+var node_index := 0
+var selected_nodes : Array[dialog_node]= []
+var selected_responses :Array[response_node]= []
+var previous_zoom := 1
 
-var all_loaded_dialogs = []
+var all_loaded_dialogs : Array[dialog_node]= []
 
-var ignore_double_clicks = false
+var ignore_double_clicks := false
 
 
 
@@ -43,7 +43,7 @@ func _process(_delta):
 			i.delete_self()
 			selected_responses.erase(i)
 
-func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false):
+func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false) -> dialog_node:
 	#Adds a new dialog node into the editor.
 	
 	if new_dialog.node_index == 0:
@@ -73,7 +73,7 @@ func add_dialog_node(new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate(), 
 func relay_unsaved_changes():
 	emit_signal("unsaved_changes",true)
 
-func delete_dialog_node(dialog,remove_from_loaded_list = false):
+func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	handle_subtracting_dialog_id([dialog])
@@ -85,7 +85,7 @@ func delete_dialog_node(dialog,remove_from_loaded_list = false):
 	node_index -=1
 	
 
-func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclarations.RESPONSE_NODE.instantiate()):
+func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate()) -> response_node:
 	var new_offset
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
@@ -115,7 +115,7 @@ func add_response_node(parent_dialog : dialog_node, new_response = GlobalDeclara
 	emit_signal("unsaved_changes",true)
 	return new_response
 
-func delete_response_node(dialog,response):
+func delete_response_node(dialog : dialog_node,response : response_node):
 	disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
@@ -128,7 +128,7 @@ func delete_response_node(dialog,response):
 
 
 
-func response_node_dragged(from,to,response_node):
+func response_node_dragged(from: Vector2,to : Vector2,response_node):
 	if selected_nodes.size() == 0 && Input.is_action_pressed("swap_responses"):
 		handle_swapping_responses(response_node,from,to)
 	elif selected_nodes.find(response_node.parent_dialog) == -1:
@@ -137,10 +137,10 @@ func response_node_dragged(from,to,response_node):
 
 func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to: Vector2):
 	if response_node.overlapping_response != null:
-		var overlapping_response = response_node.overlapping_response
-		var initial_slot = response_node.slot
-		var initial_parent = response_node.parent_dialog
-		var initial_offset = from
+		var overlapping_response := response_node.overlapping_response
+		var initial_slot := response_node.slot
+		var initial_parent := response_node.parent_dialog
+		var initial_offset := from
 		
 		#Switch Slots
 		response_node.slot = overlapping_response.slot
@@ -150,8 +150,8 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#response_node.offset = overlapping_response.offset
 		#overlapping_response.offset = initial_offset
 		
-		var tween = get_tree().create_tween()
-		var initial_tween = get_tree().create_tween()
+		var tween := get_tree().create_tween()
+		var initial_tween := get_tree().create_tween()
 		tween.tween_property(response_node,"position_offset",overlapping_response.position_offset,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		initial_tween.tween_property(overlapping_response,"position_offset",from,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		#Remove from parents array
@@ -186,19 +186,19 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		pass
 		#response_node.offset = from
 
-func set_cat_zoom(new_zoom):
+func set_cat_zoom(new_zoom : float):
 	zoom = new_zoom
 
-func set_scroll_offset(new_offset):
-	var tween = get_tree().create_tween()
+func set_scroll_offset(new_offset : Vector2):
+	var tween := get_tree().create_tween()
 	tween.tween_property(self,"scroll_offset",(new_offset * zoom)-Vector2(get_window().size)/2,.6).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 
 	
 
 
-func connect_nodes(from, from_slot, to, to_slot):
-	var response
-	var dialog
+func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+	var response : response_node
+	var dialog : dialog_node
 	if from.node_type == "Player Response Node":
 		response = from
 		dialog = to
@@ -216,9 +216,9 @@ func connect_nodes(from, from_slot, to, to_slot):
 	emit_signal("unsaved_changes",true)
 
 	
-func disconnect_nodes(from, from_slot, to, to_slot):
-	var response
-	var dialog
+func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+	var response : response_node
+	var dialog : dialog_node
 	
 	if from.node_type == "Player Response Node":
 		response = from
@@ -238,10 +238,10 @@ func disconnect_nodes(from, from_slot, to, to_slot):
 		#disconnect_node(from,from_slot,to,to_slot)
 		#//response.reveal_button()
 
-func hide_connection_line(from,to):
+func hide_connection_line(from: GraphNode,to: GraphNode):
 	disconnect_node(from.name,0,to.name,0)
 
-func show_connection_line(from,to):
+func show_connection_line(from: GraphNode,to: GraphNode):
 	connect_node(from.name,0,to.name,0)
 	
 func set_last_selected_node_as_selected():
@@ -251,7 +251,7 @@ func set_last_selected_node_as_selected():
 		if selected_nodes.back().node_type == "Dialog Node":
 			emit_signal("dialog_selected",selected_nodes.back())
 
-func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array):
+func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array[dialog_node]):
 	var sorted_ids = dialogs_to_be_deleted.duplicate()
 	sorted_ids.sort_custom(Callable(self, "sort_array_by_dialog_id"))
 	for node in sorted_ids:
@@ -271,8 +271,8 @@ func save():
 		"zoom" : zoom
 	}	
 
-func _on_CategoryPanel_request_load_category(category_name):
-	var new_category_loader = category_loader.new()
+func _on_CategoryPanel_request_load_category(category_name : String):
+	var new_category_loader := category_loader.new()
 	new_category_loader.connect("add_dialog", Callable(self, "add_dialog_node"))
 	new_category_loader.connect("add_response", Callable(self, "add_response_node"))
 	new_category_loader.connect("no_ydec_found", Callable(self, "initialize_category_import"))
@@ -284,7 +284,7 @@ func _on_CategoryPanel_request_load_category(category_name):
 		emit_signal("finished_loading",category_name)
 		visible = true
 	
-func initialize_category_import(category_name):
+func initialize_category_import(category_name : String):
 	visible = true
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
@@ -294,8 +294,8 @@ func initialize_category_import(category_name):
 	choose_dialog_popup.position = Vector2(0,0)
 	choose_dialog_popup.create_dialog_buttons(category_name)
 	
-func import_category(category_name,all_dialogs,index):
-	var new_category_importer = category_importer.new()
+func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
+	var new_category_importer := category_importer.new()
 	new_category_importer.connect("request_add_dialog", Callable(self, "add_dialog_node"))
 	new_category_importer.connect("request_add_response", Callable(self, "add_response_node"))
 	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))

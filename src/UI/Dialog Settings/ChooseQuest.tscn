@@ -1,33 +1,25 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://b3h2bvwm0hbhp"]
 
-[ext_resource path="res://src/UI/Dialog Settings/Scripts/ChooseQuest.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/ChooseQuest.gd" id="1"]
 
 [node name="ChooseQuest" type="Button" groups=["quest_access"]]
+custom_minimum_size = Vector2(140, 20)
 offset_right = 94.0
 offset_bottom = 20.0
-custom_minimum_size = Vector2( 140, 20 )
 text = "Select Quest"
 clip_text = true
-script = ExtResource( 1 )
+script = ExtResource("1")
 quest_finder_path = NodePath("CategoryFinder/QuestFinder")
 category_finder_path = NodePath("CategoryFinder")
 
 [node name="CategoryFinder" type="PopupMenu" parent="."]
-offset_left = 2.0
-offset_right = 192.0
-offset_bottom = 230.0
-custom_minimum_size = Vector2( 190, 230 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-items = [ "Lost and Found", null, 0, false, false, 0, 0, null, "", false, "A Rebel Without A Cause", null, 0, false, false, 1, 0, null, "", false ]
-allow_search = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
+item_count = 2
+item_0/text = "Lost and Found"
+item_0/id = 0
+item_1/text = "A Rebel Without A Cause"
+item_1/id = 1
 
 [node name="QuestFinder" type="PopupMenu" parent="CategoryFinder"]
-offset_right = 187.0
-offset_bottom = 229.0
 
 [connection signal="pressed" from="." to="." method="_on_ChooseQuest_pressed"]
 [connection signal="index_pressed" from="CategoryFinder" to="." method="_on_CategoryFinder_index_pressed"]

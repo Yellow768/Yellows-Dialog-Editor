@@ -49,3 +49,7 @@ res://src/UI/Dialog Settings/Scripts/StartQuest.gd
 res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
 res://src/UI/Util/Scripts/UIAnimations.gd
 res://src/Classes/File System/category_loader.gd
+res://src/UI/Dialog Settings/Scripts/Dialog Availability.gd
+res://src/UI/Dialog Settings/ChooseQuest.tscn
+res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd
+res://src/UI/Dialog Settings/Scripts/ChooseQuest.gd
