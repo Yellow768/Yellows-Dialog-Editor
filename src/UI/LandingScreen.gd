@@ -1,5 +1,5 @@
 extends Control
-const prev_dirs_config_path = "user://prev_dirs.cfg"
+const prev_dirs_config_path := "user://prev_dirs.cfg"
 
 var chosen_dir : String
 

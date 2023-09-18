@@ -17,7 +17,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 			current_dialog = FileAccess.open(current_category_directory+"/"+file,FileAccess.READ)
 			var JSON_parse = JSON.new()
 			JSON_parse.parse(replace_unparseable_dialog_json_values(current_dialog))
-			var dialog_json_with_bad_values_replaced : Dictionary = JSON_parse.get_data()
+			var dialog_json_with_bad_values_replaced = JSON_parse.get_data()
 			if JSON_parse.get_error_line() != OK || !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced):
 				printerr("Error parsing JSON "+file+", skipping. ERR = "+str(JSON_parse.get_error_line())+" valid_dialog_format = "+str(is_json_valid_dialog_format(dialog_json_with_bad_values_replaced)))
 			else:

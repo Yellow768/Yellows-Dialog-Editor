@@ -19,12 +19,16 @@ func get_value():
 	return $Panel/SpinBox.value
 
 func set_comparison_type(type : int):
+	if not is_inside_tree(): await self.ready
+	print($Panel)
 	$Panel/OptionButton.selected = type
 	
 func set_objective_name(obj_name : String):
+	if not is_inside_tree(): await self.ready
 	$Panel/LineEdit.text = obj_name
 	
 func set_value(value : int):
+	if not is_inside_tree(): await self.ready
 	$Panel/SpinBox.value = value
 	
 
