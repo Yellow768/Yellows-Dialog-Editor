@@ -88,14 +88,14 @@ func is_json_valid_dialog_format(dialog_json : Dictionary) -> bool:
 			return false
 	for i in 2:
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Objective") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Objective"]) != TYPE_STRING:
-			printerr("AvailabilityScoreboard"+id[i]+"Objective is malformed")
-			return false
+			push_warning("AvailabilityScoreboard"+id[i]+"Objective is malformed. Assuming Pre 1.12")
+			dialog_json["AvailabilityScoreboard"+id[i]+"Objective"] == ""
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Value") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Value"]) != TYPE_FLOAT:
-			printerr("AvailabilityScoreboard"+id[i]+"Value is malformed")
-			return false
+			push_warning("AvailabilityScoreboard"+id[i]+"Value is malformed. Assuming pre 1.12")
+			dialog_json["AvailabilityScoreboard"+id[i]+"Value"] == 0
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Type") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Type"]) != TYPE_FLOAT:
-			printerr("AvailabilityScoreboard"+id[i]+"Type is malformed")
-			return false
+			push_warning("AvailabilityScoreboard"+id[i]+"Type is malformed. Assuming pre 1.12")
+			dialog_json["AvailabilityScoreboard"+id[i]+"Type"] = 1
 		
 		if !dialog_json.has("AvailabilityFaction"+id[i]+"Id") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+"Id is malformed")

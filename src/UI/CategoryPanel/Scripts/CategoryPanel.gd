@@ -24,6 +24,8 @@ var loading_category : bool = false
 var current_directory_path
 var current_category
 
+var export_version : int = 2
+
 
 
 @onready var category_file_container = get_node(category_file_container_path)
@@ -157,7 +159,7 @@ func _on_TopPanel_export_category_request():
 		return
 	var cat_exp = category_exporter.new()
 	add_child(cat_exp)
-	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category)
+	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
 	emit_signal("category_succesfully_exported",current_category)
 	
@@ -172,3 +174,8 @@ func _on_Searchbar_text_changed(new_text : String):
 				button.visible = true
 			else:
 				button.visible = false
+
+
+func _on_export_type_button_item_selected(index:int):
+	print(index)
+	export_version = index

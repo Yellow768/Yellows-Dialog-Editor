@@ -181,13 +181,7 @@ icon = ExtResource("8_vgh51")
 [node name="ExportTypeButton" type="OptionButton" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(26.47, 18.52)
 layout_mode = 2
-tooltip_text = "Pre 1.7.10 : No quotes around keys in the JSON. No scoreboard
-
-1.7.10: Does not export scoreboard to JSON
-
-1.12+ : Exports scoreboard to json"
 item_count = 3
-selected = 2
 popup/item_0/text = "Pre 1.7.10"
 popup/item_0/id = 0
 popup/item_1/text = "1.7.10"
