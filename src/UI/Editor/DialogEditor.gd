@@ -12,11 +12,11 @@ signal node_double_clicked
 signal unsaved_changes
 
 var node_index := 0
-var selected_nodes : Array[dialog_node]= []
-var selected_responses :Array[response_node]= []
+var selected_nodes : Array[GraphNode]= []
+var selected_responses :Array[GraphNode]= []
 var previous_zoom := 1
 
-var all_loaded_dialogs : Array[dialog_node]= []
+var all_loaded_dialogs : Array[GraphNode]= []
 
 var ignore_double_clicks := false
 
@@ -157,11 +157,11 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#Remove from parents array
 		response_node.parent_dialog.response_options.erase(response_node)
 		disconnect_node(response_node.parent_dialog.get_name(),0,response_node.name,0)
-		response_node.disconnect("delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
+		response_node.disconnect("request_delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
 		
 		overlapping_response.parent_dialog.response_options.erase(overlapping_response)
 		disconnect_node(overlapping_response.parent_dialog.get_name(),0,overlapping_response.get_name(),0)
-		overlapping_response.disconnect("delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
+		overlapping_response.disconnect("request_delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
 		
 		#Switch to other parents array. Make sure slot isn't invalid
 		if response_node.parent_dialog.response_options.size() >= overlapping_response.slot:
@@ -251,7 +251,7 @@ func set_last_selected_node_as_selected():
 		if selected_nodes.back().node_type == "Dialog Node":
 			emit_signal("dialog_selected",selected_nodes.back())
 
-func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array[dialog_node]):
+func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array[GraphNode]):
 	var sorted_ids = dialogs_to_be_deleted.duplicate()
 	sorted_ids.sort_custom(Callable(self, "sort_array_by_dialog_id"))
 	for node in sorted_ids:

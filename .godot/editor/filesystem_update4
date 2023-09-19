@@ -22,3 +22,11 @@ res://src/UI/Util/FactionLoader.tscn
 res://src/UI/Dialog Settings/ChooseQuest.tscn
 res://src/Classes/File System/dialog_jsons_loader.gd
 res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
+res://src/UI/LandingScreen.gd
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/Classes/File System/category_saver.gd
+res://src/UI/Dialog Settings/Scripts/FactionChange.gd
+res://src/UI/Editor/MainEditor.gd
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/Util/Scripts/UIAnimations.gd
+res://src/UI/Editor/DialogEditor.gd

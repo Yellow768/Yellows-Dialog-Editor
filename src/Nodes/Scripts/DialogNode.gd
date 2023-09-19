@@ -37,8 +37,8 @@ var connected_responses : Array[response_node]= []
 var original_parent : response_node
 var total_height : int
 
-var initial_offset_x :int= 0
-var initial_offset_y :int= 0
+var initial_offset_x :float= 0
+var initial_offset_y :float= 0
 
 ##Dialog Data#
 
@@ -62,7 +62,7 @@ var text : String = ''
 #Availabilities
 var dialog_availabilities : Array[dialog_availability_object] = [dialog_availability_object.new(),dialog_availability_object.new(),dialog_availability_object.new(),dialog_availability_object.new()]
 var quest_availabilities : Array[quest_availability_object]= [quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new()]
-var scoreboard_availabilities :Array[scoreboard_availability_object]= [scoreboard_availability_object.new(),scoreboard_availability_object.new()]
+var scoreboard_availabilities = [scoreboard_availability_object.new(),scoreboard_availability_object.new()]
 var faction_availabilities :Array[faction_availability_object]= [faction_availability_object.new(),faction_availability_object.new()]
 var faction_changes :Array[faction_change_object]= [faction_change_object.new(),faction_change_object.new()]
 
@@ -167,7 +167,7 @@ func _on_DialogNode_offset_changed():
 	initial_offset_x = position_offset.x
 	initial_offset_y = position_offset.y
 			
-func _on_TitleText_text_changed(new_text : String):
+func _on_TitleText_text_changed(_new_text : String):
 	dialog_title = TitleTextNode.text
 	if connected_responses.size() > 0:
 		for i in connected_responses:

@@ -4,8 +4,8 @@ extends Node
 @export var CategoryPanel: NodePath
 
 func tween(node,property,to,speed,type):
-	var tween = get_tree().create_tween()
-	tween.tween_property(node,property,to,speed).set_trans(type)
+	var tweener = get_tree().create_tween()
+	tweener.tween_property(node,property,to,speed).set_trans(type)
 
 
 func _on_InformationPanel_show_information_panel():
@@ -42,7 +42,9 @@ func _on_CategoryPanel_category_failed_save():
 
 
 func _on_CategoryPanel_category_export_failed(cname):
+	var fail_string := "Category %s failed to export..."
 	$ExportLabel.modulate = Color(1,1,1,1)
+	$ExportLabel.text = fail_string % cname
 	tween($ExportFail,"modulate",Color(1,1,1,0),1,Tween.TRANS_EXPO)
 
 

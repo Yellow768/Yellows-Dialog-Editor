@@ -132,7 +132,7 @@ func set_dialog_availability_from_selected_node(node_selected : dialog_node):
 func find_dialog_node_from_id(id : int):
 	var dialog_nodes = get_tree().get_nodes_in_group("Save")
 	for dialog in dialog_nodes:
-		if dialog.dialog_id == stored_current_dialog_id:
+		if dialog.dialog_id == id:
 			print("found dialog")
 			return dialog
 			
@@ -287,7 +287,7 @@ func _on_DialogText_text_changed():
 func update_text():
 	DialogTextEdit.text = current_dialog.text
 
-func update_title(text):
+func update_title(_text):
 	set_title_text(current_dialog.dialog_title,current_dialog.node_index)
 
 func _on_StartQuest_id_changed(value : int):

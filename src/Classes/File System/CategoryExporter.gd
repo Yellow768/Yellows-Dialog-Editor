@@ -45,7 +45,6 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	AvailabilityQuestId: '+str(dialog.quest_availabilities[0].quest_id)+',',
 			'	Options:['
 			]
-			var options_array : Array[String]= []
 			for i in dialog.response_options.size():
 				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1,true)
 				for line in new_option_dict:
@@ -114,7 +113,6 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
 			'	"Options":['
 			]
-			var options_array : Array[String]= []
 			for i in dialog.response_options.size():
 				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
 				for line in new_option_dict:
@@ -182,7 +180,6 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
 			'	"Options":['
 			]
-			var options_array : Array[String]= []
 			for i in dialog.response_options.size():
 				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
 				for line in new_option_dict:

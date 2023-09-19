@@ -103,7 +103,7 @@ func _on_DialogEditor_editor_cleared():
 func export_dialog_list():
 	var file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
 
-	file.store_line(JSON.new().stringify($DialogList.all_loaded_dialogs))
+	file.store_line(JSON.stringify($DialogList.all_loaded_dialogs))
 	
 func save_factions_list():
 	var file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
