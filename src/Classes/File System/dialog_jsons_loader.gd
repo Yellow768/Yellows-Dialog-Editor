@@ -25,8 +25,17 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 		parsed_jsons.sort_custom(Callable(self, "sort_array_by_dialog_title"))
 	return parsed_jsons
 
+
+#The JSON files that CustomNPC creates use some format that marks booleans as 1b or 0b,
+#and long ints as 12345L. Godot's JSON parser doesn't account for these values, and so
+#errors out and doesn't properly import the dictionary. This function first imports the file as text,
+#and then replaces those unparseable values so that Godot can read it
+
 func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	var final_result = json_file.get_as_text()
+	var regex := RegEx.new()
+	regex.compile('(\\w+(?: \\w+)*):')
+	final_result = regex.sub(final_result,'"$1": ',true)
 	while(json_file.get_position() < json_file.get_length()):
 		var current_line := json_file.get_line()
 		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
@@ -45,6 +54,7 @@ func is_file_valid_dialog_json(json_file : JSON) -> bool:
 		return true	
 	else:
 		return false
+
 
 func is_json_valid_dialog_format(dialog_json : Dictionary) -> bool:
 	if !dialog_json.has("DialogTitle") or typeof(dialog_json["DialogTitle"]) != TYPE_STRING:
@@ -89,13 +99,13 @@ func is_json_valid_dialog_format(dialog_json : Dictionary) -> bool:
 	for i in 2:
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Objective") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Objective"]) != TYPE_STRING:
 			push_warning("AvailabilityScoreboard"+id[i]+"Objective is malformed. Assuming Pre 1.12")
-			dialog_json["AvailabilityScoreboard"+id[i]+"Objective"] == ""
+			dialog_json.merge({"AvailabilityScoreboard"+id[i]+"Objective" : ""})
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Value") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Value"]) != TYPE_FLOAT:
 			push_warning("AvailabilityScoreboard"+id[i]+"Value is malformed. Assuming pre 1.12")
-			dialog_json["AvailabilityScoreboard"+id[i]+"Value"] == 0
+			dialog_json.merge({"AvailabilityScoreboard"+id[i]+"Value" : 0})
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Type") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Type"]) != TYPE_FLOAT:
 			push_warning("AvailabilityScoreboard"+id[i]+"Type is malformed. Assuming pre 1.12")
-			dialog_json["AvailabilityScoreboard"+id[i]+"Type"] = 1
+			dialog_json.merge({"AvailabilityScoreboard"+id[i]+"Type" : 0})
 		
 		if !dialog_json.has("AvailabilityFaction"+id[i]+"Id") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+"Id is malformed")

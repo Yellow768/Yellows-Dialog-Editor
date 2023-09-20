@@ -1,11 +1,10 @@
 res://default_env.tres
-res://src/UI/Editor/MainEditor.tscn
-res://Assets/MainEditor.tres
-res://Assets/Font/TinyFont.tres
-res://Assets/UITheme.tres
-res://src/Classes/File System/CategoryExporter.gd
 res://src/UI/Program.tscn
+res://Assets/MainEditor.tres
+res://Assets/UITheme.tres
+res://Assets/Font/TinyFont.tres
 res://src/Nodes/DialogNode.tscn
+res://src/UI/Editor/MainEditor.tscn
 res://src/UI/LandingScreen.tscn
 res://src/UI/Util/ChooseInitialDialogPopup.tscn
 res://src/Nodes/ResponseNode.tscn
@@ -20,13 +19,12 @@ res://src/UI/Dialog Settings/FactionChange.tscn
 res://src/UI/Dialog Settings/StartQuest.tscn
 res://src/UI/Util/FactionLoader.tscn
 res://src/UI/Dialog Settings/ChooseQuest.tscn
-res://src/Classes/File System/dialog_jsons_loader.gd
-res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
+res://src/Classes/File System/category_loader.gd
+res://src/UI/Editor/EditorSettings.gd
+res://src/Autoload/global_declarations.gd
 res://src/UI/LandingScreen.gd
 res://src/Nodes/Scripts/DialogNode.gd
-res://src/Classes/File System/category_saver.gd
-res://src/UI/Dialog Settings/Scripts/FactionChange.gd
-res://src/UI/Editor/MainEditor.gd
-res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
-res://src/UI/Util/Scripts/UIAnimations.gd
-res://src/UI/Editor/DialogEditor.gd
+res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
+res://src/UI/Util/TextEnterConfirmTemplate.tscn
+res://src/Classes/File System/dialog_jsons_loader.gd
+res://src/UI/Dialog Settings/Scripts/Faction Availability.gd

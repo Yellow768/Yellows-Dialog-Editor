@@ -1,5 +1,5 @@
 extends Control
-const prev_dirs_config_path := "user://prev_dirs.cfg"
+const user_settings_path := "user://user_settings.cfg"
 
 var chosen_dir : String
 
@@ -10,13 +10,13 @@ func _ready():
 	get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	get_window().min_size = Vector2(1280,720)
 	var config := ConfigFile.new()
-	config.load(prev_dirs_config_path)
-	for dir in config.get_sections():
+	config.load(user_settings_path)
+	for dir in JSON.parse_string(config.get_value("prev_dirs","dir_array","[]")):
+		print(dir)
 		var quick_dir_button := Button.new()
-		quick_dir_button.text = config.get_value(dir,"name")
+		quick_dir_button.text = dir
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
-		$PrevDirsContainer.move_child(quick_dir_button,1)
 	
 
 
@@ -36,18 +36,13 @@ func change_to_editor(directory : String) -> void:
 	
 func add_directory_to_config(directory : String) -> void:
 	var config = ConfigFile.new()
-	config.load(prev_dirs_config_path)
-	if config.has_section(directory):
-		config.erase_section(directory)
-		config.save(prev_dirs_config_path)
-	for section in config.get_sections():
-		config.set_value(section,"name",config.get_value(section,"name"))
-	if DirAccess.dir_exists_absolute(directory):
-		if config.get_value(directory,"name",null):
-			return
-		else:
-			config.set_value(directory,"name",directory.get_base_dir())
-			config.save(prev_dirs_config_path)
+	config.load(user_settings_path)
+	var dir_array = JSON.parse_string(config.get_value("prev_dirs","dir_array","[]"))
+	dir_array.erase(directory)
+	dir_array.push_front(directory)
+	config.set_value("prev_dirs","dir_array",JSON.new().stringify((dir_array)))
+	config.save(user_settings_path)
+	
 
 
 func find_valid_customnpcs_dir(dir : String) -> String:

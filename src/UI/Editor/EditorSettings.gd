@@ -1,22 +1,36 @@
 extends Panel
 
+@export var ConnectionDistanceNodePath : NodePath
+@export var HoldShiftCheckPath : NodePath
+
+@onready var hide_connection_slider : HSlider= get_node(ConnectionDistanceNodePath)
+@onready var hold_shift_check :Button= get_node(HoldShiftCheckPath)
+
+func _ready():
+	hide_connection_slider.value = GlobalDeclarations.hide_connection_distance
+
 func _on_h_slider_value_changed(value : int):
-	$HideConnectionDistance/HSlider/ValueEdit.text = str(value)
+	hide_connection_slider.get_node("ValueEdit").text = str(value)
 	GlobalDeclarations.hide_connection_distance = value
 
 
 func _on_value_edit_text_submitted(new_text : String):
-	$HideConnectionDistance/HSlider.value = int(new_text)
+	hide_connection_slider.value = int(new_text)
 	
 
 
 func _on_resetbutton_pressed():
-	$HideConnectionDistance/HSlider.value = 1000
+	hide_connection_slider.value = 1000
 
 
 func _on_button_pressed():
+	GlobalDeclarations.save_config()
 	visible = false
 
 
 func _on_editor_settings_button_pressed():
 	visible = true
+
+
+func _on_check_button_toggled(button_pressed):
+	GlobalDeclarations.hold_shift_for_individual_movement = button_pressed

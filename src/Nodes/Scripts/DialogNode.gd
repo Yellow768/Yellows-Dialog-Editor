@@ -156,7 +156,7 @@ func _on_DialogNode_close_request():
 	delete_self(true)
 	
 func _on_DialogNode_offset_changed():
-	if !Input.is_action_pressed("drag_without_responses"):
+	if Input.is_action_pressed("drag_without_responses") != GlobalDeclarations.hold_shift_for_individual_movement:
 		if response_options.size() > 0:
 			for i in response_options:
 				i.position_offset += position_offset - Vector2(initial_offset_x,initial_offset_y)

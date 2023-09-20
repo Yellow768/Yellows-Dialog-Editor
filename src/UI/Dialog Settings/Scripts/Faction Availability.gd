@@ -30,6 +30,6 @@ func _on_StanceButton_item_selected(index : int):
 	emit_signal("stance_changed",self,index)
 
 
-func _on_SpinBox_value_changed(value : int):
+func _on_SpinBox_value_changed(value):
 	$Panel/ChooseFaction.set_faction_name_from_id(value)
 	emit_signal("id_changed",self,value)

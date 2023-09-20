@@ -1,5 +1,8 @@
-OptionButton
+CheckButton
+HSeparator
+VBoxContainer
 Label
+OptionButton
 Button
 Panel
 LineEdit

@@ -67,7 +67,7 @@ func connect_all_responses():
 
 
 func create_new_dialog_node_from_ydec(node_data : Dictionary):
-	var currently_loaded_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
+	var currently_loaded_dialog := GlobalDeclarations.DIALOG_NODE.instantiate()
 	if !node_data.has("position_offset.x"):
 		printerr("Line does not contain offset data, considered to be invalid")
 		return currently_loaded_dialog
@@ -92,7 +92,7 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		currently_loaded_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
 		currently_loaded_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
 		
-		currently_loaded_dialog.scoreboard_availabilities[i].set_name(node_data["scoreboard_availabilities"][i].objective_name)
+		currently_loaded_dialog.scoreboard_availabilities[i].set_objective_name(node_data["scoreboard_availabilities"][i].objective_name)
 		currently_loaded_dialog.scoreboard_availabilities[i].set_comparison_type(node_data["scoreboard_availabilities"][i].comparison_type)
 		currently_loaded_dialog.scoreboard_availabilities[i].set_value(node_data["scoreboard_availabilities"][i].value)
 	return currently_loaded_dialog
