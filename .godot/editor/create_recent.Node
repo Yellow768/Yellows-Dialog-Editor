@@ -1,9 +1,9 @@
+Button
 CheckButton
 HSeparator
 VBoxContainer
 Label
 OptionButton
-Button
 Panel
 LineEdit
 HSlider

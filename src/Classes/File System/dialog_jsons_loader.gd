@@ -18,6 +18,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 			var JSON_parse = JSON.new()
 			JSON_parse.parse(replace_unparseable_dialog_json_values(current_dialog))
 			var dialog_json_with_bad_values_replaced = JSON_parse.get_data()
+			printerr(JSON_parse.get_error_message()+" @"+str(JSON_parse.get_error_line()))
 			if JSON_parse.get_error_line() != OK || !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced):
 				printerr("Error parsing JSON "+file+", skipping. ERR = "+str(JSON_parse.get_error_line())+" valid_dialog_format = "+str(is_json_valid_dialog_format(dialog_json_with_bad_values_replaced)))
 			else:
@@ -35,21 +36,19 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	var final_result = json_file.get_as_text()
 	var regex := RegEx.new()
 	regex.compile('(\\w+(?: \\w+)*):')
-	final_result = regex.sub(final_result,'"$1": ',true)
 	while(json_file.get_position() < json_file.get_length()):
 		var current_line := json_file.get_line()
 		var replace_line := current_line
-		current_line = regex.sub(current_line,'"$1": ',true)
-		print("test")
+		current_line = regex.sub(current_line,'"$1": ',false)
 		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
 			replace_line = current_line.replace("0b","0")
 			replace_line = replace_line.replace("1b","1")
-			print(replace_line)
-			print("test32")
+			#print(replace_line)
 			final_result = final_result.replace(current_line,replace_line)
 		if '"TimePast"' in current_line or '"Time' in current_line:
 			replace_line = current_line.replace("L","")
 			final_result = final_result.replace(current_line,replace_line)
+	print(final_result)
 	return final_result
 
 func is_file_valid_dialog_json(json_file : JSON) -> bool:

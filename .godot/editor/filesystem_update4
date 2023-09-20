@@ -28,3 +28,4 @@ res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
 res://src/UI/Util/TextEnterConfirmTemplate.tscn
 res://src/Classes/File System/dialog_jsons_loader.gd
 res://src/UI/Dialog Settings/Scripts/Faction Availability.gd
+res://src/Nodes/Scripts/ResponseNode.gd

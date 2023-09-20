@@ -55,6 +55,7 @@ var total_height : int
 var connection_hidden := false
 var overlapping_response : response_node = null
 
+var minimized = false
 
 func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
@@ -187,7 +188,30 @@ func delete_self():
 func _on_PlayerResponseNode_gui_input(event):
 	if event is InputEventMouseButton and event.double_click:
 		emit_signal("response_double_clicked")
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		toggle_minimize_node()
 
+func toggle_minimize_node():
+	match minimized:
+		false:
+			$HSeparator.custom_minimum_size.y = 25
+			$HBoxContainer/VBoxContainer.visible = false
+			$HBoxContainer/AddNewDialog.visible = false
+			custom_minimum_size.y = 60
+			size.y = 47
+			minimized = true
+			overlay = GraphNode.OVERLAY_BREAKPOINT
+		true:
+			$HSeparator.custom_minimum_size.y = 35
+			$HBoxContainer/VBoxContainer.visible = true
+			$HBoxContainer/AddNewDialog.visible = true
+			custom_minimum_size.y = 215
+			size.y = 215
+			overlay =GraphNode.OVERLAY_DISABLED
+			minimized = false
+			
+			
+			
 
 func _on_PlayerResponseNode_close_request():
 	delete_self()

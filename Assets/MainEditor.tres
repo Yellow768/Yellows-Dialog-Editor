@@ -2,7 +2,6 @@
 
 [ext_resource type="StyleBox" uid="uid://cq3cuar4v71mg" path="res://Assets/Theme/DarkColorPanel.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://dawclfafqp0ju" path="res://Assets/UI Textures/Node.png" id="1_iyuox"]
-[ext_resource type="Texture2D" uid="uid://dp06u4lm2g85h" path="res://Assets/UI Textures/Response.png" id="1_l0b7u"]
 [ext_resource type="Texture2D" uid="uid://b5mn0j8sb01y7" path="res://Assets/UI Textures/NodeSelected.png" id="2_vjdf6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ye5ou"]
@@ -77,8 +76,19 @@ corner_detail = 5
 [sub_resource type="StyleBoxFlat" id="8"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x084f"]
-texture = ExtResource("1_l0b7u")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_322p2"]
+bg_color = Color(0.996078, 0.317647, 0.0862745, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_es12u"]
+bg_color = Color(0.992157, 0.454902, 0.317647, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxTexture" id="31"]
 texture = ExtResource("1_iyuox")
@@ -183,7 +193,8 @@ GraphNode/constants/close_offset = 20
 GraphNode/constants/separation = 2
 GraphNode/constants/title_h_offset = 4
 GraphNode/constants/title_offset = 22
-GraphNode/styles/comment = SubResource("StyleBoxTexture_x084f")
+GraphNode/styles/comment = SubResource("StyleBoxFlat_322p2")
+GraphNode/styles/comment_focus = SubResource("StyleBoxFlat_es12u")
 GraphNode/styles/frame = SubResource("31")
 GraphNode/styles/selected_frame = SubResource("32")
 LineEdit/styles/normal = SubResource("26")

@@ -13,8 +13,8 @@ region_rect = Rect2(0, 0, 267, 137)
 texture = ExtResource("3_klm7u")
 region_rect = Rect2(0, 0, 267, 137)
 
-[sub_resource type="StyleBoxTexture" id="7"]
-region_rect = Rect2(0, 0, 267, 137)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f32e"]
+bg_color = Color(0.945313, 0.28125, 0.078125, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tx3bi"]
 
@@ -56,11 +56,11 @@ anchor_bottom = 0.5
 offset_left = -125.0
 offset_top = -50.0
 offset_right = 210.0
-offset_bottom = 165.0
+offset_bottom = 12.0
 theme = ExtResource("2")
 theme_override_styles/frame = SubResource("8")
 theme_override_styles/selected_frame = SubResource("6")
-theme_override_styles/comment_focus = SubResource("7")
+theme_override_styles/comment_focus = SubResource("StyleBoxFlat_5f32e")
 theme_override_styles/slot = SubResource("StyleBoxEmpty_tx3bi")
 title = "Response Node"
 show_close = true
@@ -109,7 +109,7 @@ mouse_filter = 1
 theme_override_styles/separator = SubResource("3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(310, 135)
+custom_minimum_size = Vector2(310, 25)
 layout_mode = 2
 alignment = 1
 
@@ -147,7 +147,6 @@ popup/item_4/text = "Disabled"
 popup/item_4/id = 0
 
 [node name="CommandText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Command"
@@ -169,6 +168,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_fonts/font = SubResource("5")
 text = "Connected to DialogTitle | Node 56"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBOXRemoteConnection"]
 layout_mode = 2
