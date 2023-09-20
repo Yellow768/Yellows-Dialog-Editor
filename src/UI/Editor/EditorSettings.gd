@@ -8,7 +8,7 @@ extends Panel
 
 func _ready():
 	hide_connection_slider.value = GlobalDeclarations.hide_connection_distance
-
+	hold_shift_check.button_pressed = GlobalDeclarations.hold_shift_for_individual_movement
 func _on_h_slider_value_changed(value : int):
 	hide_connection_slider.get_node("ValueEdit").text = str(value)
 	GlobalDeclarations.hide_connection_distance = value

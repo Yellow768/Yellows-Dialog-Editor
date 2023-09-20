@@ -38,13 +38,16 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	final_result = regex.sub(final_result,'"$1": ',true)
 	while(json_file.get_position() < json_file.get_length()):
 		var current_line := json_file.get_line()
+		var replace_line := current_line
+		current_line = regex.sub(current_line,'"$1": ',true)
+		print("test")
 		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
-			var replace_line := current_line
 			replace_line = current_line.replace("0b","0")
 			replace_line = replace_line.replace("1b","1")
+			print(replace_line)
+			print("test32")
 			final_result = final_result.replace(current_line,replace_line)
 		if '"TimePast"' in current_line or '"Time' in current_line:
-			var replace_line := current_line
 			replace_line = current_line.replace("L","")
 			final_result = final_result.replace(current_line,replace_line)
 	return final_result
