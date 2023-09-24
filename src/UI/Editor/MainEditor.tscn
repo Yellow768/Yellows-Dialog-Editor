@@ -89,6 +89,7 @@ horizontal_alignment = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
 visible = false
+z_index = -2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,14 +109,12 @@ minimap_size = Vector2(150, 150)
 script = ExtResource("10")
 
 [node name="TopPanel" type="Panel" parent="."]
-z_index = 2
 layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
-visible = false
 layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -228,6 +227,21 @@ theme_override_styles/pressed = SubResource("17")
 text = "Scan For Changes "
 icon = ExtResource("10_cc0sy")
 
+[node name="BttnSep3" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
+
+[node name="AssignNewIDs" type="Button" parent="TopPanel/TopPanelContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Reindexes the current highest ID in the environment, and gives dialog nodes new IDS"
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
+text = "Reindex IDs"
+icon = ExtResource("9_mukh6")
+
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
 layout_mode = 0
 anchor_left = 1.0
@@ -267,7 +281,6 @@ text = "Return To Home "
 icon = ExtResource("12_jpjxe")
 
 [node name="InformationPanel" type="Panel" parent="."]
-z_index = 2
 custom_minimum_size = Vector2(462, 100)
 layout_mode = 0
 anchor_left = 1.0
@@ -615,7 +628,6 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CategoryPanel" type="Panel" parent="."]
-z_index = 2
 clip_contents = true
 custom_minimum_size = Vector2(360, 600)
 layout_mode = 0
@@ -740,12 +752,10 @@ text = "Selecting Dialog for Availability"
 [node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
 process_mode = 2
 visible = false
-z_index = 2
 layout_mode = 1
 
 [node name="UnsavedPanel" type="Panel" parent="."]
 visible = false
-z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -830,13 +840,14 @@ text = "Cancel"
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]
-[connection signal="pressed" from="TopPanel/TopPanelContainer/Add Dialog" to="DialogEditor" method="add_dialog_node"]
+[connection signal="pressed" from="TopPanel/TopPanelContainer/Add Dialog" to="DialogEditor" method="_on_add_dialog_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/Add ColOrg" to="DialogEditor" method="add_color_organizer"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/SaveButton" to="TopPanel" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ExportButton" to="TopPanel" method="_on_ExportButton_pressed"]
 [connection signal="item_selected" from="TopPanel/TopPanelContainer/ExportTypeButton" to="CategoryPanel" method="_on_export_type_button_item_selected"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ReimportButton" to="TopPanel" method="_on_ReimportButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ScanButton" to="TopPanel" method="_on_ScanButton_pressed"]
+[connection signal="pressed" from="TopPanel/TopPanelContainer/AssignNewIDs" to="DialogEditor" method="assignNewIDs"]
 [connection signal="pressed" from="TopPanel/EditorContainer/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="TopPanel/EditorContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
 [connection signal="availability_mode_entered" from="InformationPanel" to="DialogEditor" method="_on_InformationPanel_availability_mode_entered"]

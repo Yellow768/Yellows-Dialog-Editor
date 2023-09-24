@@ -20,7 +20,8 @@ var all_loaded_dialogs : Array[GraphNode]= []
 
 var ignore_double_clicks := false
 
-
+var currentUndoRedo : UndoRedo
+var UndoRedoDict = {}
 
 func _ready():
 	get_zoom_hbox().visible = false
@@ -42,6 +43,8 @@ func _process(_delta):
 		for i in selected_responses:
 			i.delete_self()
 			selected_responses.erase(i)
+
+
 
 func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false) -> dialog_node:
 	#Adds a new dialog node into the editor.
@@ -68,6 +71,7 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	emit_signal("dialog_node_added",new_dialog)
 	add_child(new_dialog)
 	#emit_signal("unsaved_changes",true)
+	
 	return new_dialog
 
 func relay_unsaved_changes():
@@ -80,7 +84,7 @@ func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 	set_last_selected_node_as_selected()
 	if remove_from_loaded_list:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
-	dialog.queue_free()
+	remove_child(dialog)
 	emit_signal("unsaved_changes",true)
 	node_index -=1
 	
@@ -278,6 +282,9 @@ func save():
 	}	
 
 func _on_CategoryPanel_request_load_category(category_name : String):
+	if !UndoRedoDict.has(category_name):
+		UndoRedoDict[category_name] = UndoRedo.new()
+	currentUndoRedo = UndoRedoDict[category_name]
 	var new_category_loader := category_loader.new()
 	new_category_loader.connect("add_dialog", Callable(self, "add_dialog_node"))
 	new_category_loader.connect("add_response", Callable(self, "add_response_node"))
@@ -290,6 +297,7 @@ func _on_CategoryPanel_request_load_category(category_name : String):
 	if new_category_loader.load_category(category_name) == OK:
 		emit_signal("finished_loading",category_name)
 		visible = true
+		
 	
 func initialize_category_import(category_name : String):
 	visible = true
@@ -425,6 +433,10 @@ func _on_SaveLoad_clear_editor_request():
 
 
 func _on_DialogEditor_gui_input(event):
+	if Input.is_action_just_pressed("ui_undo"):
+		currentUndoRedo.undo()
+	if Input.is_action_just_pressed("ui_redo"):
+		currentUndoRedo.redo()
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if !Input.is_action_pressed("zoom_key"):
 			accept_event()
@@ -472,6 +484,7 @@ func _on_InformationPanel_availability_mode_exited() -> void:
 	ignore_double_clicks = false
 	
 func assignNewIDs():
+	EnvironmentIndexer.new().find_highest_index(true)
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
 			CurrentEnvironment.highest_id +=1
@@ -480,3 +493,13 @@ func assignNewIDs():
 
 func _on_category_panel_request_dialog_ids_reassigned():
 	assignNewIDs()
+
+
+func _on_add_dialog_pressed():
+	var new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
+	currentUndoRedo.create_action("add_dialog_node")
+	currentUndoRedo.add_do_reference(new_dialog.duplicate(DUPLICATE_USE_INSTANTIATION))
+	currentUndoRedo.add_undo_reference(new_dialog.duplicate(DUPLICATE_USE_INSTANTIATION))
+	currentUndoRedo.add_do_method(add_dialog_node.bind(new_dialog))
+	currentUndoRedo.add_undo_method(delete_dialog_node.bind(new_dialog))
+	currentUndoRedo.commit_action()

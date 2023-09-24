@@ -13,6 +13,9 @@ corner_radius_bottom_left = 15
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tq2m2"]
 
 [node name="ColorOrganizer" type="GraphNode" groups=["Save"]]
+modulate = Color(1, 1, 1, 0.447059)
+z_index = -1
+z_as_relative = false
 offset_right = 409.0
 offset_bottom = 270.0
 mouse_filter = 2

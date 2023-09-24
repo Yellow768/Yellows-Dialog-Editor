@@ -9,13 +9,10 @@ var box_color = Color(1,1,1,1)
 func _ready():
 	mouse_filter = 2
 	$TextEdit.custom_minimum_size.x = size.x
-	$TextEdit.add_theme_font_size_override("font_size",size.y/8)
+	$TextEdit.add_theme_font_size_override("font_size",size.x/8)
 	change_color(box_color)
 	$TextEdit.text = text
-	if box_color .get_luminance() > 0.5:
-		$TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
-	if box_color .get_luminance() <= 0.5:
-		$TextEdit.add_theme_color_override("font_color",Color(1,1,1,1))
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
@@ -29,6 +26,15 @@ func change_color(color):
 	add_theme_stylebox_override("frame",style)
 	add_theme_stylebox_override("selected_frame",style)
 	box_color = color
+	$ColorPickerButton.color = box_color
+	if box_color.get_luminance() > 0.5:
+		$TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
+		add_theme_color_override("close_color",Color(0,0,0,1))
+		add_theme_color_override("resizer_color",Color(0,0,0,1))
+	if box_color.get_luminance() <= 0.5:
+		$TextEdit.add_theme_color_override("font_color",Color(1,1,1,1))
+		add_theme_color_override("close_color",Color(1,1,1,1))
+		add_theme_color_override("resizer_color",Color(1,1,1,1))
 
 func _on_resize_request(new_minsize):
 	custom_minimum_size = new_minsize

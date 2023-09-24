@@ -25,10 +25,11 @@ func index_categories() -> Array[String]:
 	return indexed_dialog_categories
 	
 	
-func find_highest_index() -> int:
+func find_highest_index(reindex := false) -> int:
+	if reindex:
+		DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	var file : FileAccess
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
-		
 		var dir_search := DirectorySearch.new()
 		var id_numbers : Array[String] = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
 		var proper_id_numbers : Array[int]= []
