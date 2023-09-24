@@ -155,7 +155,7 @@ func _on_InformationPanel_availability_mode_entered():
 	stored_category = current_category
 
 
-func _on_TopPanel_export_category_request():
+func export_category_request():
 	if current_category == null:
 		emit_signal("category_export_failed",current_category)
 		return

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://tumdi0sl1d4s"]
+
+[ext_resource type="Script" path="res://src/UI/Editor/keybind.gd" id="1_ab5md"]
+
+[node name="Keybind" type="HBoxContainer"]
+custom_minimum_size = Vector2(325, 31)
+script = ExtResource("1_ab5md")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+text = "Drag/Don't Drag Response Nodes"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Shift"
+clip_text = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

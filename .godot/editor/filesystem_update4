@@ -36,3 +36,7 @@ res://src/Nodes/CategoryButton.tscn
 res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
 res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
 res://src/UI/Editor/DialogEditor.gd
+res://src/UI/Editor/keybind.tscn
+res://src/UI/Editor/keybind.gd
+res://src/UI/Editor/editor_settings.tscn
+res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd

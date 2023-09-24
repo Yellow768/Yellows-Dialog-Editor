@@ -34,7 +34,7 @@ func _ready():
 	#rect_size = Vector2(1920,1100)
 
 func _process(_delta):
-	if Input.is_action_pressed("ui_delete"):
+	if Input.is_action_pressed("delete_nodes"):
 		handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
 			i.delete_self(true)
@@ -363,7 +363,7 @@ func _on_DialogEditor_node_unselected(node):
 
 		
 func _on_node_requests_selection(node):
-	if !Input.is_action_pressed("control"):
+	if !Input.is_action_pressed("select_multiple"):
 		selected_nodes = []
 		selected_responses = []
 		node.selected = true
@@ -416,18 +416,18 @@ func _on_SaveLoad_clear_editor_request():
 
 func _on_DialogEditor_gui_input(event):
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_UP:
-		if !Input.is_action_pressed("shift"):
+		if !Input.is_action_pressed("zoom_key"):
 			accept_event()
 		else:
 			zoom += .02
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-		if !Input.is_action_pressed("shift"):
+		if !Input.is_action_pressed("zoom_key"):
 			accept_event()
 		else:
 			zoom -= .02
-	if Input.is_action_pressed("scroll_in"):
+	if Input.is_action_pressed("zoom_in"):
 		zoom += 0.2
-	if Input.is_action_pressed("scroll_out"):
+	if Input.is_action_pressed("zoom_out"):
 		zoom -= 0.2
 	if Input.is_key_pressed(KEY_CTRL):
 		if Input.is_action_pressed("ui_left"):

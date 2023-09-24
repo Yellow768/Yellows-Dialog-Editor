@@ -1,8 +1,12 @@
-Button
-CheckButton
 HSeparator
-VBoxContainer
 Label
+ScrollContainer
+VSeparator
+HSplitContainer
+Button
+HBoxContainer
+VBoxContainer
+CheckButton
 OptionButton
 Panel
 LineEdit

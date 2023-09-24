@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=31 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -24,8 +24,7 @@
 [ext_resource type="PackedScene" path="res://src/UI/Util/Expandable Line Edit.tscn" id="15"]
 [ext_resource type="Script" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
-[ext_resource type="Script" path="res://src/UI/Editor/EditorSettings.gd" id="25_4pnbd"]
-[ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="26_1l2vh"]
+[ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/editor_settings.tscn" id="25_ypfkb"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -45,20 +44,6 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxEmpty" id="19"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arin6"]
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-corner_detail = 20
-shadow_size = 8
-shadow_offset = Vector2(2, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owvrv"]
-content_margin_top = 15.0
-content_margin_right = 276.0
-bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np52e"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 1)
 corner_radius_top_left = 14
@@ -69,6 +54,7 @@ shadow_size = 5
 shadow_offset = Vector2(0, 5)
 
 [node name="Main" type="Control"]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,6 +114,7 @@ offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+visible = false
 layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -239,6 +226,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="EditorSettingsButton" type="Button" parent="TopPanel/EditorContainer"]
+process_mode = 1
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("18")
@@ -741,105 +729,10 @@ offset_bottom = 111.0
 theme = ExtResource("14")
 text = "Selecting Dialog for Availability"
 
-[node name="EditorSettings" type="Panel" parent="."]
+[node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
+process_mode = 2
 visible = false
-self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
-custom_minimum_size = Vector2(600, 600)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -300.0
-offset_right = 300.0
-offset_bottom = 300.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_arin6")
-script = ExtResource("25_4pnbd")
-ConnectionDistanceNodePath = NodePath("VBoxContainer/HideConnectionDistance/HSlider")
-HoldShiftCheckPath = NodePath("VBoxContainer/HoldShift/CheckButton")
-
-[node name="Label" type="Label" parent="EditorSettings"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -56.5
-offset_right = 56.5
-offset_bottom = 26.0
-grow_horizontal = 2
-text = "Editor Settings"
-
-[node name="Button" type="Button" parent="EditorSettings"]
-layout_mode = 0
-offset_left = 575.0
-offset_right = 593.0
-offset_bottom = 31.0
-text = "X"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorSettings"]
-layout_mode = 1
-offset_left = 24.01
-offset_top = 66.905
-offset_right = 315.01
-offset_bottom = 126.245
-
-[node name="HideConnectionDistance" type="Label" parent="EditorSettings/VBoxContainer"]
-layout_mode = 2
-tooltip_text = "The maximum distance a response node can be from a dialog node before the connection line is hidden"
-mouse_filter = 1
-text = "Hide Connection Distance"
-
-[node name="HSlider" type="HSlider" parent="EditorSettings/VBoxContainer/HideConnectionDistance"]
-layout_mode = 0
-offset_left = 275.0
-offset_top = 8.0
-offset_right = 544.0
-offset_bottom = 24.0
-theme_override_styles/slider = SubResource("StyleBoxFlat_owvrv")
-max_value = 10000.0
-value = 1000.0
-allow_greater = true
-
-[node name="ValueEdit" type="LineEdit" parent="EditorSettings/VBoxContainer/HideConnectionDistance/HSlider"]
-layout_mode = 0
-offset_left = -6.0
-offset_top = 20.0
-offset_right = 34.0
-offset_bottom = 46.0
-text = "1000"
-
-[node name="Resetbutton" type="Button" parent="EditorSettings/VBoxContainer/HideConnectionDistance/HSlider"]
-layout_mode = 0
-offset_left = 55.0
-offset_top = 15.0
-offset_right = 87.0
-offset_bottom = 47.0
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_constants/icon_max_width = -12
-icon = ExtResource("26_1l2vh")
-
-[node name="HSeparator" type="HSeparator" parent="EditorSettings/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 37.285)
-layout_mode = 2
-
-[node name="HoldShift" type="Label" parent="EditorSettings/VBoxContainer"]
-layout_mode = 2
-tooltip_text = "By default, moving dialog nodes will not cause it's connected response nodes to move with it, unless you're holding shift.
-
-Inverting it will mean that dialog nodes WILL move response nodes, unless holding shift"
-mouse_filter = 1
-text = "Invert Dialog Movement Functionality"
-
-[node name="CheckButton" type="CheckButton" parent="EditorSettings/VBoxContainer/HoldShift"]
-layout_mode = 0
-offset_left = 308.54
-offset_right = 348.54
-offset_bottom = 24.0
 
 [node name="UnsavedPanel" type="Panel" parent="."]
 visible = false
@@ -923,7 +816,7 @@ text = "Cancel"
 [connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
 [connection signal="unsaved_changes" from="DialogEditor" to="." method="set_unsaved_changes"]
-[connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_export_category_request"]
+[connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]
@@ -982,11 +875,6 @@ text = "Cancel"
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="new_category_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
-[connection signal="pressed" from="EditorSettings/Button" to="EditorSettings" method="_on_button_pressed"]
-[connection signal="value_changed" from="EditorSettings/VBoxContainer/HideConnectionDistance/HSlider" to="EditorSettings" method="_on_h_slider_value_changed"]
-[connection signal="text_submitted" from="EditorSettings/VBoxContainer/HideConnectionDistance/HSlider/ValueEdit" to="EditorSettings" method="_on_value_edit_text_submitted"]
-[connection signal="pressed" from="EditorSettings/VBoxContainer/HideConnectionDistance/HSlider/Resetbutton" to="EditorSettings" method="_on_resetbutton_pressed"]
-[connection signal="toggled" from="EditorSettings/VBoxContainer/HoldShift/CheckButton" to="EditorSettings" method="_on_check_button_toggled"]
 [connection signal="pressed" from="UnsavedPanel/NoSave" to="." method="_on_no_save_pressed"]
 [connection signal="pressed" from="UnsavedPanel/SaveAndClose" to="." method="_on_save_and_close_pressed"]
 [connection signal="pressed" from="UnsavedPanel/Cancel" to="." method="_on_cancel_pressed"]
