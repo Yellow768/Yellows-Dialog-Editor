@@ -40,3 +40,4 @@ res://src/UI/Editor/keybind.tscn
 res://src/UI/Editor/keybind.gd
 res://src/UI/Editor/editor_settings.tscn
 res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
+res://Assets/Theme/DarkColorPanel.tres
