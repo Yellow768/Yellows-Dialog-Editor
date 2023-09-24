@@ -145,10 +145,7 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#Switch Slots
 		response_node.slot = overlapping_response.slot
 		overlapping_response.slot = initial_slot
-		
-		#Switch positions
-		#response_node.offset = overlapping_response.offset
-		#overlapping_response.offset = initial_offset
+	
 		
 		var tween := get_tree().create_tween()
 		var initial_tween := get_tree().create_tween()
