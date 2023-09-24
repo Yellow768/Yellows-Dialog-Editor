@@ -161,9 +161,9 @@ func _on_DialogNode_offset_changed():
 			for i in response_options:
 				i.position_offset += position_offset - Vector2(initial_offset_x,initial_offset_y)
 				i.check_dialog_distance()
-		if connected_responses.size() > 0:
-			for i in connected_responses:
-				i.check_dialog_distance()
+	if connected_responses.size() > 0:
+		for i in connected_responses:
+			i.check_dialog_distance()
 	initial_offset_x = position_offset.x
 	initial_offset_y = position_offset.y
 			

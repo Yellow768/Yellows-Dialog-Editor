@@ -60,11 +60,11 @@ var minimized = false
 func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
 	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
-	$HBoxContainer/VBoxContainer/OptionTypeButton.select(option_type)
+	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
 
 func get_option_id_from_index(index : int):
-	return $HBoxContainer/VBoxContainer/OptionTypeButton.get_item_id(index)
+	return OptionTypeNode.get_item_id(index)
 
 
 func set_option_from_json_index(option_int : int):

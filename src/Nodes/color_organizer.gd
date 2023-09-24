@@ -10,7 +10,7 @@ func _ready():
 	mouse_filter = 2
 	$TextEdit.custom_minimum_size.x = size.x
 	$TextEdit.add_theme_font_size_override("font_size",size.y/8)
-	self_modulate = color
+	change_color(color)
 	$TextEdit.text = text
 	if color.get_luminance() > 0.5:
 		$TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
@@ -19,6 +19,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+func change_color(color):
+	var style = StyleBoxFlat.new()
+	style.bg_color = color
+	style.corner_radius_bottom_left = 15
+	style.corner_radius_bottom_right = 15
+	style.corner_radius_top_left = 15
+	style.corner_radius_top_right= 15
+	add_theme_stylebox_override("frame",style)
+	add_theme_stylebox_override("selected_frame",style)
 
 func _on_resize_request(new_minsize):
 	custom_minimum_size = new_minsize
@@ -27,7 +36,7 @@ func _on_resize_request(new_minsize):
 
 
 func _on_color_picker_button_color_changed(color):
-	self_modulate = color
+	change_color(color)
 	$TextEdit.remove_theme_color_override("font_color")
 	if color.get_luminance() > 0.5:
 		$TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
@@ -74,3 +83,12 @@ func _on_close_request():
 	
 func delete_self(_useless_bool):
 	queue_free()
+
+
+func _on_button_toggled(button_pressed):
+	selectable = !button_pressed
+	if button_pressed:
+		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-line.svg")
+		mouse_filter = 2
+	else:
+		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-off-line.svg")

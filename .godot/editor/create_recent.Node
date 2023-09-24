@@ -1,3 +1,5 @@
+Button
+HBoxContainer
 LineEdit
 TextEdit
 ColorPickerButton
@@ -8,8 +10,6 @@ Label
 ScrollContainer
 VSeparator
 HSplitContainer
-Button
-HBoxContainer
 VBoxContainer
 CheckButton
 OptionButton

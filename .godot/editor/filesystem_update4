@@ -12,3 +12,4 @@ res://src/Nodes/ResponseNode.tscn
 res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
 res://src/Nodes/Scripts/DialogNode.gd
 res://src/Classes/File System/category_loader.gd
+res://src/Nodes/Scripts/ResponseNode.gd
