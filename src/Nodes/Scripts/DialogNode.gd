@@ -257,6 +257,7 @@ func save():
 	
 	
 	var save_dict = {
+		"node_type" : node_type,
 		"filename": get_scene_file_path(),
 		"position_offset.x" : position_offset.x,
 		"position_offset.y" : position_offset.y,

@@ -31,6 +31,7 @@ cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [node name="DialogNode" type="GraphNode" groups=["Save"]]
+z_index = 1
 custom_minimum_size = Vector2(335, 215)
 offset_right = 335.0
 offset_bottom = 215.0

@@ -1,3 +1,8 @@
+LineEdit
+TextEdit
+ColorPickerButton
+GraphNode
+ColorRect
 HSeparator
 Label
 ScrollContainer
@@ -9,5 +14,4 @@ VBoxContainer
 CheckButton
 OptionButton
 Panel
-LineEdit
 HSlider

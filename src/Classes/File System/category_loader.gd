@@ -7,6 +7,7 @@ signal add_dialog
 signal add_response
 signal request_connect_nodes
 signal no_ydec_found
+signal request_add_color_organizer
 
 signal editor_offset_loaded
 signal zoom_loaded
@@ -33,8 +34,10 @@ func load_category(category_name):
 				var node_data : Dictionary = test_json_conv.get_data()
 				if node_data.has("editor_offset.x"):
 					load_editor_settings(node_data)
-				else:
+				elif node_data.get("node_type") == "Dialog Node":
 					load_dialog_data(node_data)	
+				else:
+					load_color_category(node_data)
 			connect_all_responses()
 			save_category.close()
 			emit_signal("update_current_category",category_name)
@@ -45,6 +48,14 @@ func load_editor_settings(node_data):
 	emit_signal("zoom_loaded",node_data["zoom"])
 	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
 	
+func load_color_category(node_data):
+	var loaded_color_organizer = color_organizer.new()
+	loaded_color_organizer.position_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
+	loaded_color_organizer.color = GlobalDeclarations.int_to_color(node_data["color"])
+	print(GlobalDeclarations.int_to_color(node_data["color"]))
+	loaded_color_organizer.custom_minimum_size = Vector2(node_data["min_size_x"],node_data["min_size_y"])
+	loaded_color_organizer.text = node_data["text"]
+	emit_signal("request_add_color_organizer",loaded_color_organizer)
 	
 func load_dialog_data(node_data : Dictionary):
 	var currently_loaded_dialog = create_new_dialog_node_from_ydec(node_data)

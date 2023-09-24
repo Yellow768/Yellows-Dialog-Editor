@@ -127,6 +127,15 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 	emit_signal("unsaved_changes",true)
 
 
+func add_color_organizer(col_org : color_organizer = color_organizer.new()):
+	var col_org_scene = load("res://src/Nodes/color_organizer.tscn")
+	var new_color_org = col_org_scene.instantiate()
+	new_color_org.color = col_org.color
+	new_color_org.custom_minimum_size = col_org.custom_minimum_size
+	new_color_org.text = col_org.text
+	new_color_org.position_offset = col_org.position_offset
+	add_child(new_color_org)
+
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
 	if selected_nodes.size() == 0 && Input.is_action_pressed("swap_responses"):
@@ -177,8 +186,8 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		response_node.parent_dialog = overlapping_response.parent_dialog
 		overlapping_response.parent_dialog = initial_parent
 		
-		response_node.connect("delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
-		overlapping_response.connect("delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
+		response_node.connect("request_delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
+		overlapping_response.connect("request_delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
 	else:
 		pass
 		#response_node.offset = from
@@ -276,6 +285,7 @@ func _on_CategoryPanel_request_load_category(category_name : String):
 	new_category_loader.connect("clear_editor_request", Callable(self, "clear_editor"))
 	new_category_loader.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	new_category_loader.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
+	new_category_loader.connect("request_add_color_organizer", Callable(self, "add_color_organizer"))
 	new_category_loader.connect("zoom_loaded", Callable(self, "set_zoom"))
 	if new_category_loader.load_category(category_name) == OK:
 		emit_signal("finished_loading",category_name)

@@ -47,6 +47,7 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 size = Vector2(148.5, 87)
 
 [node name="PlayerResponseNode" type="GraphNode" groups=["Response_Nodes"]]
+z_index = 1
 custom_minimum_size = Vector2(335, 215)
 anchors_preset = 8
 anchor_left = 0.5

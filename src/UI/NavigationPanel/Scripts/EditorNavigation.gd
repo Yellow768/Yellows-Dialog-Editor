@@ -28,11 +28,11 @@ func _on_DialogEditor_finished_loading(category_name : String):
 	
 func _input(event):
 	if $TopPanelContainer.visible && !GlobalDeclarations.assigning_keybind:
-		if event.is_action("save"):
+		if Input.is_action_just_pressed("save"):
 			emit_signal("save_category_request")
-		if event.is_action("export"):
+		if Input.is_action_just_pressed("export"):
 			emit_signal("export_category_request")
-		if event.is_action("reimport_category"):
+		if Input.is_action_just_pressed("reimport_category"):
 			emit_signal("reimport_category_request")
-		if event.is_action("scan_for_changes"):
+		if Input.is_action_just_pressed("scan_for_changes"):
 			emit_signal("scan_for_changes_request")

@@ -1,43 +1,14 @@
 res://default_env.tres
-res://src/UI/Program.tscn
-res://Assets/MainEditor.tres
-res://Assets/UITheme.tres
-res://Assets/Font/TinyFont.tres
-res://src/Nodes/DialogNode.tscn
 res://src/UI/Editor/MainEditor.tscn
-res://src/UI/LandingScreen.tscn
-res://src/UI/Util/ChooseInitialDialogPopup.tscn
-res://src/Nodes/ResponseNode.tscn
-res://src/UI/Dialog Settings/Dialog Availability.tscn
-res://src/UI/Dialog Settings/ChooseFaction.tscn
-res://test/l.tscn
-res://src/UI/Dialog Settings/Faction Availability.tscn
-res://src/UI/Dialog Settings/Quest Avaiability.tscn
-res://src/UI/Dialog Settings/ScoreboardAvailability.tscn
-res://src/UI/Util/ConfirmDeletion.tscn
-res://src/UI/Dialog Settings/FactionChange.tscn
-res://src/UI/Dialog Settings/StartQuest.tscn
-res://src/UI/Util/FactionLoader.tscn
-res://src/UI/Dialog Settings/ChooseQuest.tscn
-res://src/Classes/File System/category_loader.gd
-res://src/UI/Editor/EditorSettings.gd
-res://src/Autoload/global_declarations.gd
-res://src/UI/LandingScreen.gd
-res://src/Nodes/Scripts/DialogNode.gd
-res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
-res://src/UI/Util/TextEnterConfirmTemplate.tscn
-res://src/Classes/File System/dialog_jsons_loader.gd
-res://src/UI/Dialog Settings/Scripts/Faction Availability.gd
-res://src/Nodes/Scripts/ResponseNode.gd
-res://src/Classes/mail_data_object.gd
-res://src/Classes/File System/EnvironmentIndexer.gd
-res://src/UI/CategoryPanel/Scripts/CategoryButton.gd
-res://src/Nodes/CategoryButton.tscn
-res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
-res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://Assets/MainEditor.tres
+res://Assets/Font/TinyFont.tres
 res://src/UI/Editor/DialogEditor.gd
-res://src/UI/Editor/keybind.tscn
-res://src/UI/Editor/keybind.gd
 res://src/UI/Editor/editor_settings.tscn
+res://src/UI/Editor/keybind.tscn
+res://src/Nodes/color_organizer.tscn
+res://src/Nodes/color_organizer.gd
+res://src/Nodes/DialogNode.tscn
+res://src/Nodes/ResponseNode.tscn
 res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
-res://Assets/Theme/DarkColorPanel.tres
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/Classes/File System/category_loader.gd

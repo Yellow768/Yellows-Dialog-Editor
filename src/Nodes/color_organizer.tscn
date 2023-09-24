@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://csqosyiphjom2"]
+
+[ext_resource type="Script" path="res://src/Nodes/color_organizer.gd" id="1_w56ks"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_br6ho"]
+bg_color = Color(1, 1, 1, 0.713726)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tq2m2"]
+
+[node name="ColorOrganizer" type="GraphNode" groups=["Save"]]
+offset_right = 409.0
+offset_bottom = 270.0
+mouse_filter = 2
+theme_override_colors/close_color = Color(1, 1, 1, 1)
+theme_override_colors/resizer_color = Color(1, 1, 1, 1)
+theme_override_styles/frame = SubResource("StyleBoxFlat_br6ho")
+theme_override_styles/selected_frame = SubResource("StyleBoxFlat_br6ho")
+show_close = true
+resizable = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_w56ks")
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Color"
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="TextEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tq2m2")
+text = "Category Color"
+alignment = 1
+
+[connection signal="close_request" from="." to="." method="_on_close_request"]
+[connection signal="node_deselected" from="." to="." method="_on_node_deselected"]
+[connection signal="node_selected" from="." to="." method="_on_node_selected"]
+[connection signal="raise_request" from="." to="." method="_on_raise_request"]
+[connection signal="resize_request" from="." to="." method="_on_resize_request"]
+[connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
