@@ -2,7 +2,7 @@ extends GraphNode
 class_name color_organizer
 var node_type = "Color Organizer"
 var text = "Color Organizer"
-var color = Color(1,1,1,1)
+var box_color = Color(1,1,1,1)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -10,11 +10,11 @@ func _ready():
 	mouse_filter = 2
 	$TextEdit.custom_minimum_size.x = size.x
 	$TextEdit.add_theme_font_size_override("font_size",size.y/8)
-	change_color(color)
+	change_color(box_color)
 	$TextEdit.text = text
-	if color.get_luminance() > 0.5:
+	if box_color .get_luminance() > 0.5:
 		$TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
-	if color.get_luminance() <= 0.5:
+	if box_color .get_luminance() <= 0.5:
 		$TextEdit.add_theme_color_override("font_color",Color(1,1,1,1))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +28,7 @@ func change_color(color):
 	style.corner_radius_top_right= 15
 	add_theme_stylebox_override("frame",style)
 	add_theme_stylebox_override("selected_frame",style)
+	box_color = color
 
 func _on_resize_request(new_minsize):
 	custom_minimum_size = new_minsize
@@ -70,7 +71,7 @@ func save():
 		"position_offset.y" : position_offset.y,
 		"min_size_x" : custom_minimum_size.x,
 		"min_size_y" : custom_minimum_size.y,
-		"color": ("0x"+String(self_modulate.to_html(false))).hex_to_int(),
+		"color": ("0x"+String(box_color.to_html(false))).hex_to_int(),
 		"min_size" : get_minimum_size(),
 		"text" : $TextEdit.text
 	}

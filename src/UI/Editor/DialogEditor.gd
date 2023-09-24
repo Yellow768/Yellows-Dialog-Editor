@@ -130,7 +130,7 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 func add_color_organizer(col_org : color_organizer = color_organizer.new()):
 	var col_org_scene = load("res://src/Nodes/color_organizer.tscn")
 	var new_color_org = col_org_scene.instantiate()
-	new_color_org.color = col_org.color
+	new_color_org.box_color = col_org.box_color 
 	new_color_org.custom_minimum_size = col_org.custom_minimum_size
 	new_color_org.text = col_org.text
 	new_color_org.position_offset = col_org.position_offset
