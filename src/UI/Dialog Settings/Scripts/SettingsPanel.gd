@@ -217,22 +217,22 @@ func faction_isisnot_changed(child : faction_availability_object,isisnot : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].availability_operator = isisnot
 	emit_signal("unsaved_change",true)
 
-func dialog_id_changed(child : dialog_availability_object,id : int):
+func dialog_id_changed(child,id : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].dialog_id = id
 	emit_signal("unsaved_change",true)
 	
-func dialog_type_changed(child : dialog_availability_object,type : int):
+func dialog_type_changed(child,type : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].availability_type = type
 	emit_signal("unsaved_change",true)
 
 
 
-func quest_id_changed(child : quest_availability_object,id : int):
+func quest_id_changed(child,id : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].quest_id = id
 	emit_signal("unsaved_change",true)
 
 	
-func quest_type_changed(child : quest_availability_object,type : int):
+func quest_type_changed(child,type : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].availability_type = type
 	emit_signal("unsaved_change",true)
 #Dialog Changes

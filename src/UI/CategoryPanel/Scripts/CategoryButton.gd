@@ -2,7 +2,7 @@ extends Button
 signal rename_category_request
 signal delete_category_request
 signal reimport_category_request
-
+signal duplicate_category_request
 
 var index := 0
 
@@ -14,7 +14,7 @@ func _ready():
 
 
 func _on_Button_pressed():
-	emit_signal("open_category_request",self)
+	emit_signal("open_category_request",text)
 
 
 func _on_Button_gui_input(event : InputEvent):
@@ -29,8 +29,17 @@ func _on_PopupMenu_mouse_exited():
 	$PopupMenu.visible = false
 
 
-func _on_PopupMenu_index_pressed(button_index : int):
-	match button_index:
+
+
+
+
+func _on_LineEdit_text_entered(new_text: String):
+	$LineEdit.visible = false
+	emit_signal("rename_category_request",text,new_text)
+
+
+func _on_popup_menu_id_pressed(id):
+	match id:
 		0:
 			$LineEdit.visible = true
 			$LineEdit.grab_focus()
@@ -40,12 +49,5 @@ func _on_PopupMenu_index_pressed(button_index : int):
 			emit_signal("reimport_category_request",text)
 		3:
 			emit_signal("delete_category_request",text)
-		
-
-
-
-
-
-func _on_LineEdit_text_entered(new_text: String):
-	$LineEdit.visible = false
-	emit_signal("rename_category_request",text,new_text)
+		4:
+			emit_signal("duplicate_category_request",text)

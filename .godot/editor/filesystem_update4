@@ -29,3 +29,10 @@ res://src/UI/Util/TextEnterConfirmTemplate.tscn
 res://src/Classes/File System/dialog_jsons_loader.gd
 res://src/UI/Dialog Settings/Scripts/Faction Availability.gd
 res://src/Nodes/Scripts/ResponseNode.gd
+res://src/Classes/mail_data_object.gd
+res://src/Classes/File System/EnvironmentIndexer.gd
+res://src/UI/CategoryPanel/Scripts/CategoryButton.gd
+res://src/Nodes/CategoryButton.tscn
+res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/Editor/DialogEditor.gd

@@ -5,7 +5,7 @@ signal new_category_created
 signal category_renamed
 signal category_deleted
 signal clear_editor_request
-
+signal category_duplicated
 
 
 
@@ -80,14 +80,15 @@ func sort_array_by_category_name(a,b):
 
 
 func rename_category(category_name : String,new_name : String):
-	for i in indexed_dialog_categories.size():
-		if indexed_dialog_categories[i] == category_name:
-			indexed_dialog_categories[i] = new_name
+	if index_categories().count(new_name)==0:
+		for i in indexed_dialog_categories.size():
+			if indexed_dialog_categories[i] == category_name:
+				indexed_dialog_categories[i] = new_name
 
-	indexed_dialog_categories.sort()
-	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
-	dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
-	emit_signal("category_renamed",indexed_dialog_categories)
+		indexed_dialog_categories.sort()
+		var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
+		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
+		emit_signal("category_renamed",indexed_dialog_categories)
 
 
 	
@@ -107,3 +108,12 @@ func delete_category(category_name : String):
 		dir.remove(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	index_categories()
 	emit_signal("category_deleted",indexed_dialog_categories)
+	
+func duplicate_category(category_name : String):
+	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
+	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_")
+	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_/"+category_name+"_.ydec")
+	indexed_dialog_categories.append(category_name+"_")
+	indexed_dialog_categories.sort()
+	emit_signal("new_category_created",indexed_dialog_categories)
+	emit_signal("category_duplicated",category_name+"_")

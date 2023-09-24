@@ -8,6 +8,7 @@ signal hide_category_panel
 signal reimport_category
 signal current_category_deleted
 signal scan_for_changes
+signal request_dialog_ids_reassigned
 
 signal category_succesfully_saved
 signal category_failed_save
@@ -35,8 +36,8 @@ var export_version : int = 2
 var categoryPanelRevealed = false
 
 func _ready():
-	
 	create_category_buttons(EnvironmentIndex.index_categories())
+	EnvironmentIndex.connect("category_duplicated",Callable(self,"load_duplicated_category"))
 
 	
 
@@ -50,23 +51,24 @@ func create_category_buttons(categories):
 		category_button.toggle_mode = true
 		category_button.button_group  = load("res://Assets/CategoryButtons.tres")
 		category_button.theme_type_variation = "CategoryButton"
-		category_button.connect("open_category_request", Callable(self, "_category_button_pressed"))
+		category_button.connect("open_category_request", Callable(self, "load_category"))
 		category_button.connect("rename_category_request", Callable(EnvironmentIndex, "rename_category"))
 		category_button.connect("reimport_category_request", Callable(self, "reimport_category_popup"))
 		category_button.connect("delete_category_request", Callable(self, "request_deletion_popup"))
+		category_button.connect("duplicate_category_request", Callable(EnvironmentIndex, "duplicate_category"))
 		category_file_container.add_child(category_button)
 	
 		
 
 
-func _category_button_pressed(category_button):
+func load_category(category_name : String):
 	
-	if !loading_category and category_button.text != current_category:
+	if !loading_category and category_name != current_category:
 		loading_category = true
 		var new_saver = category_saver.new()
 		add_child(new_saver)
 		new_saver.save_category(current_category)
-		emit_signal("request_load_category",category_button.text)
+		emit_signal("request_load_category",category_name)
 
 
 
@@ -179,3 +181,9 @@ func _on_Searchbar_text_changed(new_text : String):
 func _on_export_type_button_item_selected(index:int):
 	print(index)
 	export_version = index
+
+func load_duplicated_category(name : String):
+	save_category_request()
+	load_category(name)
+	emit_signal("request_dialog_ids_reassigned")
+	

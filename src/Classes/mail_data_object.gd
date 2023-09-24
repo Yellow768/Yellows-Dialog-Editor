@@ -7,9 +7,16 @@ signal message_changed
 signal quest_changed
 signal items_changed
 
+var mail_item = {
+	"id" : "minecraft:grass",
+	"count" : 1,
+	"tag" : "",
+	"ForgeCaps": ""
+}
+
 
 var pages = []
-var mail_items = []
+var items_slots = []
 var quest_id = -1
 var subject = ""
 var sender = ""
@@ -18,9 +25,7 @@ func _ready():
 	pass
 	
 
-func add_item(item_name : String):
-	if mail_items.size() < 4:
-		mail_items.append()
+
 
 	
 #"DialogMail": {

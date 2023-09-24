@@ -18,9 +18,12 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 			var JSON_parse = JSON.new()
 			JSON_parse.parse(replace_unparseable_dialog_json_values(current_dialog))
 			var dialog_json_with_bad_values_replaced = JSON_parse.get_data()
-			printerr(JSON_parse.get_error_message()+" @"+str(JSON_parse.get_error_line()))
-			if JSON_parse.get_error_line() != OK || !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced):
-				printerr("Error parsing JSON "+file+", skipping. ERR = "+str(JSON_parse.get_error_line())+" valid_dialog_format = "+str(is_json_valid_dialog_format(dialog_json_with_bad_values_replaced)))
+			if JSON_parse.get_error_line() != 0:
+				printerr("Error parsing JSON, malformed. "+JSON_parse.get_error_message(),". Skipping Importing.")
+				continue
+			if !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced):
+				printerr("JSON is valid, but not in CNPC Dialog Format. Skipping Importing")
+				continue 
 			else:
 				parsed_jsons.append(dialog_json_with_bad_values_replaced)		
 		parsed_jsons.sort_custom(Callable(self, "sort_array_by_dialog_title"))
@@ -31,6 +34,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 #and long ints as 12345L. Godot's JSON parser doesn't account for these values, and so
 #errors out and doesn't properly import the dictionary. This function first imports the file as text,
 #and then replaces those unparseable values so that Godot can read it
+#
 
 func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	var final_result = json_file.get_as_text()

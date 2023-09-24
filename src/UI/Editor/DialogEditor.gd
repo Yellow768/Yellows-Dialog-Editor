@@ -463,3 +463,13 @@ func _on_InformationPanel_availability_mode_entered() -> void:
 
 func _on_InformationPanel_availability_mode_exited() -> void:
 	ignore_double_clicks = false
+	
+func assignNewIDs():
+	for child in get_children():
+		if child is GraphNode && child.node_type == "Dialog Node":
+			CurrentEnvironment.highest_id +=1
+			child.dialog_id = CurrentEnvironment.highest_id
+
+
+func _on_category_panel_request_dialog_ids_reassigned():
+	assignNewIDs()
