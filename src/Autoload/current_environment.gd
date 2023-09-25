@@ -5,6 +5,7 @@ var current_dialog_directory
 var current_category_name
 var highest_id = 0: set = set_highest_id
 var loading_stage = false
+var allow_save_state
 
 
 var quest_dict

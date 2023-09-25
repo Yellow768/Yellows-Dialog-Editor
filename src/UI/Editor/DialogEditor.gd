@@ -20,7 +20,7 @@ var all_loaded_dialogs : Array[GraphNode]= []
 
 var ignore_double_clicks := false
 
-var currentUndoRedo : UndoRedo
+var currentUndoRedo : UndoSystem
 var UndoRedoDict = {}
 
 func _ready():
@@ -36,6 +36,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_pressed("delete_nodes"):
+		currentUndoRedo.save_undo(true)
 		handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
 			i.delete_self(true)
@@ -47,6 +48,7 @@ func _process(_delta):
 
 
 func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false) -> dialog_node:
+	currentUndoRedo.save_undo(true)
 	#Adds a new dialog node into the editor.
 	
 	if new_dialog.node_index == 0:
@@ -78,6 +80,7 @@ func relay_unsaved_changes():
 	emit_signal("unsaved_changes",true)
 
 func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
+	currentUndoRedo.save_undo(true)
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	handle_subtracting_dialog_id([dialog])
@@ -87,9 +90,11 @@ func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 	dialog.queue_free()
 	emit_signal("unsaved_changes",true)
 	node_index -=1
+
 	
 
 func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate()) -> response_node:
+	currentUndoRedo.save_undo(true)
 	var new_offset
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
@@ -120,6 +125,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	return new_response
 
 func delete_response_node(dialog : dialog_node,response : response_node):
+	currentUndoRedo.save_undo(true)
 	disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
@@ -132,6 +138,7 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 
 
 func add_color_organizer(col_org : color_organizer = color_organizer.new()):
+	currentUndoRedo.save_undo(true)
 	var col_org_scene = load("res://src/Nodes/color_organizer.tscn")
 	var new_color_org = col_org_scene.instantiate()
 	new_color_org.box_color = col_org.box_color 
@@ -150,6 +157,7 @@ func response_node_dragged(from: Vector2,to : Vector2,response_node):
 
 func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to: Vector2):
 	if response_node.overlapping_response != null:
+		currentUndoRedo.save_undo(true)
 		var overlapping_response := response_node.overlapping_response
 		var initial_slot := response_node.slot
 		var initial_parent := response_node.parent_dialog
@@ -207,6 +215,7 @@ func set_scroll_offset(new_offset : Vector2):
 
 
 func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+	currentUndoRedo.save_undo(true)
 	var response : response_node
 	var dialog : dialog_node
 	if from.node_type == "Player Response Node":
@@ -227,6 +236,7 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 
 	
 func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+	currentUndoRedo.save_undo(true)
 	var response : response_node
 	var dialog : dialog_node
 	
@@ -282,8 +292,12 @@ func save():
 	}	
 
 func _on_CategoryPanel_request_load_category(category_name : String):
+	CurrentEnvironment.current_category_name = null
+	CurrentEnvironment.allow_save_state = false
 	if !UndoRedoDict.has(category_name):
-		UndoRedoDict[category_name] = UndoRedo.new()
+		UndoRedoDict[category_name] = UndoSystem.new()
+		get_parent().add_child(UndoRedoDict[category_name])
+		UndoRedoDict[category_name].dialog_editor = self
 	currentUndoRedo = UndoRedoDict[category_name]
 	var new_category_loader := category_loader.new()
 	new_category_loader.connect("add_dialog", Callable(self, "add_dialog_node"))
@@ -296,7 +310,9 @@ func _on_CategoryPanel_request_load_category(category_name : String):
 	new_category_loader.connect("zoom_loaded", Callable(self, "set_zoom"))
 	if new_category_loader.load_category(category_name) == OK:
 		emit_signal("finished_loading",category_name)
+		CurrentEnvironment.current_category_name = category_name
 		visible = true
+		CurrentEnvironment.allow_save_state = true
 		
 	
 func initialize_category_import(category_name : String):
@@ -321,6 +337,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	add_child(new_cat_save)
 	new_cat_save.save_category(category_name)	
 	emit_signal("finished_loading",category_name)
+	CurrentEnvironment.current_category_name = category_name
 	visible = true	
 		
 func on_no_dialogs(category_name):

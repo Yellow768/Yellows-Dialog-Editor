@@ -15,6 +15,22 @@ signal zoom_loaded
 var loaded_dialogs = []
 var loaded_responses = []	
 
+func load_undoredo(data):
+		emit_signal("clear_editor_request")
+		for dict in data[0]:
+			var parsed_dict = JSON.parse_string(dict)
+			if parsed_dict.has("editor_offset.x"):
+				load_editor_settings(parsed_dict)
+			elif parsed_dict.get("node_type") == "Dialog Node":
+				load_dialog_data(parsed_dict)	
+			else:
+				load_color_category(parsed_dict)
+		connect_all_responses()
+		queue_free()
+		return OK
+
+
+
 func load_category(category_name):
 	var current_category_path = CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec"
 	var save_category

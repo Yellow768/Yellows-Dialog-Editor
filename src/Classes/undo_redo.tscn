@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp36t3jpmlqn5"]
+
+[ext_resource type="Script" path="res://src/Classes/UndoRedo.gd" id="1_kd3co"]
+
+[node name="UndoRedo" type="Node"]
+script = ExtResource("1_kd3co")
