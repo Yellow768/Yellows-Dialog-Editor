@@ -13,3 +13,7 @@ res://src/UI/Util/TextEnterConfirmTemplate.tscn
 res://src/UI/Util/ConfirmDeletion.tscn
 res://src/Nodes/CategoryButton.tscn
 res://src/UI/Editor/DialogEditor.gd
+res://src/Nodes/Scripts/ResponseNode.gd
+res://src/Autoload/global_declarations.gd
+res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
+res://src/Classes/File System/CategoryImporter.gd

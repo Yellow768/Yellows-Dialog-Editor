@@ -101,6 +101,8 @@ func scan_category_for_changes(category_name : String = CurrentEnvironment.curre
 		loaded_dialog_nodes.append(current_dialog)
 	for json in parsed_jsons:
 		for current in current_dialog_nodes:
+			if current.node_type != "Dialog Node":
+				continue
 			if json["DialogId"] == current.dialog_id:
 				current.clear_responses()
 				update_dialog_node_information(current,json)
@@ -117,6 +119,8 @@ func scan_category_for_changes(category_name : String = CurrentEnvironment.curre
 	
 
 func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dialog_node:
+	if node.node_type != "Dialog Node":
+		return
 	node.dialog_title = json["DialogTitle"]
 	node.dialog_id = json["DialogId"]
 	node.text = json["DialogText"]

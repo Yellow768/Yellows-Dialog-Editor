@@ -206,6 +206,7 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
 [node name="ReimportButton" type="Button" parent="TopPanel/TopPanelContainer"]
+visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 tooltip_text = "Reimport the category, deleting all nodes and creating a new YDEC file. Same as when you open a category that hasn't been imported yet "
@@ -216,11 +217,13 @@ text = "Reimport Category "
 icon = ExtResource("9_mukh6")
 
 [node name="BttnSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+visible = false
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
 [node name="ScanButton" type="Button" parent="TopPanel/TopPanelContainer"]
+visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 tooltip_text = "Scans for new JSONS and for changes in existing JSONS, and creates and/or modifies dialog and response nodes as needed"
@@ -231,11 +234,13 @@ text = "Scan For Changes "
 icon = ExtResource("10_cc0sy")
 
 [node name="BttnSep3" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+visible = false
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
 [node name="AssignNewIDs" type="Button" parent="TopPanel/TopPanelContainer"]
+visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 tooltip_text = "Reindexes the current highest ID in the environment, and gives dialog nodes new IDS"
@@ -244,6 +249,17 @@ theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "Reindex IDs"
 icon = ExtResource("9_mukh6")
+
+[node name="MenuButton" type="MenuButton" parent="TopPanel/TopPanelContainer"]
+layout_mode = 2
+text = "Category Options"
+item_count = 3
+popup/item_0/text = "Reimport"
+popup/item_0/id = 0
+popup/item_1/text = "Scan For Changes"
+popup/item_1/id = 1
+popup/item_2/text = "Reindex IDs"
+popup/item_2/id = 2
 
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
 layout_mode = 0
@@ -332,7 +348,6 @@ offset_right = 452.0
 offset_bottom = 1005.0
 
 [node name="DialogSettings" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 
 [node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DialogSettings"]
@@ -619,6 +634,7 @@ offset_bottom = 13.0
 max_value = 10000.0
 
 [node name="Mail" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 
 [node name="Control" type="Control" parent="InformationPanel/DialogNodeTabs/Mail"]
@@ -927,6 +943,7 @@ text = "Cancel"
 [connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_node_selected"]
 [connection signal="unsaved_changes" from="DialogEditor" to="." method="set_unsaved_changes"]
+[connection signal="assign_new_ids_request" from="TopPanel" to="DialogEditor" method="reindex_ids"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]

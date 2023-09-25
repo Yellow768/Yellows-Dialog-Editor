@@ -518,3 +518,7 @@ func _on_category_panel_request_dialog_ids_reassigned():
 
 
 	
+
+
+func reindex_ids():
+	assignNewIDs()

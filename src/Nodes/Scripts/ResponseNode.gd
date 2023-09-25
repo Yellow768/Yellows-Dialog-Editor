@@ -64,6 +64,11 @@ func _ready():
 	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
+	ResponseTextNode.add_theme_color_override("font_color",ColorPickerNode.color)
+	for color in GlobalDeclarations.color_presets:
+		ColorPickerNode.get_picker().add_preset(color)
+	ColorPickerNode.get_picker().connect("preset_added",Callable(GlobalDeclarations,"add_color_preset"))
+	ColorPickerNode.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
 
 func get_option_id_from_index(index : int):
 	return OptionTypeNode.get_item_id(index)
@@ -252,6 +257,8 @@ func _on_OptionButton_item_selected(index : int):
 func _on_ColorPickerButton_color_changed(color : Color):
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
+	ResponseTextNode.add_theme_color_override("font_color",color)
+	
 	
 
 

@@ -23,6 +23,7 @@ var dialog_left_slot_color_hidden := Color(1,0,1)
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
 var undo_enabled = false
+var color_presets : PackedColorArray
 
 var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_right","zoom_key","drag_responses_key","delete_nodes","add_dialog_at_mouse","create_response","zoom_in","zoom_out","select_multiple","save","export","scan_for_changes","reimport_category"]
 
@@ -35,6 +36,7 @@ func _ready():
 	hide_connection_distance = config.get_value("user_settings","hide_connection_distance",1000)
 	hold_shift_for_individual_movement = config.get_value("user_settings","hold_shift_for_individual_movement",false)
 	undo_enabled = config.get_value("user_settings","undo_enabled",false)
+	color_presets = config.get_value("user_settings","color_presets",color_presets)
 	for action in actions:
 		var temp_action = InputMap.action_get_events(action)
 		InputMap.action_erase_events(action)
@@ -48,9 +50,18 @@ func save_config():
 	config.set_value("user_settings","hold_shift_for_individual_movement",hold_shift_for_individual_movement)
 	config.set_value("user_settings","undo_enabled",undo_enabled)
 	config.set_value("prev_dirs","dir_array",config.get_value("prev_dirs","dir_array","[]"))
+	config.set_value("user_settings","color_presets",color_presets)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)
+
+func add_color_preset(preset):
+	color_presets.append(preset)
+	save_config()
+	
+func remove_color_preset(preset):
+	color_presets.append(preset)
+	save_config()
 
 func int_to_color(integer : int) -> Color:
 	var r = (integer >> 16) & 0xff
