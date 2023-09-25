@@ -22,3 +22,16 @@ func set_highest_id(new_id):
 func set_current_directory(new_directory):
 	current_directory = new_directory
 	current_dialog_directory = new_directory+"/dialogs"
+	
+func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array[GraphNode]):
+	var sorted_ids = dialogs_to_be_deleted.duplicate()
+	sorted_ids.sort_custom(Callable(self, "sort_array_by_dialog_id"))
+	for node in sorted_ids:
+		if node.dialog_id == highest_id:
+			highest_id -= 1
+			
+func sort_array_by_dialog_id(a,b):
+	if a.dialog_id != b.dialog_id:
+		return a.dialog_id > b.dialog_id
+	else:
+		return a.dialog_id > b.dialog_id

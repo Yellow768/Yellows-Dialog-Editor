@@ -37,7 +37,7 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_pressed("delete_nodes"):
 		currentUndoRedo.save_undo(true)
-		handle_subtracting_dialog_id(selected_nodes)
+		CurrentEnvironment.handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
 			i.delete_self(true)
 			selected_nodes.erase(i)
@@ -66,7 +66,7 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("add_response_request", Callable(self, "add_response_node"))
 	new_dialog.connect("request_delete_response_node", Callable(self, "delete_response_node"))
 	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
-	new_dialog.connect("set_self_as_selected", Callable(self, "_on_DialogEditor_node_selected"))
+	new_dialog.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
@@ -83,7 +83,7 @@ func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 	currentUndoRedo.save_undo(true)
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
-	handle_subtracting_dialog_id([dialog])
+	CurrentEnvironment.handle_subtracting_dialog_id([dialog])
 	set_last_selected_node_as_selected()
 	if remove_from_loaded_list:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
@@ -113,13 +113,12 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("request_connection_line_hidden", Callable(self, "hide_connection_line"))
 	new_response.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_response.connect("request_add_dialog", Callable(self, "add_dialog_node"))
-	new_response.connect("set_self_as_selected", Callable(self, "_on_DialogEditor_node_selected"))
+	new_response.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
 	new_response.connect("response_double_clicked", Callable(self, "handle_double_click").bind(new_response))
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
-	#new_response.set_focus_on_title()
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
 	emit_signal("unsaved_changes",true)
 	return new_response
@@ -155,9 +154,6 @@ func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
 	if selected_nodes.size() == 0 && Input.is_action_pressed("swap_responses"):
 		handle_swapping_responses(response_node,from,to)
-	elif selected_nodes.find(response_node.parent_dialog) == -1:
-		pass
-		#response_node.offset = from
 
 func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to: Vector2):
 	if response_node.overlapping_response != null:
@@ -176,6 +172,7 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		var initial_tween := get_tree().create_tween()
 		tween.tween_property(response_node,"position_offset",overlapping_response.position_offset,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		initial_tween.tween_property(overlapping_response,"position_offset",from,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+		
 		#Remove from parents array
 		response_node.parent_dialog.response_options.erase(response_node)
 		disconnect_node(response_node.parent_dialog.get_name(),0,response_node.name,0)
@@ -204,11 +201,8 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		
 		response_node.connect("request_delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
 		overlapping_response.connect("request_delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
-	else:
-		pass
-		#response_node.offset = from
 
-func set_cat_zoom(new_zoom : float):
+func set_category_zoom(new_zoom : float):
 	zoom = new_zoom
 
 func set_scroll_offset(new_offset : Vector2):
@@ -228,8 +222,6 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 	else:
 		response = to
 		dialog = from
-	
-	
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
 	response.connected_dialog = dialog
@@ -258,9 +250,6 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 		response.reveal_button()	
 		response.connected_dialog = null	
 	emit_signal("unsaved_changes",true)
-	#else:
-		#disconnect_node(from,from_slot,to,to_slot)
-		#//response.reveal_button()
 
 func hide_connection_line(from: GraphNode,to: GraphNode):
 	disconnect_node(from.name,0,to.name,0)
@@ -275,18 +264,6 @@ func set_last_selected_node_as_selected():
 		if selected_nodes.back().node_type == "Dialog Node":
 			emit_signal("dialog_selected",selected_nodes.back())
 
-func handle_subtracting_dialog_id(dialogs_to_be_deleted : Array[GraphNode]):
-	var sorted_ids = dialogs_to_be_deleted.duplicate()
-	sorted_ids.sort_custom(Callable(self, "sort_array_by_dialog_id"))
-	for node in sorted_ids:
-		if node.dialog_id == CurrentEnvironment.highest_id:
-			CurrentEnvironment.highest_id -= 1
-
-func sort_array_by_dialog_id(a,b):
-	if a.dialog_id != b.dialog_id:
-		return a.dialog_id > b.dialog_id
-	else:
-		return a.dialog_id > b.dialog_id
 	
 func save():
 	return {
@@ -392,7 +369,7 @@ func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):
 func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
-func _on_DialogEditor_node_selected(node):
+func select_node(node):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion || Input.is_action_pressed("select_multiple"):
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
@@ -411,7 +388,7 @@ func _on_DialogEditor_node_selected(node):
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
 
-func _on_DialogEditor_node_unselected(node):
+func unselect_node(node):
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
 	if node.node_type == "Dialog Node":
@@ -503,7 +480,7 @@ func _on_InformationPanel_availability_mode_exited() -> void:
 	ignore_double_clicks = false
 
 	
-func assignNewIDs():
+func reindex_ids():
 	EnvironmentIndexer.new().find_highest_index(true)
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
@@ -512,7 +489,7 @@ func assignNewIDs():
 
 
 func _on_category_panel_request_dialog_ids_reassigned():
-	assignNewIDs()
+	reindex_ids()
 
 
 
