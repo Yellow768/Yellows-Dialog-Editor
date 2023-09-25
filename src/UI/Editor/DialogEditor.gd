@@ -64,14 +64,14 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("add_response_request", Callable(self, "add_response_node"))
 	new_dialog.connect("request_delete_response_node", Callable(self, "delete_response_node"))
 	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
-	new_dialog.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
+	new_dialog.connect("set_self_as_selected", Callable(self, "_on_DialogEditor_node_selected"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
+	new_dialog.connect("node_deselected",Callable(self,"set_last_selected_node_as_selected"))
 	emit_signal("dialog_node_added",new_dialog)
 	add_child(new_dialog)
 	#emit_signal("unsaved_changes",true)
-	
 	return new_dialog
 
 func relay_unsaved_changes():
@@ -84,7 +84,7 @@ func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 	set_last_selected_node_as_selected()
 	if remove_from_loaded_list:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
-	remove_child(dialog)
+	dialog.queue_free()
 	emit_signal("unsaved_changes",true)
 	node_index -=1
 	
@@ -359,11 +359,11 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func _on_DialogEditor_node_selected(node):
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion || Input.is_action_pressed("select_multiple"):
 		if selected_responses.find(node,0) == -1 and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
-		if selected_nodes.find(node,0) == -1 and node.node_type == "Dialog Node" :
+		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
 	else:
 		set_selected(node)
@@ -379,32 +379,10 @@ func _on_DialogEditor_node_unselected(node):
 		
 
 
-		
-func _on_node_requests_selection(node):
-	if !Input.is_action_pressed("select_multiple"):
-		selected_nodes = []
-		selected_responses = []
-		node.selected = true
-		set_selected(node)
-		if node.node_type == "Dialog Node":
-			emit_signal("dialog_selected",node)
-			selected_nodes.append(node)
-		else:
-			selected_responses.append(node)
-	elif node.selected:
-		if node.node_type == "Dialog Node":
-			selected_nodes.erase(node)
-			set_last_selected_node_as_selected()
-		else:
-			selected_responses.erase(node)
-		node.selected = false
-	else:
-		if node.node_type == "Dialog Node":
-			emit_signal("dialog_selected",node)
-		_on_DialogEditor_node_selected(node)
+
 
 func handle_double_click(node):
-	print(ignore_double_clicks)
+
 	
 	if node.node_type == "Dialog Node":
 		emit_signal("node_double_clicked",node)	
@@ -462,7 +440,7 @@ func _on_DialogEditor_gui_input(event):
 			set_scroll_ofs(scroll_offset+Vector2(0,10))
 	if Input.is_action_just_pressed("show_minimap"):	
 		minimap_enabled = !minimap_enabled
-		print(minimap_size)
+	
 
 
 
@@ -482,6 +460,7 @@ func _on_InformationPanel_availability_mode_entered() -> void:
 
 func _on_InformationPanel_availability_mode_exited() -> void:
 	ignore_double_clicks = false
+
 	
 func assignNewIDs():
 	EnvironmentIndexer.new().find_highest_index(true)
@@ -495,11 +474,5 @@ func _on_category_panel_request_dialog_ids_reassigned():
 	assignNewIDs()
 
 
-func _on_add_dialog_pressed():
-	var new_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
-	currentUndoRedo.create_action("add_dialog_node")
-	currentUndoRedo.add_do_reference(new_dialog.duplicate(DUPLICATE_USE_INSTANTIATION))
-	currentUndoRedo.add_undo_reference(new_dialog.duplicate(DUPLICATE_USE_INSTANTIATION))
-	currentUndoRedo.add_do_method(add_dialog_node.bind(new_dialog))
-	currentUndoRedo.add_undo_method(delete_dialog_node.bind(new_dialog))
-	currentUndoRedo.commit_action()
+
+	

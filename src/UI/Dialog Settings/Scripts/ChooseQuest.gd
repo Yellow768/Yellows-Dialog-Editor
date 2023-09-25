@@ -35,7 +35,7 @@ func update_category_finder():
 
 func _on_CategoryFinder_index_pressed(index):
 	if index != 0:
-		var quest_category_name : PopupMenu = CategoryFinder.get_item_metadata(index)
+		var quest_category_name : String = CategoryFinder.get_item_metadata(index)
 		QuestFinder.clear()
 		QuestFinder.add_item("[Back...]",0)
 		for key in quest_dict[quest_category_name].keys():

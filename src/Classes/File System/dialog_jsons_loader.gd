@@ -52,7 +52,7 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 		if '"TimePast"' in current_line or '"Time' in current_line:
 			replace_line = current_line.replace("L","")
 			final_result = final_result.replace(current_line,replace_line)
-	print(final_result)
+
 	return final_result
 
 func is_file_valid_dialog_json(json_file : JSON) -> bool:

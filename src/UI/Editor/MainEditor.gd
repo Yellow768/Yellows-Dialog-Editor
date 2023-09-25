@@ -41,7 +41,6 @@ func _input(event : InputEvent):
 		new_dialog_node.position_offset = get_local_mouse_position()
 		DialogEditor.add_dialog_node(new_dialog_node)
 	if event.is_action_pressed("create_response"):
-		print(DialogEditor.selected_responses)
 		for dialog in DialogEditor.selected_nodes:
 			dialog.add_response_node()
 		for response in DialogEditor.selected_responses:
@@ -66,7 +65,7 @@ func _input(event : InputEvent):
 				var dialog : dialog_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
 				dialog.set_focus_on_title()
 	if Input.is_action_just_pressed("focus_left"):
-		print(str(DialogEditor.selected_responses.size()) + " "+ str(DialogEditor.selected_nodes.size()))
+		
 		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
 			var response : response_node = DialogEditor.selected_responses[0]
 			response.parent_dialog.set_focus_on_text()
@@ -75,7 +74,7 @@ func _input(event : InputEvent):
 			if dialog.connected_responses.size() != 0:
 				dialog.connected_responses[0].set_focus_on_title()
 	if Input.is_action_just_pressed("focus_right"):
-		print(str(DialogEditor.selected_responses.size()) + " "+ str(DialogEditor.selected_nodes.size()))
+	
 		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
 			var response : response_node = DialogEditor.selected_responses[0]
 			if response.connected_dialog != null:
@@ -171,3 +170,7 @@ func _on_save_and_close_pressed():
 
 func _on_cancel_pressed():
 	$UnsavedPanel.visible = false
+
+
+func _on_category_panel_category_succesfully_saved(_ignore):
+	unsaved_change = false

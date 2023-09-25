@@ -179,7 +179,6 @@ func _on_Searchbar_text_changed(new_text : String):
 
 
 func _on_export_type_button_item_selected(index:int):
-	print(index)
 	export_version = index
 
 func load_duplicated_category(name : String):

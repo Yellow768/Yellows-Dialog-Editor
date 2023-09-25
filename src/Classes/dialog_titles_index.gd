@@ -13,14 +13,12 @@ func get_title_from_index(index : int) -> String:
 		return all_loaded_dialogs[index]
 		
 func get_title_from_id(id : int) -> String:
-	print(id)
 	if all_loaded_dialogs.has(id):
 		return all_loaded_dialogs.get(id)
 	return "Unindexed Dialog"
 
 func add_dialog_to_loaded(dialog : dialog_node):
 	if all_loaded_dialogs.has(dialog.dialog_id):
-		print("already have dialog")
 		return
 	all_loaded_dialogs[dialog.dialog_id] = dialog.dialog_title
 	emit_signal("dialog_added_to_list")

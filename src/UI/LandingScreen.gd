@@ -12,7 +12,7 @@ func _ready():
 	var config := ConfigFile.new()
 	config.load(user_settings_path)
 	for dir in JSON.parse_string(config.get_value("prev_dirs","dir_array","[]")):
-		print(dir)
+	
 		var quick_dir_button := Button.new()
 		quick_dir_button.text = dir
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
@@ -48,10 +48,9 @@ func add_directory_to_config(directory : String) -> void:
 func find_valid_customnpcs_dir(dir : String) -> String:
 	var directory := DirAccess.open(dir)
 	var dir_search := DirectorySearch.new()
-	print(dir)
+
 	if dir.replace(dir.get_base_dir()+"/","") == "customnpcs":
 		return dir
-	print(dir_search.scan_directory_for_folders(dir))
 	if dir_search.scan_directory_for_folders(dir).has("customnpcs"):
 		if directory.dir_exists(dir+"/customnpcs/dialogs"):
 			return dir+"/customnpcs"

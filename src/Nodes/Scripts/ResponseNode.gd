@@ -10,6 +10,7 @@ extends GraphNode
 @export var _remote_connection_text_path: NodePath
 @export var _remote_connection_disconnect_button_path: NodePath
 @export var _remote_connection_jump_button_path: NodePath
+@export var _id_spinbox: NodePath
 
 @onready var ResponseTextNode := get_node(_response_text_node_path)
 @onready var ColorPickerNode := get_node(_color_picker_node_path)
@@ -20,6 +21,7 @@ extends GraphNode
 @onready var RemoteConnectionText := get_node(_remote_connection_text_path)
 @onready var RemoteConnectionDisconnectButton := get_node(_remote_connection_disconnect_button_path)
 @onready var RemoteConnectionJumpButton := get_node(_remote_connection_jump_button_path)
+@onready var IdSpinbox := get_node(_id_spinbox)
 
 
 
@@ -94,9 +96,12 @@ func set_option_type(new_type : int):
 	if new_type == 0:
 		reveal_button()
 		set_slot_enabled_right(1,true)
+		IdSpinbox.visible = true
 	else:
 		hide_button()
 		set_slot_enabled_right(1,false)
+		IdSpinbox.visible = false
+		IdSpinbox.value = -1
 		if connected_dialog != null:
 			emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 	emit_signal("unsaved_change")
@@ -111,14 +116,17 @@ func set_meta_pressed(new_command : String):
 	CommandTextNode.text = new_command
 	emit_signal("unsaved_change")
 
-func set_connected_dialog(new_connected_dialog : dialog_node):
+func set_connected_dialog(new_connected_dialog):
 	connected_dialog = new_connected_dialog
 	if not is_inside_tree(): await self.ready
 	if connected_dialog != null:
+		to_dialog_id = connected_dialog.dialog_id
+		IdSpinbox.value = to_dialog_id
 		hide_button()
 		update_connection_text()
 		check_dialog_distance()
-		to_dialog_id = connected_dialog.dialog_id
+		
+		
 	else:
 		reveal_button()
 
@@ -143,7 +151,9 @@ func update_connection_text():
 	if connected_dialog != null:
 		var format_string := "Connected to %s | Node "+str(connected_dialog.node_index)
 		RemoteConnectionText.text = format_string % connected_dialog.dialog_title.left(10)
-
+		RemoteConnectionJumpButton.visible = true
+		RemoteConnectionDisconnectButton.visible = true
+		
 func check_dialog_distance():
 	if connected_dialog != null:
 		if position_offset.distance_to(connected_dialog.position_offset) > GlobalDeclarations.hide_connection_distance && !connection_hidden:
@@ -159,6 +169,7 @@ func set_connection_hidden():
 	set_slot_enabled_right(1,false)
 	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color_hidden)
 	update_connection_text()
+	
 
 func set_connection_shown():
 	emit_signal("request_connection_line_shown",self,connected_dialog)
@@ -170,10 +181,12 @@ func set_connection_shown():
 	
 
 func disconnect_from_dialog():
-	connected_dialog.remove_connected_response(self)
-	emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
-	connected_dialog = null
+	if connected_dialog!=null:
+		connected_dialog.remove_connected_response(self)
+		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
+		connected_dialog = null
 	to_dialog_id = -1
+	IdSpinbox.value = 0
 	RemoteConnectionContainer.visible = false
 
 func delete_self():
@@ -253,6 +266,7 @@ func _on_CommandText_text_changed():
 
 func _on_DisconnectButton_pressed():
 	disconnect_from_dialog()
+	reveal_button()
 
 
 func _on_JumpButton_pressed():
@@ -283,3 +297,30 @@ func get_full_tree(all_children : Array = []) -> Array:
 	return all_children
 
 
+var spinbox_ignore_changes = true
+
+func _on_spin_box_value_changed(value):
+	if spinbox_ignore_changes:
+		return
+	if !connection_hidden && connected_dialog != null:
+		set_connection_hidden()
+	hide_button()
+	to_dialog_id = value
+	RemoteConnectionContainer.visible = true
+	RemoteConnectionJumpButton.visible = false
+	RemoteConnectionText.text = "ID Manually Set."
+	if connected_dialog != null:
+		connected_dialog.remove_connected_response(self)
+		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
+		connected_dialog = null
+	print(connected_dialog)
+	
+	
+
+
+func _on_spin_box_mouse_entered():
+	spinbox_ignore_changes = false
+
+
+func _on_spin_box_mouse_exited():
+	spinbox_ignore_changes = true

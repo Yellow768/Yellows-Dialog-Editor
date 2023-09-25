@@ -103,13 +103,13 @@ func disconnect_current_dialog(dialog : dialog_node,_bool : bool):
 	current_dialog = null
 
 
-func dialog_selected(dialog : dialog_node):
+func dialog_selected(dialog):
 	if !dialog_availability_mode:
 		load_dialog_settings(dialog)
 		
 		
 		
-func enter_dialog_availability_mode(availability_scene : dialog_availability_object):
+func enter_dialog_availability_mode(availability_scene):
 	stored_current_dialog_id = current_dialog.dialog_id
 	availability_slot = AvailabilityDialogs.get_children().find(availability_scene)
 	dialog_availability_mode = true
@@ -121,7 +121,7 @@ func enter_dialog_availability_mode(availability_scene : dialog_availability_obj
 	print("Availability Mode Entered")
 
 	
-func set_dialog_availability_from_selected_node(node_selected : dialog_node):
+func set_dialog_availability_from_selected_node(node_selected):
 	if dialog_availability_mode:
 		dialog_editor_is_loaded = false
 		glob_node_selected_id = node_selected.dialog_id
@@ -133,7 +133,6 @@ func find_dialog_node_from_id(id : int):
 	var dialog_nodes = get_tree().get_nodes_in_group("Save")
 	for dialog in dialog_nodes:
 		if dialog.dialog_id == id:
-			print("found dialog")
 			return dialog
 			
 
@@ -197,23 +196,23 @@ func load_dialog_settings(dialog : dialog_node):
 		AvailabilityScoreboard.get_child(i).set_comparison_type(current_dialog.scoreboard_availabilities[i].comparison_type)
 		AvailabilityScoreboard.get_child(i).set_value(current_dialog.scoreboard_availabilities[i].value)
 		
-func scoreboard_objective_name_changed(child : scoreboard_availability_object,obj_name : String):
+func scoreboard_objective_name_changed(child ,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name
 	emit_signal("unsaved_change",true)
 func scoreboard_comparison_type_changed(child,type : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].comparison_type = type
 	emit_signal("unsaved_change",true)
 	
-func scoreboard_value_changed(child : scoreboard_availability_object,value : int):
+func scoreboard_value_changed(child ,value : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].value = value
 	emit_signal("unsaved_change",true)		
-func faction_id_changed(child : faction_availability_object,id : int):
+func faction_id_changed(child ,id : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].faction_id = id
 	emit_signal("unsaved_change",true)
-func faction_stance_changed(child : faction_availability_object,stance:int):
+func faction_stance_changed(child,stance:int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].stance_type = stance
 	emit_signal("unsaved_change",true)
-func faction_isisnot_changed(child : faction_availability_object,isisnot : int):
+func faction_isisnot_changed(child ,isisnot : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].availability_operator = isisnot
 	emit_signal("unsaved_change",true)
 

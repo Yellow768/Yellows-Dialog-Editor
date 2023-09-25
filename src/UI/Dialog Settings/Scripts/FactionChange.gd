@@ -26,5 +26,4 @@ func _on_Factionpoints_value_changed(value : int):
 	
 func _input(_event : InputEvent):
 	if Input.is_key_pressed(KEY_ENTER):
-		print("what")
 		$Panel/Factionpoints.get_line_edit().release_focus()

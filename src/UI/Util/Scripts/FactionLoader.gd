@@ -44,7 +44,6 @@ func create_faction_dict_from_dat_file(file : FileAccess) -> Dictionary:
 			break
 		if uncompressed_dat_file.slice(s_slot,s_slot+4) != slot_bytes_identifier:
 			cursor_position = s_slot+4
-			print(slot_bytes_identifier)
 		else:
 			var id := convert_bytes_to_s32(uncompressed_dat_file.slice(s_slot+4,s_slot+9))
 			var fact_name := find_faction_name_from_bytes(uncompressed_dat_file,s_slot+7)

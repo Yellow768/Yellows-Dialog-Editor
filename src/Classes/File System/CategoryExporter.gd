@@ -14,6 +14,8 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 		exported_category_dir.make_dir(directory+category_name)
 	empty_category_jsons(category_name)
 	for i in save_nodes:
+		if i.node_type != "Dialog Node":
+			continue
 		var dialog_file := FileAccess.open(directory+category_name+"/"+str(i.dialog_id)+".json",FileAccess.WRITE)
 		var new_dict : Array[String] = create_dialog_dict(i,export_version)
 		#var jsonprint = JSON.print(new_dict,"\r\n")
