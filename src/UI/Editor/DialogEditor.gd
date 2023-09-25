@@ -436,9 +436,10 @@ func handle_double_click(node):
 	if node.node_type == "Player Response Node":
 		if !ignore_double_clicks:
 			if node.connected_dialog != null and !node.connected_dialog.selected:
-				node.connected_dialog.selected = true
-				handle_double_click(node.connected_dialog)
-				node.connected_dialog.emit_signal("node_double_clicked")
+				if !node.connection_hidden:
+					node.connected_dialog.selected = true
+					handle_double_click(node.connected_dialog)
+					node.connected_dialog.emit_signal("node_double_clicked")
 			
 
 

@@ -325,7 +325,6 @@ grow_horizontal = 2
 text = "Information Panel"
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -333,6 +332,7 @@ offset_right = 452.0
 offset_bottom = 1005.0
 
 [node name="DialogSettings" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 
 [node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DialogSettings"]
@@ -618,6 +618,91 @@ offset_right = -57.548
 offset_bottom = 13.0
 max_value = 10000.0
 
+[node name="Mail" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="InformationPanel/DialogNodeTabs/Mail"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 56.0
+offset_right = 405.0
+offset_bottom = 675.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 523.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="SenderNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/SenderNodes"]
+layout_mode = 2
+text = "Sender"
+
+[node name="LineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/SenderNodes"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "Sender"
+
+[node name="SubjectNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/SubjectNodes"]
+layout_mode = 2
+text = "Subject"
+
+[node name="LineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/SubjectNodes"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+placeholder_text = "Subject"
+
+[node name="Message" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PageButtons" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PrevPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/PageButtons"]
+layout_mode = 2
+text = "Prev Page"
+
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/PageButtons"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/PageButtons"]
+layout_mode = 2
+text = "Page 1"
+
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/PageButtons"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/PageButtons"]
+layout_mode = 2
+text = "Next Page"
+
+[node name="StartQuest2" parent="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4")]
+layout_mode = 2
+
 [node name="ToggleVisiblity" type="Button" parent="InformationPanel"]
 layout_mode = 0
 anchor_top = 0.5
@@ -884,6 +969,7 @@ text = "Cancel"
 [connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/Mail/Control/VBoxContainer/VBoxContainer/StartQuest2" to="InformationPanel" method="_on_StartQuest_id_changed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="timeout" from="InformationPanel/availability_timer" to="InformationPanel" method="_on_availability_timer_timeout"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
