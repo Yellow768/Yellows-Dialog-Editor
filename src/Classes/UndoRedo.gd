@@ -9,7 +9,8 @@ var redo_history = []
 var dialog_editor
 
 func save_undo(clear_redo = false):
-	
+	if !GlobalDeclarations.undo_enabled:
+		return
 	if CurrentEnvironment.allow_save_state:
 		var cat_save = category_saver.new()
 		add_child(cat_save)
@@ -20,6 +21,8 @@ func save_undo(clear_redo = false):
 	
 
 func save_redo():
+	if !GlobalDeclarations.undo_enabled:
+		return
 	if CurrentEnvironment.allow_save_state:
 		print("redo save called")
 		var cat_save = category_saver.new()
@@ -28,6 +31,8 @@ func save_redo():
 	emit_signal("redo_saved")
 	
 func undo():
+	if !GlobalDeclarations.undo_enabled:
+		return
 	save_redo()
 	CurrentEnvironment.allow_save_state = false
 	if undo_history.is_empty():
@@ -48,6 +53,8 @@ func undo():
 
 	
 func redo():
+	if !GlobalDeclarations.undo_enabled:
+		return
 	save_undo()
 	if redo_history.is_empty():
 		return

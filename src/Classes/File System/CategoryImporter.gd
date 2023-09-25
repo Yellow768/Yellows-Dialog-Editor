@@ -39,7 +39,7 @@ func create_nodes_from_index(category_name : String, index : int = 0):
 		return
 	create_dialog_from_json(imported_dialogs[index],unimported_dialog_position)
 	if !imported_dialogs.is_empty():
-		unimported_dialog_position += Vector2(300,300)
+		unimported_dialog_position += Vector2(0,700)
 		create_nodes_from_index(category_name,0)
 	else:
 		unimported_dialog_position = Vector2(300,300)

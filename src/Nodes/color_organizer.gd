@@ -3,7 +3,7 @@ class_name color_organizer
 var node_type = "Color Organizer"
 var text = "Color Organizer"
 var box_color = Color(1,1,1,1)
-
+var initial_offset = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

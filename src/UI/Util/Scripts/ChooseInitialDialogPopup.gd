@@ -2,6 +2,7 @@ extends Panel
 
 signal initial_dialog_chosen
 signal no_dialogs
+signal import_canceled
 
 @export var _button_list_path: NodePath
 
@@ -34,6 +35,7 @@ func emit_initial_dialog_chosen(index_chosen : int):
 
 
 func _on_CancelButton_pressed():
+	emit_signal("import_canceled")
 	queue_free()
 
 

@@ -66,11 +66,11 @@ func load_editor_settings(node_data):
 	
 func load_color_category(node_data):
 	var loaded_color_organizer = color_organizer.new()
-	loaded_color_organizer.position_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
+	loaded_color_organizer.initial_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
 	loaded_color_organizer.box_color  = GlobalDeclarations.int_to_color(node_data["color"])
 	loaded_color_organizer.custom_minimum_size = Vector2(node_data["min_size_x"],node_data["min_size_y"])
 	loaded_color_organizer.text = node_data["text"]
-	emit_signal("request_add_color_organizer",loaded_color_organizer)
+	emit_signal("request_add_color_organizer",loaded_color_organizer,true)
 	
 func load_dialog_data(node_data : Dictionary):
 	var currently_loaded_dialog = create_new_dialog_node_from_ydec(node_data)

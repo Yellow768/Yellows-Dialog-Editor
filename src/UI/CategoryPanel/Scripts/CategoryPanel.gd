@@ -69,6 +69,9 @@ func load_category(category_name : String):
 		add_child(new_saver)
 		new_saver.save_category(current_category)
 		emit_signal("request_load_category",category_name)
+		for child in category_file_container.get_children():
+			if child.text == current_category:
+				child.button_pressed = true
 
 
 
@@ -86,6 +89,7 @@ func _process(delta):
 func _on_CreateNewCategory_pressed():
 	var confirm_text_popup = load("res://src/UI/Util/TextEnterConfirmTemplate.tscn").instantiate()
 	confirm_text_popup.connect("confirmed_send_text", Callable(EnvironmentIndex, "create_new_category"))
+	confirm_text_popup.connect("confirmed_send_text", Callable(self, "load_category"))
 	#confirm_text_popup.rect_position = OS.window_size/2
 	$".".add_child(confirm_text_popup)
 	confirm_text_popup.popup_centered()

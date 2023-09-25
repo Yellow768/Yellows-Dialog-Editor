@@ -29,7 +29,7 @@ anchor_bottom = 0.5
 offset_left = -300.0
 offset_top = -300.0
 offset_right = 300.0
-offset_bottom = 300.0
+offset_bottom = 416.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_arin6")
@@ -116,6 +116,18 @@ offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
 
+[node name="EnableUndo" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+tooltip_text = "The Undo Redo system is buggy and extremely memory inefficient. This program is in alpha"
+mouse_filter = 1
+text = "Enable Undo/Redo"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/EnableUndo"]
+layout_mode = 0
+offset_left = 308.54
+offset_right = 348.54
+offset_bottom = 24.0
+
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -140,3 +152,4 @@ horizontal_alignment = 1
 [connection signal="text_submitted" from="VBoxContainer/HideConnectionDistance/HSlider/ValueEdit" to="." method="_on_value_edit_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/HideConnectionDistance/HSlider/Resetbutton" to="." method="_on_resetbutton_pressed"]
 [connection signal="toggled" from="VBoxContainer/HoldShift/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/EnableUndo/CheckButton" to="." method="_on_undo_button_toggled"]

@@ -104,6 +104,7 @@ size_flags_vertical = 0
 right_disconnects = true
 scroll_offset = Vector2(-15, -21)
 use_snap = false
+zoom_min = 0.001
 show_zoom_label = true
 minimap_enabled = false
 minimap_size = Vector2(150, 150)

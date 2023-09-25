@@ -22,15 +22,19 @@ var dialog_left_slot_color_hidden := Color(1,0,1)
 
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
+var undo_enabled = false
+
 var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_right","zoom_key","drag_responses_key","delete_nodes","add_dialog_at_mouse","create_response","zoom_in","zoom_out","select_multiple","save","export","scan_for_changes","reimport_category"]
 
 var assigning_keybind = false
+
 
 func _ready():
 	var config = ConfigFile.new()
 	config.load("user://user_settings.cfg")
 	hide_connection_distance = config.get_value("user_settings","hide_connection_distance",1000)
 	hold_shift_for_individual_movement = config.get_value("user_settings","hold_shift_for_individual_movement",false)
+	undo_enabled = config.get_value("user_settings","undo_enabled",false)
 	for action in actions:
 		var temp_action = InputMap.action_get_events(action)
 		InputMap.action_erase_events(action)
@@ -42,6 +46,7 @@ func save_config():
 	config.load(user_settings_path)
 	config.set_value("user_settings","hide_connection_distance",hide_connection_distance)
 	config.set_value("user_settings","hold_shift_for_individual_movement",hold_shift_for_individual_movement)
+	config.set_value("user_settings","undo_enabled",undo_enabled)
 	config.set_value("prev_dirs","dir_array",config.get_value("prev_dirs","dir_array","[]"))
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))

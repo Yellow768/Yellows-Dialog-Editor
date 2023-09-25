@@ -50,3 +50,7 @@ func _on_editor_settings_button_pressed():
 
 func _on_check_button_toggled(button_pressed):
 	GlobalDeclarations.hold_shift_for_individual_movement = button_pressed
+
+
+func _on_undo_button_toggled(button_pressed):
+	GlobalDeclarations.undo_enabled = button_pressed

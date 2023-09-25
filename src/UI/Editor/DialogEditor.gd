@@ -113,7 +113,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("request_connection_line_hidden", Callable(self, "hide_connection_line"))
 	new_response.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_response.connect("request_add_dialog", Callable(self, "add_dialog_node"))
-	new_response.connect("set_self_as_selected", Callable(self, "_on_node_requests_selection"))
+	new_response.connect("set_self_as_selected", Callable(self, "_on_DialogEditor_node_selected"))
 	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
 	new_response.connect("response_double_clicked", Callable(self, "handle_double_click").bind(new_response))
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
@@ -137,14 +137,18 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 	emit_signal("unsaved_changes",true)
 
 
-func add_color_organizer(col_org : color_organizer = color_organizer.new()):
+func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_exact_offset : bool = false):
 	currentUndoRedo.save_undo(true)
 	var col_org_scene = load("res://src/Nodes/color_organizer.tscn")
 	var new_color_org = col_org_scene.instantiate()
 	new_color_org.box_color = col_org.box_color 
 	new_color_org.custom_minimum_size = col_org.custom_minimum_size
 	new_color_org.text = col_org.text
-	new_color_org.position_offset = col_org.position_offset
+	new_color_org.position_offset = col_org.initial_offset
+	if new_color_org.position_offset == Vector2.ZERO:
+		new_color_org.position_offset = get_window().size/3
+	if !use_exact_offset:
+		new_color_org.position_offset = (new_color_org.position_offset+scroll_offset)/zoom
 	add_child(new_color_org)
 
 
@@ -229,7 +233,7 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
 	response.connected_dialog = dialog
-	if(response.position_offset.distance_to(dialog.position_offset) < 1000):
+	if response.position_offset.distance_to(dialog.position_offset) < 1000:
 		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 	dialog.add_connected_response(response)
 	emit_signal("unsaved_changes",true)
@@ -319,6 +323,7 @@ func initialize_category_import(category_name : String):
 	visible = true
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
+	choose_dialog_popup.connect("import_canceled", Callable(self, "import_canceled"))
 	choose_dialog_popup.connect("no_dialogs", Callable(self, "on_no_dialogs").bind(category_name))
 	get_parent().add_child(choose_dialog_popup)
 	choose_dialog_popup.size = get_window().size
@@ -326,6 +331,13 @@ func initialize_category_import(category_name : String):
 	choose_dialog_popup.create_dialog_buttons(category_name)
 	
 func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
+	CurrentEnvironment.current_category_name = null
+	CurrentEnvironment.allow_save_state = false
+	if !UndoRedoDict.has(category_name):
+		UndoRedoDict[category_name] = UndoSystem.new()
+		get_parent().add_child(UndoRedoDict[category_name])
+		UndoRedoDict[category_name].dialog_editor = self
+	currentUndoRedo = UndoRedoDict[category_name]
 	var new_category_importer := category_importer.new()
 	new_category_importer.connect("request_add_dialog", Callable(self, "add_dialog_node"))
 	new_category_importer.connect("request_add_response", Callable(self, "add_response_node"))
@@ -354,6 +366,11 @@ func scan_for_changes(category_name):
 	new_category_importer.scan_category_for_changes(category_name)
 	emit_signal("unsaved_changes",true)
 	
+func import_canceled():
+	visible = false
+	CurrentEnvironment.current_category_name = null
+	CurrentEnvironment.allow_save_state = false
+	
 		
 func clear_editor():
 	
@@ -377,13 +394,20 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 
 func _on_DialogEditor_node_selected(node):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion || Input.is_action_pressed("select_multiple"):
-		if selected_responses.find(node,0) == -1 and node.node_type == "Player Response Node":
+		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
 		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
 	else:
 		set_selected(node)
+		selected_responses.clear()
+		selected_nodes.clear()
+		if !selected_responses.has(node) and node.node_type == "Player Response Node":
+			selected_responses.append(node)
+			
+		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
+			selected_nodes.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
 
