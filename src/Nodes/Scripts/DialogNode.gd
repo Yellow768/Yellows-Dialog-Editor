@@ -65,6 +65,7 @@ var quest_availabilities : Array[quest_availability_object]= [quest_availability
 var scoreboard_availabilities = [scoreboard_availability_object.new(),scoreboard_availability_object.new()]
 var faction_availabilities :Array[faction_availability_object]= [faction_availability_object.new(),faction_availability_object.new()]
 var faction_changes :Array[faction_change_object]= [faction_change_object.new(),faction_change_object.new()]
+var mail = mail_data_object.new()
 
 @export var time_availability : int = 0
 @export var min_level_availability : int = 0

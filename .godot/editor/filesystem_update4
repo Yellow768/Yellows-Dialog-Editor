@@ -17,3 +17,5 @@ res://src/Nodes/Scripts/ResponseNode.gd
 res://src/Autoload/global_declarations.gd
 res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
 res://src/Classes/File System/CategoryImporter.gd
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/UI/Editor/MailData.gd
