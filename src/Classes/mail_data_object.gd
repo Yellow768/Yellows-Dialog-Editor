@@ -25,8 +25,27 @@ func _ready():
 	pass
 	
 
-
-
+func compose_items_string():
+	var string := ""
+	for item in items_slots:
+		if item != "":
+			if string != "":
+				string += ",\n{\n"+item+"\n}"
+			else:
+				string += "\n{\n"+item+"\n}"
+	return string
+			
+func compose_pages_string():
+	var string = ""
+	if !pages.is_empty():
+		string += '"pages":['
+		for page_index in pages.size():
+			string += "\n"+pages[page_index]
+			if page_index != pages.size():
+				string += "\n,"
+		string += "\n]"
+	return string
+			
 	
 #"DialogMail": {
 #        "Sender": "Bobaa",

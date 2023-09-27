@@ -1,14 +1,14 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1695845030
-default_env.tres::Environment::8009894872529049898::1695844275::0::1::::<><>::
+::res://::1695853340
+default_env.tres::Environment::8009894872529049898::1695853112::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1695657486::0::1::::<><>::
 icon.png::CompressedTexture2D::4573748567915887936::1694622089::1695657487::1::::<><>::
 README.md::TextFile::-1::1695841886::0::1::::<><>::
-::res://Assets/::1695842439
+::res://Assets/::1695845413
 CategoryButtons.tres::ButtonGroup::-1::1694794160::0::1::::<><>::
 color_picker_style.tres::StyleBoxFlat::-1::1694794162::0::1::::<><>::
-MainEditor.tres::Theme::503887907441507524::1695842439::0::1::::<><>::uid://cq3cuar4v71mg::::res://Assets/Theme/DarkColorPanel.tres<>uid://dawclfafqp0ju::::res://Assets/UI Textures/Node.png<>uid://b5mn0j8sb01y7::::res://Assets/UI Textures/NodeSelected.png
-UITheme.tres::Theme::5652905392392900358::1695842439::0::1::::<><>::
+MainEditor.tres::Theme::503887907441507524::1695845413::0::1::::<><>::uid://cq3cuar4v71mg::::res://Assets/Theme/DarkColorPanel.tres<>uid://dawclfafqp0ju::::res://Assets/UI Textures/Node.png<>uid://b5mn0j8sb01y7::::res://Assets/UI Textures/NodeSelected.png
+UITheme.tres::Theme::5652905392392900358::1695845413::0::1::::<><>::
 ::res://Assets/Font/::1695659841
 Lexend-VariableFont_wght.ttf::FontFile::6479758053655946946::1694721982::1694794160::1::::<><>::
 TinyFont.tres::FontFile::2415562496821856792::1695659841::0::1::::<><>::
@@ -413,9 +413,9 @@ yen-circle-line.svg::CompressedTexture2D::4460771171339374939::1694721984::16956
 ::res://src/Autoload/::1695841876
 current_environment.gd::GDScript::-1::1695841876::0::1::::<>Node<>::
 global_declarations.gd::GDScript::-1::1695673044::0::1::::<>Node<>::
-::res://src/Classes/::1695844045
+::res://src/Classes/::1695852925
 dialog_titles_index.gd::GDScript::-1::1695657487::0::1::::<>Node<>::
-mail_data_object.gd::GDScript::-1::1695844045::0::1::::mail_data_object<>Node<>::
+mail_data_object.gd::GDScript::-1::1695852925::0::1::::mail_data_object<>Node<>::
 UndoRedo.gd::GDScript::-1::1695657487::0::1::::UndoSystem<>Node<>::
 undo_redo.tscn::PackedScene::8271814924878478544::1695680025::0::1::::<><>::res://src/Classes/UndoRedo.gd
 ::res://src/Classes/Availability Objects/::1695657487
@@ -423,39 +423,39 @@ dialog_availability_object.gd::GDScript::-1::1695657487::0::1::::dialog_availabi
 faction_availability_object.gd::GDScript::-1::1695657487::0::1::::faction_availability_object<>Resource<>::
 faction_change_object.gd::GDScript::-1::1695657487::0::1::::faction_change_object<>Resource<>::
 quest_availability_object.gd::GDScript::-1::1695657487::0::1::::quest_availability_object<>Resource<>::
-::res://src/Classes/File System/::1695677661
-CategoryExporter.gd::GDScript::-1::1695657487::0::1::::category_exporter<>Node<>::
+::res://src/Classes/File System/::1695853112
+CategoryExporter.gd::GDScript::-1::1695853112::0::1::::category_exporter<>Node<>::
 CategoryImporter.gd::GDScript::-1::1695677661::0::1::::category_importer<>Node<>::
-category_loader.gd::GDScript::-1::1695657487::0::1::::category_loader<>Node<>::
+category_loader.gd::GDScript::-1::1695851335::0::1::::category_loader<>Node<>::
 category_saver.gd::GDScript::-1::1695657487::0::1::::category_saver<>Node<>::
 dialog_jsons_loader.gd::GDScript::-1::1695657487::0::1::::dialog_jsons_loader<>Node<>::
 EnvironmentIndexer.gd::GDScript::-1::1695657487::0::1::::EnvironmentIndexer<>Node<>::
 QuestAndFactionsIndex.gd::GDScript::-1::1695657487::0::1::::quest_indexer<>Node<>::
-::res://src/Nodes/::1695680027
+::res://src/Nodes/::1695853112
 CategoryButton.tscn::PackedScene::7262955098480067502::1695680027::0::1::::<><>::res://src/UI/CategoryPanel/Scripts/CategoryButton.gd<>uid://hgc7wambejk3
-color_organizer.gd::GDScript::-1::1695657487::0::1::::color_organizer<>GraphNode<>::
-color_organizer.tscn::PackedScene::6070154052734854915::1695680024::0::1::::<><>::res://src/Nodes/color_organizer.gd<>uid://doa0qf5wgt1u7
+color_organizer.gd::GDScript::-1::1695851682::0::1::::color_organizer<>GraphNode<>::
+color_organizer.tscn::PackedScene::6070154052734854915::1695853112::0::1::::<><>::res://src/Nodes/color_organizer.gd<>uid://doa0qf5wgt1u7::::res://Assets/UI Textures/Icon Font/lock-off-line.svg
 DialogNode.tscn::PackedScene::5660559405505290900::1695680024::0::1::::<><>::res://src/Nodes/Scripts/DialogNode.gd<>uid://hgc7wambejk3
 ResponseNode.tscn::PackedScene::8383437303632186580::1695680025::0::1::::<><>::res://src/Nodes/Scripts/ResponseNode.gd<>uid://hgc7wambejk3
 ::res://src/Nodes/Scripts/::1695679350
 DialogNode.gd::GDScript::-1::1695679350::0::1::::dialog_node<>GraphNode<>::
 DialogText.gd::GDScript::-1::1695657487::0::1::::<>TextEdit<>::
 ResponseNode.gd::GDScript::-1::1695673111::0::1::::response_node<>GraphNode<>::
-::res://src/UI/::1695844047
+::res://src/UI/::1695851927
 LandingScreen.gd::GDScript::-1::1695657487::0::1::::<>Control<>::
 LandingScreen.tscn::PackedScene::4373238059181527435::1695657487::0::1::::<><>::res://src/UI/LandingScreen.gd<>uid://hgc7wambejk3
-Program.tscn::PackedScene::8124061627061907711::1695844047::0::1::::<><>::uid://b3koueh5166hj::::res://src/UI/LandingScreen.tscn<>uid://cmskr47qlp4v7::::res://Assets/UITheme.tres
+Program.tscn::PackedScene::8124061627061907711::1695851927::0::1::::<><>::uid://b3koueh5166hj::::res://src/UI/LandingScreen.tscn<>uid://cmskr47qlp4v7::::res://Assets/UITheme.tres
 ::res://src/UI/CategoryPanel/::1694721984
 ::res://src/UI/CategoryPanel/Scripts/::1695657487
 CategoryButton.gd::GDScript::-1::1695657487::0::1::::<>Button<>::
 CategoryPanel.gd::GDScript::-1::1695657487::0::1::::<>Panel<>::
-::res://src/UI/Dialog Settings/::1695844048
+::res://src/UI/Dialog Settings/::1695851928
 ChooseFaction.tscn::PackedScene::3390573144150978232::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/ChooseFaction.gd
 ChooseQuest.tscn::PackedScene::4367801231989985865::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/ChooseQuest.gd
 Dialog Availability.tscn::PackedScene::4718110056724971971::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Dialog Availability.gd
 Faction Availability.tscn::PackedScene::6260946382467473969::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Faction Availability.gd<>uid://bokoikotidj57
 FactionChange.tscn::PackedScene::2761679048561594851::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/FactionChange.gd<>uid://bokoikotidj57
-MailItemSlot.tscn::PackedScene::3556825262785662975::1695844048::0::1::::<><>::uid://b8aewr7debfni::::res://src/UI/Util/Expandable Line Edit.tscn<>res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd
+MailItemSlot.tscn::PackedScene::3556825262785662975::1695851928::0::1::::<><>::uid://b8aewr7debfni::::res://src/UI/Util/Expandable Line Edit.tscn<>res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd
 Quest Avaiability.tscn::PackedScene::6011981398678366684::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/Quest Avaiability.gd<>uid://b3h2bvwm0hbhp
 ScoreboardAvailability.tscn::PackedScene::4420688163338521669::1695657487::0::1::::<><>::res://src/UI/Dialog Settings/Scripts/ScoreboardAvailability.gd<>uid://hgc7wambejk3
 Select Quest.tscn::PackedScene::-1::1695657487::0::1::::<><>::
@@ -472,23 +472,23 @@ Quest Avaiability.gd::GDScript::-1::1695657487::0::1::::<>Control<>::
 ScoreboardAvailability.gd::GDScript::-1::1695657487::0::1::::scoreboard_availability_object<>Control<>::
 SettingsPanel.gd::GDScript::-1::1695841876::0::1::::<>Panel<>::
 StartQuest.gd::GDScript::-1::1695657487::0::1::::<>Control<>::
-::res://src/UI/Editor/::1695844275
-DialogEditor.gd::GDScript::-1::1695841876::0::1::::<>GraphEdit<>::
+::res://src/UI/Editor/::1695851927
+DialogEditor.gd::GDScript::-1::1695851801::0::1::::<>GraphEdit<>::
 EditorSettings.gd::GDScript::-1::1695657487::0::1::::<>Panel<>::
 editor_settings.tscn::PackedScene::4744856014308955488::1695680023::0::1::::<><>::res://src/UI/Editor/EditorSettings.gd<>uid://fs6yo18nrkpb
 keybind.gd::GDScript::-1::1695657487::0::1::::<>HBoxContainer<>::
 keybind.tscn::PackedScene::1375610005139198328::1695680024::0::1::::<><>::res://src/UI/Editor/keybind.gd
-MailData.gd::GDScript::-1::1695844275::0::1::::<>Control<>::
+MailData.gd::GDScript::-1::1695851927::0::1::::<>Control<>::
 MainEditor.gd::GDScript::-1::1695657487::0::1::::<>Control<>::
-MainEditor.tscn::PackedScene::8058893984972822801::1695844275::0::1::::<><>::res://src/UI/Editor/MainEditor.gd<>res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd<>res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd<>uid://dj443rk8yk0hi::::res://src/UI/Dialog Settings/StartQuest.tscn<>uid://b8hqt3kn3abc2::::res://src/UI/Dialog Settings/Dialog Availability.tscn<>uid://bfl1pkyh2gaqd::::res://src/UI/Dialog Settings/FactionChange.tscn<>uid://2vhumwny7qul::::res://Assets/UI Textures/Icon Font/plus-line.png<>uid://cvg34wikii27f::::res://src/UI/Dialog Settings/Faction Availability.tscn<>uid://j4j8hy74dmnx::::res://Assets/UI Textures/Icon Font/save-line.png<>uid://crwipqkebweam::::res://src/UI/Dialog Settings/Quest Avaiability.tscn<>uid://mdckhsyuc7am::::res://Assets/UI Textures/Icon Font/share-line.png<>uid://b38oc862r1lp2::::res://src/UI/Dialog Settings/ScoreboardAvailability.tscn<>uid://b5hvjqasdvdh5::::res://Assets/UI Textures/Icon Font/reload-circle-line.png<>res://src/UI/Editor/DialogEditor.gd<>uid://yboafh0lt84i::::res://Assets/UI Textures/Icon Font/article-search-line.png<>res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd<>uid://dl16h251n4u8p::::res://Assets/UI Textures/Icon Font/settings-cog-line.png<>res://src/Classes/dialog_titles_index.gd<>uid://b0rt50ak2ixd4::::res://Assets/UI Textures/Icon Font/home-line.png<>res://src/Classes/File System/EnvironmentIndexer.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres<>uid://b8aewr7debfni::::res://src/UI/Util/Expandable Line Edit.tscn<>res://src/UI/Util/Scripts/UIAnimations.gd<>res://src/Nodes/Scripts/DialogText.gd<>res://src/UI/Editor/MailData.gd<>uid://bqw7nlvwgcprr::::res://src/UI/Dialog Settings/MailItemSlot.tscn<>uid://b8upc5vs5ynlw::::res://src/UI/Editor/editor_settings.tscn
+MainEditor.tscn::PackedScene::8058893984972822801::1695851927::0::1::::<><>::res://src/UI/Editor/MainEditor.gd<>res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd<>res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd<>uid://dj443rk8yk0hi::::res://src/UI/Dialog Settings/StartQuest.tscn<>uid://b8hqt3kn3abc2::::res://src/UI/Dialog Settings/Dialog Availability.tscn<>uid://bfl1pkyh2gaqd::::res://src/UI/Dialog Settings/FactionChange.tscn<>uid://2vhumwny7qul::::res://Assets/UI Textures/Icon Font/plus-line.png<>uid://cvg34wikii27f::::res://src/UI/Dialog Settings/Faction Availability.tscn<>uid://j4j8hy74dmnx::::res://Assets/UI Textures/Icon Font/save-line.png<>uid://crwipqkebweam::::res://src/UI/Dialog Settings/Quest Avaiability.tscn<>uid://mdckhsyuc7am::::res://Assets/UI Textures/Icon Font/share-line.png<>uid://b38oc862r1lp2::::res://src/UI/Dialog Settings/ScoreboardAvailability.tscn<>uid://b5hvjqasdvdh5::::res://Assets/UI Textures/Icon Font/reload-circle-line.png<>res://src/UI/Editor/DialogEditor.gd<>uid://yboafh0lt84i::::res://Assets/UI Textures/Icon Font/article-search-line.png<>res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd<>uid://dl16h251n4u8p::::res://Assets/UI Textures/Icon Font/settings-cog-line.png<>res://src/Classes/dialog_titles_index.gd<>uid://b0rt50ak2ixd4::::res://Assets/UI Textures/Icon Font/home-line.png<>res://src/Classes/File System/EnvironmentIndexer.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres<>uid://b8aewr7debfni::::res://src/UI/Util/Expandable Line Edit.tscn<>res://src/UI/Util/Scripts/UIAnimations.gd<>res://src/Nodes/Scripts/DialogText.gd<>res://src/UI/Editor/MailData.gd<>uid://bqw7nlvwgcprr::::res://src/UI/Dialog Settings/MailItemSlot.tscn<>uid://b8upc5vs5ynlw::::res://src/UI/Editor/editor_settings.tscn
 ::res://src/UI/NavigationPanel/::1694721984
 ::res://src/UI/NavigationPanel/Scripts/::1695674269
 EditorNavigation.gd::GDScript::-1::1695674269::0::1::::<>Panel<>::
-::res://src/UI/Util/::1695844047
+::res://src/UI/Util/::1695851927
 ChooseInitialDialogPopup.tscn::PackedScene::5552789230842682685::1695680026::0::1::::<><>::res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd<>uid://hgc7wambejk3
 ConfirmDeletion.tscn::PackedScene::6201923060723186763::1695680027::0::1::::<><>::res://src/UI/Util/Scripts/DeleteCategoryMessage.gd<>uid://hgc7wambejk3
 DirectoryShortcutButton.tscn::PackedScene::-1::1695657487::0::1::::<><>::res://src/UI/Util/Scripts/DirectoryShortcutButton.gd
-Expandable Line Edit.tscn::PackedScene::4702935621657534206::1695844047::0::1::::<><>::res://src/UI/Util/Scripts/Expandable Line Edit.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres
+Expandable Line Edit.tscn::PackedScene::4702935621657534206::1695851927::0::1::::<><>::res://src/UI/Util/Scripts/Expandable Line Edit.gd<>uid://hgc7wambejk3::::res://Assets/MainEditor.tres
 FactionLoader.tscn::PackedScene::679239262746457683::1695657487::0::1::::<><>::
 TextEnterConfirmTemplate.tscn::PackedScene::6391875844659864640::1695680026::0::1::::<><>::res://src/UI/Util/Scripts/TextEnterConfirmTemplate.gd
 ::res://src/UI/Util/Scripts/::1695657487
@@ -502,9 +502,11 @@ TextEnterConfirmTemplate.gd::GDScript::-1::1695657487::0::1::::<>ConfirmationDia
 UIAnimations.gd::GDScript::-1::1695657487::0::1::::<>Node<>::
 ::res://world/::1695657481
 ::res://world/customnpcs/::1695659866
-environment_settings.json::JSON::-1::1695844589::0::1::::<><>::
-::res://world/customnpcs/dialogs/::1695844471
-highest_index.json::JSON::-1::1695844594::0::1::::<><>::
+environment_settings.json::JSON::-1::1695851944::0::1::::<><>::
+::res://world/customnpcs/dialogs/::1695852960
+::res://world/customnpcs/dialogs/hh/::1695853118
+28.json::JSON::-1::1695853118::0::1::::<><>::
 ::res://world/customnpcs/dialogs/NewCategory/::1695673506
 15.json::JSON::-1::1695673506::0::1::::<><>::
 ::res://world/customnpcs/dialogs/Test/::1695844474
+::res://world/customnpcs/dialogs/wow/::1695851278

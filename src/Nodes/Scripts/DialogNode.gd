@@ -210,6 +210,7 @@ func save():
 	var save_scoreboard_av :Array[Dictionary]= []
 	var save_fact_changes :Array[Dictionary]= []
 	var save_response_options :Array[Dictionary]= []
+	var save_mail : Dictionary
 	
 	for i in quest_availabilities:
 		save_quest_av.append({
@@ -255,7 +256,13 @@ func save():
 			"position_offset_y" : i.position_offset.y
 			}
 			)
-	
+	save_mail = {
+		"sender" : mail.sender,
+		"subject" : mail.subject,
+		"pages" : JSON.stringify(mail.pages),
+		"items" : JSON.stringify(mail.items_slots),
+		"quest_id" : mail.quest_id
+	}
 	
 	var save_dict = {
 		"node_type" : node_type,
@@ -279,7 +286,8 @@ func save():
 		"faction_changes" : save_fact_changes,
 		"time_availability" : time_availability,
 		"min_level_availability" : min_level_availability,
-		"response_options":save_response_options
+		"response_options":save_response_options,
+		"mail" : save_mail
 	}
 	return save_dict
 
