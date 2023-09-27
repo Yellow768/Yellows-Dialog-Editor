@@ -70,6 +70,7 @@ func load_color_category(node_data):
 	loaded_color_organizer.box_color  = GlobalDeclarations.int_to_color(node_data["color"])
 	loaded_color_organizer.custom_minimum_size = Vector2(node_data["min_size_x"],node_data["min_size_y"])
 	loaded_color_organizer.text = node_data["text"]
+	loaded_color_organizer.locked = bool(node_data["locked"])
 	emit_signal("request_add_color_organizer",loaded_color_organizer,true)
 	
 func load_dialog_data(node_data : Dictionary):

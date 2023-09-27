@@ -92,7 +92,8 @@ func _on_prev_page_button_pressed():
 
 
 func _on_delete_page_button_pressed():
-	if current_mail_object.pages.size() == 0:
+	if current_mail_object.pages.size() == 0 || current_mail_object.pages.size() == 1:
+		current_mail_object.pages.clear()
 		MessageBox.text = ""
 		return
 	current_mail_object.pages.pop_at(current_page-1)

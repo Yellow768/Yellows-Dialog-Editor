@@ -146,6 +146,7 @@ func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_
 	new_color_org.custom_minimum_size = col_org.custom_minimum_size
 	new_color_org.text = col_org.text
 	new_color_org.position_offset = col_org.initial_offset
+	new_color_org.locked = col_org.locked
 	if new_color_org.position_offset == Vector2.ZERO:
 		new_color_org.position_offset = get_window().size/3
 	if !use_exact_offset:

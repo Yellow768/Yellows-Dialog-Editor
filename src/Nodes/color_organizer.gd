@@ -4,6 +4,7 @@ var node_type = "Color Organizer"
 var text = "Color Organizer"
 var box_color = Color(1,1,1,1)
 var initial_offset = Vector2.ZERO
+var locked := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,8 +13,10 @@ func _ready():
 	$TextEdit.add_theme_font_size_override("font_size",size.x/8)
 	change_color(box_color)
 	$TextEdit.text = text
+	$Button.button_pressed = locked
+	print(locked)
+	set_locked(locked)
 	
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func change_color(color):
@@ -69,6 +72,31 @@ func _on_node_deselected():
 	mouse_filter = 2
 	resizable = false
 
+	
+
+
+func _on_close_request():
+	queue_free()
+	
+func delete_self(_useless_bool):
+	queue_free()
+
+func set_locked(value : bool):
+	
+	locked = value
+	print(locked)
+	selectable = !value
+	if value:
+		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-line.svg")
+		mouse_filter = 2
+	else:
+		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-off-line.svg")
+
+
+func _on_button_toggled(button_pressed):
+	set_locked(button_pressed)	
+
+
 func save():
 	var save_dict = {
 		"node_type" : node_type,
@@ -79,23 +107,7 @@ func save():
 		"min_size_y" : custom_minimum_size.y,
 		"color": ("0x"+String(box_color.to_html(false))).hex_to_int(),
 		"min_size" : get_minimum_size(),
-		"text" : $TextEdit.text
+		"text" : $TextEdit.text,
+		"locked" : locked
 	}
 	return save_dict
-	
-
-
-func _on_close_request():
-	queue_free()
-	
-func delete_self(_useless_bool):
-	queue_free()
-
-
-func _on_button_toggled(button_pressed):
-	selectable = !button_pressed
-	if button_pressed:
-		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-line.svg")
-		mouse_filter = 2
-	else:
-		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-off-line.svg")
