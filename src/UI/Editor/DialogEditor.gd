@@ -491,11 +491,3 @@ func reindex_ids():
 
 func _on_category_panel_request_dialog_ids_reassigned():
 	reindex_ids()
-
-
-
-	
-
-
-func reindex_ids():
-	assignNewIDs()

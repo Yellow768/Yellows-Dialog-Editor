@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqw7nlvwgcprr"]
+
+[ext_resource type="PackedScene" uid="uid://b8aewr7debfni" path="res://src/UI/Util/Expandable Line Edit.tscn" id="1_k4lbn"]
+[ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd" id="1_tbl47"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+offset_right = 315.0
+offset_bottom = 95.0
+script = ExtResource("1_tbl47")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Item Slot 1"
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = ">"
+
+[node name="ID and Count" type="HBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="ItemID" type="LineEdit" parent="ID and Count"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+placeholder_text = "Item ID"
+
+[node name="SpinBox" type="SpinBox" parent="ID and Count"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+prefix = "Count: "
+
+[node name="NBTTextEdit" parent="." instance=ExtResource("1_k4lbn")]
+visible = false
+layout_mode = 2
+placeholder_text = "Custom NBT Data"
+
+[connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]
+[connection signal="text_changed" from="ID and Count/ItemID" to="." method="_on_item_id_text_changed"]
+[connection signal="value_changed" from="ID and Count/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="text_changed" from="NBTTextEdit" to="." method="_on_nbt_text_edit_text_changed"]

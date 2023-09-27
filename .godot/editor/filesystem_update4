@@ -1,0 +1,12 @@
+res://default_env.tres
+res://src/UI/Program.tscn
+res://Assets/MainEditor.tres
+res://Assets/UITheme.tres
+res://src/UI/Editor/DialogEditor.gd
+res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd
+res://src/UI/Dialog Settings/MailItemSlot.tscn
+res://src/UI/Editor/MainEditor.tscn
+res://src/UI/Util/Expandable Line Edit.tscn
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/Editor/MailData.gd
+res://src/Classes/mail_data_object.gd

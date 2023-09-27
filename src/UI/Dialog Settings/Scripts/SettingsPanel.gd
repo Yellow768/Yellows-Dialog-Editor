@@ -31,6 +31,9 @@ signal unsaved_change
 @export var availability_time_path: NodePath
 @export var availability_level_path: NodePath
 
+@export var mail_data_path : NodePath
+
+
 @export var toggle_visiblity_path: NodePath
 
 @export var dialog_editor_path: NodePath
@@ -58,6 +61,7 @@ signal unsaved_change
 
 @onready var ToggleVisibility := get_node(toggle_visiblity_path)
 @onready var DialogEditor := get_node(dialog_editor_path)
+@onready var MailData := get_node(mail_data_path)
 
 var current_dialog : dialog_node
 var dialog_availability_mode := false
@@ -195,6 +199,7 @@ func load_dialog_settings(dialog : dialog_node):
 		AvailabilityScoreboard.get_child(i).set_objective_name(current_dialog.scoreboard_availabilities[i].objective_name)
 		AvailabilityScoreboard.get_child(i).set_comparison_type(current_dialog.scoreboard_availabilities[i].comparison_type)
 		AvailabilityScoreboard.get_child(i).set_value(current_dialog.scoreboard_availabilities[i].value)
+	MailData.load_mail_data(current_dialog.mail)
 		
 func scoreboard_objective_name_changed(child ,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name
