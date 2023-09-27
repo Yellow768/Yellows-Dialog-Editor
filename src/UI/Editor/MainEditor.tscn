@@ -721,7 +721,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
-text = "Page 1"
+text = "Page 1/1"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 modulate = Color(1, 1, 1, 0)
@@ -1035,7 +1035,7 @@ text = "Cancel"
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/PrevPageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_prev_page_button_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/NextPageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_next_page_button_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/DeletePageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_delete_page_button_pressed"]
-[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/StartQuest_Mail" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_start_quest_mail_id_changed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/StartQuest_Mail" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="update_quest_id"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="timeout" from="InformationPanel/availability_timer" to="InformationPanel" method="_on_availability_timer_timeout"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]

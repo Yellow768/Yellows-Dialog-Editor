@@ -55,8 +55,9 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 		new_dialog.node_index = node_index
 	node_index += 1
 	if new_dialog.dialog_id == -1:
-		new_dialog.dialog_id = CurrentEnvironment.highest_id+1
 		CurrentEnvironment.highest_id += 1
+		new_dialog.dialog_id = CurrentEnvironment.highest_id
+		print(CurrentEnvironment.highest_id)
 		
 	if new_dialog.position_offset == Vector2.ZERO:
 		new_dialog.position_offset = get_window().size/3
@@ -83,10 +84,11 @@ func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 	currentUndoRedo.save_undo(true)
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
-	CurrentEnvironment.handle_subtracting_dialog_id([dialog])
+	
 	set_last_selected_node_as_selected()
 	if remove_from_loaded_list:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
+		CurrentEnvironment.handle_subtracting_dialog_id([dialog])
 	dialog.queue_free()
 	emit_signal("unsaved_changes",true)
 	node_index -=1
@@ -361,6 +363,7 @@ func clear_editor():
 		i.delete_self()	
 	node_index = 0
 	emit_signal("editor_cleared")
+	print(CurrentEnvironment.highest_id)
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):

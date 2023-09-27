@@ -16,7 +16,7 @@ var mail_item = {
 
 
 var pages : Array[String]= []
-var items_slots = []
+var items_slots = ["","","",""]
 var quest_id = -1
 var subject = ""
 var sender = ""

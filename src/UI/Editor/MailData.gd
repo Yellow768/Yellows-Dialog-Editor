@@ -29,8 +29,8 @@ var loading_mail : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for slot in ItemSlots.get_children():
-		slot.connect("id_changed",Callable(self,"update_slot").bind(slot.slot))
-		slot.connect("nbt_changed",Callable(self,"update_slot").bind(slot.slot))
+		slot.connect("id_changed",Callable(self,"update_slot").bind(slot))
+		slot.connect("nbt_changed",Callable(self,"update_slot").bind(slot))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -46,23 +46,28 @@ func load_mail_data(data : mail_data_object):
 		MessageBox.text = ""
 	SenderLine.text = current_mail_object.sender
 	SubjectLine.text = current_mail_object.subject
+	PageLabel.text = "Page 1/"+str(current_mail_object.pages.size())
+	StartQuest.quest_id = current_mail_object.quest_id
 	loading_mail = false
 	
-		
+func update_quest_id(id: int):
+	current_mail_object.quest_id = id		
 
 
-func update_slot(slot : mail_item_slot):
+func update_slot(slot: mail_item_slot):
 	var slot_nbt_string : String
 	if !slot.nbt_data.is_empty():
-		slot.nbt_data.replace('"Slot": 0b',"")
-		slot.nbt_data.replace('"Slot": 1b',"")
-		slot.nbt_data.replace('"Slot": 2b',"")
-		slot.nbt_data.replace('"Slot": 3b',"")
-		slot.nbt_data.strip_edges()
-		slot_nbt_string = '"Slot": '+str(slot.slot)+'b\\n'+slot.nbt_data
+		slot_nbt_string = '"Slot": '+str(slot.slot)+'b,\n'+slot.nbt_data
 	else:
-		slot_nbt_string = '"Slot": '+str(slot.slot)+'b\\n'+slot.item_id+"\\n"+str(slot.item_count)
+		slot_nbt_string = '"Slot": '+str(slot.slot)+'b, 
+"ForgeCaps": {
+"customnpcs:itemscripteddata": {
+ }
+},
+"id": "'+slot.item_id+'",
+"Count": '+str(slot.item_count)+"b"
 	current_mail_object.items_slots[slot.slot] = "{"+slot_nbt_string+"}"
+	print(slot_nbt_string)
 		
 		
 		
@@ -78,7 +83,7 @@ func _on_next_page_button_pressed():
 
 
 func _on_prev_page_button_pressed():
-	if current_page != 0:
+	if current_page != 1:
 		current_page -=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = "Page "+str(current_page)+"/"+str(current_mail_object.pages.size())
