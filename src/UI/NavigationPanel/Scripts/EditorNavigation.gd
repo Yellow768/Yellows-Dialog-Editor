@@ -49,3 +49,7 @@ func _input(event):
 			emit_signal("reimport_category_request")
 		if Input.is_action_just_pressed("scan_for_changes"):
 			emit_signal("scan_for_changes_request")
+
+
+func _on_category_panel_finished_loading(_ignore : String):
+	$TopPanelContainer.visible = true

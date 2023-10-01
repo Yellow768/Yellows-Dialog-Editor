@@ -23,10 +23,8 @@ var all_loaded_dialogs : Array[GraphNode]= []
 
 var ignore_double_clicks := false
 
-var currentUndoRedo : UndoSystem
-var UndoRedoDict = {}
 
-var category_temp_data : Dictionary = {}
+
 
 func _ready():
 	get_zoom_hbox().visible = true
@@ -42,7 +40,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_pressed("delete_nodes"):
-		currentUndoRedo.save_undo(true)
+	
 		CurrentEnvironment.handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
 			i.delete_self(true)
@@ -54,7 +52,7 @@ func _process(_delta):
 
 
 func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false) -> dialog_node:
-	currentUndoRedo.save_undo(true)
+	
 	#Adds a new dialog node into the editor.
 	
 	if new_dialog.node_index == 0:
@@ -88,7 +86,7 @@ func relay_unsaved_changes():
 	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
 func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
-	currentUndoRedo.save_undo(true)
+	
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
 	
@@ -97,13 +95,13 @@ func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
 		CurrentEnvironment.handle_subtracting_dialog_id([dialog])
 	dialog.queue_free()
-	emit_signal("unsaved_changes",true)
+	relay_unsaved_changes()
 	node_index -=1
 
 	
 
 func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate()) -> response_node:
-	currentUndoRedo.save_undo(true)
+	
 	var new_offset
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
@@ -129,11 +127,11 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
-	emit_signal("unsaved_changes",true)
+	relay_unsaved_changes()
 	return new_response
 
 func delete_response_node(dialog : dialog_node,response : response_node):
-	currentUndoRedo.save_undo(true)
+	
 	disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
@@ -142,11 +140,11 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 	if selected_responses.find(response) != -1:
 		selected_responses.erase(response)
 	response.queue_free()
-	emit_signal("unsaved_changes",true)
+	relay_unsaved_changes()
 
 
 func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_exact_offset : bool = false):
-	currentUndoRedo.save_undo(true)
+	
 	var col_org_scene = load("res://src/Nodes/color_organizer.tscn")
 	var new_color_org = col_org_scene.instantiate()
 	new_color_org.box_color = col_org.box_color 
@@ -167,7 +165,7 @@ func response_node_dragged(from: Vector2,to : Vector2,response_node):
 
 func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to: Vector2):
 	if response_node.overlapping_response != null:
-		currentUndoRedo.save_undo(true)
+		
 		var overlapping_response := response_node.overlapping_response
 		var initial_slot := response_node.slot
 		var initial_parent := response_node.parent_dialog
@@ -223,7 +221,7 @@ func set_scroll_offset(new_offset : Vector2):
 
 
 func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int):
-	currentUndoRedo.save_undo(true)
+	
 	var response : response_node
 	var dialog : dialog_node
 	if from.node_type == "Player Response Node":
@@ -242,7 +240,7 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 
 	
 func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
-	currentUndoRedo.save_undo(true)
+	
 	var response : response_node
 	var dialog : dialog_node
 	
@@ -282,78 +280,9 @@ func save():
 		"zoom" : zoom
 	}	
 
-func save_all_categories():
-	emit_signal("save_all",category_temp_data)
+
 	
-	
-func _on_CategoryPanel_request_load_category(category_name : String):
-	if CurrentEnvironment.current_category_name != null:
-		var temp_cat_saver = category_saver.new()
-		add_child(temp_cat_saver)
-		category_temp_data[CurrentEnvironment.current_category_name] = temp_cat_saver.save_temp(CurrentEnvironment.current_category_name)
-	CurrentEnvironment.current_category_name = null
-	CurrentEnvironment.allow_save_state = false
-	if !UndoRedoDict.has(category_name):
-		UndoRedoDict[category_name] = UndoSystem.new()
-		get_parent().add_child(UndoRedoDict[category_name])
-		UndoRedoDict[category_name].dialog_editor = self
-		
-	currentUndoRedo = UndoRedoDict[category_name]
-		
-	var new_category_loader := category_loader.new()
-	new_category_loader.connect("add_dialog", Callable(self, "add_dialog_node"))
-	new_category_loader.connect("add_response", Callable(self, "add_response_node"))
-	new_category_loader.connect("no_ydec_found", Callable(self, "initialize_category_import"))
-	new_category_loader.connect("clear_editor_request", Callable(self, "clear_editor"))
-	new_category_loader.connect("request_connect_nodes", Callable(self, "connect_nodes"))
-	new_category_loader.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
-	new_category_loader.connect("request_add_color_organizer", Callable(self, "add_color_organizer"))
-	new_category_loader.connect("zoom_loaded", Callable(self, "set_zoom"))
-	if category_temp_data.has(category_name):
-		if new_category_loader.load_temp(category_temp_data[category_name]) == OK:
-			emit_signal("finished_loading",category_name)
-			CurrentEnvironment.current_category_name = category_name
-			visible = true
-			CurrentEnvironment.allow_save_state = true
-	else:
-		if new_category_loader.load_category(category_name) == OK:
-			emit_signal("finished_loading",category_name)
-			CurrentEnvironment.current_category_name = category_name
-			visible = true
-			CurrentEnvironment.allow_save_state = true
-		
-	
-func initialize_category_import(category_name : String):
-	visible = false
-	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
-	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
-	choose_dialog_popup.connect("import_canceled", Callable(self, "import_canceled"))
-	choose_dialog_popup.connect("no_dialogs", Callable(self, "on_no_dialogs").bind(category_name))
-	get_parent().add_child(choose_dialog_popup)
-	choose_dialog_popup.size = get_window().size
-	choose_dialog_popup.position = Vector2(0,0)
-	choose_dialog_popup.create_dialog_buttons(category_name)
-	clear_editor()
-	
-func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
-	CurrentEnvironment.current_category_name = null
-	CurrentEnvironment.allow_save_state = false
-	if !UndoRedoDict.has(category_name):
-		UndoRedoDict[category_name] = UndoSystem.new()
-		get_parent().add_child(UndoRedoDict[category_name])
-		UndoRedoDict[category_name].dialog_editor = self
-	currentUndoRedo = UndoRedoDict[category_name]
-	var new_category_importer := category_importer.new()
-	new_category_importer.connect("request_add_dialog", Callable(self, "add_dialog_node"))
-	new_category_importer.connect("request_add_response", Callable(self, "add_response_node"))
-	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
-	new_category_importer.connect("clear_editor_request", Callable(self, "clear_editor"))
-	new_category_importer.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
-	new_category_importer.connect("save_category_request",Callable(self,"emit_signal").bind("request_save"))
-	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
-	emit_signal("finished_loading",category_name)
-	CurrentEnvironment.current_category_name = category_name
-	visible = true
+
 		
 func on_no_dialogs(category_name):
 	clear_editor()
@@ -367,7 +296,7 @@ func scan_for_changes(category_name):
 	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	add_child(new_category_importer)
 	new_category_importer.scan_category_for_changes(category_name)
-	emit_signal("unsaved_changes",true)
+	relay_unsaved_changes()
 	
 func import_canceled():
 	visible = false
@@ -390,8 +319,6 @@ func clear_editor():
 		i.queue_free()	
 	node_index = 0
 	emit_signal("editor_cleared")
-	print("editor cleared")
-	print(get_children())
 	
 
 
@@ -421,8 +348,7 @@ func select_node(node):
 			selected_nodes.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
-		print("hmm?")
-	
+		
 
 func unselect_node(node):
 	if node.node_type == "Player Response Node":
@@ -466,10 +392,6 @@ func _on_SaveLoad_clear_editor_request():
 
 
 func _on_DialogEditor_gui_input(event):
-	if Input.is_action_just_pressed("ui_undo"):
-		currentUndoRedo.undo()
-	if Input.is_action_just_pressed("ui_redo"):
-		currentUndoRedo.redo()
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if !Input.is_action_pressed("zoom_key"):
 			accept_event()
@@ -527,3 +449,7 @@ func reindex_ids():
 
 func _on_category_panel_request_dialog_ids_reassigned():
 	reindex_ids()
+
+
+func _on_autosave_timer_timeout():
+	pass # Replace with function body.

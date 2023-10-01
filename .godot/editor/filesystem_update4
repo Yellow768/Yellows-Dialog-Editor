@@ -27,3 +27,9 @@ res://src/UI/Editor/MainEditor.gd
 res://src/Nodes/CategoryButton.tscn
 res://src/UI/CategoryPanel/Scripts/CategoryButton.gd
 res://src/Nodes/Scripts/DialogNode.gd
+res://src/UI/Util/ChooseInitialDialogPopup.tscn
+res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
+res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd
+res://src/Autoload/global_declarations.gd
+res://src/UI/Editor/EditorSettings.gd
+res://src/UI/Editor/editor_settings.tscn

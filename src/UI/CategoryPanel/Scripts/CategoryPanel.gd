@@ -1,6 +1,10 @@
 extends Panel
 
 signal request_load_category
+signal request_clear_editor
+signal request_dialog_ids_reassigned
+
+
 signal set_category_file_path
 
 signal reveal_category_panel
@@ -8,17 +12,20 @@ signal hide_category_panel
 signal reimport_category
 signal current_category_deleted
 signal scan_for_changes
-signal request_dialog_ids_reassigned
+
 
 signal category_succesfully_saved
 signal category_failed_save
 
+signal finished_loading
 signal category_succesfully_exported
 signal category_export_failed
 signal unsaved_change
 
 @export var category_file_container_path: NodePath
 @export var environment_index_path: NodePath
+@export var dialog_editor_path : NodePath
+@export var auto_save_path : NodePath
 
 var loading_category : bool = false
 
@@ -32,9 +39,13 @@ var export_version : int = 2
 
 @onready var category_file_container = get_node(category_file_container_path)
 @onready var EnvironmentIndex = get_node(environment_index_path)
+@onready var DialogEditor = get_node(dialog_editor_path)
+@onready var AutoSave = get_node(auto_save_path)
 
 
 var categoryPanelRevealed = false
+var category_temp_data : Dictionary = {}
+
 
 func _ready():
 	create_category_buttons(EnvironmentIndex.index_categories())
@@ -62,18 +73,7 @@ func create_category_buttons(categories):
 		
 
 
-func load_category(category_name : String):
-	
-	if !loading_category and category_name != current_category:
-		loading_category = true
-		#var new_saver = category_saver.new()
-		#add_child(new_saver)
-		#new_saver.save_category(current_category)
-		emit_signal("request_load_category",category_name)
-		for child in category_file_container.get_children():
-			if child.category_name == current_category:
-				child.button_pressed = true
-				current_category_button = child
+
 
 
 
@@ -107,7 +107,7 @@ func request_deletion_popup(deletion_name):
 
 func reimport_category_popup(reimport_name):
 	var confirm_reimport_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
-	confirm_reimport_popup.connect("confirmed", Callable(self, "emit_signal").bind("reimport_category",reimport_name))
+	confirm_reimport_popup.connect("confirmed", Callable(self, "initialize_category_import").bind(reimport_name))
 	confirm_reimport_popup.dialog_text = "Are you sure you want to reimport "+reimport_name+"? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory."
 	$".".add_child(confirm_reimport_popup)
 	confirm_reimport_popup.popup_centered()
@@ -144,6 +144,9 @@ func _on_InformationPanel_request_switch_to_stored_category():
 		emit_signal("request_load_category",stored_category)
 
 
+func _on_InformationPanel_availability_mode_entered():
+	stored_category = current_category	
+
 func save_category_request():
 	if current_category == null:
 		emit_signal("category_failed_save")
@@ -157,19 +160,30 @@ func save_category_request():
 		emit_signal("category_failed_save")
 
 
-func save_all_categories(all_temp_categories : Dictionary):
-	for key in all_temp_categories.keys():
+func save_all_categories():
+	for key in category_temp_data.keys():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
-		if cat_save.save_category(key,all_temp_categories[key]) == OK:
+		if cat_save.save_category(key,category_temp_data[key]) == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:
 			emit_signal("category_failed_save")
 	emit_signal("unsaved_change",false)
-	
 
-func _on_InformationPanel_availability_mode_entered():
-	stored_category = current_category
+	
+func save_all_backups():
+	print(category_temp_data.keys())
+	for key in category_temp_data.keys():
+		var cat_save = category_saver.new()
+		add_child(cat_save)
+		
+		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+current_category+"/autosave")
+		if cat_save.save_category(key,category_temp_data[key],true) == OK:
+			emit_signal("category_succesfully_saved",current_category)
+		else:
+			emit_signal("category_failed_save")
+	emit_signal("unsaved_change",false)
+
 
 
 func export_category_request():
@@ -183,6 +197,70 @@ func export_category_request():
 	emit_signal("category_succesfully_exported",current_category)
 	
 
+	
+func load_category(category_name : String,category_button : Button = null):
+	
+	if !loading_category and category_name != current_category:
+		loading_category = true
+		if category_button == null :
+			for child in category_file_container.get_children():
+				if child.category_name == current_category:
+					child.button_pressed = true
+					category_button = child
+	current_category_button = category_button
+	if current_category != null:
+		var temp_cat_saver = category_saver.new()
+		add_child(temp_cat_saver)
+		category_temp_data[current_category] = temp_cat_saver.save_temp(current_category)
+		
+	current_category = category_name
+	CurrentEnvironment.current_category_name = current_category
+	var new_category_loader := category_loader.new()
+	new_category_loader.connect("add_dialog", Callable(DialogEditor, "add_dialog_node"))
+	new_category_loader.connect("add_response", Callable(DialogEditor, "add_response_node"))
+	new_category_loader.connect("no_ydec_found", Callable(self, "initialize_category_import"))
+	new_category_loader.connect("clear_editor_request", Callable(DialogEditor, "clear_editor"))
+	new_category_loader.connect("request_connect_nodes", Callable(DialogEditor, "connect_nodes"))
+	new_category_loader.connect("editor_offset_loaded", Callable(DialogEditor, "set_scroll_ofs"))
+	new_category_loader.connect("request_add_color_organizer", Callable(DialogEditor, "add_color_organizer"))
+	new_category_loader.connect("zoom_loaded", Callable(DialogEditor, "set_zoom"))
+	if category_temp_data.has(category_name):
+		if new_category_loader.load_temp(category_temp_data[category_name]) == OK:
+			emit_signal("finished_loading",category_name)
+			DialogEditor.visible = true
+	else:
+		if new_category_loader.load_category(category_name) == OK:
+			emit_signal("finished_loading",category_name)
+			DialogEditor.visible = true
+	loading_category = false
+		
+	
+func initialize_category_import(category_name : String):
+	DialogEditor.visible = false
+	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
+	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
+	choose_dialog_popup.connect("import_canceled", Callable(self, "import_canceled"))
+	choose_dialog_popup.connect("no_dialogs", Callable(DialogEditor, "on_no_dialogs").bind(category_name))
+	get_parent().add_child(choose_dialog_popup)
+	choose_dialog_popup.size = get_window().size
+	choose_dialog_popup.position = Vector2(0,0)
+	choose_dialog_popup.create_dialog_buttons(category_name)
+	request_clear_editor.emit()
+	
+func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
+	CurrentEnvironment.current_category_name = null
+	CurrentEnvironment.allow_save_state = false
+	var new_category_importer := category_importer.new()
+	new_category_importer.connect("request_add_dialog", Callable(DialogEditor, "add_dialog_node"))
+	new_category_importer.connect("request_add_response", Callable(DialogEditor, "add_response_node"))
+	new_category_importer.connect("request_connect_nodes", Callable(DialogEditor, "connect_nodes"))
+	new_category_importer.connect("clear_editor_request", Callable(DialogEditor, "clear_editor"))
+	new_category_importer.connect("editor_offset_loaded", Callable(DialogEditor, "set_scroll_ofs"))
+	new_category_importer.connect("save_category_request",Callable(DialogEditor,"emit_signal").bind("request_save"))
+	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
+	emit_signal("finished_loading",category_name)
+	current_category = category_name
+	DialogEditor.visible = true
 
 func _on_Searchbar_text_changed(new_text : String):
 	for button in $VBoxContainer/ScrollContainer/CategoryContainers.get_children():
@@ -213,3 +291,8 @@ func _on_dialog_editor_import_category_canceled():
 func _on_dialog_editor_unsaved_changes(name):
 	if current_category_button != null && !loading_category:
 		current_category_button.set_unsaved(true)
+
+
+func _on_autosave_timer_timeout():
+	save_all_backups()
+	AutoSave.start(GlobalDeclarations.autosave_time*60)

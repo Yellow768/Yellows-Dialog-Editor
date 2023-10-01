@@ -35,6 +35,7 @@ func _ready():
 	for node in faction_choosers:
 		node.load_faction_data(fact_dict)
 	get_tree().auto_accept_quit = false
+	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
 	
 func _input(event : InputEvent):
 	if event.is_action_pressed("add_dialog_at_mouse"):
@@ -145,7 +146,7 @@ func _notification(what):
 			$UnsavedPanel.visible = true
 					
 func add_to_unsaved_categories(category):
-	if !unsaved_categories.has(category):
+	if !unsaved_categories.has(category) && category != null:
 		unsaved_categories.append(category)
 
 func remove_from_unsaved_categories(category: String):
@@ -163,7 +164,7 @@ func _on_no_save_pressed():
 
 
 func _on_save_and_close_pressed():
-	$DialogEditor.save_all_categories()
+	$CategoryPanel.save_all_categories()
 	if is_quit_return_to_home:
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		get_tree().auto_accept_quit = true

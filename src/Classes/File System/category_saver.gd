@@ -3,9 +3,14 @@ extends Node
 
 signal category_saved
 	
-func save_category(category_name,data = null):
+func save_category(category_name,data = null,backup := false):
 	if CurrentEnvironment.current_directory != null && category_name != null :
-		var save_category = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",FileAccess.WRITE)
+		var save_category
+		if backup:
+			DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave")
+			save_category = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave/"+category_name+Time.get_datetime_string_from_system(false,true).replace(":"," ")+".ydec",FileAccess.WRITE)
+		else:
+			save_category = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",FileAccess.WRITE)
 		if data != null:
 			for datum in data:
 				save_category.store_line(JSON.new().stringify(datum))

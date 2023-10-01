@@ -178,7 +178,7 @@ func _on_DialogNode_offset_changed():
 			i.check_dialog_distance()
 	initial_offset_x = position_offset.x
 	initial_offset_y = position_offset.y
-	emit_signal("unsaved_changes")
+	
 			
 func _on_TitleText_text_changed(_new_text : String):
 	dialog_title = TitleTextNode.text

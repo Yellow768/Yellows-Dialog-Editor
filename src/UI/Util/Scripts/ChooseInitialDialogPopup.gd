@@ -20,13 +20,13 @@ func create_dialog_buttons(importing_category_name : String):
 		queue_free()
 		
 		return
-	for button in $ScrollContainer/VBoxContainer.get_children():
+	for button in $Panel/ScrollContainer/VBoxContainer.get_children():
 		button.queue_free()
 	for index in all_dialogs.size():
 		var dialog_button := Button.new()
 		dialog_button.text = all_dialogs[index]["DialogTitle"]
 		dialog_button.connect("pressed", Callable(self, "emit_initial_dialog_chosen").bind(index))
-		$ScrollContainer/VBoxContainer.add_child(dialog_button)	
+		$Panel/ScrollContainer/VBoxContainer.add_child(dialog_button)	
 	visible = true
 	
 func emit_initial_dialog_chosen(index_chosen : int):
@@ -40,7 +40,7 @@ func _on_CancelButton_pressed():
 
 
 func _on_Searchbar_text_changed(new_text : String):
-	for button in $ScrollContainer/VBoxContainer.get_children():
+	for button in $Panel/ScrollContainer/VBoxContainer.get_children():
 		if new_text == "":
 			button.visible = true
 		else:

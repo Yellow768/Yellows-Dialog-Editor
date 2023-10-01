@@ -5,9 +5,11 @@ extends Panel
 
 @export var ConnectionDistanceNodePath : NodePath
 @export var HoldShiftCheckPath : NodePath
+@export var AutoSavePath : NodePath
 
 @onready var hide_connection_slider : HSlider= get_node(ConnectionDistanceNodePath)
 @onready var hold_shift_check :Button= get_node(HoldShiftCheckPath)
+@onready var auto_save = get_node(AutoSavePath)
 
 
 
@@ -54,3 +56,16 @@ func _on_check_button_toggled(button_pressed):
 
 func _on_undo_button_toggled(button_pressed):
 	GlobalDeclarations.undo_enabled = button_pressed
+
+
+func _on_autosave_value_edit_text_changed(new_text):
+	auto_save.get_node("HSlider").value = int(new_text)
+
+
+func _on_autosave_resetbutton_pressed():
+	auto_save.get_node("HSlider").value = 3
+
+
+func _on_autosave_h_slider_changed(value):
+	GlobalDeclarations.autosave_time = value
+	auto_save.get_node("HSlider").get_node("ValueEdit").text = str(GlobalDeclarations.autosave_time)

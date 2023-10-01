@@ -1,42 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://cld2vlhy3w3p6"]
+[gd_scene load_steps=5 format=3 uid="uid://cld2vlhy3w3p6"]
 
 [ext_resource type="Script" path="res://src/UI/Util/Scripts/ChooseInitialDialogPopup.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lfao"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="LabelSettings" id="LabelSettings_h5tww"]
 font_size = 34
 
 [node name="ChooseInitialDIalogPopup" type="Panel"]
-offset_right = 1152.0
-offset_bottom = 648.0
+self_modulate = Color(1, 1, 1, 0.537255)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -574.0
+offset_top = -327.0
+offset_right = 571.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3lfao")
 script = ExtResource("1")
-_button_list_path = NodePath("ScrollContainer/VBoxContainer")
+_button_list_path = NodePath("Panel/ScrollContainer/VBoxContainer")
 
-[node name="Label" type="Label" parent="."]
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -398.0
+offset_top = -244.5
+offset_right = 398.0
+offset_bottom = 244.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -139.0
-offset_top = 20.0
-offset_right = 139.0
-offset_bottom = 49.0
+offset_left = -297.5
+offset_right = 297.5
+offset_bottom = 50.0
 grow_horizontal = 2
 text = "Choose a starting dialog for the tree"
 label_settings = SubResource("LabelSettings_h5tww")
 
-[node name="Searchbar" type="LineEdit" parent="."]
-layout_mode = 0
+[node name="Searchbar" type="LineEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -203.0
-offset_top = 78.0
-offset_right = 197.0
-offset_bottom = 98.0
+offset_left = -200.0
+offset_top = 66.0
+offset_right = 200.0
+offset_bottom = 89.0
+grow_horizontal = 2
 placeholder_text = "Search"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,26 +77,31 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -390.0
-offset_top = -208.0
+offset_top = -133.5
 offset_right = 391.0
-offset_bottom = 320.0
+offset_bottom = 194.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
 custom_minimum_size = Vector2(781, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="CancelButton" type="Button" parent="."]
-layout_mode = 0
+[node name="CancelButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -245.0
-offset_top = 18.0
-offset_right = -191.0
-offset_bottom = 50.0
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -46.0
+offset_right = -17.5
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "Cancel"
 
-[connection signal="text_changed" from="Searchbar" to="." method="_on_Searchbar_text_changed"]
-[connection signal="pressed" from="CancelButton" to="." method="_on_CancelButton_pressed"]
+[connection signal="text_changed" from="Panel/Searchbar" to="." method="_on_Searchbar_text_changed"]
+[connection signal="pressed" from="Panel/CancelButton" to="." method="_on_CancelButton_pressed"]

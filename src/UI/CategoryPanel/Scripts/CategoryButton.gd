@@ -22,7 +22,7 @@ func set_unsaved(value):
 		text = category_name
 
 func _on_Button_pressed():
-	emit_signal("open_category_request",category_name)
+	emit_signal("open_category_request",category_name,self)
 
 
 func _on_Button_gui_input(event : InputEvent):
