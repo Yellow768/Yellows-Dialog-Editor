@@ -1,6 +1,7 @@
 extends Control
 
-var unsaved_change := false
+var unsaved_categories = []
+
 
 @export var _dialog_editor_path: NodePath
 @export var _category_list_path: NodePath
@@ -128,7 +129,7 @@ func give_factions_to_nodes(json : String):
 var is_quit_return_to_home := false
 
 func _on_HomeButton_pressed():
-	if !unsaved_change:
+	if unsaved_categories.is_empty():
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		queue_free()
 	else:
@@ -138,14 +139,17 @@ func _on_HomeButton_pressed():
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		is_quit_return_to_home = false
-		if !unsaved_change:
+		if unsaved_categories.is_empty():
 			get_tree().quit()
 		else:
 			$UnsavedPanel.visible = true
 					
-func set_unsaved_changes(value:bool):
-	unsaved_change = value
+func add_to_unsaved_categories(category):
+	if !unsaved_categories.has(category):
+		unsaved_categories.append(category)
 
+func remove_from_unsaved_categories(category: String):
+	unsaved_categories.erase(category)
 
 
 func _on_no_save_pressed():
@@ -159,7 +163,7 @@ func _on_no_save_pressed():
 
 
 func _on_save_and_close_pressed():
-	$CategoryPanel.save_category_request()
+	$DialogEditor.save_all_categories()
 	if is_quit_return_to_home:
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		get_tree().auto_accept_quit = true
@@ -172,5 +176,8 @@ func _on_cancel_pressed():
 	$UnsavedPanel.visible = false
 
 
-func _on_category_panel_category_succesfully_saved(_ignore):
-	unsaved_change = false
+func _on_category_panel_category_succesfully_saved(category_name):
+	remove_from_unsaved_categories(category_name)
+
+
+

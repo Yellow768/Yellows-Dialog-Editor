@@ -22,3 +22,8 @@ res://src/Classes/File System/CategoryImporter.gd
 res://src/Nodes/Scripts/ResponseNode.gd
 res://src/Nodes/DialogNode.tscn
 res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
+res://src/Classes/File System/category_saver.gd
+res://src/UI/Editor/MainEditor.gd
+res://src/Nodes/CategoryButton.tscn
+res://src/UI/CategoryPanel/Scripts/CategoryButton.gd
+res://src/Nodes/Scripts/DialogNode.gd

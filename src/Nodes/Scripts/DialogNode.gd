@@ -13,6 +13,7 @@ signal text_changed
 signal title_changed
 signal node_double_clicked
 signal request_set_scroll_offset
+signal unsaved_changes
 
 @export var _dialog_text_path: NodePath
 @export var _title_text_path: NodePath
@@ -87,6 +88,7 @@ func _ready():
 func add_response_node():
 	if response_options.size() < 6:
 		emit_signal("add_response_request",self)
+		emit_signal("unsaved_changes")
 
 func delete_response_node(deletion_slot : int,response_node : response_node):
 	for i in response_options:
@@ -94,11 +96,13 @@ func delete_response_node(deletion_slot : int,response_node : response_node):
 			i.slot -=1
 	response_options.erase(response_node)
 	emit_signal("request_delete_response_node",self,response_node)
-
+	emit_signal("unsaved_changes")
+	
 func clear_responses():
 	for response in response_options:
 		emit_signal("request_delete_response_node",self,response)
 	response_options.clear()
+	emit_signal("unsaved_changes")
 
 func add_connected_response(response : response_node):
 	connected_responses.append(response)
@@ -116,6 +120,7 @@ func delete_self(perm := true):
 			i.disconnect_from_dialog()
 			connected_responses.erase(i)
 	emit_signal("dialog_ready_for_deletion",self,perm)
+	emit_signal("unsaved_changes")
 
 func set_focus_on_title():
 	TitleTextNode.grab_focus()
@@ -127,15 +132,20 @@ func set_focus_on_text():
 	emit_signal("set_self_as_selected",self)
 	emit_signal("request_set_scroll_offset",position_offset)
 
+
+
+
 func set_dialog_title(string : String):
 	if not is_inside_tree(): await self.ready
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
+	emit_signal("unsaved_changes")
 		
 func set_dialog_text(string : String):
 	if not is_inside_tree(): await self.ready
 	DialogTextNode.text = string
+	emit_signal("unsaved_changes")
 	
 	
 
@@ -144,6 +154,7 @@ func set_dialog_id(id: int):
 	dialog_id = id
 	if not is_inside_tree(): await self.ready
 	IdLabelNode.text = "    ID: "+str(id)
+	emit_signal("unsaved_changes")
 
 func set_node_index(index : int):
 	node_index = index
@@ -167,6 +178,7 @@ func _on_DialogNode_offset_changed():
 			i.check_dialog_distance()
 	initial_offset_x = position_offset.x
 	initial_offset_y = position_offset.y
+	emit_signal("unsaved_changes")
 			
 func _on_TitleText_text_changed(_new_text : String):
 	dialog_title = TitleTextNode.text
@@ -174,11 +186,13 @@ func _on_TitleText_text_changed(_new_text : String):
 		for i in connected_responses:
 			i.update_connection_text()
 	emit_signal("title_changed")
+	emit_signal("unsaved_changes")
 
 func handle_clicking(event : InputEvent):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			emit_signal("set_self_as_selected",self)
+			print("hm?")
 		if event.double_click:
 			emit_signal("node_double_clicked")
 	else:
@@ -200,6 +214,7 @@ func _on_TitleText_gui_input(event : InputEvent):
 func _on_DialogText_text_changed():
 	text = DialogTextNode.text
 	emit_signal("text_changed")
+	emit_signal("unsaved_changes")
 
 
 		
@@ -297,3 +312,6 @@ func get_full_tree(all_children : Array[GraphNode] = []):
 		all_children.append(response)
 		all_children = response.get_full_tree(all_children)
 	return all_children
+
+
+

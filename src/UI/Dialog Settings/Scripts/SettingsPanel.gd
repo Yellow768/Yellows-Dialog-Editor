@@ -203,90 +203,90 @@ func load_dialog_settings(dialog : dialog_node):
 		
 func scoreboard_objective_name_changed(child ,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 func scoreboard_comparison_type_changed(child,type : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].comparison_type = type
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 	
 func scoreboard_value_changed(child ,value : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].value = value
-	emit_signal("unsaved_change",true)		
+	emit_signal("unsaved_change")		
 func faction_id_changed(child ,id : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].faction_id = id
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 func faction_stance_changed(child,stance:int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].stance_type = stance
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 func faction_isisnot_changed(child ,isisnot : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].availability_operator = isisnot
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func dialog_id_changed(child,id : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].dialog_id = id
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 	
 func dialog_type_changed(child,type : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].availability_type = type
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 
 
 func quest_id_changed(child,id : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].quest_id = id
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 	
 func quest_type_changed(child,type : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].availability_type = type
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 #Dialog Changes
 
 func _on_HideNPC_pressed():
 	current_dialog.hide_npc = HideNpcCheckbox.button_pressed
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 	
 func _on_ShowDialogWheel_pressed():
 	current_dialog.show_wheel = ShowWheelCheckbox.button_pressed
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_DisableEsc_pressed():
 	current_dialog.disable_esc = DisableEscCheckbox.button_pressed
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 
 func _on_FactionChange_faction_id_changed(id : int):
 	current_dialog.faction_changes[0].faction_id = id
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_FactionChange2_faction_id_changed(id : int):
 	current_dialog.faction_changes[1].faction_id = id
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_FactionChange2_faction_points_changed(points : int):
 	current_dialog.faction_changes[1].points = points
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_FactionChange_faction_points_changed(points : int):
 	current_dialog.faction_changes[0].points = points
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_Command_text_changed():
 	current_dialog.command = CommandEdit.text
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_TimeButton_item_selected(index : int):
 	current_dialog.time_availability = index
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func _on_LevelSpinBox_value_changed(value : int):
 	current_dialog.min_level_availability = value
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 
 
 func _on_DialogText_text_changed():
 	current_dialog.set_dialog_text(DialogTextEdit.text)
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 func update_text():
 	DialogTextEdit.text = current_dialog.text
@@ -296,7 +296,7 @@ func update_title(_text):
 
 func _on_StartQuest_id_changed(value : int):
 	current_dialog.start_quest = value
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 
 func no_dialog_selected():
@@ -329,7 +329,7 @@ func _on_availability_timer_timeout() -> void:
 	AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
 	initial_dialog.selected = true
 	initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
-	emit_signal("unsaved_change",true)
+	emit_signal("unsaved_change")
 
 
 func _on_soundfile_text_changed():

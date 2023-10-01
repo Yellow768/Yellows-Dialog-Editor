@@ -8,13 +8,21 @@ var index := 0
 
 signal open_category_request
 
+var category_name
+var unsaved = false
+
 func _ready():
-	pass
+	text = category_name
 	
 
+func set_unsaved(value):
+	if value:
+		text = category_name+"(*)"
+	else:
+		text = category_name
 
 func _on_Button_pressed():
-	emit_signal("open_category_request",text)
+	emit_signal("open_category_request",category_name)
 
 
 func _on_Button_gui_input(event : InputEvent):

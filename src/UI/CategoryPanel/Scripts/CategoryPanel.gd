@@ -24,6 +24,7 @@ var loading_category : bool = false
 
 var current_directory_path
 var current_category
+var current_category_button : Button
 
 var export_version : int = 2
 
@@ -47,7 +48,7 @@ func create_category_buttons(categories):
 	for i in categories:
 		var category_button = load("res://src/Nodes/CategoryButton.tscn").instantiate()
 		category_button.index = categories.find(i)
-		category_button.text = i
+		category_button.category_name = i
 		category_button.toggle_mode = true
 		category_button.button_group  = load("res://Assets/CategoryButtons.tres")
 		category_button.theme_type_variation = "CategoryButton"
@@ -65,13 +66,14 @@ func load_category(category_name : String):
 	
 	if !loading_category and category_name != current_category:
 		loading_category = true
-		var new_saver = category_saver.new()
-		add_child(new_saver)
-		new_saver.save_category(current_category)
+		#var new_saver = category_saver.new()
+		#add_child(new_saver)
+		#new_saver.save_category(current_category)
 		emit_signal("request_load_category",category_name)
 		for child in category_file_container.get_children():
-			if child.text == current_category:
+			if child.category_name == current_category:
 				child.button_pressed = true
+				current_category_button = child
 
 
 
@@ -150,10 +152,21 @@ func save_category_request():
 	add_child(cat_save)
 	if cat_save.save_category(current_category) == OK:
 		emit_signal("category_succesfully_saved",current_category)
-		emit_signal("unsaved_change",false)
+		current_category_button.set_unsaved(false)
 	else:
 		emit_signal("category_failed_save")
 
+
+func save_all_categories(all_temp_categories : Dictionary):
+	for key in all_temp_categories.keys():
+		var cat_save = category_saver.new()
+		add_child(cat_save)
+		if cat_save.save_category(key,all_temp_categories[key]) == OK:
+			emit_signal("category_succesfully_saved",current_category)
+		else:
+			emit_signal("category_failed_save")
+	emit_signal("unsaved_change",false)
+	
 
 func _on_InformationPanel_availability_mode_entered():
 	stored_category = current_category
@@ -195,3 +208,8 @@ func load_duplicated_category(name : String):
 func _on_dialog_editor_import_category_canceled():
 	current_category = null
 	create_category_buttons(EnvironmentIndex.index_categories())
+
+
+func _on_dialog_editor_unsaved_changes(name):
+	if current_category_button != null && !loading_category:
+		current_category_button.set_unsaved(true)

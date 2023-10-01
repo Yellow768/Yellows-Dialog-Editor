@@ -15,16 +15,16 @@ signal zoom_loaded
 var loaded_dialogs = []
 var loaded_responses = []	
 
-func load_undoredo(data):
+func load_temp(data):
+		print("data temp"+str(data))
 		emit_signal("clear_editor_request")
-		for dict in data[0]:
-			var parsed_dict = JSON.parse_string(dict)
-			if parsed_dict.has("editor_offset.x"):
-				load_editor_settings(parsed_dict)
-			elif parsed_dict.get("node_type") == "Dialog Node":
-				load_dialog_data(parsed_dict)	
+		for dict in data:
+			if dict.has("editor_offset.x"):
+				load_editor_settings(dict)
+			elif dict.get("node_type") == "Dialog Node":
+				load_dialog_data(dict)	
 			else:
-				load_color_category(parsed_dict)
+				load_color_category(dict)
 		connect_all_responses()
 		queue_free()
 		return OK
