@@ -70,7 +70,8 @@ func load_color_category(node_data):
 	loaded_color_organizer.box_color  = GlobalDeclarations.int_to_color(node_data["color"])
 	loaded_color_organizer.custom_minimum_size = Vector2(node_data["min_size_x"],node_data["min_size_y"])
 	loaded_color_organizer.text = node_data["text"]
-	loaded_color_organizer.locked = bool(node_data["locked"])
+	if node_data.has("locked"):
+		loaded_color_organizer.locked = bool(node_data["locked"])
 	emit_signal("request_add_color_organizer",loaded_color_organizer,true)
 	
 func load_dialog_data(node_data : Dictionary):
@@ -100,7 +101,7 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		return currently_loaded_dialog
 	currently_loaded_dialog.position_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
 	for i in node_data.keys():
-		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options":
+		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options" or i == "mail":
 			continue
 		currently_loaded_dialog.set(i, node_data[i])
 	currently_loaded_dialog.time_availability = node_data["time_availability"]
@@ -122,6 +123,11 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		currently_loaded_dialog.scoreboard_availabilities[i].set_objective_name(node_data["scoreboard_availabilities"][i].objective_name)
 		currently_loaded_dialog.scoreboard_availabilities[i].set_comparison_type(node_data["scoreboard_availabilities"][i].comparison_type)
 		currently_loaded_dialog.scoreboard_availabilities[i].set_value(node_data["scoreboard_availabilities"][i].value)
+	currently_loaded_dialog.mail.sender = node_data["mail"].sender
+	currently_loaded_dialog.mail.subject = node_data["mail"].subject
+	currently_loaded_dialog.mail.items_slots = JSON.parse_string(node_data["mail"].items)
+	currently_loaded_dialog.mail.pages = JSON.parse_string(node_data["mail"].pages) as Array[String]
+	currently_loaded_dialog.mail.quest_id = node_data["mail"].quest_id
 	return currently_loaded_dialog
 
 func create_response_node_from_ydec(response_data):

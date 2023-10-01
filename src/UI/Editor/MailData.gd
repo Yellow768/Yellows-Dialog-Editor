@@ -31,10 +31,15 @@ func _ready():
 	for slot in ItemSlots.get_children():
 		slot.connect("id_changed",Callable(self,"update_slot").bind(slot))
 		slot.connect("nbt_changed",Callable(self,"update_slot").bind(slot))
-
+		slot.connect("count_changed",Callable(self,"update_slot").bind(slot))
+		slot.connect("request_scroll_focus",Callable(self,"change_scroll_focus"))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func change_scroll_focus(slot):
+	pass
+	#$ScrollContainer.max
 
 func load_mail_data(data : mail_data_object):
 	loading_mail = true
@@ -46,29 +51,34 @@ func load_mail_data(data : mail_data_object):
 		MessageBox.text = ""
 	SenderLine.text = current_mail_object.sender
 	SubjectLine.text = current_mail_object.subject
-	PageLabel.text = "Page 1/"+str(current_mail_object.pages.size())
-	StartQuest.quest_id = current_mail_object.quest_id
+	if current_mail_object.pages.size() != 0:
+		PageLabel.text = "Page 1/"+str(current_mail_object.pages.size())
+	else:
+		PageLabel.text = "Page 1"
+	StartQuest.set_id(current_mail_object.quest_id) 
 	loading_mail = false
+	
+	for slot_index in ItemSlots.get_child_count():
+		ItemSlots.get_children()[slot_index].clear_textboxes()
+		if current_mail_object.items_slots[slot_index].has("id"):
+			ItemSlots.get_children()[slot_index].set_item_id(current_mail_object.items_slots[slot_index].id)
+			ItemSlots.get_children()[slot_index].set_item_count(current_mail_object.items_slots[slot_index].count)
+			ItemSlots.get_children()[slot_index].set_nbt_data(current_mail_object.items_slots[slot_index].custom_nbt)
+		if !current_mail_object.items_slots[slot_index].has("count"):
+			ItemSlots.get_children()[slot_index].set_item_count(0)
+			
 	
 func update_quest_id(id: int):
 	current_mail_object.quest_id = id		
 
 
 func update_slot(slot: mail_item_slot):
-	var slot_nbt_string : String
-	if !slot.nbt_data.is_empty():
-		slot_nbt_string = '"Slot": '+str(slot.slot)+'b,\n'+slot.nbt_data
-	else:
-		slot_nbt_string = '"Slot": '+str(slot.slot)+'b, 
-"ForgeCaps": {
-"customnpcs:itemscripteddata": {
- }
-},
-"id": "'+slot.item_id+'",
-"Count": '+str(slot.item_count)+"b"
-	current_mail_object.items_slots[slot.slot] = "{"+slot_nbt_string+"}"
-	print(slot_nbt_string)
-		
+	if slot.item_id == "" && slot.nbt_data == "":
+		current_mail_object.items_slots[slot.slot] = {}
+		return
+	current_mail_object.items_slots[slot.slot] = {"id" : slot.item_id,"count" : slot.item_count, "custom_nbt" : slot.nbt_data}
+
+
 		
 		
 func _on_next_page_button_pressed():
@@ -108,8 +118,16 @@ func _on_start_quest_mail_id_changed():
 
 
 func _on_message_text_changed():
+	var total_lines = 0
+	for i in MessageBox.get_line_count():
+		total_lines +=1
+		total_lines += MessageBox.get_line_wrap_count(i)
 	if loading_mail:
 		return
+	if total_lines > 14:
+		$ScrollContainer/VBoxContainer/VBoxContainer/Message/Label.visible = true
+	else:
+		$ScrollContainer/VBoxContainer/VBoxContainer/Message/Label.visible = false
 	if current_mail_object.pages.size() < current_page-1 || current_mail_object.pages.size() == 0:
 		current_mail_object.pages.append(MessageBox.text)
 	else:
@@ -128,3 +146,7 @@ func _on_subject_line_edit_text_changed(new_text):
 	if loading_mail:
 		return
 	current_mail_object.subject = new_text
+
+
+func _on_message_lines_edited_from(from_line, to_line):
+	pass

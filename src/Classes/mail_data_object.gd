@@ -7,16 +7,8 @@ signal message_changed
 signal quest_changed
 signal items_changed
 
-var mail_item = {
-	"id" : "minecraft:grass",
-	"count" : 1,
-	"tag" : "",
-	"ForgeCaps": ""
-}
-
-
-var pages : Array[String]= []
-var items_slots = ["","","",""]
+var pages = []
+var items_slots = [{},{},{},{}]
 var quest_id = -1
 var subject = ""
 var sender = ""
@@ -25,25 +17,42 @@ func _ready():
 	pass
 	
 
+func create_slot_string(item : Dictionary,slot_index) -> String:
+	var slot_nbt_string : String
+	if item.custom_nbt != "":
+		slot_nbt_string = '		"Slot": '+str(slot_index)+'b,\n				'+item.custom_nbt
+	else:
+		slot_nbt_string = '		"Slot": '+str(slot_index)+'b, 
+				"ForgeCaps": {
+					"customnpcs:itemscripteddata": {
+ 					}
+				},
+				"id": "'+item.id+'",
+				"Count": '+str(item.count)+"b"
+	return slot_nbt_string
+		
+
 func compose_items_string():
 	var string := ""
-	for item in items_slots:
-		if item != "":
+	for item in items_slots.size():
+		if items_slots[item] != {}:
+			var item_as_string := create_slot_string(items_slots[item],item)
 			if string != "":
-				string += ",\n{\n"+item+"\n}"
+				string += ",\n			{\n		"+item_as_string+"\n			}"
 			else:
-				string += "\n{\n"+item+"\n}"
+				string += "			{\n		"+item_as_string+"\n			}"
 	return string
 			
 func compose_pages_string():
 	var string = ""
 	if !pages.is_empty():
-		string += '"pages":['
+		string += '			"pages": ['
 		for page_index in pages.size():
-			string += "\n"+pages[page_index]
-			if page_index != pages.size():
-				string += "\n,"
-		string += "\n]"
+			var page_text : String = pages[page_index]
+			string += '\n				"'+page_text+'"'
+			if page_index != pages.size() && pages.size() != 1:
+				string += ","
+		string += "\n			]"
 	return string
 			
 	

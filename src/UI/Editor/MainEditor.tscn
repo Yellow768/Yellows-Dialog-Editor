@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=36 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
 [ext_resource type="Script" path="res://src/UI/Editor/MailData.gd" id="22_teu44"]
 [ext_resource type="PackedScene" uid="uid://bqw7nlvwgcprr" path="res://src/UI/Dialog Settings/MailItemSlot.tscn" id="23_o8k7p"]
+[ext_resource type="FontFile" uid="uid://dnq4gj617agk3" path="res://Assets/Font/minecraft_font.ttf" id="23_rr465"]
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/editor_settings.tscn" id="25_ypfkb"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
@@ -46,6 +47,15 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxEmpty" id="19"]
 
+[sub_resource type="FontVariation" id="FontVariation_6mmce"]
+base_font = ExtResource("23_rr465")
+spacing_glyph = 1
+spacing_space = 9
+
+[sub_resource type="FontVariation" id="FontVariation_rv42o"]
+base_font = ExtResource("23_rr465")
+spacing_space = 17
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np52e"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 1)
 corner_radius_top_left = 14
@@ -65,6 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 1
 theme = ExtResource("14")
 script = ExtResource("1")
 _dialog_editor_path = NodePath("DialogEditor")
@@ -105,6 +116,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
 scroll_offset = Vector2(-15, -21)
+snap_distance = 100
 use_snap = false
 zoom_min = 0.001
 show_zoom_label = true
@@ -310,6 +322,7 @@ anchor_right = 1.0
 offset_left = -462.0
 offset_top = 49.0
 offset_bottom = 1080.0
+mouse_filter = 1
 script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
 hide_npc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
@@ -345,6 +358,7 @@ grow_horizontal = 2
 text = "Information Panel"
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -641,6 +655,7 @@ max_value = 10000.0
 visible = false
 custom_minimum_size = Vector2(404, 956)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="MailData" type="Control" parent="InformationPanel/DialogNodeTabs/Mail"]
 layout_mode = 1
@@ -649,6 +664,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("22_teu44")
 message_box_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/Message")
 prev_button_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/PrevPageButton")
@@ -670,6 +686,7 @@ offset_top = 13.0
 offset_right = 215.0
 offset_bottom = 899.0
 grow_horizontal = 2
+follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer"]
 layout_mode = 2
@@ -702,9 +719,37 @@ layout_mode = 2
 placeholder_text = "Subject"
 
 [node name="Message" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(400, 300)
+custom_minimum_size = Vector2(395, 500)
 layout_mode = 2
 size_flags_horizontal = 4
+tooltip_text = "Type the text that will appear on this page. 
+Note that the formatting is approximate, 
+it may not look exactly correct when viewed in Minecraft."
+mouse_filter = 1
+theme_override_fonts/font = SubResource("FontVariation_6mmce")
+theme_override_font_sizes/font_size = 23
+wrap_mode = 1
+highlight_current_line = true
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message"]
+visible = false
+modulate = Color(1, 0.572549, 0.498039, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+tooltip_text = "This page *might* go off screen. Pages can only have 114 pixels and 14 lines maximum."
+mouse_filter = 1
+theme_override_fonts/font = SubResource("FontVariation_rv42o")
+text = "Text Limit Warning!"
+horizontal_alignment = 2
 
 [node name="PageButtons" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -981,10 +1026,12 @@ text = "Cancel"
 [connection signal="finished_loading" from="DialogEditor" to="InformationPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="finished_loading" from="DialogEditor" to="CategoryPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="gui_input" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_gui_input"]
+[connection signal="import_category_canceled" from="DialogEditor" to="CategoryPanel" method="_on_dialog_editor_import_category_canceled"]
 [connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
 [connection signal="node_deselected" from="DialogEditor" to="DialogEditor" method="unselect_node"]
 [connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="select_node"]
+[connection signal="request_save" from="DialogEditor" to="CategoryPanel" method="save_category_request"]
 [connection signal="unsaved_changes" from="DialogEditor" to="." method="set_unsaved_changes"]
 [connection signal="assign_new_ids_request" from="TopPanel" to="DialogEditor" method="reindex_ids"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="export_category_request"]
@@ -1031,6 +1078,7 @@ text = "Cancel"
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_sender_line_edit_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes/SubjectLineEdit" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_subject_line_edit_text_changed"]
+[connection signal="lines_edited_from" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_message_lines_edited_from"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_message_text_changed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/PrevPageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_prev_page_button_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/NextPageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_next_page_button_pressed"]

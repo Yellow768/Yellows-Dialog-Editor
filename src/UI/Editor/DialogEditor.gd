@@ -5,6 +5,8 @@ signal dialog_selected
 signal editor_cleared
 signal finished_loading
 
+signal request_save
+signal import_category_canceled
 
 signal dialog_node_added
 signal dialog_node_perm_deleted
@@ -24,14 +26,15 @@ var currentUndoRedo : UndoSystem
 var UndoRedoDict = {}
 
 func _ready():
-	get_zoom_hbox().visible = false
+	get_zoom_hbox().visible = true
 	add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG)
 	
 	remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
-	set_process_input(false)
+	#set_process_input(false)
+	snap_distance = 215
 	#rect_size = Vector2(1920,1100)
 
 func _process(_delta):
@@ -57,7 +60,7 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	if new_dialog.dialog_id == -1:
 		CurrentEnvironment.highest_id += 1
 		new_dialog.dialog_id = CurrentEnvironment.highest_id
-		print(CurrentEnvironment.highest_id)
+		
 		
 	if new_dialog.position_offset == Vector2.ZERO:
 		new_dialog.position_offset = get_window().size/3
@@ -67,11 +70,11 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("add_response_request", Callable(self, "add_response_node"))
 	new_dialog.connect("request_delete_response_node", Callable(self, "delete_response_node"))
 	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
-	new_dialog.connect("set_self_as_selected", Callable(self, "select_node"))
+	#new_dialog.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
-	new_dialog.connect("node_deselected",Callable(self,"set_last_selected_node_as_selected"))
+	#new_dialog.connect("node_deselected",Callable(self,"set_last_selected_node_as_selected"))
 	emit_signal("dialog_node_added",new_dialog)
 	add_child(new_dialog)
 	#emit_signal("unsaved_changes",true)
@@ -282,6 +285,7 @@ func _on_CategoryPanel_request_load_category(category_name : String):
 		UndoRedoDict[category_name] = UndoSystem.new()
 		get_parent().add_child(UndoRedoDict[category_name])
 		UndoRedoDict[category_name].dialog_editor = self
+		
 	currentUndoRedo = UndoRedoDict[category_name]
 	var new_category_loader := category_loader.new()
 	new_category_loader.connect("add_dialog", Callable(self, "add_dialog_node"))
@@ -300,7 +304,7 @@ func _on_CategoryPanel_request_load_category(category_name : String):
 		
 	
 func initialize_category_import(category_name : String):
-	visible = true
+	visible = false
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
 	choose_dialog_popup.connect("import_canceled", Callable(self, "import_canceled"))
@@ -309,6 +313,7 @@ func initialize_category_import(category_name : String):
 	choose_dialog_popup.size = get_window().size
 	choose_dialog_popup.position = Vector2(0,0)
 	choose_dialog_popup.create_dialog_buttons(category_name)
+	clear_editor()
 	
 func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
 	CurrentEnvironment.current_category_name = null
@@ -324,13 +329,11 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	new_category_importer.connect("request_connect_nodes", Callable(self, "connect_nodes"))
 	new_category_importer.connect("clear_editor_request", Callable(self, "clear_editor"))
 	new_category_importer.connect("editor_offset_loaded", Callable(self, "set_scroll_ofs"))
+	new_category_importer.connect("save_category_request",Callable(self,"emit_signal").bind("request_save"))
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
-	var new_cat_save = category_saver.new()
-	add_child(new_cat_save)
-	new_cat_save.save_category(category_name)	
 	emit_signal("finished_loading",category_name)
 	CurrentEnvironment.current_category_name = category_name
-	visible = true	
+	visible = true
 		
 func on_no_dialogs(category_name):
 	clear_editor()
@@ -350,6 +353,7 @@ func import_canceled():
 	visible = false
 	CurrentEnvironment.current_category_name = null
 	CurrentEnvironment.allow_save_state = false
+	emit_signal("import_category_canceled")
 	
 		
 func clear_editor():
@@ -360,11 +364,15 @@ func clear_editor():
 	var response_nodes = get_tree().get_nodes_in_group("Response_Nodes")
 	for i in save_nodes:
 		i.delete_self(false)
+		i.queue_free()
 	for i in response_nodes:
-		i.delete_self()	
+		i.delete_self()
+		i.queue_free()	
 	node_index = 0
 	emit_signal("editor_cleared")
-	print(CurrentEnvironment.highest_id)
+	print("editor cleared")
+	print(get_children())
+	
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):

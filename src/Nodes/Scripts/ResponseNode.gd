@@ -320,7 +320,7 @@ func _on_spin_box_value_changed(value):
 		connected_dialog.remove_connected_response(self)
 		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 		connected_dialog = null
-	print(connected_dialog)
+
 	
 	
 

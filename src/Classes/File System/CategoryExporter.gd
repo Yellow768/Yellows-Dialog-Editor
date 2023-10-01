@@ -232,7 +232,7 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"AvailabilityMinPlayerLevel": '+str(dialog.min_level_availability)+',',
 			'	"DecreaseFaction2Points": '+str(dialog.faction_changes[0].operator)+'b,',
 				'	"DialogMail": {',
-				'		"Sender": "'+dialog.mail.sender+'",',
+				'		"Sender": "'+dialog.mail.sender.c_escape()+'",',
 				'		"BeenRead": 0,',
 				'		"Message": {',
 						dialog.mail.compose_pages_string(),
@@ -243,7 +243,7 @@ func create_dialog_dict(dialog : dialog_node, version):
 				'		"MailQuest": '+str(dialog.mail.quest_id)+',',
 				'		"TimePast": 1669491043541L,',
 				'		"Time": 0L,',
-				'		"Subject": "'+dialog.mail.subject+'"',
+				'		"Subject": "'+dialog.mail.subject.c_escape()+'"',
 				'	}',
 			'}'
 			]

@@ -30,6 +30,7 @@ func initial_dialog_chosen(category_name : String,dialog_jsons : Array[Dictionar
 	emit_signal("request_arrange_nodes")
 
 
+
 func create_nodes_from_index(category_name : String, index : int = 0):
 	if index > imported_dialogs.size():
 		printerr("The set index was larger than imported_dialogs size")
@@ -45,6 +46,7 @@ func create_nodes_from_index(category_name : String, index : int = 0):
 		unimported_dialog_position = Vector2(300,300)
 		emit_signal("update_current_category",imported_category_name)
 		emit_signal("save_category_request")
+		print("hmmm")
 		loaded_dialog_nodes = []
 		loaded_responses = []
 	
@@ -148,6 +150,25 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 		node.faction_changes[i].faction_id = json["OptionFactions"+str(i+1)]
 		node.faction_changes[i].points = json["OptionFaction"+str(i+1)+"Points"] * operator[json["DecreaseFaction"+str(i+1)+"Points"]]
 	
+	node.mail.sender = json["DialogMail"]["Sender"]
+	node.mail.subject = json["DialogMail"]["Subject"]
+	node.mail.quest_id = json["DialogMail"]["MailQuest"]
+	if json["DialogMail"]["Message"].has("pages"):
+		for page in json["DialogMail"]["Message"]["pages"]:
+			node.mail.pages.append(page.c_unescape())
+	for item in json["DialogMail"]["MailItems"]:
+		print(item["Slot"].replace("b",""))
+		var item_as_string := JSON.stringify(item,"	",false)
+		item_as_string = item_as_string.replace('"Slot": "0b",',"")
+		item_as_string = item_as_string.replace('"Slot": "1b",',"")
+		item_as_string = item_as_string.replace('"Slot": "2b",',"")
+		item_as_string = item_as_string.replace('"Slot": "3b",',"")
+		item_as_string = item_as_string.substr(1,item_as_string.length()-2)
+		item_as_string = item_as_string.strip_edges()
+		item_as_string = item_as_string.replace("\\n","\n")
+		var regex = RegEx.new()
+		regex.compile('"(\\d+\\.?\\d*[bf])"')
+		node.mail.items_slots[int(item["Slot"].replace("b",""))] = {"id":"","count":0,"custom_nbt":regex.sub(item_as_string,"$1",true)}
 	
 	return node
 

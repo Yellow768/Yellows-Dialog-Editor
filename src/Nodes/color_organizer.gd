@@ -14,7 +14,7 @@ func _ready():
 	change_color(box_color)
 	$TextEdit.text = text
 	$Button.button_pressed = locked
-	print(locked)
+
 	set_locked(locked)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,6 +41,7 @@ func change_color(color):
 
 func _on_resize_request(new_minsize):
 	custom_minimum_size = new_minsize
+	size = new_minsize
 	$TextEdit.custom_minimum_size.x = new_minsize.x
 	$TextEdit.add_theme_font_size_override("font_size",new_minsize.y/8)
 
@@ -84,7 +85,7 @@ func delete_self(_useless_bool):
 func set_locked(value : bool):
 	
 	locked = value
-	print(locked)
+	
 	selectable = !value
 	if value:
 		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-line.svg")

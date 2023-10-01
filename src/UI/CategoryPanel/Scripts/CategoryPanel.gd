@@ -190,3 +190,8 @@ func load_duplicated_category(name : String):
 	load_category(name)
 	emit_signal("request_dialog_ids_reassigned")
 	
+
+
+func _on_dialog_editor_import_category_canceled():
+	current_category = null
+	create_category_buttons(EnvironmentIndex.index_categories())
