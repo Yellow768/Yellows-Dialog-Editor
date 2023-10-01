@@ -332,11 +332,11 @@ func select_node(node):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion || Input.is_action_pressed("select_multiple"):
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
-			set_selected(node)
+			
 			
 		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
-			set_selected(node)
+			
 	else:
 		set_selected(node)
 		selected_responses.clear()

@@ -239,7 +239,7 @@ func initialize_category_import(category_name : String):
 	DialogEditor.visible = false
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
-	choose_dialog_popup.connect("import_canceled", Callable(self, "import_canceled"))
+	choose_dialog_popup.connect("import_canceled", Callable(DialogEditor, "import_canceled"))
 	choose_dialog_popup.connect("no_dialogs", Callable(DialogEditor, "on_no_dialogs").bind(category_name))
 	get_parent().add_child(choose_dialog_popup)
 	choose_dialog_popup.size = get_window().size
