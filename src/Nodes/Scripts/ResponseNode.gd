@@ -45,7 +45,7 @@ var slot : int = -1: set = set_response_slot
 
 var response_title : String = ''
 var color_decimal :int = 16777215: set = set_color_decimal
-var command :String = '': set = set_meta_pressed
+var command :String = ''
 var connected_dialog : dialog_node = null: set = set_connected_dialog
 var to_dialog_id = -1: set = set_to_dialog_id
 var option_type = 0: set = set_option_type
@@ -64,6 +64,7 @@ func _ready():
 	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
+	CommandTextNode.text = command
 	ResponseTextNode.add_theme_color_override("font_color",ColorPickerNode.color)
 	for color in GlobalDeclarations.color_presets:
 		ColorPickerNode.get_picker().add_preset(color)
@@ -115,7 +116,7 @@ func set_color_decimal(new_color : int):
 	color_decimal = new_color
 	emit_signal("unsaved_change")
 
-func set_meta_pressed(new_command : String):
+func set_command(new_command : String):
 	command = new_command
 	if not is_inside_tree(): await self.ready
 	CommandTextNode.text = new_command
