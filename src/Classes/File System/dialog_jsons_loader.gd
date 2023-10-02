@@ -19,7 +19,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 			JSON_parse.parse(replace_unparseable_dialog_json_values(current_dialog))
 			var dialog_json_with_bad_values_replaced = JSON_parse.get_data()
 			if JSON_parse.get_error_line() != 0:
-				printerr("Error parsing JSON "+file+", malformed. "+JSON_parse.get_error_message()+" at "+JSON_parse.get_error_line(),"Skipping Importing.")
+				printerr("Error parsing JSON "+file+", malformed. "+JSON_parse.get_error_message()+" at "+str(JSON_parse.get_error_line()),"Skipping Importing.")
 				continue
 			if !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced,file):
 				printerr("JSON "+file+" is valid, but not in CNPC Dialog Format. Skipping Importing")
@@ -38,23 +38,30 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	var final_result = json_file.get_as_text()
 	var regex := RegEx.new()
-	var first_mail_item_brack_position = final_result.find("[",final_result.find('"MailItems": [')) 
+	var first_mail_item_brack_position = final_result.find("[",final_result.find('"MailItems": ['))
+	if first_mail_item_brack_position == -1:
+		first_mail_item_brack_position = final_result.find("[",final_result.find('MailItems: ['))
 	var last_mail_item_brack = final_result.rfind("]")
 	var mail_items_as_string : String = final_result.substr(first_mail_item_brack_position+1,(last_mail_item_brack-first_mail_item_brack_position)-1)
 	final_result = final_result.replace(mail_items_as_string,replace_unparsable_data_in_mail_items(mail_items_as_string))
-	regex.compile('(\\w+(?: \\w+)*):')
+	regex.compile("(\\w+(?: \\w+)*):")
 	while(json_file.get_position() < json_file.get_length()):
 		var current_line := json_file.get_line()
-		var replace_line := current_line
+		final_result = final_result.replace(current_line,regex.sub(current_line,'"$1": ',false))
 		current_line = regex.sub(current_line,'"$1": ',false)
+		var replace_line := current_line
+		
+		
 		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
 			replace_line = current_line.replace("0b","0")
 			replace_line = replace_line.replace("1b","1")
-			#print(replace_line)
+			print(replace_line)
 			final_result = final_result.replace(current_line,replace_line)
 		if '"TimePast"' in current_line or '"Time' in current_line:
 			replace_line = current_line.replace("L","")
-			final_result = final_result.replace(current_line,replace_line)
+			final_result =final_result.replace(current_line,replace_line)
+		
+	
 	return final_result
 
 func replace_unparsable_data_in_mail_items(mail_items : String):
