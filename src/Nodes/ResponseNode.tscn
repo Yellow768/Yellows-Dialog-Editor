@@ -150,7 +150,7 @@ popup/item_2/id = 4
 popup/item_3/text = "Close Dialog"
 popup/item_3/id = 0
 popup/item_4/text = "Disabled"
-popup/item_4/id = 0
+popup/item_4/id = 2
 
 [node name="SpinBox" type="SpinBox" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

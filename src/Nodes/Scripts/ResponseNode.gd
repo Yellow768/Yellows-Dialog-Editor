@@ -14,7 +14,7 @@ extends GraphNode
 
 @onready var ResponseTextNode := get_node(_response_text_node_path)
 @onready var ColorPickerNode := get_node(_color_picker_node_path)
-@onready var OptionTypeNode := get_node(_option_type_node_path)
+@onready var OptionTypeNode : OptionButton = get_node(_option_type_node_path)
 @onready var CommandTextNode := get_node(_command_text_node_path)
 @onready var NewDialogButtonNode := get_node(_new_dialog_button_path)
 @onready var RemoteConnectionContainer := get_node(_remote_connection_container_path)
@@ -77,7 +77,8 @@ func get_option_id_from_index(index : int):
 
 func set_option_from_json_index(option_int : int):
 	if not is_inside_tree(): await self.ready
-	set_option_type(OptionTypeNode.get_item_index(option_int))
+	print(OptionTypeNode.get_item_index(option_int))
+	OptionTypeNode.select(OptionTypeNode.get_item_index(option_int))
 
 func set_focus_on_title():
 	if not is_inside_tree(): await self.ready

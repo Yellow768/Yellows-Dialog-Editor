@@ -23,3 +23,4 @@ res://src/Classes/File System/dialog_jsons_loader.gd
 res://src/UI/Editor/DialogEditor.gd
 res://src/Nodes/Scripts/DialogNode.gd
 res://src/Autoload/global_declarations.gd
+res://src/Nodes/Scripts/ResponseNode.gd
