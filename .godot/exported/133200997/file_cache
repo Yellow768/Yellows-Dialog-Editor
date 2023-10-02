@@ -5,29 +5,29 @@ res://Assets/color_picker_style.tres::548bc2a15b563ba2e0119c38b73de25f::16947442
 res://Assets/MainEditor.tres::af2f11f9c320b5eb4484387ecea37274::1696204749::res://.godot/exported/133200997/export-d59c443ad267883a9e159bec60eb3f4c-MainEditor.res
 res://Assets/UITheme.tres::b1382dc7b344f460569438b50159bf3f::1696204749::res://.godot/exported/133200997/export-a8cbacb68d289d29a86ff18ed1fd9d7c-UITheme.res
 res://src/Classes/undo_redo.tscn::81f28c2183ec1aaeecd6e4db6392dd35::1695632704::res://.godot/exported/133200997/export-51926e0426f41a24ca09a84175e7546e-undo_redo.scn
-res://src/Nodes/CategoryButton.tscn::7f7e41a4aa4dc1d1c1ea16a9cbec4063::1696211880::res://.godot/exported/133200997/export-0e2bde532bd61e2cc07a5263c1a13ccc-CategoryButton.scn
-res://src/Nodes/color_organizer.tscn::b3e41d523fc6cda40aa98728c5aa9779::1696212412::res://.godot/exported/133200997/export-7eb794b9a06b93b1373c57a2b473bdf5-color_organizer.scn
-res://src/Nodes/DialogNode.tscn::46e84c4658cc0194ee30124ab0eb29c8::1696212002::res://.godot/exported/133200997/export-aed703c2e9cf48e83081b129b6704bfb-DialogNode.scn
-res://src/Nodes/ResponseNode.tscn::94b026337a6a45e45eaa2aec93c0c216::1696211880::res://.godot/exported/133200997/export-40172509915ab6617729bae7d8549570-ResponseNode.scn
+res://src/Nodes/CategoryButton.tscn::7f7e41a4aa4dc1d1c1ea16a9cbec4063::1696213415::res://.godot/exported/133200997/export-0e2bde532bd61e2cc07a5263c1a13ccc-CategoryButton.scn
+res://src/Nodes/color_organizer.tscn::b3e41d523fc6cda40aa98728c5aa9779::1696213415::res://.godot/exported/133200997/export-7eb794b9a06b93b1373c57a2b473bdf5-color_organizer.scn
+res://src/Nodes/DialogNode.tscn::46e84c4658cc0194ee30124ab0eb29c8::1696213415::res://.godot/exported/133200997/export-aed703c2e9cf48e83081b129b6704bfb-DialogNode.scn
+res://src/Nodes/ResponseNode.tscn::94b026337a6a45e45eaa2aec93c0c216::1696213415::res://.godot/exported/133200997/export-40172509915ab6617729bae7d8549570-ResponseNode.scn
 res://src/UI/Dialog Settings/ChooseFaction.tscn::e883d4f5485dc31461e42aabc44625b6::1695535372::res://.godot/exported/133200997/export-5dd7b1a8829bf843c6a8a71e236253e4-ChooseFaction.scn
 res://src/UI/Dialog Settings/ChooseQuest.tscn::093d21d2ea255c290e8e38e266109f63::1695535372::res://.godot/exported/133200997/export-acaaee8b03e38baafa63d7146e0eb230-ChooseQuest.scn
-res://src/UI/Dialog Settings/Dialog Availability.tscn::3254344c77f1af26c5db6a2e27697e7e::1696211880::res://.godot/exported/133200997/export-c644a8309567990d2ef43ae57cb59a19-Dialog Availability.scn
-res://src/UI/Dialog Settings/Faction Availability.tscn::0fd03c28ebe100d906c66a5e8d8d7bc6::1696211881::res://.godot/exported/133200997/export-bbb200c93ae249c72de60b7cd2a89173-Faction Availability.scn
+res://src/UI/Dialog Settings/Dialog Availability.tscn::3254344c77f1af26c5db6a2e27697e7e::1696213416::res://.godot/exported/133200997/export-c644a8309567990d2ef43ae57cb59a19-Dialog Availability.scn
+res://src/UI/Dialog Settings/Faction Availability.tscn::0fd03c28ebe100d906c66a5e8d8d7bc6::1696213416::res://.godot/exported/133200997/export-bbb200c93ae249c72de60b7cd2a89173-Faction Availability.scn
 res://src/UI/Dialog Settings/FactionChange.tscn::6448957b1efedbad36007f71413acf9b::1695535372::res://.godot/exported/133200997/export-df2985f66be467998125f000c28f540a-FactionChange.scn
-res://src/UI/Dialog Settings/MailItemSlot.tscn::2ab0d1eaee1251aea167cc0c86922916::1696211879::res://.godot/exported/133200997/export-0e41b265315a41510f793e4a15a64e18-MailItemSlot.scn
-res://src/UI/Dialog Settings/Quest Avaiability.tscn::b76bbeae4039910c7c2a961ffbbf88d2::1696211880::res://.godot/exported/133200997/export-b0a2db0aaaf08454c3a2d227f8dc14ef-Quest Avaiability.scn
+res://src/UI/Dialog Settings/MailItemSlot.tscn::2ab0d1eaee1251aea167cc0c86922916::1696213415::res://.godot/exported/133200997/export-0e41b265315a41510f793e4a15a64e18-MailItemSlot.scn
+res://src/UI/Dialog Settings/Quest Avaiability.tscn::b76bbeae4039910c7c2a961ffbbf88d2::1696213416::res://.godot/exported/133200997/export-b0a2db0aaaf08454c3a2d227f8dc14ef-Quest Avaiability.scn
 res://src/UI/Dialog Settings/ScoreboardAvailability.tscn::a5325d2716c7561e827590c9752ec845::1695535372::res://.godot/exported/133200997/export-5fdcafa9190fb3de83113c1d5eea04f1-ScoreboardAvailability.scn
 res://src/UI/Dialog Settings/Select Quest.tscn::b53386e7f18d317bb17fa2edcad95a26::1695535372::res://.godot/exported/133200997/export-f425aed15573bf29e4e60199ac545552-Select Quest.scn
-res://src/UI/Dialog Settings/StartQuest.tscn::a8b0d34141435b0cefedaed998c54566::1696211878::res://.godot/exported/133200997/export-423eb3dc6f8af84d0ac172602bae46eb-StartQuest.scn
-res://src/UI/Editor/EditoSettings.tscn::512e17629ce2509f7ad6a6e10a8ce6a8::1696211880::res://.godot/exported/133200997/export-22bd8c4d8862f3351ecda56cc313cebd-EditoSettings.scn
+res://src/UI/Dialog Settings/StartQuest.tscn::a8b0d34141435b0cefedaed998c54566::1696213415::res://.godot/exported/133200997/export-423eb3dc6f8af84d0ac172602bae46eb-StartQuest.scn
+res://src/UI/Editor/EditoSettings.tscn::512e17629ce2509f7ad6a6e10a8ce6a8::1696213415::res://.godot/exported/133200997/export-22bd8c4d8862f3351ecda56cc313cebd-EditoSettings.scn
 res://src/UI/Editor/keybind.tscn::bb3797e67173f705629ab04d42921249::1695632703::res://.godot/exported/133200997/export-1c484151fb1340dd30b4c7ada1152c4b-keybind.scn
-res://src/UI/Editor/MainEditor.tscn::0642cf876909d3ebdf7cb99e4bc9703a::1696211881::res://.godot/exported/133200997/export-d58e438225f930db773da6d12179e979-MainEditor.scn
-res://src/UI/Util/ChooseInitialDialogPopup.tscn::da7af4fa493c4f73b0d71a6ca0fe7a6e::1696211880::res://.godot/exported/133200997/export-e92dd5d2a8a1197b4c5686df4b009e72-ChooseInitialDialogPopup.scn
+res://src/UI/Editor/MainEditor.tscn::5e2ffa7291f3928fcd7c517ae55fc831::1696213416::res://.godot/exported/133200997/export-d58e438225f930db773da6d12179e979-MainEditor.scn
+res://src/UI/Util/ChooseInitialDialogPopup.tscn::da7af4fa493c4f73b0d71a6ca0fe7a6e::1696213415::res://.godot/exported/133200997/export-e92dd5d2a8a1197b4c5686df4b009e72-ChooseInitialDialogPopup.scn
 res://src/UI/Util/ConfirmDeletion.tscn::e4f91ba6b0af7915e0677941b56b1968::1695632705::res://.godot/exported/133200997/export-3cd06e373caeaf6875ac6c6d097e6530-ConfirmDeletion.scn
 res://src/UI/Util/DirectoryShortcutButton.tscn::62e2b389766bb91286460c77e033fe4c::1695535372::res://.godot/exported/133200997/export-8b0ce99040054121c70f57b59e243f64-DirectoryShortcutButton.scn
-res://src/UI/Util/Expandable Line Edit.tscn::68c5e7ee0a7ccdc44a64523180fd13c7::1696211879::res://.godot/exported/133200997/export-b21c050aabcabacf17e3b1db55004f77-Expandable Line Edit.scn
+res://src/UI/Util/Expandable Line Edit.tscn::68c5e7ee0a7ccdc44a64523180fd13c7::1696213415::res://.godot/exported/133200997/export-b21c050aabcabacf17e3b1db55004f77-Expandable Line Edit.scn
 res://src/UI/Util/FactionLoader.tscn::2183d5ddbcce8ab56c68bd368cfc5c1a::1695535372::res://.godot/exported/133200997/export-99778acc7c0c93068e50499111a8d927-FactionLoader.scn
 res://src/UI/Util/TextEnterConfirmTemplate.tscn::53c35259de789cf2c93eed486b68bff5::1695632705::res://.godot/exported/133200997/export-4d4c32a9ea931bf21cd595214519949f-TextEnterConfirmTemplate.scn
-res://src/UI/LandingScreen.tscn::3871c958371bd2355e6325ae667c72ba::1696211881::res://.godot/exported/133200997/export-e7cdb85ec63a7af2ebdaf0cc1f671ccf-LandingScreen.scn
-res://src/UI/Program.tscn::5d834d310407620bbe9e4b2b4eb69e0b::1696211878::res://.godot/exported/133200997/export-abf8dffc6b0ea7339b7984bf81dcea8e-Program.scn
-res://default_env.tres::ab62f9d53b253fbf8cc9f30b70e9c43f::1696212412::res://.godot/exported/133200997/export-7cf3fd67ad9f55210191d77b582b8209-default_env.res
+res://src/UI/LandingScreen.tscn::3871c958371bd2355e6325ae667c72ba::1696213416::res://.godot/exported/133200997/export-e7cdb85ec63a7af2ebdaf0cc1f671ccf-LandingScreen.scn
+res://src/UI/Program.tscn::5d834d310407620bbe9e4b2b4eb69e0b::1696213415::res://.godot/exported/133200997/export-abf8dffc6b0ea7339b7984bf81dcea8e-Program.scn
+res://default_env.tres::ab62f9d53b253fbf8cc9f30b70e9c43f::1696213416::res://.godot/exported/133200997/export-7cf3fd67ad9f55210191d77b582b8209-default_env.res

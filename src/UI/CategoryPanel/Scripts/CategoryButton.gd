@@ -54,8 +54,8 @@ func _on_popup_menu_id_pressed(id):
 			$LineEdit.text = text
 			$LineEdit.caret_column = $LineEdit.text.length()
 		2:
-			emit_signal("reimport_category_request",text)
+			emit_signal("reimport_category_request",category_name)
 		3:
-			emit_signal("delete_category_request",text)
+			emit_signal("delete_category_request",category_name)
 		4:
-			emit_signal("duplicate_category_request",text)
+			emit_signal("duplicate_category_request",category_name)

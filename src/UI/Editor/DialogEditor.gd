@@ -308,7 +308,7 @@ func import_canceled():
 	
 		
 func clear_editor():
-	
+	color_organizers = []
 	selected_responses = []
 	selected_nodes = []
 	var save_nodes = get_tree().get_nodes_in_group("Save")

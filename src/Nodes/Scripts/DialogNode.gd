@@ -155,6 +155,8 @@ func set_dialog_id(id: int):
 	if not is_inside_tree(): await self.ready
 	IdLabelNode.text = "    ID: "+str(id)
 	emit_signal("unsaved_changes")
+	for response in connected_responses:
+		response.set_connected_dialog(self)
 
 func set_node_index(index : int):
 	node_index = index
