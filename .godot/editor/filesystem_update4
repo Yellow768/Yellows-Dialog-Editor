@@ -15,3 +15,5 @@ res://src/UI/Dialog Settings/Dialog Availability.tscn
 res://src/UI/Dialog Settings/Quest Avaiability.tscn
 res://src/UI/Dialog Settings/Faction Availability.tscn
 res://src/UI/Editor/MainEditor.tscn
+res://src/UI/LandingScreen.tscn
+res://src/UI/LandingScreen.gd

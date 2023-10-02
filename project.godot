@@ -11,11 +11,12 @@ config_version=5
 [application]
 
 config/name="CNPC Dialog Editor"
+config/description="Yellow's External CustomNPCs Dialog Editor"
 run/main_scene="res://src/UI/Program.tscn"
 config/features=PackedStringArray("4.1")
 run/low_processor_mode=true
-boot_splash/show_image=false
-config/icon="res://icon.png"
+boot_splash/image="res://Assets/UI Textures/editor_icon.png"
+config/icon="res://Assets/UI Textures/icon.svg"
 
 [autoload]
 

@@ -4,7 +4,6 @@ const user_settings_path := "user://user_settings.cfg"
 var chosen_dir : String
 
 func _ready():
-	DisplayServer.window_set_current_screen(1,0)
 	get_tree().auto_accept_quit = true
 	DisplayServer.window_set_title("Home | CNPC Dialog Editor")
 	OS.low_processor_usage_mode = true

@@ -1,9 +1,10 @@
+HBoxContainer
+TextureRect
 HSlider
 Panel
 Timer
 Label
 SpinBox
-HBoxContainer
 ScrollContainer
 PanelContainer
 TextEdit
