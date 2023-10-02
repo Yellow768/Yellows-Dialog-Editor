@@ -92,12 +92,14 @@ custom_minimum_size = Vector2(275, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Title of the dialog"
+theme_override_font_sizes/font_size = 14
 text = "New Dialog"
 
 [node name="DialogText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(275, 111)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 13
 wrap_mode = 1
 script = ExtResource("2")
 

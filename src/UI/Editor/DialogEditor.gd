@@ -453,3 +453,7 @@ func _on_category_panel_request_dialog_ids_reassigned():
 
 func _on_autosave_timer_timeout():
 	pass # Replace with function body.
+
+
+func _on_editor_settings_snap_enabled_changed(value):
+	use_snap = value

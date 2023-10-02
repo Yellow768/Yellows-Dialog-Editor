@@ -21,7 +21,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 			if JSON_parse.get_error_line() != 0:
 				printerr("Error parsing JSON, malformed. "+JSON_parse.get_error_message(),". Skipping Importing.")
 				continue
-			if !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced):
+			if !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced,file):
 				printerr("JSON is valid, but not in CNPC Dialog Format. Skipping Importing")
 				continue 
 			else:
@@ -34,20 +34,7 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 #and long ints as 12345L. Godot's JSON parser doesn't account for these values, and so
 #errors out and doesn't properly import the dictionary. This function first imports the file as text,
 #and then replaces those unparseable values so that Godot can read it
-#
 
-
-		#print(item)
-	
-		#grab the string in between the []
-		#regex the 0b's to have quotes around them, we have now converted it into data keys
-		#interpret this as a dictionary
-		#make an array of each item with the dictionary stringified
-		#now we regex the stringified data to remove the quotes around "0b" //hard?
-		#replace the first instance of "Slot" from the data with ""
-		#set the mail objects item[index].custom_nbt to this stringfied data
-		#on the json_loader, regex the data to just remove the b to allow the thing to fuckin import lmao
-	
 func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	var final_result = json_file.get_as_text()
 	var regex := RegEx.new()
@@ -76,21 +63,19 @@ func replace_unparsable_data_in_mail_items(mail_items : String):
 	var mail_dictionary = regex.sub(mail_items,'"$0"',true)
 	return mail_dictionary
 	
-	
-func is_file_valid_dialog_json(json_file : JSON) -> bool:
-	if json_file.error == OK && is_json_valid_dialog_format(json_file.result):
-		return true	
-	else:
-		return false
 
-
-func is_json_valid_dialog_format(dialog_json : Dictionary) -> bool:
+func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool:
 	if !dialog_json.has("DialogTitle") or typeof(dialog_json["DialogTitle"]) != TYPE_STRING:
 		printerr("DialogTitle is malformed")
 		return false
 	if !dialog_json.has("DialogId") or typeof(dialog_json["DialogId"]) != TYPE_FLOAT:
-		printerr("DialogId is malformed")
-		return false
+		
+		if file.get_file().replace(".json","").is_valid_int():
+			dialog_json.merge({"DialogId" : int(file.get_file().replace(".json",""))})
+			printerr("DialogId is malformed, substituting with file name")
+		else:
+			dialog_json.merge({"DialogId" : -1})
+			printerr("DialogId is malformed, file name is not a vlid number, setting ID to -1")
 	if !dialog_json.has("DialogText") or typeof(dialog_json["DialogText"]) != TYPE_STRING:
 		printerr("DialogText is malformed")
 		return false

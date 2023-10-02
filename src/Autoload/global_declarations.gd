@@ -22,7 +22,7 @@ var dialog_left_slot_color_hidden := Color(1,0,1)
 
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
-var undo_enabled = false
+var snap_enabled = false
 var color_presets : PackedColorArray
 var autosave_time := 3
 
@@ -36,7 +36,7 @@ func _ready():
 	config.load("user://user_settings.cfg")
 	hide_connection_distance = config.get_value("user_settings","hide_connection_distance",1000)
 	hold_shift_for_individual_movement = config.get_value("user_settings","hold_shift_for_individual_movement",false)
-	undo_enabled = config.get_value("user_settings","undo_enabled",false)
+	snap_enabled = config.get_value("user_settings","snap_enabled",false)
 	color_presets = config.get_value("user_settings","color_presets",color_presets)
 	autosave_time = config.get_value("user_settings","autosave_time",autosave_time)
 	for action in actions:
@@ -50,7 +50,7 @@ func save_config():
 	config.load(user_settings_path)
 	config.set_value("user_settings","hide_connection_distance",hide_connection_distance)
 	config.set_value("user_settings","hold_shift_for_individual_movement",hold_shift_for_individual_movement)
-	config.set_value("user_settings","undo_enabled",undo_enabled)
+	config.set_value("user_settings","snap_enabled",snap_enabled)
 	config.set_value("prev_dirs","dir_array",config.get_value("prev_dirs","dir_array","[]"))
 	config.set_value("user_settings","color_presets",color_presets)
 	config.set_value("user_settings","autosave_time",autosave_time)

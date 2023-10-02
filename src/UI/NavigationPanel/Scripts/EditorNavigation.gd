@@ -53,3 +53,7 @@ func _input(event):
 
 func _on_category_panel_finished_loading(_ignore : String):
 	$TopPanelContainer.visible = true
+
+
+func _on_dialog_editor_import_category_canceled():
+	$TopPanelContainer.visible = false

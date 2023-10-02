@@ -36,6 +36,7 @@ func _ready():
 		node.load_faction_data(fact_dict)
 	get_tree().auto_accept_quit = false
 	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
+	$DialogEditor.use_snap = GlobalDeclarations.snap_enabled
 	
 func _input(event : InputEvent):
 	if event.is_action_pressed("add_dialog_at_mouse"):
@@ -149,7 +150,7 @@ func add_to_unsaved_categories(category):
 	if !unsaved_categories.has(category) && category != null:
 		unsaved_categories.append(category)
 
-func remove_from_unsaved_categories(category: String):
+func remove_from_unsaved_categories(category):
 	unsaved_categories.erase(category)
 
 

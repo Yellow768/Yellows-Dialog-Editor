@@ -16,7 +16,6 @@ var loaded_dialogs = []
 var loaded_responses = []	
 
 func load_temp(data):
-		print("data temp"+str(data))
 		emit_signal("clear_editor_request")
 		for dict in data:
 			if dict.has("editor_offset.x"):
@@ -27,6 +26,7 @@ func load_temp(data):
 				load_color_category(dict)
 		connect_all_responses()
 		queue_free()
+		DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+CurrentEnvironment.current_category_name+" | CNPC Dialog Editor")
 		return OK
 
 
@@ -52,7 +52,7 @@ func load_category(category_name):
 					load_editor_settings(node_data)
 				elif node_data.get("node_type") == "Dialog Node":
 					load_dialog_data(node_data)	
-				else:
+				elif node_data.get("node_type") == "Color Organizer":
 					load_color_category(node_data)
 			connect_all_responses()
 			save_category.close()

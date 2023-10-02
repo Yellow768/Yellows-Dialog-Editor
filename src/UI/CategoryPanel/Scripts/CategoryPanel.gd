@@ -37,7 +37,7 @@ var export_version : int = 2
 
 
 
-@onready var category_file_container = get_node(category_file_container_path)
+@onready var CategoryFileContainer = get_node(category_file_container_path)
 @onready var EnvironmentIndex = get_node(environment_index_path)
 @onready var DialogEditor = get_node(dialog_editor_path)
 @onready var AutoSave = get_node(auto_save_path)
@@ -54,7 +54,7 @@ func _ready():
 	
 
 func create_category_buttons(categories):
-	for node in category_file_container.get_children():
+	for node in CategoryFileContainer.get_children():
 		node.queue_free()
 	for i in categories:
 		var category_button = load("res://src/Nodes/CategoryButton.tscn").instantiate()
@@ -68,7 +68,7 @@ func create_category_buttons(categories):
 		category_button.connect("reimport_category_request", Callable(self, "reimport_category_popup"))
 		category_button.connect("delete_category_request", Callable(self, "request_deletion_popup"))
 		category_button.connect("duplicate_category_request", Callable(EnvironmentIndex, "duplicate_category"))
-		category_file_container.add_child(category_button)
+		CategoryFileContainer.add_child(category_button)
 	
 		
 
@@ -177,7 +177,7 @@ func save_all_backups():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
 		
-		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+current_category+"/autosave")
+		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+key+"/autosave")
 		if cat_save.save_category(key,category_temp_data[key],true) == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:
@@ -203,12 +203,13 @@ func load_category(category_name : String,category_button : Button = null):
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :
-			for child in category_file_container.get_children():
+			for child in CategoryFileContainer.get_children():
 				if child.category_name == current_category:
 					child.button_pressed = true
 					category_button = child
 	current_category_button = category_button
 	if current_category != null:
+		print(current_category)
 		var temp_cat_saver = category_saver.new()
 		add_child(temp_cat_saver)
 		category_temp_data[current_category] = temp_cat_saver.save_temp(current_category)
@@ -232,6 +233,12 @@ func load_category(category_name : String,category_button : Button = null):
 		if new_category_loader.load_category(category_name) == OK:
 			emit_signal("finished_loading",category_name)
 			DialogEditor.visible = true
+			print(current_category+" after")
+			var temp_cat_saver = category_saver.new()
+			add_child(temp_cat_saver)
+			category_temp_data[current_category] = temp_cat_saver.save_temp(current_category)
+		
+	current_category = category_name
 	loading_category = false
 		
 	
@@ -261,6 +268,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	emit_signal("finished_loading",category_name)
 	current_category = category_name
 	DialogEditor.visible = true
+	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
 
 func _on_Searchbar_text_changed(new_text : String):
 	for button in $VBoxContainer/ScrollContainer/CategoryContainers.get_children():
@@ -285,7 +293,9 @@ func load_duplicated_category(name : String):
 
 func _on_dialog_editor_import_category_canceled():
 	current_category = null
-	create_category_buttons(EnvironmentIndex.index_categories())
+	current_category_button = null
+	CurrentEnvironment.current_category_name = null
+	#create_category_buttons(EnvironmentIndex.index_categories())
 
 
 func _on_dialog_editor_unsaved_changes(name):
@@ -295,4 +305,9 @@ func _on_dialog_editor_unsaved_changes(name):
 
 func _on_autosave_timer_timeout():
 	save_all_backups()
+	print("saving backups")
+	AutoSave.start(GlobalDeclarations.autosave_time*60)
+
+
+func _on_editor_settings_autosave_time_changed():
 	AutoSave.start(GlobalDeclarations.autosave_time*60)
