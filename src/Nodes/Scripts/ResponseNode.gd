@@ -78,6 +78,12 @@ func get_option_id_from_index(index : int):
 func set_option_from_json_index(option_int : int):
 	if not is_inside_tree(): await self.ready
 	OptionTypeNode.select(OptionTypeNode.get_item_index(option_int))
+	set_option_type(OptionTypeNode.get_item_index(option_int))
+	
+func set_option_from_index(index : int):
+	if not is_inside_tree(): await self.ready
+	OptionTypeNode.select(index)
+	set_option_type(index)
 
 func set_focus_on_title():
 	if not is_inside_tree(): await self.ready
