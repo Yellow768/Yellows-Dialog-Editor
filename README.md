@@ -5,13 +5,13 @@ Yellow's CustomNPC's Dialog Editor is a node based, dialog tree editor aiming to
 Why?
 ============
 
-The in game editor and other external editors are cumbersome and have been hindering my performance. The in-game editor has submenu after submenu, no way to visualise the connections between dialogs, and most frustrating of all is no way to create and connect two dialogs in one fell swoop.
+The in game editor and other external editors are cumbersome and slow to work with. The in-game editor has submenu after submenu, no way to visualise the connections between dialogs, and no way to create and connect two dialogs in one fell swoop.
 
 Instead, you must make the dialog you want first, then go back into the starting dialog, open the response options, edit response option 1, select dialog, and then find it in the list
 
 I haven't been able to find a suitable external editor, the official one from Noppes replicates the same interface, and the only other one I've found was cumbersome in it's own way.
 
-Additionally, external editors lacked the functionality of seeing and selecting quests and factions by name, instead relying on the user to know the faction and quest ID.
+Additionally, other external editors lacked the functionality of seeing and selecting quests and factions by name, instead relying on the user to know the faction and quest ID.
 Connections between dialogs was also handled by IDs.
 
 Other dialog editors, unrelated to CustomNPCs, are not designed for this mod's specific architecture. There's lots of features that don't apply, and no way to natively export
@@ -33,7 +33,7 @@ I also automatically load in quest and faction data, and keep in memory a list o
 
 The editor can also import in existing dialogs, both from the minecraft world, and on their own, and will automatically create the correct IDs for it.
 
-Technical Documentation
+Technical Documentation (Attempt At)
 ==========
 
 When a directory is selected, the program will do a couple of things.
