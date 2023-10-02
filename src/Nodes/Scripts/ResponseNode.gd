@@ -331,3 +331,9 @@ func _on_spin_box_mouse_entered():
 
 func _on_spin_box_mouse_exited():
 	spinbox_ignore_changes = true
+
+
+func _on_response_text_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			emit_signal("set_self_as_selected",self)

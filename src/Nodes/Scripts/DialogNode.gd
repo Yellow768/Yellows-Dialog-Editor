@@ -192,7 +192,6 @@ func handle_clicking(event : InputEvent):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			emit_signal("set_self_as_selected",self)
-			selected = true
 		if event.double_click:
 			emit_signal("node_double_clicked")
 	else:

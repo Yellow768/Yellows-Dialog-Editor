@@ -23,7 +23,7 @@ var all_loaded_dialogs : Array[GraphNode]= []
 
 var ignore_double_clicks := false
 
-
+var dragging_mouse = false
 
 
 func _ready():
@@ -329,18 +329,18 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and InputEventMouseMotion || Input.is_action_pressed("select_multiple"):
+	if Input.is_action_pressed("select_multiple") || dragging_mouse:
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
 			
 		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
-			
 	else:
 		set_selected(node)
 		selected_responses.clear()
 		selected_nodes.clear()
+		
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
@@ -392,6 +392,10 @@ func _on_SaveLoad_clear_editor_request():
 
 
 func _on_DialogEditor_gui_input(event):
+	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		dragging_mouse = true
+	if Input.is_action_just_released("drag"):
+		dragging_mouse = false
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if !Input.is_action_pressed("zoom_key"):
 			accept_event()
