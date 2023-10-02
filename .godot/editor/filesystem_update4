@@ -17,3 +17,4 @@ res://src/UI/Dialog Settings/Faction Availability.tscn
 res://src/UI/Editor/MainEditor.tscn
 res://src/UI/LandingScreen.tscn
 res://src/UI/LandingScreen.gd
+res://src/UI/Editor/DialogEditor.gd

@@ -233,7 +233,7 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
 	response.connected_dialog = dialog
-	if response.position_offset.distance_to(dialog.position_offset) < 1000:
+	if response.position_offset.distance_to(dialog.position_offset) < GlobalDeclarations.hide_connection_distance:
 		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 	dialog.add_connected_response(response)
 	relay_unsaved_changes()
