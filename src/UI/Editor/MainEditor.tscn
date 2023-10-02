@@ -375,6 +375,7 @@ grow_horizontal = 2
 text = "Information Panel"
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0

@@ -142,6 +142,7 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 	response.queue_free()
 	relay_unsaved_changes()
 
+var color_organizers = [] #Used to fix a bug where color organizers are made last, so dont allow mouse through them
 
 func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_exact_offset : bool = false):
 	
@@ -157,6 +158,7 @@ func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_
 	if !use_exact_offset:
 		new_color_org.position_offset = (new_color_org.position_offset+scroll_offset)/zoom
 	add_child(new_color_org)
+	color_organizers.append(new_color_org)
 
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
@@ -337,10 +339,9 @@ func select_node(node):
 		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
 	else:
-		set_selected(node)
 		selected_responses.clear()
 		selected_nodes.clear()
-		
+		set_selected(node)
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
@@ -362,14 +363,14 @@ func unselect_node(node):
 
 
 func handle_double_click(node):
-
-	
+	dragging_mouse = true
 	if node.node_type == "Dialog Node":
 		emit_signal("node_double_clicked",node)	
 		if !ignore_double_clicks:
 			for response in node.response_options:
 				if !response.selected:
 					response.selected = true
+					#selected_responses.append(response)
 					handle_double_click(response)
 				
 	if node.node_type == "Player Response Node":
@@ -379,6 +380,8 @@ func handle_double_click(node):
 					node.connected_dialog.selected = true
 					handle_double_click(node.connected_dialog)
 					node.connected_dialog.emit_signal("node_double_clicked")
+					#selected_nodes.append(node.connected_dialog)
+	#dragging_mouse = false
 			
 
 

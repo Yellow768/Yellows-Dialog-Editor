@@ -8,13 +8,16 @@ var locked := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mouse_filter = 2
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$TextEdit.custom_minimum_size.x = size.x
 	$TextEdit.add_theme_font_size_override("font_size",size.x/8)
 	change_color(box_color)
 	$TextEdit.text = text
 	$Button.button_pressed = locked
-
+	selectable = false
+	
+	selected = false
+	resizable = false
 	set_locked(locked)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,6 +75,7 @@ func _on_node_selected():
 func _on_node_deselected():
 	mouse_filter = 2
 	resizable = false
+	
 
 	
 
@@ -89,10 +93,14 @@ func set_locked(value : bool):
 	selectable = !value
 	if value:
 		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-line.svg")
-		mouse_filter = 2
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		resizable = false
+		draggable = false
 	else:
 		$Button.icon = load("res://Assets/UI Textures/Icon Font/lock-off-line.svg")
-
+		mouse_filter = 1
+		resizable = true
+		draggable = true
 
 func _on_button_toggled(button_pressed):
 	set_locked(button_pressed)	

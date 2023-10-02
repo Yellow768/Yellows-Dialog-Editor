@@ -237,6 +237,8 @@ func load_category(category_name : String,category_button : Button = null):
 		
 	current_category = category_name
 	loading_category = false
+	for org in DialogEditor.color_organizers:
+		org.set_locked(org.locked)
 		
 	
 func initialize_category_import(category_name : String):
