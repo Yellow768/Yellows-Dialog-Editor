@@ -16,7 +16,7 @@ run/main_scene="res://src/UI/Program.tscn"
 config/features=PackedStringArray("4.1")
 run/low_processor_mode=true
 boot_splash/image="res://Assets/UI Textures/editor_icon.png"
-config/icon="res://Assets/UI Textures/icon.svg"
+config/icon="res://Assets/UI Textures/editor_icon.svg"
 
 [autoload]
 

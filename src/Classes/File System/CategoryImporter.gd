@@ -46,7 +46,6 @@ func create_nodes_from_index(category_name : String, index : int = 0):
 		unimported_dialog_position = Vector2(300,300)
 		emit_signal("update_current_category",imported_category_name)
 		emit_signal("save_category_request")
-		print("hmmm")
 		loaded_dialog_nodes = []
 		loaded_responses = []
 	

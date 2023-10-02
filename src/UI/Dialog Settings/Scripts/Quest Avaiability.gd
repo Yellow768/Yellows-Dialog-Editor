@@ -18,7 +18,6 @@ func set_id(id:int):
 	$Panel/SpinBox.value = id
 
 func set_availability_type(type:int):
-	print(type)
 	$Panel/OptionButton.selected = type
 	
 
@@ -51,7 +50,7 @@ func find_quest_name_from_id(id : int) -> String:
 func _on_OptionButton_item_selected(index: int):
 	emit_signal("type_changed",self,index)
 	$Panel/ChooseQuest.disabled = (index == 0)
-	print(index)
+
 
 
 func _on_ChooseQuest_quest_chosen(title : String,id : int):

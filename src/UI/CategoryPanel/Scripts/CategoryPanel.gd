@@ -172,7 +172,6 @@ func save_all_categories():
 
 	
 func save_all_backups():
-	print(category_temp_data.keys())
 	for key in category_temp_data.keys():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
@@ -209,7 +208,6 @@ func load_category(category_name : String,category_button : Button = null):
 					category_button = child
 	current_category_button = category_button
 	if current_category != null:
-		print(current_category)
 		var temp_cat_saver = category_saver.new()
 		add_child(temp_cat_saver)
 		category_temp_data[current_category] = temp_cat_saver.save_temp(current_category)
@@ -233,7 +231,6 @@ func load_category(category_name : String,category_button : Button = null):
 		if new_category_loader.load_category(category_name) == OK:
 			emit_signal("finished_loading",category_name)
 			DialogEditor.visible = true
-			print(current_category+" after")
 			var temp_cat_saver = category_saver.new()
 			add_child(temp_cat_saver)
 			category_temp_data[current_category] = temp_cat_saver.save_temp(current_category)
