@@ -108,7 +108,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	elif parent_dialog.response_options.size() == 0:
 		new_offset = parent_dialog.position_offset +Vector2(400,0)
 	else:
-		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+220)
+		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+300)
 	parent_dialog.response_options.append(new_response)
 	new_response.position_offset = new_offset
 	new_response.slot = parent_dialog.response_options.size()-1
@@ -451,7 +451,7 @@ func reindex_ids():
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
 			CurrentEnvironment.highest_id +=1
-			child.dialog_id = CurrentEnvironment.highest_id
+			child.set_dialog_id(CurrentEnvironment.highest_id) 
 
 
 func _on_category_panel_request_dialog_ids_reassigned():

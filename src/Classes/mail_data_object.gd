@@ -41,7 +41,7 @@ func compose_items_string():
 				string += ",\n			{\n		"+item_as_string+"\n			}"
 			else:
 				string += "			{\n		"+item_as_string+"\n			}"
-	return string
+	return string.c_unescape().replace("\\'","'")
 			
 func compose_pages_string():
 	var string = ""
@@ -53,7 +53,7 @@ func compose_pages_string():
 			if page_index != pages.size() && pages.size() != 1:
 				string += ","
 		string += "\n			]"
-	return string
+	return string.c_unescape().replace("\\'","'")
 			
 	
 #"DialogMail": {

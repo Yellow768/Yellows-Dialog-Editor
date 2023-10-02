@@ -145,6 +145,7 @@ func set_dialog_title(string : String):
 func set_dialog_text(string : String):
 	if not is_inside_tree(): await self.ready
 	DialogTextNode.text = string
+	text = DialogTextNode.text
 	emit_signal("unsaved_changes")
 	
 	
@@ -212,13 +213,7 @@ func _on_DialogText_gui_input(event : InputEvent):
 func _on_TitleText_gui_input(event : InputEvent):
 	handle_clicking(event)
 
-func _on_DialogText_text_changed():
-	text = DialogTextNode.text
-	emit_signal("text_changed")
-	emit_signal("unsaved_changes")
-
-
-		
+	
 func save():
 	var save_quest_av :Array[Dictionary]= []
 	var save_dialog_av :Array[Dictionary] = []
@@ -316,3 +311,9 @@ func get_full_tree(all_children : Array[GraphNode] = []):
 
 
 
+
+
+func _on_dialog_text_text_changed():
+	text = DialogTextNode.text
+	emit_signal("text_changed")
+	emit_signal("unsaved_changes")

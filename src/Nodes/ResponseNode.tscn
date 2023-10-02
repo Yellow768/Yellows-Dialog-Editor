@@ -73,7 +73,7 @@ slot/0/right_enabled = false
 slot/0/right_type = 3
 slot/0/right_color = Color(0, 0, 1, 1)
 slot/0/right_icon = null
-slot/0/draw_stylebox = true
+slot/0/draw_stylebox = false
 slot/1/left_enabled = true
 slot/1/left_type = 3
 slot/1/left_color = Color(1, 0.294118, 0.105882, 1)
@@ -105,7 +105,7 @@ _remote_connection_jump_button_path = NodePath("VBOXRemoteConnection/HBoxContain
 _id_spinbox = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/SpinBox")
 
 [node name="HSeparator" type="HSeparator" parent="."]
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/separator = SubResource("3")

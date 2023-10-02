@@ -22,7 +22,7 @@ var dialog_left_slot_color_hidden := Color(1,0,1)
 
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
-var snap_enabled = false
+var snap_enabled = true
 var color_presets : PackedColorArray
 var autosave_time := 3
 

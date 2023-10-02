@@ -19,10 +19,10 @@ func return_valid_dialog_jsons(category_name : String) -> Array[Dictionary]:
 			JSON_parse.parse(replace_unparseable_dialog_json_values(current_dialog))
 			var dialog_json_with_bad_values_replaced = JSON_parse.get_data()
 			if JSON_parse.get_error_line() != 0:
-				printerr("Error parsing JSON, malformed. "+JSON_parse.get_error_message(),". Skipping Importing.")
+				printerr("Error parsing JSON "+file+", malformed. "+JSON_parse.get_error_message()+" at "+JSON_parse.get_error_line(),"Skipping Importing.")
 				continue
 			if !is_json_valid_dialog_format(dialog_json_with_bad_values_replaced,file):
-				printerr("JSON is valid, but not in CNPC Dialog Format. Skipping Importing")
+				printerr("JSON "+file+" is valid, but not in CNPC Dialog Format. Skipping Importing")
 				continue 
 			else:
 				parsed_jsons.append(dialog_json_with_bad_values_replaced)		

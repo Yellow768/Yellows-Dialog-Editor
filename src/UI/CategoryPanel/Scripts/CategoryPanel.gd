@@ -191,6 +191,7 @@ func export_category_request():
 		return
 	var cat_exp = category_exporter.new()
 	add_child(cat_exp)
+	print("Current Category "+current_category)
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
 	emit_signal("category_succesfully_exported",current_category)
@@ -203,9 +204,10 @@ func load_category(category_name : String,category_button : Button = null):
 		loading_category = true
 		if category_button == null :
 			for child in CategoryFileContainer.get_children():
-				if child.category_name == current_category:
+				if child.category_name == category_name:
 					child.button_pressed = true
 					category_button = child
+					print("found")
 	current_category_button = category_button
 	if current_category != null:
 		var temp_cat_saver = category_saver.new()

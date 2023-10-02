@@ -13,6 +13,7 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 	if !exported_category_dir.dir_exists(directory+category_name):
 		exported_category_dir.make_dir(directory+category_name)
 	empty_category_jsons(category_name)
+	print(category_name)
 	for i in save_nodes:
 		if i.node_type != "Dialog Node":
 			continue
@@ -24,12 +25,15 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 		dialog_file.close()
 		
 func empty_category_jsons(category_name : String):
+	
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if DirAccess.get_open_error() == OK:
 		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name : String = dir.get_next()
 		while file_name != "":
+			if file_name == "autosave":
+				dir.get_next()
 			if dir.current_is_dir():
 				empty_category_jsons(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+file_name)
 			else:
@@ -71,19 +75,17 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	OptionFactions2: '+str(dialog.faction_changes[1].faction_id)+',',
 			'	AvailabilityFaction2Id: '+str(dialog.faction_availabilities[1].faction_id)+',',
 			'	OptionFaction1Points: '+str(abs(dialog.faction_changes[0].points))+',',
-			'	AvailabilityScoreboardValue: '+str(dialog.scoreboard_availabilities[0].value)+',',
 			'	DialogDisableEsc: '+str(int(dialog.disable_esc))+'b,',
 			'	AvailabilityFaction: '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	DialogTitl : "'+str(dialog.dialog_title).c_escape()+'",',
+			'	DialogTitle : "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
 			'	AvailabilityDialog: '+str(dialog.dialog_availabilities[0].availability_type)+',',
-			'	AvailabilityScoreboard2Type: '+str(dialog.scoreboard_availabilities[1].comparison_type)+',',
 			'	AvailabilityFaction2: '+str(dialog.faction_availabilities[1].availability_operator)+',',
 			'	AvailabilityFactionId: '+str(dialog.faction_availabilities[0].faction_id)+',',
 			'	AvailabilityFaction2Stance: '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	DialogCommand: "'+ str(dialog.command)+'",',
+			'	DialogCommand: "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
 			'	AvailabilityDialogId: '+str(dialog.dialog_availabilities[0].dialog_id)+',',
 			'	OptionFaction2Points: '+str(abs(dialog.faction_changes[1].points))+',',
-			'	DialogText: "'+str(dialog.text).c_escape()+'",',
+			'	DialogText: "'+str(dialog.text).c_unescape().replace("\\'","'").replace("\\n","\n")+'",',
 			'	AvailabilityQuest4Id: '+str(dialog.quest_availabilities[3].quest_id)+',',
 			'	AvailabilityQuest3Id: '+str(dialog.quest_availabilities[2].quest_id)+',',
 			'	AvailabilityQuest2Id: '+str(dialog.quest_availabilities[1].quest_id)+',',
@@ -143,15 +145,15 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"OptionFaction1Points": '+str(abs(dialog.faction_changes[0].points))+',',
 			'	"DialogDisableEsc": '+str(int(dialog.disable_esc))+'b,',
 			'	"AvailabilityFaction": '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	"DialogTitle": "'+str(dialog.dialog_title).c_escape()+'",',
+			'	"DialogTitle": "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
 			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
 			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
 			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
 			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	"DialogCommand": "'+ str(dialog.command)+'",',
+			'	"DialogCommand": "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
 			'	"AvailabilityDialogId": '+str(dialog.dialog_availabilities[0].dialog_id)+',',
 			'	"OptionFaction2Points": '+str(abs(dialog.faction_changes[1].points))+',',
-			'	"DialogText": "'+str(dialog.text).c_escape()+'",',
+			'	"DialogText": "'+str(dialog.text).c_unescape().replace("\\'","'").replace("\\n","\n")+'",',
 			'	"AvailabilityQuest4Id": '+str(dialog.quest_availabilities[3].quest_id)+',',
 			'	"AvailabilityQuest3Id": '+str(dialog.quest_availabilities[2].quest_id)+',',
 			'	"AvailabilityQuest2Id": '+str(dialog.quest_availabilities[1].quest_id)+',',
@@ -195,12 +197,15 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"AvailabilityScoreboardType": '+str(dialog.scoreboard_availabilities[0].comparison_type)+',',
 			'	"DialogHideNPC": '+str(int(dialog.hide_npc))+'b,',
 			'	"AvailabilityFactionStance": '+str(dialog.faction_availabilities[0].stance_type)+',',
+			'	"AvailabilityScoreboard2Value": '+str(dialog.scoreboard_availabilities[1].value)+',',
 			'	"DialogId": '+str(dialog.dialog_id)+',',
 			'	"AvailabilityQuest": '+str(dialog.quest_availabilities[0].availability_type)+',',
 			'	"AvailabilityDialog4": '+str(dialog.dialog_availabilities[3].availability_type)+',',
+			'	"AvailabilityScoreboardObjective": "'+str(dialog.scoreboard_availabilities[0].objective_name)+'",',
 			'	"AvailabilityDialog3": '+str(dialog.dialog_availabilities[2].availability_type)+',',
 			'	"AvailabilityQuest2": '+str(dialog.quest_availabilities[1].availability_type)+',',
 			'	"AvailabilityQuest3": '+str(dialog.quest_availabilities[2].availability_type)+',',
+			'	"AvailabilityScoreboard2Objective": "'+str(dialog.scoreboard_availabilities[1].objective_name)+'",',
 			'	"AvailabilityQuest4": '+str(dialog.quest_availabilities[3].availability_type)+',',
 			'	"ModRev": '+str(18)+',',
 			'	"DecreaseFaction1Points": '+str(dialog.faction_changes[0].operator)+'b,',
@@ -211,18 +216,19 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"OptionFactions2": '+str(dialog.faction_changes[1].faction_id)+',',
 			'	"AvailabilityFaction2Id": '+str(dialog.faction_availabilities[1].faction_id)+',',
 			'	"OptionFaction1Points": '+str(abs(dialog.faction_changes[0].points))+',',
+			'	"AvailabilityScoreboardValue": '+str(dialog.scoreboard_availabilities[1].value)+',',
 			'	"DialogDisableEsc": '+str(int(dialog.disable_esc))+'b,',
 			'	"AvailabilityFaction": '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	"DialogTitle": "'+str(dialog.dialog_title).c_escape()+'",',
+			'	"DialogTitle": "'+str(dialog.dialog_title).c_escape().replace("\\'","'")+'",',
 			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
 			'	"AvailabilityScoreboard2Type": '+str(dialog.scoreboard_availabilities[1].comparison_type)+',',
 			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
 			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
 			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	"DialogCommand": "'+ str(dialog.command)+'",',
+			'	"DialogCommand": "'+str(dialog.command).c_escape().replace("\\'","'")+'",',
 			'	"AvailabilityDialogId": '+str(dialog.dialog_availabilities[0].dialog_id)+',',
 			'	"OptionFaction2Points": '+str(abs(dialog.faction_changes[1].points))+',',
-			'	"DialogText": "'+str(dialog.text).c_escape()+'",',
+			'	"DialogText": "'+str(dialog.text).c_escape().replace("\\'","'").replace("\\n","\n")+'",',
 			'	"AvailabilityQuest4Id": '+str(dialog.quest_availabilities[3].quest_id)+',',
 			'	"AvailabilityQuest3Id": '+str(dialog.quest_availabilities[2].quest_id)+',',
 			'	"AvailabilityQuest2Id": '+str(dialog.quest_availabilities[1].quest_id)+',',
@@ -258,9 +264,9 @@ func create_option_dict(response:response_node,islast:bool,withoutQuotes : bool 
 						'		{',
 						'				OptionSlot: '+str(response.slot)+',',
 						'				Option: {',
-						'				DialogCommand: "'+str(response.command).c_escape()+'",',
+						'				DialogCommand: "'+str(response.command).c_escape().replace("\\'","'")+'",',
 						'				Dialog: '+str(response.to_dialog_id)+',',
-						'				Title: "'+str(response.response_title).c_escape()+'",',
+						'				Title: "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
 						'				DialogColor: '+str(response.color_decimal)+',',
 						'				OptionType: '+str(response.get_option_id_from_index(response.option_type)),
 						'			}',
@@ -271,9 +277,9 @@ func create_option_dict(response:response_node,islast:bool,withoutQuotes : bool 
 				'		{',
 					'			OptionSlot: '+str(response.slot)+',',
 					'			Option: {',
-						'				DialogCommand: "'+str(response.command).c_escape()+'",',
+						'				DialogCommand: "'+str(response.command).c_escape().replace("\\'","'")+'",',
 						'				Dialog: '+str(response.to_dialog_id)+',',
-						'				Title: "'+str(response.response_title).c_escape()+'",',
+						'				Title: "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
 						'				DialogColor: '+str(response.color_decimal)+',',
 						'				OptionType: '+str(response.get_option_id_from_index(response.option_type)),
 						"			}",
@@ -285,9 +291,9 @@ func create_option_dict(response:response_node,islast:bool,withoutQuotes : bool 
 					'		{',
 					'				"OptionSlot": '+str(response.slot)+',',
 					'				"Option": {',
-					'				"DialogCommand": "'+str(response.command).c_escape()+'",',
+					'				"DialogCommand": "'+str(response.command).c_escape().replace("\\'","'")+'",',
 					'				"Dialog": '+str(response.to_dialog_id)+',',
-					'				"Title": "'+str(response.response_title).c_escape()+'",',
+					'				"Title": "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
 					'				"DialogColor": '+str(response.color_decimal)+',',
 					'				"OptionType": '+str(response.get_option_id_from_index(response.option_type)),
 					'			}',
@@ -298,9 +304,9 @@ func create_option_dict(response:response_node,islast:bool,withoutQuotes : bool 
 			'		{',
 				'			"OptionSlot": '+str(response.slot)+',',
 				'			"Option": {',
-					'				"DialogCommand": "'+str(response.command).c_escape()+'",',
+					'				"DialogCommand": "'+str(response.command).c_escape().replace("\\'","'")+'",',
 					'				"Dialog": '+str(response.to_dialog_id)+',',
-					'				"Title": "'+str(response.response_title).c_escape()+'",',
+					'				"Title": "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
 					'				"DialogColor": '+str(response.color_decimal)+',',
 					'				"OptionType": '+str(response.get_option_id_from_index(response.option_type)),
 					"			}",

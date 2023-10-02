@@ -122,5 +122,5 @@ text = "    ID: -1"
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_gui_input"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_text_changed"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/DialogText" to="." method="_on_DialogText_gui_input"]
-[connection signal="text_changed" from="HBoxContainer/VBoxContainer/DialogText" to="." method="_on_DialogText_text_changed"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/DialogText" to="." method="_on_dialog_text_text_changed"]
 [connection signal="pressed" from="HBoxContainer/AddPlayerResponse" to="." method="_on_AddPlayerResponse_pressed"]
