@@ -54,6 +54,7 @@ func load_category(category_name):
 					load_dialog_data(node_data)	
 				elif node_data.get("node_type") == "Color Organizer":
 					load_color_category(node_data)
+					
 			connect_all_responses()
 			save_category.close()
 			emit_signal("update_current_category",category_name)
@@ -136,7 +137,7 @@ func create_response_node_from_ydec(response_data):
 	currently_loaded_response.color_decimal = response_data.color_decimal
 	currently_loaded_response.to_dialog_id = response_data.to_dialog_id
 	currently_loaded_response.command = response_data.command
-	currently_loaded_response.option_type = response_data.option_type
+	currently_loaded_response.set_option_type(response_data.option_type)
 	currently_loaded_response.response_title = response_data.response_title
 	currently_loaded_response.position_offset = Vector2(response_data.position_offset_x,response_data.position_offset_y)
 	return currently_loaded_response

@@ -55,7 +55,6 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
 			replace_line = current_line.replace("0b","0")
 			replace_line = replace_line.replace("1b","1")
-			print(replace_line)
 			final_result = final_result.replace(current_line,replace_line)
 		if '"TimePast"' in current_line or '"Time' in current_line:
 			replace_line = current_line.replace("L","")
@@ -79,10 +78,10 @@ func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool
 		
 		if file.get_file().replace(".json","").is_valid_int():
 			dialog_json.merge({"DialogId" : int(file.get_file().replace(".json",""))})
-			printerr("DialogId is malformed, substituting with file name")
+			push_warning("DialogId is malformed or missing, substituting with file name")
 		else:
 			dialog_json.merge({"DialogId" : -1})
-			printerr("DialogId is malformed, file name is not a vlid number, setting ID to -1")
+			push_warning("DialogId is malformed or missing, file name is not a vlid number, setting ID to -1")
 	if !dialog_json.has("DialogText") or typeof(dialog_json["DialogText"]) != TYPE_STRING:
 		printerr("DialogText is malformed")
 		return false
@@ -118,13 +117,13 @@ func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool
 			return false
 	for i in 2:
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Objective") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Objective"]) != TYPE_STRING:
-			push_warning("AvailabilityScoreboard"+id[i]+"Objective is malformed. Assuming Pre 1.12")
+			push_warning("AvailabilityScoreboard"+id[i]+"Objective is malformed or missing. Assuming pre 1.12")
 			dialog_json.merge({"AvailabilityScoreboard"+id[i]+"Objective" : ""})
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Value") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Value"]) != TYPE_FLOAT:
-			push_warning("AvailabilityScoreboard"+id[i]+"Value is malformed. Assuming pre 1.12")
+			push_warning("AvailabilityScoreboard"+id[i]+"Value is malformed or missing. Assuming pre 1.12")
 			dialog_json.merge({"AvailabilityScoreboard"+id[i]+"Value" : 0})
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Type") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Type"]) != TYPE_FLOAT:
-			push_warning("AvailabilityScoreboard"+id[i]+"Type is malformed. Assuming pre 1.12")
+			push_warning("AvailabilityScoreboard"+id[i]+"Type is malformed or missing. Assuming pre 1.12")
 			dialog_json.merge({"AvailabilityScoreboard"+id[i]+"Type" : 0})
 		
 		if !dialog_json.has("AvailabilityFaction"+id[i]+"Id") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Id"]) != TYPE_FLOAT:

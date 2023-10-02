@@ -24,3 +24,4 @@ res://src/UI/Editor/DialogEditor.gd
 res://src/Nodes/Scripts/DialogNode.gd
 res://src/Autoload/global_declarations.gd
 res://src/Nodes/Scripts/ResponseNode.gd
+res://src/Classes/File System/category_loader.gd
