@@ -66,7 +66,7 @@ func load_editor_settings(node_data):
 	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
 	
 func load_color_category(node_data):
-	var loaded_color_organizer = color_organizer.new()
+	var loaded_color_organizer : color_organizer = GlobalDeclarations.COLOR_ORGANIZER.instantiate()
 	loaded_color_organizer.initial_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
 	loaded_color_organizer.box_color  = GlobalDeclarations.int_to_color(node_data["color"])
 	loaded_color_organizer.custom_minimum_size = Vector2(node_data["min_size_x"],node_data["min_size_y"])
@@ -91,7 +91,7 @@ func connect_all_responses():
 		for dialog in loaded_dialogs:
 			if dialog.dialog_id == response.to_dialog_id:
 				connected_dialog = dialog
-		if response.to_dialog_id > 0:
+		if response.to_dialog_id > 0 && connected_dialog != null:
 			emit_signal("request_connect_nodes",response,0,connected_dialog,0)
 
 

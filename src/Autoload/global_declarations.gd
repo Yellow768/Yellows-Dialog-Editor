@@ -7,6 +7,7 @@ var user_settings_path = "user://user_settings.cfg"
 
 var DIALOG_NODE := preload("res://src/Nodes/DialogNode.tscn")
 var RESPONSE_NODE := preload("res://src/Nodes/ResponseNode.tscn")
+var COLOR_ORGANIZER := preload("res://src/Nodes/color_organizer.tscn")
 
 enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_FROM_RESPONSE} 
 

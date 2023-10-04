@@ -197,6 +197,7 @@ func handle_clicking(event : InputEvent):
 			emit_signal("set_self_as_selected",self)
 		if event.double_click:
 			emit_signal("node_double_clicked")
+
 	else:
 		if Input.is_key_pressed(KEY_TAB):
 			emit_signal("set_self_as_selected",self)
@@ -208,7 +209,6 @@ func _on_DialogNode_gui_input(event : InputEvent):
 
 func _on_DialogText_gui_input(event : InputEvent):
 	handle_clicking(event)
-	
 
 func _on_TitleText_gui_input(event : InputEvent):
 	handle_clicking(event)
@@ -312,7 +312,7 @@ func get_full_tree(all_children : Array[GraphNode] = []):
 
 
 
-
+	
 func _on_dialog_text_text_changed():
 	text = DialogTextNode.text
 	emit_signal("text_changed")

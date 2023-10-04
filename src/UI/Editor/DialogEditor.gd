@@ -23,24 +23,19 @@ var all_loaded_dialogs : Array[GraphNode]= []
 
 var ignore_double_clicks := false
 
-var dragging_mouse = false
+var multi_select_mouse_mode = false
 
 
 func _ready():
-	get_zoom_hbox().visible = true
 	add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG)
-	
 	remove_valid_connection_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE)
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
-	#set_process_input(false)
-	snap_distance = 215
-	#rect_size = Vector2(1920,1100)
+	set_process_input(false)
 
 func _process(_delta):
 	if Input.is_action_pressed("delete_nodes"):
-	
 		CurrentEnvironment.handle_subtracting_dialog_id(selected_nodes)
 		for i in selected_nodes:
 			i.delete_self(true)
@@ -52,9 +47,7 @@ func _process(_delta):
 
 
 func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false) -> dialog_node:
-	
 	#Adds a new dialog node into the editor.
-	
 	if new_dialog.node_index == 0:
 		new_dialog.node_index = node_index
 	node_index += 1
@@ -76,22 +69,18 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
-	#new_dialog.connect("node_deselected",Callable(self,"set_last_selected_node_as_selected"))
 	emit_signal("dialog_node_added",new_dialog)
 	add_child(new_dialog)
-	#emit_signal("unsaved_changes",true)
 	return new_dialog
 
 func relay_unsaved_changes():
 	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
-func delete_dialog_node(dialog : dialog_node,remove_from_loaded_list := false):
-	
+func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false):
 	if selected_nodes.find(dialog,0) != -1:
 		selected_nodes.erase(dialog)
-	
 	set_last_selected_node_as_selected()
-	if remove_from_loaded_list:
+	if remove_from_global_index:
 		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
 		CurrentEnvironment.handle_subtracting_dialog_id([dialog])
 	dialog.queue_free()
@@ -144,26 +133,64 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 
 var color_organizers = [] #Used to fix a bug where color organizers are made last, so dont allow mouse through them
 
-func add_color_organizer(col_org : color_organizer = color_organizer.new(), use_exact_offset : bool = false):
-	
-	var col_org_scene = load("res://src/Nodes/color_organizer.tscn")
-	var new_color_org = col_org_scene.instantiate()
-	new_color_org.box_color = col_org.box_color 
-	new_color_org.custom_minimum_size = col_org.custom_minimum_size
-	new_color_org.text = col_org.text
-	new_color_org.position_offset = col_org.initial_offset
-	new_color_org.locked = col_org.locked
-	if new_color_org.position_offset == Vector2.ZERO:
-		new_color_org.position_offset = get_window().size/3
+func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGANIZER.instantiate(), use_exact_offset : bool = false):
+	col_org.position_offset = col_org.initial_offset
+	if col_org.initial_offset == Vector2.ZERO:
+		col_org.position_offset = get_window().size/3
 	if !use_exact_offset:
-		new_color_org.position_offset = (new_color_org.position_offset+scroll_offset)/zoom
-	add_child(new_color_org)
-	color_organizers.append(new_color_org)
-
+		col_org.position_offset = (col_org.position_offset+scroll_offset)/zoom
+	add_child(col_org)
+	color_organizers.append(col_org)
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
 	if selected_nodes.size() == 0 && Input.is_action_pressed("swap_responses"):
 		handle_swapping_responses(response_node,from,to)
+
+func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+	
+	var response : response_node
+	var dialog : dialog_node
+	if from.node_type == "Player Response Node":
+		response = from
+		dialog = to
+	else:
+		response = to
+		dialog = from
+	if response.connected_dialog != null:
+		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
+	response.connected_dialog = dialog
+	if response.position_offset.distance_to(dialog.position_offset) < GlobalDeclarations.hide_connection_distance:
+		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
+	dialog.add_connected_response(response)
+	relay_unsaved_changes()
+
+	
+func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+	
+	var response : response_node
+	var dialog : dialog_node
+	
+	if from.node_type == "Player Response Node":
+		response = from
+		dialog = to
+	else:
+		response = to
+		dialog = from
+	
+	if response.connected_dialog == dialog:
+		response.set_connection_shown()
+		disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
+		dialog.remove_connected_response(response)
+		response.reveal_button()	
+		response.connected_dialog = null	
+	relay_unsaved_changes()
+
+func hide_connection_line(from: GraphNode,to: GraphNode):
+	disconnect_node(from.name,0,to.name,0)
+
+func show_connection_line(from: GraphNode,to: GraphNode):
+	connect_node(from.name,0,to.name,0)
+
 
 func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to: Vector2):
 	if response_node.overlapping_response != null:
@@ -219,54 +246,7 @@ func set_scroll_offset(new_offset : Vector2):
 	var tween := get_tree().create_tween()
 	tween.tween_property(self,"scroll_offset",(new_offset * zoom)-Vector2(get_window().size)/2,.6).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 
-	
 
-
-func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int):
-	
-	var response : response_node
-	var dialog : dialog_node
-	if from.node_type == "Player Response Node":
-		response = from
-		dialog = to
-	else:
-		response = to
-		dialog = from
-	if response.connected_dialog != null:
-		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
-	response.connected_dialog = dialog
-	if response.position_offset.distance_to(dialog.position_offset) < GlobalDeclarations.hide_connection_distance:
-		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
-	dialog.add_connected_response(response)
-	relay_unsaved_changes()
-
-	
-func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
-	
-	var response : response_node
-	var dialog : dialog_node
-	
-	if from.node_type == "Player Response Node":
-		response = from
-		dialog = to
-	else:
-		response = to
-		dialog = from
-	
-	if response.connected_dialog == dialog:
-		response.set_connection_shown()
-		disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
-		dialog.remove_connected_response(response)
-		response.reveal_button()	
-		response.connected_dialog = null	
-	relay_unsaved_changes()
-
-func hide_connection_line(from: GraphNode,to: GraphNode):
-	disconnect_node(from.name,0,to.name,0)
-
-func show_connection_line(from: GraphNode,to: GraphNode):
-	connect_node(from.name,0,to.name,0)
-	
 func set_last_selected_node_as_selected():
 	if selected_nodes.size() < 1:
 		emit_signal("no_dialog_selected")
@@ -281,11 +261,7 @@ func save():
 		"editor_offset.y" : scroll_offset.y,
 		"zoom" : zoom
 	}	
-
-
 	
-
-		
 func on_no_dialogs(category_name):
 	clear_editor()
 	emit_signal("finished_loading",category_name)
@@ -331,7 +307,7 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):
-	if Input.is_action_pressed("select_multiple") || dragging_mouse:
+	if Input.is_action_pressed("select_multiple") || multi_select_mouse_mode:
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			
@@ -339,12 +315,12 @@ func select_node(node):
 		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
 	else:
-		selected_responses.clear()
-		selected_nodes.clear()
-		set_selected(node)
+		if (selected_nodes.size() == 1 || selected_responses.size() == 1) && not (selected_nodes.size()>0 && selected_responses.size() > 0):
+			selected_responses.clear()
+			selected_nodes.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
-			
+				
 		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
 			selected_nodes.append(node)
 	if node.node_type == "Dialog Node":
@@ -357,15 +333,18 @@ func unselect_node(node):
 	if node.node_type == "Dialog Node":
 		selected_nodes.erase(node)
 		set_last_selected_node_as_selected()
-		
+		if double_clicked:
+			node.selected = true
 
 
-
+var double_clicked = false
 
 func handle_double_click(node):
-	dragging_mouse = true
+	double_clicked = true
+	multi_select_mouse_mode = true
+	
 	if node.node_type == "Dialog Node":
-		emit_signal("node_double_clicked",node)	
+		emit_signal("node_double_clicked",node)
 		if !ignore_double_clicks:
 			for response in node.response_options:
 				if !response.selected:
@@ -381,7 +360,7 @@ func handle_double_click(node):
 					handle_double_click(node.connected_dialog)
 					node.connected_dialog.emit_signal("node_double_clicked")
 					#selected_nodes.append(node.connected_dialog)
-	#dragging_mouse = false
+	multi_select_mouse_mode = false
 			
 
 
@@ -396,9 +375,9 @@ func _on_SaveLoad_clear_editor_request():
 
 func _on_DialogEditor_gui_input(event):
 	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		dragging_mouse = true
+		multi_select_mouse_mode = true
 	if Input.is_action_just_released("drag"):
-		dragging_mouse = false
+		multi_select_mouse_mode = false
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		if !Input.is_action_pressed("zoom_key"):
 			accept_event()
@@ -464,3 +443,7 @@ func _on_autosave_timer_timeout():
 
 func _on_editor_settings_snap_enabled_changed(value):
 	use_snap = value
+
+
+func _on_double_click_timer_timeout():
+	double_clicked = false

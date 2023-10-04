@@ -183,3 +183,7 @@ func _on_category_panel_category_succesfully_saved(category_name):
 
 
 
+
+
+func _on_dialog_editor_node_double_clicked(_ignore):
+	$DoubleClickTimer.start()
