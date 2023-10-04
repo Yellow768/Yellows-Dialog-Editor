@@ -15,10 +15,6 @@ func assign_action(action : String):
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func _on_button_pressed():
 	$Button.text = ""

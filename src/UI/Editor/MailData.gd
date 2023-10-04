@@ -34,12 +34,7 @@ func _ready():
 		slot.connect("count_changed",Callable(self,"update_slot").bind(slot))
 		slot.connect("request_scroll_focus",Callable(self,"change_scroll_focus"))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
-func change_scroll_focus(slot):
-	pass
-	#$ScrollContainer.max
 
 func load_mail_data(data : mail_data_object):
 	loading_mail = true
