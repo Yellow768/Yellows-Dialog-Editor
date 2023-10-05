@@ -307,7 +307,6 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):
-	print("hmmm")
 	node.draggable = true
 	if Input.is_action_pressed("select_multiple") || multi_select_mouse_mode:
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
@@ -318,6 +317,10 @@ func select_node(node):
 			selected_nodes.append(node)
 	else:
 		if (selected_nodes.size() == 1 || selected_responses.size() == 1) && not (selected_nodes.size()>0 && selected_responses.size() > 0):
+			for dialog in selected_nodes:
+				dialog.selected = false
+			for response in selected_responses:
+				response.selected = false
 			selected_responses.clear()
 			selected_nodes.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
@@ -344,15 +347,17 @@ var double_clicked = false
 func handle_double_click(node):
 	double_clicked = true
 	multi_select_mouse_mode = true
-	
 	if node.node_type == "Dialog Node":
-		emit_signal("node_double_clicked",node)
 		if !ignore_double_clicks:
 			for response in node.response_options:
 				if !response.selected:
 					response.selected = true
 					#selected_responses.append(response)
 					handle_double_click(response)
+		else:
+			node.selected = false
+		emit_signal("node_double_clicked",node)
+		
 				
 	if node.node_type == "Player Response Node":
 		if !ignore_double_clicks:

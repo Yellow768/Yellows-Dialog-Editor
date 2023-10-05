@@ -126,16 +126,30 @@ func enter_dialog_availability_mode(availability_scene):
 	print("Availability Mode Entered")
 
 	
-func set_dialog_availability_from_selected_node(node_selected):
+func set_dialog_availability_from_selected_node(node_selected : GraphNode):
 	if dialog_availability_mode:
+		print("found node")
 		glob_node_selected_id = node_selected.dialog_id
+		var new_timer = Timer.new()
+		add_child(new_timer)
+		new_timer.start(0.3)
+		await new_timer.timeout
+		new_timer.queue_free()
+		#I know that using a delay is a bad solution for a race condition,
+		#but I'm not even really sure what the race condition is. This little
+		#delay prevents the node that was chosen for the dialog availability
+		#remaining selected if it's within the same category
+		if node_selected.is_inside_tree():
+			node_selected.set_self_as_unselected()
 		exit_dialog_availability_mode()
-		print("1")
+		
+		
+		
 func exit_dialog_availability_mode():
 	exiting_availability_mode = true
 	emit_signal("request_switch_to_stored_category")
 	emit_signal("show_information_panel")
-	print("2")
+
 	
 	
 	
@@ -143,16 +157,17 @@ func exit_dialog_availability_mode():
 func _on_category_panel_finished_loading(_ignore):
 	if exiting_availability_mode:
 		var initial_dialog : GraphNode = find_dialog_node_from_id(stored_current_dialog_id)
+		emit_signal("availability_mode_exited")
 		load_dialog_settings(initial_dialog)
 		initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
 		AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
 		initial_dialog.selected = true
 		initial_dialog.draggable = false
 		
+		
 		emit_signal("unsaved_change")
-		emit_signal("availability_mode_exited")
-		print("Availability Mode Exited")		
-		print("test")		
+		
+		print("Availability Mode Exited")			
 		dialog_availability_mode = false
 		exiting_availability_mode = false
 		

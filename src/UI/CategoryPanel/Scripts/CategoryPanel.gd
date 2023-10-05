@@ -198,7 +198,6 @@ func export_category_request():
 
 	
 func load_category(category_name : String,category_button : Button = null):
-	prints(category_name,current_category)
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :

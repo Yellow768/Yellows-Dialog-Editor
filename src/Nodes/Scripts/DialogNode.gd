@@ -76,6 +76,10 @@ var mail = mail_data_object.new()
 #Outcomes
 @export var start_quest : int = -1
 
+var set_as_availability := false
+
+func set_self_as_unselected():
+	selected = false
 
 func _ready():
 	#set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,GlobalDeclarations.dialog_left_slot_color,true,CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.dialog_right_slot_color)
@@ -191,20 +195,22 @@ func _on_TitleText_text_changed(_new_text : String):
 	emit_signal("title_changed")
 	emit_signal("unsaved_changes")
 
-func handle_clicking(event : InputEvent):
+func handle_clicking(event : InputEvent, emit_signal = true):
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			emit_signal("set_self_as_selected",self)
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT and emit_signal:
+			#emit_signal("set_self_as_selected",self)
+			selected = true
+			pass
 		if event.double_click:
 			emit_signal("node_double_clicked")
 
 	else:
 		if Input.is_key_pressed(KEY_TAB):
-			emit_signal("set_self_as_selected",self)
+			selected = true
 
 
 func _on_DialogNode_gui_input(event : InputEvent):
-	handle_clicking(event)
+	handle_clicking(event,false)
 	
 
 func _on_DialogText_gui_input(event : InputEvent):
