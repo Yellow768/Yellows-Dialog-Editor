@@ -79,7 +79,6 @@ func _input(event : InputEvent):
 				else:
 					next_response_index += 1
 				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
-				print(response_index)
 			else:
 				response.parent_dialog.set_focus_on_text()
 		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_nodes.size() == 1:
@@ -90,8 +89,18 @@ func _input(event : InputEvent):
 	
 		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
 			var response : response_node = DialogEditor.selected_responses[0]
-			if response.connected_dialog != null:
-				response.connected_dialog	.set_focus_on_text()
+			if response.connected_dialog == null:
+				return
+			if Input.is_action_just_pressed("focus_right_cycle"):
+				var response_index : int = response.connected_dialog.connected_responses.find(response)
+				var next_response_index = response_index
+				if response_index == 0:
+					next_response_index = response.connected_dialog.connected_responses.size()-1
+				else:
+					next_response_index -= 1
+				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
+			else:
+				response.connected_dialog.set_focus_on_text()
 		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_nodes.size() == 1:
 			var dialog : dialog_node = DialogEditor.selected_nodes[0]
 			if dialog.response_options.size() != 0:

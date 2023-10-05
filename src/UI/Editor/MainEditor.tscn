@@ -342,6 +342,7 @@ offset_bottom = 1080.0
 mouse_filter = 1
 script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
+category_panel_path = NodePath("../CategoryPanel")
 hide_npc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
 show_wheel_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel")
 disable_esc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc")
@@ -1126,6 +1127,7 @@ one_shot = true
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_saved"]
 [connection signal="current_category_deleted" from="CategoryPanel" to="DialogEditor" method="_on_CategoryPanel_current_category_deleted"]
 [connection signal="finished_loading" from="CategoryPanel" to="TopPanel" method="_on_category_panel_finished_loading"]
+[connection signal="finished_loading" from="CategoryPanel" to="InformationPanel" method="_on_category_panel_finished_loading"]
 [connection signal="hide_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="reimport_category" from="CategoryPanel" to="DialogEditor" method="initialize_category_import"]
 [connection signal="request_dialog_ids_reassigned" from="CategoryPanel" to="DialogEditor" method="_on_category_panel_request_dialog_ids_reassigned"]

@@ -24,3 +24,5 @@ res://src/UI/Editor/MainEditor.gd
 res://src/Classes/File System/dialog_jsons_loader.gd
 res://src/UI/Editor/keybind.gd
 res://src/UI/Editor/MailData.gd
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd

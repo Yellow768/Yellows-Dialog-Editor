@@ -11,6 +11,7 @@ signal request_add_color_organizer
 
 signal editor_offset_loaded
 signal zoom_loaded
+signal category_finished_loading
 
 var loaded_dialogs = []
 var loaded_responses = []	
@@ -59,6 +60,7 @@ func load_category(category_name):
 			save_category.close()
 			emit_signal("update_current_category",category_name)
 			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
+			emit_signal("category_finished_loading")
 		return OK
 
 func load_editor_settings(node_data):

@@ -11,7 +11,7 @@ signal ready_to_set_availability
 signal unsaved_change
 
 @export var dialog_settings_tab_path: NodePath
-
+@export var category_panel_path : NodePath
 
 @export var hide_npc_checkbox_path: NodePath
 @export var show_wheel_checkbox_path: NodePath
@@ -40,6 +40,7 @@ signal unsaved_change
 
 
 @onready var DialogSettingsTab := get_node(dialog_settings_tab_path)
+@onready var CategoryPanel := get_node(category_panel_path)
 
 @onready var HideNpcCheckbox := get_node(hide_npc_checkbox_path)
 @onready var ShowWheelCheckbox := get_node(show_wheel_checkbox_path)
@@ -65,9 +66,9 @@ signal unsaved_change
 
 var current_dialog : dialog_node
 var dialog_availability_mode := false
+var exiting_availability_mode := false
 var availability_slot : int
 var stored_current_dialog_id : int
-var dialog_editor_is_loaded := false
 var glob_node_selected_id : int
 
 func _ready(): 
@@ -127,10 +128,33 @@ func enter_dialog_availability_mode(availability_scene):
 	
 func set_dialog_availability_from_selected_node(node_selected):
 	if dialog_availability_mode:
-		dialog_editor_is_loaded = false
 		glob_node_selected_id = node_selected.dialog_id
 		exit_dialog_availability_mode()
-		$availability_timer.start()
+		print("1")
+func exit_dialog_availability_mode():
+	exiting_availability_mode = true
+	emit_signal("request_switch_to_stored_category")
+	emit_signal("show_information_panel")
+	print("2")
+	
+	
+	
+
+func _on_category_panel_finished_loading(_ignore):
+	print("come the fuck on")
+	if exiting_availability_mode:
+		var initial_dialog = find_dialog_node_from_id(stored_current_dialog_id)
+		load_dialog_settings(initial_dialog)
+		initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
+		AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
+		initial_dialog.selected = true
+		initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
+		emit_signal("unsaved_change")
+		emit_signal("availability_mode_exited")
+		print("Availability Mode Exited")		
+		print("test")		
+		dialog_availability_mode = false
+		exiting_availability_mode = false
 		
 
 func find_dialog_node_from_id(id : int):
@@ -140,12 +164,7 @@ func find_dialog_node_from_id(id : int):
 			return dialog
 			
 
-func exit_dialog_availability_mode():
-	emit_signal("request_switch_to_stored_category")
-	emit_signal("show_information_panel")
-	emit_signal("availability_mode_exited")
-	dialog_availability_mode = false
-	print("Availability Mode Exited")
+
 	
 	
 	
@@ -323,14 +342,11 @@ func _on_DialogEditor_finished_loading(_category_name : String):
 
 func _on_availability_timer_timeout() -> void:
 	#fixes a dumb issue where the information panel doesn't update, by just delaying iy
-	var initial_dialog = find_dialog_node_from_id(stored_current_dialog_id)
-	load_dialog_settings(initial_dialog)
-	initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
-	AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
-	initial_dialog.selected = true
-	initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
-	emit_signal("unsaved_change")
+	pass
 
 
 func _on_soundfile_text_changed():
 	current_dialog.sound = PlaysoundEdit.text
+
+
+

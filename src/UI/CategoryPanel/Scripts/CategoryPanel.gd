@@ -140,8 +140,7 @@ func _on_InformationPanel_request_store_current_category():
 
 
 func _on_InformationPanel_request_switch_to_stored_category():
-	if stored_category != current_category:
-		emit_signal("request_load_category",stored_category)
+	load_category(stored_category)
 
 
 func _on_InformationPanel_availability_mode_entered():
@@ -199,7 +198,7 @@ func export_category_request():
 
 	
 func load_category(category_name : String,category_button : Button = null):
-	
+	prints(category_name,current_category)
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :
@@ -208,6 +207,9 @@ func load_category(category_name : String,category_button : Button = null):
 					child.button_pressed = true
 					category_button = child
 					print("found")
+	else:
+		emit_signal("finished_loading",category_name)
+		return
 	current_category_button = category_button
 	if current_category != null:
 		var temp_cat_saver = category_saver.new()
