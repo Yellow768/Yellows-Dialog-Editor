@@ -307,6 +307,8 @@ func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):
+	print("hmmm")
+	node.draggable = true
 	if Input.is_action_pressed("select_multiple") || multi_select_mouse_mode:
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)

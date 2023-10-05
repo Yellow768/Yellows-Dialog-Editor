@@ -61,7 +61,7 @@ signal unsaved_change
 @onready var AvailabilityLevel := get_node(availability_level_path)
 
 @onready var ToggleVisibility := get_node(toggle_visiblity_path)
-@onready var DialogEditor := get_node(dialog_editor_path)
+@onready var DialogEditor : GraphEdit = get_node(dialog_editor_path)
 @onready var MailData := get_node(mail_data_path)
 
 var current_dialog : dialog_node
@@ -141,14 +141,14 @@ func exit_dialog_availability_mode():
 	
 
 func _on_category_panel_finished_loading(_ignore):
-	print("come the fuck on")
 	if exiting_availability_mode:
-		var initial_dialog = find_dialog_node_from_id(stored_current_dialog_id)
+		var initial_dialog : GraphNode = find_dialog_node_from_id(stored_current_dialog_id)
 		load_dialog_settings(initial_dialog)
 		initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
 		AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
 		initial_dialog.selected = true
-		initial_dialog.emit_signal("set_self_as_selected",initial_dialog)
+		initial_dialog.draggable = false
+		
 		emit_signal("unsaved_change")
 		emit_signal("availability_mode_exited")
 		print("Availability Mode Exited")		
