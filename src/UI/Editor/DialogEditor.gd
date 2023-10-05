@@ -15,11 +15,15 @@ signal unsaved_changes
 signal save_all
 
 var node_index := 0
+var response_node_index := 0
 var selected_nodes : Array[GraphNode]= []
 var selected_responses :Array[GraphNode]= []
 var previous_zoom := 1
 
 var all_loaded_dialogs : Array[GraphNode]= []
+
+var current_dialog_index_map = {}
+var current_response_index_map = {}
 
 var ignore_double_clicks := false
 
@@ -70,6 +74,7 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
 	emit_signal("dialog_node_added",new_dialog)
+	current_dialog_index_map[new_dialog.node_index] = new_dialog
 	add_child(new_dialog)
 	return new_dialog
 
@@ -92,6 +97,9 @@ func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false):
 func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate()) -> response_node:
 	
 	var new_offset
+	if new_response.node_index == 0:
+		new_response.node_index = response_node_index
+	response_node_index +=1
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
 	elif parent_dialog.response_options.size() == 0:
@@ -115,6 +123,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
+	current_response_index_map[new_response.node_index] = new_response
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
 	relay_unsaved_changes()
 	return new_response
@@ -296,6 +305,7 @@ func clear_editor():
 		i.delete_self()
 		i.queue_free()	
 	node_index = 0
+	response_node_index = 0
 	emit_signal("editor_cleared")
 	
 

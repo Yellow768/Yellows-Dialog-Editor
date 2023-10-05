@@ -176,6 +176,10 @@ func save_all_backups():
 		add_child(cat_save)
 		
 		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+key+"/autosave")
+		if current_category == key:
+			var temp_cat_save = category_saver.new()
+			add_child(temp_cat_save)
+			category_temp_data[key] = temp_cat_save.save_temp(current_category)
 		if cat_save.save_category(key,category_temp_data[key],true) == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:

@@ -49,6 +49,7 @@ var command :String = ''
 var connected_dialog : dialog_node = null: set = set_connected_dialog
 var to_dialog_id = -1: set = set_to_dialog_id
 var option_type = 0: set = set_option_type
+var node_index
 
 var parent_dialog : dialog_node
 
@@ -58,6 +59,7 @@ var connection_hidden := false
 var overlapping_response : response_node = null
 
 var minimized = false
+
 
 func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
