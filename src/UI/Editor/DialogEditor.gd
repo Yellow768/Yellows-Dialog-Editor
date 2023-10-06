@@ -1,5 +1,7 @@
 extends GraphEdit
 
+class_name DialogGraphEdit
+
 signal no_dialog_selected
 signal dialog_selected
 signal editor_cleared
@@ -9,18 +11,38 @@ signal request_save
 signal import_category_canceled
 
 signal dialog_node_added
-signal dialog_node_perm_deleted
+signal dialog_node_deleted
+
+signal request_add_dialog_to_environment_index
+signal request_remove_dialog_from_environment_index
+
+signal response_node_added
+signal response_node_deleted
+
+signal dialog_moved
+signal response_moved
+signal color_organizer_moved
+signal multiple_nodes_moved
+
+signal nodes_connected
+
 signal node_double_clicked
 signal unsaved_changes
 signal save_all
 
+signal request_undo
+signal request_redo
+
 var node_index := 0
 var response_node_index := 0
-var selected_nodes : Array[GraphNode]= []
+var selected_dialogs : Array[GraphNode]= []
 var selected_responses :Array[GraphNode]= []
 var previous_zoom := 1
 
 var all_loaded_dialogs : Array[GraphNode]= []
+
+var currentUndoRedo : UndoRedo
+var allUndoRedos : Dictionary
 
 var current_dialog_index_map = {}
 var current_response_index_map = {}
@@ -40,19 +62,19 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_pressed("delete_nodes"):
-		CurrentEnvironment.handle_subtracting_dialog_id(selected_nodes)
-		for i in selected_nodes:
+		CurrentEnvironment.handle_subtracting_dialog_id(selected_dialogs)
+		for i in selected_dialogs:
 			i.delete_self(true)
-			selected_nodes.erase(i)
+			selected_dialogs.erase(i)
 		for i in selected_responses:
 			i.delete_self()
 			selected_responses.erase(i)
 
 
 
-func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false) -> dialog_node:
+func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false,commit_to_undo := true) -> dialog_node:
 	#Adds a new dialog node into the editor.
-	if new_dialog.node_index == 0:
+	if new_dialog.node_index == -1:
 		new_dialog.node_index = node_index
 	node_index += 1
 	if new_dialog.dialog_id == -1:
@@ -67,13 +89,17 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 		new_dialog.position_offset = (new_dialog.position_offset+scroll_offset)/zoom	
 	new_dialog.connect("add_response_request", Callable(self, "add_response_node"))
 	new_dialog.connect("request_delete_response_node", Callable(self, "delete_response_node"))
-	new_dialog.connect("dialog_ready_for_deletion", Callable(self, "delete_dialog_node"))
+	new_dialog.connect("request_deletion", Callable(self, "delete_dialog_node"))
 	new_dialog.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
+	new_dialog.connect("position_offset_changed",Callable(self,"handle_multi_drag_undo_signal"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
-	emit_signal("dialog_node_added",new_dialog)
+	new_dialog.dragged.connect(Callable(self,"handle_dragging_nodes_undo_signal"))
+	emit_signal("request_add_dialog_to_environment_index",new_dialog)
+	if commit_to_undo:
+		emit_signal("dialog_node_added",new_dialog)
 	current_dialog_index_map[new_dialog.node_index] = new_dialog
 	add_child(new_dialog)
 	return new_dialog
@@ -81,23 +107,28 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 func relay_unsaved_changes():
 	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
-func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false):
-	if selected_nodes.find(dialog,0) != -1:
-		selected_nodes.erase(dialog)
+func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,commit_to_undo := true):
+	if commit_to_undo:
+		dialog_node_deleted.emit(dialog.save())
+	if selected_dialogs.find(dialog,0) != -1:
+		selected_dialogs.erase(dialog)
 	set_last_selected_node_as_selected()
 	if remove_from_global_index:
-		emit_signal("dialog_node_perm_deleted",dialog.dialog_id)
+		emit_signal("request_remove_dialog_from_environment_index",dialog.dialog_id)
 		CurrentEnvironment.handle_subtracting_dialog_id([dialog])
+	dialog.delete_response_options()
+	current_dialog_index_map.erase(dialog.node_index)
 	dialog.queue_free()
 	relay_unsaved_changes()
 	node_index -=1
+	
 
 	
 
-func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate()) -> response_node:
+func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo := true) -> response_node:
 	
 	var new_offset
-	if new_response.node_index == 0:
+	if new_response.node_index == -1:
 		new_response.node_index = response_node_index
 	response_node_index +=1
 	if new_response.position_offset!=Vector2(0,0):
@@ -119,13 +150,18 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("request_add_dialog", Callable(self, "add_dialog_node"))
 	new_response.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
+	new_response.dragged.connect(Callable(self,"handle_dragging_nodes_undo_signal"))
 	new_response.connect("response_double_clicked", Callable(self, "handle_double_click").bind(new_response))
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
+	new_response.connect("position_offset_changed",Callable(self,"handle_multi_drag_undo_signal"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
+	print(new_response)
 	current_response_index_map[new_response.node_index] = new_response
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
 	relay_unsaved_changes()
+	if commit_to_undo:
+		emit_signal("response_node_added",new_response)
 	return new_response
 
 func delete_response_node(dialog : dialog_node,response : response_node):
@@ -152,10 +188,34 @@ func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGA
 	color_organizers.append(col_org)
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
-	if selected_nodes.size() == 0 && Input.is_action_pressed("swap_responses"):
+	if selected_dialogs.size() == 0 && Input.is_action_pressed("swap_responses"):
 		handle_swapping_responses(response_node,from,to)
+		
+func handle_dragging_nodes_undo_signal(from,to):
+	if selected_dialogs.size() == 1 && selected_responses.size() == 0:
+		emit_signal("dialog_moved",selected_dialogs[0],from)
+	elif selected_responses.size() == 1 && selected_dialogs.size() == 0:
+		emit_signal("response_moved",selected_responses[0],from)
+	else:
+		multi_drag_started = false
+		emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions)
 
-func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+var multi_drag_started = false
+var dialog_multi_drag_start_positions = {}
+var response_multi_drag_start_positions = {}		
+
+func handle_multi_drag_undo_signal():
+	if multi_drag_started:
+		return
+	multi_drag_started = true
+	for dialog in selected_dialogs:
+		dialog_multi_drag_start_positions[dialog.node_index] = dialog.position_offset
+	for response in response_multi_drag_start_positions:
+		response_multi_drag_start_positions[response.node_index] = response.position_offset
+	
+
+
+func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int,commit_to_undo := true):
 	
 	var response : response_node
 	var dialog : dialog_node
@@ -172,6 +232,8 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 	dialog.add_connected_response(response)
 	relay_unsaved_changes()
+	if commit_to_undo:
+		emit_signal("nodes_connected",from,to)
 
 	
 func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
@@ -257,11 +319,11 @@ func set_scroll_offset(new_offset : Vector2):
 
 
 func set_last_selected_node_as_selected():
-	if selected_nodes.size() < 1:
+	if selected_dialogs.size() < 1:
 		emit_signal("no_dialog_selected")
 	else:
-		if selected_nodes.back().node_type == "Dialog Node":
-			emit_signal("dialog_selected",selected_nodes.back())
+		if selected_dialogs.back().node_type == "Dialog Node":
+			emit_signal("dialog_selected",selected_dialogs.back())
 
 	
 func save():
@@ -295,7 +357,7 @@ func import_canceled():
 func clear_editor():
 	color_organizers = []
 	selected_responses = []
-	selected_nodes = []
+	selected_dialogs = []
 	var save_nodes = get_tree().get_nodes_in_group("Save")
 	var response_nodes = get_tree().get_nodes_in_group("Response_Nodes")
 	for i in save_nodes:
@@ -323,21 +385,21 @@ func select_node(node):
 			selected_responses.append(node)
 			
 			
-		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
-			selected_nodes.append(node)
+		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
+			selected_dialogs.append(node)
 	else:
-		if (selected_nodes.size() == 1 || selected_responses.size() == 1) && not (selected_nodes.size()>0 && selected_responses.size() > 0):
-			for dialog in selected_nodes:
+		if (selected_dialogs.size() == 1 || selected_responses.size() == 1) && not (selected_dialogs.size()>0 && selected_responses.size() > 0):
+			for dialog in selected_dialogs:
 				dialog.selected = false
 			for response in selected_responses:
 				response.selected = false
 			selected_responses.clear()
-			selected_nodes.clear()
+			selected_dialogs.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 				
-		if !selected_nodes.has(node) and node.node_type == "Dialog Node" :
-			selected_nodes.append(node)
+		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
+			selected_dialogs.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
 		
@@ -346,7 +408,7 @@ func unselect_node(node):
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
 	if node.node_type == "Dialog Node":
-		selected_nodes.erase(node)
+		selected_dialogs.erase(node)
 		set_last_selected_node_as_selected()
 		if double_clicked:
 			node.selected = true
@@ -376,7 +438,7 @@ func handle_double_click(node):
 					node.connected_dialog.selected = true
 					handle_double_click(node.connected_dialog)
 					node.connected_dialog.emit_signal("node_double_clicked")
-					#selected_nodes.append(node.connected_dialog)
+					#selected_dialogs.append(node.connected_dialog)
 	multi_select_mouse_mode = false
 			
 
@@ -391,6 +453,10 @@ func _on_SaveLoad_clear_editor_request():
 
 
 func _on_DialogEditor_gui_input(event):
+	if Input.is_action_just_pressed("ui_undo") && not Input.is_action_just_pressed("ui_redo") :
+		emit_signal("request_undo")
+	if Input.is_action_just_pressed("ui_redo"):
+		emit_signal("request_redo")
 	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		multi_select_mouse_mode = true
 	if Input.is_action_just_released("drag"):
@@ -464,3 +530,11 @@ func _on_editor_settings_snap_enabled_changed(value):
 
 func _on_double_click_timer_timeout():
 	double_clicked = false
+
+
+func _on_undo_system_request_action_move_dialog_node(index : int, new_position : Vector2):
+	current_dialog_index_map[index].position_offset = new_position
+
+
+func _on_undo_system_request_action_move_response_node(index: int, new_position : Vector2):
+		current_response_index_map[index].position_offset = new_position

@@ -44,7 +44,7 @@ func _input(event : InputEvent):
 		new_dialog_node.position_offset = get_local_mouse_position()
 		DialogEditor.add_dialog_node(new_dialog_node)
 	if event.is_action_pressed("create_response"):
-		for dialog in DialogEditor.selected_nodes:
+		for dialog in DialogEditor.selected_dialogs:
 			dialog.add_response_node()
 		for response in DialogEditor.selected_responses:
 			response.add_new_connected_dialog()
@@ -69,7 +69,7 @@ func _input(event : InputEvent):
 				dialog.set_focus_on_title()
 	if Input.is_action_just_pressed("focus_left"):
 		
-		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
+		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_dialogs.size() == 0:
 			var response : response_node = DialogEditor.selected_responses[0]
 			if Input.is_action_just_pressed("focus_left_cycle"):
 				var response_index : int = response.connected_dialog.connected_responses.find(response)
@@ -81,13 +81,13 @@ func _input(event : InputEvent):
 				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
 			else:
 				response.parent_dialog.set_focus_on_text()
-		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_nodes.size() == 1:
-			var dialog : dialog_node= DialogEditor.selected_nodes[0]
+		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_dialogs.size() == 1:
+			var dialog : dialog_node= DialogEditor.selected_dialogs[0]
 			if dialog.connected_responses.size() != 0:
 				dialog.connected_responses[0].set_focus_on_title()
 	if Input.is_action_just_pressed("focus_right"):
 	
-		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_nodes.size() == 0:
+		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_dialogs.size() == 0:
 			var response : response_node = DialogEditor.selected_responses[0]
 			if response.connected_dialog == null:
 				return
@@ -101,8 +101,8 @@ func _input(event : InputEvent):
 				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
 			else:
 				response.connected_dialog.set_focus_on_text()
-		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_nodes.size() == 1:
-			var dialog : dialog_node = DialogEditor.selected_nodes[0]
+		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_dialogs.size() == 1:
+			var dialog : dialog_node = DialogEditor.selected_dialogs[0]
 			if dialog.response_options.size() != 0:
 				dialog.response_options[0].set_focus_on_title()
 				

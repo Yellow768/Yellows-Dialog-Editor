@@ -103,7 +103,7 @@ func set_quest_dict():
 func disconnect_current_dialog(dialog : dialog_node,_bool : bool):
 	if current_dialog == dialog:
 		dialog.disconnect("text_changed", Callable(self, "update_text"))
-		dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
+		dialog.disconnect("request_deletion", Callable(self, "disconnect_current_dialog"))
 		current_dialog.disconnect("title_changed", Callable(self, "update_title"))
 	current_dialog = null
 
@@ -195,12 +195,12 @@ func load_dialog_settings(dialog : dialog_node):
 	if current_dialog != dialog:
 		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed", Callable(self, "update_text")):
 			current_dialog.disconnect("text_changed", Callable(self, "update_text"))
-			current_dialog.disconnect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
+			current_dialog.disconnect("request_deletion", Callable(self, "disconnect_current_dialog"))
 			current_dialog.disconnect("title_changed", Callable(self, "update_title"))
 		current_dialog = dialog
 		if !current_dialog.is_connected("text_changed", Callable(self, "update_text")):
 			current_dialog.connect("text_changed", Callable(self, "update_text"))
-			current_dialog.connect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
+			current_dialog.connect("request_deletion", Callable(self, "disconnect_current_dialog"))
 			current_dialog.connect("title_changed", Callable(self, "update_title").bind(current_dialog))
 	set_title_text(current_dialog.dialog_title,current_dialog.node_index)	
 	HideNpcCheckbox.button_pressed = current_dialog.hide_npc

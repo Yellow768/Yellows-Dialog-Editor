@@ -2,7 +2,6 @@ res://default_env.tres
 res://src/UI/Program.tscn
 res://Assets/MainEditor.tres
 res://Assets/UITheme.tres
-res://src/UI/Editor/DialogEditor.gd
 res://src/UI/Editor/MainEditor.tscn
 res://src/UI/Dialog Settings/StartQuest.tscn
 res://src/UI/Util/Expandable Line Edit.tscn
@@ -17,4 +16,11 @@ res://src/UI/Dialog Settings/Dialog Availability.tscn
 res://src/UI/Dialog Settings/Quest Avaiability.tscn
 res://src/UI/Dialog Settings/Faction Availability.tscn
 res://src/UI/LandingScreen.tscn
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/Nodes/Scripts/ResponseNode.gd
+res://src/UI/Editor/DialogEditor.gd
 res://src/Classes/UndoRedo.gd
+res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
+res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
+res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
+res://src/Classes/dialog_titles_index.gd

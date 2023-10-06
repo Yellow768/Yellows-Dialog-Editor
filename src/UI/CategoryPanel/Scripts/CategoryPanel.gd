@@ -1,6 +1,5 @@
 extends Panel
 
-signal request_load_category
 signal request_clear_editor
 signal request_dialog_ids_reassigned
 
@@ -13,11 +12,12 @@ signal reimport_category
 signal current_category_deleted
 signal scan_for_changes
 
+signal category_loading_initiated
+signal category_loading_finished
 
 signal category_succesfully_saved
 signal category_failed_save
 
-signal finished_loading
 signal category_succesfully_exported
 signal category_export_failed
 signal unsaved_change
@@ -202,6 +202,7 @@ func export_category_request():
 
 	
 func load_category(category_name : String,category_button : Button = null):
+	category_loading_initiated.emit(category_name)
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :
@@ -209,9 +210,8 @@ func load_category(category_name : String,category_button : Button = null):
 				if child.category_name == category_name:
 					child.button_pressed = true
 					category_button = child
-					print("found")
 	else:
-		emit_signal("finished_loading",category_name)
+		category_loading_finished.emit(category_name)
 		return
 	current_category_button = category_button
 	if current_category != null:
@@ -232,11 +232,11 @@ func load_category(category_name : String,category_button : Button = null):
 	new_category_loader.connect("zoom_loaded", Callable(DialogEditor, "set_zoom"))
 	if category_temp_data.has(category_name):
 		if new_category_loader.load_temp(category_temp_data[category_name]) == OK:
-			emit_signal("finished_loading",category_name)
+			category_loading_finished.emit(category_name)
 			DialogEditor.visible = true
 	else:
 		if new_category_loader.load_category(category_name) == OK:
-			emit_signal("finished_loading",category_name)
+			category_loading_finished.emit(category_name)
 			DialogEditor.visible = true
 			var temp_cat_saver = category_saver.new()
 			add_child(temp_cat_saver)
@@ -249,6 +249,7 @@ func load_category(category_name : String,category_button : Button = null):
 		
 	
 func initialize_category_import(category_name : String):
+	
 	DialogEditor.visible = false
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
@@ -261,6 +262,7 @@ func initialize_category_import(category_name : String):
 	request_clear_editor.emit()
 	
 func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
+	emit_signal("category_loading_initiated",category_name)
 	CurrentEnvironment.current_category_name = null
 	CurrentEnvironment.allow_save_state = false
 	var new_category_importer := category_importer.new()
@@ -271,7 +273,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	new_category_importer.connect("editor_offset_loaded", Callable(DialogEditor, "set_scroll_ofs"))
 	new_category_importer.connect("save_category_request",Callable(DialogEditor,"emit_signal").bind("request_save"))
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
-	emit_signal("finished_loading",category_name)
+	emit_signal("category_loading_finished",category_name)
 	current_category = category_name
 	DialogEditor.visible = true
 	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")

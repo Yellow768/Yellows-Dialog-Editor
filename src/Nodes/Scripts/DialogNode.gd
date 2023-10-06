@@ -7,7 +7,7 @@ const RESPONSE_HORIZONTAL_OFFSET :int = 350
 
 signal add_response_request
 signal request_delete_response_node
-signal dialog_ready_for_deletion
+signal request_deletion
 signal set_self_as_selected
 signal text_changed
 signal title_changed
@@ -27,7 +27,7 @@ signal unsaved_changes
 
 
 var node_type :String = "Dialog Node" 
-var node_index :int = 0: set = set_node_index
+var node_index :int = -1: set = set_node_index
 
 
 var response_options : Array[response_node]= []
@@ -115,7 +115,10 @@ func remove_connected_response(response : response_node):
 	connected_responses.erase(response)
 
 func delete_self(perm := true):
+	emit_signal("request_deletion",self,perm)
+	emit_signal("unsaved_changes")
 
+func delete_response_options():
 	while response_options.size() > 0:
 		for i in response_options:
 			i.delete_self()
@@ -123,17 +126,15 @@ func delete_self(perm := true):
 		for i in connected_responses:
 			i.disconnect_from_dialog()
 			connected_responses.erase(i)
-	emit_signal("dialog_ready_for_deletion",self,perm)
-	emit_signal("unsaved_changes")
 
 func set_focus_on_title():
 	TitleTextNode.grab_focus()
-	emit_signal("set_self_as_selected",self)
+	selected = true
 	emit_signal("request_set_scroll_offset",position_offset)
 	
 func set_focus_on_text():
 	DialogTextNode.grab_focus()
-	emit_signal("set_self_as_selected",self)
+	selected = true
 	emit_signal("request_set_scroll_offset",position_offset)
 
 

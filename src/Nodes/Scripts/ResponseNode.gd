@@ -49,7 +49,7 @@ var command :String = ''
 var connected_dialog : dialog_node = null: set = set_connected_dialog
 var to_dialog_id = -1: set = set_to_dialog_id
 var option_type = 0: set = set_option_type
-var node_index
+var node_index := -1
 
 var parent_dialog : dialog_node
 
@@ -90,7 +90,7 @@ func set_option_from_index(index : int):
 func set_focus_on_title():
 	if not is_inside_tree(): await self.ready
 	ResponseTextNode.grab_focus()
-	emit_signal("set_self_as_selected",self)
+	selected = true
 	emit_signal("request_set_scroll_offset",position_offset)
 
 func set_response_slot(value : int):
@@ -331,7 +331,17 @@ func _on_spin_box_value_changed(value):
 		connected_dialog = null
 
 	
-	
+func save():
+	return {
+		"slot" : slot,
+		"option_type" : option_type,
+		"color_decimal" :  color_decimal,
+		"command" : command,
+		"response_title": response_title,
+		"to_dialog_id" : to_dialog_id,
+		"position_offset_x" : position_offset.x,
+		"position_offset_y" : position_offset.y
+	}
 
 
 func _on_spin_box_mouse_entered():
