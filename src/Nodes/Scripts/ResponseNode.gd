@@ -206,7 +206,7 @@ func disconnect_from_dialog():
 func delete_self():
 	if(connected_dialog != null):
 		connected_dialog.remove_connected_response(self)
-	emit_signal("request_delete_self",slot,self)
+	emit_signal("request_delete_self",parent_dialog,self)
 	
 
 
@@ -340,7 +340,9 @@ func save():
 		"response_title": response_title,
 		"to_dialog_id" : to_dialog_id,
 		"position_offset_x" : position_offset.x,
-		"position_offset_y" : position_offset.y
+		"position_offset_y" : position_offset.y,
+		"parent_dialog_id" : parent_dialog.dialog_id,
+		"node_index" : node_index
 	}
 
 

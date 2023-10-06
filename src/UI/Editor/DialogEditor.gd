@@ -141,7 +141,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.position_offset = new_offset
 	new_response.slot = parent_dialog.response_options.size()-1
 	new_response.parent_dialog = parent_dialog
-	new_response.connect("request_delete_self", Callable(parent_dialog, "delete_response_node"))
+	new_response.connect("request_delete_self", Callable(self, "delete_response_node"))
 	new_response.connect("connect_to_dialog_request", Callable(self, "connect_nodes"))
 	new_response.connect("disconnect_from_dialog_request", Callable(self, "disconnect_nodes"))
 	new_response.connect("request_connection_line_shown", Callable(self, "show_connection_line"))
@@ -156,7 +156,6 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("position_offset_changed",Callable(self,"handle_multi_drag_undo_signal"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
-	print(new_response)
 	current_response_index_map[new_response.node_index] = new_response
 	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
 	relay_unsaved_changes()
@@ -164,8 +163,10 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 		emit_signal("response_node_added",new_response)
 	return new_response
 
-func delete_response_node(dialog : dialog_node,response : response_node):
-	
+func delete_response_node(dialog : dialog_node,response : response_node, commit_to_undo := true):
+	if commit_to_undo:
+		emit_signal("response_node_deleted",response.save())
+	dialog.delete_response_node(response.slot,response)
 	disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
@@ -174,7 +175,10 @@ func delete_response_node(dialog : dialog_node,response : response_node):
 	if selected_responses.find(response) != -1:
 		selected_responses.erase(response)
 	response.queue_free()
+	current_response_index_map.erase(response.node_index)
 	relay_unsaved_changes()
+	response_node_index -=1
+	
 
 var color_organizers = [] #Used to fix a bug where color organizers are made last, so dont allow mouse through them
 

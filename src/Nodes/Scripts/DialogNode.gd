@@ -99,7 +99,6 @@ func delete_response_node(deletion_slot : int,response_node : response_node):
 		if i.slot > deletion_slot:
 			i.slot -=1
 	response_options.erase(response_node)
-	emit_signal("request_delete_response_node",self,response_node)
 	emit_signal("unsaved_changes")
 	
 func clear_responses():
@@ -259,21 +258,8 @@ func save():
 		})
 	
 	for i in response_options:
-		var connected_index := -1
-		if i.connected_dialog != null:
-			connected_index = i.connected_dialog.node_index
-		save_response_options.append({
-			"slot" : i.slot,
-			"option_type" : i.option_type,
-			"color_decimal" : i.color_decimal,
-			"command" : i.command,
-			"connected_dialog_index" : connected_index,
-			"response_title": i.response_title,
-			"to_dialog_id" : i.to_dialog_id,
-			"position_offset_x" : i.position_offset.x,
-			"position_offset_y" : i.position_offset.y
-			}
-			)
+		save_response_options.append(i.save())
+		
 	save_mail = {
 		"sender" : mail.sender,
 		"subject" : mail.subject,
