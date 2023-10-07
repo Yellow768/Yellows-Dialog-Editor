@@ -1,7 +1,7 @@
 extends Node
 class_name UndoSystem
 
-enum ACTION_TYPES {CREATE_DIALOG,DELETE_DIALOG,MOVE_DIALOG,MOVE_RESPONSE,MOVE_COLOR,CREATE_RESPONSE,DELETE_RESPONSE,CREATE_COLOR_ORG,DELETE_COLOR_ORG,MULTI_DELETE}
+enum ACTION_TYPES {CREATE_DIALOG,DELETE_DIALOG,MOVE_DIALOG,MOVE_RESPONSE,MOVE_COLOR_ORG,CREATE_RESPONSE,DELETE_RESPONSE,CREATE_COLOR_ORG,DELETE_COLOR_ORG,MULTI_DELETE,CONNECT_NODES,DISCONNECT_NODES}
 
 signal undo_saved
 signal redo_saved
@@ -13,6 +13,11 @@ signal request_action_delete_dialog_node
 signal request_action_move_response_node
 signal request_action_add_response_node
 signal request_action_delete_response_node
+
+signal request_action_add_color_organizer
+signal request_action_move_color_organizer
+signal request_action_delete_color_organizer
+
 
 #These signals are not 'actions', meaning they are not commited to the UndoRedo history.
 #For example, undoing a delete dialog should not commit the creation of all of it's response nodes
@@ -54,19 +59,22 @@ func add_to_undo(type,node,args = []):
 			undo_action = create_action_delete_dialog(node.node_index)
 		ACTION_TYPES.MOVE_DIALOG:
 			undo_action = create_action_move_dialog(node.node_index,args[0])
+		
 		ACTION_TYPES.MOVE_RESPONSE:
 			undo_action = create_action_move_response(node.node_index,args[0])
 		ACTION_TYPES.CREATE_RESPONSE :
 			undo_action = create_action_add_response(node)
 		ACTION_TYPES.DELETE_RESPONSE :
 			undo_action = create_action_delete_response(node.node_index)
+		
+		ACTION_TYPES.MOVE_COLOR_ORG:
+			undo_action = create_action_move_color_organizer(node.node_index,args[0])
+		ACTION_TYPES.CREATE_COLOR_ORG :
+			undo_action = create_action_add_color_organizer(node)
+		ACTION_TYPES.DELETE_COLOR_ORG :
+			undo_action = create_action_delete_color_organizer(node.node_index)
 	undoRedoHistories[currentUndoCategoryName].undo_history.append(undo_action)
 	undoRedoHistories[currentUndoCategoryName].redo_history.clear()
-	print("add_to_undo")
-#Each function will save the information needed to undo it.
-
-
-
 
 func undo():
 	if 	undoRedoHistories[currentUndoCategoryName].undo_history.is_empty():
@@ -84,6 +92,7 @@ func undo():
 		ACTION_TYPES.MOVE_DIALOG:
 			redo = create_action_move_dialog(action.node_index,dialog_editor.current_dialog_index_map[action.node_index].position_offset)
 			execute_action_move_dialog(action)
+		
 		ACTION_TYPES.CREATE_RESPONSE :
 			redo = create_action_delete_response(action.response_data.node_index)
 			execute_action_add_response(action)
@@ -92,7 +101,17 @@ func undo():
 			execute_action_delete_response(action)
 		ACTION_TYPES.MOVE_RESPONSE:
 			redo = create_action_move_response(action.node_index,dialog_editor.current_response_index_map[action.node_index].position_offset)
-			execute_action_move_response(action)	
+			execute_action_move_response(action)		
+		
+		ACTION_TYPES.CREATE_COLOR_ORG :
+			redo = create_action_delete_color_organizer(action.color_org_data.node_index)
+			execute_action_add_color_organizer(action)
+		ACTION_TYPES.DELETE_COLOR_ORG :
+			redo = create_action_add_color_organizer(dialog_editor.current_color_organizer_index_map[action.node_index].save())
+			execute_action_delete_color_organizer(action)
+		ACTION_TYPES.MOVE_COLOR_ORG:
+			redo = create_action_move_color_organizer(action.node_index,dialog_editor.current_color_organizer_index_map[action.node_index].position_offset)
+			execute_action_move_color_organizer(action)	
 	undoRedoHistories[currentUndoCategoryName].redo_history.append(redo)
 	undoRedoHistories[currentUndoCategoryName].undo_history.pop_back()
 
@@ -103,7 +122,6 @@ func redo():
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].redo_history.back()
 	var undo
-	print(action.type)
 	match action.type:
 		ACTION_TYPES.CREATE_DIALOG :
 			undo = create_action_delete_dialog(action.dialog_data.node_index)
@@ -124,25 +142,37 @@ func redo():
 		ACTION_TYPES.MOVE_RESPONSE:
 			undo = create_action_move_response(action.node_index,dialog_editor.current_response_index_map[action.node_index].position_offset)
 			execute_action_move_response(action)
+		
+		ACTION_TYPES.CREATE_COLOR_ORG :
+			undo = create_action_delete_color_organizer(action.color_org_data.node_index)
+			execute_action_add_color_organizer(action)
+		ACTION_TYPES.DELETE_COLOR_ORG :
+			undo = create_action_add_color_organizer(dialog_editor.current_color_organizer_index_map[action.node_index].save())
+			execute_action_delete_color_organizer(action)
+		ACTION_TYPES.MOVE_COLOR_ORG:
+			undo = create_action_move_color_organizer(action.node_index,dialog_editor.current_color_organizer_index_map[action.node_index].position_offset)
+			execute_action_move_color_organizer(action)	
 	undoRedoHistories[currentUndoCategoryName].undo_history.append(undo)
 	undoRedoHistories[currentUndoCategoryName].redo_history.pop_back()
 
+####Create Actions####
+#These create the dictionaries that are added onto the undo/redo stack
 
-func create_action_delete_dialog(node_index : int) -> Dictionary:
-	var action = {
-		"type" : ACTION_TYPES.DELETE_DIALOG,
-		"node_index" : node_index
-	}
-	
-	return action
-	
+
+#Dialog
+
 func create_action_add_dialog(dialog_data : Dictionary) -> Dictionary:
 	var action = {
 		"type" : ACTION_TYPES.CREATE_DIALOG,
 		"dialog_data" : dialog_data
 	}
 	return action
-	
+func create_action_delete_dialog(node_index : int) -> Dictionary:
+	var action = {
+		"type" : ACTION_TYPES.DELETE_DIALOG,
+		"node_index" : node_index
+	}
+	return action
 func create_action_move_dialog(node_index : int, prev_position : Vector2) -> Dictionary:
 	var action = {
 		"type" : ACTION_TYPES.MOVE_DIALOG,
@@ -150,21 +180,20 @@ func create_action_move_dialog(node_index : int, prev_position : Vector2) -> Dic
 		"prev_position" : prev_position
 	}
 	return action
-
-func create_action_delete_response(node_index : int) -> Dictionary:
-	var action = {
-		"type" : ACTION_TYPES.DELETE_RESPONSE,
-		"node_index" : node_index
-	}
-	return action
 	
+#Responses
 func create_action_add_response(response_data : Dictionary) -> Dictionary:
 	var action = {
 		"type" : ACTION_TYPES.CREATE_RESPONSE,
 		"response_data" : response_data
 	}
 	return action
-
+func create_action_delete_response(node_index : int) -> Dictionary:
+	var action = {
+		"type" : ACTION_TYPES.DELETE_RESPONSE,
+		"node_index" : node_index
+	}
+	return action
 func create_action_move_response(node_index : int, prev_position : Vector2) -> Dictionary:
 	var action = {
 		"type" : ACTION_TYPES.MOVE_RESPONSE,
@@ -173,16 +202,31 @@ func create_action_move_response(node_index : int, prev_position : Vector2) -> D
 	}
 	return action
 
+#Color Organizers
+func create_action_add_color_organizer(color_org_data : Dictionary) -> Dictionary:
+	var action = {
+		"type" : ACTION_TYPES.CREATE_COLOR_ORG,
+		"color_org_data" : color_org_data
+	}
+	return action
+func create_action_delete_color_organizer(node_index : int) -> Dictionary:
+	var action = {
+		"type" : ACTION_TYPES.DELETE_COLOR_ORG,
+		"node_index" : node_index
+	}
+	return action
+func create_action_move_color_organizer(node_index: int, prev_position : Vector2):
+	var action = {
+		"type" : ACTION_TYPES.MOVE_COLOR_ORG,
+		"node_index" : node_index,
+		"prev_position" : prev_position
+	}
+	return action
+	
+##Execute Actions##
+#These actually execute the necessary code to enact an undo/redo
 
-func execute_action_move_dialog(action):
-	emit_signal("request_action_move_dialog_node",action.node_index,action.prev_position)
-	
-func execute_action_move_response(action):
-	emit_signal("request_action_move_response_node",action.node_index,action.prev_position)
-	
-func execute_action_delete_dialog(action):
-	emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[action.node_index],true,false)
-	
+#Dialog
 func execute_action_add_dialog(action):
 	var recreated_dialog = GlobalDeclarations.DIALOG_NODE.instantiate()
 	var node_data = action.dialog_data
@@ -227,7 +271,14 @@ func execute_action_add_dialog(action):
 		if recreated_response.to_dialog_id > 0 && connected_dialog != null:
 			print("attempted connection")
 			emit_signal("request_connect_nodes",recreated_response,0,connected_dialog,0,false)
-
+			
+func execute_action_delete_dialog(action):
+	emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[action.node_index],true,false)
+		
+func execute_action_move_dialog(action):
+	emit_signal("request_action_move_dialog_node",action.node_index,action.prev_position)
+	
+#Responses
 func execute_action_add_response(action : Dictionary):
 	var recreated_response = create_response_node_from_data(action.response_data)
 	var parent_dialog = find_dialog_node_from_id(action.response_data["parent_dialog_id"])
@@ -237,12 +288,35 @@ func execute_action_add_response(action : Dictionary):
 		connected_dialog = find_dialog_node_from_id(recreated_response.to_dialog_id)
 		
 	if recreated_response.to_dialog_id > 0 && connected_dialog != null:
-		print("attempted connection")
-		emit_signal("request_connect_nodes",recreated_response,0,connected_dialog,0,false)
-	
+		emit_signal("request_connect_nodes",recreated_response,0,connected_dialog,0,false)	
+
 func execute_action_delete_response(action):
-	emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[action.node_index].parent_dialog,dialog_editor.current_response_index_map[action.node_index],false)
-			
+	emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[action.node_index].parent_dialog,dialog_editor.current_response_index_map[action.node_index],false)	
+
+func execute_action_move_response(action):
+	emit_signal("request_action_move_response_node",action.node_index,action.prev_position)
+	
+
+#Color Organizers
+func execute_action_add_color_organizer(action: Dictionary):
+	var node_data = action.color_org_data
+	var recreated_color_organizer : color_organizer = GlobalDeclarations.COLOR_ORGANIZER.instantiate()
+	recreated_color_organizer.initial_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
+	recreated_color_organizer.box_color  = GlobalDeclarations.int_to_color(node_data["color"])
+	recreated_color_organizer.custom_minimum_size = Vector2(node_data["min_size_x"],node_data["min_size_y"])
+	recreated_color_organizer.text = node_data["text"]
+	if node_data.has("locked"):
+		recreated_color_organizer.locked = bool(node_data["locked"])
+	emit_signal("request_action_add_color_organizer",recreated_color_organizer,true,false)
+
+func execute_action_delete_color_organizer(action):
+	emit_signal("request_action_delete_color_organizer",dialog_editor.current_color_organizer_index_map[action.node_index],false)
+
+func execute_action_move_color_organizer(action):
+	emit_signal("request_action_move_color_organizer",action.node_index,action.prev_position)
+
+
+#Isolated Useful Methods		
 func create_response_node_from_data(response_data):
 	var currently_loaded_response : response_node = GlobalDeclarations.RESPONSE_NODE.instantiate()
 	currently_loaded_response.slot = response_data["slot"]
@@ -264,14 +338,6 @@ func find_dialog_node_from_id(id : int):
 
 func _on_category_panel_category_loading_initiated(_ignore):
 	ignore_all_changes = true
-	print("do not commit")
-
-
-
-func _on_category_panel_category_loading_finished(_ignore):
-	ignore_all_changes = false
-	print("loaded")
-
 
 func _on_dialog_editor_dialog_node_added(dialog):
 	add_to_undo(ACTION_TYPES.DELETE_DIALOG,dialog)
@@ -297,3 +363,16 @@ func _on_dialog_editor_response_node_added(response):
 func _on_dialog_editor_response_node_deleted(response_data):
 	print("response delete")
 	add_to_undo(ACTION_TYPES.CREATE_RESPONSE,response_data)
+
+
+func _on_dialog_editor_color_organizer_added(col_org):
+	add_to_undo(ACTION_TYPES.DELETE_COLOR_ORG,col_org)
+
+
+
+func _on_dialog_editor_color_organizer_deleted(col_org_data):
+	add_to_undo(ACTION_TYPES.CREATE_COLOR_ORG,col_org_data)
+
+
+func _on_dialog_editor_color_organizer_moved(col_org,from):
+	add_to_undo(ACTION_TYPES.MOVE_COLOR_ORG,col_org,[from])

@@ -19,6 +19,9 @@ signal request_remove_dialog_from_environment_index
 signal response_node_added
 signal response_node_deleted
 
+signal color_organizer_added
+signal color_organizer_deleted
+
 signal dialog_moved
 signal response_moved
 signal color_organizer_moved
@@ -35,8 +38,11 @@ signal request_redo
 
 var node_index := 0
 var response_node_index := 0
+var color_organizer_node_index := 0
+
 var selected_dialogs : Array[GraphNode]= []
 var selected_responses :Array[GraphNode]= []
+var selected_color_organizers :Array[GraphNode] = []
 var previous_zoom := 1
 
 var all_loaded_dialogs : Array[GraphNode]= []
@@ -46,6 +52,7 @@ var allUndoRedos : Dictionary
 
 var current_dialog_index_map = {}
 var current_response_index_map = {}
+var current_color_organizer_index_map = {}
 
 var ignore_double_clicks := false
 
@@ -182,7 +189,13 @@ func delete_response_node(dialog : dialog_node,response : response_node, commit_
 
 var color_organizers = [] #Used to fix a bug where color organizers are made last, so dont allow mouse through them
 
-func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGANIZER.instantiate(), use_exact_offset : bool = false):
+func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGANIZER.instantiate(), use_exact_offset : bool = false,commit_to_undo := true):
+	if col_org.node_index == -1:
+		col_org.node_index = color_organizer_node_index
+	color_organizer_node_index += 1
+	print(col_org.node_index)
+	current_color_organizer_index_map[col_org.node_index] = col_org
+	col_org.dragged.connect(Callable(self,"handle_dragging_nodes_undo_signal"))
 	col_org.position_offset = col_org.initial_offset
 	if col_org.initial_offset == Vector2.ZERO:
 		col_org.position_offset = get_window().size/3
@@ -190,23 +203,39 @@ func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGA
 		col_org.position_offset = (col_org.position_offset+scroll_offset)/zoom
 	add_child(col_org)
 	color_organizers.append(col_org)
+	if commit_to_undo:
+		color_organizer_added.emit(col_org)
+	
+func delete_color_organizer(col_org : color_organizer,commit_to_undo := true):
+	current_color_organizer_index_map.erase(col_org.node_index)
+	if commit_to_undo:
+		color_organizer_deleted.emit(col_org.save())
+	col_org.queue_free()
+	color_organizer_node_index -= 1
+	if selected_color_organizers.find(col_org) != -1:
+		selected_color_organizers.erase(col_org)
+	
+	
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
 	if selected_dialogs.size() == 0 && Input.is_action_pressed("swap_responses"):
 		handle_swapping_responses(response_node,from,to)
 		
 func handle_dragging_nodes_undo_signal(from,to):
-	if selected_dialogs.size() == 1 && selected_responses.size() == 0:
+	if selected_dialogs.size() == 1 && selected_responses.size() == 0 && selected_color_organizers.size() == 0:
 		emit_signal("dialog_moved",selected_dialogs[0],from)
-	elif selected_responses.size() == 1 && selected_dialogs.size() == 0:
+	elif selected_responses.size() == 1 && selected_dialogs.size() == 0 && selected_color_organizers.size() == 0:
 		emit_signal("response_moved",selected_responses[0],from)
+	elif selected_color_organizers.size() == 1  && selected_dialogs.size() == 0 && selected_responses.size() == 0:
+		emit_signal("color_organizer_moved",selected_color_organizers[0],from)
 	else:
 		multi_drag_started = false
 		emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions)
 
 var multi_drag_started = false
 var dialog_multi_drag_start_positions = {}
-var response_multi_drag_start_positions = {}		
+var response_multi_drag_start_positions = {}	
+var color_organizer_multi_drag_start_position = {}	
 
 func handle_multi_drag_undo_signal():
 	if multi_drag_started:
@@ -387,23 +416,26 @@ func select_node(node):
 	if Input.is_action_pressed("select_multiple") || multi_select_mouse_mode:
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
-			
-			
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
+		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
+			selected_color_organizers.append(node)
 	else:
-		if (selected_dialogs.size() == 1 || selected_responses.size() == 1) && not (selected_dialogs.size()>0 && selected_responses.size() > 0):
+		if not (selected_dialogs.size() + selected_responses.size() + color_organizers.size() > 1):
 			for dialog in selected_dialogs:
 				dialog.selected = false
 			for response in selected_responses:
 				response.selected = false
 			selected_responses.clear()
 			selected_dialogs.clear()
+			selected_color_organizers.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 				
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
+		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
+			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
 		
@@ -411,6 +443,8 @@ func select_node(node):
 func unselect_node(node):
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
+	if node.node_type == "Color Organizer":
+		selected_color_organizers.erase(node)
 	if node.node_type == "Dialog Node":
 		selected_dialogs.erase(node)
 		set_last_selected_node_as_selected()
@@ -542,3 +576,7 @@ func _on_undo_system_request_action_move_dialog_node(index : int, new_position :
 
 func _on_undo_system_request_action_move_response_node(index: int, new_position : Vector2):
 		current_response_index_map[index].position_offset = new_position
+
+
+func _on_undo_system_request_action_move_color_organizer(index: int, new_position : Vector2):
+	current_color_organizer_index_map[index].position_offset = new_position

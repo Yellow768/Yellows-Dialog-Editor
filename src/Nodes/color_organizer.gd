@@ -5,6 +5,7 @@ var text = "Color Organizer"
 var box_color = Color(1,1,1,1)
 var initial_offset = Vector2.ZERO
 var locked := false
+var node_index = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -117,6 +118,7 @@ func save():
 		"color": ("0x"+String(box_color.to_html(false))).hex_to_int(),
 		"min_size" : get_minimum_size(),
 		"text" : $TextEdit.text,
-		"locked" : locked
+		"locked" : locked,
+		"node_index" : node_index
 	}
 	return save_dict

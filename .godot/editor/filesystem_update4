@@ -24,3 +24,4 @@ res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
 res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
 res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
 res://src/Classes/dialog_titles_index.gd
+res://src/Nodes/color_organizer.gd
