@@ -1049,13 +1049,13 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
+[connection signal="input_recieved" from="." to="DialogEditor" method="handle_input"]
 [connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
+[connection signal="begin_node_move" from="DialogEditor" to="DialogEditor" method="_on_begin_node_move"]
 [connection signal="color_organizer_added" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_color_organizer_added"]
 [connection signal="color_organizer_deleted" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_color_organizer_deleted"]
-[connection signal="color_organizer_moved" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_color_organizer_moved"]
 [connection signal="connection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_connection_request"]
-[connection signal="dialog_moved" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_dialog_moved"]
 [connection signal="dialog_node_added" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_dialog_node_added"]
 [connection signal="dialog_node_deleted" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_dialog_node_deleted"]
 [connection signal="dialog_selected" from="DialogEditor" to="InformationPanel" method="load_dialog_settings"]
@@ -1067,6 +1067,8 @@ one_shot = true
 [connection signal="gui_input" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_gui_input"]
 [connection signal="import_category_canceled" from="DialogEditor" to="TopPanel" method="_on_dialog_editor_import_category_canceled"]
 [connection signal="import_category_canceled" from="DialogEditor" to="CategoryPanel" method="_on_dialog_editor_import_category_canceled"]
+[connection signal="multiple_nodes_deleted" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_multiple_nodes_deleted"]
+[connection signal="multiple_nodes_moved" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_multiple_nodes_moved"]
 [connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
 [connection signal="node_deselected" from="DialogEditor" to="DialogEditor" method="unselect_node"]
 [connection signal="node_double_clicked" from="DialogEditor" to="." method="_on_dialog_editor_node_double_clicked"]
@@ -1077,7 +1079,6 @@ one_shot = true
 [connection signal="request_remove_dialog_from_environment_index" from="DialogEditor" to="DialogList" method="dialog_deleted"]
 [connection signal="request_save" from="DialogEditor" to="CategoryPanel" method="save_category_request"]
 [connection signal="request_undo" from="DialogEditor" to="DialogEditor/UndoSystem" method="undo"]
-[connection signal="response_moved" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_response_moved"]
 [connection signal="response_node_added" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_response_node_added"]
 [connection signal="response_node_deleted" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_response_node_deleted"]
 [connection signal="save_all" from="DialogEditor" to="CategoryPanel" method="save_all_categories"]

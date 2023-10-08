@@ -1,6 +1,7 @@
+VBoxContainer
+HBoxContainer
 UndoSystem
 Timer
-HBoxContainer
 TextureRect
 HSlider
 Panel
@@ -10,5 +11,4 @@ ScrollContainer
 PanelContainer
 TextEdit
 LineEdit
-VBoxContainer
 Button

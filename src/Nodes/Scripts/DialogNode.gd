@@ -76,7 +76,10 @@ var mail = mail_data_object.new()
 #Outcomes
 @export var start_quest : int = -1
 
+#States
+
 var set_as_availability := false
+var do_not_send_position_changed_signal := false
 
 func set_self_as_unselected():
 	selected = false
@@ -113,14 +116,14 @@ func add_connected_response(response : response_node):
 func remove_connected_response(response : response_node):
 	connected_responses.erase(response)
 
-func delete_self(perm := true):
-	emit_signal("request_deletion",self,perm)
+func delete_self(perm := true,commit_to_undo := true):
+	emit_signal("request_deletion",self,perm,commit_to_undo)
 	emit_signal("unsaved_changes")
 
 func delete_response_options():
 	while response_options.size() > 0:
 		for i in response_options:
-			i.delete_self()
+			i.delete_self(false)
 	while connected_responses.size() > 0:
 		for i in connected_responses:
 			i.disconnect_from_dialog()

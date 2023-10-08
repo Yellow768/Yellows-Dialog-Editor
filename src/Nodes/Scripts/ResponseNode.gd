@@ -60,6 +60,8 @@ var overlapping_response : response_node = null
 
 var minimized = false
 
+var do_not_send_position_changed_signal := false
+
 
 func _ready():
 	ColorPickerNode.color = GlobalDeclarations.int_to_color(color_decimal)
@@ -203,10 +205,10 @@ func disconnect_from_dialog():
 	IdSpinbox.value = 0
 	RemoteConnectionContainer.visible = false
 
-func delete_self():
+func delete_self(commit_to_undo := true):
 	if(connected_dialog != null):
 		connected_dialog.remove_connected_response(self)
-	emit_signal("request_delete_self",parent_dialog,self)
+	emit_signal("request_delete_self",parent_dialog,self,commit_to_undo)
 	
 
 

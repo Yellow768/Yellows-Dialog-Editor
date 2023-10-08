@@ -26,6 +26,7 @@ signal dialog_moved
 signal response_moved
 signal color_organizer_moved
 signal multiple_nodes_moved
+signal multiple_nodes_deleted
 
 signal nodes_connected
 
@@ -67,15 +68,24 @@ func _ready():
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 	set_process_input(false)
 
-func _process(_delta):
-	if Input.is_action_pressed("delete_nodes"):
-		CurrentEnvironment.handle_subtracting_dialog_id(selected_dialogs)
-		for i in selected_dialogs:
-			i.delete_self(true)
-			selected_dialogs.erase(i)
-		for i in selected_responses:
-			i.delete_self()
-			selected_responses.erase(i)
+
+
+func delete_all_selected_nodes():
+	var deleted_dialogs = selected_dialogs.duplicate()
+	var deleted_responses = selected_responses.duplicate()
+	var deleted_color_organizers = selected_color_organizers.duplicate()
+	emit_signal("multiple_nodes_deleted",deleted_dialogs,deleted_responses,deleted_color_organizers)
+	CurrentEnvironment.handle_subtracting_dialog_id(selected_dialogs)
+	for i in deleted_responses:
+		if selected_dialogs.has(i.parent_dialog):
+			continue
+		i.delete_self(false)	
+	for i in deleted_dialogs:
+		i.delete_self(true,false)
+	for i in deleted_color_organizers:
+		delete_color_organizer(i,false)
+		
+		
 
 
 
@@ -100,10 +110,9 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
-	new_dialog.connect("position_offset_changed",Callable(self,"handle_multi_drag_undo_signal"))
+
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
-	new_dialog.dragged.connect(Callable(self,"handle_dragging_nodes_undo_signal"))
 	emit_signal("request_add_dialog_to_environment_index",new_dialog)
 	if commit_to_undo:
 		emit_signal("dialog_node_added",new_dialog)
@@ -115,7 +124,7 @@ func relay_unsaved_changes():
 	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
 func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,commit_to_undo := true):
-	if commit_to_undo:
+	if commit_to_undo && selected_dialogs.size() < 2:
 		dialog_node_deleted.emit(dialog.save())
 	if selected_dialogs.find(dialog,0) != -1:
 		selected_dialogs.erase(dialog)
@@ -157,10 +166,8 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("request_add_dialog", Callable(self, "add_dialog_node"))
 	new_response.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
-	new_response.dragged.connect(Callable(self,"handle_dragging_nodes_undo_signal"))
 	new_response.connect("response_double_clicked", Callable(self, "handle_double_click").bind(new_response))
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
-	new_response.connect("position_offset_changed",Callable(self,"handle_multi_drag_undo_signal"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
 	current_response_index_map[new_response.node_index] = new_response
@@ -171,6 +178,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	return new_response
 
 func delete_response_node(dialog : dialog_node,response : response_node, commit_to_undo := true):
+
 	if commit_to_undo:
 		emit_signal("response_node_deleted",response.save())
 	dialog.delete_response_node(response.slot,response)
@@ -195,7 +203,6 @@ func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGA
 	color_organizer_node_index += 1
 	print(col_org.node_index)
 	current_color_organizer_index_map[col_org.node_index] = col_org
-	col_org.dragged.connect(Callable(self,"handle_dragging_nodes_undo_signal"))
 	col_org.position_offset = col_org.initial_offset
 	if col_org.initial_offset == Vector2.ZERO:
 		col_org.position_offset = get_window().size/3
@@ -221,31 +228,6 @@ func response_node_dragged(from: Vector2,to : Vector2,response_node):
 	if selected_dialogs.size() == 0 && Input.is_action_pressed("swap_responses"):
 		handle_swapping_responses(response_node,from,to)
 		
-func handle_dragging_nodes_undo_signal(from,to):
-	if selected_dialogs.size() == 1 && selected_responses.size() == 0 && selected_color_organizers.size() == 0:
-		emit_signal("dialog_moved",selected_dialogs[0],from)
-	elif selected_responses.size() == 1 && selected_dialogs.size() == 0 && selected_color_organizers.size() == 0:
-		emit_signal("response_moved",selected_responses[0],from)
-	elif selected_color_organizers.size() == 1  && selected_dialogs.size() == 0 && selected_responses.size() == 0:
-		emit_signal("color_organizer_moved",selected_color_organizers[0],from)
-	else:
-		multi_drag_started = false
-		emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions)
-
-var multi_drag_started = false
-var dialog_multi_drag_start_positions = {}
-var response_multi_drag_start_positions = {}	
-var color_organizer_multi_drag_start_position = {}	
-
-func handle_multi_drag_undo_signal():
-	if multi_drag_started:
-		return
-	multi_drag_started = true
-	for dialog in selected_dialogs:
-		dialog_multi_drag_start_positions[dialog.node_index] = dialog.position_offset
-	for response in response_multi_drag_start_positions:
-		response_multi_drag_start_positions[response.node_index] = response.position_offset
-	
 
 
 func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int,commit_to_undo := true):
@@ -488,7 +470,78 @@ func _on_CategoryImporter_clear_editor_request():
 func _on_SaveLoad_clear_editor_request():
 	clear_editor()
 
+func add_responses_and_dialogs_to_selected_nodes():
+	for dialog in selected_dialogs:
+		dialog.add_response_node(false)
+	for response in selected_responses:
+		response.add_new_connected_dialog(false) 
 
+func handle_input(event : InputEvent):
+	if event.is_action_pressed("add_dialog_at_mouse"):
+		var new_dialog_node : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
+		new_dialog_node.position_offset = get_local_mouse_position()
+		add_dialog_node(new_dialog_node)
+	if event.is_action_pressed("create_response"):
+		add_responses_and_dialogs_to_selected_nodes()
+		
+	if Input.is_action_just_pressed("delete_nodes"):
+		delete_all_selected_nodes()
+	if event.is_action_pressed("focus_below"):
+		match get_viewport().gui_get_focus_owner().get_name(): 
+			"ResponseText":
+				var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				if response.slot != response.parent_dialog.response_options.size()-1:
+					response.parent_dialog.response_options[response.slot+1].set_focus_on_title()
+			"TitleText":
+				var dialog : dialog_node= get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				dialog.set_focus_on_text()	
+	if Input.is_action_just_pressed("focus_above"):
+		match get_viewport().gui_get_focus_owner().get_name(): 
+			"ResponseText":
+				var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				if response.slot != 0:
+					response.parent_dialog.response_options[response.slot-1].set_focus_on_title()
+			"DialogText":
+				var dialog : dialog_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+				dialog.set_focus_on_title()
+	if Input.is_action_just_pressed("focus_left"):
+		
+		if selected_responses.size() == 1 && selected_dialogs.size() == 0:
+			var response : response_node = selected_responses[0]
+			if Input.is_action_just_pressed("focus_left_cycle"):
+				var response_index : int = response.connected_dialog.connected_responses.find(response)
+				var next_response_index = response_index
+				if response_index == response.connected_dialog.connected_responses.size()-1:
+					next_response_index = 0
+				else:
+					next_response_index += 1
+				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
+			else:
+				response.parent_dialog.set_focus_on_text()
+		elif selected_responses.size() == 0 && selected_dialogs.size() == 1:
+			var dialog : dialog_node= selected_dialogs[0]
+			if dialog.connected_responses.size() != 0:
+				dialog.connected_responses[0].set_focus_on_title()
+	if Input.is_action_just_pressed("focus_right"):
+	
+		if selected_responses.size() == 1 && selected_dialogs.size() == 0:
+			var response : response_node = selected_responses[0]
+			if response.connected_dialog == null:
+				return
+			if Input.is_action_just_pressed("focus_right_cycle"):
+				var response_index : int = response.connected_dialog.connected_responses.find(response)
+				var next_response_index = response_index
+				if response_index == 0:
+					next_response_index = response.connected_dialog.connected_responses.size()-1
+				else:
+					next_response_index -= 1
+				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
+			else:
+				response.connected_dialog.set_focus_on_text()
+		elif selected_responses.size() == 0 && selected_dialogs.size() == 1:
+			var dialog : dialog_node = selected_dialogs[0]
+			if dialog.response_options.size() != 0:
+				dialog.response_options[0].set_focus_on_title()
 
 func _on_DialogEditor_gui_input(event):
 	if Input.is_action_just_pressed("ui_undo") && not Input.is_action_just_pressed("ui_redo") :
@@ -572,11 +625,46 @@ func _on_double_click_timer_timeout():
 
 func _on_undo_system_request_action_move_dialog_node(index : int, new_position : Vector2):
 	current_dialog_index_map[index].position_offset = new_position
-
+	current_dialog_index_map[index].do_not_send_position_changed_signal = true
 
 func _on_undo_system_request_action_move_response_node(index: int, new_position : Vector2):
 		current_response_index_map[index].position_offset = new_position
-
+		current_response_index_map[index].do_not_send_position_changed_signal = true
 
 func _on_undo_system_request_action_move_color_organizer(index: int, new_position : Vector2):
 	current_color_organizer_index_map[index].position_offset = new_position
+	current_response_index_map[index].do_not_send_position_changed_signal = true
+
+var multi_drag_started = false
+var already_emitted_multi_drag = false
+var dialog_multi_drag_start_positions = {}
+var response_multi_drag_start_positions = {}	
+var color_organizer_multi_drag_start_position = {}	
+
+func handle_multi_drag_undo_signal(count_responses):
+	for dialog in selected_dialogs:
+		dialog_multi_drag_start_positions[dialog.node_index] = dialog.position_offset
+		for option in dialog.response_options:
+			response_multi_drag_start_positions[option.node_index] = option.position_offset
+	for response in selected_responses:
+		if !response_multi_drag_start_positions.has(response.node_index):
+			response_multi_drag_start_positions[response.node_index] = response.position_offset
+	for color_org in selected_color_organizers:
+		color_organizer_multi_drag_start_position[color_org.node_index] = color_org.position_offset
+	print(dialog_multi_drag_start_positions)
+	
+func _on_begin_node_move():
+	print("gasdasdasd")
+	var count_responses :bool = (GlobalDeclarations.hold_shift_for_individual_movement != Input.is_action_pressed("drag_responses_key"))
+	print(count_responses)
+	handle_multi_drag_undo_signal(count_responses)
+	multi_drag_started = false
+	print(dialog_multi_drag_start_positions)
+	emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions,color_organizer_multi_drag_start_position)
+	dialog_multi_drag_start_positions = {}
+	response_multi_drag_start_positions = {}	
+	color_organizer_multi_drag_start_position = {}
+	print("fucking help me please")	
+		
+		#maybe move the logic for dragging things into here
+		#check if multi select, disable emitting the dragged signal

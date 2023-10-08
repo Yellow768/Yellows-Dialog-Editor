@@ -1,5 +1,7 @@
 extends Control
 
+signal input_recieved
+
 var unsaved_categories = []
 
 
@@ -39,72 +41,7 @@ func _ready():
 	$DialogEditor.use_snap = GlobalDeclarations.snap_enabled
 	
 func _input(event : InputEvent):
-	if event.is_action_pressed("add_dialog_at_mouse"):
-		var new_dialog_node : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
-		new_dialog_node.position_offset = get_local_mouse_position()
-		DialogEditor.add_dialog_node(new_dialog_node)
-	if event.is_action_pressed("create_response"):
-		for dialog in DialogEditor.selected_dialogs:
-			dialog.add_response_node()
-		for response in DialogEditor.selected_responses:
-			response.add_new_connected_dialog()
-	
-	if event.is_action_pressed("focus_below"):
-		match get_viewport().gui_get_focus_owner().get_name(): 
-			"ResponseText":
-				var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				if response.slot != response.parent_dialog.response_options.size()-1:
-					response.parent_dialog.response_options[response.slot+1].set_focus_on_title()
-			"TitleText":
-				var dialog : dialog_node= get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				dialog.set_focus_on_text()	
-	if Input.is_action_just_pressed("focus_above"):
-		match get_viewport().gui_get_focus_owner().get_name(): 
-			"ResponseText":
-				var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				if response.slot != 0:
-					response.parent_dialog.response_options[response.slot-1].set_focus_on_title()
-			"DialogText":
-				var dialog : dialog_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				dialog.set_focus_on_title()
-	if Input.is_action_just_pressed("focus_left"):
-		
-		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_dialogs.size() == 0:
-			var response : response_node = DialogEditor.selected_responses[0]
-			if Input.is_action_just_pressed("focus_left_cycle"):
-				var response_index : int = response.connected_dialog.connected_responses.find(response)
-				var next_response_index = response_index
-				if response_index == response.connected_dialog.connected_responses.size()-1:
-					next_response_index = 0
-				else:
-					next_response_index += 1
-				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
-			else:
-				response.parent_dialog.set_focus_on_text()
-		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_dialogs.size() == 1:
-			var dialog : dialog_node= DialogEditor.selected_dialogs[0]
-			if dialog.connected_responses.size() != 0:
-				dialog.connected_responses[0].set_focus_on_title()
-	if Input.is_action_just_pressed("focus_right"):
-	
-		if DialogEditor.selected_responses.size() == 1 && DialogEditor.selected_dialogs.size() == 0:
-			var response : response_node = DialogEditor.selected_responses[0]
-			if response.connected_dialog == null:
-				return
-			if Input.is_action_just_pressed("focus_right_cycle"):
-				var response_index : int = response.connected_dialog.connected_responses.find(response)
-				var next_response_index = response_index
-				if response_index == 0:
-					next_response_index = response.connected_dialog.connected_responses.size()-1
-				else:
-					next_response_index -= 1
-				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
-			else:
-				response.connected_dialog.set_focus_on_text()
-		elif DialogEditor.selected_responses.size() == 0 && DialogEditor.selected_dialogs.size() == 1:
-			var dialog : dialog_node = DialogEditor.selected_dialogs[0]
-			if dialog.response_options.size() != 0:
-				dialog.response_options[0].set_focus_on_title()
+	emit_signal("input_recieved", event)
 				
 
 

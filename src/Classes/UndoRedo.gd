@@ -1,7 +1,23 @@
 extends Node
 class_name UndoSystem
 
-enum ACTION_TYPES {CREATE_DIALOG,DELETE_DIALOG,MOVE_DIALOG,MOVE_RESPONSE,MOVE_COLOR_ORG,CREATE_RESPONSE,DELETE_RESPONSE,CREATE_COLOR_ORG,DELETE_COLOR_ORG,MULTI_DELETE,CONNECT_NODES,DISCONNECT_NODES}
+enum ACTION_TYPES {
+	MULTI_MOVE,
+	MULTI_CREATE,
+	CREATE_DIALOG,
+	DELETE_DIALOG,
+	MOVE_DIALOG,
+	MOVE_RESPONSE,
+	MOVE_COLOR_ORG,
+	CREATE_RESPONSE,
+	DELETE_RESPONSE,
+	CREATE_COLOR_ORG,
+	DELETE_COLOR_ORG,
+	MULTI_DELETE,
+	CONNECT_NODES,
+	DISCONNECT_NODES,
+	SWAP_RESPONSES
+	}
 
 signal undo_saved
 signal redo_saved
@@ -73,6 +89,13 @@ func add_to_undo(type,node,args = []):
 			undo_action = create_action_add_color_organizer(node)
 		ACTION_TYPES.DELETE_COLOR_ORG :
 			undo_action = create_action_delete_color_organizer(node.node_index)
+		
+		ACTION_TYPES.MULTI_MOVE:
+			undo_action = create_action_move_multiple_nodes(args[0],args[1],args[2])
+		ACTION_TYPES.MULTI_CREATE:
+			undo_action = create_action_create_multiple_nodes(args[0],args[1],args[2])
+		ACTION_TYPES.MULTI_DELETE:
+			undo_action = create_action_delete_multiple_nodes(args[0],args[1],args[2])
 	undoRedoHistories[currentUndoCategoryName].undo_history.append(undo_action)
 	undoRedoHistories[currentUndoCategoryName].redo_history.clear()
 
@@ -82,6 +105,7 @@ func undo():
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].undo_history.back()
 	var redo
+	print(ACTION_TYPES.keys()[action.type])
 	match action.type:
 		ACTION_TYPES.CREATE_DIALOG :
 			redo = create_action_delete_dialog(action.dialog_data.node_index)
@@ -112,6 +136,16 @@ func undo():
 		ACTION_TYPES.MOVE_COLOR_ORG:
 			redo = create_action_move_color_organizer(action.node_index,dialog_editor.current_color_organizer_index_map[action.node_index].position_offset)
 			execute_action_move_color_organizer(action)	
+		
+		ACTION_TYPES.MULTI_CREATE :
+			redo = create_action_delete_multiple_nodes(action.dialog_data,action.response_data,action.color_organizer_data)
+			execute_action_add_multiple_nodes(action)
+		ACTION_TYPES.MULTI_DELETE :
+			redo = create_action_create_multiple_nodes(action.dialogs,action.responses,action.color_organizers)
+			execute_action_delete_multiple_nodes(action)
+		ACTION_TYPES.MULTI_MOVE:
+			redo = create_redo_action_move_multiple_nodes(action.dialogs,action.responses,action.color_organizers)
+			execute_action_multi_move(action)
 	undoRedoHistories[currentUndoCategoryName].redo_history.append(redo)
 	undoRedoHistories[currentUndoCategoryName].undo_history.pop_back()
 
@@ -152,6 +186,18 @@ func redo():
 		ACTION_TYPES.MOVE_COLOR_ORG:
 			undo = create_action_move_color_organizer(action.node_index,dialog_editor.current_color_organizer_index_map[action.node_index].position_offset)
 			execute_action_move_color_organizer(action)	
+		
+		ACTION_TYPES.MULTI_CREATE :
+			undo = create_action_delete_multiple_nodes(action.dialog_data,action.response_data,action.color_organizer_data)
+			execute_action_add_multiple_nodes(action)
+		ACTION_TYPES.MULTI_DELETE :
+			undo = create_action_create_multiple_nodes(action.dialogs,action.responses,action.color_organizers)
+			execute_action_delete_multiple_nodes(action)
+		ACTION_TYPES.MULTI_MOVE:
+			undo = create_redo_action_move_multiple_nodes(action.dialogs,action.responses,action.color_organizers)
+			execute_action_multi_move(action)
+			
+	
 	undoRedoHistories[currentUndoCategoryName].undo_history.append(undo)
 	undoRedoHistories[currentUndoCategoryName].redo_history.pop_back()
 
@@ -220,6 +266,75 @@ func create_action_move_color_organizer(node_index: int, prev_position : Vector2
 		"type" : ACTION_TYPES.MOVE_COLOR_ORG,
 		"node_index" : node_index,
 		"prev_position" : prev_position
+	}
+	return action
+	
+	
+func create_action_move_multiple_nodes(dialogs,responses,color_organizers):
+	var action = {
+		"type" : ACTION_TYPES.MULTI_MOVE,
+		"dialogs" : dialogs,
+		"responses" : responses,
+		"color_organizers" : color_organizers
+	}
+	return action
+
+func create_action_create_multiple_nodes(dialogs,responses,color_organizers):
+	var dialogs_data = []
+	var responses_data = []
+	var color_organizers_data = []
+	for dialog in dialogs:
+		dialogs_data.append(dialog)
+	for response in responses:
+		responses_data.append(response)
+	for col_org in color_organizers:
+		color_organizers_data.append(col_org)
+	var action = {
+		"type" : ACTION_TYPES.MULTI_CREATE,
+		"dialog_data" : dialogs_data,
+		"response_data" : responses_data,
+		"color_organizer_data" : color_organizers_data
+	}
+	return action
+	
+func  create_action_delete_multiple_nodes(dialogs,responses,color_organizers):
+	var dialogs_index = []
+	var responses_index = []
+	var color_organizers_index = []
+	
+	for dialog in dialogs:
+		dialogs_index.append(dialog)
+	for response in responses:
+		responses_index.append(response)
+	for color_org in color_organizers:
+		color_organizers_index.append(color_org)
+	var action = {
+		"type" : ACTION_TYPES.MULTI_DELETE,
+		"dialogs" : dialogs_index,
+		"responses" : responses_index,
+		"color_organizers" : color_organizers_index
+	}
+	return action
+	
+
+
+
+#Special function because it needs to loop through multiple nodes	
+func create_redo_action_move_multiple_nodes(dialogs : Dictionary,responses : Dictionary,color_organizers : Dictionary):
+	var redo_dialogs = {}
+	var redo_responses = {}
+	var redo_color_orgs = {}
+	for dialog in dialogs.keys():
+		redo_dialogs[dialog] = dialog_editor.current_dialog_index_map[dialog].position_offset
+	for response in responses.keys():
+		redo_responses[response] = dialog_editor.current_response_index_map[response].position_offset
+	for color_org in color_organizers.keys():
+		redo_color_orgs[color_org] = dialog_editor.current_color_organizer_index_map[color_org].position_offset
+	var action = {
+		"type" : ACTION_TYPES.MULTI_MOVE,
+		"dialogs" : redo_dialogs,
+		"responses" : redo_responses,
+		"color_organizers" : redo_color_orgs
 	}
 	return action
 	
@@ -315,6 +430,29 @@ func execute_action_delete_color_organizer(action):
 func execute_action_move_color_organizer(action):
 	emit_signal("request_action_move_color_organizer",action.node_index,action.prev_position)
 
+func execute_action_add_multiple_nodes(action):
+	for dialog in action.dialog_data:
+		execute_action_add_dialog({"dialog_data":dialog})
+	for response in action.response_data:
+		execute_action_add_response({"response_data":response})
+	for color_org in action.color_organizer_data:
+		execute_action_add_color_organizer({"color_org_data":color_org})
+
+func execute_action_delete_multiple_nodes(action):
+	for dialog in action.dialogs:
+		emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[dialog.node_index],true,false)
+	for response in action.responses:
+		emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[response.node_index].parent_dialog,dialog_editor.current_response_index_map[response.node_index],false)
+	for col_org in action.color_organizers:
+		emit_signal("request_action_delete_color_organizer",dialog_editor.current_color_organizer_index_map[col_org.node_index],false)
+
+func execute_action_multi_move(action):
+	for dialog in action.dialogs:
+		emit_signal("request_action_move_dialog_node",dialog,action.dialogs[dialog])
+	for response in action.responses:
+		emit_signal("request_action_move_response_node",response,action.responses[response])
+	for color_org in action.color_organizers:
+		emit_signal("request_action_move_color_organizer",color_org,action.color_organizers[color_org])
 
 #Isolated Useful Methods		
 func create_response_node_from_data(response_data):
@@ -329,7 +467,7 @@ func create_response_node_from_data(response_data):
 	return currently_loaded_response
 
 func find_dialog_node_from_id(id : int):
-	var dialog_nodes = get_tree().get_nodes_in_group("Save")
+	var dialog_nodes = get_tree().get_nodes_in_group("Dialogs")
 	for dialog in dialog_nodes:
 		if dialog.dialog_id == id:
 			return dialog
@@ -344,10 +482,11 @@ func _on_dialog_editor_dialog_node_added(dialog):
 
 func _on_dialog_editor_dialog_moved(dialog,from):
 	add_to_undo(ACTION_TYPES.MOVE_DIALOG,dialog,[from])
-
+	prints("moved dialog",from)
 
 func _on_dialog_editor_dialog_node_deleted(dialog_data):
 	add_to_undo(ACTION_TYPES.CREATE_DIALOG,dialog_data)
+	print("deleted dialog")
 
 
 func _on_dialog_editor_response_moved(response,from):
@@ -376,3 +515,22 @@ func _on_dialog_editor_color_organizer_deleted(col_org_data):
 
 func _on_dialog_editor_color_organizer_moved(col_org,from):
 	add_to_undo(ACTION_TYPES.MOVE_COLOR_ORG,col_org,[from])
+
+
+func _on_dialog_editor_multiple_nodes_moved(dialogs,responses,color_organizers):
+	print("registered multi move")
+	add_to_undo(ACTION_TYPES.MULTI_MOVE,null,[dialogs,responses,color_organizers])
+
+
+func _on_dialog_editor_multiple_nodes_deleted(dialogs,responses,color_organizers):
+	var dialogs_data = []
+	var responses_data = []
+	var color_organizers_data = []
+	for dialog in dialogs:
+		dialogs_data.append(dialog.save())
+	for response in responses:
+		if !response.parent_dialog in dialogs:
+			responses_data.append(response.save())
+	for col_org in color_organizers:
+		color_organizers_data.append(col_org.save())
+	add_to_undo(ACTION_TYPES.MULTI_CREATE,null,[dialogs_data,responses_data,color_organizers_data])
