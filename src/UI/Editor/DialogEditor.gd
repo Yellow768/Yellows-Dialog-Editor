@@ -18,6 +18,7 @@ signal request_remove_dialog_from_environment_index
 
 signal response_node_added
 signal response_node_deleted
+signal response_nodes_swapped
 
 signal color_organizer_added
 signal color_organizer_deleted
@@ -25,10 +26,12 @@ signal color_organizer_deleted
 signal dialog_moved
 signal response_moved
 signal color_organizer_moved
+signal multiple_nodes_created
 signal multiple_nodes_moved
 signal multiple_nodes_deleted
 
 signal nodes_connected
+signal nodes_disconnected
 
 signal node_double_clicked
 signal unsaved_changes
@@ -201,7 +204,7 @@ func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGA
 	if col_org.node_index == -1:
 		col_org.node_index = color_organizer_node_index
 	color_organizer_node_index += 1
-	print(col_org.node_index)
+
 	current_color_organizer_index_map[col_org.node_index] = col_org
 	col_org.position_offset = col_org.initial_offset
 	if col_org.initial_offset == Vector2.ZERO:
@@ -225,10 +228,36 @@ func delete_color_organizer(col_org : color_organizer,commit_to_undo := true):
 	
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
-	if selected_dialogs.size() == 0 && Input.is_action_pressed("swap_responses"):
-		handle_swapping_responses(response_node,from,to)
+	print(response_node.overlapping_response)
+	if selected_dialogs.size() == 0 && Input.is_action_pressed("swap_responses") && response_node.overlapping_response != null:
+		handle_swapping_responses(response_node,response_node.overlapping_response,from,to)
 		
+var multi_drag_started = false
+var already_emitted_multi_drag = false
+var dialog_multi_drag_start_positions = {}
+var response_multi_drag_start_positions = {}	
+var color_organizer_multi_drag_start_position = {}	
 
+func handle_multi_drag_undo_signal(count_responses):
+	for dialog in selected_dialogs:
+		dialog_multi_drag_start_positions[dialog.node_index] = dialog.position_offset
+		for option in dialog.response_options:
+			response_multi_drag_start_positions[option.node_index] = option.position_offset
+	for response in selected_responses:
+		if !response_multi_drag_start_positions.has(response.node_index):
+			response_multi_drag_start_positions[response.node_index] = response.position_offset
+	for color_org in selected_color_organizers:
+		color_organizer_multi_drag_start_position[color_org.node_index] = color_org.position_offset
+
+	
+func _on_begin_node_move():
+	var count_responses :bool = (GlobalDeclarations.hold_shift_for_individual_movement != Input.is_action_pressed("drag_responses_key"))
+	handle_multi_drag_undo_signal(count_responses)
+	multi_drag_started = false
+	emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions,color_organizer_multi_drag_start_position)
+	dialog_multi_drag_start_positions = {}
+	response_multi_drag_start_positions = {}	
+	color_organizer_multi_drag_start_position = {}
 
 func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int,commit_to_undo := true):
 	
@@ -251,7 +280,7 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 		emit_signal("nodes_connected",from,to)
 
 	
-func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int):
+func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int, commit_to_undo := true):
 	
 	var response : response_node
 	var dialog : dialog_node
@@ -270,6 +299,8 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 		response.reveal_button()	
 		response.connected_dialog = null	
 	relay_unsaved_changes()
+	if commit_to_undo:
+		emit_signal("nodes_disconnected",from,to)
 
 func hide_connection_line(from: GraphNode,to: GraphNode):
 	disconnect_node(from.name,0,to.name,0)
@@ -278,10 +309,7 @@ func show_connection_line(from: GraphNode,to: GraphNode):
 	connect_node(from.name,0,to.name,0)
 
 
-func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to: Vector2):
-	if response_node.overlapping_response != null:
-		
-		var overlapping_response := response_node.overlapping_response
+func handle_swapping_responses(response_node : response_node ,overlapping_response : response_node,from : Vector2 ,to: Vector2,commit_to_undo := true):
 		var initial_slot := response_node.slot
 		var initial_parent := response_node.parent_dialog
 		var initial_offset := from
@@ -299,11 +327,11 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		#Remove from parents array
 		response_node.parent_dialog.response_options.erase(response_node)
 		disconnect_node(response_node.parent_dialog.get_name(),0,response_node.name,0)
-		response_node.disconnect("request_delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
+		
 		
 		overlapping_response.parent_dialog.response_options.erase(overlapping_response)
 		disconnect_node(overlapping_response.parent_dialog.get_name(),0,overlapping_response.get_name(),0)
-		overlapping_response.disconnect("request_delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
+		
 		
 		#Switch to other parents array. Make sure slot isn't invalid
 		if response_node.parent_dialog.response_options.size() >= overlapping_response.slot:
@@ -322,9 +350,10 @@ func handle_swapping_responses(response_node : response_node ,from : Vector2 ,to
 		response_node.parent_dialog = overlapping_response.parent_dialog
 		overlapping_response.parent_dialog = initial_parent
 		
-		response_node.connect("request_delete_self", Callable(response_node.parent_dialog, "delete_response_node"))
-		overlapping_response.connect("request_delete_self", Callable(overlapping_response.parent_dialog, "delete_response_node"))
-
+		if commit_to_undo:
+			emit_signal("response_nodes_swapped",response_node,overlapping_response,from,to)
+			
+	
 func set_category_zoom(new_zoom : float):
 	zoom = new_zoom
 
@@ -471,10 +500,26 @@ func _on_SaveLoad_clear_editor_request():
 	clear_editor()
 
 func add_responses_and_dialogs_to_selected_nodes():
+	var temp_dialog_node_index = node_index
+	var temp_response_node_index = response_node_index
+	var dialogs= []
+	var responses = []
 	for dialog in selected_dialogs:
+		
+		responses.append(temp_response_node_index)
+		temp_response_node_index += 1
 		dialog.add_response_node(false)
+		
+		
 	for response in selected_responses:
+		
+		dialogs.append(temp_dialog_node_index)
+		temp_dialog_node_index += 1
+		
 		response.add_new_connected_dialog(false) 
+		
+		
+	emit_signal("multiple_nodes_created",dialogs,responses)
 
 func handle_input(event : InputEvent):
 	if event.is_action_pressed("add_dialog_at_mouse"):
@@ -544,9 +589,9 @@ func handle_input(event : InputEvent):
 				dialog.response_options[0].set_focus_on_title()
 
 func _on_DialogEditor_gui_input(event):
-	if Input.is_action_just_pressed("ui_undo") && not Input.is_action_just_pressed("ui_redo") :
+	if Input.is_action_pressed("ui_undo") && not Input.is_action_just_pressed("ui_redo") :
 		emit_signal("request_undo")
-	if Input.is_action_just_pressed("ui_redo"):
+	if Input.is_action_pressed("ui_redo"):
 		emit_signal("request_redo")
 	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		multi_select_mouse_mode = true
@@ -584,10 +629,6 @@ func _on_DialogEditor_gui_input(event):
 func _on_CategoryPanel_current_category_deleted():
 	clear_editor()
 	visible = false
-
-
-
-
 
 
 
@@ -635,36 +676,6 @@ func _on_undo_system_request_action_move_color_organizer(index: int, new_positio
 	current_color_organizer_index_map[index].position_offset = new_position
 	current_response_index_map[index].do_not_send_position_changed_signal = true
 
-var multi_drag_started = false
-var already_emitted_multi_drag = false
-var dialog_multi_drag_start_positions = {}
-var response_multi_drag_start_positions = {}	
-var color_organizer_multi_drag_start_position = {}	
 
-func handle_multi_drag_undo_signal(count_responses):
-	for dialog in selected_dialogs:
-		dialog_multi_drag_start_positions[dialog.node_index] = dialog.position_offset
-		for option in dialog.response_options:
-			response_multi_drag_start_positions[option.node_index] = option.position_offset
-	for response in selected_responses:
-		if !response_multi_drag_start_positions.has(response.node_index):
-			response_multi_drag_start_positions[response.node_index] = response.position_offset
-	for color_org in selected_color_organizers:
-		color_organizer_multi_drag_start_position[color_org.node_index] = color_org.position_offset
-	print(dialog_multi_drag_start_positions)
-	
-func _on_begin_node_move():
-	print("gasdasdasd")
-	var count_responses :bool = (GlobalDeclarations.hold_shift_for_individual_movement != Input.is_action_pressed("drag_responses_key"))
-	print(count_responses)
-	handle_multi_drag_undo_signal(count_responses)
-	multi_drag_started = false
-	print(dialog_multi_drag_start_positions)
-	emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions,color_organizer_multi_drag_start_position)
-	dialog_multi_drag_start_positions = {}
-	response_multi_drag_start_positions = {}	
-	color_organizer_multi_drag_start_position = {}
-	print("fucking help me please")	
-		
-		#maybe move the logic for dragging things into here
-		#check if multi select, disable emitting the dragged signal
+
+

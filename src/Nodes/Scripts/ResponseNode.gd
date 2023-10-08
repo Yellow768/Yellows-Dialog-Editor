@@ -199,7 +199,7 @@ func set_connection_shown():
 func disconnect_from_dialog():
 	if connected_dialog!=null:
 		connected_dialog.remove_connected_response(self)
-		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
+		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0,false)
 		connected_dialog = null
 	to_dialog_id = -1
 	IdSpinbox.value = 0
@@ -249,7 +249,7 @@ func _on_PlayerResponseNode_close_request():
 func _on_AddNewDialog_pressed():
 	add_new_connected_dialog()
 
-func add_new_connected_dialog():
+func add_new_connected_dialog(commit_to_undo := true):
 	if option_type != 0:
 		return
 	var new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
@@ -258,8 +258,8 @@ func add_new_connected_dialog():
 		new_dialog.dialog_title = ResponseTextNode.text
 	connected_dialog = new_dialog
 	new_dialog.connected_responses.append(self)
-	emit_signal("request_add_dialog",new_dialog,true)
-	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0)
+	emit_signal("request_add_dialog",new_dialog,true,commit_to_undo)
+	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0,false)
 
 func _on_OptionButton_item_selected(index : int):
 	set_option_type(index)

@@ -92,9 +92,9 @@ func _ready():
 	DialogTextNode.text = text
 	TitleTextNode.text = dialog_title
 
-func add_response_node():
+func add_response_node(commit_to_undo := true):
 	if response_options.size() < 6:
-		emit_signal("add_response_request",self)
+		emit_signal("add_response_request",self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
 		emit_signal("unsaved_changes")
 
 func delete_response_node(deletion_slot : int,response_node : response_node):
@@ -263,6 +263,10 @@ func save():
 	for i in response_options:
 		save_response_options.append(i.save())
 		
+	var connected_response_indexes = []
+	for i in connected_responses:
+		connected_response_indexes.append(i.node_index)
+	
 	save_mail = {
 		"sender" : mail.sender,
 		"subject" : mail.subject,
@@ -294,7 +298,8 @@ func save():
 		"time_availability" : time_availability,
 		"min_level_availability" : min_level_availability,
 		"response_options":save_response_options,
-		"mail" : save_mail
+		"mail" : save_mail,
+		"connected_response_indexes" : connected_response_indexes
 	}
 	return save_dict
 

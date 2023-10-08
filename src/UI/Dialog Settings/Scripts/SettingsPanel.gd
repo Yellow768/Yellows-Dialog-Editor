@@ -128,7 +128,6 @@ func enter_dialog_availability_mode(availability_scene):
 	
 func set_dialog_availability_from_selected_node(node_selected : GraphNode):
 	if dialog_availability_mode:
-		print("found node")
 		glob_node_selected_id = node_selected.dialog_id
 		var new_timer = Timer.new()
 		add_child(new_timer)

@@ -16,3 +16,5 @@ res://src/UI/Editor/MainEditor.gd
 res://src/Autoload/current_environment.gd
 res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd
 res://src/Nodes/color_organizer.gd
+res://src/Nodes/Scripts/ResponseNode.gd
+res://src/Classes/File System/CategoryExporter.gd

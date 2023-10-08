@@ -44,7 +44,7 @@ cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(148.5, 87)
+size = Vector2(323, 174)
 
 [node name="PlayerResponseNode" type="GraphNode" groups=["Response_Nodes"]]
 z_as_relative = false
@@ -199,10 +199,9 @@ layout_mode = 2
 text = "Jump To Node"
 
 [node name="ResponseNodeArea" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponseNodeArea"]
-position = Vector2(150.5, 90)
+position = Vector2(164.5, 106)
 shape = SubResource("1")
 
 [connection signal="close_request" from="." to="." method="_on_PlayerResponseNode_close_request"]

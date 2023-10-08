@@ -16,6 +16,7 @@ func _ready():
 	$HBoxContainer/VBoxContainer/ColorPickerButton.custom_minimum_size = size/16
 	$HBoxContainer/TextEdit.add_theme_font_size_override("font_size",size.x/8)
 	change_color(box_color)
+	$HBoxContainer/VBoxContainer/ColorPickerButton.color = Color(box_color.r,box_color.g,box_color.b)
 	$HBoxContainer/TextEdit.text = text
 	$HBoxContainer/VBoxContainer/Button.button_pressed = locked
 	selectable = false
@@ -28,7 +29,7 @@ func _ready():
 
 func change_color(color):
 	var style = StyleBoxFlat.new()
-	box_color =  Color(color.r,color.b,color.g,.5)
+	box_color =  Color(color.r,color.g,color.b,.5)
 	style.bg_color = box_color
 	style.corner_radius_bottom_left = 15
 	style.corner_radius_bottom_right = 15
@@ -37,7 +38,6 @@ func change_color(color):
 	add_theme_stylebox_override("frame",style)
 	add_theme_stylebox_override("selected_frame",style)
 	add_theme_stylebox_override("comment",style)
-	$HBoxContainer/VBoxContainer/ColorPickerButton.color = Color(color.r,color.b,color.g)
 	if box_color.get_luminance() > 0.5:
 		$HBoxContainer/TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
 		add_theme_color_override("close_color",Color(0,0,0,1))

@@ -13,7 +13,6 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 	if !exported_category_dir.dir_exists(directory+category_name):
 		exported_category_dir.make_dir(directory+category_name)
 	empty_category_jsons(category_name)
-	print(category_name)
 	for i in save_nodes:
 		if i.node_type != "Dialog Node":
 			continue
