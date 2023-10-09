@@ -69,6 +69,8 @@ func create_category_buttons(categories):
 		category_button.connect("delete_category_request", Callable(self, "request_deletion_popup"))
 		category_button.connect("duplicate_category_request", Callable(EnvironmentIndex, "duplicate_category"))
 		CategoryFileContainer.add_child(category_button)
+		if category_button.category_name == current_category:
+			category_button.button_pressed = true
 	
 		
 
@@ -319,3 +321,7 @@ func _on_autosave_timer_timeout():
 
 func _on_editor_settings_autosave_time_changed():
 	AutoSave.start(GlobalDeclarations.autosave_time*60)
+
+
+func _on_dialog_file_system_index_category_deleted(category):
+	category_temp_data.erase(category)

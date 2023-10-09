@@ -26,6 +26,9 @@ var hold_shift_for_individual_movement = false
 var snap_enabled = true
 var color_presets : PackedColorArray
 var autosave_time := 3
+var autosave_max_files := 10
+
+var allow_above_six_responses := false
 
 var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_right","zoom_key","drag_responses_key","delete_nodes","add_dialog_at_mouse","create_response","zoom_in","zoom_out","select_multiple","save","export","scan_for_changes","reimport_category","swap_responses"]
 
@@ -40,6 +43,8 @@ func _ready():
 	snap_enabled = config.get_value("user_settings","snap_enabled",false)
 	color_presets = config.get_value("user_settings","color_presets",color_presets)
 	autosave_time = config.get_value("user_settings","autosave_time",autosave_time)
+	autosave_max_files = config.get_value("user_settings","autosave_max_files",autosave_max_files)
+	allow_above_six_responses = config.get_value("user_settings","allow_above_six_responses",allow_above_six_responses)
 	for action in actions:
 		var temp_action = InputMap.action_get_events(action)
 		InputMap.action_erase_events(action)
@@ -55,6 +60,8 @@ func save_config():
 	config.set_value("prev_dirs","dir_array",config.get_value("prev_dirs","dir_array","[]"))
 	config.set_value("user_settings","color_presets",color_presets)
 	config.set_value("user_settings","autosave_time",autosave_time)
+	config.set_value("user_settings","autosave_max_files",autosave_max_files)
+	config.set_value("user_settings","allow_above_six_responses",allow_above_six_responses)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)

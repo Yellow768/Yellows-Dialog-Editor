@@ -59,3 +59,5 @@ func _on_popup_menu_id_pressed(id):
 			emit_signal("delete_category_request",category_name)
 		4:
 			emit_signal("duplicate_category_request",category_name)
+		6:
+			OS.shell_open(CurrentEnvironment.current_dialog_directory+"/"+category_name)

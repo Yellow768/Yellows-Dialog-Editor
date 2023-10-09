@@ -1,3 +1,4 @@
+SpinBox
 VBoxContainer
 HBoxContainer
 UndoSystem
@@ -6,7 +7,6 @@ TextureRect
 HSlider
 Panel
 Label
-SpinBox
 ScrollContainer
 PanelContainer
 TextEdit

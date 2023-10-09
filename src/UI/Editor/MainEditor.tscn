@@ -976,6 +976,12 @@ text = "Selecting Dialog for Availability"
 process_mode = 2
 visible = false
 layout_mode = 1
+anchors_preset = 5
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 24.0
+offset_bottom = 813.0
+grow_vertical = 1
 
 [node name="UnsavedPanel" type="Panel" parent="."]
 visible = false
@@ -1171,10 +1177,9 @@ one_shot = true
 [connection signal="scan_for_changes" from="CategoryPanel" to="DialogEditor" method="scan_for_changes"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
-[connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
-[connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
+[connection signal="category_buttons_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
+[connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_deleted"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
-[connection signal="new_category_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="autosave_time_changed" from="EditorSettings" to="CategoryPanel" method="_on_editor_settings_autosave_time_changed"]
 [connection signal="snap_enabled_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_snap_enabled_changed"]
 [connection signal="pressed" from="UnsavedPanel/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]

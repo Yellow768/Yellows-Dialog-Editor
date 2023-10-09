@@ -219,6 +219,7 @@ func _on_PlayerResponseNode_gui_input(event):
 		emit_signal("response_double_clicked")
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		toggle_minimize_node()
+	
 
 func toggle_minimize_node():
 	match minimized:

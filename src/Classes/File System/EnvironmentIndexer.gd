@@ -6,7 +6,7 @@ signal category_renamed
 signal category_deleted
 signal clear_editor_request
 signal category_duplicated
-
+signal category_buttons_created
 
 
 var indexed_dialog_categories : Array[String]= []
@@ -22,6 +22,7 @@ func index_categories() -> Array[String]:
 	var dir_search := DirectorySearch.new()
 	indexed_dialog_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/dialogs")
 	CurrentEnvironment.highest_id = find_highest_index()
+	emit_signal("category_buttons_created",indexed_dialog_categories)
 	return indexed_dialog_categories
 	
 	
@@ -68,7 +69,7 @@ func create_new_category(new_category_name : String = ''):
 	dir.make_dir(CurrentEnvironment.current_directory+"/dialogs/"+new_category_name)
 	indexed_dialog_categories.append(new_category_name)
 	indexed_dialog_categories.sort()
-	emit_signal("new_category_created",indexed_dialog_categories)
+	emit_signal("new_category_created",new_category_name)
 	
 	
 
@@ -89,12 +90,13 @@ func rename_category(category_name : String,new_name : String):
 		indexed_dialog_categories.sort()
 		var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
-		emit_signal("category_renamed",indexed_dialog_categories)
+		emit_signal("category_renamed",category_name,new_name)
 
 
 	
 func delete_category(category_name : String):
-	emit_signal("clear_editor_request")
+	if category_name == CurrentEnvironment.current_category_name:
+		emit_signal("clear_editor_request")
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if DirAccess.get_open_error() == OK:
@@ -108,7 +110,7 @@ func delete_category(category_name : String):
 			file_name = dir.get_next()
 		dir.remove(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	index_categories()
-	emit_signal("category_deleted",indexed_dialog_categories)
+	emit_signal("category_deleted",category_name)
 	
 func duplicate_category(category_name : String):
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
@@ -116,5 +118,5 @@ func duplicate_category(category_name : String):
 	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_/"+category_name+"_.ydec")
 	indexed_dialog_categories.append(category_name+"_")
 	indexed_dialog_categories.sort()
-	emit_signal("new_category_created",indexed_dialog_categories)
+	emit_signal("new_category_created",category_name)
 	emit_signal("category_duplicated",category_name+"_")

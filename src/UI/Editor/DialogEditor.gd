@@ -589,10 +589,34 @@ func handle_input(event : InputEvent):
 				dialog.response_options[0].set_focus_on_title()
 
 func _on_DialogEditor_gui_input(event):
-	if Input.is_action_pressed("ui_undo") && not Input.is_action_just_pressed("ui_redo") :
-		emit_signal("request_undo")
+	var undo_redo_delay = 0
+	var undo_redo_started = false
+	if Input.is_action_pressed("ui_undo") && not Input.is_action_pressed("ui_redo"):
+		if !undo_redo_started:
+			emit_signal("request_undo")
+			undo_redo_started = true
+			undo_redo_delay = 10
+		if undo_redo_started:
+			if undo_redo_delay:
+				undo_redo_delay-=1
+			else:
+				emit_signal("request_undo")
 	if Input.is_action_pressed("ui_redo"):
-		emit_signal("request_redo")
+		if !undo_redo_started:
+			emit_signal("request_redo")
+			undo_redo_started = true
+			undo_redo_delay = 10
+		if undo_redo_started:
+			if undo_redo_delay:
+				undo_redo_delay-=1
+			else:
+				emit_signal("request_redo")
+	if Input.is_action_just_released("ui_undo"):
+		undo_redo_delay = 0
+		undo_redo_started = false
+	if Input.is_action_just_released("ui_redo"):
+		undo_redo_delay = 0
+		undo_redo_started = false
 	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		multi_select_mouse_mode = true
 	if Input.is_action_just_released("drag"):
@@ -675,6 +699,8 @@ func _on_undo_system_request_action_move_response_node(index: int, new_position 
 func _on_undo_system_request_action_move_color_organizer(index: int, new_position : Vector2):
 	current_color_organizer_index_map[index].position_offset = new_position
 	current_response_index_map[index].do_not_send_position_changed_signal = true
+
+
 
 
 

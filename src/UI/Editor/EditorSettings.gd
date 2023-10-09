@@ -10,12 +10,15 @@ signal autosave_time_changed
 @export var hold_shift_check_path : NodePath
 @export var auto_save_path : NodePath
 @export var enable_grid_check_path : NodePath
+@export var autosave_max_files_path : NodePath
+@export var allow_more_than_six_path : NodePath
 
 @onready var HideConnectionSlider : HSlider= get_node(hide_connection_slider_path)
 @onready var HoldShiftCheck :Button= get_node(hold_shift_check_path)
 @onready var AutoSave = get_node(auto_save_path)
 @onready var EnableGridCheck : CheckButton = get_node(enable_grid_check_path)
-
+@onready var AutoSaveMaxFiles : SpinBox = get_node(autosave_max_files_path)
+@onready var AllowMoreThanSix : CheckButton = get_node(allow_more_than_six_path)
 
 
 func _ready():
@@ -23,6 +26,8 @@ func _ready():
 	HoldShiftCheck.button_pressed = GlobalDeclarations.hold_shift_for_individual_movement
 	AutoSave.get_node("HSlider").value = GlobalDeclarations.autosave_time
 	EnableGridCheck.button_pressed = GlobalDeclarations.snap_enabled
+	AutoSaveMaxFiles.value = GlobalDeclarations.autosave_max_files
+	AllowMoreThanSix.button_pressed = GlobalDeclarations.allow_above_six_responses
 	for action in GlobalDeclarations.actions:
 		var keybind_instance = keybind_scene.instantiate()
 		keybind_instance.assign_action(action)
@@ -78,3 +83,11 @@ func _on_autosave_h_slider_changed(value):
 	GlobalDeclarations.autosave_time = value
 	autosave_time_changed.emit()
 	AutoSave.get_node("HSlider").get_node("ValueEdit").text = str(GlobalDeclarations.autosave_time)
+
+
+func _on_autosave_max_files_value_changed(value):
+	GlobalDeclarations.autosave_max_files = value
+
+
+func _on_allow_six_check_button_toggled(button_pressed):
+	GlobalDeclarations.allow_above_six_responses = button_pressed

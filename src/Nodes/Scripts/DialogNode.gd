@@ -93,10 +93,14 @@ func _ready():
 	TitleTextNode.text = dialog_title
 
 func add_response_node(commit_to_undo := true):
-	if response_options.size() < 6:
+	if !GlobalDeclarations.allow_above_six_responses:
+		if response_options.size() < 6:
+			emit_signal("add_response_request",self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
+			emit_signal("unsaved_changes")
+	else:
 		emit_signal("add_response_request",self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
 		emit_signal("unsaved_changes")
-
+	
 func delete_response_node(deletion_slot : int,response_node : response_node):
 	for i in response_options:
 		if i.slot > deletion_slot:

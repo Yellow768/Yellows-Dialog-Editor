@@ -9,6 +9,10 @@ func save_category(category_name,data = null,backup := false):
 		if backup:
 			DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave")
 			save_category = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave/"+category_name+Time.get_datetime_string_from_system(false,true).replace(":"," ")+".ydec",FileAccess.WRITE)
+			var all_files = DirAccess.get_files_at(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave")
+			if all_files.size() > GlobalDeclarations.autosave_max_files:
+				for i in range(0,all_files.size()-GlobalDeclarations.autosave_max_files):
+					DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave/"+all_files[i])
 		else:
 			save_category = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",FileAccess.WRITE)
 		if data != null:

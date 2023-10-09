@@ -42,8 +42,7 @@ func _ready():
 	
 func _input(event : InputEvent):
 	emit_signal("input_recieved", event)
-				
-
+	
 
 func update_current_directory(new_path : String):
 	CurrentEnvironment.current_directory = new_path

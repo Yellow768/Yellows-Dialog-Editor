@@ -116,6 +116,7 @@ func undo():
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].undo_history.back()
 	var redo
+	prints("Undo Action",ACTION_TYPES.find_key(action.type))
 	match action.type:
 		ACTION_TYPES.CREATE_DIALOG :
 			redo = create_action_delete_dialog(action.dialog_data.node_index)
@@ -176,6 +177,7 @@ func redo():
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].redo_history.back()
 	var undo
+	prints("Redo Action",ACTION_TYPES.find_key(action.type))
 	match action.type:
 		ACTION_TYPES.CREATE_DIALOG :
 			undo = create_action_delete_dialog(action.dialog_data.node_index)
@@ -654,3 +656,7 @@ func _on_dialog_editor_nodes_disconnected(from,to):
 
 func _on_dialog_editor_response_nodes_swapped(original,overlap,from,to):
 	add_to_undo(ACTION_TYPES.SWAP_RESPONSES,null,[original.node_index,overlap.node_index,from,to])
+
+
+func _on_dialog_file_system_index_category_deleted(category_name):
+	undoRedoHistories.erase(category_name)
