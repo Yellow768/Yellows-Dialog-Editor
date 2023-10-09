@@ -15,7 +15,7 @@ config/description="Yellow's External CustomNPCs Dialog Editor"
 run/main_scene="res://src/UI/Program.tscn"
 config/features=PackedStringArray("4.1")
 run/low_processor_mode=true
-boot_splash/image="res://Assets/UI Textures/editor_icon.png"
+boot_splash/image="res://Assets/UI Textures/Orange@4x.png"
 config/icon="res://Assets/UI Textures/editor_icon.svg"
 
 [autoload]

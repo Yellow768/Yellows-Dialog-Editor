@@ -29,6 +29,13 @@ func _on_Button_gui_input(event : InputEvent):
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_RIGHT:
+				var selected_style = StyleBoxFlat.new()
+				selected_style.bg_color = Color(.4,.19,37,.6)
+				selected_style.set_corner_radius_all(3)
+				selected_style.set_content_margin_all(4)
+				add_theme_stylebox_override("pressed",selected_style)
+				add_theme_stylebox_override("normal",selected_style)
+				add_theme_stylebox_override("hover",selected_style)
 				$PopupMenu.position = get_global_mouse_position()
 				$PopupMenu.popup()
 
@@ -61,3 +68,13 @@ func _on_popup_menu_id_pressed(id):
 			emit_signal("duplicate_category_request",category_name)
 		6:
 			OS.shell_open(CurrentEnvironment.current_dialog_directory+"/"+category_name)
+		7: 
+			$PopupMenu.visible = false
+	
+
+
+func _on_popup_menu_visibility_changed():
+	if $PopupMenu.visible == false:
+		remove_theme_stylebox_override("pressed")
+		remove_theme_stylebox_override("normal")
+		remove_theme_stylebox_override("hover")
