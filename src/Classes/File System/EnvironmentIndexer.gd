@@ -67,9 +67,9 @@ func create_new_category(new_category_name : String = ''):
 	
 	var dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/")
 	dir.make_dir(CurrentEnvironment.current_directory+"/dialogs/"+new_category_name)
-	indexed_dialog_categories.append(new_category_name)
-	indexed_dialog_categories.sort()
+	index_categories()
 	emit_signal("new_category_created",new_category_name)
+
 	
 	
 
@@ -86,12 +86,10 @@ func rename_category(category_name : String,new_name : String):
 		for i in indexed_dialog_categories.size():
 			if indexed_dialog_categories[i] == category_name:
 				indexed_dialog_categories[i] = new_name
-
-		indexed_dialog_categories.sort()
 		var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
+		index_categories()
 		emit_signal("category_renamed",category_name,new_name)
-
 
 	
 func delete_category(category_name : String):
@@ -116,7 +114,8 @@ func duplicate_category(category_name : String):
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
 	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_")
 	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_/"+category_name+"_.ydec")
-	indexed_dialog_categories.append(category_name+"_")
-	indexed_dialog_categories.sort()
 	emit_signal("new_category_created",category_name)
 	emit_signal("category_duplicated",category_name+"_")
+	index_categories()
+
+
