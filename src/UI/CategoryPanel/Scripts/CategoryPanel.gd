@@ -325,3 +325,7 @@ func _on_editor_settings_autosave_time_changed():
 
 func _on_dialog_file_system_index_category_deleted(category):
 	category_temp_data.erase(category)
+
+
+func _on_dialog_file_system_index_category_renamed(old_name,new_name):
+	category_temp_data.erase(old_name)

@@ -554,8 +554,10 @@ func handle_input(event : InputEvent):
 		if selected_responses.size() == 1 && selected_dialogs.size() == 0:
 			var response : response_node = selected_responses[0]
 			if Input.is_action_just_pressed("focus_left_cycle"):
+				
 				var response_index : int = response.connected_dialog.connected_responses.find(response)
 				var next_response_index = response_index
+				print(next_response_index)
 				if response_index == response.connected_dialog.connected_responses.size()-1:
 					next_response_index = 0
 				else:
@@ -612,10 +614,10 @@ func _on_DialogEditor_gui_input(event):
 			else:
 				emit_signal("request_redo")
 	if Input.is_action_just_released("ui_undo"):
-		undo_redo_delay = 0
+		undo_redo_delay = 10
 		undo_redo_started = false
 	if Input.is_action_just_released("ui_redo"):
-		undo_redo_delay = 0
+		undo_redo_delay = 10
 		undo_redo_started = false
 	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		multi_select_mouse_mode = true

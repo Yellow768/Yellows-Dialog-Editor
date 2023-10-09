@@ -196,10 +196,10 @@ func set_connection_shown():
 	RemoteConnectionContainer.visible = false
 	
 
-func disconnect_from_dialog():
+func disconnect_from_dialog(commit_to_undo := true):
 	if connected_dialog!=null:
 		connected_dialog.remove_connected_response(self)
-		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0,false)
+		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0,commit_to_undo)
 		connected_dialog = null
 	to_dialog_id = -1
 	IdSpinbox.value = 0

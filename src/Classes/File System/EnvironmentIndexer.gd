@@ -87,6 +87,7 @@ func rename_category(category_name : String,new_name : String):
 			if indexed_dialog_categories[i] == category_name:
 				indexed_dialog_categories[i] = new_name
 		var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
+		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+new_name+".ydec")
 		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
 		index_categories()
 		emit_signal("category_renamed",category_name,new_name)

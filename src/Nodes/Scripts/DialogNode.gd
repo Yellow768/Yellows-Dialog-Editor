@@ -130,7 +130,7 @@ func delete_response_options():
 			i.delete_self(false)
 	while connected_responses.size() > 0:
 		for i in connected_responses:
-			i.disconnect_from_dialog()
+			i.disconnect_from_dialog(false)
 			connected_responses.erase(i)
 
 func set_focus_on_title():

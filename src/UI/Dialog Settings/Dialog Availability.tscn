@@ -45,10 +45,10 @@ alignment = 1
 item_count = 3
 popup/item_0/text = "Always"
 popup/item_0/id = 0
-popup/item_1/text = "Before"
-popup/item_1/id = 1
-popup/item_2/text = "After"
-popup/item_2/id = 2
+popup/item_1/text = "After"
+popup/item_1/id = 2
+popup/item_2/text = "Before"
+popup/item_2/id = 1
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]
 layout_mode = 1

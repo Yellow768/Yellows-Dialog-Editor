@@ -660,3 +660,7 @@ func _on_dialog_editor_response_nodes_swapped(original,overlap,from,to):
 
 func _on_dialog_file_system_index_category_deleted(category_name):
 	undoRedoHistories.erase(category_name)
+
+
+func _on_dialog_file_system_index_category_renamed(old_name,new_name):
+	undoRedoHistories.erase(old_name)
