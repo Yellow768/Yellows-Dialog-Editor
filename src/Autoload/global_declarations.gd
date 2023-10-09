@@ -23,7 +23,7 @@ var dialog_left_slot_color_hidden := Color(1,0,1)
 
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
-var snap_enabled = true
+var snap_enabled := true
 var color_presets : PackedColorArray
 var autosave_time := 3
 var autosave_max_files := 10
@@ -40,7 +40,7 @@ func _ready():
 	config.load("user://user_settings.cfg")
 	hide_connection_distance = config.get_value("user_settings","hide_connection_distance",1000)
 	hold_shift_for_individual_movement = config.get_value("user_settings","hold_shift_for_individual_movement",false)
-	snap_enabled = config.get_value("user_settings","snap_enabled",false)
+	snap_enabled = config.get_value("user_settings","snap_enabled",snap_enabled)
 	color_presets = config.get_value("user_settings","color_presets",color_presets)
 	autosave_time = config.get_value("user_settings","autosave_time",autosave_time)
 	autosave_max_files = config.get_value("user_settings","autosave_max_files",autosave_max_files)

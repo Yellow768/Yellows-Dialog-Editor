@@ -553,7 +553,7 @@ func handle_input(event : InputEvent):
 		
 		if selected_responses.size() == 1 && selected_dialogs.size() == 0:
 			var response : response_node = selected_responses[0]
-			if Input.is_action_just_pressed("focus_left_cycle"):
+			if Input.is_action_pressed("focus_cycle"):
 				
 				var response_index : int = response.connected_dialog.connected_responses.find(response)
 				var next_response_index = response_index
@@ -575,7 +575,7 @@ func handle_input(event : InputEvent):
 			var response : response_node = selected_responses[0]
 			if response.connected_dialog == null:
 				return
-			if Input.is_action_just_pressed("focus_right_cycle"):
+			if Input.is_action_pressed("focus_cycle"):
 				var response_index : int = response.connected_dialog.connected_responses.find(response)
 				var next_response_index = response_index
 				if response_index == 0:

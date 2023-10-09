@@ -460,7 +460,7 @@ offset_right = 270.5
 offset_bottom = 66.0
 grow_horizontal = 2
 theme_override_fonts/font = SubResource("1")
-text = "Yellow's CNPC Dialog Editor"
+text = "Yellow's Dialog Editor v 0.5.0"
 label_settings = SubResource("LabelSettings_gcbbp")
 horizontal_alignment = 1
 
