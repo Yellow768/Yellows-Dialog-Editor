@@ -1,9 +1,11 @@
+HSeparator
+ScrollContainer
+Container
 HBoxContainer
 FileDialog
 Button
 Label
 VSeparator
-HSeparator
 VBoxContainer
 SpinBox
 UndoSystem
@@ -11,7 +13,6 @@ Timer
 TextureRect
 HSlider
 Panel
-ScrollContainer
 PanelContainer
 TextEdit
 LineEdit

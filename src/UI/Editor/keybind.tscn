@@ -7,7 +7,7 @@ custom_minimum_size = Vector2(325, 31)
 script = ExtResource("1_ab5md")
 
 [node name="Label" type="Label" parent="."]
-custom_minimum_size = Vector2(325, 0)
+custom_minimum_size = Vector2(166.135, 0)
 layout_mode = 2
 text = "Drag/Don't Drag Response Nodes"
 

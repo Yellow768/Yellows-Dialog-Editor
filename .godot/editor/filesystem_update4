@@ -10,3 +10,4 @@ res://src/UI/LandingScreen.gd
 res://src/Autoload/global_declarations.gd
 res://src/UI/Editor/EditoSettings.tscn
 res://src/UI/Editor/EditorSettings.gd
+res://src/UI/Editor/keybind.tscn
