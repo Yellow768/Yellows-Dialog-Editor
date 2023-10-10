@@ -30,6 +30,8 @@ var autosave_max_files := 10
 
 var allow_above_six_responses := false
 
+var default_user_directory := OS.get_data_dir()+"/.minecraft/saves"
+
 var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_right","zoom_key","drag_responses_key","delete_nodes","add_dialog_at_mouse","create_response","zoom_in","zoom_out","select_multiple","save","export","scan_for_changes","reimport_category","swap_responses"]
 
 var assigning_keybind = false
@@ -44,6 +46,7 @@ func _ready():
 	color_presets = config.get_value("user_settings","color_presets",color_presets)
 	autosave_time = config.get_value("user_settings","autosave_time",autosave_time)
 	autosave_max_files = config.get_value("user_settings","autosave_max_files",autosave_max_files)
+	default_user_directory = config.get_value("user_settings","default_user_directory",default_user_directory)
 	allow_above_six_responses = config.get_value("user_settings","allow_above_six_responses",allow_above_six_responses)
 	for action in actions:
 		var temp_action = InputMap.action_get_events(action)
@@ -62,6 +65,7 @@ func save_config():
 	config.set_value("user_settings","autosave_time",autosave_time)
 	config.set_value("user_settings","autosave_max_files",autosave_max_files)
 	config.set_value("user_settings","allow_above_six_responses",allow_above_six_responses)
+	config.set_value("user_settings","default_user_directory",default_user_directory)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)

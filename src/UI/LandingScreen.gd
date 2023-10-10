@@ -17,6 +17,7 @@ func _ready():
 		quick_dir_button.text = dir
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
+	$Panel/FileDialog.current_dir = GlobalDeclarations.default_user_directory
 	
 
 
@@ -71,6 +72,7 @@ func _on_Open_Environment_pressed():
 
 
 func _on_FileDialog_dir_selected(path : String):
+	print(path)
 	var valid_path := find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path

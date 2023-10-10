@@ -21,26 +21,23 @@ bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 [node name="EditorSettings" type="Panel"]
 self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
 custom_minimum_size = Vector2(600, 600)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -300.0
-offset_right = 300.0
-offset_bottom = 520.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_arin6")
 script = ExtResource("1_b3w4b")
-hide_connection_slider_path = NodePath("VBoxContainer/HideConnectionDistance/HSlider")
-hold_shift_check_path = NodePath("VBoxContainer/HoldShift/CheckButton")
-auto_save_path = NodePath("VBoxContainer/Autosave Time")
-enable_grid_check_path = NodePath("VBoxContainer/EnableGridSnap/CheckButton")
-autosave_max_files_path = NodePath("VBoxContainer/AutosaveMaxFiles/ValueEdit")
-allow_more_than_six_path = NodePath("VBoxContainer/AllowMoreThanSix/CheckButton")
+hide_connection_slider_path = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance/HSlider")
+hold_shift_check_path = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer2/HoldShift/CheckButton")
+auto_save_path = NodePath("VBoxContainer2/VBoxContainer3/Autosave Time/HSlider")
+enable_grid_check_path = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer/EnableGridSnap/CheckButton")
+autosave_max_files_path = NodePath("VBoxContainer2/VBoxContainer3/AutosaveMaxFiles/ValueEdit")
+allow_more_than_six_path = NodePath("VBoxContainer2/HBoxContainer/VBoxContainer2/AllowMoreThanSix/CheckButton")
+keybinds_scroll_path = NodePath("VBoxContainer2/ScrollContainer/KeyBinds")
+default_directory_label_path = NodePath("VBoxContainer2/VBoxContainer3/HBoxContainer/Default Directory")
+default_directory_file_dialog_path = NodePath("VBoxContainer2/VBoxContainer3/HBoxContainer/Default Directory/FileDialog")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -54,28 +51,56 @@ grow_horizontal = 2
 text = "Editor Settings"
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 575.0
-offset_right = 593.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
 offset_bottom = 31.0
+grow_horizontal = 0
 text = "X"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_left = 24.01
-offset_top = 66.905
-offset_right = 315.01
-offset_bottom = 126.245
-mouse_filter = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -554.0
+offset_top = -335.0
+offset_right = 554.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HideConnectionDistance" type="Label" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 71.075)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer2/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(749.8, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HideConnectionDistance" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 tooltip_text = "The maximum distance a response node can be from a dialog node before the connection line is hidden"
 mouse_filter = 1
 text = "Hide Connection Distance"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HideConnectionDistance"]
+[node name="HSlider" type="HSlider" parent="VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance"]
 layout_mode = 0
 offset_left = 275.0
 offset_top = 8.0
@@ -87,7 +112,7 @@ max_value = 10000.0
 value = 1000.0
 allow_greater = true
 
-[node name="ValueEdit" type="LineEdit" parent="VBoxContainer/HideConnectionDistance/HSlider"]
+[node name="ValueEdit" type="LineEdit" parent="VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance/HSlider"]
 layout_mode = 0
 offset_left = -6.0
 offset_top = 20.0
@@ -96,7 +121,7 @@ offset_bottom = 46.0
 mouse_filter = 1
 text = "1000"
 
-[node name="Resetbutton" type="Button" parent="VBoxContainer/HideConnectionDistance/HSlider"]
+[node name="Resetbutton" type="Button" parent="VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance/HSlider"]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 15.0
@@ -106,24 +131,22 @@ theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = -12
 icon = ExtResource("2_ik3cf")
 
-[node name="EnableGridSnap" type="Label" parent="VBoxContainer"]
+[node name="EnableGridSnap" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Enable grid snapping in the editor"
 mouse_filter = 1
 text = "Enable Grid Snapping"
 
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/EnableGridSnap"]
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer2/HBoxContainer/VBoxContainer/EnableGridSnap"]
 layout_mode = 0
 offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 37.285)
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 
-[node name="HoldShift" type="Label" parent="VBoxContainer"]
+[node name="HoldShift" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 tooltip_text = "By default, moving dialog nodes will not cause it's connected response nodes to move with it, unless you're holding shift.
 
@@ -131,37 +154,39 @@ Inverting it will mean that dialog nodes WILL move response nodes, unless holdin
 mouse_filter = 1
 text = "Invert Dialog Movement Functionality"
 
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HoldShift"]
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer2/HBoxContainer/VBoxContainer2/HoldShift"]
 layout_mode = 0
 offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
 
-[node name="AllowMoreThanSix" type="Label" parent="VBoxContainer"]
+[node name="AllowMoreThanSix" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The in-game editor only allows you to add six responses to a dialog, but adding more responses directly to the JSON allows for more response options."
 mouse_filter = 1
 text = "Allow More Than Six Responses"
 
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer/AllowMoreThanSix"]
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer2/HBoxContainer/VBoxContainer2/AllowMoreThanSix"]
 layout_mode = 0
 offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
 
-[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 37.285)
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(432.01, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
 
-[node name="Autosave Time" type="Label" parent="VBoxContainer"]
+[node name="Autosave Time" type="Label" parent="VBoxContainer2/VBoxContainer3"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 tooltip_text = "Amount of minutes between auto-saves"
 mouse_filter = 1
 text = "Autosave Frequency (Minutes)"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/Autosave Time"]
+[node name="HSlider" type="HSlider" parent="VBoxContainer2/VBoxContainer3/Autosave Time"]
 layout_mode = 0
 offset_left = 275.0
 offset_top = 8.0
@@ -172,7 +197,7 @@ max_value = 200.0
 value = 3.0
 allow_greater = true
 
-[node name="ValueEdit" type="LineEdit" parent="VBoxContainer/Autosave Time/HSlider"]
+[node name="ValueEdit" type="LineEdit" parent="VBoxContainer2/VBoxContainer3/Autosave Time/HSlider"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 0
 offset_left = -6.0
@@ -182,7 +207,7 @@ offset_bottom = 46.0
 mouse_filter = 1
 text = "3"
 
-[node name="Resetbutton" type="Button" parent="VBoxContainer/Autosave Time/HSlider"]
+[node name="Resetbutton" type="Button" parent="VBoxContainer2/VBoxContainer3/Autosave Time/HSlider"]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 15.0
@@ -192,48 +217,72 @@ theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = -12
 icon = ExtResource("2_ik3cf")
 
-[node name="AutosaveMaxFiles" type="Label" parent="VBoxContainer"]
+[node name="AutosaveMaxFiles" type="Label" parent="VBoxContainer2/VBoxContainer3"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 tooltip_text = "How many autosave files can be in the auto save folder"
 mouse_filter = 1
 text = "Max Autosave Files"
 
-[node name="ValueEdit" type="SpinBox" parent="VBoxContainer/AutosaveMaxFiles"]
+[node name="ValueEdit" type="SpinBox" parent="VBoxContainer2/VBoxContainer3/AutosaveMaxFiles"]
 layout_mode = 0
 offset_left = 269.0
 offset_right = 352.063
 offset_bottom = 31.0
 mouse_filter = 1
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Default Directory" type="Label" parent="VBoxContainer2/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Change the default folder that's opened when
+you click \"Open Environment\""
+text = "Default Directory: default_user_directory"
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer2/VBoxContainer3/HBoxContainer/Default Directory"]
+title = "Choose Default Directory"
+size = Vector2i(700, 600)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="Button" type="Button" parent="VBoxContainer2/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "Change"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer2"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 300)
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(0, 443.45)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 horizontal_scroll_mode = 0
 
-[node name="KeyBinds" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-custom_minimum_size = Vector2(400, 70)
+[node name="KeyBinds" type="VBoxContainer" parent="VBoxContainer2/ScrollContainer"]
+custom_minimum_size = Vector2(400, 300.71)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/KeyBinds"]
+[node name="Label" type="Label" parent="VBoxContainer2/ScrollContainer/KeyBinds"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 text = "Key Binds"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="value_changed" from="VBoxContainer/HideConnectionDistance/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="text_submitted" from="VBoxContainer/HideConnectionDistance/HSlider/ValueEdit" to="." method="_on_value_edit_text_submitted"]
-[connection signal="pressed" from="VBoxContainer/HideConnectionDistance/HSlider/Resetbutton" to="." method="_on_resetbutton_pressed"]
-[connection signal="toggled" from="VBoxContainer/EnableGridSnap/CheckButton" to="." method="_on_undo_button_toggled"]
-[connection signal="toggled" from="VBoxContainer/HoldShift/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="VBoxContainer/AllowMoreThanSix/CheckButton" to="." method="_on_allow_six_check_button_toggled"]
-[connection signal="value_changed" from="VBoxContainer/Autosave Time/HSlider" to="." method="_on_autosave_h_slider_changed"]
-[connection signal="text_changed" from="VBoxContainer/Autosave Time/HSlider/ValueEdit" to="." method="_on_autosave_value_edit_text_changed"]
-[connection signal="pressed" from="VBoxContainer/Autosave Time/HSlider/Resetbutton" to="." method="_on_autosave_resetbutton_pressed"]
-[connection signal="value_changed" from="VBoxContainer/AutosaveMaxFiles/ValueEdit" to="." method="_on_autosave_max_files_value_changed"]
+[connection signal="value_changed" from="VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="text_submitted" from="VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance/HSlider/ValueEdit" to="." method="_on_value_edit_text_submitted"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/VBoxContainer/HideConnectionDistance/HSlider/Resetbutton" to="." method="_on_resetbutton_pressed"]
+[connection signal="toggled" from="VBoxContainer2/HBoxContainer/VBoxContainer/EnableGridSnap/CheckButton" to="." method="_on_undo_button_toggled"]
+[connection signal="toggled" from="VBoxContainer2/HBoxContainer/VBoxContainer2/HoldShift/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="VBoxContainer2/HBoxContainer/VBoxContainer2/AllowMoreThanSix/CheckButton" to="." method="_on_allow_six_check_button_toggled"]
+[connection signal="value_changed" from="VBoxContainer2/VBoxContainer3/Autosave Time/HSlider" to="." method="_on_autosave_h_slider_changed"]
+[connection signal="text_changed" from="VBoxContainer2/VBoxContainer3/Autosave Time/HSlider/ValueEdit" to="." method="_on_autosave_value_edit_text_changed"]
+[connection signal="pressed" from="VBoxContainer2/VBoxContainer3/Autosave Time/HSlider/Resetbutton" to="." method="_on_autosave_resetbutton_pressed"]
+[connection signal="value_changed" from="VBoxContainer2/VBoxContainer3/AutosaveMaxFiles/ValueEdit" to="." method="_on_autosave_max_files_value_changed"]
+[connection signal="canceled" from="VBoxContainer2/VBoxContainer3/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_canceled"]
+[connection signal="dir_selected" from="VBoxContainer2/VBoxContainer3/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="button_up" from="VBoxContainer2/VBoxContainer3/HBoxContainer/Button" to="." method="_on_change_directorybutton_button_up"]
