@@ -70,8 +70,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_left = 10.0
 offset_top = -226.0
-offset_right = 546.0
+offset_right = 556.0
 offset_bottom = 214.0
 grow_vertical = 2
 
@@ -147,6 +148,10 @@ offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
 
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
 [node name="CreationSettings" type="VBoxContainer" parent="ScrollContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(-11.56, 0)
 layout_mode = 2
@@ -162,6 +167,10 @@ layout_mode = 0
 offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
 
 [node name="FileSettings" type="VBoxContainer" parent="ScrollContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(459.195, 0)
@@ -222,16 +231,21 @@ offset_right = 352.063
 offset_bottom = 31.0
 mouse_filter = 1
 
+[node name="HSeparator3" type="HSeparator" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
 layout_mode = 2
 
 [node name="Default Directory" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer"]
+custom_minimum_size = Vector2(473.715, 0)
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
 mouse_filter = 1
 text = "Default Directory: default_user_directory"
-autowrap_mode = 1
+autowrap_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory"]
 title = "Choose Default Directory"
@@ -255,8 +269,8 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -408.0
-offset_top = -222.0
-offset_bottom = 294.0
+offset_top = -262.0
+offset_bottom = 254.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 4

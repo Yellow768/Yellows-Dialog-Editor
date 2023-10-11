@@ -157,10 +157,12 @@ func set_connection_text(dialog_name : String,dialog_node_index: int):
 func reveal_button():
 	if option_type == 0:
 		NewDialogButtonNode.modulate = Color(1,1,1,1)
+		NewDialogButtonNode.disabled = false
 
 	
 func hide_button():
 	NewDialogButtonNode.modulate = Color(1,1,1,0)
+	NewDialogButtonNode.disabled = true
 	
 
 func update_connection_text():
@@ -253,6 +255,8 @@ func _on_AddNewDialog_pressed():
 func add_new_connected_dialog(commit_to_undo := true):
 	if option_type != 0:
 		return
+	if connected_dialog:
+		return
 	var new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
 	if ResponseTextNode.text != '':
@@ -272,7 +276,8 @@ func _on_ColorPickerButton_color_changed(color : Color):
 	ResponseTextNode.add_theme_color_override("font_color",color)
 	
 	
-
+func set_response_title(text: String):
+	ResponseTextNode.text = text
 
 func _on_ResponseText_text_changed(new_text : String):
 	response_title = ResponseTextNode.text
@@ -291,7 +296,7 @@ func _on_DisconnectButton_pressed():
 func _on_JumpButton_pressed():
 	var dialog_location = connected_dialog.position_offset
 	emit_signal("request_set_scroll_offset",dialog_location)
-	connected_dialog.emit_signal("set_self_as_selected",connected_dialog)
+	connected_dialog.selected = true
 
 
 func _on_ResponseNodeArea_area_entered(area : Area2D):
@@ -360,4 +365,4 @@ func _on_spin_box_mouse_exited():
 func _on_response_text_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			emit_signal("set_self_as_selected",self)
+			selected = true

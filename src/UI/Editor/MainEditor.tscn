@@ -30,7 +30,7 @@
 [ext_resource type="Script" path="res://src/UI/Editor/MailData.gd" id="22_teu44"]
 [ext_resource type="PackedScene" uid="uid://bqw7nlvwgcprr" path="res://src/UI/Dialog Settings/MailItemSlot.tscn" id="23_o8k7p"]
 [ext_resource type="FontFile" uid="uid://dnq4gj617agk3" path="res://Assets/Font/minecraft_font.ttf" id="23_rr465"]
-[ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditoSettings.tscn" id="25_ypfkb"]
+[ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="25_ypfkb"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -974,6 +974,7 @@ text = "Selecting Dialog for Availability"
 
 [node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
 process_mode = 2
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

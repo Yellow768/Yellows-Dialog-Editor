@@ -108,6 +108,7 @@ func set_locked(value : bool):
 		draggable = false
 		$HBoxContainer/VBoxContainer/ColorPickerButton.visible = false
 		$HBoxContainer/TextEdit.mouse_filter = MOUSE_FILTER_IGNORE
+		selected = false
 	else:
 		$HBoxContainer/VBoxContainer/Button.icon = load("res://Assets/UI Textures/Icon Font/lock-off-line.svg")
 		$HBoxContainer/VBoxContainer/ColorPickerButton.visible = true

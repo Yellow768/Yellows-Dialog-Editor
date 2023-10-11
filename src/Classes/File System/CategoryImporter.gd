@@ -105,18 +105,38 @@ func scan_category_for_changes(category_name : String = CurrentEnvironment.curre
 			if current.node_type != "Dialog Node":
 				continue
 			if json["DialogId"] == current.dialog_id:
-				current.clear_responses()
+				for i in json["Options"].size():
+					if i <= current.response_options.size():
+						
+						var response = current.response_options[i]
+						response.slot = json["Options"][i]["OptionSlot"]
+						response.set_command(json["Options"][i]["Option"]["DialogCommand"])
+						response.set_connected_dialog(find_dialog_node_from_id(json["Options"][i]["Option"]["Dialog"])) 
+						response.set_response_title(json["Options"][i]["Option"]["Title"])
+						response.color_decimal = json["Options"][i]["Option"]["DialogColor"]
+						response.set_option_from_json_index(json["Options"][i]["Option"]["OptionType"])
+					else:
+						var response : response_node = GlobalDeclarations.RESPONSE_NODE.instantiate() 
+						response.slot = json["Options"][i]["OptionSlot"]
+						response.command = json["Options"][i]["Option"]["DialogCommand"]
+						response.to_dialog_id = json["Options"][i]["Option"]["Dialog"]
+						response.response_title = json["Options"][i]["Option"]["Title"]
+						response.color_decimal = json["Options"][i]["Option"]["DialogColor"]
+						response.set_option_from_json_index(json["Options"][i]["Option"]["OptionType"])
+						emit_signal("request_add_response",current,response)
+						response.set_connected_dialog(find_dialog_node_from_id(json["Options"][i]["Option"]["Dialog"])) 
 				update_dialog_node_information(current,json)
-				create_response_nodes_from_json(current,json)
 				updated_dialog_nodes.append(current)
 				imported_dialogs.erase(json)
-	for updated_dialog in updated_dialog_nodes:
-		create_dialogs_from_responses(updated_dialog)
 	if !imported_dialogs.is_empty():
 		create_nodes_from_index(category_name,0)
 	
 		
-	
+func find_dialog_node_from_id(id : int):
+	var dialog_nodes = get_tree().get_nodes_in_group("Save")
+	for dialog in dialog_nodes:
+		if dialog.dialog_id == id:
+			return dialog	
 	
 
 func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dialog_node:

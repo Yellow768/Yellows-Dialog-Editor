@@ -432,11 +432,13 @@ func select_node(node):
 		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
 			selected_color_organizers.append(node)
 	else:
-		if not (selected_dialogs.size() + selected_responses.size() + color_organizers.size() > 1):
+		if not (selected_dialogs.size() + selected_responses.size() + selected_color_organizers.size() > 1):
 			for dialog in selected_dialogs:
 				dialog.selected = false
 			for response in selected_responses:
 				response.selected = false
+			for col_org in selected_color_organizers:
+				col_org.selected = false
 			selected_responses.clear()
 			selected_dialogs.clear()
 			selected_color_organizers.clear()
@@ -593,26 +595,10 @@ func handle_input(event : InputEvent):
 func _on_DialogEditor_gui_input(event):
 	var undo_redo_delay = 0
 	var undo_redo_started = false
-	if Input.is_action_pressed("ui_undo") && not Input.is_action_pressed("ui_redo"):
-		if !undo_redo_started:
-			emit_signal("request_undo")
-			undo_redo_started = true
-			undo_redo_delay = 10
-		if undo_redo_started:
-			if undo_redo_delay:
-				undo_redo_delay-=1
-			else:
-				emit_signal("request_undo")
-	if Input.is_action_pressed("ui_redo"):
-		if !undo_redo_started:
-			emit_signal("request_redo")
-			undo_redo_started = true
-			undo_redo_delay = 10
-		if undo_redo_started:
-			if undo_redo_delay:
-				undo_redo_delay-=1
-			else:
-				emit_signal("request_redo")
+	if Input.is_action_just_pressed("ui_undo") && not Input.is_action_pressed("ui_redo"):
+		emit_signal("request_undo")
+	if Input.is_action_just_pressed("ui_redo"):
+		emit_signal("request_redo")
 	if Input.is_action_just_released("ui_undo"):
 		undo_redo_delay = 10
 		undo_redo_started = false
