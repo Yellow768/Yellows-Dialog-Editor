@@ -1,7 +1,26 @@
-[gd_scene load_steps=11 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=17 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="3_rydwl"]
+[ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="4_3xjq6"]
+[ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w7n4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kf54y"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3qmf"]
+bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="FontFile" id="1"]
 subpixel_positioning = 0
@@ -449,6 +468,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="EditorSettingsButton" type="Button" parent="Panel"]
+process_mode = 1
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -165.0
+offset_bottom = 73.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w7n4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kf54y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v3qmf")
+text = "EDITOR_SETTINGS"
+icon = ExtResource("3_rydwl")
+
 [node name="ProgramTitleLabe" type="Label" parent="Panel"]
 layout_mode = 1
 anchors_preset = 5
@@ -460,7 +495,7 @@ offset_right = 270.5
 offset_bottom = 66.0
 grow_horizontal = 2
 theme_override_fonts/font = SubResource("1")
-text = "Yellow's Dialog Editor v 0.5.0"
+text = "Yellow's Dialog Editor v 0.5.1"
 label_settings = SubResource("LabelSettings_gcbbp")
 horizontal_alignment = 1
 
@@ -571,6 +606,26 @@ grow_vertical = 0
 text = "Directory Does Not Exist"
 label_settings = SubResource("LabelSettings_01jgx")
 
+[node name="EditorIcon" type="Sprite2D" parent="."]
+position = Vector2(36, 34)
+scale = Vector2(0.308659, 0.308659)
+texture = ExtResource("4_edwkw")
+
+[node name="EditorSettings" parent="." instance=ExtResource("4_3xjq6")]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+
+[connection signal="pressed" from="Panel/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="pressed" from="Panel/InvalidFolderWarning/Confirm" to="." method="_on_Confirm_pressed"]
