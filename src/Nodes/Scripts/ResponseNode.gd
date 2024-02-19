@@ -69,6 +69,7 @@ func _ready():
 	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
 	CommandTextNode.text = command
+	IdSpinbox.value = to_dialog_id
 	ResponseTextNode.add_theme_color_override("font_color",ColorPickerNode.color)
 	for color in GlobalDeclarations.color_presets:
 		ColorPickerNode.get_picker().add_preset(color)
@@ -97,7 +98,7 @@ func set_focus_on_title():
 
 func set_response_slot(value : int):
 	slot = value
-	title = "Response Option "+str(value+1) 
+	title = tr("RESPONSE_OPTION")+" "+str(value+1) 
 	emit_signal("unsaved_change")
 	
 
@@ -137,6 +138,7 @@ func set_connected_dialog(new_connected_dialog):
 	if not is_inside_tree(): await self.ready
 	if connected_dialog != null:
 		to_dialog_id = connected_dialog.dialog_id
+		spinbox_ignore_changes = true
 		IdSpinbox.value = to_dialog_id
 		hide_button()
 		update_connection_text()
@@ -152,7 +154,7 @@ func set_to_dialog_id(new_id : int):
 
 func set_connection_text(dialog_name : String,dialog_node_index: int):
 	if not is_inside_tree(): await self.ready
-	RemoteConnectionText.text = "Connected to "+dialog_name+" | Node "+str(dialog_node_index)
+	RemoteConnectionText.text = tr("RESPONSE_CONNECTED")+dialog_name+" | "+tr("NODE") +str(dialog_node_index)
 	
 func reveal_button():
 	if option_type == 0:
@@ -219,8 +221,7 @@ func delete_self(commit_to_undo := true):
 func _on_PlayerResponseNode_gui_input(event):
 	if event is InputEventMouseButton and event.double_click:
 		emit_signal("response_double_clicked")
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		toggle_minimize_node()
+	
 	
 
 func toggle_minimize_node():
@@ -257,6 +258,7 @@ func add_new_connected_dialog(commit_to_undo := true):
 		return
 	if connected_dialog:
 		return
+	spinbox_ignore_changes = true
 	var new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
 	if ResponseTextNode.text != '':
@@ -325,11 +327,13 @@ var spinbox_ignore_changes = true
 
 func _on_spin_box_value_changed(value):
 	if spinbox_ignore_changes:
+		spinbox_ignore_changes = false
 		return
 	if !connection_hidden && connected_dialog != null:
 		set_connection_hidden()
 	hide_button()
 	to_dialog_id = value
+	
 	RemoteConnectionContainer.visible = true
 	RemoteConnectionJumpButton.visible = false
 	RemoteConnectionText.text = "ID Manually Set."
@@ -354,15 +358,14 @@ func save():
 	}
 
 
-func _on_spin_box_mouse_entered():
-	spinbox_ignore_changes = false
 
-
-func _on_spin_box_mouse_exited():
-	spinbox_ignore_changes = true
 
 
 func _on_response_text_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			selected = true
+
+
+func _on_spin_box_gui_input(event):
+	print("test")

@@ -43,7 +43,7 @@ var initial_offset_y :float= 0
 
 ##Dialog Data#
 
-@export var dialog_title : String = 'New Dialog'
+@export var dialog_title : String = tr("NEW_DIALOG_TITLE")
 
 #Immutable
 @export var dialog_id : int = -1: set = set_dialog_id
@@ -175,7 +175,7 @@ func set_dialog_id(id: int):
 
 func set_node_index(index : int):
 	node_index = index
-	title = "Dialog Node "+str(index)
+	title = tr("DIALOG_NODE")+str(index)
 
 func _on_AddPlayerResponse_pressed():
 	add_response_node()

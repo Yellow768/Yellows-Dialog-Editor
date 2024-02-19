@@ -1,10 +1,11 @@
+OptionButton
+HBoxContainer
+Label
 HSeparator
 ScrollContainer
 Container
-HBoxContainer
 FileDialog
 Button
-Label
 VSeparator
 VBoxContainer
 SpinBox

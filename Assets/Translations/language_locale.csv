@@ -1,0 +1,155 @@
+key,en,ia
+OPEN_ENV,Open Environment,Abrir Entorno
+BEGIN_SPLASH,"To begin, select a directory to establish as the editor's environment. 
+This is where the editor will save dialog categories .ydec files.
+
+Selecting a minecraft world folder, or world/customnpcs
+folder, will allow you to import existing dialogs, and access
+named quests, factions, and proper dialog IDs",t
+RECENT_ENVS,Recently Opened Environments,t
+EDITOR_SETTINGS,Editor Settings,t
+RETURN_HOME_BUTTON,Return To Home,t
+BLANK_EDITOR_LABEL,Choose or create a cateogry to start editing,t
+CATEGORIES_PANEL_LABEL,Categories,t
+CREATE_NEW_CATEGORY,Create New Category,t
+SEARCH,Search,t
+INFORMATION_PANEL_LABEL,Information Panel,t
+DIALOG_SETTINGS,DialogSettings,t
+AVAILABILITY_SETTINGS,AvailabilitySettings,t
+MAIL,Mail,t
+QUEST_AVAILABILITIES,Quest Availabilities,t
+AV_ALWAYS,Always,t
+AV_BEFORE,Before,t
+AV_AFTER,After,t
+AV_WHEN_NOT_ACTIVE,When Not Active,t
+AV_WHEN_ACTIVE,When Active,t
+AV_COMPLETE,Objectives Complete,t
+DIALOG_AVAILABILITIES,Dialog Availabilities,t
+FACTION_AVAILABILITIES,Faction Availabilities,t
+FACTION_FRIENDLY,Friendly,t
+FACTION_NEUTRAL,Neutral,t
+FACTION_UNFRIENDLY,Unfriendly,t
+SCORE_AVAILABILITIES,Scoreboard Availabilities,t
+OBJECTIVE_NAME,Objective Name,t
+SCORE_EQUALS,Equals,t
+SCORE_BIGGER,Bigger Than,t
+SCORE_SMALLER,Smaller Than,t
+HIDE_NPC,Hide NPC,t
+SHOW_DIALOG_WHEEL,Show Dialog Wheel,t
+DISABLE_USING_ESC,Disable Using Esc,t
+SOUND_FILE,Sound File,t
+CONSOLE_COMMAND,Console Command,t
+FACTION_CHANGES,Faction Changes,t
+SELECT_FACTION,Select Faction,t
+ADD,Add,t
+START_QUEST,Start Quest,t
+ID,ID:,t
+TIME,Time:,t
+DAY,Day,t
+NIGHT,Night,t
+MIN_PLAYER_LVL,Minimum Player Level,t
+MAIL_SENDER,Sender,t
+MAIL_SUBJECT,Subject,t
+MAIL_PREV_PAGE,Prev Page,t
+MAIL_NEXT_PAGE,Next Page,t
+MAIL_DELETE_PAGE,Delete,t
+MAIL_PAGE_NUM,Page ,t
+MAIL_ITEM_SLOT,Item Slot,t
+MAIL_ITEM_ID,Item ID,t
+MAIL_ITEM_COUNT,Count:,t
+MAIL_CUSTOM_NBT,Custom NBT Data. Include the item ID,t
+DIALOG_NODE,Dialog Node ,t
+NODE,Node ,t
+RESPONSE_OPTION,Response Option,t
+NEW_DIALOG_TITLE,New Dialog,t
+RESPONSE_CONNECTED,Connected to ,
+RESPONSE_TEXT,Response Text,t
+RESPONSE_OPTION_DIALOG,Dialog,t
+RESPONSE_OPTION_ROLE,Open Role Screen,t
+RESPONSE_OPTION_COMMAND,Execute Command,t
+RESPONSE_OPTION_CLOSE,Close Dialog,t
+RESPONSE_OPTION_DISABLED,Disabled,t
+EDS_HIDE_CONNECTION,Hide Connection Distance,t
+EDS_ENABLE_GRID_SNAP,Enable Grid Snapping,t
+EDS_INVERT_DIALOG_MOVE,Invert Dialog Movement Functionality,t
+EDS_ALLOW_MORE_THAN_SIX,Allow More Than Six Responses,t
+EDS_AUTOSAVE_FREQ,Autosave Frequency (Minutes),t
+EDS_MAX_AUTOSAVE_FILES,Max Autosave Files,t
+EDS_DEFAULT_DIRECTORY,Default Directory:,t
+CHANGE,Change,t
+EDS_KEYBINDS,Key Binds,t
+SAVE,Save,t
+EXPORT,Export,t
+CATEGORY_OPTIONS,Category Options,t
+CO_REIMPORT,Reimport,t
+CO_SCAN_CHANGES,Scan For Changes,t
+CO_REINDEX,Reindex IDs,t
+ADD_DIALOG,Add Dialog,t
+ADD_COLOR_ORGANIZER,Add Color Organizer,t
+NEW_COLOR_ORGANIZER,Color Organizer,t
+PRE_1.7.10,Pre 1.7.10,t
+EXPORT_TOOL_TIP,"Exports the category, creating the proper json files for CustomNPCS",t
+SAVE_TOOL_TIP,"Saves the category for the editor, creating a YDEC file. This does not make it appear in game",t
+CATEGORY_OPTIONS_TOOLTIP,"Reimport : Delete all dialog nodes and the existing YDEC file, rescanning the JSONS in the folder for a fresh import.
+
+Scan For Changes: Scans through the JSONS in the folder, and attempts to update nodes with new information, and will import any new dialogs.
+
+Reindex IDs: Starting the from the current highest ID, give all dialog nodes a new ID. Remotely connected responses will NOT update their ids.",t
+MAIL_TOOLTIP,"Type the text that will appear on this page.
+
+Note that formatting is approximate
+
+It may not look exactly correct when viewed in Minecraft",t
+MAIL_ITEM_ID_TOOLTIP,"Don't include quotes. Include the namespace, such as minecraft or customnpcs.
+
+I.E customnpcs:scripter
+
+If there is an entry in NBT Data, this entry is ignored",t
+MAIL_ITEM_NBT_TOOLTIP,"Copy and paste the item as NBT here. Include the item's id, as having an entry here will ignore the ID set above.
+
+If copying and pasting from mail data, do NOT include the slot tag.",t
+COLOR_ORGANIZER_TOOLTIP,Lock to prevent color organizer from being altered in any way.,t
+EXPORT_TYPE_TOOLTIP,"Pre 1.7.10 : No quotes around keys in the JSON. No scoreboard
+
+1.7.10: Does not export scoreboard to JSON
+
+1.12+ : Exports scoreboard to json",t
+EDS_HIDE_CONNECTION_TOOLTIP,The maximum distance a response node can be from a dialog node before the connection line is hidden,t
+EDS_SNAPPING_TOOLTIP,Enable grid snapping in the editor,t
+EDS_HOLD_SHIFT_TOOLTIP,"By default, moving dialog nodes will not cause it's connected response nodes to move with it, unless you're holding shift.
+
+Inverting it will mean that dialog nodes WILL move response nodes, unless holding shift",t
+EDS_MORE_SIX_TOOLTIP,"The in-game editor only allows you to add six responses to a dialog, but adding more responses directly to the JSON allows for more response options.",t
+EDS_AUTOSAVE_FREQ_TOOLTIP,Amount of minutes between auto-saves,t
+EDS_MAX_AUTOSAVE_FILES_TOOLTIP,How many autosave files can be in the auto save folder,t
+EDS_DEFAULT_DIRECTORY_TOOLTIP,"Change the default folder that's opened when
+you click ""Open Environment""",t
+FILE_CANCEL,Cancel,t
+FILE_SELECT_FOLDER,Select Current Folder,t
+FILE_TITLE,Open A Directory,t
+FILE_INVALID, Invalid Folder!,t
+LANGUAGE,Language,t
+CATEGORY_RENAME,Rename,t
+CATEGORY_DELETE,Delete,t
+CATEGORY_REIMPORT,Reimport Category,t
+CATEGORY_DUPLICATE,Duplicate,t
+CATEGORY_OPEN_IN_FILE,Open in File Manager,t
+SELECT_DIALOG,Select Dialog,t
+COMMAND,Command,t
+TEXT_LIMIT_WARNING,Text Limit Warning!,t
+TEXT_LIMIT_WARNING_TOOLTIP,This page *might* go off screen. Pages can only have 114 pixels and 14 lines maximum.,t
+SAVING,Category %s saved...,t
+EXPORTING,Category %s succesfully exported...,t
+EXPORT_FAILED,Category %s Failed To Export...,t
+SAVE_FAILED,YDEC Failed To Save,t
+AV_MODE,Selecting Dialog For Availability,t
+UNSAVED,This Category Has Unsaved Changes!,t
+SAVE_AND_CLOSE,Save and Close,t
+CLOSE_NO_SAVE,Close Without Saving,t
+NAME_CATEGORY,Name Category,t
+CHOOSE_INIT_DIALOG,Choose A Starting Dialog For The Tree,t
+DELETE_CATEGORY_CONFIRM,Are you sure you want to delete %s? All dialogs will be permanently deleted,t
+REIMPORT_CONFIRM,Are you sure you want to reimport %s? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory.,t
+POINTS_ABBRV,pts,t
+SELECT_QUEST,Select Quest, t
+CANCEL, Cancel, t

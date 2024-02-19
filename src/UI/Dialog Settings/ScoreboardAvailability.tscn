@@ -33,11 +33,11 @@ offset_top = -16.0
 offset_right = 90.0
 offset_bottom = 15.0
 item_count = 3
-popup/item_0/text = "Smaller Than"
+popup/item_0/text = "SCORE_SMALLER"
 popup/item_0/id = 0
-popup/item_1/text = "Equals"
+popup/item_1/text = "SCORE_EQUALS"
 popup/item_1/id = 1
-popup/item_2/text = "Bigger Than"
+popup/item_2/text = "SCORE_BIGGER"
 popup/item_2/id = 2
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]
@@ -61,7 +61,7 @@ offset_left = 11.0
 offset_top = -12.0
 offset_right = 149.0
 offset_bottom = 12.0
-placeholder_text = "Objective Name"
+placeholder_text = "OBJECTIVE_NAME"
 
 [connection signal="item_selected" from="Panel/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="value_changed" from="Panel/SpinBox" to="." method="_on_SpinBox_value_changed"]

@@ -158,6 +158,10 @@ focus_right_cycle={
 "events": []
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.ia.translation")
+
 [physics]
 
 common/enable_pause_aware_picking=true

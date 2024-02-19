@@ -33,6 +33,7 @@ offset_left = -86.0
 offset_top = -10.0
 offset_right = 54.0
 offset_bottom = 10.0
+text = "SELECT_QUEST"
 
 [node name="OptionButton" type="OptionButton" parent="Panel"]
 layout_mode = 0
@@ -46,17 +47,17 @@ alignment = 1
 text_overrun_behavior = 1
 clip_text = true
 item_count = 6
-popup/item_0/text = "Always"
+popup/item_0/text = "AV_ALWAYS"
 popup/item_0/id = 0
-popup/item_1/text = "After"
+popup/item_1/text = "AV_AFTER"
 popup/item_1/id = 1
-popup/item_2/text = "Before"
+popup/item_2/text = "AV_BEFORE"
 popup/item_2/id = 2
-popup/item_3/text = "When Active"
+popup/item_3/text = "AV_WHEN_ACTIVE"
 popup/item_3/id = 3
-popup/item_4/text = "When Not Active"
+popup/item_4/text = "AV_WHEN_NOT_ACTIVE"
 popup/item_4/id = 4
-popup/item_5/text = "Objectives Completed"
+popup/item_5/text = "AV_COMPLETE"
 popup/item_5/id = 5
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]

@@ -48,12 +48,13 @@ func compose_pages_string():
 	if !pages.is_empty():
 		string += '			"pages": ['
 		for page_index in pages.size():
-			var page_text : String = pages[page_index]
+			var page_text : String = pages[page_index].c_escape().replace("\\n","\n").replace("\\'","'")
 			string += '\n				"'+page_text+'"'
-			if page_index != pages.size() && pages.size() != 1:
+			if page_index != pages.size()-1 && pages.size() != 1:
 				string += ","
 		string += "\n			]"
-	return string.c_unescape().replace("\\'","'")
+	return string #.c_unescape().replace("\\'","'")
+	
 			
 	
 #"DialogMail": {

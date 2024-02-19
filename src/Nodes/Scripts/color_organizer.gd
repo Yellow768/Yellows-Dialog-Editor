@@ -1,7 +1,7 @@
 extends GraphNode
 class_name color_organizer
 var node_type = "Color Organizer"
-var text = "Color Organizer"
+var text = "NEW_COLOR_ORGANIZER"
 var box_color : Color = Color(1,1,1,1)
 var initial_offset = Vector2.ZERO
 var locked := false

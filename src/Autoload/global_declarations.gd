@@ -36,6 +36,7 @@ var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_r
 
 var assigning_keybind = false
 
+var language = OS.get_locale()
 
 func _ready():
 	var config = ConfigFile.new()
@@ -48,6 +49,8 @@ func _ready():
 	autosave_max_files = config.get_value("user_settings","autosave_max_files",autosave_max_files)
 	default_user_directory = config.get_value("user_settings","default_user_directory",default_user_directory)
 	allow_above_six_responses = config.get_value("user_settings","allow_above_six_responses",allow_above_six_responses)
+	language = config.get_value("user_settings","language",language)
+	TranslationServer.set_locale(language)
 	for action in actions:
 		var temp_action = InputMap.action_get_events(action)
 		InputMap.action_erase_events(action)
@@ -66,6 +69,7 @@ func save_config():
 	config.set_value("user_settings","autosave_max_files",autosave_max_files)
 	config.set_value("user_settings","allow_above_six_responses",allow_above_six_responses)
 	config.set_value("user_settings","default_user_directory",default_user_directory)
+	config.set_value("user_settings","language",language)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)

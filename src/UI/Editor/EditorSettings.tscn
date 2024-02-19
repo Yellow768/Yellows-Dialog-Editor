@@ -42,6 +42,7 @@ allow_more_than_six_path = NodePath("ScrollContainer/VBoxContainer2/CreationSett
 keybinds_scroll_path = NodePath("ScrollContainer2/KeyBinds")
 default_directory_label_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory")
 default_directory_file_dialog_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog")
+language_option_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/Language/LanguageOption")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -52,7 +53,7 @@ offset_left = -56.5
 offset_right = 56.5
 offset_bottom = 26.0
 grow_horizontal = 2
-text = "Editor Settings"
+text = "EDITOR_SETTINGS"
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -87,9 +88,9 @@ size_flags_horizontal = 0
 [node name="HideConnectionDistance" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-tooltip_text = "The maximum distance a response node can be from a dialog node before the connection line is hidden"
+tooltip_text = "EDS_HIDE_CONNECTION_TOOLTIP"
 mouse_filter = 1
-text = "Hide Connection Distance"
+text = "EDS_HIDE_CONNECTION"
 
 [node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance"]
 layout_mode = 0
@@ -124,9 +125,9 @@ icon = ExtResource("2_ik3cf")
 
 [node name="EnableGridSnap" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings"]
 layout_mode = 2
-tooltip_text = "Enable grid snapping in the editor"
+tooltip_text = "EDS_SNAPPING_TOOLTIP"
 mouse_filter = 1
-text = "Enable Grid Snapping"
+text = "EDS_ENABLE_GRID_SNAP"
 
 [node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/GridSettings/EnableGridSnap"]
 layout_mode = 0
@@ -136,11 +137,9 @@ offset_bottom = 24.0
 
 [node name="HoldShift" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings"]
 layout_mode = 2
-tooltip_text = "By default, moving dialog nodes will not cause it's connected response nodes to move with it, unless you're holding shift.
-
-Inverting it will mean that dialog nodes WILL move response nodes, unless holding shift"
+tooltip_text = "EDS_HOLD_SHIFT_TOOLTIP"
 mouse_filter = 1
-text = "Invert Dialog Movement Functionality"
+text = "EDS_INVERT_DIALOG_MOVE"
 
 [node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/GridSettings/HoldShift"]
 layout_mode = 0
@@ -158,9 +157,9 @@ layout_mode = 2
 
 [node name="AllowMoreThanSix" type="Label" parent="ScrollContainer/VBoxContainer2/CreationSettings"]
 layout_mode = 2
-tooltip_text = "The in-game editor only allows you to add six responses to a dialog, but adding more responses directly to the JSON allows for more response options."
+tooltip_text = "EDS_MORE_SIX_TOOLTIP"
 mouse_filter = 1
-text = "Allow More Than Six Responses"
+text = "EDS_ALLOW_MORE_THAN_SIX"
 
 [node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/CreationSettings/AllowMoreThanSix"]
 layout_mode = 0
@@ -182,9 +181,9 @@ mouse_filter = 2
 [node name="Autosave Time" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-tooltip_text = "Amount of minutes between auto-saves"
+tooltip_text = "EDS_AUTOSAVE_FREQ_TOOLTIP"
 mouse_filter = 1
-text = "Autosave Frequency (Minutes)"
+text = "EDS_AUTOSAVE_FREQ"
 
 [node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time"]
 layout_mode = 0
@@ -220,9 +219,9 @@ icon = ExtResource("2_ik3cf")
 [node name="AutosaveMaxFiles" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-tooltip_text = "How many autosave files can be in the auto save folder"
+tooltip_text = "EDS_MAX_AUTOSAVE_FILES_TOOLTIP"
 mouse_filter = 1
-text = "Max Autosave Files"
+text = "EDS_MAX_AUTOSAVE_FILES"
 
 [node name="ValueEdit" type="SpinBox" parent="ScrollContainer/VBoxContainer2/FileSettings/AutosaveMaxFiles"]
 layout_mode = 0
@@ -244,13 +243,13 @@ layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
 mouse_filter = 1
-text = "Default Directory: default_user_directory"
 autowrap_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory"]
-title = "Choose Default Directory"
+title = "Open a Directory"
+position = Vector2i(0, 36)
 size = Vector2i(700, 600)
-ok_button_text = "Select Current Folder"
+ok_button_text = "Select This Folder"
 file_mode = 2
 access = 2
 
@@ -258,7 +257,18 @@ access = 2
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
-text = "Change"
+text = "CHANGE"
+
+[node name="Language" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+layout_mode = 2
+
+[node name="Language" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/Language"]
+layout_mode = 2
+text = "LANGUAGE"
+
+[node name="LanguageOption" type="OptionButton" parent="ScrollContainer/VBoxContainer2/FileSettings/Language"]
+layout_mode = 2
+selected = 0
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, 443.45)
@@ -301,3 +311,4 @@ horizontal_alignment = 1
 [connection signal="canceled" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_canceled"]
 [connection signal="dir_selected" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 [connection signal="button_up" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Button" to="." method="_on_change_directorybutton_button_up"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer2/FileSettings/Language/LanguageOption" to="." method="_on_language_option_item_selected"]

@@ -107,7 +107,7 @@ offset_top = 54.0
 offset_right = 236.0
 offset_bottom = 115.0
 grow_horizontal = 2
-text = "Choose or create a category to start editing"
+text = "BLANK_EDITOR_LABEL"
 horizontal_alignment = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
@@ -161,7 +161,7 @@ tooltip_text = "Add a new dialog node into the category"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Add Dialog"
+text = "ADD_DIALOG"
 icon = ExtResource("6_xqxhf")
 
 [node name="SecSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
@@ -176,7 +176,7 @@ tooltip_text = "Add a colored square you can label, to use to organize nodes"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Add Organizer"
+text = "ADD_COLOR_ORGANIZER"
 icon = ExtResource("6_xqxhf")
 
 [node name="SecSep3" type="VSeparator" parent="TopPanel/TopPanelContainer"]
@@ -191,7 +191,7 @@ tooltip_text = "Saves the category for the editor, creating a YDEC file. This do
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Save  "
+text = "SAVE"
 icon = ExtResource("7_6q1oh")
 
 [node name="BttnSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
@@ -206,7 +206,7 @@ tooltip_text = "Exports the category, creating the proper JSON files for CustomN
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Export "
+text = "EXPORT"
 icon = ExtResource("8_vgh51")
 
 [node name="ExportTypeButton" type="OptionButton" parent="TopPanel/TopPanelContainer"]
@@ -239,7 +239,7 @@ tooltip_text = "Reimport the category, deleting all nodes and creating a new YDE
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Reimport Category "
+text = "CO_REIMPORT"
 icon = ExtResource("9_mukh6")
 
 [node name="BttnSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
@@ -269,7 +269,9 @@ theme_override_styles/separator = SubResource("19")
 visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Reindexes the current highest ID in the environment, and gives dialog nodes new IDS"
+tooltip_text = "Reindexes the current highest ID in the environment, and gives dialog nodes new IDS.
+
+Remotely connected responses will NOT update their connected dialog ID's!"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
@@ -288,13 +290,13 @@ text = "Category Options"
 icon = ExtResource("11_qxp7e")
 language = "en"
 item_count = 3
-popup/item_0/text = "Reimport"
+popup/item_0/text = "CO_REIMPORT"
 popup/item_0/icon = ExtResource("12_ry04q")
 popup/item_0/id = 0
-popup/item_1/text = "Scan For Changes"
+popup/item_1/text = "CO_SCAN_CHANGES"
 popup/item_1/icon = ExtResource("10_cc0sy")
 popup/item_1/id = 1
-popup/item_2/text = "Reindex IDs"
+popup/item_2/text = "CO_REINDEX"
 popup/item_2/icon = ExtResource("9_mukh6")
 popup/item_2/id = 2
 
@@ -318,7 +320,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Editor Settings "
+text = "EDITOR_SETTINGS"
 icon = ExtResource("11_u3t51")
 
 [node name="VSeparator5" type="VSeparator" parent="TopPanel/EditorContainer"]
@@ -333,7 +335,7 @@ tooltip_text = "Returns to the home page"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Return To Home "
+text = "RETURN_HOME_BUTTON"
 icon = ExtResource("12_jpjxe")
 
 [node name="InformationPanel" type="Panel" parent="."]
@@ -348,23 +350,23 @@ mouse_filter = 1
 script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
 category_panel_path = NodePath("../CategoryPanel")
-hide_npc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
-show_wheel_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel")
-disable_esc_checkbox_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc")
-title_label_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Title")
-command_edit_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Command")
-playsound_edit_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Soundfile")
-faction_changes_1_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange")
-faction_changes_2_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2")
-start_quest_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/StartQuest")
-dialog_text_edit_path = NodePath("DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DialogText")
-availability_quests_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions")
-availability_dialogs_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions")
-availability_factions_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions")
-availability_scoreboard_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions")
-availability_time_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time")
-availability_level_path = NodePath("DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel")
-mail_data_path = NodePath("DialogNodeTabs/Mail/MailData")
+hide_npc_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
+show_wheel_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel")
+disable_esc_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc")
+title_label_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Title")
+command_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command")
+playsound_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Soundfile")
+faction_changes_1_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange")
+faction_changes_2_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2")
+start_quest_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/StartQuest")
+dialog_text_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DialogText")
+availability_quests_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions")
+availability_dialogs_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions")
+availability_factions_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/FactionOptions")
+availability_scoreboard_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions")
+availability_time_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time")
+availability_level_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel")
+mail_data_path = NodePath("DialogNodeTabs/MAIL/MailData")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 
@@ -378,7 +380,7 @@ offset_top = -7.0
 offset_right = 70.0
 offset_bottom = 19.0
 grow_horizontal = 2
-text = "Information Panel"
+text = "INFORMATION_PANEL_LABEL"
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
 visible = false
@@ -388,10 +390,10 @@ offset_top = 18.0
 offset_right = 452.0
 offset_bottom = 1005.0
 
-[node name="DialogSettings" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+[node name="DIALOG_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 layout_mode = 2
 
-[node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DialogSettings"]
+[node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS"]
 anchors_preset = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -399,7 +401,7 @@ offset_top = -478.5
 offset_right = 415.0
 offset_bottom = 478.5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings"]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -407,86 +409,86 @@ offset_top = -468.5
 offset_right = 425.0
 offset_bottom = 469.5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer"]
 custom_minimum_size = Vector2(0, 1500)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Dialog Title"
 clip_text = true
 
-[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 wrap_mode = 1
 script = ExtResource("17")
 
-[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Hide NPC"
+text = "HIDE_NPC"
 
-[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Show Dialog Wheel"
+text = "SHOW_DIALOG_WHEEL"
 
-[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Disable Using Esc"
+text = "DISABLE_USING_ESC"
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Sound File"
+text = "SOUND_FILE"
 
-[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
 layout_mode = 2
 caret_blink = true
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Console Command"
+text = "CONSOLE_COMMAND"
 
-[node name="Command" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+[node name="Command" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Faction Changes"
+text = "FACTION_CHANGES"
 
-[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
-layout_mode = 2
-
-[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
+[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Start Quest"
 
-[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
+[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
 layout_mode = 2
 
-[node name="AvailabilitySettings" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+[node name="AVAILABILITY_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -497,11 +499,11 @@ offset_top = -479.0
 offset_right = 221.0
 offset_bottom = 479.0
 
-[node name="Availability" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer"]
+[node name="Availability" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer"]
 custom_minimum_size = Vector2(436, 1500)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability"]
 custom_minimum_size = Vector2(435, 1080)
 layout_mode = 0
 anchor_right = 1.0
@@ -509,109 +511,109 @@ anchor_bottom = 1.0
 offset_right = -1.0
 offset_bottom = 129.0
 
-[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-text = "Quest Availabilities"
+text = "QUEST_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-text = "Dialog Availabilities"
+text = "DIALOG_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Faction availabilites"
 horizontal_alignment = 1
 
-[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
 layout_mode = 2
 
-[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="ScoreboardLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="ScoreboardLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-text = "Scoreboard Availabilities"
+text = "SCORE_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
 layout_mode = 2
 
-[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer"]
+[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -15.0
 
-[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -623,14 +625,14 @@ offset_right = 152.5
 offset_bottom = 15.0
 item_count = 3
 selected = 0
-popup/item_0/text = "Always"
+popup/item_0/text = "AV_ALWAYS"
 popup/item_0/id = 0
-popup/item_1/text = "Day"
+popup/item_1/text = "DAY"
 popup/item_1/id = 1
-popup/item_2/text = "Night"
+popup/item_2/text = "NIGHT"
 popup/item_2/id = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -638,13 +640,13 @@ offset_left = 83.0
 offset_top = -15.0
 offset_right = 142.0
 offset_bottom = 14.0
-text = "Time:"
+text = "TIME"
 
-[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 0
 anchor_right = 1.0
@@ -652,7 +654,7 @@ anchor_bottom = 1.0
 offset_left = -0.952
 offset_right = -15.952
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -660,9 +662,9 @@ offset_left = 37.0
 offset_top = -13.0
 offset_right = 276.0
 offset_bottom = 16.0
-text = "Minimum Player Level:"
+text = "MIN_PLAYER_LVL"
 
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
 layout_mode = 0
 anchor_left = 1.0
 anchor_top = 0.5
@@ -674,13 +676,13 @@ offset_right = -57.548
 offset_bottom = 13.0
 max_value = 10000.0
 
-[node name="Mail" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+[node name="MAIL" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 custom_minimum_size = Vector2(404, 956)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="MailData" type="Control" parent="InformationPanel/DialogNodeTabs/Mail"]
+[node name="MailData" type="Control" parent="InformationPanel/DialogNodeTabs/MAIL"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -699,7 +701,7 @@ subject_line_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/Subjec
 sender_line_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit")
 page_label_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/Label")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -711,37 +713,37 @@ offset_bottom = 899.0
 grow_horizontal = 2
 follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SenderNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="SenderNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes"]
 layout_mode = 2
-text = "Sender"
+text = "MAIL_SENDER"
 
-[node name="SenderLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes"]
+[node name="SenderLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-placeholder_text = "Sender"
+placeholder_text = "MAIL_SENDER"
 
-[node name="SubjectNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="SubjectNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
 layout_mode = 2
 text = "Subject"
 
-[node name="SubjectLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
+[node name="SubjectLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-placeholder_text = "Subject"
+placeholder_text = "MAIL_SUBJECT"
 
-[node name="Message" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="Message" type="TextEdit" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(395, 500)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -754,7 +756,7 @@ theme_override_font_sizes/font_size = 23
 wrap_mode = 1
 highlight_current_line = true
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message"]
 visible = false
 modulate = Color(1, 0.572549, 0.498039, 1)
 layout_mode = 1
@@ -768,65 +770,65 @@ offset_top = -26.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 8
-tooltip_text = "This page *might* go off screen. Pages can only have 114 pixels and 14 lines maximum."
+tooltip_text = "TEXT_LIMIT_WARNING_TOOLTIP"
 mouse_filter = 1
 theme_override_fonts/font = SubResource("FontVariation_rv42o")
-text = "Text Limit Warning!"
+text = "TEXT_LIMIT_WARNING"
 horizontal_alignment = 2
 
-[node name="PageButtons" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="PageButtons" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="PrevPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="PrevPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
-text = "Prev Page"
+text = "MAIL_PREV_PAGE"
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
 text = "Page 1/1"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="NextPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="NextPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
-text = "Next Page"
+text = "MAIL_NEXT_PAGE"
 
-[node name="VSeparator3" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="VSeparator3" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="DeletePageButton" type="Button" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="DeletePageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
-text = "Delete"
+text = "MAIL_DELETE_PAGE"
 
-[node name="StartQuest_Mail" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4")]
-layout_mode = 2
-
-[node name="ItemSlots" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="StartQuest_Mail" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4")]
 layout_mode = 2
 
-[node name="Item1" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="ItemSlots" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Item2" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item1" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+layout_mode = 2
+
+[node name="Item2" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 1
 
-[node name="Item3" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item3" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 2
 
-[node name="Item4" parent="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item4" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 3
 
@@ -873,17 +875,17 @@ grow_horizontal = 2
 
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
-text = "Categories"
+text = "CATEGORIES_PANEL_LABEL"
 horizontal_alignment = 1
 
 [node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Create New Category"
+text = "CREATE_NEW_CATEGORY"
 
 [node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "Search"
+placeholder_text = "SEARCH"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
 custom_minimum_size = Vector2(340, 340)
@@ -919,7 +921,7 @@ offset_top = 64.0
 offset_right = 92.5
 offset_bottom = 93.0
 theme = ExtResource("14")
-text = "Saving YDEC File"
+text = "SAVING"
 
 [node name="ExportFail" type="Label" parent="UI Anims"]
 modulate = Color(1, 0, 0, 0)
@@ -932,7 +934,7 @@ offset_top = 73.0
 offset_right = 150.5
 offset_bottom = 102.0
 theme = ExtResource("14")
-text = "Category Failed To Export..."
+text = "EXPORT_FAILED"
 
 [node name="Export" type="Label" parent="UI Anims"]
 modulate = Color(1, 1, 1, 0)
@@ -944,7 +946,7 @@ offset_top = 64.0
 offset_right = 192.5
 offset_bottom = 93.0
 theme = ExtResource("14")
-text = "Category %s succesfully exported..."
+text = "EXPORT"
 
 [node name="SaveFail" type="Label" parent="UI Anims"]
 modulate = Color(1, 1, 1, 0)
@@ -957,7 +959,7 @@ offset_top = 66.0
 offset_right = 114.0
 offset_bottom = 95.0
 theme = ExtResource("14")
-text = "YDEC Failed To Save"
+text = "SAVE_FAILED"
 
 [node name="AvailabilityMode" type="Label" parent="UI Anims"]
 visible = false
@@ -970,7 +972,7 @@ offset_top = 82.0
 offset_right = 165.5
 offset_bottom = 111.0
 theme = ExtResource("14")
-text = "Selecting Dialog for Availability"
+text = "AV_MODE"
 
 [node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
 process_mode = 2
@@ -1012,7 +1014,7 @@ offset_top = 19.5
 offset_right = 138.0
 offset_bottom = 45.5
 grow_horizontal = 2
-text = "This category has unsaved changes!"
+text = "UNSAVED"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel"]
 custom_minimum_size = Vector2(100, 0)
@@ -1030,7 +1032,7 @@ grow_vertical = 0
 
 [node name="SaveAndClose" type="Button" parent="UnsavedPanel/HBoxContainer"]
 layout_mode = 2
-text = "Save and Close"
+text = "SAVE_AND_CLOSE"
 
 [node name="VSeparator" type="VSeparator" parent="UnsavedPanel/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -1039,7 +1041,7 @@ layout_mode = 2
 
 [node name="NoSave" type="Button" parent="UnsavedPanel/HBoxContainer"]
 layout_mode = 2
-text = "Close Without Saving"
+text = "CLOSE_NO_SAVE"
 
 [node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -1048,7 +1050,7 @@ layout_mode = 2
 
 [node name="Cancel" type="Button" parent="UnsavedPanel/HBoxContainer"]
 layout_mode = 2
-text = "Cancel"
+text = "CANCEL"
 
 [node name="AutosaveTimer" type="Timer" parent="."]
 wait_time = 180.0
@@ -1136,32 +1138,32 @@ one_shot = true
 [connection signal="request_switch_to_stored_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_switch_to_stored_category"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_points_changed"]
-[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/DialogSettings/DialogSettings/ScrollContainer/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability2" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability3" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AvailabilitySettings/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_sender_line_edit_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes/SubjectLineEdit" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_subject_line_edit_text_changed"]
-[connection signal="lines_edited_from" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_message_lines_edited_from"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_message_text_changed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/PrevPageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_prev_page_button_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/NextPageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_next_page_button_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/DeletePageButton" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="_on_delete_page_button_pressed"]
-[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/Mail/MailData/ScrollContainer/VBoxContainer/VBoxContainer/StartQuest_Mail" to="InformationPanel/DialogNodeTabs/Mail/MailData" method="update_quest_id"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_points_changed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability2" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability3" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_sender_line_edit_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes/SubjectLineEdit" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_subject_line_edit_text_changed"]
+[connection signal="lines_edited_from" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_message_lines_edited_from"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_message_text_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/PrevPageButton" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_prev_page_button_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/NextPageButton" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_next_page_button_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/DeletePageButton" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_delete_page_button_pressed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/StartQuest_Mail" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="update_quest_id"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="timeout" from="InformationPanel/availability_timer" to="InformationPanel" method="_on_availability_timer_timeout"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]

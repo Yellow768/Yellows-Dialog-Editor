@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://yem0eo6lgt24"]
+
+[node name="Control" type="GraphEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GraphNode" type="GraphNode" parent="."]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 170.0
+offset_right = 477.0
+offset_bottom = 323.0
+mouse_filter = 1
+position_offset = Vector2(225, 170)
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Label" type="Label" parent="GraphNode"]
+layout_mode = 2
+
+[node name="GraphNode2" type="GraphNode" parent="."]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 210.0
+offset_right = 908.0
+offset_bottom = 363.0
+mouse_filter = 1
+position_offset = Vector2(656, 210)
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Label" type="Label" parent="GraphNode2"]
+layout_mode = 2

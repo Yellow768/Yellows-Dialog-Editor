@@ -33,7 +33,7 @@ offset_top = 16.0
 offset_right = 103.94
 offset_bottom = 47.0
 grow_horizontal = 2
-text = "Select"
+text = "SELECT_FACTION"
 
 [node name="IsIsnotbutton" type="OptionButton" parent="Panel"]
 layout_mode = 1
@@ -48,11 +48,11 @@ grow_vertical = 2
 alignment = 1
 item_count = 3
 fit_to_longest_item = false
-popup/item_0/text = "Always"
+popup/item_0/text = "AV_ALWAYS"
 popup/item_0/id = 0
-popup/item_1/text = "Is"
+popup/item_1/text = "AV_IS"
 popup/item_1/id = 1
-popup/item_2/text = "Is Not"
+popup/item_2/text = "AV_IS_NOT"
 popup/item_2/id = 2
 
 [node name="StanceButton" type="OptionButton" parent="Panel"]
@@ -68,11 +68,11 @@ grow_vertical = 2
 alignment = 1
 item_count = 3
 fit_to_longest_item = false
-popup/item_0/text = "Friendly"
+popup/item_0/text = "FACTION_FRIENDLY"
 popup/item_0/id = 0
-popup/item_1/text = "Neutral"
+popup/item_1/text = "FACTION_NEUTRAL"
 popup/item_1/id = 1
-popup/item_2/text = "Unfriendly"
+popup/item_2/text = "FACTION_UNFRIENDLY"
 popup/item_2/id = 2
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]
@@ -89,7 +89,7 @@ offset_bottom = 22.0
 grow_horizontal = 0
 grow_vertical = 2
 max_value = 10000.0
-prefix = "ID: "
+prefix = "ID"
 
 [connection signal="faction_chosen" from="Panel/ChooseFaction" to="." method="set_id"]
 [connection signal="item_selected" from="Panel/IsIsnotbutton" to="." method="_on_IsIsnotbutton_item_selected"]

@@ -123,7 +123,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(270, 35)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-placeholder_text = "Response Text"
+placeholder_text = "RESPONSE_TEXT"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -141,19 +141,20 @@ alignment = 1
 expand_icon = true
 item_count = 5
 selected = 0
-popup/item_0/text = "Dialog"
+popup/item_0/text = "RESPONSE_OPTION_DIALOG"
 popup/item_0/id = 1
-popup/item_1/text = "Open Role Screen"
+popup/item_1/text = "RESPONSE_OPTION_ROLE"
 popup/item_1/id = 3
-popup/item_2/text = "Execute Command"
+popup/item_2/text = "RESPONSE_OPTION_COMMAND"
 popup/item_2/id = 4
-popup/item_3/text = "Close Dialog"
+popup/item_3/text = "RESPONSE_OPTION_CLOSE"
 popup/item_3/id = 0
-popup/item_4/text = "Disabled"
+popup/item_4/text = "RESPONSE_OPTION_DISABLED"
 popup/item_4/id = 2
 
 [node name="SpinBox" type="SpinBox" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 1
 max_value = 99999.0
 prefix = "ID"
 
@@ -161,7 +162,7 @@ prefix = "ID"
 visible = false
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-text = "Command"
+placeholder_text = "COMMAND"
 
 [node name="AddNewDialog" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(25, 60)
@@ -211,8 +212,7 @@ shape = SubResource("1")
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/ResponseText" to="." method="_on_ResponseText_text_changed"]
 [connection signal="color_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer/OptionTypeButton" to="." method="_on_OptionButton_item_selected"]
-[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_mouse_exited"]
+[connection signal="changed" from="HBoxContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/CommandText" to="." method="_on_CommandText_text_changed"]
 [connection signal="pressed" from="HBoxContainer/AddNewDialog" to="." method="_on_AddNewDialog_pressed"]

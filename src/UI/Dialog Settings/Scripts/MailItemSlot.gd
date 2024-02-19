@@ -13,9 +13,10 @@ var item_id : String
 var item_count : int
 
 func _ready():
-	$HBoxContainer/Label.text = "Item Slot "+str(slot)
+	$HBoxContainer/Label.text = tr("MAIL_ITEM_SLOT")+str(slot)
+	$"ID and Count/SpinBox".prefix = tr("MAIL_ITEM_COUNT")
 	$NBTTextEdit.connect("expanded",Callable(self,"emit_signal").bind("request_scroll_focus",self))
-
+	$NBTTextEdit.placeholder_text = tr("MAIL_CUSTOM_NBT")
 func _on_button_toggled(button_pressed):
 	$"ID and Count".visible = button_pressed
 	$NBTTextEdit.visible = button_pressed

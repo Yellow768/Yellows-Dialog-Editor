@@ -47,9 +47,9 @@ func load_mail_data(data : mail_data_object):
 	SenderLine.text = current_mail_object.sender
 	SubjectLine.text = current_mail_object.subject
 	if current_mail_object.pages.size() != 0:
-		PageLabel.text = "Page 1/"+str(current_mail_object.pages.size())
+		PageLabel.text = tr("MAIL_PAGE_NUM")+"1/"+str(current_mail_object.pages.size())
 	else:
-		PageLabel.text = "Page 1"
+		PageLabel.text = tr("MAIL_PAGE_NUM")+"1"
 	StartQuest.set_id(current_mail_object.quest_id) 
 	loading_mail = false
 	
@@ -83,7 +83,7 @@ func _on_next_page_button_pressed():
 	if current_mail_object.pages.size() < current_page:
 		current_mail_object.pages.append("")
 	MessageBox.text = current_mail_object.pages[current_page-1]
-	PageLabel.text = "Page "+str(current_page)+"/"+str(current_mail_object.pages.size())
+	PageLabel.text = tr("MAIL_PAGE_NUM")+str(current_page)+"/"+str(current_mail_object.pages.size())
 		
 
 
@@ -91,7 +91,7 @@ func _on_prev_page_button_pressed():
 	if current_page != 1:
 		current_page -=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
-	PageLabel.text = "Page "+str(current_page)+"/"+str(current_mail_object.pages.size())
+	PageLabel.text = tr("MAIL_PAGE_NUM")+str(current_page)+"/"+str(current_mail_object.pages.size())
 	
 
 
@@ -105,7 +105,7 @@ func _on_delete_page_button_pressed():
 	if current_page-1 == current_mail_object.pages.size():
 		current_page-=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
-	PageLabel.text = "Page "+str(current_page)+"/"+str(current_mail_object.pages.size())
+	PageLabel.text = tr("MAIL_PAGE_NUM")+str(current_page)+"/"+str(current_mail_object.pages.size())
 
 
 func _on_start_quest_mail_id_changed():

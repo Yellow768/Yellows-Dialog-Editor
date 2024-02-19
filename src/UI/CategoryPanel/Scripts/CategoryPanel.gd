@@ -101,7 +101,8 @@ func _on_CreateNewCategory_pressed():
 func request_deletion_popup(deletion_name):
 	var confirm_deletion_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
 	confirm_deletion_popup.connect("confirmed", Callable(EnvironmentIndex, "delete_category").bind(deletion_name))
-	confirm_deletion_popup.dialog_text = "Are you sure you want to delete "+deletion_name+"?\nAll dialogs will be deleted."
+	var format_text = tr("DELETE_CATEGORY_CONFIRM")
+	confirm_deletion_popup.dialog_text = format_text % deletion_name
 	$".".add_child(confirm_deletion_popup)
 	confirm_deletion_popup.popup_centered()
 	if deletion_name == current_category:
@@ -110,7 +111,8 @@ func request_deletion_popup(deletion_name):
 func reimport_category_popup(reimport_name):
 	var confirm_reimport_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
 	confirm_reimport_popup.connect("confirmed", Callable(self, "initialize_category_import").bind(reimport_name))
-	confirm_reimport_popup.dialog_text = "Are you sure you want to reimport "+reimport_name+"? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory."
+	var format_text = tr("REIMPORT_CONFIRM")
+	confirm_reimport_popup.dialog_text = format_text % reimport_name
 	$".".add_child(confirm_reimport_popup)
 	confirm_reimport_popup.popup_centered()
 

@@ -26,7 +26,8 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 func empty_category_jsons(category_name : String):
 	
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
-	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
+	#if dir.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
+		#dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if DirAccess.get_open_error() == OK:
 		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name : String = dir.get_next()
@@ -79,6 +80,7 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	DialogTitle : "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
 			'	AvailabilityDialog: '+str(dialog.dialog_availabilities[0].availability_type)+',',
 			'	AvailabilityFaction2: '+str(dialog.faction_availabilities[1].availability_operator)+',',
+			'	DialogSound: "'+str(dialog.sound)+'",',
 			'	AvailabilityFactionId: '+str(dialog.faction_availabilities[0].faction_id)+',',
 			'	AvailabilityFaction2Stance: '+str(dialog.faction_availabilities[1].stance_type)+',',
 			'	DialogCommand: "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
@@ -147,6 +149,7 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"DialogTitle": "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
 			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
 			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
+			'	"DialogSound": "'+str(dialog.sound)+'",',
 			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
 			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
 			'	"DialogCommand": "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
@@ -215,13 +218,14 @@ func create_dialog_dict(dialog : dialog_node, version):
 			'	"OptionFactions2": '+str(dialog.faction_changes[1].faction_id)+',',
 			'	"AvailabilityFaction2Id": '+str(dialog.faction_availabilities[1].faction_id)+',',
 			'	"OptionFaction1Points": '+str(abs(dialog.faction_changes[0].points))+',',
-			'	"AvailabilityScoreboardValue": '+str(dialog.scoreboard_availabilities[1].value)+',',
+			'	"AvailabilityScoreboardValue": '+str(dialog.scoreboard_availabilities[0].value)+',',
 			'	"DialogDisableEsc": '+str(int(dialog.disable_esc))+'b,',
 			'	"AvailabilityFaction": '+str(dialog.faction_availabilities[0].availability_operator)+',',
 			'	"DialogTitle": "'+str(dialog.dialog_title).c_escape().replace("\\'","'")+'",',
 			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
 			'	"AvailabilityScoreboard2Type": '+str(dialog.scoreboard_availabilities[1].comparison_type)+',',
 			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
+			'	"DialogSound": "'+str(dialog.sound)+'",',
 			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
 			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
 			'	"DialogCommand": "'+str(dialog.command).c_escape().replace("\\'","'")+'",',

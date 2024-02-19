@@ -7,6 +7,8 @@ var faction_data := {}
 
 func _ready():
 	$Panel/ChooseFaction.load_faction_data(faction_data)
+	$Panel/Factionpoints.prefix = tr("ADD")
+	$Panel/Factionpoints.suffix = tr("POINTS_ABBRV")
 
 func load_faction_data(data : Dictionary):
 	faction_data = data

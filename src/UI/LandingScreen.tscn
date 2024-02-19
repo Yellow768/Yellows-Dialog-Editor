@@ -478,29 +478,29 @@ grow_vertical = 2
 [node name="Open Environment" type="Button" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(435, 50)
 layout_mode = 2
-text = "Open Environment"
+text = "OPEN_ENV"
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "To begin, select a directory to establish as the Editor's environment. This is where the editor will save dialog categories .ydec files.
-
-Selecting a minecraft world folder, or world/customnpcs folder, will allow you to import existing dialogs, and access named quests, factions, and proper dialog IDs"
+text = "BEGIN_SPLASH"
 autowrap_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="Panel"]
 mode = 3
-title = "Open a Directory"
+title = "FILE_TITLE"
 position = Vector2i(160, 45)
 size = Vector2i(915, 600)
 min_size = Vector2i(240, 600)
 theme = SubResource("5")
-ok_button_text = "Select Current Folder"
+ok_button_text = "FILE_SELECT_FOLDER"
+cancel_button_text = "CANCEL"
+mode_overrides_title = false
 file_mode = 2
 access = 2
 show_hidden_files = true
 
 [node name="InvalidFolderWarning" type="Popup" parent="Panel"]
-title = "Invalid Folder!"
+title = "FILE_INVALID"
 size = Vector2i(1660, 230)
 
 [node name="Label" type="Label" parent="Panel/InvalidFolderWarning"]
@@ -551,7 +551,7 @@ offset_bottom = 129.192
 
 [node name="Label" type="Label" parent="PrevDirsContainer"]
 layout_mode = 2
-text = "Recently Opened Environments"
+text = "RECENT_ENVS"
 
 [node name="InvalidDirectory" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)

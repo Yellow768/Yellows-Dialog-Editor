@@ -33,6 +33,7 @@ offset_top = -10.0
 offset_right = 160.0
 offset_bottom = 10.0
 theme_override_fonts/font = ExtResource("4")
+text = "SELECT_QUEST"
 
 [node name="QuestID" type="SpinBox" parent="Panel"]
 layout_mode = 1
@@ -46,7 +47,7 @@ offset_bottom = 16.0
 grow_vertical = 2
 min_value = -1.0
 max_value = 1e+07
-prefix = "ID:"
+prefix = "ID"
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 1

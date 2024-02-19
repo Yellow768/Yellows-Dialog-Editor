@@ -54,7 +54,7 @@ offset_left = -297.5
 offset_right = 297.5
 offset_bottom = 50.0
 grow_horizontal = 2
-text = "Choose a starting dialog for the tree"
+text = "CHOOSE_INIT_DIALOG"
 label_settings = SubResource("LabelSettings_h5tww")
 
 [node name="Searchbar" type="LineEdit" parent="Panel"]
@@ -67,7 +67,7 @@ offset_top = 66.0
 offset_right = 200.0
 offset_bottom = 89.0
 grow_horizontal = 2
-placeholder_text = "Search"
+placeholder_text = "SEARCH"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 1
@@ -101,7 +101,7 @@ offset_right = -17.5
 offset_bottom = -14.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Cancel"
+text = "CANCEL"
 
 [connection signal="text_changed" from="Panel/Searchbar" to="." method="_on_Searchbar_text_changed"]
 [connection signal="pressed" from="Panel/CancelButton" to="." method="_on_CancelButton_pressed"]

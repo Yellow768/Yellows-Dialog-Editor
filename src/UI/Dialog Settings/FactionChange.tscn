@@ -35,6 +35,7 @@ offset_top = 9.0
 offset_right = 119.0
 offset_bottom = 40.0
 theme_override_fonts/font = ExtResource("4")
+text = "SELECT_FACTION"
 
 [node name="FactionID" type="SpinBox" parent="Panel"]
 layout_mode = 0
@@ -47,7 +48,7 @@ offset_bottom = 12.0
 min_value = -1.0
 max_value = 65535.0
 value = -1.0
-prefix = "ID:"
+prefix = "ID"
 
 [node name="Factionpoints" type="SpinBox" parent="Panel"]
 layout_mode = 0
@@ -63,8 +64,6 @@ min_value = -1e+08
 max_value = 1e+06
 value = 100.0
 update_on_text_changed = true
-prefix = "Add: "
-suffix = "pts"
 
 [node name="VSeparator" type="VSeparator" parent="Panel"]
 layout_mode = 0

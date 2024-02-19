@@ -5,6 +5,7 @@
 [node name="Confirm Text" type="ConfirmationDialog"]
 title = "Name Category"
 size = Vector2i(400, 100)
+cancel_button_text = "CANCEL"
 script = ExtResource("1")
 
 [node name="LineEdit" type="LineEdit" parent="."]

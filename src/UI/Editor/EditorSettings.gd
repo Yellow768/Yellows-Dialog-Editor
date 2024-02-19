@@ -15,6 +15,7 @@ signal autosave_time_changed
 @export var keybinds_scroll_path : NodePath
 @export var default_directory_label_path : NodePath
 @export var default_directory_file_dialog_path : NodePath
+@export var language_option_path : NodePath
 
 @onready var HideConnectionSlider : HSlider= get_node(hide_connection_slider_path)
 @onready var HoldShiftCheck :Button= get_node(hold_shift_check_path)
@@ -25,7 +26,7 @@ signal autosave_time_changed
 @onready var KeybindsScroll : VBoxContainer = get_node(keybinds_scroll_path)
 @onready var DefaultDirectoryLabel : Label = get_node(default_directory_label_path)
 @onready var DefaultDirectoryFileDialog : FileDialog = get_node(default_directory_file_dialog_path)
-
+@onready var LanguageOption : OptionButton = get_node(language_option_path)
 
 func _ready():
 	HideConnectionSlider.value = GlobalDeclarations.hide_connection_distance
@@ -34,12 +35,17 @@ func _ready():
 	EnableGridCheck.button_pressed = GlobalDeclarations.snap_enabled
 	AutoSaveMaxFiles.value = GlobalDeclarations.autosave_max_files
 	AllowMoreThanSix.button_pressed = GlobalDeclarations.allow_above_six_responses
-	DefaultDirectoryLabel.text = "Default Directory: "+GlobalDeclarations.default_user_directory
+	DefaultDirectoryLabel.text = tr("EDS_DEFAULT_DIRECTORY")+" "+GlobalDeclarations.default_user_directory
 	DefaultDirectoryFileDialog.current_dir = GlobalDeclarations.default_user_directory
+	
 	for action in GlobalDeclarations.actions:
 		var keybind_instance = keybind_scene.instantiate()
 		keybind_instance.assign_action(action)
 		KeybindsScroll.add_child(keybind_instance)
+	for lang in TranslationServer.get_loaded_locales():
+		LanguageOption.add_item(TranslationServer.get_language_name(lang))
+	LanguageOption.selected = TranslationServer.get_loaded_locales().find(GlobalDeclarations.language)
+	
 		
 	
 	
@@ -113,3 +119,9 @@ func _on_file_dialog_dir_selected(dir):
 
 func _on_file_dialog_canceled():
 	DefaultDirectoryFileDialog.visible = false
+
+
+func _on_language_option_item_selected(index):
+	
+	TranslationServer.set_locale(TranslationServer.get_loaded_locales()[index])
+	GlobalDeclarations.language = TranslationServer.get_locale()
