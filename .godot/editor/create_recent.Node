@@ -1,4 +1,5 @@
 OptionButton
+CheckButton
 HBoxContainer
 Label
 HSeparator

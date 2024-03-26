@@ -43,6 +43,7 @@ keybinds_scroll_path = NodePath("ScrollContainer2/KeyBinds")
 default_directory_label_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory")
 default_directory_file_dialog_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog")
 language_option_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/Language/LanguageOption")
+cnpc_plus_check_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+/CNPC+Check")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -249,7 +250,7 @@ autowrap_mode = 2
 title = "Open a Directory"
 position = Vector2i(0, 36)
 size = Vector2i(700, 600)
-ok_button_text = "Select This Folder"
+ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
@@ -268,7 +269,19 @@ text = "LANGUAGE"
 
 [node name="LanguageOption" type="OptionButton" parent="ScrollContainer/VBoxContainer2/FileSettings/Language"]
 layout_mode = 2
-selected = 0
+
+[node name="CustomNPCs+" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+layout_mode = 2
+tooltip_text = "EDS_CNPC+_TOOLTIP"
+
+[node name="CNP+Label" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+"]
+layout_mode = 2
+tooltip_text = "EDS_CNPC+_TOOLTIP"
+text = "EDS_CNPC+"
+
+[node name="CNPC+Check" type="CheckButton" parent="ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+"]
+layout_mode = 2
+tooltip_text = "EDS_CNPC+_TOOLTIP"
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, 443.45)
@@ -312,3 +325,4 @@ horizontal_alignment = 1
 [connection signal="dir_selected" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 [connection signal="button_up" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Button" to="." method="_on_change_directorybutton_button_up"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer2/FileSettings/Language/LanguageOption" to="." method="_on_language_option_item_selected"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+/CNPC+Check" to="." method="_on_cnpc_check_toggled"]

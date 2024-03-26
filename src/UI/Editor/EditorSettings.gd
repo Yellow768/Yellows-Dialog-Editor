@@ -16,6 +16,7 @@ signal autosave_time_changed
 @export var default_directory_label_path : NodePath
 @export var default_directory_file_dialog_path : NodePath
 @export var language_option_path : NodePath
+@export var cnpc_plus_check_path : NodePath
 
 @onready var HideConnectionSlider : HSlider= get_node(hide_connection_slider_path)
 @onready var HoldShiftCheck :Button= get_node(hold_shift_check_path)
@@ -27,6 +28,7 @@ signal autosave_time_changed
 @onready var DefaultDirectoryLabel : Label = get_node(default_directory_label_path)
 @onready var DefaultDirectoryFileDialog : FileDialog = get_node(default_directory_file_dialog_path)
 @onready var LanguageOption : OptionButton = get_node(language_option_path)
+@onready var CNPCPlusCheck : CheckButton = get_node(cnpc_plus_check_path)
 
 func _ready():
 	HideConnectionSlider.value = GlobalDeclarations.hide_connection_distance
@@ -37,6 +39,7 @@ func _ready():
 	AllowMoreThanSix.button_pressed = GlobalDeclarations.allow_above_six_responses
 	DefaultDirectoryLabel.text = tr("EDS_DEFAULT_DIRECTORY")+" "+GlobalDeclarations.default_user_directory
 	DefaultDirectoryFileDialog.current_dir = GlobalDeclarations.default_user_directory
+	CNPCPlusCheck.button_pressed = GlobalDeclarations.enable_customnpcs_plus_options
 	
 	for action in GlobalDeclarations.actions:
 		var keybind_instance = keybind_scene.instantiate()
@@ -125,3 +128,7 @@ func _on_language_option_item_selected(index):
 	
 	TranslationServer.set_locale(TranslationServer.get_loaded_locales()[index])
 	GlobalDeclarations.language = TranslationServer.get_locale()
+
+
+func _on_cnpc_check_toggled(button_pressed):
+	GlobalDeclarations.enable_customnpcs_plus_options = button_pressed

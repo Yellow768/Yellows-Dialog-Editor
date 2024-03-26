@@ -1,42 +1,25 @@
 res://default_env.tres
-res://src/Nodes/color_organizer.tscn
-res://Assets/MainEditor.tres
-res://src/Nodes/CategoryButton.tscn
 res://src/UI/Editor/EditorSettings.tscn
+res://Assets/MainEditor.tres
+res://Assets/UITheme.tres
+res://src/Autoload/global_declarations.gd
+res://src/UI/Editor/EditorSettings.gd
+res://src/Nodes/color_organizer.tscn
+res://src/Nodes/CategoryButton.tscn
 res://src/UI/Dialog Settings/Dialog Availability.tscn
 res://src/UI/LandingScreen.tscn
 res://src/UI/Editor/keybind.tscn
 res://src/UI/Editor/MainEditor.tscn
 res://src/Nodes/ResponseNode.tscn
-res://src/Classes/File System/EnvironmentIndexer.gd
-res://src/UI/Util/ConfirmDeletion.tscn
-res://src/Nodes/Scripts/ResponseNode.gd
-res://src/Translations/language_locale.en.translation
-res://Assets/Translations/language_locale.en.translation
 res://src/UI/Dialog Settings/MailItemSlot.tscn
-res://src/UI/Editor/EditorSettings.gd
-res://src/Autoload/global_declarations.gd
-res://Assets/Translations/languages.en.translation
-res://Assets/Translations/languages.es.translation
-res://src/Nodes/Scripts/color_organizer.gd
 res://src/UI/Dialog Settings/FactionChange.tscn
-res://src/UI/Dialog Settings/Faction Availability.tscn
-res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd
-res://src/UI/Editor/MailData.gd
-res://src/UI/Util/Scripts/UIAnimations.gd
-res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
-res://src/Nodes/Scripts/DialogNode.gd
-res://Assets/language_locale.csv - Sheet1.es.translation
-res://Assets/language_locale.csv - Sheet1.en.translation
 res://src/UI/Dialog Settings/StartQuest.tscn
 res://src/UI/Dialog Settings/Quest Avaiability.tscn
+res://src/UI/Dialog Settings/Faction Availability.tscn
 res://src/UI/Dialog Settings/ScoreboardAvailability.tscn
+res://src/UI/Util/ConfirmDeletion.tscn
 res://src/UI/Util/DirectoryShortcutButton.tscn
 res://src/UI/Util/FactionLoader.tscn
 res://src/UI/Util/TextEnterConfirmTemplate.tscn
 res://src/UI/Util/ChooseInitialDialogPopup.tscn
-res://Assets/Translations/language_locale.es.translation
-res://src/UI/Dialog Settings/Scripts/FactionChange.gd
-res://src/Classes/File System/CategoryExporter.gd
-res://Assets/UITheme.tres
 res://src/UI/Program.tscn
