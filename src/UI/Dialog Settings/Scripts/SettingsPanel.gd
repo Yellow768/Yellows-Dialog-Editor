@@ -264,7 +264,7 @@ func _on_category_panel_finished_loading(_ignore):
 		emit_signal("availability_mode_exited")
 		load_dialog_settings(initial_dialog)
 		initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
-		AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
+		#AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
 		initial_dialog.selected = true
 		initial_dialog.draggable = false
 		
