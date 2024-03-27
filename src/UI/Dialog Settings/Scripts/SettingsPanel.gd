@@ -142,7 +142,7 @@ signal unsaved_change
 @onready var ImageAddButton : Button = get_node(image_add_button_path)
 @onready var ImageRemoveButton : Button = get_node(image_remove_button_path)
 @onready var ImageId : SpinBox = get_node(image_id_path)
-@onready var ImageTextureString : LineEdit = get_node(image_texture_path)
+@onready var ImageTextureString : TextEdit = get_node(image_texture_path)
 @onready var ImagePositionX : SpinBox = get_node(image_position_x_path)
 @onready var ImagePositionY : SpinBox = get_node(image_position_y_path)
 @onready var ImageWidth : SpinBox = get_node(image_width_path)
@@ -164,6 +164,7 @@ var exiting_availability_mode := false
 var availability_slot : int
 var stored_current_dialog_id : int
 var glob_node_selected_id : int
+var current_image : Dictionary
 
 func _ready(): 
 	set_quest_dict()
@@ -354,7 +355,8 @@ func load_dialog_settings(dialog : dialog_node):
 	ImageSettingsContainer.visible = false
 	ImageList.clear()
 	for image in current_dialog.image_dictionary.keys():
-		ImageList.add_item(image)
+		ImageList.add_item(str(image))
+	sort_image_list()
 	
 	
 		
@@ -615,3 +617,172 @@ func _on_npcy_offset_value_changed(value):
 func _on_npc_scale_value_value_changed(value):
 	current_dialog.npc_scale = value
 	emit_signal("unsaved_change")
+
+
+func _on_add_image_pressed():
+	var new_id = current_dialog.add_image_to_dictionary()
+	if new_id != null:
+		ImageList.add_item(str(new_id))
+	if ImageList.is_anything_selected():
+		sort_image_list(ImageList.get_selected_items()[0])
+	else:
+		sort_image_list()
+	
+	
+
+func _on_remove_image_pressed():
+	if !ImageList.get_selected_items().is_empty():
+		current_dialog.remove_image_from_dictionary(int(ImageList.get_item_text(ImageList.get_selected_items()[0])))
+		ImageList.remove_item(ImageList.get_selected_items()[0])
+	
+	
+
+func sort_image_list(selected_id : int = -1):
+	ImageList.clear()
+	var image_id_array = current_dialog.image_dictionary.keys()
+	image_id_array.sort()
+	for id in image_id_array:
+		ImageList.add_item(str(id))
+	if selected_id != -1:
+		ImageList.select(image_id_array.find(selected_id))
+	
+
+var selecting_new_image := false
+
+
+func _on_item_list_item_selected(index):
+	selecting_new_image = true
+	ImageSettingsContainer.visible = true
+	var image_id = int(ImageList.get_item_text(index))
+	current_image = current_dialog.image_dictionary[image_id]
+	ImageId.value = image_id
+	ImageTextureString.text = current_image.Texture
+	ImagePositionX.value = current_image.PosX
+	ImagePositionY.value = current_image.PosY
+	ImageWidth.value = current_image.Width
+	ImageHeight.value = current_image.Height
+	ImageOffsetX.value = current_image.TextureX
+	ImageOffsetY.value = current_image.TextureY
+	ImageScale.value = current_image.Scale
+	ImageAlpha.value = current_image.Alpha
+	ImageRotation.value = current_image.Rotation
+	ImageColor.color = current_image.Color
+	ImageSelectedColor.color = current_image.SelectedColor
+	ImageType.selected = current_image.ImageType
+	ImageAlignment.select(current_image.Alignment)
+	selecting_new_image = false
+	
+
+	
+
+
+
+
+func _on_id_value_value_changed(value):
+	if selecting_new_image:
+		return
+	var old_value = int(ImageList.get_item_text(ImageList.get_selected_items()[0]))
+	if current_dialog.image_dictionary.keys().has(int(value)):
+		ImageId.value = old_value
+		return
+	ImageList.set_item_text(ImageList.get_selected_items()[0],str(value))
+	
+	current_dialog.image_dictionary[int(value)] = current_dialog.image_dictionary[old_value]
+	current_dialog.image_dictionary.erase(old_value)
+	sort_image_list(value)
+	
+	
+
+
+func _on_line_edit_text_changed():
+	if selecting_new_image : return
+	current_image.Texture = ImageTextureString.text
+
+
+
+func _on_image_position_x_value_changed(value):
+	if selecting_new_image : return
+	current_image.PosX = value
+	
+
+
+
+func _on_image_position_y_value_changed(value):
+	if selecting_new_image : return
+	current_image.PosY = value
+	
+
+
+
+func _on_width_value_changed(value):
+	if selecting_new_image : return
+	current_image.Width = value
+	
+
+
+
+func _on_height_value_changed(value):
+	if selecting_new_image : return
+	current_image.Height = value
+	
+
+
+
+func _on_offset_x_value_changed(value):
+	if selecting_new_image : return
+	current_image.TextureX = value
+	
+
+
+
+func _on_offset_y_value_changed(value):
+	if selecting_new_image : return
+	current_image.TextureY = value
+	
+
+
+
+func _on_scale_value_value_changed(value):
+	if selecting_new_image : return
+	current_image.Scale = value
+	
+
+
+
+func _on_alpha_value_value_changed(value):
+	if selecting_new_image : return
+	current_image.Alpha = value
+	
+
+
+
+func _on_rotation_value_value_changed(value):
+	if selecting_new_image : return
+	current_image.Rotation = value
+	
+
+
+
+
+func _on_image_color_color_changed(color):
+	if selecting_new_image : return
+	current_image.Color = color
+	
+
+
+
+func _on_selected_color_color_changed(color):
+	if selecting_new_image : return
+	current_image.SelectedColor = color
+
+
+func _on_type_button_item_selected(index):
+	if selecting_new_image : return
+	current_image.Type = index
+	
+
+
+
+func _on_alignment_item_selected(index):
+	if selecting_new_image : return
+	current_image.Alignment = index

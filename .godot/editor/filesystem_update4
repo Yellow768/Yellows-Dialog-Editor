@@ -24,3 +24,4 @@ res://src/UI/Util/ChooseInitialDialogPopup.tscn
 res://src/UI/Program.tscn
 res://src/Nodes/DialogNode.tscn
 res://src/Classes/undo_redo.tscn
+res://src/Nodes/Scripts/DialogNode.gd

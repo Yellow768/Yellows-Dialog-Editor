@@ -256,20 +256,28 @@ func _on_DialogText_gui_input(event : InputEvent):
 func _on_TitleText_gui_input(event : InputEvent):
 	handle_clicking(event)
 
+func sort_ascending(a, b):
+	if a[0] < b[0]:
+		return true
+	return false
+
 
 func add_image_to_dictionary() :
+	if image_dictionary.size() == 9 :
+		return
 	var gap := false
-	var next_value := 0
+	var previous_id = -1
+	var next_value := -1
 	if !image_dictionary.is_empty():
-		var prev_i = -1
-		
-		for i in image_dictionary.keys():
-			if i - prev_i > 1:
-				gap = true
-				next_value = prev_i + 1
-			prev_i = i
-		if !gap:
-			next_value = image_dictionary.size + 1
+		var image_id_array = image_dictionary.keys()
+		image_id_array.sort()
+		for id in image_id_array:
+			if id - previous_id > 1:
+				next_value = previous_id + 1
+				break
+			previous_id = id
+	if next_value == -1:
+		next_value = image_dictionary.size()
 	image_dictionary[next_value] = {
 		"PosX" : 0,
 		"PosY" : 0,
@@ -286,6 +294,7 @@ func add_image_to_dictionary() :
 		"Height" : 0,
 		"Width" : 0
 	}
+	return next_value
 		
 func remove_image_from_dictionary(id : int):
 	image_dictionary.erase(id)

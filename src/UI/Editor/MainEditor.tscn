@@ -406,8 +406,8 @@ image_offset_y_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/Scrol
 image_scale_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale/ScaleValue")
 image_alpha_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha/AlphaValue")
 image_rotation_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation/RotationValue")
-image_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ColorPickerButton")
-image_selected_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/ColorPickerButton")
+image_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ImageColor")
+image_selected_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor")
 image_type_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton")
 image_alignment_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment")
 image_settings_container_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings")
@@ -433,6 +433,7 @@ offset_bottom = 1005.0
 mouse_filter = 2
 
 [node name="DIALOG_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 
 [node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS"]
@@ -1236,7 +1237,6 @@ allow_greater = true
 allow_lesser = true
 
 [node name="IMAGES" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 
 [node name="Images" type="Control" parent="InformationPanel/DialogNodeTabs/IMAGES"]
@@ -1256,8 +1256,9 @@ offset_bottom = 400.0
 layout_mode = 2
 
 [node name="ItemList" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(30, 50)
+custom_minimum_size = Vector2(45, 300)
 layout_mode = 2
+allow_search = false
 
 [node name="AddImage" type="Button" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
@@ -1306,7 +1307,7 @@ layout_mode = 2
 text = "Texture"
 
 [node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox" instance=ExtResource("15")]
-custom_minimum_size = Vector2(300, 25)
+custom_minimum_size = Vector2(250, 25)
 layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
@@ -1448,7 +1449,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
+[node name="ImageColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
 layout_mode = 2
 text = "aaa"
 color = Color(1, 1, 1, 1)
@@ -1466,7 +1467,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Selected Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
+[node name="SelectedColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
 layout_mode = 2
 text = "aaa"
 color = Color(1, 1, 1, 1)
@@ -1883,6 +1884,24 @@ one_shot = true
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset" to="InformationPanel" method="_on_npcx_offset_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset" to="InformationPanel" method="_on_npcy_offset_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue" to="InformationPanel" method="_on_npc_scale_value_value_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/ItemList" to="InformationPanel" method="_on_item_list_item_selected"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/AddImage" to="InformationPanel" method="_on_add_image_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/RemoveImage" to="InformationPanel" method="_on_remove_image_pressed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ID/IDValue" to="InformationPanel" method="_on_id_value_value_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit" to="InformationPanel" method="_on_line_edit_text_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionX" to="InformationPanel" method="_on_image_position_x_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionY" to="InformationPanel" method="_on_image_position_y_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Width" to="InformationPanel" method="_on_width_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Height" to="InformationPanel" method="_on_height_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetX" to="InformationPanel" method="_on_offset_x_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetY" to="InformationPanel" method="_on_offset_y_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale/ScaleValue" to="InformationPanel" method="_on_scale_value_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha/AlphaValue" to="InformationPanel" method="_on_alpha_value_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation/RotationValue" to="InformationPanel" method="_on_rotation_value_value_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ImageColor" to="InformationPanel" method="_on_image_color_color_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor" to="InformationPanel" method="_on_selected_color_color_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton" to="InformationPanel" method="_on_type_button_item_selected"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel" method="_on_alignment_item_selected"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="timeout" from="InformationPanel/availability_timer" to="InformationPanel" method="_on_availability_timer_timeout"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
