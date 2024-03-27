@@ -168,6 +168,16 @@ var current_image : Dictionary
 
 func _ready(): 
 	set_quest_dict()
+	ImageHeight.update_on_text_changed = true
+	ImageWidth.update_on_text_changed = true
+	ImageId.update_on_text_changed = true
+	ImageOffsetX.update_on_text_changed = true
+	ImageOffsetY.update_on_text_changed = true
+	ImagePositionX.update_on_text_changed = true
+	ImagePositionY.update_on_text_changed = true
+	ImageRotation.update_on_text_changed = true
+	ImageScale.update_on_text_changed = true
+	ImageAlpha.update_on_text_changed = true
 	for i in 4:
 		AvailabilityQuests.get_child(i).connect("id_changed", Callable(self, "quest_id_changed"))
 		AvailabilityQuests.get_child(i).connect("type_changed", Callable(self, "quest_type_changed"))
@@ -286,6 +296,7 @@ func set_title_text(title_text : String,node_index : int):
 		
 func load_dialog_settings(dialog : dialog_node):
 	DialogSettingsTab.visible = true
+	await get_tree().create_timer(.01).timeout
 	if current_dialog != dialog:
 		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed", Callable(self, "update_text")):
 			current_dialog.disconnect("text_changed", Callable(self, "update_text"))
@@ -652,7 +663,12 @@ var selecting_new_image := false
 
 func _on_item_list_item_selected(index):
 	selecting_new_image = true
+	await get_tree().create_timer(.01).timeout
 	ImageSettingsContainer.visible = true
+	current_image.Texture = ImageTextureString.text
+	current_image.PosX = ImagePositionX.value
+	current_image.Scale = ImageScale.get_value()
+	ImageScale.get_line_edit().release_focus()
 	var image_id = int(ImageList.get_item_text(index))
 	current_image = current_dialog.image_dictionary[image_id]
 	ImageId.value = image_id
@@ -745,6 +761,8 @@ func _on_offset_y_value_changed(value):
 func _on_scale_value_value_changed(value):
 	if selecting_new_image : return
 	current_image.Scale = value
+	
+	print(value)
 	
 
 
