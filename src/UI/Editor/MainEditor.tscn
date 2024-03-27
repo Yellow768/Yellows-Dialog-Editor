@@ -392,6 +392,25 @@ option_spacing_y_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer
 npc_offset_x_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset")
 npc_offset_y_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset")
 npc_scale_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue")
+image_id_list_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/ItemList")
+image_add_button_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/AddImage")
+image_remove_button_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/RemoveImage")
+image_id_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ID/IDValue")
+image_texture_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit")
+image_position_x_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionX")
+image_position_y_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionY")
+image_width_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Width")
+image_height_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Height")
+image_offset_x_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetX")
+image_offset_y_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetY")
+image_scale_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale/ScaleValue")
+image_alpha_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha/AlphaValue")
+image_rotation_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation/RotationValue")
+image_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ColorPickerButton")
+image_selected_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/ColorPickerButton")
+image_type_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton")
+image_alignment_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment")
+image_settings_container_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings")
 
 [node name="Label" type="Label" parent="InformationPanel"]
 layout_mode = 1
@@ -1239,8 +1258,6 @@ layout_mode = 2
 [node name="ItemList" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(30, 50)
 layout_mode = 2
-item_count = 1
-item_0/text = "0"
 
 [node name="AddImage" type="Button" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
@@ -1256,219 +1273,219 @@ text = "-"
 custom_minimum_size = Vector2(500, 900)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer"]
+[node name="ImageSettings" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(0, 4000)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.3
 
-[node name="ID" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="ID" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/ID"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ID"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "ID"
 
-[node name="IDValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/ID"]
+[node name="IDValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ID"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="ImageBox" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="ImageBox" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/ImageBox"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Texture"
 
-[node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/ImageBox" instance=ExtResource("15")]
+[node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox" instance=ExtResource("15")]
 custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Position" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Position" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Position"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "Position"
 
-[node name="ImagePositionX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Position"]
+[node name="ImagePositionX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="ImagePositionY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Position"]
+[node name="ImagePositionY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="WidthHeight" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="WidthHeight" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/WidthHeight"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "Width & Height"
 
-[node name="Width" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/WidthHeight"]
+[node name="Width" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="Height" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/WidthHeight"]
+[node name="Height" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Offset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Offset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Offset"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "Offset"
 
-[node name="OffsetX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Offset"]
+[node name="OffsetX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="OffsetY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Offset"]
+[node name="OffsetY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator5" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Scale" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Scale" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Scale"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "Scale"
 
-[node name="ScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Scale"]
+[node name="ScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator6" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Alpha" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Alpha" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Alpha"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "Alpha"
 
-[node name="AlphaValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Alpha"]
+[node name="AlphaValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator7" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator7" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Rotation" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Rotation" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Rotation"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "Rotation"
 
-[node name="RotationValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Rotation"]
+[node name="RotationValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator8" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator8" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Colors" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Colors" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Color" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors"]
+[node name="Color" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors/Color"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors/Color"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
 layout_mode = 2
 text = "aaa"
 color = Color(1, 1, 1, 1)
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="SelectedColor" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors"]
+[node name="SelectedColor" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors/SelectedColor"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Selected Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Colors/SelectedColor"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
 layout_mode = 2
 text = "aaa"
 color = Color(1, 1, 1, 1)
 
-[node name="HSeparator9" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator9" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Type" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Type" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Type"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Type
 "
 
-[node name="RotationValue" type="OptionButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Type"]
+[node name="TypeButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type"]
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -1479,19 +1496,19 @@ popup/item_1/id = 1
 popup/item_2/text = "Screen"
 popup/item_2/id = 2
 
-[node name="HSeparator10" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator10" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Alignment" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Alignment" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Alignment"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
 layout_mode = 2
 text = "Alignment"
 
-[node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/VBoxContainer/Alignment"]
+[node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
 custom_minimum_size = Vector2(68, 90)
 layout_direction = 1
 layout_mode = 2

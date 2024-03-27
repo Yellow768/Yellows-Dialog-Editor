@@ -65,6 +65,27 @@ signal unsaved_change
 @export var npc_scale_path : NodePath
 
 
+@export_group("Images")
+@export var image_id_list_path : NodePath
+@export var image_add_button_path : NodePath
+@export var image_remove_button_path : NodePath
+
+@export var image_id_path : NodePath
+@export var image_texture_path : NodePath
+@export var image_position_x_path : NodePath
+@export var image_position_y_path : NodePath
+@export var image_width_path : NodePath
+@export var image_height_path : NodePath
+@export var image_offset_x_path : NodePath
+@export var image_offset_y_path : NodePath
+@export var image_scale_path : NodePath
+@export var image_alpha_path : NodePath
+@export var image_rotation_path : NodePath
+@export var image_color_path : NodePath
+@export var image_selected_color_path : NodePath
+@export var image_type_path : NodePath
+@export var image_alignment_path : NodePath
+@export var image_settings_container_path : NodePath
 
 
 
@@ -116,6 +137,26 @@ signal unsaved_change
 @onready var NPCOffsetX : SpinBox = get_node(npc_offset_x_path)
 @onready var NPCOffsetY : SpinBox = get_node(npc_offset_y_path)
 @onready var NPCScale : SpinBox = get_node(npc_scale_path)
+
+@onready var ImageList : ItemList = get_node(image_id_list_path)
+@onready var ImageAddButton : Button = get_node(image_add_button_path)
+@onready var ImageRemoveButton : Button = get_node(image_remove_button_path)
+@onready var ImageId : SpinBox = get_node(image_id_path)
+@onready var ImageTextureString : LineEdit = get_node(image_texture_path)
+@onready var ImagePositionX : SpinBox = get_node(image_position_x_path)
+@onready var ImagePositionY : SpinBox = get_node(image_position_y_path)
+@onready var ImageWidth : SpinBox = get_node(image_width_path)
+@onready var ImageHeight : SpinBox = get_node(image_height_path)
+@onready var ImageOffsetX : SpinBox = get_node(image_offset_x_path)
+@onready var ImageOffsetY : SpinBox = get_node(image_offset_y_path)
+@onready var ImageScale : SpinBox = get_node(image_scale_path)
+@onready var ImageAlpha : SpinBox = get_node(image_alpha_path)
+@onready var ImageRotation : SpinBox = get_node(image_rotation_path)
+@onready var ImageColor : ColorPickerButton = get_node(image_color_path)
+@onready var ImageSelectedColor : ColorPickerButton = get_node(image_selected_color_path)
+@onready var ImageType : OptionButton = get_node(image_type_path)
+@onready var ImageAlignment : ItemList = get_node(image_alignment_path)
+@onready var ImageSettingsContainer : VBoxContainer = get_node(image_settings_container_path)
 
 var current_dialog : dialog_node
 var dialog_availability_mode := false
@@ -310,6 +351,10 @@ func load_dialog_settings(dialog : dialog_node):
 	NPCOffsetX.value = current_dialog.npc_offset_x
 	NPCOffsetY.value = current_dialog.npc_offset_y
 	NPCScale.value = current_dialog.npc_scale
+	ImageSettingsContainer.visible = false
+	ImageList.clear()
+	for image in current_dialog.image_dictionary.keys():
+		ImageList.add_item(image)
 	
 	
 		
