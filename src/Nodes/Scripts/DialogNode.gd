@@ -53,7 +53,34 @@ var initial_offset_y :float= 0
 @export var show_wheel : bool = false
 @export var hide_npc : bool = false
 @export var disable_esc : bool = false
+var darken_screen : bool = false
+var render_gradual : bool = false
+var show_previous_dialog : bool = false 
+var show_response_options : bool = false
+var title_color : Color = 0xffffff
+var dialog_color : Color = 0xffffff
+var text_sound : String = 'minecraft:random.wood_click'
+var text_pitch : float = 1.0
 
+#Spacing CustomNPCs + Option
+
+var title_pos : int = 0
+var alignment : bool = true 
+var text_height : int = 400
+var text_width : int = 300
+var text_offset_y : int = 0
+var text_offset_x : int = 0
+var title_offset_y : int = 0
+var title_offset_x : int = 0
+var option_offset_x : int = 0
+var option_offset_y : int = 0
+var option_spacing_x : int = 0
+var option_spacing_y : int = 0
+var npc_offset_x : int = 0
+var npc_offset_y : int = 0
+var npc_scale : float = 1.0
+
+var image_dictionary = {}
 #String Inputs
 @export var command : String = ''
 @export var sound : String = ''
@@ -229,7 +256,40 @@ func _on_DialogText_gui_input(event : InputEvent):
 func _on_TitleText_gui_input(event : InputEvent):
 	handle_clicking(event)
 
-	
+
+func add_image_to_dictionary() :
+	var gap := false
+	var next_value := 0
+	if !image_dictionary.is_empty():
+		var prev_i = -1
+		
+		for i in image_dictionary.keys():
+			if i - prev_i > 1:
+				gap = true
+				next_value = prev_i + 1
+			prev_i = i
+		if !gap:
+			next_value = image_dictionary.size + 1
+	image_dictionary[next_value] = {
+		"PosX" : 0,
+		"PosY" : 0,
+		"Color" : 0xffffff,
+		"TextureX" : 0,
+		"TextureY" : 0,
+		"Scale" : 1.0,
+		"SelectedColor" : 0xffffff,
+		"Texture" : "",
+		"Rotation" : 0.0,
+		"ImageType" : 1,
+		"Alignment" : 0,
+		"Alpha" : 1.0,
+		"Height" : 0,
+		"Width" : 0
+	}
+		
+func remove_image_from_dictionary(id : int):
+	image_dictionary.erase(id)
+
 func save():
 	var save_quest_av :Array[Dictionary]= []
 	var save_dialog_av :Array[Dictionary] = []

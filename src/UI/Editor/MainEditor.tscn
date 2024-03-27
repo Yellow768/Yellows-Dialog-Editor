@@ -353,6 +353,14 @@ category_panel_path = NodePath("../CategoryPanel")
 hide_npc_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
 show_wheel_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel")
 disable_esc_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc")
+darken_screen_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DarkenScreen")
+render_type_option_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/RenderType")
+text_sound_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound/TextSound")
+text_pitch_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound/TextPitch")
+show_previous_dialog_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Previous Dialog")
+show_responses_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Response Options")
+color_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Color")
+title_color_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Title Color")
 title_label_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Title")
 command_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command")
 playsound_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Soundfile")
@@ -391,7 +399,6 @@ offset_bottom = 1005.0
 mouse_filter = 2
 
 [node name="DIALOG_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 
 [node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS"]
@@ -464,19 +471,20 @@ custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 caret_blink = true
 
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound"]
+layout_mode = 2
+text = "TEXT_PITCH"
+
+[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound"]
+layout_mode = 2
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
 [node name="TextPitch" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextPitch"]
-layout_mode = 2
-text = "TEXT_PITCH"
-
-[node name="TextSound" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextPitch" instance=ExtResource("15")]
-custom_minimum_size = Vector2(300, 25)
-layout_mode = 2
-caret_blink = true
 
 [node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -494,7 +502,7 @@ alignment = 1
 layout_mode = 2
 text = "DIALOG_COLOR"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
@@ -503,7 +511,7 @@ color = Color(1, 1, 1, 1)
 layout_mode = 2
 text = "TITLE_COLOR"
 
-[node name="ColorPickerButton2" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
@@ -1195,6 +1203,7 @@ allow_greater = true
 allow_lesser = true
 
 [node name="IMAGES" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 
 [node name="Images" type="Control" parent="InformationPanel/DialogNodeTabs/IMAGES"]
@@ -1799,6 +1808,13 @@ one_shot = true
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DarkenScreen" to="InformationPanel" method="_on_darken_screen_pressed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/RenderType" to="InformationPanel" method="_on_render_type_item_selected"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound/TextSound" to="InformationPanel" method="_on_text_sound_text_changed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Previous Dialog" to="InformationPanel" method="_on_show_previous_dialog_toggled"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Response Options" to="InformationPanel" method="_on_show_response_options_toggled"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Color" to="InformationPanel" method="_on_color_color_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Title Color" to="InformationPanel" method="_on_title_color_color_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]

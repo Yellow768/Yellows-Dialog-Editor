@@ -16,6 +16,14 @@ signal unsaved_change
 @export var hide_npc_checkbox_path: NodePath
 @export var show_wheel_checkbox_path: NodePath
 @export var disable_esc_checkbox_path: NodePath
+@export var darken_screen_checkbox_path : NodePath
+@export var render_type_option_path : NodePath
+@export var text_sound_path : NodePath
+@export var text_pitch_path : NodePath
+@export var show_previous_dialog_path : NodePath
+@export var show_responses_path : NodePath
+@export var color_path : NodePath
+@export var title_color_path : NodePath
 @export var title_label_path: NodePath
 @export var command_edit_path: NodePath
 @export var playsound_edit_path: NodePath
@@ -33,6 +41,7 @@ signal unsaved_change
 
 @export var mail_data_path : NodePath
 
+@export var title_position_path : NodePath
 
 @export var toggle_visiblity_path: NodePath
 
@@ -45,6 +54,14 @@ signal unsaved_change
 @onready var HideNpcCheckbox := get_node(hide_npc_checkbox_path)
 @onready var ShowWheelCheckbox := get_node(show_wheel_checkbox_path)
 @onready var DisableEscCheckbox := get_node(disable_esc_checkbox_path)
+@onready var DarkenScreenCheckbox := get_node(darken_screen_checkbox_path)
+@onready var RenderTypeOption : OptionButton = get_node(render_type_option_path)
+@onready var TextSound : TextEdit = get_node(text_sound_path)
+@onready var TextPitch : SpinBox = get_node(text_pitch_path)
+@onready var ShowPreviousDialog : CheckBox = get_node(show_previous_dialog_path)
+@onready var ShowResponses : CheckBox = get_node(show_responses_path)
+@onready var DialogColor : ColorPickerButton= get_node(color_path)
+@onready var TitleColor : ColorPickerButton= get_node(title_color_path)
 @onready var TitleLabel := get_node(title_label_path)
 @onready var CommandEdit := get_node(command_edit_path)
 @onready var PlaysoundEdit := get_node(playsound_edit_path)
@@ -233,6 +250,14 @@ func load_dialog_settings(dialog : dialog_node):
 		AvailabilityScoreboard.get_child(i).set_comparison_type(current_dialog.scoreboard_availabilities[i].comparison_type)
 		AvailabilityScoreboard.get_child(i).set_value(current_dialog.scoreboard_availabilities[i].value)
 	MailData.load_mail_data(current_dialog.mail)
+	DarkenScreenCheckbox.button_pressed = current_dialog.darken_screen
+	RenderTypeOption.selected = current_dialog.render_gradual
+	TextSound.text = current_dialog.text_sound
+	TextPitch.value = current_dialog.text_pitch
+	ShowPreviousDialog.button_pressed = current_dialog.show_previous_dialog
+	ShowResponses.button_pressed = current_dialog.show_response_options
+	DialogColor.color = current_dialog.dialog_color
+	TitleColor.color = current_dialog.title_color
 		
 func scoreboard_objective_name_changed(child ,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name
@@ -364,3 +389,37 @@ func _on_soundfile_text_changed():
 
 
 
+
+
+func _on_darken_screen_pressed():
+	current_dialog.darken_screen = DarkenScreenCheckbox.button_pressed
+	emit_signal("unsaved_change")
+
+
+func _on_render_type_item_selected(index):
+	current_dialog.render_gradual = index
+	emit_signal("unsaved_change")
+
+func _on_text_sound_text_changed():
+	current_dialog.text_sound = TextSound.text
+	emit_signal("unsaved_change")
+
+func _on_text_pitch_text_changed():
+	current_dialog.text_pitch = TextPitch.text
+	emit_signal("unsaved_change")
+
+func _on_show_previous_dialog_toggled(button_pressed):
+	current_dialog.show_previous_dialog = button_pressed
+	emit_signal("unsaved_change")
+
+func _on_show_response_options_toggled(button_pressed):
+	current_dialog.show_response_options = button_pressed
+	emit_signal("unsaved_change")
+
+func _on_color_color_changed(color):
+	current_dialog.dialog_color = color
+	emit_signal("unsaved_change")
+
+func _on_title_color_color_changed(color):
+	current_dialog.title_color = color
+	emit_signal("unsaved_change")

@@ -1,3 +1,4 @@
+SpinBox
 HSeparator
 VBoxContainer
 Button
@@ -9,7 +10,6 @@ MenuButton
 VSeparator
 ColorPickerButton
 ColorPicker
-SpinBox
 CheckButton
 ScrollContainer
 Container
