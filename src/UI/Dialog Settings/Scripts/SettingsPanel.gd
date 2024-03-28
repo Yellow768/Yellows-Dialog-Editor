@@ -264,7 +264,6 @@ func _on_category_panel_finished_loading(_ignore):
 		emit_signal("availability_mode_exited")
 		load_dialog_settings(initial_dialog)
 		initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
-		#AvailabilityDialogs.get_child(availability_slot).set_id(glob_node_selected_id)
 		initial_dialog.selected = true
 		initial_dialog.draggable = false
 		
@@ -345,8 +344,8 @@ func load_dialog_settings(dialog : dialog_node):
 	TextPitch.value = current_dialog.text_pitch
 	ShowPreviousDialog.button_pressed = current_dialog.show_previous_dialog
 	ShowResponses.button_pressed = current_dialog.show_response_options
-	DialogColor.color = current_dialog.dialog_color
-	TitleColor.color = current_dialog.title_color
+	DialogColor.color = GlobalDeclarations.int_to_color(current_dialog.dialog_color)
+	TitleColor.color = GlobalDeclarations.int_to_color(current_dialog.title_color)
 	
 	TitlePosition.selected = current_dialog.title_pos
 	Alignment.selected = current_dialog.alignment
@@ -529,11 +528,11 @@ func _on_show_response_options_toggled(button_pressed):
 	emit_signal("unsaved_change")
 
 func _on_color_color_changed(color):
-	current_dialog.dialog_color = color
+	current_dialog.dialog_color = color.to_html(false).hex_to_int() 
 	emit_signal("unsaved_change")
 
 func _on_title_color_color_changed(color):
-	current_dialog.title_color = color
+	current_dialog.title_color = color.to_html(false).hex_to_int() 
 	emit_signal("unsaved_change")
 	
 
@@ -682,9 +681,9 @@ func _on_item_list_item_selected(index):
 	ImageScale.value = current_image.Scale
 	ImageAlpha.value = current_image.Alpha
 	ImageRotation.value = current_image.Rotation
-	ImageColor.color = current_image.Color
-	ImageSelectedColor.color = current_image.SelectedColor
-	ImageType.selected = current_image.ImageType
+	ImageColor.color = GlobalDeclarations.int_to_color(current_image.Color)
+	ImageSelectedColor.color = GlobalDeclarations.int_to_color(current_image.SelectedColor)
+	ImageType.select(current_image.ImageType)
 	ImageAlignment.select(current_image.Alignment)
 	selecting_new_image = false
 	
@@ -784,19 +783,19 @@ func _on_rotation_value_value_changed(value):
 
 func _on_image_color_color_changed(color):
 	if selecting_new_image : return
-	current_image.Color = color
+	current_image.Color = color.to_html(false).hex_to_int() 
 	
 
 
 
 func _on_selected_color_color_changed(color):
 	if selecting_new_image : return
-	current_image.SelectedColor = color
+	current_image.SelectedColor = color.to_html(false).hex_to_int() 
 
 
 func _on_type_button_item_selected(index):
 	if selecting_new_image : return
-	current_image.Type = index
+	current_image.ImageType = index
 	
 
 

@@ -57,8 +57,8 @@ var darken_screen : bool = false
 var render_gradual : bool = false
 var show_previous_dialog : bool = false 
 var show_response_options : bool = false
-var title_color : Color = 0xffffff
-var dialog_color : Color = 0xffffff
+var title_color : int = 0xffffff
+var dialog_color : int = 0xffffff
 var text_sound : String = 'minecraft:random.wood_click'
 var text_pitch : float = 1.0
 
@@ -307,6 +307,7 @@ func save():
 	var save_fact_changes :Array[Dictionary]= []
 	var save_response_options :Array[Dictionary]= []
 	var save_mail : Dictionary
+	var save_images : Dictionary
 	
 	for i in quest_availabilities:
 		save_quest_av.append({
@@ -366,6 +367,27 @@ func save():
 		"command" : command,
 		"text" : text,
 		"start_quest" : start_quest,
+		"darken_screen" : darken_screen,
+		"render_gradual": render_gradual,
+		"show_previous_dialog": show_previous_dialog,
+		"show_response_options": show_response_options,
+		"dialog_color" : dialog_color,
+		"title_color" : title_color, 
+		"text_sound" : text_sound,
+		"text_pitch" : text_pitch,
+		"title_pos" : title_pos,
+		"alignment" : alignment,
+		"text_width" : text_width,
+		"text_height" : text_height,
+		"text_offset_x" : text_offset_x,
+		"text_offset_y" : text_offset_y,
+		"option_offset_x" : option_offset_x,
+		"option_offset_y" : option_offset_y,
+		"option_spacing_x" : option_spacing_x,
+		"option_spacing_y" : option_spacing_y,
+		"npc_offset_x" : npc_offset_x,
+		"npc_offset_y" : npc_offset_y,
+		"npc_scale" : npc_scale,
 		"quest_availabilities": save_quest_av,
 		"dialog_availabilities" : save_dialog_av,
 		"faction_availabilities" : save_faction_av,
@@ -375,7 +397,8 @@ func save():
 		"min_level_availability" : min_level_availability,
 		"response_options":save_response_options,
 		"mail" : save_mail,
-		"connected_response_indexes" : connected_response_indexes
+		"connected_response_indexes" : connected_response_indexes,
+		"image_dictionary" : JSON.stringify(image_dictionary)
 	}
 	return save_dict
 

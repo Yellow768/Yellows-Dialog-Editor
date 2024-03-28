@@ -54,13 +54,16 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 		
 		var replace_line := current_line
 		
-		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line:
+		if '"DialogShowWheel": ' in current_line or '"DialogHideNPC"' in current_line or '"DecreaseFaction1Points"' in current_line or '"DecreaseFaction2Points"' in current_line or '"BeenRead"' in current_line or '"DialogDisableEsc"' in current_line or "DialogAlignment" in current_line or "RenderGradual" in current_line or "ShowOptionLine" in current_line or "DialogDarkScreen" in current_line:
 			replace_line = current_line.replace("0b","0")
 			replace_line = replace_line.replace("1b","1")
 			final_result = final_result.replace(current_line,replace_line)
 		if '"TimePast"' in current_line or '"Time' in current_line:
 			replace_line = current_line.replace("L","")
 			final_result =final_result.replace(current_line,replace_line)
+		if "Alpha" in current_line or "Scale" in current_line or "TextPitch" in current_line or "NPCScale" in current_line:
+			replace_line = current_line.replace("f","")
+			final_result = final_result.replace(current_line,replace_line)
 		
 	
 	return final_result
