@@ -216,8 +216,10 @@ tooltip_text = "Pre 1.7.10 : No quotes around keys in the JSON. No scoreboard
 
 1.7.10: Does not export scoreboard to JSON
 
+CustomNPCs+ : Exports all the options that are available in CustomNPCs+
+
 1.12+ : Exports scoreboard to json"
-item_count = 3
+item_count = 4
 selected = 2
 popup/item_0/text = "Pre 1.7.10"
 popup/item_0/id = 0
@@ -225,6 +227,8 @@ popup/item_1/text = "1.7.10"
 popup/item_1/id = 1
 popup/item_2/text = "1.12+"
 popup/item_2/id = 2
+popup/item_3/text = "CustomNPCs+"
+popup/item_3/id = 3
 
 [node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(75, 0)
@@ -433,7 +437,6 @@ offset_bottom = 1005.0
 mouse_filter = 2
 
 [node name="DIALOG_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 
 [node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS"]
@@ -1237,6 +1240,7 @@ allow_greater = true
 allow_lesser = true
 
 [node name="IMAGES" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 
 [node name="Images" type="Control" parent="InformationPanel/DialogNodeTabs/IMAGES"]
@@ -1394,6 +1398,7 @@ text = "Scale"
 
 [node name="ScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
 layout_mode = 2
+step = 0.01
 allow_greater = true
 allow_lesser = true
 
@@ -1412,6 +1417,7 @@ text = "Alpha"
 
 [node name="AlphaValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
 layout_mode = 2
+step = 0.01
 allow_greater = true
 allow_lesser = true
 
@@ -1430,6 +1436,7 @@ text = "Rotation"
 
 [node name="RotationValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
 layout_mode = 2
+step = 0.01
 allow_greater = true
 allow_lesser = true
 
@@ -1490,11 +1497,11 @@ text = "Type
 layout_mode = 2
 item_count = 3
 selected = 0
-popup/item_0/text = "Text"
+popup/item_0/text = "Screen"
 popup/item_0/id = 0
-popup/item_1/text = "Option"
+popup/item_1/text = "Text"
 popup/item_1/id = 1
-popup/item_2/text = "Screen"
+popup/item_2/text = "Option"
 popup/item_2/id = 2
 
 [node name="HSeparator10" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]

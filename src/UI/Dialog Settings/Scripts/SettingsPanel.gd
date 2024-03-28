@@ -133,7 +133,7 @@ signal unsaved_change
 @onready var OptionOffsetX : SpinBox = get_node(option_offset_x_path)
 @onready var OptionOffsetY : SpinBox = get_node(option_offset_y_path)
 @onready var OptionSpacingX : SpinBox = get_node(option_spacing_x_path)
-@onready var OptionSpacingY : SpinBox = get_node(option_offset_y_path)
+@onready var OptionSpacingY : SpinBox = get_node(option_spacing_y_path)
 @onready var NPCOffsetX : SpinBox = get_node(npc_offset_x_path)
 @onready var NPCOffsetY : SpinBox = get_node(npc_offset_y_path)
 @onready var NPCScale : SpinBox = get_node(npc_scale_path)
