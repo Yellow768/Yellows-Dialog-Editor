@@ -27,3 +27,4 @@ res://src/Classes/undo_redo.tscn
 res://src/Nodes/Scripts/DialogNode.gd
 res://src/Classes/File System/category_loader.gd
 res://src/Classes/File System/dialog_jsons_loader.gd
+res://src/Classes/File System/CategoryImporter.gd

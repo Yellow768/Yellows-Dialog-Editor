@@ -150,6 +150,49 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 	node.start_quest = json["DialogQuest"]
 	node.min_level_availability = json["AvailabilityMinPlayerLevel"]
 	node.time_availability = json["AvailabilityDayTime"]
+	if json.has("DialogAlignment"):
+		print("Dialog has CustomNPCs+ formatting. Importing settings")
+		node.alignment = bool(json["DialogAlignment"])
+		node.option_offset_x = json["OptionOffsetX"]
+		node.option_offset_y = json["OptionOffsetY"]
+		node.text_offset_x = json["TextOffsetX"]
+		node.text_offset_y = json["TextOffsetY"]
+		node.title_pos = json["TitlePos"]
+		node.title_color = json["TitleColor"]
+		node.show_response_options = bool(json["ShowOptionLine"])
+		node.dialog_color = json["Color"]
+		node.npc_scale = json["NPCScale"]
+		node.text_sound = json["TextSound"]
+		node.text_pitch = json["TextPitch"]
+		node.npc_offset_x = json["NPCOffsetX"]
+		node.npc_offset_y = json["NPCOffsetY"]
+		node.text_height = json["TextHeight"]
+		node.text_width = json["TextWidth"]
+		node.option_spacing_x = json["OptionSpaceX"]
+		node.option_spacing_y = json["OptionSpaceY"]
+		node.title_offset_x = json["TitleOffsetX"]
+		node.title_offset_y = json["TitleOffsetY"]
+		node.darken_screen = bool(json["DialogDarkScreen"])
+		node.show_previous_dialog = json["PreviousBlocks"]
+		for image in json["Images"]:
+			node.image_dictionary[int(image["ID"])] = {
+				"PosX" : image["PosX"],
+				"PosY" : image["PosY"],
+				"Color" :image["Color"],
+				"TextureY" : image["TextureY"],
+				"TextureX" : image["TextureX"],
+				"Scale" : image["Scale"],
+				"SelectedColor" : image["SelectedColor"],
+				"Texture" : image["Texture"],
+				"Rotation" : image["Rotation"],
+				"ImageType" : image["ImageType"],
+				"Alignment" : image["Alignment"],
+				"Alpha" : image["Alpha"],
+				"Height" : image["Height"],
+				"Width" : image["Width"]
+			}
+		
+		
 	var id := ["","2","3","4"]
 	for i in 4:
 		node.quest_availabilities[i].quest_id = json["AvailabilityQuest"+id[i]+"Id"]
