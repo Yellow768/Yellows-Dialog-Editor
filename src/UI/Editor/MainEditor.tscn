@@ -1228,6 +1228,37 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
+[node name="HSeparator8" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="PresetOptions" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Preset"
+popup/item_0/id = 0
+popup/item_0/separator = true
+popup/item_1/text = "Test"
+popup/item_1/id = 1
+
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Add Preset" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Add"
+
+[node name="Update" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Update Preset
+"
+
+[node name="Remove Preset" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Remove"
+
 [node name="IMAGES" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 layout_mode = 2
@@ -1879,6 +1910,7 @@ one_shot = true
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset" to="InformationPanel" method="_on_npcx_offset_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset" to="InformationPanel" method="_on_npcy_offset_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue" to="InformationPanel" method="_on_npc_scale_value_value_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/Add Preset" to="InformationPanel" method="_on_add_preset_pressed"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/ItemList" to="InformationPanel" method="_on_item_list_item_selected"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/AddImage" to="InformationPanel" method="_on_add_image_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/VBoxContainer/RemoveImage" to="InformationPanel" method="_on_remove_image_pressed"]

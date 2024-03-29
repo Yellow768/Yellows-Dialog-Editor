@@ -29,6 +29,7 @@ var autosave_time := 3
 var autosave_max_files := 10
 var enable_customnpcs_plus_options := false
 var last_used_export_version := 2
+var spacing_presets : Dictionary
 
 var allow_above_six_responses := false
 

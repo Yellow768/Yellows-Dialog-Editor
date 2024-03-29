@@ -1,4 +1,6 @@
+TextEdit
 Button
+OptionButton
 CheckButton
 RichTextLabel
 Label
@@ -7,7 +9,6 @@ SpinBox
 HSeparator
 VBoxContainer
 ItemList
-OptionButton
 MenuButton
 VSeparator
 ColorPickerButton
@@ -21,5 +22,4 @@ TextureRect
 HSlider
 Panel
 PanelContainer
-TextEdit
 LineEdit

@@ -53,10 +53,10 @@ var initial_offset_y :float= 0
 @export var show_wheel : bool = false
 @export var hide_npc : bool = false
 @export var disable_esc : bool = false
-var darken_screen : bool = false
+var darken_screen : bool = true
 var render_gradual : bool = false
-var show_previous_dialog : bool = false 
-var show_response_options : bool = false
+var show_previous_dialog : bool = true
+var show_response_options : bool = true
 var title_color : int = 0xffffff
 var dialog_color : int = 0xffffff
 var text_sound : String = 'minecraft:random.wood_click'
@@ -289,7 +289,7 @@ func add_image_to_dictionary() :
 		"SelectedColor" : 0xffffff,
 		"Texture" : "",
 		"Rotation" : 0.0,
-		"ImageType" : 1,
+		"ImageType" : 0,
 		"Alignment" : 0,
 		"Alpha" : 1.0,
 		"Height" : 0,

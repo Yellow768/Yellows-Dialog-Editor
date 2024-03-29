@@ -186,6 +186,10 @@ func _ready():
 	ImageRotation.update_on_text_changed = true
 	ImageScale.update_on_text_changed = true
 	ImageAlpha.update_on_text_changed = true
+	for color in GlobalDeclarations.color_presets:
+		ImageColor.get_picker().add_preset(color)
+		DialogColor.get_picker().add_preset(color)
+		TitleColor.get_picker().add_preset(color)
 	for i in 4:
 		AvailabilityQuests.get_child(i).connect("id_changed", Callable(self, "quest_id_changed"))
 		AvailabilityQuests.get_child(i).connect("type_changed", Callable(self, "quest_type_changed"))
@@ -843,3 +847,7 @@ func update_customnpcs_plus_enabled():
 func _on_editor_settings_language_changed():
 	FactionChanges1.update_language()
 	FactionChanges2.update_language()
+
+
+func _on_add_preset_pressed():
+	pass
