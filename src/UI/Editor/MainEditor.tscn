@@ -157,7 +157,7 @@ grow_vertical = 2
 [node name="Add Dialog" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Add a new dialog node into the category"
+tooltip_text = "ADD_DIALOG_TOOLTIP"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
@@ -172,7 +172,7 @@ theme_override_styles/separator = SubResource("19")
 [node name="Add ColOrg" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Add a colored square you can label, to use to organize nodes"
+tooltip_text = "ADD_COLOR_ORGANIZER_TOOL_TIP"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
@@ -187,7 +187,7 @@ theme_override_styles/separator = SubResource("19")
 [node name="SaveButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Saves the category for the editor, creating a YDEC file. This does not make it appear in CustomNPCs"
+tooltip_text = "SAVE_TOOL_TIP"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
@@ -202,7 +202,7 @@ theme_override_styles/separator = SubResource("19")
 [node name="ExportButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Exports the category, creating the proper JSON files for CustomNPCs"
+tooltip_text = "EXPORT_TOOL_TIP"
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
@@ -280,7 +280,7 @@ icon = ExtResource("9_mukh6")
 layout_mode = 2
 tooltip_text = "CATEGORY_OPTIONS_TOOLTIP"
 theme_override_styles/hover = SubResource("StyleBoxFlat_xovix")
-text = "Category Options"
+text = "CATEGORY_OPTIONS"
 icon = ExtResource("11_qxp7e")
 language = "en"
 item_count = 3
@@ -423,6 +423,7 @@ grow_horizontal = 2
 text = "INFORMATION_PANEL_LABEL"
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -587,7 +588,7 @@ layout_mode = 2
 
 [node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start Quest"
+text = "START_QUEST"
 
 [node name="StartQuest" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
 layout_mode = 2
@@ -672,7 +673,7 @@ layout_mode = 2
 [node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-text = "Faction availabilites"
+text = "FACTION_AVAILABILITIES"
 horizontal_alignment = 1
 
 [node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
@@ -844,7 +845,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
 layout_mode = 2
-text = "Subject"
+text = "MAIL_SUBJECT"
 
 [node name="SubjectLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
 custom_minimum_size = Vector2(300, 0)
@@ -855,9 +856,7 @@ placeholder_text = "MAIL_SUBJECT"
 custom_minimum_size = Vector2(395, 500)
 layout_mode = 2
 size_flags_horizontal = 4
-tooltip_text = "Type the text that will appear on this page. 
-Note that the formatting is approximate, 
-it may not look exactly correct when viewed in Minecraft."
+tooltip_text = "MAIL_TOOLTIP"
 mouse_filter = 1
 theme_override_fonts/font = SubResource("FontVariation_6mmce")
 theme_override_font_sizes/font_size = 23
@@ -890,7 +889,7 @@ alignment = 1
 
 [node name="PrevPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
-text = "MAIL_PREV_PAGE"
+text = "<"
 
 [node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 modulate = Color(1, 1, 1, 0)
@@ -908,7 +907,7 @@ layout_mode = 2
 
 [node name="NextPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 layout_mode = 2
-text = "MAIL_NEXT_PAGE"
+text = ">"
 
 [node name="VSeparator3" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
 modulate = Color(1, 1, 1, 0)
@@ -1486,11 +1485,11 @@ text = "TYPE"
 layout_mode = 2
 item_count = 3
 selected = 0
-popup/item_0/text = "Screen"
+popup/item_0/text = "SCREEN"
 popup/item_0/id = 0
-popup/item_1/text = "Text"
+popup/item_1/text = "TEXT"
 popup/item_1/id = 1
-popup/item_2/text = "Option"
+popup/item_2/text = "OPTION"
 popup/item_2/id = 2
 
 [node name="HSeparator10" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings"]
@@ -1922,7 +1921,11 @@ one_shot = true
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="autosave_time_changed" from="EditorSettings" to="CategoryPanel" method="_on_editor_settings_autosave_time_changed"]
+[connection signal="custom_npcs_plus_changed" from="EditorSettings" to="TopPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
 [connection signal="custom_npcs_plus_changed" from="EditorSettings" to="InformationPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
+[connection signal="language_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_language_changed"]
+[connection signal="language_changed" from="EditorSettings" to="InformationPanel" method="_on_editor_settings_language_changed"]
+[connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_editor_settings_language_changed"]
 [connection signal="snap_enabled_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_snap_enabled_changed"]
 [connection signal="pressed" from="UnsavedPanel/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]
 [connection signal="pressed" from="UnsavedPanel/HBoxContainer/NoSave" to="." method="_on_no_save_pressed"]

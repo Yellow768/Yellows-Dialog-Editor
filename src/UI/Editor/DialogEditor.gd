@@ -116,6 +116,7 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
+	
 	emit_signal("request_add_dialog_to_environment_index",new_dialog)
 	if commit_to_undo:
 		emit_signal("dialog_node_added",new_dialog)
@@ -693,3 +694,9 @@ func _on_undo_system_request_action_move_color_organizer(index: int, new_positio
 
 
 
+
+
+func _on_editor_settings_language_changed():
+	for child in get_children():
+		if child is GraphNode && child.node_type == "Dialog Node":
+			child.update_language()

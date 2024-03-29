@@ -8,6 +8,8 @@ signal assign_new_ids_request
 func _ready():
 	$TopPanelContainer/MenuButton.get_popup().connect("id_pressed",Callable(self,"category_menu_pressed"))
 	$TopPanelContainer/ExportTypeButton.selected = GlobalDeclarations.last_used_export_version
+	$TopPanelContainer/ExportTypeButton.set_item_disabled(3,!GlobalDeclarations.enable_customnpcs_plus_options)
+
 func _on_SaveButton_pressed():
 	emit_signal("save_category_request")
 
@@ -57,3 +59,9 @@ func _on_category_panel_finished_loading(_ignore : String):
 
 func _on_dialog_editor_import_category_canceled():
 	$TopPanelContainer.visible = false
+
+
+func _on_editor_settings_custom_npcs_plus_changed():
+	$TopPanelContainer/ExportTypeButton.set_item_disabled(3,!GlobalDeclarations.enable_customnpcs_plus_options)
+	if $TopPanelContainer/ExportTypeButton.get_selected_id() == 3 && !GlobalDeclarations.enable_customnpcs_plus_options:
+		$TopPanelContainer/ExportTypeButton.select(1)

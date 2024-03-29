@@ -40,3 +40,11 @@ res://Assets/Translations/language_locale - language_locale.ko.translation
 res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
 res://src/Autoload/global_declarations.gd
 res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd
+res://src/UI/Editor/MailData.gd
+res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd
+res://src/UI/Editor/MainEditor.gd
+res://src/UI/Dialog Settings/Scripts/StartQuest.gd
+res://src/UI/Editor/DialogEditor.gd
+res://src/Nodes/Scripts/DialogNode.gd
+res://src/UI/Dialog Settings/Scripts/FactionChange.gd
+res://src/UI/Util/Expandable Line Edit.tscn

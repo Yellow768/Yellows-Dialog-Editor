@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8upc5vs5ynlw"]
+[gd_scene load_steps=6 format=3 uid="uid://b8upc5vs5ynlw"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/EditorSettings.gd" id="1_b3w4b"]
+[ext_resource type="Texture2D" uid="uid://didmtcov37apn" path="res://Assets/UI Textures/Icon Font/globe-earth-line.png" id="2_anhkt"]
 [ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="2_ik3cf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arin6"]
@@ -87,6 +88,11 @@ layout_mode = 2
 
 [node name="Language" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2"]
 layout_mode = 2
+
+[node name="CheckButton" type="Button" parent="ScrollContainer/VBoxContainer2/Language"]
+layout_mode = 2
+disabled = true
+icon = ExtResource("2_anhkt")
 
 [node name="Language" type="Label" parent="ScrollContainer/VBoxContainer2/Language"]
 layout_mode = 2

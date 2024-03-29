@@ -200,8 +200,7 @@ func _ready():
 		AvailabilityScoreboard.get_child(i).connect("objective_name_changed", Callable(self, "scoreboard_objective_name_changed"))
 		AvailabilityScoreboard.get_child(i).connect("comparison_type_changed", Callable(self, "scoreboard_comparison_type_changed"))
 		AvailabilityScoreboard.get_child(i).connect("value_changed", Callable(self, "scoreboard_value_changed"))
-	$DialogNodeTabs/IMAGES.visible = GlobalDeclarations.enable_customnpcs_plus_options
-	$DialogNodeTabs/SPACING.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	update_customnpcs_plus_enabled()
 	
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -378,7 +377,11 @@ func load_dialog_settings(dialog : dialog_node):
 		ImageList.add_item(str(image))
 	sort_image_list()
 	TextSoundOptions.visible = bool(RenderTypeOption.selected)
-	
+	AlignmentContainer.visible = ImageType.selected == 0
+	SelectedColorContainer.visible = ImageType.selected == 2
+	if current_dialog.last_viewed_image != null:
+		ImageList.select(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
+		_on_item_list_item_selected(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 	
 		
 func scoreboard_objective_name_changed(child ,obj_name : String):
@@ -697,6 +700,7 @@ func _on_item_list_item_selected(index):
 	ImageSelectedColor.color = GlobalDeclarations.int_to_color(current_image.SelectedColor)
 	ImageType.select(current_image.ImageType)
 	ImageAlignment.select(current_image.Alignment)
+	current_dialog.last_viewed_image = image_id
 	selecting_new_image = false
 	
 
@@ -818,11 +822,14 @@ func _on_alignment_item_selected(index):
 
 
 func _on_editor_settings_custom_npcs_plus_changed():
+	update_customnpcs_plus_enabled()
+	
+func update_customnpcs_plus_enabled():
 	$DialogNodeTabs.set_tab_hidden(3,!GlobalDeclarations.enable_customnpcs_plus_options)
 	$DialogNodeTabs.set_tab_hidden(4,!GlobalDeclarations.enable_customnpcs_plus_options)
 	DarkenScreenCheckbox.visible = GlobalDeclarations.enable_customnpcs_plus_options
 	RenderTypeOption.visible = GlobalDeclarations.enable_customnpcs_plus_options
-	if GlobalDeclarations.enable_customnpcs_plus_options && RenderTypeOption.visible:
+	if GlobalDeclarations.enable_customnpcs_plus_options && RenderTypeOption.selected == 1:
 		TextSoundOptions.visible = true
 	else:
 		TextSoundOptions.visible = false
@@ -830,3 +837,8 @@ func _on_editor_settings_custom_npcs_plus_changed():
 	ShowResponses.visible = GlobalDeclarations.enable_customnpcs_plus_options
 	ColorOptions.visible = GlobalDeclarations.enable_customnpcs_plus_options
 	
+
+
+func _on_editor_settings_language_changed():
+	FactionChanges1.update_language()
+	FactionChanges2.update_language()

@@ -23,12 +23,12 @@ func _on_QuestID_value_changed(value : int):
 		
 func find_quest_name_from_id(id : int) -> String:
 	if id == -1:
-		return "Select Quest"
+		return "SELECT_QUEST"
 	for key in $Panel/ChooseQuest.quest_dict.keys():
 		for title in $Panel/ChooseQuest.quest_dict[key].keys():
 			if $Panel/ChooseQuest.quest_dict[key][title] == id:
 				return title
-	return "Unindexed Quest"
+	return "UNINDEXED_QUEST"
 		
 func _on_ChooseQuest_quest_chosen(title : String,id : int):
 	$Panel/ChooseQuest.text = title

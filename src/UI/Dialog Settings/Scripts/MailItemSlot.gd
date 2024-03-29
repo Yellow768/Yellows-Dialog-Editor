@@ -13,7 +13,7 @@ var item_id : String
 var item_count : int
 
 func _ready():
-	$HBoxContainer/Label.text = tr("MAIL_ITEM_SLOT")+str(slot)
+	$HBoxContainer/Label.text = tr("MAIL_ITEM_SLOT")+" "+str(slot)
 	$"ID and Count/SpinBox".prefix = tr("MAIL_ITEM_COUNT")
 	$NBTTextEdit.connect("expanded",Callable(self,"emit_signal").bind("request_scroll_focus",self))
 	$NBTTextEdit.placeholder_text = tr("MAIL_CUSTOM_NBT")
@@ -52,3 +52,8 @@ func _on_item_id_text_changed(new_text):
 func _on_spin_box_value_changed(value):
 	item_count = value
 	emit_signal("count_changed")
+	
+func update_item_slot_language():
+	$HBoxContainer/Label.text = tr("MAIL_ITEM_SLOT")+" "+str(slot)
+	$"ID and Count/SpinBox".prefix = tr("MAIL_ITEM_COUNT")
+	$NBTTextEdit.placeholder_text = tr("MAIL_CUSTOM_NBT")

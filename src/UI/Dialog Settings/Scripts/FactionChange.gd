@@ -7,7 +7,7 @@ var faction_data := {}
 
 func _ready():
 	$Panel/ChooseFaction.load_faction_data(faction_data)
-	$Panel/Factionpoints.prefix = tr("ADD")
+	$Panel/Factionpoints.prefix = "+"
 	$Panel/Factionpoints.suffix = tr("POINTS_ABBRV")
 
 func load_faction_data(data : Dictionary):
@@ -25,7 +25,14 @@ func _on_FactionID_value_changed(value : int):
 	
 func _on_Factionpoints_value_changed(value : int):
 	emit_signal("faction_points_changed",value)
+	if value >= 0:
+		$Panel/Factionpoints.prefix = "+"
+	else:
+		$Panel/Factionpoints.prefix = ""
 	
 func _input(_event : InputEvent):
 	if Input.is_key_pressed(KEY_ENTER):
 		$Panel/Factionpoints.get_line_edit().release_focus()
+
+func update_language():
+	$Panel/Factionpoints.suffix = tr("POINTS_ABBRV")

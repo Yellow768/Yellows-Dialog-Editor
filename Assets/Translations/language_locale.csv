@@ -515,3 +515,8 @@ Om du upptäcker ett fel och/eller vill bidra till översättningar, vänligen m
 Если вы заметили ошибку и/или хотите внести свой вклад в перевод, дайте мне знать!","英語以外の言語は Google 翻訳によって翻訳されます。
 間違いに気づいた場合、および/または翻訳に貢献したい場合は、お知らせください。","영어 이외의 언어는 Google 번역을 통해 번역됩니다.
 오류를 발견했거나 번역에 기여하고 싶다면 알려주시기 바랍니다!"
+ADD_DIALOG_TOOLTIP,Adds a new dialog node into the category,Agrega un nuevo nodo de diálogo a la categoría.,يضيف عقدة حوار جديدة إلى الفئة,Tilføjer en ny dialogknude til kategorien,Voegt een nieuw dialoogknooppunt toe aan de categorie,Ajoute un nouveau nœud de dialogue dans la catégorie,Fügt der Kategorie einen neuen Dialogknoten hinzu,将新的对话节点添加到类别中,Lägger till en ny dialognod i kategorin,Добавляет новый диалоговый узел в категорию,カテゴリに新しいダイアログ ノードを追加します,카테고리에 새 대화 노드를 추가합니다.
+ADD_COLOR_ORGANIZER_TOOL_TIP,Adds a new color organizer into the category,Agrega un nuevo organizador de colores a la categoría.,يضيف منظم ألوان جديد إلى الفئة,Tilføjer en ny farvearrangør i kategorien,Voegt een nieuwe kleurorganizer toe aan de categorie,Ajoute un nouvel organisateur de couleurs dans la catégorie,Fügt der Kategorie einen neuen Farborganisator hinzu,在类别中添加新的颜色管理器,Lägger till en ny färgarrangör i kategorin,Добавляет в категорию новый цветной органайзер.,カテゴリに新しいカラー オーガナイザーを追加します,카테고리에 새로운 색상 정리 도구를 추가합니다.
+OK,OK,DE ACUERDO,نعم,Okay,OK,D'ACCORD,OK,好的,OK,ХОРОШО,わかりました,좋아요
+CONFIRM,Confirm,Confirmar,,Bekræfte,Bevestigen,Confirmer,Bestätigen,确认,Bekräfta,Подтверждать,確認する,확인하다
+SAVE_,,,,,,,,,,,,

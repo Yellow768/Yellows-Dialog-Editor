@@ -136,11 +136,16 @@ color = Color(1, 1, 1, 1)
 edit_alpha = false
 
 [node name="OptionTypeButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 alignment = 1
-expand_icon = true
+text_overrun_behavior = 3
+clip_text = true
+icon_alignment = 1
 item_count = 5
 selected = 0
+fit_to_longest_item = false
 popup/item_0/text = "RESPONSE_OPTION_DIALOG"
 popup/item_0/id = 1
 popup/item_1/text = "RESPONSE_OPTION_ROLE"

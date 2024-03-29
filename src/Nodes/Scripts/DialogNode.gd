@@ -80,7 +80,8 @@ var npc_offset_x : int = 0
 var npc_offset_y : int = 0
 var npc_scale : float = 1.0
 
-var image_dictionary = {}
+var image_dictionary : Dictionary = {}
+var last_viewed_image : int
 #String Inputs
 @export var command : String = ''
 @export var sound : String = ''
@@ -202,7 +203,7 @@ func set_dialog_id(id: int):
 
 func set_node_index(index : int):
 	node_index = index
-	title = tr("DIALOG_NODE")+str(index)
+	title = tr("DIALOG_NODE")+" "+str(index)
 
 func _on_AddPlayerResponse_pressed():
 	add_response_node()
@@ -412,7 +413,11 @@ func get_full_tree(all_children : Array[GraphNode] = []):
 
 
 
-	
+func update_language():
+	title = tr("DIALOG_NODE")+" "+str(node_index)
+	for response in response_options:
+		response.title = tr("RESPONSE_OPTION")+" "+str(response.node_index)
+
 func _on_dialog_text_text_changed():
 	text = DialogTextNode.text
 	emit_signal("text_changed")

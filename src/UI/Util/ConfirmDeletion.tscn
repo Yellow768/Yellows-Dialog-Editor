@@ -4,10 +4,13 @@
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 
 [node name="ConfirmDeletion" type="ConfirmationDialog"]
+title = "CONFIRM"
 size = Vector2i(400, 150)
+visible = true
 theme = ExtResource("2")
 dialog_text = "Are you want to reimport \"+reimport_name+\"?\\nAll current dialog nodes will be permanently deleted.\\n The category will create new nodes from the existing JSON files in the directory."
 dialog_autowrap = true
+cancel_button_text = "CANCEL"
 script = ExtResource("1")
 
 [connection signal="canceled" from="." to="." method="_on_canceled"]

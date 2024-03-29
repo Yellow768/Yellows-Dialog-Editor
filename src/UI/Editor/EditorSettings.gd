@@ -3,6 +3,7 @@ extends Panel
 signal snap_enabled_changed
 signal autosave_time_changed
 signal custom_npcs_plus_changed
+signal language_changed
 
 @onready var keybind_scene = load("res://src/UI/Editor/keybind.tscn")
 
@@ -47,11 +48,23 @@ func _ready():
 		keybind_instance.assign_action(action)
 		KeybindsScroll.add_child(keybind_instance)
 	for lang in TranslationServer.get_loaded_locales():
-		LanguageOption.add_item(TranslationServer.get_language_name(lang))
+		LanguageOption.add_item(language_names_in_their_language[TranslationServer.get_language_name(lang)])
 	LanguageOption.selected = TranslationServer.get_loaded_locales().find(GlobalDeclarations.language)
 	
 		
-	
+var language_names_in_their_language = {
+	"English" : "English",
+	"Spanish" : "Español",
+	"Danish" : "Dansk",
+	"Dutch" : "Nederlands",
+	"French" : "Français",
+	"German" : "Deutsch",
+	"Chinese" : "中文",
+	"Swedish" : "Svenska",
+	"Russian" : "Русский",
+	"Japanese" : "日本語",
+	"Korean" : "한국말"
+}
 	
 	
 	
@@ -129,6 +142,7 @@ func _on_language_option_item_selected(index):
 	
 	TranslationServer.set_locale(TranslationServer.get_loaded_locales()[index])
 	GlobalDeclarations.language = TranslationServer.get_locale()
+	emit_signal("language_changed")
 
 
 func _on_cnpc_check_toggled(button_pressed):

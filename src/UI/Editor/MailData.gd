@@ -47,9 +47,9 @@ func load_mail_data(data : mail_data_object):
 	SenderLine.text = current_mail_object.sender
 	SubjectLine.text = current_mail_object.subject
 	if current_mail_object.pages.size() != 0:
-		PageLabel.text = tr("MAIL_PAGE_NUM")+"1/"+str(current_mail_object.pages.size())
+		PageLabel.text = tr("MAIL_PAGE_NUM")+" 1/"+str(current_mail_object.pages.size())
 	else:
-		PageLabel.text = tr("MAIL_PAGE_NUM")+"1"
+		PageLabel.text = tr("MAIL_PAGE_NUM")+" 1"
 	StartQuest.set_id(current_mail_object.quest_id) 
 	loading_mail = false
 	
@@ -83,7 +83,7 @@ func _on_next_page_button_pressed():
 	if current_mail_object.pages.size() < current_page:
 		current_mail_object.pages.append("")
 	MessageBox.text = current_mail_object.pages[current_page-1]
-	PageLabel.text = tr("MAIL_PAGE_NUM")+str(current_page)+"/"+str(current_mail_object.pages.size())
+	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
 		
 
 
@@ -91,7 +91,7 @@ func _on_prev_page_button_pressed():
 	if current_page != 1:
 		current_page -=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
-	PageLabel.text = tr("MAIL_PAGE_NUM")+str(current_page)+"/"+str(current_mail_object.pages.size())
+	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
 	
 
 
@@ -105,7 +105,7 @@ func _on_delete_page_button_pressed():
 	if current_page-1 == current_mail_object.pages.size():
 		current_page-=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
-	PageLabel.text = tr("MAIL_PAGE_NUM")+str(current_page)+"/"+str(current_mail_object.pages.size())
+	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
 
 
 func _on_start_quest_mail_id_changed():
@@ -145,3 +145,16 @@ func _on_subject_line_edit_text_changed(new_text):
 
 func _on_message_lines_edited_from(from_line, to_line):
 	pass
+
+func update_page_language():
+	if !current_mail_object: return
+	if current_mail_object.pages.size() != 0:
+		PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
+	else:
+		PageLabel.text = tr("MAIL_PAGE_NUM")+" 1"
+
+
+func _on_editor_settings_language_changed():
+	for child in ItemSlots.get_children():
+		child.update_item_slot_language()
+	update_page_language()
