@@ -23,6 +23,12 @@ config/icon="res://Assets/UI Textures/editor_icon.svg"
 CurrentEnvironment="*res://src/Autoload/current_environment.gd"
 GlobalDeclarations="*res://src/Autoload/global_declarations.gd"
 
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/yde_latest.log"
+file_logging/max_log_files=10
+
 [display]
 
 window/vsync/vsync_mode=false

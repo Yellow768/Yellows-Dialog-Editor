@@ -60,7 +60,7 @@ func find_faction_name_from_bytes(bytes : PackedByteArray,starting_pos : int) ->
 		var n_name = bytes.find(78,name_cursor_position)
 		if(bytes.slice(n_name,n_name+4)) != name_bytes_identifier:
 			name_cursor_position = n_name+4
-			print(str(bytes.slice(n_name,n_name+4))+" is not the name identifier. Continuing")
+			print(str(bytes.slice(n_name,n_name+4))+" is not the faction name identifier. Skipping and continuing to load factions")
 		else:
 			var name_size := convert_bytes_to_s16(bytes.slice(n_name+5,n_name+6))
 			var fact_name : String = bytes.slice(n_name+6,n_name+7+name_size).get_string_from_utf8()

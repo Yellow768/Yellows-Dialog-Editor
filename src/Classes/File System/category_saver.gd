@@ -44,7 +44,7 @@ func save_category(category_name,data = null,backup := false):
 		queue_free()
 		return OK
 	else:
-		print("Nothing To Save")
+		print("Attempted To Save Non Existant Category")
 		queue_free()
 		return ERR_DOES_NOT_EXIST
 		

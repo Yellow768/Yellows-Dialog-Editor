@@ -80,7 +80,7 @@ func give_factions_to_nodes(json : String):
 		for node in faction_choosers:
 			node.load_faction_data(json_parsed)
 	else:
-		printerr("Bad JSON File")
+		printerr("Bad Faction JSON File")
 
 
 var is_quit_return_to_home := false

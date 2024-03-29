@@ -94,13 +94,12 @@ func rename_category(category_name : String,new_name : String):
 
 	
 func delete_category(category_name : String):
-	print("test")
 	if category_name == CurrentEnvironment.current_category_name:
 		emit_signal("clear_editor_request")
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if DirAccess.get_open_error() == OK:
-		print("removing dir")
+		print("Deleting Category "+category_name)
 		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name := dir.get_next()
 		while file_name != "":
@@ -111,7 +110,7 @@ func delete_category(category_name : String):
 			file_name = dir.get_next()
 		var delete_error = 	dir.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 		if delete_error != 0:
-			push_error("Category failed to delete, error code : ",delete_error)
+			printerr("Category failed to delete, error code : ",delete_error)
 	index_categories()
 	emit_signal("category_deleted",category_name)
 	

@@ -198,7 +198,7 @@ func export_category_request():
 		return
 	var cat_exp = category_exporter.new()
 	add_child(cat_exp)
-	print("Current Category "+current_category)
+	print("Exported Category "+current_category)
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
 	emit_signal("category_succesfully_exported",current_category)
@@ -318,7 +318,7 @@ func _on_dialog_editor_unsaved_changes(name):
 
 func _on_autosave_timer_timeout():
 	save_all_backups()
-	print("saving backups")
+	print("Saving Backup")
 	AutoSave.start(GlobalDeclarations.autosave_time*60)
 
 

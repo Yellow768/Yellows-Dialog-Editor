@@ -653,14 +653,14 @@ func _on_add_image_pressed():
 		sort_image_list(ImageList.get_selected_items()[0])
 	else:
 		sort_image_list()
-	
+	emit_signal("unsaved_change")
 	
 
 func _on_remove_image_pressed():
 	if !ImageList.get_selected_items().is_empty():
 		current_dialog.remove_image_from_dictionary(int(ImageList.get_item_text(ImageList.get_selected_items()[0])))
 		ImageList.remove_item(ImageList.get_selected_items()[0])
-	
+		emit_signal("unsaved_change")
 	
 
 func sort_image_list(selected_id : int = -1):
@@ -722,76 +722,76 @@ func _on_id_value_value_changed(value):
 	current_dialog.image_dictionary[int(value)] = current_dialog.image_dictionary[old_value]
 	current_dialog.image_dictionary.erase(old_value)
 	sort_image_list(value)
-	
+	emit_signal("unsaved_change")
 	
 
 
 func _on_line_edit_text_changed():
 	if selecting_new_image : return
 	current_image.Texture = ImageTextureString.text
-
+	emit_signal("unsaved_change")
 
 
 func _on_image_position_x_value_changed(value):
 	if selecting_new_image : return
 	current_image.PosX = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_image_position_y_value_changed(value):
 	if selecting_new_image : return
 	current_image.PosY = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_width_value_changed(value):
 	if selecting_new_image : return
 	current_image.Width = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_height_value_changed(value):
 	if selecting_new_image : return
 	current_image.Height = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_offset_x_value_changed(value):
 	if selecting_new_image : return
 	current_image.TextureX = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_offset_y_value_changed(value):
 	if selecting_new_image : return
 	current_image.TextureY = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_scale_value_value_changed(value):
 	if selecting_new_image : return
 	current_image.Scale = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_alpha_value_value_changed(value):
 	if selecting_new_image : return
 	current_image.Alpha = value
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_rotation_value_value_changed(value):
 	if selecting_new_image : return
 	current_image.Rotation = value
-	
+	emit_signal("unsaved_change")	
 
 
 
@@ -799,28 +799,28 @@ func _on_rotation_value_value_changed(value):
 func _on_image_color_color_changed(color):
 	if selecting_new_image : return
 	current_image.Color = color.to_html(false).hex_to_int() 
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_selected_color_color_changed(color):
 	if selecting_new_image : return
 	current_image.SelectedColor = color.to_html(false).hex_to_int() 
-
+	emit_signal("unsaved_change")
 
 func _on_type_button_item_selected(index):
 	if selecting_new_image : return
 	current_image.ImageType = index
 	AlignmentContainer.visible = index == 0
 	SelectedColorContainer.visible = index == 2
-	
+	emit_signal("unsaved_change")
 
 
 
 func _on_alignment_item_selected(index):
 	if selecting_new_image : return
 	current_image.Alignment = index
-
+	emit_signal("unsaved_change")
 
 func _on_editor_settings_custom_npcs_plus_changed():
 	update_customnpcs_plus_enabled()

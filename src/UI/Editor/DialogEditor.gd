@@ -229,7 +229,6 @@ func delete_color_organizer(col_org : color_organizer,commit_to_undo := true):
 	
 
 func response_node_dragged(from: Vector2,to : Vector2,response_node):
-	print(response_node.overlapping_response)
 	if selected_dialogs.size() == 0 && Input.is_action_pressed("swap_responses") && response_node.overlapping_response != null:
 		handle_swapping_responses(response_node,response_node.overlapping_response,from,to)
 		
@@ -560,7 +559,6 @@ func handle_input(event : InputEvent):
 				
 				var response_index : int = response.connected_dialog.connected_responses.find(response)
 				var next_response_index = response_index
-				print(next_response_index)
 				if response_index == response.connected_dialog.connected_responses.size()-1:
 					next_response_index = 0
 				else:

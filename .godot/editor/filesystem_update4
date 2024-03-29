@@ -48,3 +48,7 @@ res://src/UI/Editor/DialogEditor.gd
 res://src/Nodes/Scripts/DialogNode.gd
 res://src/UI/Dialog Settings/Scripts/FactionChange.gd
 res://src/UI/Util/Expandable Line Edit.tscn
+res://src/UI/LandingScreen.gd
+res://src/Classes/File System/category_saver.gd
+res://src/Classes/File System/EnvironmentIndexer.gd
+res://src/UI/Util/Scripts/FactionLoader.gd

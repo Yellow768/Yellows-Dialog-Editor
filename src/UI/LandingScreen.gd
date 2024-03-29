@@ -18,6 +18,7 @@ func _ready():
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
 	$Panel/FileDialog.current_dir = GlobalDeclarations.default_user_directory
+	print("Launched Succesfully")
 	
 
 
@@ -28,12 +29,13 @@ func change_to_editor(directory : String) -> void:
 		CurrentEnvironment.current_directory = directory
 		get_parent().add_child(editor)
 		DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
+		print("Loaded "+directory)
 		queue_free()
 	else:
 		var tween := get_tree().create_tween()
 		$InvalidDirectory.modulate = Color(1,1,1,1)
 		tween.tween_property($InvalidDirectory,"modulate",Color(1,1,1,0),2).set_delay(1)
-		push_error("Directory does not exist")
+		printerr("Directory does not exist")
 	
 func add_directory_to_config(directory : String) -> void:
 	var config = ConfigFile.new()
@@ -72,7 +74,6 @@ func _on_Open_Environment_pressed():
 
 
 func _on_FileDialog_dir_selected(path : String):
-	print(path)
 	var valid_path := find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path
