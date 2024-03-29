@@ -2,6 +2,7 @@ extends Panel
 
 signal snap_enabled_changed
 signal autosave_time_changed
+signal custom_npcs_plus_changed
 
 @onready var keybind_scene = load("res://src/UI/Editor/keybind.tscn")
 
@@ -37,7 +38,7 @@ func _ready():
 	EnableGridCheck.button_pressed = GlobalDeclarations.snap_enabled
 	AutoSaveMaxFiles.value = GlobalDeclarations.autosave_max_files
 	AllowMoreThanSix.button_pressed = GlobalDeclarations.allow_above_six_responses
-	DefaultDirectoryLabel.text = tr("EDS_DEFAULT_DIRECTORY")+" "+GlobalDeclarations.default_user_directory
+	DefaultDirectoryLabel.text = GlobalDeclarations.default_user_directory
 	DefaultDirectoryFileDialog.current_dir = GlobalDeclarations.default_user_directory
 	CNPCPlusCheck.button_pressed = GlobalDeclarations.enable_customnpcs_plus_options
 	
@@ -132,3 +133,4 @@ func _on_language_option_item_selected(index):
 
 func _on_cnpc_check_toggled(button_pressed):
 	GlobalDeclarations.enable_customnpcs_plus_options = button_pressed
+	emit_signal("custom_npcs_plus_changed")

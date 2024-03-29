@@ -212,13 +212,7 @@ icon = ExtResource("8_vgh51")
 [node name="ExportTypeButton" type="OptionButton" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(26.47, 18.52)
 layout_mode = 2
-tooltip_text = "Pre 1.7.10 : No quotes around keys in the JSON. No scoreboard
-
-1.7.10: Does not export scoreboard to JSON
-
-CustomNPCs+ : Exports all the options that are available in CustomNPCs+
-
-1.12+ : Exports scoreboard to json"
+tooltip_text = "EXPORT_TYPE_TOOLTIP"
 item_count = 4
 selected = 2
 popup/item_0/text = "Pre 1.7.10"
@@ -284,11 +278,7 @@ icon = ExtResource("9_mukh6")
 
 [node name="MenuButton" type="MenuButton" parent="TopPanel/TopPanelContainer"]
 layout_mode = 2
-tooltip_text = "Reimport : Delete all dialog nodes and the existing YDEC file, rescanning the JSONS in the folder for a fresh import.
-
-Scan For Changes: Scans through the JSONS in the folder, and attempts to update nodes with new information, and will import any new dialogs.
-
-Reindex IDs: Starting the from the current highest ID, give all dialog nodes a new ID"
+tooltip_text = "CATEGORY_OPTIONS_TOOLTIP"
 theme_override_styles/hover = SubResource("StyleBoxFlat_xovix")
 text = "Category Options"
 icon = ExtResource("11_qxp7e")
@@ -357,30 +347,32 @@ category_panel_path = NodePath("../CategoryPanel")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 mail_data_path = NodePath("DialogNodeTabs/MAIL/MailData")
-hide_npc_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/HideNPC")
-show_wheel_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel")
-disable_esc_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc")
-darken_screen_checkbox_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DarkenScreen")
-render_type_option_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/RenderType")
-text_sound_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound/TextSound")
-text_pitch_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound/TextPitch")
-show_previous_dialog_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Previous Dialog")
-show_responses_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Response Options")
-color_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Color")
-title_color_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Title Color")
-title_label_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Title")
-command_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command")
-playsound_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Soundfile")
-faction_changes_1_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange")
-faction_changes_2_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2")
-start_quest_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/StartQuest")
-dialog_text_edit_path = NodePath("DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DialogText")
-availability_quests_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions")
-availability_dialogs_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions")
-availability_factions_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/FactionOptions")
-availability_scoreboard_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions")
-availability_time_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time")
-availability_level_path = NodePath("DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel")
+hide_npc_checkbox_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/HideNPC")
+show_wheel_checkbox_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ShowDialogWheel")
+disable_esc_checkbox_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/DisableEsc")
+darken_screen_checkbox_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/DarkenScreen")
+render_type_option_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/RenderType")
+text_sound_options = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound")
+text_sound_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound/TextSound")
+text_pitch_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound/TextPitch")
+show_previous_dialog_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Show Previous Dialog")
+show_responses_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Show Response Options")
+color_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions/Color")
+title_color_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions/Title Color")
+title_label_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Title")
+color_options_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions")
+command_edit_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Command")
+playsound_edit_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Soundfile")
+faction_changes_1_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/FactionChange")
+faction_changes_2_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/FactionChange2")
+start_quest_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/StartQuest")
+dialog_text_edit_path = NodePath("DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/DialogText")
+availability_quests_path = NodePath("DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/QuestOptions")
+availability_dialogs_path = NodePath("DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions")
+availability_factions_path = NodePath("DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/FactionOptions")
+availability_scoreboard_path = NodePath("DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions")
+availability_time_path = NodePath("DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time")
+availability_level_path = NodePath("DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel")
 title_position_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/TitlePosition/TitlePositionOption")
 alignment_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/Alignment/AlignmentButton")
 width_path = NodePath("DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/WidthHeigth/WidthValue")
@@ -415,6 +407,8 @@ image_selected_color_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer
 image_type_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton")
 image_alignment_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment")
 image_settings_container_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings")
+image_alignment_container_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment")
+selected_color_container_path = NodePath("DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor")
 
 [node name="Label" type="Label" parent="InformationPanel"]
 layout_mode = 1
@@ -435,11 +429,12 @@ offset_top = 18.0
 offset_right = 452.0
 offset_bottom = 1005.0
 mouse_filter = 2
+tab_alignment = 1
 
-[node name="DIALOG_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+[node name="GENERAL" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 layout_mode = 2
 
-[node name="DialogSettings" type="Control" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS"]
+[node name="General" type="Control" parent="InformationPanel/DialogNodeTabs/GENERAL"]
 anchors_preset = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -447,7 +442,7 @@ offset_top = -478.5
 offset_right = 415.0
 offset_bottom = 478.5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/General"]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -455,158 +450,153 @@ offset_top = -468.5
 offset_right = 425.0
 offset_bottom = 469.5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer"]
 custom_minimum_size = Vector2(0, 1500)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Dialog Title"
 clip_text = true
 
-[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 wrap_mode = 1
 script = ExtResource("17")
 
-[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "HIDE_NPC"
 
-[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "SHOW_DIALOG_WHEEL"
 
-[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "DISABLE_USING_ESC"
 
-[node name="DarkenScreen" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="DarkenScreen" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "DARKEN_SCREEN"
 
-[node name="RenderType" type="OptionButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="RenderType" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 item_count = 2
 selected = 0
-popup/item_0/text = "INSTANT"
+popup/item_0/text = "RENDER_INSTANT"
 popup/item_0/id = 0
-popup/item_1/text = "GRADUAL"
+popup/item_1/text = "RENDER_GRADUAL"
 popup/item_1/id = 1
 
-[node name="TextSound" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="TextSound" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound"]
 layout_mode = 2
 text = "TEXT_SOUND"
 
-[node name="TextSound" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound" instance=ExtResource("15")]
+[node name="TextSound" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound" instance=ExtResource("15")]
 custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 caret_blink = true
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound"]
 layout_mode = 2
 text = "TEXT_PITCH"
 
-[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound"]
+[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound"]
 layout_mode = 2
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
-[node name="TextPitch" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "SHOW_PREVIOUS_DIALOG"
 
-[node name="Show Response Options" type="CheckBox" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Show Response Options" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "SHOW_RESPONSE_OPTIONS"
 
-[node name="ColorOptions" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="ColorOptions" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions"]
 layout_mode = 2
 text = "DIALOG_COLOR"
 
-[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions"]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions"]
 layout_mode = 2
 text = "TITLE_COLOR"
 
-[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions"]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "SOUND_FILE"
 
-[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
 layout_mode = 2
 caret_blink = true
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "CONSOLE_COMMAND"
 
-[node name="Command" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+[node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "FACTION_CHANGES"
 
-[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
+[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
 layout_mode = 2
 
-[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
+[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer" instance=ExtResource("6")]
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Start Quest"
 
-[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
+[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
 layout_mode = 2
 
-[node name="AVAILABILITY_SETTINGS" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
+[node name="AVAILABILITY" type="TabBar" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -617,11 +607,11 @@ offset_top = -479.0
 offset_right = 221.0
 offset_bottom = 479.0
 
-[node name="Availability" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer"]
+[node name="Availability" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer"]
 custom_minimum_size = Vector2(436, 1500)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability"]
 custom_minimum_size = Vector2(435, 1080)
 layout_mode = 0
 anchor_right = 1.0
@@ -629,109 +619,109 @@ anchor_bottom = 1.0
 offset_right = -1.0
 offset_bottom = 129.0
 
-[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "QUEST_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "DIALOG_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Faction availabilites"
 horizontal_alignment = 1
 
-[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
 layout_mode = 2
 
-[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="ScoreboardLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="ScoreboardLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "SCORE_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
 layout_mode = 2
 
-[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer"]
+[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer"]
 layout_mode = 2
 
-[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -15.0
 
-[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -750,7 +740,7 @@ popup/item_1/id = 1
 popup/item_2/text = "NIGHT"
 popup/item_2/id = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -760,11 +750,11 @@ offset_right = 142.0
 offset_bottom = 14.0
 text = "TIME"
 
-[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
+[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 0
 anchor_right = 1.0
@@ -772,7 +762,7 @@ anchor_bottom = 1.0
 offset_left = -0.952
 offset_right = -15.952
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -782,7 +772,7 @@ offset_right = 276.0
 offset_bottom = 16.0
 text = "MIN_PLAYER_LVL"
 
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
 layout_mode = 0
 anchor_left = 1.0
 anchor_top = 0.5
@@ -1018,7 +1008,7 @@ mouse_filter = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/WidthHeigth"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "Width & Height"
+text = "WIDTH_AND_HEIGHT"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/WidthHeigth"]
 modulate = Color(1, 1, 1, 0)
@@ -1051,7 +1041,7 @@ layout_mode = 2
 [node name="TextOffsetLBL" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/TextOffset"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "Text Offset"
+text = "TEXT_OFFSET"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/TextOffset"]
 modulate = Color(1, 1, 1, 0)
@@ -1084,7 +1074,7 @@ layout_mode = 2
 [node name="TitleOffsetLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/TitleOffset"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "Title Offset"
+text = "TITLE_OFFSET"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/TitleOffset"]
 modulate = Color(1, 1, 1, 0)
@@ -1119,7 +1109,7 @@ layout_mode = 2
 [node name="OptionOffsetLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/OptionOffset"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "Option Offset"
+text = "OPTION_OFFSET"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/OptionOffset"]
 modulate = Color(1, 1, 1, 0)
@@ -1154,7 +1144,7 @@ layout_mode = 2
 [node name="Option Spacing Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/OptionSpacing"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "Option Spacing"
+text = "OPTION_SPACING"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/OptionSpacing"]
 modulate = Color(1, 1, 1, 0)
@@ -1189,7 +1179,7 @@ layout_mode = 2
 [node name="Npc Offset Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "NPC Offset"
+text = "NPC_OFFSET"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Offset"]
 modulate = Color(1, 1, 1, 0)
@@ -1224,7 +1214,7 @@ layout_mode = 2
 [node name="NPCScaleLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Scale"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "NPC Scale"
+text = "NPC_SCALE"
 
 [node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer/NPC Scale"]
 modulate = Color(1, 1, 1, 0)
@@ -1308,7 +1298,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Texture"
+text = "TEXTURE"
 
 [node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/ImageBox" instance=ExtResource("15")]
 custom_minimum_size = Vector2(250, 25)
@@ -1325,7 +1315,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Position"
+text = "POSITION"
 
 [node name="ImagePositionX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Position"]
 layout_mode = 2
@@ -1348,7 +1338,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Width & Height"
+text = "WIDTH_AND_HEIGHT"
 
 [node name="Width" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
 layout_mode = 2
@@ -1371,7 +1361,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Offset"
+text = "OFFSET"
 
 [node name="OffsetX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
 layout_mode = 2
@@ -1394,7 +1384,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Scale"
+text = "SCALE"
 
 [node name="ScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
 layout_mode = 2
@@ -1413,7 +1403,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Alpha"
+text = "ALPHA"
 
 [node name="AlphaValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
 layout_mode = 2
@@ -1432,7 +1422,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Rotation"
+text = "ROTATION"
 
 [node name="RotationValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
 layout_mode = 2
@@ -1454,7 +1444,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Color"
+text = "COLOR"
 
 [node name="ImageColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
 layout_mode = 2
@@ -1472,7 +1462,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Selected Color"
+text = "SELECTED_COLOR"
 
 [node name="SelectedColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
 layout_mode = 2
@@ -1490,8 +1480,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Type
-"
+text = "TYPE"
 
 [node name="TypeButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Type"]
 layout_mode = 2
@@ -1514,7 +1503,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
 layout_mode = 2
-text = "Alignment"
+text = "ALIGNMENT"
 
 [node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
 custom_minimum_size = Vector2(68, 90)
@@ -1843,31 +1832,31 @@ one_shot = true
 [connection signal="request_switch_to_stored_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_switch_to_stored_category"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/DarkenScreen" to="InformationPanel" method="_on_darken_screen_pressed"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/RenderType" to="InformationPanel" method="_on_render_type_item_selected"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/TextSound/TextSound" to="InformationPanel" method="_on_text_sound_text_changed"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Previous Dialog" to="InformationPanel" method="_on_show_previous_dialog_toggled"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Show Response Options" to="InformationPanel" method="_on_show_response_options_toggled"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Color" to="InformationPanel" method="_on_color_color_changed"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/ColorOptions/Title Color" to="InformationPanel" method="_on_title_color_color_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_points_changed"]
-[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/DIALOG_SETTINGS/DialogSettings/ScrollContainer/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability2" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability3" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AVAILABILITY_SETTINGS/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/DarkenScreen" to="InformationPanel" method="_on_darken_screen_pressed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/RenderType" to="InformationPanel" method="_on_render_type_item_selected"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/TextSound/TextSound" to="InformationPanel" method="_on_text_sound_text_changed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Show Previous Dialog" to="InformationPanel" method="_on_show_previous_dialog_toggled"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Show Response Options" to="InformationPanel" method="_on_show_response_options_toggled"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions/Color" to="InformationPanel" method="_on_color_color_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/ColorOptions/Title Color" to="InformationPanel" method="_on_title_color_color_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_points_changed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/General/ScrollContainer/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability2" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability3" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AVAILABILITY/ScrollContainer/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_sender_line_edit_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes/SubjectLineEdit" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_subject_line_edit_text_changed"]
 [connection signal="lines_edited_from" from="InformationPanel/DialogNodeTabs/MAIL/MailData/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/MAIL/MailData" method="_on_message_lines_edited_from"]
@@ -1933,6 +1922,7 @@ one_shot = true
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="autosave_time_changed" from="EditorSettings" to="CategoryPanel" method="_on_editor_settings_autosave_time_changed"]
+[connection signal="custom_npcs_plus_changed" from="EditorSettings" to="InformationPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
 [connection signal="snap_enabled_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_snap_enabled_changed"]
 [connection signal="pressed" from="UnsavedPanel/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]
 [connection signal="pressed" from="UnsavedPanel/HBoxContainer/NoSave" to="." method="_on_no_save_pressed"]

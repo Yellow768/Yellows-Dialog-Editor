@@ -1,155 +1,517 @@
-key,en,ia
-OPEN_ENV,Open Environment,Abrir Entorno
+key,en,es,ar,da,nl,fr,de,zh,sv,ru,ja,ko
+OPEN_ENV,Open Environment,Entorno abierto,بيئة مفتوحة,Åbent miljø,Open omgeving,Environnement ouvert,Offene Umgebung,开放环境,Öppen miljö,Открытая среда,オープンな環境,개방형 환경
 BEGIN_SPLASH,"To begin, select a directory to establish as the editor's environment. 
 This is where the editor will save dialog categories .ydec files.
 
 Selecting a minecraft world folder, or world/customnpcs
 folder, will allow you to import existing dialogs, and access
-named quests, factions, and proper dialog IDs",t
-RECENT_ENVS,Recently Opened Environments,t
-EDITOR_SETTINGS,Editor Settings,t
-RETURN_HOME_BUTTON,Return To Home,t
-BLANK_EDITOR_LABEL,Choose or create a cateogry to start editing,t
-CATEGORIES_PANEL_LABEL,Categories,t
-CREATE_NEW_CATEGORY,Create New Category,t
-SEARCH,Search,t
-INFORMATION_PANEL_LABEL,Information Panel,t
-DIALOG_SETTINGS,DialogSettings,t
-AVAILABILITY_SETTINGS,AvailabilitySettings,t
-MAIL,Mail,t
-QUEST_AVAILABILITIES,Quest Availabilities,t
-AV_ALWAYS,Always,t
-AV_BEFORE,Before,t
-AV_AFTER,After,t
-AV_WHEN_NOT_ACTIVE,When Not Active,t
-AV_WHEN_ACTIVE,When Active,t
-AV_COMPLETE,Objectives Complete,t
-DIALOG_AVAILABILITIES,Dialog Availabilities,t
-FACTION_AVAILABILITIES,Faction Availabilities,t
-FACTION_FRIENDLY,Friendly,t
-FACTION_NEUTRAL,Neutral,t
-FACTION_UNFRIENDLY,Unfriendly,t
-SCORE_AVAILABILITIES,Scoreboard Availabilities,t
-OBJECTIVE_NAME,Objective Name,t
-SCORE_EQUALS,Equals,t
-SCORE_BIGGER,Bigger Than,t
-SCORE_SMALLER,Smaller Than,t
-HIDE_NPC,Hide NPC,t
-SHOW_DIALOG_WHEEL,Show Dialog Wheel,t
-DISABLE_USING_ESC,Disable Using Esc,t
-SOUND_FILE,Sound File,t
-CONSOLE_COMMAND,Console Command,t
-FACTION_CHANGES,Faction Changes,t
-SELECT_FACTION,Select Faction,t
-ADD,Add,t
-START_QUEST,Start Quest,t
-ID,ID:,t
-TIME,Time:,t
-DAY,Day,t
-NIGHT,Night,t
-MIN_PLAYER_LVL,Minimum Player Level,t
-MAIL_SENDER,Sender,t
-MAIL_SUBJECT,Subject,t
-MAIL_PREV_PAGE,Prev Page,t
-MAIL_NEXT_PAGE,Next Page,t
-MAIL_DELETE_PAGE,Delete,t
-MAIL_PAGE_NUM,Page ,t
-MAIL_ITEM_SLOT,Item Slot,t
-MAIL_ITEM_ID,Item ID,t
-MAIL_ITEM_COUNT,Count:,t
-MAIL_CUSTOM_NBT,Custom NBT Data. Include the item ID,t
-DIALOG_NODE,Dialog Node ,t
-NODE,Node ,t
-RESPONSE_OPTION,Response Option,t
-NEW_DIALOG_TITLE,New Dialog,t
-RESPONSE_CONNECTED,Connected to ,
-RESPONSE_TEXT,Response Text,t
-RESPONSE_OPTION_DIALOG,Dialog,t
-RESPONSE_OPTION_ROLE,Open Role Screen,t
-RESPONSE_OPTION_COMMAND,Execute Command,t
-RESPONSE_OPTION_CLOSE,Close Dialog,t
-RESPONSE_OPTION_DISABLED,Disabled,t
-EDS_HIDE_CONNECTION,Hide Connection Distance,t
-EDS_ENABLE_GRID_SNAP,Enable Grid Snapping,t
-EDS_INVERT_DIALOG_MOVE,Invert Dialog Movement Functionality,t
-EDS_ALLOW_MORE_THAN_SIX,Allow More Than Six Responses,t
-EDS_AUTOSAVE_FREQ,Autosave Frequency (Minutes),t
-EDS_MAX_AUTOSAVE_FILES,Max Autosave Files,t
-EDS_DEFAULT_DIRECTORY,Default Directory:,t
-CHANGE,Change,t
-EDS_KEYBINDS,Key Binds,t
-SAVE,Save,t
-EXPORT,Export,t
-CATEGORY_OPTIONS,Category Options,t
-CO_REIMPORT,Reimport,t
-CO_SCAN_CHANGES,Scan For Changes,t
-CO_REINDEX,Reindex IDs,t
-ADD_DIALOG,Add Dialog,t
-ADD_COLOR_ORGANIZER,Add Color Organizer,t
-NEW_COLOR_ORGANIZER,Color Organizer,t
-PRE_1.7.10,Pre 1.7.10,t
-EXPORT_TOOL_TIP,"Exports the category, creating the proper json files for CustomNPCS",t
-SAVE_TOOL_TIP,"Saves the category for the editor, creating a YDEC file. This does not make it appear in game",t
+named quests, factions, and proper dialog IDs","Para comenzar, seleccione un directorio para establecerlo como entorno del editor.
+Aquí es donde el editor guardará los archivos .ydec de las categorías de diálogo.
+
+Seleccionar una carpeta del mundo de Minecraft o world/customnpcs
+carpeta, le permitirá importar cuadros de diálogo existentes y acceder
+misiones con nombre, facciones e ID de diálogo adecuados","للبدء، حدد دليلاً لتأسيسه كبيئة للمحرر.
+هذا هو المكان الذي سيحفظ فيه المحرر ملفات .ydec لفئات الحوار.
+
+تحديد مجلد عالم ماين كرافت، أو العالم/customnpcs
+سيسمح لك المجلد باستيراد مربعات الحوار الموجودة والوصول إليها
+المهام المحددة والفصائل ومعرفات الحوار المناسبة","For at begynde skal du vælge en mappe, der skal oprettes som redaktørens miljø.
+Det er her, editoren gemmer .ydec-filer for dialogkategorier.
+
+Valg af en minecraft-verdensmappe eller world/customnpcs
+mappe, giver dig mulighed for at importere eksisterende dialoger og få adgang
+navngivne quests, fraktioner og korrekte dialog-id'er","Selecteer om te beginnen een map die u wilt instellen als de editoromgeving.
+Dit is waar de editor .ydec-bestanden met dialoogcategorieën zal opslaan.
+
+Een minecraft-wereldmap of world/customnpcs selecteren
+map, kunt u bestaande dialoogvensters importeren en openen
+benoemde speurtochten, facties en juiste dialoog-ID's","Pour commencer, sélectionnez un répertoire à établir comme environnement de l'éditeur.
+C'est ici que l'éditeur enregistrera les fichiers .ydec des catégories de dialogue.
+
+Sélection d'un dossier Minecraft World, ou world/customnpcs
+dossier, vous permettra d'importer des boîtes de dialogue existantes et d'accéder
+quêtes nommées, factions et identifiants de dialogue appropriés","Wählen Sie zunächst ein Verzeichnis aus, das als Umgebung für den Editor eingerichtet werden soll.
+Hier speichert der Editor Dialogkategorien-.ydec-Dateien.
+
+Auswählen eines Minecraft-Weltordners oder von world/customnpcs
+Ordner ermöglicht Ihnen den Import vorhandener Dialoge und den Zugriff darauf
+benannte Quests, Fraktionen und richtige Dialog-IDs","首先，选择一个目录作为编辑器的环境。
+这是编辑器保存对话框类别 .ydec 文件的位置。
+
+选择“我的世界”世界文件夹或“world/customnpcs”
+文件夹，将允许您导入现有对话框并访问
+命名任务、派系和正确的对话 ID","För att börja, välj en katalog att etablera som redigerarens miljö.
+Det är här redigeraren sparar .ydec-filer för dialogkategorier.
+
+Välja en Minecraft-världsmapp eller värld/anpassade datorer
+mapp, låter dig importera befintliga dialogrutor och komma åt
+namngivna uppdrag, fraktioner och korrekta dialog-ID","Для начала выберите каталог, который будет использоваться в качестве среды редактора.
+Здесь редактор будет сохранять файлы категорий диалогов .ydec.
+
+Выбор папки мира Minecraft или world/customnpcs
+папка, позволит вам импортировать существующие диалоги и получить доступ
+именованные квесты, фракции и правильные идентификаторы диалогов","まず、エディタの環境として確立するディレクトリを選択します。
+これは、エディターがダイアログ カテゴリの .ydec ファイルを保存する場所です。
+
+Minecraft のワールド フォルダー、または world/customnpcs の選択
+フォルダーを使用すると、既存のダイアログをインポートしてアクセスできるようになります。
+名前付きクエスト、派閥、および適切なダイアログ ID","시작하려면 편집기 환경으로 설정할 디렉터리를 선택합니다.
+여기에 편집기가 대화 상자 카테고리 .ydec 파일을 저장합니다.
+
+마인크래프트 월드 폴더 또는 world/customnpcs 선택
+폴더를 사용하면 기존 대화 상자를 가져오고 액세스할 수 있습니다.
+명명된 퀘스트, 세력 및 적절한 대화 ID"
+RECENT_ENVS,Recently Opened Environments,Entornos abiertos recientemente,البيئات المفتوحة مؤخرًا,Nyligt åbnede miljøer,Recent geopende omgevingen,Environnements récemment ouverts,Kürzlich eröffnete Umgebungen,最近打开的环境,Nyligen öppnade miljöer,Недавно открытые среды,最近開いた環境,최근에 열린 환경
+EDITOR_SETTINGS,Editor Settings,Configuración del editor,إعدادات المحرر,Editorindstillinger,Editor-instellingen,Paramètres de l'éditeur,Editor-Einstellungen,编辑器设置,Redaktörsinställningar,Настройки редактора,エディターの設定,에디터 설정
+RETURN_HOME_BUTTON,Return To Home,Vuelve a casa,العودة إلى المنزل,Tilbage til Hjemmet,Terugkeren naar huis,Retourner à la maison,Nach Hause zurückkehren,返回首页,Återvända hem,Возвращаться домой,ホームに戻る,집으로 돌아가다
+BLANK_EDITOR_LABEL,Choose or create a cateogry to start editing,Elija o cree una categoría para comenzar a editar,اختر أو أنشئ فئة لبدء التحرير,Vælg eller opret en kategori for at begynde at redigere,Kies of maak een categorie om te beginnen met bewerken,Choisissez ou créez une catégorie pour commencer l'édition,"Wählen oder erstellen Sie eine Kategorie, um mit der Bearbeitung zu beginnen",选择或创建一个类别以开始编辑,Välj eller skapa en kategori för att börja redigera,"Выберите или создайте категорию, чтобы начать редактирование.",カテゴリを選択または作成して編集を開始してください,편집을 시작하려면 카테고리를 선택하거나 생성하세요.
+CATEGORIES_PANEL_LABEL,Categories,Categorías,فئات,Kategorier,Categorieën,Catégories,Kategorien,类别,Kategorier,Категории,カテゴリー,카테고리
+CREATE_NEW_CATEGORY,Create New Category,Crear nueva categoría,إنشاء فئة جديدة,Opret ny kategori,Maak een nieuwe categorie,Créer une nouvelle catégorie,Neue Kategorie erstellen,创建新类别,Skapa ny kategori,Создать новую категорию,新しいカテゴリの作成,새 카테고리 만들기
+SEARCH,Search,Buscar,يبحث,Søg,Zoekopdracht,Recherche,Suchen,搜索,Sök,Поиск,検索,찾다
+INFORMATION_PANEL_LABEL,Information Panel,Panel de información,لوحة المعلومات,Informationspanel,Informatiepaneel,Panneau d'information,Informationstafel,信息面板,Informationspanel,Информационная панель,情報パネル,정보 패널
+GENERAL,General,General,عام,Generel,Algemeen,Général,Allgemein,一般的,Allmän,Общий,一般的な,일반적인
+AVAILABILITY,Availability,Disponibilidad,التوفر,Tilgængelighed,Beschikbaarheid,Disponibilité,Verfügbarkeit,可用性,Tillgänglighet,Доступность,可用性,유효성
+MAIL,Mail,Correo,بريد,Post,Mail,Mail,Post,邮件,Post,Почта,郵便,우편
+QUEST_AVAILABILITIES,Quest Availabilities,Disponibilidades de misiones,توافر كويست,Quest tilgængelighed,Quest-beschikbaarheid,Disponibilités des quêtes,Quest-Verfügbarkeiten,任务可用性,Quest Tillgänglighet,Доступные квесты,クエストの利用可能性,퀘스트 가용성
+AV_ALWAYS,Always,Siempre,دائماً,Altid,Altijd,Toujours,Stets,总是,Alltid,Всегда,いつも,언제나
+AV_BEFORE,Before,Antes,قبل,Før,Voor,Avant,Vor,前,Innan,До,前に,전에
+AV_AFTER,After,Después,بعد,Efter,Na,Après,Nach,后,Efter,После,後,후에
+AV_WHEN_NOT_ACTIVE,When Not Active,Cuando no está activo,عندما لا تكون نشطة,Når ikke aktiv,Wanneer niet actief,Lorsqu'il n'est pas actif,Wenn nicht aktiv,不活跃时,När inte aktiv,Когда не активен,非アクティブ時,활동하지 않을 때
+AV_WHEN_ACTIVE,When Active,Cuando está activo,عندما تكون نشطة,Når aktiv,Wanneer actief,Lorsqu'il est actif,Wenn aktiv,活跃时,När aktiv,Когда активен,アクティブ時,활성 상태일 때
+AV_COMPLETE,Objectives Complete,Objetivos completados,اكتملت الأهداف,Mål fuldført,Doelstellingen voltooid,Objectifs atteints,Ziele abgeschlossen,目标完成,Mål slutförda,Цели выполнены,目標は完了しました,목표 완료
+DIALOG_AVAILABILITIES,Dialog Availabilities,Disponibilidades de diálogo,توافر الحوار,Dialogtilgængeligheder,Dialoogvenster Beschikbaarheden,Disponibilités des boîtes de dialogue,Dialogverfügbarkeiten,对话框可用性,Dialogtillgänglighet,Доступность диалогов,ダイアログの利用可能性,대화상자 가용성
+FACTION_AVAILABILITIES,Faction Availabilities,Disponibilidades de facción,توفر الفصائل,Fraktions tilgængelighed,Beschikbaarheid van facties,Disponibilités des factions,Fraktionsverfügbarkeiten,派系可用性,Fraktionens tillgänglighet,Доступность фракций,勢力の利用可能性,세력 가용성
+FACTION_FRIENDLY,Friendly,Amigable,ودي,Venlige,Vriendelijk,Amical,Freundlich,友好的,Vänlig,Дружелюбно,フレンドリー,친숙한
+FACTION_NEUTRAL,Neutral,Neutral,حيادي,Neutral,Neutrale,Neutre,Neutral,中性的,Neutral,Нейтральный,中性,중립적
+FACTION_UNFRIENDLY,Unfriendly,Antipático,غير ودي,Uvenlig,Onvriendelijk,Hostile,Unfreundlich,不友好,Ovänlig,Недружелюбный,不親切な,해로운
+SCORE_AVAILABILITIES,Scoreboard Availabilities,Disponibilidades del marcador,توافر لوحة النتائج,Tilgængeligheder på resultattavlen,Beschikbaarheid scorebord,Disponibilités du tableau de bord,Verfügbarkeiten der Anzeigetafel,记分板可用性,Tillgänglighet för resultattavlan,Наличие табло,スコアボードの利用可能性,스코어보드 가용성
+OBJECTIVE_NAME,Objective Name,Nombre del objetivo,اسم الهدف,Målnavn,Objectieve naam,Nom de l'objectif,Zielname,目标名称,Målnamn,Имя цели,目標名,목표 이름
+SCORE_EQUALS,Equals,igual,يساوي,Lige med,Gelijk aan,Équivaut à,Gleich,等于,Lika,Равно,等しい,같음
+SCORE_BIGGER,Bigger Than,Más grande que,أكبر من,Større end,Groter dan,Plus grand que,Größer als,大于,Större än,Больше чем,より大きい,보다 큰
+SCORE_SMALLER,Smaller Than,Menor que,اصغر من,Mindre end,Kleiner dan,Plus petit que,Kleiner als,小于,Mindre än,Меньше чем,より小さい,보다 작은
+HIDE_NPC,Hide NPC,Ocultar PNJ,إخفاء الشخصيات غير القابلة للعب,Skjul NPC,NPC verbergen,Cacher le PNJ,NPC ausblenden,隐藏NPC,Dölj NPC,Скрыть НПС,NPCを隠す,NPC 숨기기
+SHOW_DIALOG_WHEEL,Show Dialog Wheel,Mostrar rueda de diálogo,عرض عجلة الحوار,Vis dialoghjul,Dialoogwiel weergeven,Afficher la roue de dialogue,Dialograd anzeigen,显示对话框轮,Visa dialoghjul,Показать диалоговое колесо,ダイアログホイールを表示,대화 휠 표시
+DISABLE_USING_ESC,Disable Using Esc,Deshabilitar usando Esc,تعطيل استخدام Esc,Deaktiver ved hjælp af Esc,Uitschakelen met Esc,Désactiver à l'aide d'Esc,Mit Esc deaktivieren,禁用使用 Esc,Inaktivera med Esc,Отключить использование Esc,Esc を使用して無効にする,Esc를 사용하여 비활성화
+SOUND_FILE,Sound File,Archivo de sonido,ملف صوتي,Lyd fil,Geluidsbestand,Fichier audio,Audiodatei,声音文件,Ljudfil,Звуковой файл,サウンドファイル,사운드 파일
+CONSOLE_COMMAND,Console Command,Comando de consola,أمر وحدة التحكم,Konsol kommando,Console-opdracht,Commande de console,Konsolenbefehl,控制台命令,Konsolkommando,Консольная команда,コンソールコマンド,콘솔 명령
+FACTION_CHANGES,Faction Changes,Cambios de facción,تغييرات الفصائل,Fraktionsændringer,Factieveranderingen,Changements de faction,Fraktionswechsel,派系变化,Fraktionsförändringar,Изменения фракций,派閥の変更,진영 변경
+SELECT_FACTION,Select Faction,Seleccionar facción,حدد الفصيل,Vælg Fraktion,Selecteer Factie,Sélectionnez une faction,Wähle Fraktion,选择阵营,Välj Fraktion,Выберите фракцию,派閥の選択,세력 선택
+ADD,Add,Agregar,يضيف,Tilføje,Toevoegen,Ajouter,Hinzufügen,添加,Lägg till,Добавлять,追加,추가하다
+START_QUEST,Start Quest,Iniciar misión,ابدأ المهمة,Start Quest,Zoektocht starten,Commencer la quête,Quest starten,开始任务,Starta Quest,Начать квест,クエスト開始,퀘스트 시작
+ID,ID:,IDENTIFICACIÓN:,بطاقة تعريف:,ID:,ID KAART:,IDENTIFIANT:,AUSWEIS:,ID：,ID:,ИДЕНТИФИКАТОР:,ID:,ID:
+TIME,Time:,Tiempo:,وقت:,Tid:,Tijd:,Temps:,Zeit:,时间：,Tid:,Время:,時間：,시간:
+DAY,Day,Día,يوم,Dag,Dag,Jour,Tag,天,Dag,День,日,낮
+NIGHT,Night,Noche,ليلة,Nat,Nacht,Nuit,Nacht,夜晚,Natt,Ночь,夜,밤
+MIN_PLAYER_LVL,Minimum Player Level,Nivel mínimo de jugador,الحد الأدنى لمستوى اللاعب,Minimum spillerniveau,Minimaal spelersniveau,Niveau de joueur minimum,Mindestspielerlevel,最低玩家等级,Lägsta spelarnivå,Минимальный уровень игрока,最低プレイヤーレベル,최소 플레이어 레벨
+MAIL_SENDER,Sender,Remitente,مرسل,Afsender,Afzender,Expéditeur,Absender,发件人,Avsändare,Отправитель,送信者,보내는 사람
+MAIL_SUBJECT,Subject,Sujeto,موضوع,Emne,Onderwerp,Sujet,Thema,主题,Ämne,Предмет,主題,주제
+MAIL_PREV_PAGE,Prev Page,Pagina anterior,الصفحة السابقة,Forrige side,Vorige pagina,Page précédente,Vorherige Seite,上一页,Föregående sida,Предыдущая страница,前のページ,이전 페이지
+MAIL_NEXT_PAGE,Next Page,Siguiente página,الصفحة التالية,Næste side,Volgende bladzijde,Page suivante,Nächste Seite,下一页,Nästa sida,Следущая страница,次のページ,다음 페이지
+MAIL_DELETE_PAGE,Delete,Borrar,يمسح,Slet,Verwijderen,Supprimer,Löschen,删除,Radera,Удалить,消去,삭제
+MAIL_PAGE_NUM,Page,Página,صفحة,Side,Bladzijde,Page,Seite,页,Sida,Страница,ページ,페이지
+MAIL_ITEM_SLOT,Item Slot,Ranura de artículo,فتحة العنصر,Genstandsplads,Artikelsleuf,Emplacement d'objet,Gegenstandsplatz,物品槽位,Objektplats,Слот для предмета,アイテムスロット,아이템 슬롯
+MAIL_ITEM_ID,Item ID,Identificación del artículo,معرف العنصر,Vare-id,Item ID,ID de l'article,Artikel Identifikationsnummer,商品编号,Artikelnummer,Идентификатор предмета,アイテムID,아이템 ID
+MAIL_ITEM_COUNT,Count:,Contar:,عدد:,Tælle:,Graaf:,Compter:,Zählen:,数数：,Räkna:,Считать:,カウント：,세다:
+MAIL_CUSTOM_NBT,Custom NBT Data. Include the item ID,Datos NBT personalizados. Incluir el ID del artículo,بيانات NBT المخصصة. قم بتضمين معرف العنصر,Brugerdefinerede NBT-data. Inkluder vare-id'et,Aangepaste NBT-gegevens. Vermeld de artikel-ID,Données NBT personnalisées. Inclure l'ID de l'article,Benutzerdefinierte NBT-Daten. Geben Sie die Artikel-ID an,自定义 NBT 数据。包含项目 ID,Anpassade NBT-data. Inkludera artikel-ID,Пользовательские данные NBT. Включите идентификатор товара,カスタム NBT データ。アイテムIDを含める,맞춤형 NBT 데이터. 항목 ID 포함
+DIALOG_NODE,Dialog Node,Nodo de diálogo,عقدة الحوار,Dialog Node,Dialoogknooppunt,Nœud de dialogue,Dialogknoten,对话节点,Dialognod,Диалоговый узел,ダイアログノード,대화 노드
+NODE,Node,Nodo,العقدة,Node,Knooppunt,Nœud,Knoten,节点,Nod,Узел,ノード,마디
+RESPONSE_OPTION,Response Option,Opción de respuesta,خيار الاستجابة,Svarmulighed,Reactie optie,Option de réponse,Antwortoption,响应选项,Svarsalternativ,Вариант ответа,応答オプション,응답 옵션
+NEW_DIALOG_TITLE,New Dialog,Nuevo diálogo,حوار جديد,Ny dialog,Nieuwe dialoog,Nouveau dialogue,Neuer Dialog,新对话,Ny dialog,Новый диалог,新しいダイアログ,새 대화 상자
+RESPONSE_CONNECTED,Connected to,Conectado a,متصلا,Forbundet til,Verbonden met,Connecté à,Angeschlossen,连接到,Ansluten till,Подключен к,に接続されています,연결됨
+RESPONSE_TEXT,Response Text,Texto de respuesta,نص الرد,Svartekst,Reactietekst,Texte de réponse,Antworttext,响应文本,Svarstext,Текст ответа,応答テキスト,응답 텍스트
+RESPONSE_OPTION_DIALOG,Dialog,Diálogo,الحوار,Dialog,Dialoog,Dialogue,Dialog,对话,Dialog,Диалог,ダイアログ,대화
+RESPONSE_OPTION_ROLE,Open Role Screen,Abrir pantalla de rol,افتح شاشة الدور,Åbn rolleskærmen,Open het rolscherm,Ouvrir l'écran de rôle,Öffnen Sie den Rollenbildschirm,打开角色屏幕,Öppna rollskärmen,Открыть экран роли,役割画面を開く,역할 화면 열기
+RESPONSE_OPTION_COMMAND,Execute Command,Ejecutar comando,تنفيذ الأوامر,Udfør kommando,Voer opdracht uit,Exécuter la commande,Befehl ausführen,执行命令,Utför kommando,Выполнить команду,コマンドの実行,명령 실행
+RESPONSE_OPTION_CLOSE,Close Dialog,Cerrar diálogo,إغلاق الحوار,Luk dialog,Dialoogvenster sluiten,Fermer la boîte de dialogue,Dialog schließen,关闭对话框,Stäng dialog,Закрыть диалог,ダイアログを閉じる,닫기 대화상자
+RESPONSE_OPTION_DISABLED,Disabled,Desactivado,عاجز,handicappet,Gehandicapt,Désactivé,Deaktiviert,残疾人,Inaktiverad,Неполноценный,無効,장애가 있는
+EDS_HIDE_CONNECTION,Hide Connection Distance,Ocultar distancia de conexión,إخفاء مسافة الاتصال,Skjul forbindelsesafstand,Verbindingsafstand verbergen,Masquer la distance de connexion,Verbindungsentfernung ausblenden,隐藏连接距离,Dölj anslutningsavstånd,Скрыть расстояние соединения,接続距離を隠す,연결 거리 숨기기
+EDS_ENABLE_GRID_SNAP,Enable Grid Snapping,Habilitar ajuste de cuadrícula,تمكين التقاط الشبكة,Aktiver Grid Snapping,Schakel rastersnapping in,Activer l'accrochage à la grille,Aktivieren Sie die Rasterausrichtung,启用网格捕捉,Aktivera Grid Snapping,Включить привязку к сетке,グリッドスナップを有効にする,그리드 스냅 활성화
+EDS_INVERT_DIALOG_MOVE,Invert Dialog Movement Functionality,Funcionalidad de movimiento de diálogo invertido,عكس وظيفة حركة الحوار,Inverter dialogens bevægelsesfunktion,Dialoogbewegingsfunctionaliteit omkeren,Fonctionnalité de mouvement de dialogue inversé,Funktion „Dialogbewegung umkehren“.,反转对话移动功能,Invertera dialogens rörelsefunktion,Инвертировать функциональность движения диалога,反転ダイアログ移動機能,대화상자 이동 기능 반전
+EDS_ALLOW_MORE_THAN_SIX,Allow More Than Six Responses,Permitir más de seis respuestas,السماح بأكثر من ستة ردود,Tillad mere end seks svar,Sta meer dan zes reacties toe,Autoriser plus de six réponses,Erlauben Sie mehr als sechs Antworten,允许超过六个响应,Tillåt fler än sex svar,Разрешить более шести ответов,6 つ以上の応答を許可する,6개 이상의 응답 허용
+EDS_AUTOSAVE_FREQ,Autosave Frequency (Minutes),Frecuencia de guardado automático (Minutos),تردد الحفظ التلقائي (بالدقائق),Automatisk lagringsfrekvens (minutter),Frequentie automatisch opslaan (minuten),Fréquence de sauvegarde automatique (minutes),Häufigkeit der automatischen Speicherung (Minuten),自动保存频率（分钟）,Autospara frekvens (minuter),Частота автосохранения (минуты),自動保存の頻度 (分),자동 저장 빈도(분)
+EDS_MAX_AUTOSAVE_FILES,Max Autosave Files,Máximo de archivos de guardado automático,ماكس ملفات الحفظ التلقائي,Maks. Autogem filer,Maximaal aantal automatisch opgeslagen bestanden,Fichiers d'enregistrement automatique maximum,Maximale Anzahl automatisch gespeicherter Dateien,最大自动保存文件数,Max Autospara filer,Максимальное количество файлов автосохранения,自動保存ファイルの最大数,최대 자동 저장 파일
+EDS_DEFAULT_DIRECTORY,Default Directory:,Directorio predeterminado:,الدليل الافتراضي:,Standardmappe:,Standaardmap:,Répertoire par défaut :,Standardverzeichnis:,默认目录：,Standardkatalog:,Каталог по умолчанию:,デフォルトのディレクトリ:,기본 디렉터리:
+CHANGE,Change,Cambiar,يتغير,Lave om,Wijziging,Changement,Ändern,改变,Förändra,Изменять,変化,변화
+EDS_KEYBINDS,Key Binds,Enlaces de teclas,ربطات المفاتيح,Nøglebinder,Sleutelbinders,Liaisons de touches,Schlüsselbindungen,按键绑定,Nyckelbinder,Ключевые привязки,キーバインド,키 바인딩
+SAVE,Save,Ahorrar,يحفظ,Gemme,Redden,Sauvegarder,Speichern,节省,Spara,Сохранять,保存,구하다
+EXPORT,Export,Exportar,يصدّر,Eksport,Exporteren,Exporter,Export,出口,Exportera,Экспорт,輸出,내보내다
+CATEGORY_OPTIONS,Category Options,Opciones de categoría,خيارات الفئة,Kategori Valgmuligheder,Categorie Opties,Options de catégorie,Kategorieoptionen,类别选项,Kategorialternativ,Параметры категории,カテゴリオプション,카테고리 옵션
+CO_REIMPORT,Reimport,Reimportar,إعادة الاستيراد,Genimport,Opnieuw importeren,Réimporter,Wiedereinfuhr,重新进口,Återimportera,Реимпорт,逆輸入,다시 가져오기
+CO_SCAN_CHANGES,Scan For Changes,Buscar cambios,البحث عن التغييرات,Scan for ændringer,Scannen naar wijzigingen,Rechercher les modifications,Nach Änderungen suchen,扫描更改,Sök efter ändringar,Сканировать изменения,変更をスキャンする,변경 사항 검색
+CO_REINDEX,Reindex IDs,ID de reindexación,إعادة فهرسة المعرفات,Genindekser ID'er,ID's opnieuw indexeren,Réindexer les identifiants,IDs neu indizieren,重新索引 ID,Indexera om ID:n,Идентификаторы переиндексации,ID の再インデックス,ID 재색인
+ADD_DIALOG,Add Dialog,Agregar cuadro de diálogo,إضافة الحوار,Tilføj dialog,Dialoogvenster toevoegen,Ajouter une boîte de dialogue,Dialog hinzufügen,添加对话框,Lägg till dialog,Добавить диалог,追加ダイアログ,대화 추가
+ADD_COLOR_ORGANIZER,Add Color Organizer,Agregar organizador de colores,إضافة منظم الألوان,Tilføj Color Organizer,Kleurorganisator toevoegen,Ajouter un organisateur de couleurs,Farborganisator hinzufügen,添加颜色管理器,Lägg till Color Organizer,Добавить цветной органайзер,カラーオーガナイザーを追加,색상 정리함 추가
+NEW_COLOR_ORGANIZER,Color Organizer,Organizador de colores,منظم الألوان,Farve Organizer,Kleur organisator,Organisateur de couleurs,Farborganisator,颜色管理器,Färg Organizer,Цветной органайзер,カラーオーガナイザー,컬러 정리함
+PRE_1.7.10,Pre 1.7.10,Antes del 1.7.10,ما قبل 1.7.10,Før 1.7.10,Vóór 1.7.10,Avant 1.7.10,Vor 1.7.10,1.7.10 之前,Före 1.7.10,До 1.7.10,1.7.10 より前,1.7.10 이전
+EXPORT_TOOL_TIP,"Exports the category, creating the proper json files for CustomNPCS","Exporta la categoría, creando los archivos json adecuados para CustomNPCS",يقوم بتصدير الفئة وإنشاء ملفات json المناسبة لـ CustomNPCS,Eksporterer kategorien og skaber de korrekte json-filer til CustomNPCS,Exporteert de categorie en maakt de juiste json-bestanden voor CustomNPCS,"Exporte la catégorie, créant les fichiers json appropriés pour CustomNPCS",Exportiert die Kategorie und erstellt die richtigen JSON-Dateien für CustomNPCS,导出类别，为 CustomNPCS 创建正确的 json 文件,Exporterar kategorin och skapar de rätta json-filerna för CustomNPCS,"Экспортирует категорию, создавая соответствующие файлы JSON для CustomNPCS.",カテゴリをエクスポートし、CustomNPCS 用の適切な json ファイルを作成します。,카테고리를 내보내 CustomNPCS에 적합한 json 파일을 생성합니다.
+SAVE_TOOL_TIP,"Saves the category for the editor, creating a YDEC file. This does not make it appear in game","Guarda la categoría para el editor, creando un archivo YDEC. Esto no hace que aparezca en el juego.",يحفظ الفئة للمحرر، وينشئ ملف YDEC. وهذا لا يجعلها تظهر في اللعبة,Gemmer kategorien for editoren og opretter en YDEC-fil. Dette får det ikke til at vises i spillet,Slaat de categorie op voor de editor en maakt een YDEC-bestand aan. Hierdoor verschijnt het niet in het spel,"Enregistre la catégorie pour l'éditeur, créant un fichier YDEC. Cela ne le fait pas apparaître dans le jeu",Speichert die Kategorie für den Editor und erstellt eine YDEC-Datei. Dadurch erscheint es nicht im Spiel,保存编辑器的类别，创建 YDEC 文件。这不会使它出现在游戏中,Sparar kategorin för redigeraren och skapar en YDEC-fil. Detta får det inte att synas i spelet,"Сохраняет категорию для редактора, создавая файл YDEC. Из-за этого он не появляется в игре",エディターのカテゴリを保存し、YDEC ファイルを作成します。これではゲーム内に表示されません,편집기의 카테고리를 저장하여 YDEC 파일을 생성합니다. 게임 내에서는 나타나지 않습니다.
 CATEGORY_OPTIONS_TOOLTIP,"Reimport : Delete all dialog nodes and the existing YDEC file, rescanning the JSONS in the folder for a fresh import.
 
 Scan For Changes: Scans through the JSONS in the folder, and attempts to update nodes with new information, and will import any new dialogs.
 
-Reindex IDs: Starting the from the current highest ID, give all dialog nodes a new ID. Remotely connected responses will NOT update their ids.",t
+Reindex IDs: Starting the from the current highest ID, give all dialog nodes a new ID. Remotely connected responses will NOT update their ids.","Reimportar: elimine todos los nodos de diálogo y el archivo YDEC existente, volviendo a escanear los JSONS en la carpeta para una nueva importación.
+
+Escanear en busca de cambios: escanea los JSONS en la carpeta e intenta actualizar los nodos con nueva información e importará los nuevos cuadros de diálogo.
+
+Reindexar ID: comenzando desde la ID más alta actual, asigne a todos los nodos de diálogo una nueva ID. Las respuestas conectadas de forma remota NO actualizarán sus identificaciones.","إعادة الاستيراد: احذف جميع عقد الحوار وملف YDEC الموجود، وأعد فحص JSONS في المجلد لاستيراد جديد.
+
+المسح بحثًا عن التغييرات: يقوم بالمسح عبر JSONS في المجلد، ويحاول تحديث العقد بمعلومات جديدة، وسيقوم باستيراد أي مربعات حوار جديدة.
+
+إعادة فهرسة المعرفات: بدءاً من أعلى معرف حالي، قم بمنح جميع عقد الحوار معرفًا جديدًا. لن تقوم الاستجابات المتصلة عن بعد بتحديث معرفاتها.","Genimport: Slet alle dialogknuder og den eksisterende YDEC-fil, genscan JSONS i mappen for en ny import.
+
+Scan efter ændringer: Scanner gennem JSONS i mappen og forsøger at opdatere noder med ny information og importerer alle nye dialoger.
+
+Genindeks ID'er: Start fra det nuværende højeste ID, giv alle dialogknuder et nyt ID. Fjerntilsluttede svar vil IKKE opdatere deres id'er.","Opnieuw importeren: verwijder alle dialoogknooppunten en het bestaande YDEC-bestand en scan de JSONS in de map opnieuw voor een nieuwe import.
+
+Scannen naar wijzigingen: Scant de JSONS in de map en probeert knooppunten bij te werken met nieuwe informatie, en importeert eventuele nieuwe dialoogvensters.
+
+ID's opnieuw indexeren: begin vanaf de huidige hoogste ID en geef alle dialoogknooppunten een nieuwe ID. Op afstand verbonden reacties zullen hun ID NIET bijwerken.","Réimporter : supprimez tous les nœuds de dialogue et le fichier YDEC existant, en analysant à nouveau les JSONS dans le dossier pour une nouvelle importation.
+
+Rechercher les modifications : analyse les JSONS dans le dossier, tente de mettre à jour les nœuds avec de nouvelles informations et importe toutes les nouvelles boîtes de dialogue.
+
+Réindexer les ID : en commençant par l'ID le plus élevé actuel, attribuez un nouvel ID à tous les nœuds de dialogue. Les réponses connectées à distance ne mettront PAS à jour leurs identifiants.","Erneut importieren: Löschen Sie alle Dialogknoten und die vorhandene YDEC-Datei und scannen Sie die JSONS im Ordner erneut für einen neuen Import.
+
+Nach Änderungen suchen: Durchsucht die JSONS im Ordner und versucht, Knoten mit neuen Informationen zu aktualisieren, und importiert alle neuen Dialoge.
+
+IDs neu indizieren: Beginnen Sie mit der aktuell höchsten ID und geben Sie allen Dialogknoten eine neue ID. Remote-verbundene Antworten aktualisieren ihre IDs NICHT.","重新导入：删除所有对话节点和现有 YDEC 文件，重新扫描文件夹中的 JSONS 以进行全新导入。
+
+扫描更改：扫描文件夹中的 JSONS，并尝试使用新信息更新节点，并将导入任何新对话框。
+
+重新索引 ID：从当前最高 ID 开始，为所有对话节点指定一个新 ID。远程连接的响应不会更新其 ID。","Återimportera: Ta bort alla dialognoder och den befintliga YDEC-filen, skanna om JSONS i mappen för en ny import.
+
+Sök efter ändringar: Söker igenom JSONS i mappen och försöker uppdatera noder med ny information och importerar alla nya dialogrutor.
+
+Omindexera ID:n: Med början från det nuvarande högsta ID:t, ge alla dialognoder ett nytt ID. Fjärranslutna svar kommer INTE att uppdatera sina ID.","Повторный импорт: удалите все узлы диалога и существующий файл YDEC, повторно просканировав JSONS в папке для нового импорта.
+
+Сканировать изменения: сканирует JSONS в папке и пытается обновить узлы новой информацией, а также импортирует любые новые диалоговые окна.
+
+Идентификаторы повторного индексирования: начиная с текущего наивысшего идентификатора, присвойте всем узлам диалога новый идентификатор. Удаленно подключенные ответы НЕ будут обновлять свои идентификаторы.","再インポート : すべてのダイアログ ノードと既存の YDEC ファイルを削除し、フォルダー内の JSONS を再スキャンして新たにインポートします。
+
+変更のスキャン: フォルダー内の JSONS をスキャンし、新しい情報でノードの更新を試み、新しいダイアログをインポートします。
+
+ID の再インデックス: 現在の最も高い ID から始めて、すべてのダイアログ ノードに新しい ID を与えます。リモート接続された応答は ID を更新しません。","다시 가져오기: 모든 대화 노드와 기존 YDEC 파일을 삭제하고 새로 가져오기 위해 폴더에서 JSONS를 다시 검색합니다.
+
+변경 사항 검색: 폴더의 JSONS를 검색하고 새 정보로 노드를 업데이트하려고 시도한 후 새 대화 상자를 가져옵니다.
+
+ID 재색인: 현재 가장 높은 ID부터 시작하여 모든 대화 노드에 새 ID를 제공합니다. 원격으로 연결된 응답은 ID를 업데이트하지 않습니다."
 MAIL_TOOLTIP,"Type the text that will appear on this page.
 
 Note that formatting is approximate
 
-It may not look exactly correct when viewed in Minecraft",t
+It may not look exactly correct when viewed in Minecraft","Escriba el texto que aparecerá en esta página.
+
+Tenga en cuenta que el formato es aproximado.
+
+Es posible que no se vea exactamente correcto cuando se ve en Minecraft.","اكتب النص الذي سيظهر على هذه الصفحة.
+
+لاحظ أن التنسيق تقريبي
+
+قد لا يبدو صحيحًا تمامًا عند عرضه في Minecraft","Indtast den tekst, der vises på denne side.
+
+Bemærk, at formateringen er omtrentlig
+
+Det ser muligvis ikke helt korrekt ud, når det ses i Minecraft","Typ de tekst die op deze pagina verschijnt.
+
+Houd er rekening mee dat de opmaak bij benadering is
+
+Het ziet er misschien niet helemaal correct uit als je het in Minecraft bekijkt","Tapez le texte qui apparaîtra sur cette page.
+
+Notez que le formatage est approximatif
+
+Cela peut ne pas sembler tout à fait correct lorsqu'il est affiché dans Minecraft","Geben Sie den Text ein, der auf dieser Seite angezeigt werden soll.
+
+Beachten Sie, dass es sich bei der Formatierung um Näherungswerte handelt
+
+Bei der Anzeige in Minecraft sieht es möglicherweise nicht ganz korrekt aus","输入将出现在此页面上的文本。
+
+请注意，格式是近似值
+
+在 Minecraft 中查看时它可能看起来不完全正确","Skriv texten som kommer att visas på den här sidan.
+
+Observera att formateringen är ungefärlig
+
+Det kanske inte ser helt korrekt ut när det visas i Minecraft","Введите текст, который появится на этой странице.
+
+Обратите внимание, что форматирование является приблизительным.
+
+Это может выглядеть не совсем правильно при просмотре в Minecraft.","このページに表示されるテキストを入力します。
+
+フォーマットはおおよそのものであることに注意してください
+
+Minecraft で表示すると正確に表示されない可能性があります","이 페이지에 표시될 텍스트를 입력하세요.
+
+형식은 대략적인 것입니다.
+
+Minecraft에서 볼 때 정확하게 보이지 않을 수 있습니다."
 MAIL_ITEM_ID_TOOLTIP,"Don't include quotes. Include the namespace, such as minecraft or customnpcs.
 
 I.E customnpcs:scripter
 
-If there is an entry in NBT Data, this entry is ignored",t
+If there is an entry in NBT Data, this entry is ignored","No incluyas comillas. Incluya el espacio de nombres, como minecraft o customnpcs.
+
+Es decir, piezas personalizadas: scripter
+
+Si hay una entrada en NBT Data, esta entrada se ignora","لا تقم بتضمين علامات الاقتباس. قم بتضمين مساحة الاسم، مثل minecraft أو customnpcs.
+
+أي customnpcs:scripter
+
+إذا كان هناك إدخال في بيانات NBT، فسيتم تجاهل هذا الإدخال","Medtag ikke citater. Inkluder navneområdet, såsom minecraft eller customnpcs.
+
+I.E customnpcs:scripter
+
+Hvis der er en post i NBT Data, ignoreres denne post","Voeg geen citaten toe. Voeg de naamruimte toe, zoals minecraft of customnpcs.
+
+Dwz customnpcs:scripter
+
+Als er een invoer in NBT Data aanwezig is, wordt deze invoer genegeerd","N'incluez pas de guillemets. Incluez l'espace de noms, tel que Minecraft ou Customnpcs.
+
+C'est-à-dire les pièces personnalisées : scripteur
+
+S'il y a une entrée dans NBT Data, cette entrée est ignorée","Fügen Sie keine Anführungszeichen ein. Geben Sie den Namespace an, z. B. „minecraft“ oder „customnpcs“.
+
+D.h. customnpcs:scripter
+
+Wenn in NBT Data ein Eintrag vorhanden ist, wird dieser Eintrag ignoriert","不要包含引号。包括命名空间，例如“minecraft”或“customnpcs”。
+
+即自定义NPC：脚本编写者
+
+如果NBT Data中有条目，则忽略该条目","Inkludera inte citat. Inkludera namnutrymmet, till exempel minecraft eller customnpcs.
+
+I.E customnpcs:scripter
+
+Om det finns en post i NBT Data ignoreras denna post","Не включайте кавычки. Укажите пространство имен, например minecraft или customnpcs.
+
+I.E customnpcs:скриптер
+
+Если в данных NBT есть запись, эта запись игнорируется.","引用符は含めないでください。 Minecraft や Customnpcs などの名前空間を含めます。
+
+I.E カスタム npcs:スクリプター
+
+NBT データにエントリがある場合、このエントリは無視されます","따옴표를 포함하지 마세요. Minecraft 또는 customnpcs와 같은 네임스페이스를 포함합니다.
+
+I.E customnpcs:스크립터
+
+NBT 데이터에 항목이 있는 경우 이 항목은 무시됩니다."
 MAIL_ITEM_NBT_TOOLTIP,"Copy and paste the item as NBT here. Include the item's id, as having an entry here will ignore the ID set above.
 
-If copying and pasting from mail data, do NOT include the slot tag.",t
-COLOR_ORGANIZER_TOOLTIP,Lock to prevent color organizer from being altered in any way.,t
+If copying and pasting from mail data, do NOT include the slot tag.","Copie y pegue el artículo como NBT aquí. Incluya la identificación del artículo, ya que al tener una entrada aquí se ignorará la identificación establecida anteriormente.
+
+Si copia y pega datos de correo, NO incluya la etiqueta de la ranura.","انسخ العنصر والصقه باسم NBT هنا. قم بتضمين معرف العنصر، حيث أن وجود إدخال هنا سوف يتجاهل المعرف المحدد أعلاه.
+
+في حالة النسخ واللصق من بيانات البريد، لا تقم بتضمين علامة الفتحة.","Kopiér og indsæt varen som NBT her. Inkluder varens id, da en indtastning her vil ignorere ID-sættet ovenfor.
+
+Hvis du kopierer og indsætter fra e-mail-data, skal du IKKE inkludere pladsmærket.","Kopieer en plak het item hier als NBT. Voeg de ID van het item toe, omdat als u hier iets invoert, de hierboven ingestelde ID wordt genegeerd.
+
+Als u kopieert en plakt vanuit e-mailgegevens, neem dan NIET de slot-tag op.","Copiez et collez l'élément en tant que NBT ici. Incluez l'identifiant de l'élément, car avoir une entrée ici ignorera l'ID défini ci-dessus.
+
+Si vous copiez et collez à partir de données de courrier, n'incluez PAS la balise slot.","Kopieren Sie das Element und fügen Sie es hier als NBT ein. Geben Sie die ID des Artikels an, da bei einem Eintrag hier die oben festgelegte ID ignoriert wird.
+
+Beim Kopieren und Einfügen aus E-Mail-Daten darf das Slot-Tag NICHT mit einbezogen werden.","将项目复制为 NBT 并粘贴到此处。包含项目的 ID，因为此处的条目将忽略上面设置的 ID。
+
+如果从邮件数据复制和粘贴，请勿包含槽标签。","Kopiera och klistra in objektet som NBT här. Inkludera objektets id, eftersom en post här kommer att ignorera ID-uppsättningen ovan.
+
+Om du kopierar och klistrar in från e-postdata, inkludera INTE platstaggen.","Скопируйте и вставьте сюда элемент как NBT. Включите идентификатор элемента, так как запись здесь будет игнорировать идентификатор, установленный выше.
+
+При копировании и вставке из почтовых данных НЕ включайте тег слота.","ここに項目をコピーして NBT として貼り付けます。ここにエントリがあると、上で設定した ID が無視されるため、アイテムの ID を含めます。
+
+メールデータからコピー＆ペーストする場合は、slotタグを含めないでください。","여기에 항목을 NBT로 복사하여 붙여넣으세요. 여기에 항목을 입력하면 위에 설정된 ID가 무시되므로 항목의 ID를 포함하세요.
+
+메일 데이터에서 복사하여 붙여넣는 경우 슬롯 태그를 포함하지 마세요."
+COLOR_ORGANIZER_TOOLTIP,Lock to prevent color organizer from being altered in any way.,Bloquee para evitar que el organizador de colores se modifique de alguna manera.,قفل لمنع تغيير منظم الألوان بأي شكل من الأشكال.,Lås for at forhindre farveorganisering i at blive ændret på nogen måde.,Vergrendel om te voorkomen dat de kleurorganizer op enigerlei wijze wordt gewijzigd.,Verrouillez pour éviter que l'organisateur de couleurs ne soit modifié de quelque manière que ce soit.,"Sperren, um zu verhindern, dass der Farb-Organizer in irgendeiner Weise verändert wird.",锁定以防止颜色管理器被以任何方式更改。,Lås för att förhindra att färgorganisatören ändras på något sätt.,"Заблокируйте, чтобы предотвратить любое изменение органайзера цвета.",カラー オーガナイザーがいかなる方法でも変更されないようにロックします。,색상 정리가 어떤 식으로든 변경되는 것을 방지하기 위해 잠급니다.
 EXPORT_TYPE_TOOLTIP,"Pre 1.7.10 : No quotes around keys in the JSON. No scoreboard
 
 1.7.10: Does not export scoreboard to JSON
 
-1.12+ : Exports scoreboard to json",t
-EDS_HIDE_CONNECTION_TOOLTIP,The maximum distance a response node can be from a dialog node before the connection line is hidden,t
-EDS_SNAPPING_TOOLTIP,Enable grid snapping in the editor,t
+1.12+ : Exports scoreboard to json
+
+CustomNPCs+ : Exports settings that are only in CustomNPCs+ 1.7.10","Anterior a 1.7.10: no hay comillas alrededor de las claves en JSON. Sin marcador
+
+1.7.10: No exporta el marcador a JSON
+
+1.12+: Exporta el marcador a json
+
+CustomNPCs+: Exporta configuraciones que solo están en CustomNPCs+ 1.7.10","ما قبل 1.7.10: لا توجد علامات اقتباس حول المفاتيح في JSON. لا توجد لوحة النتائج
+
+1.7.10: لا يتم تصدير لوحة النتائج إلى JSON
+
+1.12+: تصدير لوحة النتائج إلى json
+
+CustomNPCs+: تصدير الإعدادات الموجودة فقط في CustomNPCs+ 1.7.10","Før 1.7.10: Ingen anførselstegn omkring nøgler i JSON. Ingen resultattavle
+
+1.7.10: Eksporterer ikke resultattavle til JSON
+
+1.12+ : Eksporterer resultattavlen til json
+
+CustomNPCs+ : Eksporterer indstillinger, der kun er i CustomNPCs+ 1.7.10","Pre 1.7.10: Geen aanhalingstekens rond sleutels in de JSON. Geen scorebord
+
+1.7.10: Exporteert het scorebord niet naar JSON
+
+1.12+: Exporteert scorebord naar json
+
+CustomNPCs+: Exporteert instellingen die alleen in CustomNPCs+ 1.7.10 voorkomen","Avant 1.7.10 : Pas de guillemets autour des clés dans le JSON. Pas de tableau de bord
+
+1.7.10 : n'exporte pas le tableau de bord vers JSON
+
+1.12+ : Exporte le tableau de bord vers json
+
+CustomNPCs+ : Exporte les paramètres qui se trouvent uniquement dans CustomNPCs+ 1.7.10","Vor 1.7.10: Keine Anführungszeichen um Schlüssel im JSON. Keine Anzeigetafel
+
+1.7.10: Scoreboard wird nicht nach JSON exportiert
+
+1.12+: Exportiert die Anzeigetafel nach JSON
+
+CustomNPCs+: Exportiert Einstellungen, die nur in CustomNPCs+ 1.7.10 vorhanden sind","1.7.10 之前：JSON 中的键周围没有引号。没有记分板
+
+1.7.10：不将记分板导出为 JSON
+
+1.12+：将记分板导出为 json
+
+CustomNPCs+ ：导出仅在 CustomNPCs+ 1.7.10 中的设置","Före 1.7.10: Inga citattecken runt nycklar i JSON. Ingen resultattavla
+
+1.7.10: Exporterar inte resultattavlan till JSON
+
+1.12+ : Exporterar resultattavlan till json
+
+CustomNPCs+ : Exporterar inställningar som endast finns i CustomNPCs+ 1.7.10","До версии 1.7.10: ключи в JSON не заключаются в кавычки. Нет табло
+
+1.7.10: Не экспортируется табло в JSON.
+
+1.12+: экспортирует табло в json.
+
+CustomNPCs+: экспортирует настройки, которые есть только в CustomNPCs+ 1.7.10.","1.7.10 より前: JSON 内のキーを引用符で囲みません。スコアボードなし
+
+1.7.10: スコアボードを JSON にエクスポートしない
+
+1.12+ : スコアボードを JSON にエクスポート
+
+CustomNPCs+ : CustomNPCs+ 1.7.10 のみにある設定をエクスポートします。","1.7.10 이전: JSON에서 키 주위에 따옴표가 없습니다. 점수판 없음
+
+1.7.10: 점수판을 JSON으로 내보내지 않습니다.
+
+1.12+ : 점수판을 json으로 내보냅니다.
+
+CustomNPCs+ : CustomNPCs+ 1.7.10에만 있는 설정을 내보냅니다."
+EDS_HIDE_CONNECTION_TOOLTIP,The maximum distance a response node can be from a dialog node before the connection line is hidden,La distancia máxima que puede estar un nodo de respuesta desde un nodo de diálogo antes de que se oculte la línea de conexión,الحد الأقصى للمسافة التي يمكن أن تكون عليها عقدة الاستجابة من عقدة الحوار قبل إخفاء خط الاتصال,"Den maksimale afstand, en svarknude kan være fra en dialogknude, før forbindelseslinjen er skjult",De maximale afstand die een antwoordknooppunt mag hebben tot een dialoogknooppunt voordat de verbindingslijn wordt verborgen,La distance maximale entre un nœud de réponse et un nœud de dialogue avant que la ligne de connexion ne soit masquée,"Der maximale Abstand, den ein Antwortknoten von einem Dialogknoten haben kann, bevor die Verbindungslinie ausgeblendet wird",连接线隐藏之前响应节点与对话节点的最大距离,Det maximala avståndet som en svarsnod kan vara från en dialognod innan anslutningslinjen döljs,"Максимальное расстояние, на котором узел ответа может находиться от узла диалога, прежде чем линия соединения будет скрыта.",接続線が非表示になるまでの、応答ノードとダイアログ ノードとの最大距離,연결선이 숨겨지기 전에 응답 노드와 대화 노드 사이의 최대 거리
+EDS_SNAPPING_TOOLTIP,Enable grid snapping in the editor,Habilitar el ajuste de cuadrícula en el editor,تمكين التقاط الشبكة في المحرر,Aktiver grid snapping i editoren,Schakel rasteruitlijnen in de editor in,Activer l'accrochage à la grille dans l'éditeur,Aktivieren Sie die Rasterausrichtung im Editor,在编辑器中启用网格捕捉,Aktivera grid snapping i editorn,Включить привязку к сетке в редакторе,エディターでグリッド スナップを有効にする,편집기에서 그리드 스냅 활성화
 EDS_HOLD_SHIFT_TOOLTIP,"By default, moving dialog nodes will not cause it's connected response nodes to move with it, unless you're holding shift.
 
-Inverting it will mean that dialog nodes WILL move response nodes, unless holding shift",t
-EDS_MORE_SIX_TOOLTIP,"The in-game editor only allows you to add six responses to a dialog, but adding more responses directly to the JSON allows for more response options.",t
-EDS_AUTOSAVE_FREQ_TOOLTIP,Amount of minutes between auto-saves,t
-EDS_MAX_AUTOSAVE_FILES_TOOLTIP,How many autosave files can be in the auto save folder,t
+Inverting it will mean that dialog nodes WILL move response nodes, unless holding shift","De forma predeterminada, mover los nodos de diálogo no hará que los nodos de respuesta conectados se muevan con él, a menos que mantenga presionada la tecla Mayús.
+
+Invertirlo significará que los nodos de diálogo moverán los nodos de respuesta, a menos que se mantenga presionada la tecla Mayús.","افتراضيًا، لن يؤدي نقل عقد الحوار إلى تحرك عقد الاستجابة المتصلة بها، إلا إذا كنت تضغط باستمرار على مفتاح Shift.
+
+سيعني عكس ذلك أن عقد الحوار ستنقل عقد الاستجابة، ما لم يتم الضغط على مفتاح Shift","Som standard vil flytning af dialogknudepunkter ikke få dens tilsluttede svarknuder til at flytte med sig, medmindre du holder shift nede.
+
+At invertere det vil betyde, at dialogknudepunkter VIL flytte svarknuder, medmindre man holder shift","Standaard zal het verplaatsen van dialoogknooppunten er niet voor zorgen dat de verbonden antwoordknooppunten meebewegen, tenzij u shift ingedrukt houdt.
+
+Als u dit omkeert, betekent dit dat dialoogknooppunten de responsknooppunten ZULLEN verplaatsen, tenzij u Shift ingedrukt houdt","Par défaut, le déplacement des nœuds de dialogue n'entraînera pas le déplacement des nœuds de réponse connectés avec lui, sauf si vous maintenez la touche Maj enfoncée.
+
+L'inverser signifiera que les nœuds de dialogue déplaceront les nœuds de réponse, à moins de maintenir Shift","Standardmäßig führt das Verschieben von Dialogknoten nicht dazu, dass die verbundenen Antwortknoten mit verschoben werden, es sei denn, Sie halten die Umschalttaste gedrückt.
+
+Das Umkehren bedeutet, dass Dialogknoten Antwortknoten verschieben, es sei denn, Sie halten die Umschalttaste gedrückt","默认情况下，移动对话节点不会导致其连接的响应节点随之移动，除非您按住 Shift 键。
+
+反转它意味着对话节点将移动响应节点，除非按住shift","Som standard kommer inte att flytta dialognoder att dess anslutna svarsnoder flyttas med den, såvida du inte håller shift.
+
+Att invertera det kommer att innebära att dialognoder KOMMER att flytta svarsnoder, om du inte håller ned shift","По умолчанию перемещение узлов диалога не приводит к перемещению связанных с ним узлов ответа, если только вы не удерживаете клавишу Shift.
+
+Инвертирование будет означать, что узлы диалога БУДУТ перемещать узлы ответа, если не удерживать клавишу Shift.","デフォルトでは、Shift キーを押している場合を除き、ダイアログ ノードを移動しても、接続されている応答ノードも一緒に移動しません。
+
+これを反転すると、Shift キーを押したままにしない限り、ダイアログ ノードが応答ノードを移動することになります。","기본적으로 Shift 키를 누르지 않는 한 대화 노드를 이동해도 연결된 응답 노드가 함께 이동하지 않습니다.
+
+이를 반전시키는 것은 Shift 키를 누르지 않는 한 대화 노드가 응답 노드를 이동한다는 것을 의미합니다."
+EDS_MORE_SIX_TOOLTIP,"The in-game editor only allows you to add six responses to a dialog, but adding more responses directly to the JSON allows for more response options.","El editor del juego solo te permite agregar seis respuestas a un cuadro de diálogo, pero agregar más respuestas directamente al JSON permite más opciones de respuesta.",يسمح لك المحرر داخل اللعبة بإضافة ستة ردود فقط إلى مربع الحوار، ولكن إضافة المزيد من الاستجابات مباشرة إلى JSON يسمح بمزيد من خيارات الاستجابة.,"In-game-editoren giver dig kun mulighed for at tilføje seks svar til en dialogboks, men tilføjelse af flere svar direkte til JSON giver dig mulighed for flere svarmuligheder.","Met de in-game editor kun je slechts zes reacties aan een dialoogvenster toevoegen, maar door meer reacties rechtstreeks aan de JSON toe te voegen, zijn er meer reactieopties mogelijk.","L'éditeur du jeu vous permet uniquement d'ajouter six réponses à une boîte de dialogue, mais l'ajout de plus de réponses directement au JSON permet plus d'options de réponse.","Mit dem In-Game-Editor können Sie nur sechs Antworten zu einem Dialog hinzufügen, aber das Hinzufügen weiterer Antworten direkt zum JSON ermöglicht mehr Antwortoptionen.",游戏内编辑器仅允许您向对话框添加六个响应，但直接向 JSON 添加更多响应可提供更多响应选项。,"Redaktören i spelet låter dig bara lägga till sex svar i en dialogruta, men att lägga till fler svar direkt till JSON möjliggör fler svarsalternativ.","Внутриигровой редактор позволяет добавлять в диалог только шесть ответов, но добавление большего количества ответов непосредственно в JSON позволяет получить больше вариантов ответов.",ゲーム内エディタではダイアログに 6 つの応答しか追加できませんが、さらに多くの応答を JSON に直接追加すると、より多くの応答オプションが可能になります。,게임 내 편집기를 사용하면 대화 상자에 6개의 응답만 추가할 수 있지만 JSON에 더 많은 응답을 직접 추가하면 더 많은 응답 옵션을 사용할 수 있습니다.
+EDS_AUTOSAVE_FREQ_TOOLTIP,Amount of minutes between auto-saves,Cantidad de minutos entre guardados automáticos,مقدار الدقائق بين عمليات الحفظ التلقائي,Antal minutter mellem automatisk lagring,Aantal minuten tussen automatisch opslaan,Nombre de minutes entre les sauvegardes automatiques,Anzahl der Minuten zwischen automatischen Speicherungen,自动保存之间的分钟数,Antal minuter mellan automatiska sparningar,Количество минут между автосохранениями,自動保存間の時間 (分),자동 저장 간격(분)
+EDS_MAX_AUTOSAVE_FILES_TOOLTIP,How many autosave files can be in the auto save folder,¿Cuántos archivos de guardado automático puede haber en la carpeta de guardado automático?,كم عدد ملفات الحفظ التلقائي التي يمكن أن تكون في مجلد الحفظ التلقائي,Hvor mange autogem-filer kan der være i auto-gem-mappen,Hoeveel automatisch opgeslagen bestanden kunnen er in de map voor automatisch opslaan staan,Combien de fichiers de sauvegarde automatique peuvent contenir le dossier de sauvegarde automatique,Wie viele Autosave-Dateien können sich im Auto-Save-Ordner befinden?,自动保存文件夹中可以有多少个自动保存文件,Hur många autospara-filer kan finnas i autospara-mappen,Сколько файлов автосохранения может находиться в папке автосохранения,自動保存フォルダーに保存できる自動保存ファイルの数,자동 저장 폴더에 자동 저장 파일 수는 몇 개입니까?
 EDS_DEFAULT_DIRECTORY_TOOLTIP,"Change the default folder that's opened when
-you click ""Open Environment""",t
-FILE_CANCEL,Cancel,t
-FILE_SELECT_FOLDER,Select Current Folder,t
-FILE_TITLE,Open A Directory,t
-FILE_INVALID, Invalid Folder!,t
-LANGUAGE,Language,t
-CATEGORY_RENAME,Rename,t
-CATEGORY_DELETE,Delete,t
-CATEGORY_REIMPORT,Reimport Category,t
-CATEGORY_DUPLICATE,Duplicate,t
-CATEGORY_OPEN_IN_FILE,Open in File Manager,t
-SELECT_DIALOG,Select Dialog,t
-COMMAND,Command,t
-TEXT_LIMIT_WARNING,Text Limit Warning!,t
-TEXT_LIMIT_WARNING_TOOLTIP,This page *might* go off screen. Pages can only have 114 pixels and 14 lines maximum.,t
-SAVING,Category %s saved...,t
-EXPORTING,Category %s succesfully exported...,t
-EXPORT_FAILED,Category %s Failed To Export...,t
-SAVE_FAILED,YDEC Failed To Save,t
-AV_MODE,Selecting Dialog For Availability,t
-UNSAVED,This Category Has Unsaved Changes!,t
-SAVE_AND_CLOSE,Save and Close,t
-CLOSE_NO_SAVE,Close Without Saving,t
-NAME_CATEGORY,Name Category,t
-CHOOSE_INIT_DIALOG,Choose A Starting Dialog For The Tree,t
-DELETE_CATEGORY_CONFIRM,Are you sure you want to delete %s? All dialogs will be permanently deleted,t
-REIMPORT_CONFIRM,Are you sure you want to reimport %s? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory.,t
-POINTS_ABBRV,pts,t
-SELECT_QUEST,Select Quest, t
-CANCEL, Cancel, t
+you click ""Open Environment""","Cambiar la carpeta predeterminada que se abre cuando
+haces clic en ""Abrir entorno""","قم بتغيير المجلد الافتراضي الذي يتم فتحه متى
+قمت بالنقر فوق ""بيئة مفتوحة""","Skift standardmappe, der åbnes hvornår
+du klikker på ""Åbent miljø""","Wijzig de standaardmap die wordt geopend wanneer
+u klikt op ""Open omgeving""","Modifiez le dossier par défaut ouvert lorsque
+vous cliquez sur ""Environnement ouvert""","Ändern Sie den Standardordner, der wann geöffnet wird
+Sie klicken auf „Umgebung öffnen“","更改打开的默认文件夹
+您单击“打开环境”","Ändra standardmappen som öppnas när
+du klickar på ""Öppen miljö""","Измените папку по умолчанию, которая открывается при
+вы нажимаете «Открыть среду»","ときに開くデフォルトのフォルダーを変更する
+「環境を開く」をクリックすると","열릴 때 열리는 기본 폴더 변경
+""환경 열기""를 클릭하세요"
+FILE_CANCEL,Cancel,Cancelar,يلغي,Afbestille,Annuleren,Annuler,Stornieren,取消,Annullera,Отмена,キャンセル,취소
+FILE_SELECT_FOLDER,Select Current Folder,Seleccionar carpeta actual,حدد المجلد الحالي,Vælg Aktuel mappe,Selecteer Huidige map,Sélectionnez le dossier actuel,Wählen Sie Aktueller Ordner,选择当前文件夹,Välj Aktuell mapp,Выбрать текущую папку,現在のフォルダーを選択,현재 폴더 선택
+FILE_TITLE,Open A Directory,Abrir un directorio,افتح الدليل,Åbn en mappe,Open een map,Ouvrir un répertoire,Öffnen Sie ein Verzeichnis,打开目录,Öppna en katalog,Открыть каталог,ディレクトリを開く,디렉토리 열기
+FILE_INVALID,Invalid Folder!,¡Carpeta no válida!,مجلد غير صالح!,Ugyldig mappe!,Ongeldige map!,Dossier invalide !,Ungültiger Ordner!,无效文件夹！,Ogiltig mapp!,Неверная папка!,無効なフォルダーです!,잘못된 폴더입니다!
+LANGUAGE,Language,Idioma,لغة,Sprog,Taal,Langue,Sprache,语言,Språk,Язык,言語,언어
+CATEGORY_RENAME,Rename,Rebautizar,إعادة تسمية,Omdøb,Hernoemen,Renommer,Umbenennen,改名,Döp om,Переименовать,名前の変更,이름 바꾸기
+CATEGORY_DELETE,Delete,Borrar,يمسح,Slet,Verwijderen,Supprimer,Löschen,删除,Radera,Удалить,消去,삭제
+CATEGORY_REIMPORT,Reimport Category,Categoría de reimportación,إعادة استيراد الفئة,Genimporter kategori,Categorie opnieuw importeren,Catégorie de réimportation,Kategorie erneut importieren,重新导入类别,Återimportera kategori,Категория реимпорта,逆輸入カテゴリー,카테고리 다시 가져오기
+CATEGORY_DUPLICATE,Duplicate,Duplicar,ينسخ,Duplikere,Duplicaat,Dupliquer,Duplikat,复制,Duplicera,Дублировать,重複,복제하다
+CATEGORY_OPEN_IN_FILE,Open in File Manager,Abrir en el Administrador de archivos,فتح في مدير الملفات,Åbn i filhåndtering,Openen in Bestandsbeheer,Ouvrir dans le gestionnaire de fichiers,Im Dateimanager öffnen,在文件管理器中打开,Öppna i filhanteraren,Открыть в диспетчере файлов,ファイルマネージャーで開く,파일 관리자에서 열기
+SELECT_DIALOG,Select Dialog,Seleccionar cuadro de diálogo,حدد الحوار,Vælg Dialog,Selecteer Dialoogvenster,Boîte de dialogue Sélectionner,Wählen Sie Dialog,选择对话框,Välj Dialog,Выберите диалог,選択ダイアログ,선택 대화상자
+COMMAND,Command,Dominio,يأمر,Kommando,Commando,Commande,Befehl,命令,Kommando,Команда,指示,명령
+TEXT_LIMIT_WARNING,Text Limit Warning!,¡Advertencia de límite de texto!,تحذير بشأن حدود النص!,Tekstgrænse Advarsel!,Tekstlimiet Waarschuwing!,Attention à la limite de texte !,Warnung zur Textbeschränkung!,文字限制警告！,Textbegränsning Varning!,Предупреждение об ограничении текста!,テキスト制限の警告!,문자 제한 경고!
+TEXT_LIMIT_WARNING_TOOLTIP,This page *might* go off screen. Pages can only have 114 pixels and 14 lines maximum.,Esta página *podría* salirse de la pantalla. Las páginas sólo pueden tener 114 píxeles y 14 líneas como máximo.,هذه الصفحة *قد* تخرج عن الشاشة. يمكن أن تحتوي الصفحات على 114 بكسل و14 سطرًا كحد أقصى.,Denne side *kan* forsvinde fra skærmen. Sider kan kun have 114 pixels og maksimalt 14 linjer.,Deze pagina *kan* van het scherm verdwijnen. Pagina's mogen maximaal 114 pixels en 14 regels bevatten.,Cette page *pourrait* disparaître de l'écran. Les pages ne peuvent avoir que 114 pixels et 14 lignes maximum.,Diese Seite *könnte* vom Bildschirm verschwinden. Seiten dürfen maximal 114 Pixel und 14 Zeilen haben.,此页面*可能*会离开屏幕。页面最多只能有 114 个像素和 14 行。,Den här sidan *kan* försvinna från skärmen. Sidor kan bara ha 114 pixlar och max 14 rader.,Эта страница *может* исчезнуть с экрана. Страницы могут иметь максимум 114 пикселей и 14 строк.,このページは画面から消える*可能性があります*。ページには最大 114 ピクセル、14 行しか含めることができません。,이 페이지는 *화면에서 사라질 수도 있습니다*. 페이지는 최대 114픽셀과 14줄만 포함할 수 있습니다.
+SAVING,Category %s saved...,Categoría %s guardada...,تم حفظ الفئة %s...,Kategori %s gemt...,Categorie %s opgeslagen...,Catégorie %s enregistrée...,Kategorie %s gespeichert...,类别 %s 已保存...,Kategori %s har sparats...,Категория %s сохранена...,カテゴリ %s を保存しました...,카테고리 %s이(가) 저장되었습니다...
+EXPORTING,Category %s succesfully exported...,Categoría %s exportada exitosamente...,تم تصدير الفئة %s بنجاح...,Kategori %s blev eksporteret...,Categorie %s succesvol geëxporteerd...,La catégorie %s a été exportée avec succès...,Kategorie %s erfolgreich exportiert...,类别 %s 已成功导出...,Kategori %s har exporterats...,Категория %s успешно экспортирована...,カテゴリ %s は正常にエクスポートされました...,카테고리 %s을(를) 성공적으로 내보냈습니다...
+EXPORT_FAILED,Category %s Failed To Export...,La categoría %s no pudo exportar...,فشل تصدير الفئة %s...,Kategori %s kunne ikke eksporteres...,Categorie %s Kan niet exporteren...,La catégorie %s n'a pas pu être exportée...,Kategorie %s konnte nicht exportiert werden...,类别 %s 导出失败...,Det gick inte att exportera kategori %s...,Не удалось экспортировать категорию %s...,カテゴリ %s のエクスポートに失敗しました...,카테고리 %s을(를) 내보내지 못했습니다...
+SAVE_FAILED,YDEC Failed To Save,YDEC no pudo guardar,فشل YDEC في الحفظ,YDEC kunne ikke gemme,YDEC kan niet opslaan,YDEC n'a pas réussi à enregistrer,YDEC konnte nicht gespeichert werden,YDEC 保存失败,Det gick inte att spara YDEC,YDEC не удалось сохранить,YDEC の保存に失敗しました,YDEC 저장 실패
+AV_MODE,Selecting Dialog For Availability,Seleccionar cuadro de diálogo para disponibilidad,تحديد مربع الحوار للتوفر,Valg af dialog for tilgængelighed,Dialoogvenster selecteren voor beschikbaarheid,Sélection de la boîte de dialogue pour la disponibilité,Auswahldialog für Verfügbarkeit,选择可用性对话框,Välj dialog för tillgänglighet,Диалоговое окно выбора доступности,可用性の選択ダイアログ,가용성에 대한 대화 상자 선택
+UNSAVED,This Category Has Unsaved Changes!,¡Esta categoría tiene cambios no guardados!,تحتوي هذه الفئة على تغييرات غير محفوظة!,Denne kategori har ikke-gemte ændringer!,Deze categorie bevat niet-opgeslagen wijzigingen!,Cette catégorie comporte des modifications non enregistrées !,Diese Kategorie enthält nicht gespeicherte Änderungen!,此类别有未保存的更改！,Denna kategori har osparade ändringar!,В этой категории есть несохраненные изменения!,このカテゴリには保存されていない変更があります。,이 카테고리에는 저장되지 않은 변경사항이 있습니다!
+SAVE_AND_CLOSE,Save and Close,Guardar y cerrar,حفظ وإغلاق,Gem og luk,Opslaan en afsluiten,Sauver et fermer,Speichern und schließen,保存并关闭,Spara och stäng,Сохрани и закрой,保存して閉じます,저장하고 닫습니다
+CLOSE_NO_SAVE,Close Without Saving,Cerrar sin guardar,إغلاق بدون حفظ,Luk uden at gemme,Sluiten zonder op te slaan,Fermer sans enregistrer,Schließen ohne speichern,关闭而不保存,Stäng utan att spara,Закрыть без сохранения,保存せずに閉じる,저장하지 않고 닫기
+NAME_CATEGORY,Name Category,Nombre Categoría,اسم الفئة,Navnekategori,Naam Categorie,Catégorie de nom,Namenskategorie,名称 类别,Namnkategori,Название Категория,名前 カテゴリー,이름 카테고리
+CHOOSE_INIT_DIALOG,Choose A Starting Dialog For The Tree,Elija un cuadro de diálogo inicial para el árbol,اختر مربع حوار البداية للشجرة,Vælg en startdialog for træet,Kies een startdialoog voor de boom,Choisissez une boîte de dialogue de démarrage pour l'arborescence,Wählen Sie einen Startdialog für den Baum,为树选择一个启动对话框,Välj en startdialog för trädet,Выберите начальный диалог для дерева,ツリーの開始ダイアログを選択してください,트리의 시작 대화 상자를 선택하세요
+DELETE_CATEGORY_CONFIRM,Are you sure you want to delete %s? All dialogs will be permanently deleted,¿Estás seguro de que deseas eliminar %s? Todos los cuadros de diálogo se eliminarán permanentemente.,هل أنت متأكد أنك تريد حذف %s؟ سيتم حذف كافة مربعات الحوار نهائيًا,"Er du sikker på, at du vil slette %s? Alle dialogbokse slettes permanent",Weet u zeker dat u %s wilt verwijderen? Alle dialoogvensters worden permanent verwijderd,Etes-vous sûr de vouloir supprimer %s ? Toutes les boîtes de dialogue seront définitivement supprimées,"Sind Sie sicher, dass Sie %s löschen möchten? Alle Dialoge werden dauerhaft gelöscht",您确定要删除 %s 吗？所有对话框将被永久删除,Är du säker på att du vill ta bort %s? Alla dialogrutor kommer att raderas permanent,"Вы уверены, что хотите удалить %s? Все диалоги будут удалены без возможности восстановления.",%s を削除してもよろしいですか?すべてのダイアログは完全に削除されます,정말로 %s을(를) 삭제하시겠습니까? 모든 대화상자가 영구적으로 삭제됩니다.
+REIMPORT_CONFIRM,Are you sure you want to reimport %s? All current dialog nodes will be permanently deleted. The category will create new nodes from the existing JSON files in the directory.,¿Estás seguro de que deseas volver a importar %s? Todos los nodos de diálogo actuales se eliminarán permanentemente. La categoría creará nuevos nodos a partir de los archivos JSON existentes en el directorio.,هل أنت متأكد أنك تريد إعادة استيراد %s؟ سيتم حذف كافة عقد الحوار الحالية نهائيًا. ستقوم الفئة بإنشاء عقد جديدة من ملفات JSON الموجودة في الدليل.,"Er du sikker på, at du vil genimportere %s? Alle aktuelle dialogknuder vil blive slettet permanent. Kategorien vil oprette nye noder fra de eksisterende JSON-filer i mappen.",Weet u zeker dat u %s opnieuw wilt importeren? Alle huidige dialoogknooppunten worden permanent verwijderd. De categorie maakt nieuwe knooppunten van de bestaande JSON-bestanden in de map.,Êtes-vous sûr de vouloir réimporter %s ? Tous les nœuds de dialogue actuels seront définitivement supprimés. La catégorie créera de nouveaux nœuds à partir des fichiers JSON existants dans le répertoire.,"Sind Sie sicher, dass Sie %s erneut importieren möchten? Alle aktuellen Dialogknoten werden dauerhaft gelöscht. Die Kategorie erstellt neue Knoten aus den vorhandenen JSON-Dateien im Verzeichnis.",您确定要重新导入 %s 吗？所有当前对话节点将被永久删除。该类别将从目录中现有的 JSON 文件创建新节点。,Är du säker på att du vill återimportera %s? Alla aktuella dialognoder kommer att raderas permanent. Kategorien kommer att skapa nya noder från de befintliga JSON-filerna i katalogen.,"Вы уверены, что хотите повторно импортировать %s? Все текущие узлы диалога будут безвозвратно удалены. Категория создаст новые узлы из существующих файлов JSON в каталоге.",%s を再インポートしてもよろしいですか?現在のダイアログ ノードはすべて完全に削除されます。カテゴリは、ディレクトリ内の既存の JSON ファイルから新しいノードを作成します。,%s을(를) 다시 가져오시겠습니까? 현재의 모든 대화 노드가 영구적으로 삭제됩니다. 범주는 디렉터리의 기존 JSON 파일에서 새 노드를 생성합니다.
+POINTS_ABBRV,pts,puntos,نقاط,pkt,punten,points,Punkte,分,pts,баллы,ポイント,포인트
+SELECT_QUEST,Select Quest,Seleccionar misión,حدد المهمة,Vælg Quest,Selecteer Zoektocht,Sélectionnez une quête,Wählen Sie Quest,选择任务,Välj Quest,Выберите квест,クエストを選択,퀘스트 선택
+CANCEL,Cancel,Cancelar,يلغي,Afbestille,Annuleren,Annuler,Stornieren,取消,Annullera,Отмена,キャンセル,취소
+EDS_CNPC+,Enable CustomNPCs+ Options,Habilitar opciones personalizadas de NPC+,تمكين خيارات CustomNPCs+,Aktiver CustomNPCs+ Options,Schakel aangepaste NPC's+ opties in,Activer les options CustomNPC+,Aktivieren Sie CustomNPCs+-Optionen,启用 CustomNPCs+ 选项,Aktivera CustomNPCs+-alternativ,Включить параметры CustomNPCs+,CustomNPCs+ オプションを有効にする,CustomNPCs+ 옵션 활성화
+EDS_CNPC+_TOOLTIP,Enables editing options that are only available in Kamkeel's CustomNPCs+ for 1.7.10,Habilita opciones de edición que solo están disponibles en CustomNPCs+ de Kamkeel para 1.7.10,تمكين خيارات التحرير المتوفرة فقط في CustomNPCs+ الخاصة بـ Kamkeel للإصدار 1.7.10,"Aktiverer redigeringsmuligheder, der kun er tilgængelige i Kamkeels CustomNPCs+ for 1.7.10",Maakt bewerkingsopties mogelijk die alleen beschikbaar zijn in Kamkeel's CustomNPCs+ voor 1.7.10,Active les options d'édition qui ne sont disponibles que dans CustomNPCs+ de Kamkeel pour 1.7.10.,"Aktiviert Bearbeitungsoptionen, die nur in Kamkeels CustomNPCs+ für 1.7.10 verfügbar sind",启用仅在 Kamkeel 的 CustomNPCs+ 1.7.10 中可用的编辑选项,Aktiverar redigeringsalternativ som endast är tillgängliga i Kamkeels CustomNPCs+ för 1.7.10,"Включает параметры редактирования, доступные только в Kamkeel's CustomNPCs+ для 1.7.10.",Kamkeel の CustomNPCs+ for 1.7.10 でのみ利用可能な編集オプションを有効にします,1.7.10용 Kamkeel의 CustomNPCs+에서만 사용할 수 있는 편집 옵션을 활성화합니다.
+DARKEN_SCREEN,Darken Screen,Oscurecer pantalla,تغميق الشاشة,Mørk skærmen,Scherm donkerder maken,Assombrir l'écran,Bildschirm abdunkeln,使屏幕变暗,Gör skärmen mörkare,Затемнение экрана,画面を暗くする,화면을 어둡게 하기
+RENDER_INSTANT,Render Type: Instant,Tipo de renderizado: instantáneo,نوع العرض: فوري,Gengivelsestype: Øjeblikkelig,Rendertype: Direct,Type de rendu : instantané,Rendertyp: Sofort,渲染类型：即时,Rendertyp: Omedelbar,Тип рендеринга: Мгновенный,レンダリング タイプ: インスタント,렌더 유형: 즉시
+RENDER_GRADUAL,Render Type: Gradual,Tipo de renderizado: Gradual,نوع العرض: تدريجي,Gengivelsestype: Gradvis,Rendertype: Geleidelijk,Type de rendu : progressif,Rendertyp: Allmählich,渲染类型：渐进,Rendertyp: Gradvis,Тип рендеринга: Постепенный,レンダリング タイプ: 段階的,렌더링 유형: 점진적
+TEXT_SOUND,Text Sound,Sonido de texto,صوت النص,Tekst Lyd,Tekst geluid,Son du texte,Textton,文字声音,Text ljud,Текст Звук,テキストサウンド,텍스트 사운드
+TEXT_PITCH,Text Pitch,Paso del texto,الملعب النص,Teksthøjde,Tekstafstand,Emplacement du texte,Texthöhe,文字间距,Text Pitch,Шаг текста,文字のピッチ,텍스트 피치
+SHOW_PREVIOUS_DIALOG,Show Previous Dialog Blocks,Mostrar bloques de diálogo anteriores,إظهار كتل الحوار السابقة,Vis tidligere dialogblokke,Toon vorige dialoogblokken,Afficher les blocs de dialogue précédents,Vorherige Dialogblöcke anzeigen,显示上一个对话框块,Visa tidigare dialogblock,Показать предыдущие диалоговые блоки,前のダイアログ ブロックを表示,이전 대화 블록 표시
+SHOW_RESPONSE_OPTIONS,Show Response Options,Mostrar opciones de respuesta,إظهار خيارات الاستجابة,Vis svarmuligheder,Toon antwoordopties,Afficher les options de réponse,Antwortoptionen anzeigen,显示回复选项,Visa svarsalternativ,Показать варианты ответа,応答オプションを表示,응답 옵션 표시
+DIALOG_COLOR,Dialog Color,Color del diálogo,لون الحوار,Dialog farve,Dialoogvenster Kleur,Couleur de la boîte de dialogue,Dialogfarbe,对话框颜色,Dialogfärg,Цвет диалога,ダイアログの色,대화상자 색상
+TITLE_COLOR,Title Color,Color del título,لون العنوان,Titel farve,Titel Kleur,Couleur du titre,Titelfarbe,标题颜色,Titel färg,Цвет названия,タイトルの色,제목 색상
+TITLE_POSITION,Title Position,Posición del título,موقف العنوان,Titelposition,Titel Positie,Poste du titre,Titelposition,职衔 职位,Titel position,Должность,タイトルの位置,타이틀 포지션
+TITLE_POSITION_TEXT,Text,Texto,نص,Tekst,Tekst,Texte,Text,文本,Text,Текст,文章,텍스트
+TITLE_POSITION_OPTION,Option,Opción,خيار,Mulighed,Keuze,Option,Möglichkeit,选项,Alternativ,Вариант,オプション,옵션
+TITLE_POSITION_FIXED,Fixed,Fijado,مُثَبَّت,Fast,Vast,Fixé,Fest,固定的,Fast,Зафиксированный,修理済み,결정된
+ALIGNMENT,Alignment,Alineación,تنسيق,Justering,Uitlijning,Alignement,Ausrichtung,结盟,Inriktning,Выравнивание,位置合わせ,조정
+ALIGNMENT_BOTTOM,Bottom,Abajo,قاع,Bund,Onderkant,Bas,Unten,底部,Botten,Нижний,底,맨 아래
+ALIGNMENT_TOP,Top,Arriba,قمة,Top,Bovenkant,Haut,Spitze,顶部,Topp,Вершина,上,맨 위
+WIDTH_AND_HEIGHT,Width & Height,Ancho y Alto,عرض ارتفاع,Bredde højde,Breedte hoogte,Largeur hauteur,Breite Höhe,宽度和高度,Bredd höjd,Ширина высота,幅高さ,너비 및 높이
+TEXT_OFFSET,Text Offset,Desplazamiento de texto,إزاحة النص,Tekstforskydning,Tekstverschuiving,Décalage du texte,Textversatz,文本偏移,Textförskjutning,Смещение текста,テキストのオフセット,텍스트 오프셋
+TITLE_OFFSET,Title Offset,Desplazamiento del título,إزاحة العنوان,Titel offset,Titelverschuiving,Décalage du titre,Titelversatz,标题偏移量,Titelförskjutning,Смещение заголовка,タイトルのオフセット,제목 오프셋
+OPTION_OFFSET,Option Offset,Compensación de opción,إزاحة الخيار,Option Offset,Optie Offset,Décalage des options,Option Offset,选项偏移量,Alternativ Offset,Смещение опции,オプションオフセット,옵션 오프셋
+OPTION_SPACING,Option Spacing,Espaciado de opciones,تباعد الخيارات,Mulighedsafstand,Optie Afstand,Espacement des options,Optionsabstand,选项间距,Alternativavstånd,Расстояние между опциями,オプションの間隔,옵션 간격
+NPC_OFFSET,NPC Offset,Compensación de PNJ,إزاحة NPC,NPC offset,NPC-compensatie,Décalage PNJ,NPC-Versatz,NPC 偏移,NPC Offset,Смещение NPC,NPC オフセット,NPC 오프셋
+NPC_SCALE,NPC Scale,Escala de PNJ,مقياس الشخصيات غير القابلة للعب,NPC-skala,NPC-schaal,Échelle des PNJ,NPC-Skala,NPC规模,NPC skala,Масштаб NPC,NPCスケール,NPC 규모
+SPACING,Spacing,Espaciado,تباعد,Mellemrum,Spatiëring,Espacement,Abstand,间距,Mellanrum,Расстояние,間隔,간격
+IMAGES,Images,Imágenes,الصور,Billeder,Afbeeldingen,Images,Bilder,图片,Bilder,Изображений,画像,이미지
+TEXTURE,Texture,Textura,نَسِيج,Struktur,Textuur,Texture,Textur,质地,Textur,Текстура,テクスチャ,조직
+POSITION,Position,Posición,موضع,Position,Positie,Position,Position,位置,Placera,Позиция,位置,위치
+OFFSET,Offset,Compensar,عوض,Offset,Offset,Compenser,Versatz,抵消,Offset,Компенсировать,オフセット,오프셋
+SCALE,Scale,Escala,حجم,vægt,Schaal,Échelle,Skala,规模,Skala,Шкала,規模,규모
+ALPHA,Alpha,Alfa,ألفا,Alfa,Alfa,Alpha,Alpha,Α,Alfa,Альфа,アルファ,알파
+ROTATION,Rotation,Rotación,دوران,Rotation,Rotatie,Rotation,Drehung,回转,Rotation,Вращение,回転,회전
+COLOR,Color,Color,لون,Farve,Kleur,Couleur,Farbe,颜色,Färg,Цвет,色,색상
+SELECTED_COLOR,Selected Color,Color seleccionado,اللون المحدد,Valgt farve,Geselecteerde kleur,Couleur sélectionnée,Ausgewählte Farbe,选定的颜色,Vald färg,Выбранный цвет,選択した色,선택한 색상
+TYPE,Type,Tipo,يكتب,Type,Type,Taper,Typ,类型,Typ,Тип,タイプ,유형
+SCREEN,Screen,Pantalla,شاشة,Skærm,Scherm,Écran,Bildschirm,屏幕,Skärm,Экран,画面,화면
+OPTION,Option,Opción,خيار,Mulighed,Keuze,Option,Möglichkeit,选项,Alternativ,Вариант,オプション,옵션
+TEXT,Text,Texto,نص,Tekst,Tekst,Texte,Text,文本,Text,Текст,文章,텍스트
+GOOGLE_TRANSLATE,"Languages other than English are translated through Google Translate. 
+If you notice an error and/or would like to contribute to translations, please let me know!","Los idiomas distintos del inglés se traducen a través de Google Translate.
+Si nota un error y/o le gustaría contribuir con las traducciones, ¡hágamelo saber!","تتم ترجمة اللغات الأخرى غير الإنجليزية من خلال خدمة الترجمة من Google.
+إذا لاحظت خطأ و/أو كنت ترغب في المساهمة في الترجمات، فيرجى إبلاغي بذلك!","Andre sprog end engelsk oversættes via Google Translate.
+Hvis du bemærker en fejl og/eller gerne vil bidrage til oversættelser, så lad mig det vide!","Andere talen dan Engels worden vertaald via Google Translate.
+Als u een fout opmerkt en/of een bijdrage wilt leveren aan vertalingen, laat het mij dan weten!","Les langues autres que l'anglais sont traduites via Google Translate.
+Si vous remarquez une erreur et/ou souhaitez contribuer aux traductions, n'hésitez pas à me le faire savoir !","Andere Sprachen als Englisch werden über Google Translate übersetzt.
+Wenn Ihnen ein Fehler auffällt und/oder Sie zu Übersetzungen beitragen möchten, lassen Sie es mich bitte wissen!","英语以外的语言均通过谷歌翻译进行翻译。
+如果您发现错误和/或想为翻译做出贡献，请告诉我！","Andra språk än engelska översätts via Google Translate.
+Om du upptäcker ett fel och/eller vill bidra till översättningar, vänligen meddela mig!","Другие языки, кроме английского, переводятся через Google Translate.
+Если вы заметили ошибку и/или хотите внести свой вклад в перевод, дайте мне знать!","英語以外の言語は Google 翻訳によって翻訳されます。
+間違いに気づいた場合、および/または翻訳に貢献したい場合は、お知らせください。","영어 이외의 언어는 Google 번역을 통해 번역됩니다.
+오류를 발견했거나 번역에 기여하고 싶다면 알려주시기 바랍니다!"

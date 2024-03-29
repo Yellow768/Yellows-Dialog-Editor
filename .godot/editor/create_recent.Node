@@ -1,10 +1,10 @@
+Label
 HBoxContainer
 SpinBox
 HSeparator
 VBoxContainer
 Button
 ItemList
-Label
 OptionButton
 MenuButton
 VSeparator

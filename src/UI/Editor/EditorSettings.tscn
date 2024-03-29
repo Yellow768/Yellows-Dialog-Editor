@@ -20,7 +20,7 @@ bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="EditorSettings" type="Panel"]
 self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
-custom_minimum_size = Vector2(600, 600)
+custom_minimum_size = Vector2(600, 700)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -42,7 +42,7 @@ allow_more_than_six_path = NodePath("ScrollContainer/VBoxContainer2/CreationSett
 keybinds_scroll_path = NodePath("ScrollContainer2/KeyBinds")
 default_directory_label_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory")
 default_directory_file_dialog_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog")
-language_option_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/Language/LanguageOption")
+language_option_path = NodePath("ScrollContainer/VBoxContainer2/Language/LanguageOption")
 cnpc_plus_check_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+/CNPC+Check")
 
 [node name="Label" type="Label" parent="."]
@@ -67,22 +67,42 @@ grow_horizontal = 0
 text = "X"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(400, 300)
+clip_contents = false
+custom_minimum_size = Vector2(400, 500)
+layout_direction = 2
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = -1
+anchor_left = 0.039
 anchor_top = 0.5
+anchor_right = 0.039
 anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -226.0
-offset_right = 556.0
-offset_bottom = 214.0
+offset_left = -29.0
+offset_top = -304.995
+offset_right = 517.0
+offset_bottom = 295.005
 grow_vertical = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 
+[node name="Language" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Language" type="Label" parent="ScrollContainer/VBoxContainer2/Language"]
+layout_mode = 2
+text = "LANGUAGE"
+
+[node name="LanguageOption" type="OptionButton" parent="ScrollContainer/VBoxContainer2/Language"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer2/Language"]
+layout_mode = 2
+tooltip_text = "GOOGLE_TRANSLATE"
+mouse_filter = 1
+text = "<!>"
+
 [node name="GridSettings" type="VBoxContainer" parent="ScrollContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(463.795, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -173,7 +193,6 @@ custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
 [node name="FileSettings" type="VBoxContainer" parent="ScrollContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(459.195, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -238,8 +257,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer"]
+layout_mode = 2
+text = "EDS_DEFAULT_DIRECTORY"
+
 [node name="Default Directory" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer"]
-custom_minimum_size = Vector2(473.715, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
@@ -254,20 +277,14 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer"]
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer2/FileSettings"]
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
 text = "CHANGE"
 
-[node name="Language" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
-layout_mode = 2
-
-[node name="Language" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/Language"]
-layout_mode = 2
-text = "LANGUAGE"
-
-[node name="LanguageOption" type="OptionButton" parent="ScrollContainer/VBoxContainer2/FileSettings/Language"]
+[node name="HSeparator4" type="HSeparator" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
 [node name="CustomNPCs+" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
@@ -284,7 +301,7 @@ layout_mode = 2
 tooltip_text = "EDS_CNPC+_TOOLTIP"
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(0, 443.45)
+custom_minimum_size = Vector2(0, 650)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -292,8 +309,8 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -408.0
-offset_top = -262.0
-offset_bottom = 254.0
+offset_top = -324.98
+offset_bottom = 325.02
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -311,6 +328,7 @@ text = "Key Binds"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer2/Language/LanguageOption" to="." method="_on_language_option_item_selected"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="text_submitted" from="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider/ValueEdit" to="." method="_on_value_edit_text_submitted"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider/Resetbutton" to="." method="_on_resetbutton_pressed"]
@@ -323,6 +341,5 @@ horizontal_alignment = 1
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer2/FileSettings/AutosaveMaxFiles/ValueEdit" to="." method="_on_autosave_max_files_value_changed"]
 [connection signal="canceled" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_canceled"]
 [connection signal="dir_selected" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_dir_selected"]
-[connection signal="button_up" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Button" to="." method="_on_change_directorybutton_button_up"]
-[connection signal="item_selected" from="ScrollContainer/VBoxContainer2/FileSettings/Language/LanguageOption" to="." method="_on_language_option_item_selected"]
+[connection signal="button_up" from="ScrollContainer/VBoxContainer2/FileSettings/Button" to="." method="_on_change_directorybutton_button_up"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+/CNPC+Check" to="." method="_on_cnpc_check_toggled"]

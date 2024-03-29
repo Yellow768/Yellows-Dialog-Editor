@@ -22,6 +22,7 @@ signal unsaved_change
 @export var disable_esc_checkbox_path: NodePath
 @export var darken_screen_checkbox_path : NodePath
 @export var render_type_option_path : NodePath
+@export var text_sound_options : NodePath
 @export var text_sound_path : NodePath
 @export var text_pitch_path : NodePath
 @export var show_previous_dialog_path : NodePath
@@ -29,6 +30,7 @@ signal unsaved_change
 @export var color_path : NodePath
 @export var title_color_path : NodePath
 @export var title_label_path: NodePath
+@export var color_options_path : NodePath
 
 @export_group("General Settings")
 @export var command_edit_path: NodePath
@@ -86,6 +88,8 @@ signal unsaved_change
 @export var image_type_path : NodePath
 @export var image_alignment_path : NodePath
 @export var image_settings_container_path : NodePath
+@export var image_alignment_container_path : NodePath
+@export var selected_color_container_path : NodePath
 
 
 
@@ -110,6 +114,7 @@ signal unsaved_change
 @onready var FactionChanges2 := get_node(faction_changes_2_path)
 @onready var StartQuest := get_node(start_quest_path)
 @onready var DialogTextEdit := get_node(dialog_text_edit_path)
+@onready var ColorOptions := get_node(color_options_path)
 
 @onready var AvailabilityQuests := get_node(availability_quests_path)
 @onready var AvailabilityDialogs := get_node(availability_dialogs_path)
@@ -157,6 +162,9 @@ signal unsaved_change
 @onready var ImageType : OptionButton = get_node(image_type_path)
 @onready var ImageAlignment : ItemList = get_node(image_alignment_path)
 @onready var ImageSettingsContainer : VBoxContainer = get_node(image_settings_container_path)
+@onready var TextSoundOptions : VBoxContainer = get_node(text_sound_options)
+@onready var AlignmentContainer : HBoxContainer = get_node(image_alignment_container_path)
+@onready var SelectedColorContainer : HBoxContainer = get_node(selected_color_container_path)
 
 var current_dialog : dialog_node
 var dialog_availability_mode := false
@@ -192,7 +200,9 @@ func _ready():
 		AvailabilityScoreboard.get_child(i).connect("objective_name_changed", Callable(self, "scoreboard_objective_name_changed"))
 		AvailabilityScoreboard.get_child(i).connect("comparison_type_changed", Callable(self, "scoreboard_comparison_type_changed"))
 		AvailabilityScoreboard.get_child(i).connect("value_changed", Callable(self, "scoreboard_value_changed"))
-
+	$DialogNodeTabs/IMAGES.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	$DialogNodeTabs/SPACING.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		if dialog_availability_mode:
@@ -367,6 +377,7 @@ func load_dialog_settings(dialog : dialog_node):
 	for image in current_dialog.image_dictionary.keys():
 		ImageList.add_item(str(image))
 	sort_image_list()
+	TextSoundOptions.visible = bool(RenderTypeOption.selected)
 	
 	
 		
@@ -509,6 +520,7 @@ func _on_darken_screen_pressed():
 
 func _on_render_type_item_selected(index):
 	current_dialog.render_gradual = index
+	TextSoundOptions.visible = bool(index)
 	emit_signal("unsaved_change")
 
 func _on_text_sound_text_changed():
@@ -761,8 +773,6 @@ func _on_scale_value_value_changed(value):
 	if selecting_new_image : return
 	current_image.Scale = value
 	
-	print(value)
-	
 
 
 
@@ -796,6 +806,8 @@ func _on_selected_color_color_changed(color):
 func _on_type_button_item_selected(index):
 	if selecting_new_image : return
 	current_image.ImageType = index
+	AlignmentContainer.visible = index == 0
+	SelectedColorContainer.visible = index == 2
 	
 
 
@@ -803,3 +815,18 @@ func _on_type_button_item_selected(index):
 func _on_alignment_item_selected(index):
 	if selecting_new_image : return
 	current_image.Alignment = index
+
+
+func _on_editor_settings_custom_npcs_plus_changed():
+	$DialogNodeTabs.set_tab_hidden(3,!GlobalDeclarations.enable_customnpcs_plus_options)
+	$DialogNodeTabs.set_tab_hidden(4,!GlobalDeclarations.enable_customnpcs_plus_options)
+	DarkenScreenCheckbox.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	RenderTypeOption.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	if GlobalDeclarations.enable_customnpcs_plus_options && RenderTypeOption.visible:
+		TextSoundOptions.visible = true
+	else:
+		TextSoundOptions.visible = false
+	ShowPreviousDialog.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	ShowResponses.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	ColorOptions.visible = GlobalDeclarations.enable_customnpcs_plus_options
+	

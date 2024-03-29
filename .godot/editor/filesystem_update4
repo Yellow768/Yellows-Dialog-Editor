@@ -24,9 +24,19 @@ res://src/UI/Util/ChooseInitialDialogPopup.tscn
 res://src/UI/Program.tscn
 res://src/Nodes/DialogNode.tscn
 res://src/Classes/undo_redo.tscn
-res://src/Nodes/Scripts/DialogNode.gd
-res://src/Classes/File System/category_loader.gd
-res://src/Classes/File System/dialog_jsons_loader.gd
-res://src/Classes/File System/CategoryImporter.gd
+res://src/UI/Editor/EditorSettings.gd
+res://Assets/Translations/language_locale - language_locale.en.translation
+res://Assets/Translations/language_locale - language_locale.es.translation
+res://Assets/Translations/language_locale - language_locale.ar.translation
+res://Assets/Translations/language_locale - language_locale.da.translation
+res://Assets/Translations/language_locale - language_locale.nl.translation
+res://Assets/Translations/language_locale - language_locale.fr.translation
+res://Assets/Translations/language_locale - language_locale.de.translation
+res://Assets/Translations/language_locale - language_locale.zh.translation
+res://Assets/Translations/language_locale - language_locale.sv.translation
+res://Assets/Translations/language_locale - language_locale.ru.translation
+res://Assets/Translations/language_locale - language_locale.ja.translation
+res://Assets/Translations/language_locale - language_locale.ko.translation
+res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd
 res://src/Autoload/global_declarations.gd
-res://src/Classes/File System/CategoryExporter.gd
+res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd

@@ -2,14 +2,14 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://b74jwx0fxe4tt"
+uid="uid://25g6dvhyw85c"
 
 [deps]
 
-files=["res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.ia.translation"]
+files=["res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.es.translation", "res://Assets/Translations/language_locale.ar.translation", "res://Assets/Translations/language_locale.da.translation", "res://Assets/Translations/language_locale.nl.translation", "res://Assets/Translations/language_locale.fr.translation", "res://Assets/Translations/language_locale.de.translation", "res://Assets/Translations/language_locale.zh.translation", "res://Assets/Translations/language_locale.sv.translation", "res://Assets/Translations/language_locale.ru.translation", "res://Assets/Translations/language_locale.ja.translation", "res://Assets/Translations/language_locale.ko.translation"]
 
 source_file="res://Assets/Translations/language_locale.csv"
-dest_files=["res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.ia.translation"]
+dest_files=["res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.es.translation", "res://Assets/Translations/language_locale.ar.translation", "res://Assets/Translations/language_locale.da.translation", "res://Assets/Translations/language_locale.nl.translation", "res://Assets/Translations/language_locale.fr.translation", "res://Assets/Translations/language_locale.de.translation", "res://Assets/Translations/language_locale.zh.translation", "res://Assets/Translations/language_locale.sv.translation", "res://Assets/Translations/language_locale.ru.translation", "res://Assets/Translations/language_locale.ja.translation", "res://Assets/Translations/language_locale.ko.translation"]
 
 [params]
 
