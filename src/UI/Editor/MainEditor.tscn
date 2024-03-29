@@ -1264,6 +1264,7 @@ layout_mode = 2
 text = "-"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/Images/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(500, 900)
 layout_mode = 2
 

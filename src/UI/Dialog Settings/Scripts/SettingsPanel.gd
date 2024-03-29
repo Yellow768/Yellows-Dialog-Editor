@@ -379,10 +379,11 @@ func load_dialog_settings(dialog : dialog_node):
 	TextSoundOptions.visible = bool(RenderTypeOption.selected)
 	AlignmentContainer.visible = ImageType.selected == 0
 	SelectedColorContainer.visible = ImageType.selected == 2
-	if current_dialog.last_viewed_image != null:
+	if current_dialog.last_viewed_image != -1:
 		ImageList.select(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		_on_item_list_item_selected(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
-	
+	else:
+		ImageSettingsContainer.visible = false
 		
 func scoreboard_objective_name_changed(child ,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name

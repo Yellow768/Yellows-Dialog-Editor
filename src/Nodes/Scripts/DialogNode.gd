@@ -81,7 +81,7 @@ var npc_offset_y : int = 0
 var npc_scale : float = 1.0
 
 var image_dictionary : Dictionary = {}
-var last_viewed_image : int
+var last_viewed_image : int = -1
 #String Inputs
 @export var command : String = ''
 @export var sound : String = ''
