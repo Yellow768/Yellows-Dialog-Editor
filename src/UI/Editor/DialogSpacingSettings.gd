@@ -16,8 +16,9 @@ extends Control
 @export var npc_offset_x_path : NodePath
 @export var npc_offset_y_path : NodePath
 @export var npc_scale_path : NodePath
+@export var information_panel_path : NodePath
 
-
+@onready var InformationPanel : Panel = get_node(information_panel_path)
 @onready var TitlePosition : OptionButton = get_node(title_position_path)
 @onready var Alignment : OptionButton = get_node(alignment_path)
 @onready var DialogWidth : SpinBox = get_node(width_path)
@@ -57,98 +58,91 @@ func load_current_dialog_settings(dialog : dialog_node):
 	
 func _on_title_position_option_item_selected(index):
 	current_dialog.title_pos = index
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_alignment_button_item_selected(index):
 	current_dialog.alignment = index
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_width_value_value_changed(value):
 	current_dialog.text_width = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 
 func _on_height_value_value_changed(value):
 	current_dialog.text_height = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 	
 
 func _on_text_x_offset_value_changed(value):
 	current_dialog.text_offset_x = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 
 
 func _on_text_y_offset_value_changed(value):
 	current_dialog.text_offset_y = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_title_x_offset_value_changed(value):
 	current_dialog.title_offset_x = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_title_y_offset_value_changed(value):
 	current_dialog.title_offset_y = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 
 
 
 func _on_option_x_offset_value_changed(value):
 	current_dialog.option_offset_x = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 
 
 
 func _on_option_y_offset_value_changed(value):
 	current_dialog.option_offset_y = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 
 func _on_option_spacing_x_offset_value_changed(value):
 	current_dialog.option_spacing_x = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 
 
 
 func _on_option_spacing_y_offset_value_changed(value):
 	current_dialog.option_spacing_y = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 
 
 
 func _on_npcx_offset_value_changed(value):
 	current_dialog.npc_offset_x = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 
 
 func _on_npcy_offset_value_changed(value):
 	current_dialog.npc_offset_y = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 
 
 
 func _on_npc_scale_value_value_changed(value):
 	current_dialog.npc_scale = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

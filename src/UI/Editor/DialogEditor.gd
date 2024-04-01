@@ -643,11 +643,11 @@ func _on_CategoryPanel_current_category_deleted():
 
 
 
-func _on_InformationPanel_availability_mode_entered() -> void:
+func _on_availability_mode_entered() -> void:
 	ignore_double_clicks = true
 
 
-func _on_InformationPanel_availability_mode_exited() -> void:
+func _on_availability_mode_exited() -> void:
 	ignore_double_clicks = false
 
 	

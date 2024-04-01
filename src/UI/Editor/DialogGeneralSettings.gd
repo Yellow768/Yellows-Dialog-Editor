@@ -1,6 +1,7 @@
 extends Control
 var current_dialog
 
+@export var information_panel_path : NodePath
 
 @export_group("General Visual")
 @export var hide_npc_checkbox_path: NodePath
@@ -26,6 +27,8 @@ var current_dialog
 @export var start_quest_path: NodePath
 @export var dialog_text_edit_path: NodePath
 
+
+@onready var InformationPanel : Panel = get_node(information_panel_path)
 @onready var HideNpcCheckbox := get_node(hide_npc_checkbox_path)
 @onready var ShowWheelCheckbox := get_node(show_wheel_checkbox_path)
 @onready var DisableEscCheckbox := get_node(disable_esc_checkbox_path)
@@ -60,8 +63,15 @@ func update_customnpcs_plus_options():
 	ColorOptions.visible = GlobalDeclarations.enable_customnpcs_plus_options
 
 
-func load_current_dialogs_settings(dialog : dialog_node):
-	current_dialog = dialog
+func load_current_dialog_settings(dialog : dialog_node):
+	if current_dialog != dialog:
+		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("text_changed", Callable(self, "update_text")):
+			current_dialog.disconnect("text_changed", Callable(self, "update_text"))
+			current_dialog.disconnect("title_changed", Callable(self, "update_title"))
+		current_dialog = dialog
+		if !current_dialog.is_connected("text_changed", Callable(self, "update_text")):
+			current_dialog.connect("text_changed", Callable(self, "update_text"))
+			current_dialog.connect("title_changed", Callable(self, "update_title").bind(current_dialog))
 	set_title_text(current_dialog.dialog_title,current_dialog.node_index)	
 	HideNpcCheckbox.button_pressed = current_dialog.hide_npc
 	ShowWheelCheckbox.button_pressed = current_dialog.show_wheel
@@ -70,7 +80,6 @@ func load_current_dialogs_settings(dialog : dialog_node):
 	PlaysoundEdit.text = current_dialog.sound
 	StartQuest.set_id(current_dialog.start_quest)
 	DialogTextEdit.text = current_dialog.text
-	
 	FactionChanges1.set_id(current_dialog.faction_changes[0].faction_id)
 	FactionChanges1.set_points(current_dialog.faction_changes[0].points)
 	FactionChanges2.set_id(current_dialog.faction_changes[1].faction_id)
@@ -85,7 +94,8 @@ func load_current_dialogs_settings(dialog : dialog_node):
 	TitleColor.color = GlobalDeclarations.int_to_color(current_dialog.title_color)
 	TextSoundOptions.visible = bool(RenderTypeOption.selected)
 	
-func language_updated():
+	
+func _language_updated():
 	FactionChanges1.update_language()
 	FactionChanges2.update_language()
 
@@ -96,40 +106,40 @@ func set_title_text(title_text : String,node_index : int):
 
 func _on_HideNPC_pressed():
 	current_dialog.hide_npc = HideNpcCheckbox.button_pressed
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 func _on_ShowDialogWheel_pressed():
 	current_dialog.show_wheel = ShowWheelCheckbox.button_pressed
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_DisableEsc_pressed():
 	current_dialog.disable_esc = DisableEscCheckbox.button_pressed
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_FactionChange_faction_id_changed(id : int):
 	current_dialog.faction_changes[0].faction_id = id
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_FactionChange2_faction_id_changed(id : int):
 	current_dialog.faction_changes[1].faction_id = id
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_FactionChange2_faction_points_changed(points : int):
 	current_dialog.faction_changes[1].points = points
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_FactionChange_faction_points_changed(points : int):
 	current_dialog.faction_changes[0].points = points
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_Command_text_changed():
 	current_dialog.command = CommandEdit.text
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 func _on_DialogText_text_changed():
 	current_dialog.set_dialog_text(DialogTextEdit.text)
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func update_text():
 	DialogTextEdit.text = current_dialog.text
@@ -139,7 +149,7 @@ func update_title(_text):
 	
 func _on_StartQuest_id_changed(value : int):
 	current_dialog.start_quest = value
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 	
 func _on_soundfile_text_changed():
 	current_dialog.sound = PlaysoundEdit.text
@@ -150,34 +160,34 @@ func _on_soundfile_text_changed():
 
 func _on_darken_screen_pressed():
 	current_dialog.darken_screen = DarkenScreenCheckbox.button_pressed
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_render_type_item_selected(index):
 	current_dialog.render_gradual = index
 	TextSoundOptions.visible = bool(index)
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_text_sound_text_changed():
 	current_dialog.text_sound = TextSound.text
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
-func _on_text_pitch_text_changed():
-	current_dialog.text_pitch = TextPitch.text
-	emit_signal("unsaved_change")
+func _on_text_pitch_value_changed(value):
+	current_dialog.text_pitch = value
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_show_previous_dialog_toggled(button_pressed):
 	current_dialog.show_previous_dialog = button_pressed
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_show_response_options_toggled(button_pressed):
 	current_dialog.show_response_options = button_pressed
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_color_color_changed(color):
 	current_dialog.dialog_color = color.to_html(false).hex_to_int() 
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_title_color_color_changed(color):
 	current_dialog.title_color = color.to_html(false).hex_to_int() 
-	emit_signal("unsaved_change")
+	InformationPanel.emit_signal("unsaved_change")

@@ -9,6 +9,7 @@ extends Control
 @export var subject_line_path : NodePath
 @export var sender_line_path : NodePath
 @export var page_label_path : NodePath
+@export var information_panel_path : NodePath
 
 @onready var MessageBox : TextEdit = get_node(message_box_path)
 @onready var PrevButton : Button = get_node(prev_button_path)
@@ -19,6 +20,7 @@ extends Control
 @onready var SubjectLine : LineEdit = get_node(subject_line_path)
 @onready var SenderLine : LineEdit = get_node(sender_line_path)
 @onready var PageLabel : Label = get_node(page_label_path)
+@onready var InformationPanel : Panel = get_node(information_panel_path)
 
 var current_mail_object : mail_data_object
 var current_page = 1
@@ -35,6 +37,9 @@ func _ready():
 		slot.connect("request_scroll_focus",Callable(self,"change_scroll_focus"))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+
+func load_current_dialog_settings(dialog : dialog_node):
+	load_mail_data(dialog.mail)
 
 func load_mail_data(data : mail_data_object):
 	loading_mail = true
@@ -84,7 +89,7 @@ func _on_next_page_button_pressed():
 		current_mail_object.pages.append("")
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
-		
+	InformationPanel.emit_signal("unsaved_change")
 
 
 func _on_prev_page_button_pressed():
@@ -92,7 +97,7 @@ func _on_prev_page_button_pressed():
 		current_page -=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
-	
+	InformationPanel.emit_signal("unsaved_change")
 
 
 
@@ -106,11 +111,11 @@ func _on_delete_page_button_pressed():
 		current_page-=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
-
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_start_quest_mail_id_changed():
 	current_mail_object.quest_id = StartQuest.quest_id
-
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_message_text_changed():
 	var total_lines = 0
@@ -127,7 +132,7 @@ func _on_message_text_changed():
 		current_mail_object.pages.append(MessageBox.text)
 	else:
 		current_mail_object.pages[current_page-1] = MessageBox.text
-
+	InformationPanel.emit_signal("unsaved_change")
 
 
 
@@ -135,13 +140,13 @@ func _on_sender_line_edit_text_changed(new_text):
 	if loading_mail:
 		return
 	current_mail_object.sender = new_text
-
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_subject_line_edit_text_changed(new_text):
 	if loading_mail:
 		return
 	current_mail_object.subject = new_text
-
+	InformationPanel.emit_signal("unsaved_change")
 
 func _on_message_lines_edited_from(from_line, to_line):
 	pass

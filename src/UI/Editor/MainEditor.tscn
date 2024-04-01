@@ -347,7 +347,7 @@ offset_bottom = 1080.0
 mouse_filter = 1
 script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
-dialog_general_settings_tab_path = NodePath("DialogNodeTabs/GENERAL")
+dialog_general_tab_path = NodePath("DialogNodeTabs/GENERAL")
 dialog_availability_tab_path = NodePath("DialogNodeTabs/AVAILABILITY")
 dialog_mail_tab_path = NodePath("DialogNodeTabs/MAIL")
 dialog_spacing_tab_path = NodePath("DialogNodeTabs/SPACING")
@@ -381,6 +381,27 @@ tab_alignment = 1
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
 layout_mode = 2
 script = ExtResource("17_fph0n")
+information_panel_path = NodePath("../..")
+hide_npc_checkbox_path = NodePath("ScrollContainer/VBoxContainer/HideNPC")
+show_wheel_checkbox_path = NodePath("ScrollContainer/VBoxContainer/ShowDialogWheel")
+disable_esc_checkbox_path = NodePath("ScrollContainer/VBoxContainer/DisableEsc")
+darken_screen_checkbox_path = NodePath("ScrollContainer/VBoxContainer/DarkenScreen")
+render_type_option_path = NodePath("ScrollContainer/VBoxContainer/RenderType")
+text_sound_options = NodePath("ScrollContainer/VBoxContainer/TextSound")
+text_sound_path = NodePath("ScrollContainer/VBoxContainer/TextSound/TextSound")
+text_pitch_path = NodePath("ScrollContainer/VBoxContainer/TextSound/TextPitch")
+show_previous_dialog_path = NodePath("ScrollContainer/VBoxContainer/Show Previous Dialog")
+show_responses_path = NodePath("ScrollContainer/VBoxContainer/Show Response Options")
+color_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Color")
+title_color_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Title Color")
+title_label_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Label2")
+color_options_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions")
+command_edit_path = NodePath("ScrollContainer/VBoxContainer/Command")
+playsound_edit_path = NodePath("ScrollContainer/VBoxContainer/Soundfile")
+faction_changes_1_path = NodePath("ScrollContainer/VBoxContainer/FactionChange")
+faction_changes_2_path = NodePath("ScrollContainer/VBoxContainer/FactionChange2")
+start_quest_path = NodePath("ScrollContainer/VBoxContainer/StartQuest")
+dialog_text_edit_path = NodePath("ScrollContainer/VBoxContainer/DialogText")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
 layout_mode = 0
@@ -536,12 +557,13 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 script = ExtResource("22_ko4m2")
-availability_quests_path = null
-availability_dialogs_path = null
-availability_factions_path = null
-availability_scoreboard_path = null
-availability_time_path = null
-availability_level_path = null
+availability_quests_path = NodePath("Availability/VBoxContainer/QuestOptions")
+availability_dialogs_path = NodePath("Availability/VBoxContainer/DialogOptions")
+availability_factions_path = NodePath("Availability/VBoxContainer/FactionOptions")
+availability_scoreboard_path = NodePath("Availability/VBoxContainer/ScoreboardOptions")
+availability_time_path = NodePath("Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton")
+availability_level_path = NodePath("Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox")
+information_panel_path = NodePath("../..")
 
 [node name="Availability" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY"]
 custom_minimum_size = Vector2(436, 1500)
@@ -732,6 +754,7 @@ item_slots_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/ItemSlot
 subject_line_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes/SubjectLineEdit")
 sender_line_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit")
 page_label_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/Label")
+information_panel_path = NodePath("../..")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/MAIL"]
 layout_mode = 1
@@ -866,6 +889,22 @@ slot = 3
 visible = false
 layout_mode = 2
 script = ExtResource("30_tinmk")
+title_position_path = NodePath("ScrollContainer/VBoxContainer/TitlePosition/TitlePositionOption")
+alignment_path = NodePath("ScrollContainer/VBoxContainer/Alignment/AlignmentButton")
+width_path = NodePath("ScrollContainer/VBoxContainer/WidthHeigth/WidthValue")
+height_path = NodePath("ScrollContainer/VBoxContainer/WidthHeigth/HeightValue")
+text_offset_x_path = NodePath("ScrollContainer/VBoxContainer/TextOffset/TextXOffset")
+text_offset_y_path = NodePath("ScrollContainer/VBoxContainer/TextOffset/TextYOffset")
+title_offset_x_path = NodePath("ScrollContainer/VBoxContainer/TitleOffset/TitleXOffset")
+title_offset_y_path = NodePath("ScrollContainer/VBoxContainer/TitleOffset/TitleYOffset")
+option_offset_x_path = NodePath("ScrollContainer/VBoxContainer/OptionOffset/OptionXOffset")
+option_offset_y_path = NodePath("ScrollContainer/VBoxContainer/OptionOffset/OptionYOffset")
+option_spacing_x_path = NodePath("ScrollContainer/VBoxContainer/OptionSpacing/OptionSpacingXOffset")
+option_spacing_y_path = NodePath("ScrollContainer/VBoxContainer/OptionSpacing/OptionSpacingYOffset")
+npc_offset_x_path = NodePath("ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset")
+npc_offset_y_path = NodePath("ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset")
+npc_scale_path = NodePath("ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue")
+information_panel_path = NodePath("../..")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/SPACING"]
 layout_mode = 1
@@ -1150,6 +1189,28 @@ allow_lesser = true
 visible = false
 layout_mode = 2
 script = ExtResource("31_teijp")
+image_id_list_path = NodePath("HBoxContainer/VBoxContainer/ItemList")
+image_add_button_path = NodePath("HBoxContainer/VBoxContainer/AddImage")
+image_remove_button_path = NodePath("HBoxContainer/VBoxContainer/RemoveImage")
+image_id_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/ID/IDValue")
+image_texture_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit")
+image_position_x_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionX")
+image_position_y_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionY")
+image_width_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Width")
+image_height_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Height")
+image_offset_x_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetX")
+image_offset_y_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetY")
+image_scale_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Scale/ScaleValue")
+image_alpha_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Alpha/AlphaValue")
+image_rotation_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Rotation/RotationValue")
+image_color_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ImageColor")
+image_selected_color_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor")
+image_type_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton")
+image_alignment_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment")
+image_settings_container_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings")
+image_alignment_container_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Alignment")
+selected_color_container_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor")
+information_panel_path = NodePath("../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES"]
 layout_mode = 1
@@ -1448,10 +1509,6 @@ toggle_mode = true
 button_pressed = true
 text = ">"
 
-[node name="availability_timer" type="Timer" parent="InformationPanel"]
-wait_time = 0.1
-one_shot = true
-
 [node name="CategoryPanel" type="Panel" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(360, 600)
@@ -1732,41 +1789,42 @@ one_shot = true
 [connection signal="pressed" from="TopPanel/TopPanelContainer/AssignNewIDs" to="DialogEditor" method="reindex_ids"]
 [connection signal="pressed" from="TopPanel/EditorContainer/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="TopPanel/EditorContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
-[connection signal="availability_mode_entered" from="InformationPanel" to="DialogEditor" method="_on_InformationPanel_availability_mode_entered"]
-[connection signal="availability_mode_entered" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_availability_mode_entered"]
-[connection signal="availability_mode_entered" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_availability_mode_entered"]
-[connection signal="availability_mode_exited" from="InformationPanel" to="DialogEditor" method="_on_InformationPanel_availability_mode_exited"]
-[connection signal="availability_mode_exited" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_availability_mode_exited"]
 [connection signal="hide_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_hide_information_panel"]
-[connection signal="request_store_current_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_store_current_category"]
-[connection signal="request_switch_to_stored_category" from="InformationPanel" to="CategoryPanel" method="_on_InformationPanel_request_switch_to_stored_category"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel" method="_on_DialogText_text_changed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel" method="_on_HideNPC_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel" method="_on_ShowDialogWheel_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel" method="_on_DisableEsc_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DarkenScreen" to="InformationPanel" method="_on_darken_screen_pressed"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/RenderType" to="InformationPanel" method="_on_render_type_item_selected"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound/TextSound" to="InformationPanel" method="_on_text_sound_text_changed"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Show Previous Dialog" to="InformationPanel" method="_on_show_previous_dialog_toggled"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Show Response Options" to="InformationPanel" method="_on_show_response_options_toggled"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions/Color" to="InformationPanel" method="_on_color_color_changed"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions/Title Color" to="InformationPanel" method="_on_title_color_color_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel" method="_on_soundfile_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Command" to="InformationPanel" method="_on_Command_text_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Command" to="." method="set_unsaved_changes" binds= [false]]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel" method="_on_FactionChange_faction_points_changed"]
-[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_id_changed"]
-[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel" method="_on_FactionChange2_faction_points_changed"]
-[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/StartQuest" to="InformationPanel" method="_on_StartQuest_id_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DialogText_text_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DisableEsc_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DarkenScreen" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_darken_screen_pressed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/RenderType" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_render_type_item_selected"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound/TextSound" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_text_sound_text_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound/TextPitch" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_text_pitch_value_changed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Show Previous Dialog" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_show_previous_dialog_toggled"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Show Response Options" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_show_response_options_toggled"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions/Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_color_color_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions/Title Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_title_color_color_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_soundfile_text_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange_faction_points_changed"]
+[connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange2_faction_id_changed"]
+[connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange2" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange2_faction_points_changed"]
+[connection signal="id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/StartQuest" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_StartQuest_id_changed"]
+[connection signal="availability_mode_entered" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="DialogEditor" method="_on_availability_mode_entered"]
+[connection signal="availability_mode_entered" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="CategoryPanel" method="_on_availability_mode_entered"]
+[connection signal="availability_mode_entered" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="UI Anims" method="_on_availability_mode_entered"]
+[connection signal="availability_mode_exited" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="DialogEditor" method="_on_availability_mode_exited"]
+[connection signal="availability_mode_exited" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="UI Anims" method="_on_availability_mode_exited"]
+[connection signal="initial_dialog_from_availability_mode_loaded" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="InformationPanel" method="load_dialog_settings"]
+[connection signal="request_store_current_category" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="CategoryPanel" method="_on_request_store_current_category"]
+[connection signal="request_switch_to_stored_category" from="InformationPanel/DialogNodeTabs/AVAILABILITY" to="CategoryPanel" method="_on_request_switch_to_stored_category"]
 [connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions/DialogAvailability" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
 [connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions/DialogAvailability2" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
 [connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions/DialogAvailability3" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
 [connection signal="request_dialog_list_injection" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions/DialogAvailability4" to="DialogList" method="_on_DialogAvailability_request_dialog_list_injection"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel" method="_on_TimeButton_item_selected"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel" method="_on_LevelSpinBox_value_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton" to="InformationPanel/DialogNodeTabs/AVAILABILITY" method="_on_TimeButton_item_selected"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox" to="InformationPanel/DialogNodeTabs/AVAILABILITY" method="_on_LevelSpinBox_value_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_sender_line_edit_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes/SubjectLineEdit" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_subject_line_edit_text_changed"]
 [connection signal="lines_edited_from" from="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/Message" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_message_lines_edited_from"]
@@ -1775,46 +1833,45 @@ one_shot = true
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/NextPageButton" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_next_page_button_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/DeletePageButton" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_delete_page_button_pressed"]
 [connection signal="id_changed" from="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/StartQuest_Mail" to="InformationPanel/DialogNodeTabs/MAIL" method="update_quest_id"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TitlePosition/TitlePositionOption" to="InformationPanel" method="_on_title_position_option_item_selected"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/Alignment/AlignmentButton" to="InformationPanel" method="_on_alignment_button_item_selected"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/WidthHeigth/WidthValue" to="InformationPanel" method="_on_width_value_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/WidthHeigth/HeightValue" to="InformationPanel" method="_on_height_value_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TextOffset/TextXOffset" to="InformationPanel" method="_on_text_x_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TextOffset/TextYOffset" to="InformationPanel" method="_on_text_y_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TitleOffset/TitleXOffset" to="InformationPanel" method="_on_title_x_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TitleOffset/TitleYOffset" to="InformationPanel" method="_on_title_y_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionOffset/OptionXOffset" to="InformationPanel" method="_on_option_x_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionOffset/OptionYOffset" to="InformationPanel" method="_on_option_y_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionSpacing/OptionSpacingXOffset" to="InformationPanel" method="_on_option_spacing_x_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionSpacing/OptionSpacingYOffset" to="InformationPanel" method="_on_option_spacing_y_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset" to="InformationPanel" method="_on_npcx_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset" to="InformationPanel" method="_on_npcy_offset_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue" to="InformationPanel" method="_on_npc_scale_value_value_changed"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/ItemList" to="InformationPanel" method="_on_item_list_item_selected"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/AddImage" to="InformationPanel" method="_on_add_image_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/RemoveImage" to="InformationPanel" method="_on_remove_image_pressed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID/IDValue" to="InformationPanel" method="_on_id_value_value_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit" to="InformationPanel" method="_on_line_edit_text_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionX" to="InformationPanel" method="_on_image_position_x_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionY" to="InformationPanel" method="_on_image_position_y_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Width" to="InformationPanel" method="_on_width_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Height" to="InformationPanel" method="_on_height_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetX" to="InformationPanel" method="_on_offset_x_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetY" to="InformationPanel" method="_on_offset_y_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Scale/ScaleValue" to="InformationPanel" method="_on_scale_value_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alpha/AlphaValue" to="InformationPanel" method="_on_alpha_value_value_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Rotation/RotationValue" to="InformationPanel" method="_on_rotation_value_value_changed"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ImageColor" to="InformationPanel" method="_on_image_color_color_changed"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor" to="InformationPanel" method="_on_selected_color_color_changed"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton" to="InformationPanel" method="_on_type_button_item_selected"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel" method="_on_alignment_item_selected"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TitlePosition/TitlePositionOption" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_title_position_option_item_selected"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/Alignment/AlignmentButton" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_alignment_button_item_selected"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/WidthHeigth/WidthValue" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_width_value_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/WidthHeigth/HeightValue" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_height_value_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TextOffset/TextXOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_text_x_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TextOffset/TextYOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_text_y_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TitleOffset/TitleXOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_title_x_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/TitleOffset/TitleYOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_title_y_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionOffset/OptionXOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_option_x_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionOffset/OptionYOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_option_y_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionSpacing/OptionSpacingXOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_option_spacing_x_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/OptionSpacing/OptionSpacingYOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_option_spacing_y_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_npcx_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_npcy_offset_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_npc_scale_value_value_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/ItemList" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_item_list_item_selected"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/AddImage" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_add_image_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/RemoveImage" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_remove_image_pressed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID/IDValue" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_id_value_value_changed"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_line_edit_text_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionX" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_image_position_x_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionY" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_image_position_y_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Width" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_width_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Height" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_height_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetX" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_offset_x_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset/OffsetY" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_offset_y_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Scale/ScaleValue" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_scale_value_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alpha/AlphaValue" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_alpha_value_value_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Rotation/RotationValue" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_rotation_value_value_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color/ImageColor" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_image_color_color_changed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_selected_color_color_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_type_button_item_selected"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_alignment_item_selected"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
-[connection signal="timeout" from="InformationPanel/availability_timer" to="InformationPanel" method="_on_availability_timer_timeout"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_failed_save"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="DialogEditor/UndoSystem" method="load_category_undo_redo_history"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="TopPanel" method="_on_category_panel_finished_loading"]
-[connection signal="category_loading_finished" from="CategoryPanel" to="InformationPanel" method="_on_category_panel_finished_loading"]
+[connection signal="category_loading_finished" from="CategoryPanel" to="InformationPanel/DialogNodeTabs/AVAILABILITY" method="_on_category_panel_finished_loading"]
 [connection signal="category_loading_initiated" from="CategoryPanel" to="DialogEditor/UndoSystem" method="_on_category_panel_category_loading_initiated"]
 [connection signal="category_succesfully_exported" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_exported"]
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="." method="_on_category_panel_category_succesfully_saved"]
@@ -1833,9 +1890,9 @@ one_shot = true
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="autosave_time_changed" from="EditorSettings" to="CategoryPanel" method="_on_editor_settings_autosave_time_changed"]
 [connection signal="custom_npcs_plus_changed" from="EditorSettings" to="TopPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
-[connection signal="custom_npcs_plus_changed" from="EditorSettings" to="InformationPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
+[connection signal="custom_npcs_plus_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/GENERAL" method="update_customnpcs_plus_options"]
 [connection signal="language_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_language_changed"]
-[connection signal="language_changed" from="EditorSettings" to="InformationPanel" method="_on_editor_settings_language_changed"]
+[connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/GENERAL" method="_language_updated"]
 [connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_editor_settings_language_changed"]
 [connection signal="snap_enabled_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_snap_enabled_changed"]
 [connection signal="pressed" from="UnsavedPanel/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]

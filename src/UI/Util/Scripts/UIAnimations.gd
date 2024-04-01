@@ -55,11 +55,11 @@ func _on_CategoryPanel_category_succesfully_exported(cname):
 	tween($Export,"modulate",Color(1,1,1,0),1,Tween.TRANS_EXPO)
 
 
-func _on_InformationPanel_availability_mode_entered() -> void:
+func _on_availability_mode_entered() -> void:
 	$AvailabilityMode.visible = true
 
 
-func _on_InformationPanel_availability_mode_exited() -> void:
+func _on_availability_mode_exited() -> void:
 	$AvailabilityMode.visible = false
 
 	
