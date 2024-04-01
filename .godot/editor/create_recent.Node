@@ -1,3 +1,5 @@
+Control
+ScrollContainer
 Button
 CheckButton
 RichTextLabel
@@ -12,7 +14,6 @@ MenuButton
 VSeparator
 ColorPickerButton
 ColorPicker
-ScrollContainer
 Container
 FileDialog
 UndoSystem
