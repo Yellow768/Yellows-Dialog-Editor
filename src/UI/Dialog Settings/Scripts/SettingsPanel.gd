@@ -31,7 +31,7 @@ signal unsaved_change
 
 var current_dialog : dialog_node
 
-var current_image : Dictionary
+
 
 func _ready(): 
 	set_quest_dict()
@@ -45,9 +45,8 @@ func set_quest_dict():
 
 func disconnect_current_dialog(dialog : dialog_node,_bool : bool,_ignore : bool):
 	if current_dialog == dialog:
-		dialog.disconnect("text_changed", Callable(self, "update_text"))
+		DialogGeneralTab.disconnect_current_dialog(dialog)
 		dialog.disconnect("request_deletion", Callable(self, "disconnect_current_dialog"))
-		current_dialog.disconnect("title_changed", Callable(self, "update_title"))
 	current_dialog = null
 
 
@@ -75,14 +74,16 @@ func load_dialog_settings(dialog : dialog_node):
 func no_dialog_selected():
 	DialogSettingsTab.visible = false
 
-
-func _on_ToggleVisiblity_toggled(button_pressed : bool):
-	if !button_pressed:
-		emit_signal("hide_information_panel")
-		ToggleVisibility.text = "<"
-	else:
+func set_panel_visible(value : bool):
+	if value:
 		emit_signal("show_information_panel")
 		ToggleVisibility.text = ">"
+	else:
+		emit_signal("hide_information_panel")
+		ToggleVisibility.text = "<"
+
+func _on_ToggleVisiblity_toggled(button_pressed : bool):
+	set_panel_visible(button_pressed)
 
 
 func _on_DialogEditor_finished_loading(_category_name : String):

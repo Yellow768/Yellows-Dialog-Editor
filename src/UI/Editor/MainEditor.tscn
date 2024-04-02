@@ -394,7 +394,7 @@ show_previous_dialog_path = NodePath("ScrollContainer/VBoxContainer/Show Previou
 show_responses_path = NodePath("ScrollContainer/VBoxContainer/Show Response Options")
 color_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Color")
 title_color_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Title Color")
-title_label_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Label2")
+title_label_path = NodePath("ScrollContainer/VBoxContainer/Title")
 color_options_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions")
 command_edit_path = NodePath("ScrollContainer/VBoxContainer/Command")
 playsound_edit_path = NodePath("ScrollContainer/VBoxContainer/Soundfile")
@@ -1745,7 +1745,7 @@ one_shot = true
 [connection signal="no_dialog_selected" from="DialogEditor" to="InformationPanel" method="no_dialog_selected"]
 [connection signal="node_deselected" from="DialogEditor" to="DialogEditor" method="unselect_node"]
 [connection signal="node_double_clicked" from="DialogEditor" to="." method="_on_dialog_editor_node_double_clicked"]
-[connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel" method="set_dialog_availability_from_selected_node"]
+[connection signal="node_double_clicked" from="DialogEditor" to="InformationPanel/DialogNodeTabs/AVAILABILITY" method="set_dialog_availability_from_selected_node"]
 [connection signal="node_selected" from="DialogEditor" to="DialogEditor" method="select_node"]
 [connection signal="nodes_connected" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_nodes_connected"]
 [connection signal="nodes_disconnected" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_nodes_disconnected"]

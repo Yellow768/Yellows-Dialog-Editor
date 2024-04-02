@@ -94,6 +94,10 @@ func load_current_dialog_settings(dialog : dialog_node):
 	TitleColor.color = GlobalDeclarations.int_to_color(current_dialog.title_color)
 	TextSoundOptions.visible = bool(RenderTypeOption.selected)
 	
+
+func disconnect_current_dialog(dialog: dialog_node):
+	dialog.disconnect("text_changed", Callable(self, "update_text"))
+	dialog.disconnect("title_changed", Callable(self, "update_title"))
 	
 func _language_updated():
 	FactionChanges1.update_language()

@@ -51,7 +51,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 
 var current_dialog : dialog_node
-var current_image
+var current_image : Dictionary
 
 func _ready():
 	ImageHeight.update_on_text_changed = true
@@ -116,9 +116,6 @@ func _on_item_list_item_selected(index):
 	selecting_new_image = true
 	await get_tree().create_timer(.01).timeout
 	ImageSettingsContainer.visible = true
-	current_image.Texture = ImageTextureString.text
-	current_image.PosX = ImagePositionX.value
-	current_image.Scale = ImageScale.get_value()
 	ImageScale.get_line_edit().release_focus()
 	var image_id = int(ImageList.get_item_text(index))
 	current_image = current_dialog.image_dictionary[image_id]

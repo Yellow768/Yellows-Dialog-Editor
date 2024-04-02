@@ -82,6 +82,7 @@ func enter_dialog_availability_mode(availability_scene):
 	dialog_availability_mode = true
 	emit_signal("request_store_current_category")
 	emit_signal("availability_mode_entered")
+	InformationPanel.set_panel_visible(false)
 	print("Availability Mode Entered")
 
 	
@@ -106,7 +107,7 @@ func set_dialog_availability_from_selected_node(node_selected : GraphNode):
 func exit_dialog_availability_mode():
 	exiting_availability_mode = true
 	emit_signal("request_switch_to_stored_category")
-	emit_signal("show_information_panel")
+	InformationPanel.set_panel_visible(true)
 
 
 func find_dialog_node_from_id(id : int):
