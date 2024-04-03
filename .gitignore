@@ -4,6 +4,7 @@
 *.swo
 
 logs/
+.godot/
 
 # Quick test bash script
 p.sh
