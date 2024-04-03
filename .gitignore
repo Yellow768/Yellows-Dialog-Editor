@@ -5,6 +5,7 @@
 
 logs/
 .godot/
+*.translation
 
 # Quick test bash script
 p.sh

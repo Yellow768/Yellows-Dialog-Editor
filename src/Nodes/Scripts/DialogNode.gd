@@ -79,6 +79,8 @@ var option_spacing_y : int = 0
 var npc_offset_x : int = 0
 var npc_offset_y : int = 0
 var npc_scale : float = 1.0
+var spacing_preset : int = -1
+
 
 var image_dictionary : Dictionary = {}
 var last_viewed_image : int = -1
@@ -399,7 +401,8 @@ func save():
 		"response_options":save_response_options,
 		"mail" : save_mail,
 		"connected_response_indexes" : connected_response_indexes,
-		"image_dictionary" : JSON.stringify(image_dictionary)
+		"image_dictionary" : JSON.stringify(image_dictionary),
+		"spacing_preset" : spacing_preset
 	}
 	return save_dict
 

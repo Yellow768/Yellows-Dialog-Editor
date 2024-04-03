@@ -379,6 +379,7 @@ mouse_filter = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 script = ExtResource("17_fph0n")
 information_panel_path = NodePath("../..")
@@ -886,7 +887,6 @@ layout_mode = 2
 slot = 3
 
 [node name="SPACING" type="Control" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 script = ExtResource("30_tinmk")
 title_position_path = NodePath("ScrollContainer/VBoxContainer/TitlePosition/TitlePositionOption")
@@ -905,6 +905,9 @@ npc_offset_x_path = NodePath("ScrollContainer/VBoxContainer/NPC Offset/NPCXOffse
 npc_offset_y_path = NodePath("ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset")
 npc_scale_path = NodePath("ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue")
 information_panel_path = NodePath("../..")
+preset_text_edit_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/TextEdit")
+preset_option_button_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/PresetOptionButton")
+update_preset_button_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/UpdatePresetButton")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/SPACING"]
 layout_mode = 1
@@ -1185,36 +1188,40 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator8" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PresetOptions" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-item_count = 2
-selected = 0
-popup/item_0/text = "Preset"
+
+[node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+item_count = 1
+popup/item_0/text = ""
 popup/item_0/id = 0
-popup/item_0/separator = true
-popup/item_1/text = "Test"
-popup/item_1/id = 1
 
-[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
+[node name="UpdatePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+text = "Update"
 
-[node name="Add Preset" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Add"
-
-[node name="Update" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Update Preset
-"
-
-[node name="Remove Preset" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/Spacing/ScrollContainer/VBoxContainer"]
+[node name="RemovePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Remove"
+
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+
+[node name="AddPresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Add New Preset"
+
 [node name="IMAGES" type="Control" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 layout_mode = 2
@@ -1878,6 +1885,10 @@ one_shot = true
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Offset/NPCXOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_npcx_offset_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Offset/NPCYOffset" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_npcy_offset_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/NPC Scale/NPCScaleValue" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_npc_scale_value_value_changed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer/PresetOptionButton" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_preset_option_button_item_selected"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer/UpdatePresetButton" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_update_preset_button_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer/RemovePresetButton" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_remove_preset_button_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer/AddPresetButton" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_add_preset_button_pressed"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/ItemList" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_item_list_item_selected"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/AddImage" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_add_image_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/RemoveImage" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_remove_image_pressed"]

@@ -36,6 +36,7 @@ var current_dialog : dialog_node
 func _ready(): 
 	set_quest_dict()
 	update_customnpcs_plus_enabled()
+	DialogSpacingTab.create_preset_list()
 
 
 func set_quest_dict():
