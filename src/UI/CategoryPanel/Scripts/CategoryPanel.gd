@@ -137,17 +137,17 @@ func _on_TopPanel_scan_for_changes_request():
 var stored_category
 
 
-func _on_InformationPanel_request_store_current_category():
+func _on_request_store_current_category():
 	stored_category = current_category
 	
 
 
 
-func _on_InformationPanel_request_switch_to_stored_category():
+func _on_request_switch_to_stored_category():
 	load_category(stored_category)
 
 
-func _on_InformationPanel_availability_mode_entered():
+func _on_availability_mode_entered():
 	stored_category = current_category	
 
 func save_category_request():
