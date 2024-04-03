@@ -379,24 +379,29 @@ mouse_filter = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 script = ExtResource("17_fph0n")
 information_panel_path = NodePath("../..")
-hide_npc_checkbox_path = NodePath("ScrollContainer/VBoxContainer/HideNPC")
-show_wheel_checkbox_path = NodePath("ScrollContainer/VBoxContainer/ShowDialogWheel")
-disable_esc_checkbox_path = NodePath("ScrollContainer/VBoxContainer/DisableEsc")
-darken_screen_checkbox_path = NodePath("ScrollContainer/VBoxContainer/DarkenScreen")
-render_type_option_path = NodePath("ScrollContainer/VBoxContainer/RenderType")
-text_sound_options = NodePath("ScrollContainer/VBoxContainer/TextSound")
-text_sound_path = NodePath("ScrollContainer/VBoxContainer/TextSound/TextSound")
-text_pitch_path = NodePath("ScrollContainer/VBoxContainer/TextSound/TextPitch")
-show_previous_dialog_path = NodePath("ScrollContainer/VBoxContainer/Show Previous Dialog")
-show_responses_path = NodePath("ScrollContainer/VBoxContainer/Show Response Options")
-color_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Color")
-title_color_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions/Title Color")
+visual_options_group_path = NodePath("ScrollContainer/VBoxContainer/Visual Options")
+visual_options_toggle_path = NodePath("ScrollContainer/VBoxContainer/VisualOptionsLabelandButton/ToggleVisualOptions")
+hide_npc_checkbox_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/HideNPC")
+show_wheel_checkbox_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/ShowDialogWheel")
+disable_esc_checkbox_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/DisableEsc")
+darken_screen_checkbox_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/DarkenScreen")
+render_type_option_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/RenderType")
+text_sound_options = NodePath("ScrollContainer/VBoxContainer/Visual Options/TextSound")
+text_sound_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/TextSound/TextSound")
+text_pitch_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/TextSound/TextPitch")
+show_previous_dialog_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Show Previous Dialog")
+show_responses_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Show Response Options")
+color_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/ColorOptions/Color")
+title_color_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/ColorOptions/Title Color")
 title_label_path = NodePath("ScrollContainer/VBoxContainer/Title")
-color_options_path = NodePath("ScrollContainer/VBoxContainer/ColorOptions")
+color_options_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/ColorOptions")
+preset_options_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Presets")
+toggle_preset_visible_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/PresetHBOX/TogglePresetVisible")
+preset_text_edit_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Presets/TextEdit")
+preset_option_button_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Presets/PresetOptionButton")
 command_edit_path = NodePath("ScrollContainer/VBoxContainer/Command")
 playsound_edit_path = NodePath("ScrollContainer/VBoxContainer/Soundfile")
 faction_changes_1_path = NodePath("ScrollContainer/VBoxContainer/FactionChange")
@@ -427,23 +432,39 @@ layout_mode = 2
 wrap_mode = 1
 script = ExtResource("17")
 
-[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="VisualOptionsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton"]
+layout_mode = 2
+text = "VISUAL_OPTIONS"
+
+[node name="ToggleVisualOptions" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "v"
+
+[node name="Visual Options" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 text = "HIDE_NPC"
 
-[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 text = "SHOW_DIALOG_WHEEL"
 
-[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 text = "DISABLE_USING_ESC"
 
-[node name="DarkenScreen" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="DarkenScreen" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 text = "DARKEN_SCREEN"
 
-[node name="RenderType" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="RenderType" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -452,59 +473,102 @@ popup/item_0/id = 0
 popup/item_1/text = "RENDER_GRADUAL"
 popup/item_1/id = 1
 
-[node name="TextSound" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="TextSound" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/TextSound"]
 layout_mode = 2
 text = "TEXT_SOUND"
 
-[node name="TextSound" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound" instance=ExtResource("15")]
+[node name="TextSound" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/TextSound" instance=ExtResource("15")]
 custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 caret_blink = true
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/TextSound"]
 layout_mode = 2
 text = "TEXT_PITCH"
 
-[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound"]
+[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/TextSound"]
 layout_mode = 2
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
-[node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 text = "SHOW_PREVIOUS_DIALOG"
 
-[node name="Show Response Options" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Show Response Options" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 text = "SHOW_RESPONSE_OPTIONS"
 
-[node name="ColorOptions" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="ColorOptions" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions"]
 layout_mode = 2
 text = "DIALOG_COLOR"
 
-[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions"]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions"]
 layout_mode = 2
 text = "TITLE_COLOR"
 
-[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions"]
+[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions"]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
+
+[node name="PresetHBOX" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
+layout_mode = 2
+text = "VISUAL_PRESETS"
+
+[node name="TogglePresetVisible" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "v"
+
+[node name="Presets" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
+layout_mode = 2
+
+[node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+item_count = 1
+popup/item_0/text = ""
+popup/item_0/id = 0
+
+[node name="UpdatePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+layout_mode = 2
+text = "Update"
+
+[node name="RemovePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+layout_mode = 2
+text = "Remove"
+
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+
+[node name="AddPresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+layout_mode = 2
+text = "Add New Preset"
 
 [node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -887,6 +951,7 @@ layout_mode = 2
 slot = 3
 
 [node name="SPACING" type="Control" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 script = ExtResource("30_tinmk")
 title_position_path = NodePath("ScrollContainer/VBoxContainer/TitlePosition/TitlePositionOption")
@@ -1830,17 +1895,22 @@ one_shot = true
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DialogText_text_changed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_HideNPC_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ShowDialogWheel" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_ShowDialogWheel_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DisableEsc" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DisableEsc_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DarkenScreen" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_darken_screen_pressed"]
-[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/RenderType" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_render_type_item_selected"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound/TextSound" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_text_sound_text_changed"]
-[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/TextSound/TextPitch" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_text_pitch_value_changed"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Show Previous Dialog" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_show_previous_dialog_toggled"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Show Response Options" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_show_response_options_toggled"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions/Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_color_color_changed"]
-[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/ColorOptions/Title Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_title_color_color_changed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton/ToggleVisualOptions" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_toggle_visual_options_toggled"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/HideNPC" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_HideNPC_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ShowDialogWheel" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_ShowDialogWheel_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/DisableEsc" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DisableEsc_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/DarkenScreen" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_darken_screen_pressed"]
+[connection signal="item_selected" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/RenderType" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_render_type_item_selected"]
+[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/TextSound/TextSound" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_text_sound_text_changed"]
+[connection signal="value_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/TextSound/TextPitch" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_text_pitch_value_changed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Show Previous Dialog" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_show_previous_dialog_toggled"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Show Response Options" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_show_response_options_toggled"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions/Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_color_color_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions/Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_color_pressed"]
+[connection signal="color_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions/Title Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_title_color_color_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/ColorOptions/Title Color" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_title_color_pressed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX/TogglePresetVisible" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_toggle_preset_visible_toggled"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets/AddPresetButton" to="InformationPanel/DialogNodeTabs/SPACING" method="_on_add_preset_button_pressed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_soundfile_text_changed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
 [connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChange" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange_faction_id_changed"]

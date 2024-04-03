@@ -1,9 +1,11 @@
 extends Control
-var current_dialog
+var current_dialog : dialog_node
 
 @export var information_panel_path : NodePath
 
 @export_group("General Visual")
+@export var visual_options_group_path : NodePath
+@export var visual_options_toggle_path : NodePath
 @export var hide_npc_checkbox_path: NodePath
 @export var show_wheel_checkbox_path: NodePath
 @export var disable_esc_checkbox_path: NodePath
@@ -18,6 +20,11 @@ var current_dialog
 @export var title_color_path : NodePath
 @export var title_label_path: NodePath
 @export var color_options_path : NodePath
+@export var preset_options_path : NodePath
+@export var toggle_preset_visible_path : NodePath
+@export var preset_text_edit_path : NodePath
+@export var preset_option_button_path : NodePath
+
 
 @export_group("General Settings")
 @export var command_edit_path: NodePath
@@ -29,6 +36,8 @@ var current_dialog
 
 
 @onready var InformationPanel : Panel = get_node(information_panel_path)
+@onready var VisualOptionsGroup : VBoxContainer = get_node(visual_options_group_path)
+@onready var VisualOptionsToggle : Button = get_node(visual_options_toggle_path)
 @onready var HideNpcCheckbox := get_node(hide_npc_checkbox_path)
 @onready var ShowWheelCheckbox := get_node(show_wheel_checkbox_path)
 @onready var DisableEscCheckbox := get_node(disable_esc_checkbox_path)
@@ -40,6 +49,11 @@ var current_dialog
 @onready var ShowResponses : CheckBox = get_node(show_responses_path)
 @onready var DialogColor : ColorPickerButton= get_node(color_path)
 @onready var TitleColor : ColorPickerButton= get_node(title_color_path)
+@onready var PresetOptions : VBoxContainer = get_node(preset_options_path)
+@onready var TogglePresetOptionsVisible : Button = get_node(toggle_preset_visible_path)
+
+@onready var PresetOptionButton : OptionButton = get_node(preset_option_button_path)
+@onready var PresetTextEdit : TextEdit = get_node(preset_text_edit_path)
 @onready var TitleLabel := get_node(title_label_path)
 @onready var CommandEdit := get_node(command_edit_path)
 @onready var PlaysoundEdit := get_node(playsound_edit_path)
@@ -49,7 +63,18 @@ var current_dialog
 @onready var DialogTextEdit := get_node(dialog_text_edit_path)
 @onready var ColorOptions := get_node(color_options_path)
 @onready var TextSoundOptions : VBoxContainer = get_node(text_sound_options)
+
 # Called when the node enters the scene tree for the first time.
+
+func _ready():
+	for color in GlobalDeclarations.color_presets:
+		DialogColor.get_picker().add_preset(color)
+		TitleColor.get_picker().add_preset(color)
+	DialogColor.get_picker().connect("preset_added",Callable(GlobalDeclarations,"add_color_preset"))
+	DialogColor.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
+	TitleColor.get_picker().connect("preset_added",Callable(GlobalDeclarations,"add_color_preset"))
+	TitleColor.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
+
 
 func update_customnpcs_plus_options():
 	DarkenScreenCheckbox.visible = GlobalDeclarations.enable_customnpcs_plus_options
@@ -195,3 +220,145 @@ func _on_color_color_changed(color):
 func _on_title_color_color_changed(color):
 	current_dialog.title_color = color.to_html(false).hex_to_int() 
 	InformationPanel.emit_signal("unsaved_change")
+
+
+func _on_title_color_pressed():
+	for color in TitleColor.get_picker().get_presets():
+		TitleColor.get_picker().erase_preset(color)
+	for color in GlobalDeclarations.color_presets:
+		TitleColor.get_picker().add_preset(color)
+
+
+func _on_color_pressed():
+	for color in DialogColor.get_picker().get_presets():
+		DialogColor.get_picker().erase_preset(color)
+	for color in GlobalDeclarations.color_presets:
+		DialogColor.get_picker().add_preset(color)
+
+
+func _on_toggle_visual_options_toggled(button_pressed):
+	VisualOptionsGroup.visible = button_pressed
+	if button_pressed:
+		VisualOptionsToggle.text = "V"
+	else:
+		VisualOptionsToggle.text = ">"
+		
+
+
+func _on_toggle_preset_visible_toggled(button_pressed):
+	PresetOptions.visible = button_pressed
+	if button_pressed:
+		TogglePresetOptionsVisible.text = "V"
+	else:
+		TogglePresetOptionsVisible.text = ">"
+		
+		
+
+
+func create_preset_list():
+	PresetOptionButton.clear()
+	for preset in GlobalDeclarations.visual_presets.keys():
+		PresetOptionButton.add_item(GlobalDeclarations.visual_presets[preset].Name,int(preset))
+	if current_dialog:
+		PresetOptionButton.select(current_dialog.visual_preset)
+
+func _on_add_preset_button_pressed():
+	if PresetTextEdit.text != "":
+		var preset_keys = GlobalDeclarations.visual_presets.keys()
+		preset_keys.sort()
+		var ID 
+		if preset_keys.size() == 0:
+			ID = 0
+		else:
+			ID = preset_keys.back() + 1
+		GlobalDeclarations.visual_presets[ID] = {
+			"Name" : PresetTextEdit.text,
+			"HideNPC" : HideNpcCheckbox.button_pressed,
+			"ShowDialogWheel" : ShowWheelCheckbox.button_pressed,
+			"DisableEsc" : DisableEscCheckbox.button_pressed,
+			"DarkenScreen" : DarkenScreenCheckbox.button_pressed,
+			"RenderType" : RenderTypeOption.selected,
+			"TextSound" : TextSound.text,
+			"TextPitch" : TextPitch.value,
+			"ShowPreviousDialog" : ShowPreviousDialog.button_pressed,
+			"ShowResponseOptions" : ShowResponses.button_pressed,
+			"DialogColor" : DialogColor.color.to_html(false).hex_to_int(),
+			"Title" : TitleColor.color.to_html(false).hex_to_int() 
+		}
+		current_dialog.visual_preset = ID
+	create_preset_list()
+	GlobalDeclarations.save_config()
+
+
+func _on_remove_preset_button_pressed():
+	if PresetOptionButton.selected == -1:
+		return
+	var confirm_deletion_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
+	confirm_deletion_popup.connect("confirmed", Callable(self, "delete_preset"))
+	var format_text = "Are you sure you want to delete %s ? Any dialogs that use this preset will revert to having no preset"
+	confirm_deletion_popup.dialog_text = format_text % PresetOptionButton.get_item_text(PresetOptionButton.selected)
+	$".".add_child(confirm_deletion_popup)
+	confirm_deletion_popup.popup_centered()
+
+
+func delete_preset():
+	GlobalDeclarations.visual_presets.erase(PresetOptionButton.get_item_id(PresetOptionButton.selected))
+	current_dialog.visual_preset = -1
+	create_preset_list()
+	GlobalDeclarations.save_config()
+
+func _on_update_preset_button_pressed():
+	if PresetOptionButton.selected == -1:
+		return
+	var preset_name
+	if PresetTextEdit.text == "":
+		preset_name = PresetOptionButton.get_item_text(PresetOptionButton.selected)
+	else:
+		preset_name = PresetTextEdit.text
+	GlobalDeclarations.spacing_presets[PresetOptionButton.get_item_id(PresetOptionButton.selected)]={
+		"Name" : PresetTextEdit.text,
+		"HideNPC" : HideNpcCheckbox.button_pressed,
+		"ShowDialogWheel" : ShowWheelCheckbox.button_pressed,
+		"DisableEsc" : DisableEscCheckbox.button_pressed,
+		"DarkenScreen" : DarkenScreenCheckbox.button_pressed,
+		"RenderType" : RenderTypeOption.selected,
+		"TextSound" : TextSound.text,
+		"TextPitch" : TextPitch.value,
+		"ShowPreviousDialog" : ShowPreviousDialog.button_pressed,
+		"ShowResponseOptions" : ShowResponses.button_pressed,
+		"DialogColor" : DialogColor.color.to_html(false).hex_to_int(),
+		"Title" : TitleColor.color.to_html(false).hex_to_int()
+	}
+	create_preset_list()
+	GlobalDeclarations.save_config()
+	for node in get_tree().get_nodes_in_group("Save"):
+		if node.node_type == "Dialog Node" && node.visual_preset == PresetOptionButton.get_item_id(PresetOptionButton.selected):
+			node.update_spacing_options_to_preset()
+
+
+func _on_preset_option_button_item_selected(index):
+	if index == -1:
+		return
+	set_settings_to_preset(PresetOptionButton.get_item_id(index))
+	
+func set_settings_to_preset(ID):
+	print(GlobalDeclarations.visual_presets)
+	var preset_parameters = GlobalDeclarations.spacing_presets[int(ID)]
+	PresetTextEdit.text = ""
+	current_dialog. = preset_parameters.TitlePosition
+	current_dialog.alignment = preset_parameters.Alignment
+	current_dialog.text_width = preset_parameters.Width
+	current_dialog.text_height = preset_parameters.Height
+	current_dialog.title_offset_x = preset_parameters.TitleOffsetX
+	current_dialog.title_offset_y = preset_parameters.TitleOffsetY
+	current_dialog.text_offset_x = preset_parameters.TextOffsetX
+	current_dialog.text_offset_y = preset_parameters.TextOffsetY
+	current_dialog.option_offset_x = preset_parameters.OptionOffsetX
+	current_dialog.option_offset_y = preset_parameters.OptionOffsetY
+	current_dialog.option_spacing_x = preset_parameters.OptionSpacingX
+	current_dialog.option_spacing_y = preset_parameters.OptionSpacingY
+	current_dialog.npc_offset_x = preset_parameters.NPCOffsetX
+	current_dialog.npc_offset_y = preset_parameters.NPCOffsetY
+	current_dialog.npc_scale = preset_parameters.NPCScale
+	current_dialog.visual_preset = ID
+

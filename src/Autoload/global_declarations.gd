@@ -55,8 +55,9 @@ func _ready():
 	allow_above_six_responses = config.get_value("user_settings","allow_above_six_responses",allow_above_six_responses)
 	enable_customnpcs_plus_options = config.get_value("user_settings","enable_customnpcs_plus_options",enable_customnpcs_plus_options)
 	last_used_export_version = config.get_value("user_settings","last_used_export_version",last_used_export_version)
-	spacing_presets_stringified = config.get_value("user_settings","spacing_presets","{}")
-	spacing_presets = JSON.parse_string(spacing_presets_stringified)
+	spacing_presets_stringified = config.get_value("user_settings","spacing_presets_stringified","{}")
+	for key in JSON.parse_string(spacing_presets_stringified).keys():
+		spacing_presets[int(key)] = JSON.parse_string(spacing_presets_stringified)[key]
 	language = config.get_value("user_settings","language",language)
 	TranslationServer.set_locale(language)
 	for action in actions:
@@ -80,7 +81,7 @@ func save_config():
 	config.set_value("user_settings","language",language)
 	config.set_value("user_settings","enable_customnpcs_plus_options",enable_customnpcs_plus_options)
 	config.set_value("user_settings","last_used_export_version",last_used_export_version)
-	config.set_value("user_settings","spacing_presets",JSON.stringify(spacing_presets))
+	config.set_value("user_settings","spacing_presets_stringified",JSON.stringify(spacing_presets))
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)
@@ -90,7 +91,8 @@ func add_color_preset(preset):
 	save_config()
 	
 func remove_color_preset(preset):
-	color_presets.append(preset)
+	color_presets.remove_at(color_presets.find(preset))
+	print("test")
 	save_config()
 
 func int_to_color(integer : int) -> Color:

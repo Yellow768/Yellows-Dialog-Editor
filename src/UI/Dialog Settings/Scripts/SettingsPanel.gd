@@ -88,7 +88,8 @@ func _on_ToggleVisiblity_toggled(button_pressed : bool):
 
 
 func _on_DialogEditor_finished_loading(_category_name : String):
-	emit_signal("ready_to_set_availability")
+	pass
+	#emit_signal("ready_to_set_availability")
 
 func _on_editor_settings_custom_npcs_plus_changed():
 	update_customnpcs_plus_enabled()

@@ -216,6 +216,7 @@ shape = SubResource("1")
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/ResponseText" to="." method="_on_response_text_gui_input"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/ResponseText" to="." method="_on_ResponseText_text_changed"]
 [connection signal="color_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_pressed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/HBoxContainer/OptionTypeButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="changed" from="HBoxContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]

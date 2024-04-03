@@ -13,7 +13,7 @@ extends GraphNode
 @export var _id_spinbox: NodePath
 
 @onready var ResponseTextNode := get_node(_response_text_node_path)
-@onready var ColorPickerNode := get_node(_color_picker_node_path)
+@onready var ColorPickerNode : ColorPickerButton = get_node(_color_picker_node_path)
 @onready var OptionTypeNode : OptionButton = get_node(_option_type_node_path)
 @onready var CommandTextNode := get_node(_command_text_node_path)
 @onready var NewDialogButtonNode := get_node(_new_dialog_button_path)
@@ -369,3 +369,10 @@ func _on_response_text_gui_input(event):
 
 func _on_spin_box_gui_input(event):
 	print("test")
+
+
+func _on_color_picker_button_pressed():
+	for color in ColorPickerNode.get_picker().get_presets():
+		ColorPickerNode.get_picker().erase_preset(color)
+	for color in GlobalDeclarations.color_presets:
+		ColorPickerNode.get_picker().add_preset(color)

@@ -121,6 +121,9 @@ func _ready():
 	initial_offset_x = position_offset.x
 	DialogTextNode.text = text
 	TitleTextNode.text = dialog_title
+	if spacing_preset != -1:
+		update_spacing_options_to_preset()
+		
 
 func add_response_node(commit_to_undo := true):
 	if !GlobalDeclarations.allow_above_six_responses:
@@ -258,6 +261,25 @@ func _on_DialogText_gui_input(event : InputEvent):
 
 func _on_TitleText_gui_input(event : InputEvent):
 	handle_clicking(event)
+
+
+func update_spacing_options_to_preset():
+	var preset_parameters = GlobalDeclarations.spacing_presets[spacing_preset]
+	title_pos = preset_parameters.TitlePosition
+	alignment = preset_parameters.Alignment
+	text_width = preset_parameters.Width
+	text_height = preset_parameters.Height
+	title_offset_x = preset_parameters.TitleOffsetX
+	title_offset_y = preset_parameters.TitleOffsetY
+	text_offset_x = preset_parameters.TextOffsetX
+	text_offset_y = preset_parameters.TextOffsetY
+	option_offset_x = preset_parameters.OptionOffsetX
+	option_offset_y = preset_parameters.OptionOffsetY
+	option_spacing_x = preset_parameters.OptionSpacingX
+	option_spacing_y = preset_parameters.OptionSpacingY
+	npc_offset_x = preset_parameters.NPCOffsetX
+	npc_offset_y = preset_parameters.NPCOffsetY
+	npc_scale = preset_parameters.NPCScale
 
 func sort_ascending(a, b):
 	if a[0] < b[0]:

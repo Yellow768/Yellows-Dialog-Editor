@@ -39,7 +39,6 @@ extends Control
 @onready var NPCScale : SpinBox = get_node(npc_scale_path)
 @onready var PresetOptionButton : OptionButton = get_node(preset_option_button_path)
 @onready var PresetTextEdit : TextEdit = get_node(preset_text_edit_path)
-@onready var UpdatePresetButton : Button = get_node(update_preset_button_path)
 
 var current_dialog : dialog_node
 
@@ -195,6 +194,7 @@ func _on_add_preset_button_pressed():
 		}
 		current_dialog.spacing_preset = ID
 	create_preset_list()
+	GlobalDeclarations.save_config()
 
 
 func _on_remove_preset_button_pressed():
@@ -212,6 +212,7 @@ func delete_preset():
 	GlobalDeclarations.spacing_presets.erase(PresetOptionButton.get_item_id(PresetOptionButton.selected))
 	current_dialog.spacing_preset = -1
 	create_preset_list()
+	GlobalDeclarations.save_config()
 
 func _on_update_preset_button_pressed():
 	if PresetOptionButton.selected == -1:
@@ -240,6 +241,10 @@ func _on_update_preset_button_pressed():
 			"NPCScale" : NPCScale.value
 	}
 	create_preset_list()
+	GlobalDeclarations.save_config()
+	for node in get_tree().get_nodes_in_group("Save"):
+		if node.node_type == "Dialog Node" && node.spacing_preset == PresetOptionButton.get_item_id(PresetOptionButton.selected):
+			node.update_spacing_options_to_preset()
 
 
 func _on_preset_option_button_item_selected(index):
@@ -248,7 +253,8 @@ func _on_preset_option_button_item_selected(index):
 	set_settings_to_preset(PresetOptionButton.get_item_id(index))
 	
 func set_settings_to_preset(ID):
-	var preset_parameters = GlobalDeclarations.spacing_presets[ID]
+	print(GlobalDeclarations.spacing_presets)
+	var preset_parameters = GlobalDeclarations.spacing_presets[int(ID)]
 	PresetTextEdit.text = ""
 	current_dialog.title_pos = preset_parameters.TitlePosition
 	current_dialog.alignment = preset_parameters.Alignment
