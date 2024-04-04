@@ -65,6 +65,7 @@ func _ready():
 		DefaultVisualPreset.select(DefaultVisualPreset.get_item_index(GlobalDeclarations.default_visual_preset))
 	if GlobalDeclarations.spacing_presets.has(GlobalDeclarations.default_spacing_preset):
 		DefaultSpacingPreset.select(DefaultSpacingPreset.get_item_index(GlobalDeclarations.default_spacing_preset))
+	
 
 var language_names_in_their_language = {
 	"English" : "English",
@@ -166,6 +167,7 @@ func _on_language_option_item_selected(index):
 	
 	TranslationServer.set_locale(TranslationServer.get_loaded_locales()[index])
 	GlobalDeclarations.language = TranslationServer.get_locale()
+	
 	emit_signal("language_changed")
 
 
@@ -181,3 +183,7 @@ func _on_visual_preset_button_item_selected(index):
 
 func _on_spacing_preset_button_item_selected(index):
 	GlobalDeclarations.default_spacing_preset = DefaultSpacingPreset.get_item_id(index)
+
+
+func _on_file_dialog_visibility_changed():
+	DefaultDirectoryFileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))

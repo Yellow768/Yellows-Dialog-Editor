@@ -6,21 +6,21 @@ signal isisnot_changed
 
 
 func get_id() -> int:
-	return $Panel/SpinBox.value
+	return $Panel/HBoxContainer/SpinBox.value
 	
 func get_stance() -> int:
-	return $Panel/StanceButton.selected
+	return $Panel/HBoxContainer/StanceButton.selected
 
 func get_isisnot() -> int:
-	return $Panel/IsIsnotbutton.selected
+	return $Panel/HBoxContainer/IsIsnotbutton.selected
 
 
 func set_id(value : int):
-	$Panel/SpinBox.value = value	
+	$Panel/HBoxContainer/SpinBox.value = value	
 func set_stance(value : int):
-	$Panel/StanceButton.selected = value
+	$Panel/HBoxContainer/StanceButton.selected = value
 func set_isisnot(value : int):
-	$Panel/IsIsnotbutton.selected = value
+	$Panel/HBoxContainer/IsIsnotbutton.selected = value
 
 func _on_IsIsnotbutton_item_selected(index : int):
 	emit_signal("isisnot_changed",self,index)
@@ -31,5 +31,5 @@ func _on_StanceButton_item_selected(index : int):
 
 
 func _on_SpinBox_value_changed(value):
-	$Panel/ChooseFaction.set_faction_name_from_id(value)
+	$Panel/HBoxContainer/ChooseFaction.set_faction_name_from_id(value)
 	emit_signal("id_changed",self,value)

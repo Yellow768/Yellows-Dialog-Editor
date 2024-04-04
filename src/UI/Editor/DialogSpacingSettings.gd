@@ -216,7 +216,7 @@ func _on_remove_preset_button_pressed():
 		return
 	var confirm_deletion_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
 	confirm_deletion_popup.connect("confirmed", Callable(self, "delete_preset"))
-	var format_text = "Are you sure you want to delete %s ? Any dialogs that use this preset will revert to having no preset"
+	var format_text = tr("PRESET_CONFIRM_DELETION")
 	confirm_deletion_popup.dialog_text = format_text % PresetOptionButton.get_item_text(PresetOptionButton.selected)
 	$".".add_child(confirm_deletion_popup)
 	confirm_deletion_popup.popup_centered()

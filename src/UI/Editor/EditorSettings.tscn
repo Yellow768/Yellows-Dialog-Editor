@@ -21,7 +21,7 @@ bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="EditorSettings" type="Panel"]
 self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
-custom_minimum_size = Vector2(600, 700)
+custom_minimum_size = Vector2(1200, 700)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -34,12 +34,12 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_arin6")
 script = ExtResource("1_b3w4b")
-hide_connection_slider_path = NodePath("ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider")
-hold_shift_check_path = NodePath("ScrollContainer/VBoxContainer2/GridSettings/HoldShift/CheckButton")
-auto_save_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider")
-enable_grid_check_path = NodePath("ScrollContainer/VBoxContainer2/GridSettings/EnableGridSnap/CheckButton")
-autosave_max_files_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/AutosaveMaxFiles/ValueEdit")
-allow_more_than_six_path = NodePath("ScrollContainer/VBoxContainer2/CreationSettings/AllowMoreThanSix/CheckButton")
+hide_connection_slider_path = NodePath("ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer/HSlider")
+hold_shift_check_path = NodePath("ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer3/CheckButton")
+auto_save_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2/HSlider")
+enable_grid_check_path = NodePath("ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer2/CheckButton")
+autosave_max_files_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer3/ValueEdit")
+allow_more_than_six_path = NodePath("ScrollContainer/VBoxContainer2/CreationSettings/HBoxContainer/CheckButton")
 keybinds_scroll_path = NodePath("ScrollContainer2/KeyBinds")
 default_directory_label_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory")
 default_directory_file_dialog_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog")
@@ -84,6 +84,7 @@ offset_top = -304.995
 offset_right = 517.0
 offset_bottom = 295.005
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -114,26 +115,25 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HideConnectionDistance" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/GridSettings"]
+layout_mode = 2
+
+[node name="HideConnectionDistance" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 tooltip_text = "EDS_HIDE_CONNECTION_TOOLTIP"
 mouse_filter = 1
 text = "EDS_HIDE_CONNECTION"
 
-[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance"]
-layout_mode = 0
-offset_left = 275.0
-offset_top = 8.0
-offset_right = 551.0
-offset_bottom = 24.0
+[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer"]
+layout_mode = 2
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxFlat_owvrv")
 max_value = 4000.0
 value = 1000.0
 allow_greater = true
 
-[node name="ValueEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider"]
+[node name="ValueEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer/HSlider"]
 layout_mode = 0
 offset_left = -6.0
 offset_top = 20.0
@@ -142,7 +142,7 @@ offset_bottom = 46.0
 mouse_filter = 1
 text = "1000"
 
-[node name="Resetbutton" type="Button" parent="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider"]
+[node name="Resetbutton" type="Button" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer/HSlider"]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 15.0
@@ -152,29 +152,29 @@ theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = -12
 icon = ExtResource("2_ik3cf")
 
-[node name="EnableGridSnap" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/GridSettings"]
+layout_mode = 2
+
+[node name="EnableGridSnap" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "EDS_SNAPPING_TOOLTIP"
 mouse_filter = 1
 text = "EDS_ENABLE_GRID_SNAP"
 
-[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/GridSettings/EnableGridSnap"]
-layout_mode = 0
-offset_left = 308.54
-offset_right = 348.54
-offset_bottom = 24.0
+[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer2"]
+layout_mode = 2
 
-[node name="HoldShift" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/GridSettings"]
+layout_mode = 2
+
+[node name="HoldShift" type="Label" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer3"]
 layout_mode = 2
 tooltip_text = "EDS_HOLD_SHIFT_TOOLTIP"
 mouse_filter = 1
 text = "EDS_INVERT_DIALOG_MOVE"
 
-[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/GridSettings/HoldShift"]
-layout_mode = 0
-offset_left = 308.54
-offset_right = 348.54
-offset_bottom = 24.0
+[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer3"]
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 15)
@@ -184,17 +184,17 @@ layout_mode = 2
 custom_minimum_size = Vector2(-11.56, 0)
 layout_mode = 2
 
-[node name="AllowMoreThanSix" type="Label" parent="ScrollContainer/VBoxContainer2/CreationSettings"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/CreationSettings"]
+layout_mode = 2
+
+[node name="AllowMoreThanSix" type="Label" parent="ScrollContainer/VBoxContainer2/CreationSettings/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "EDS_MORE_SIX_TOOLTIP"
 mouse_filter = 1
 text = "EDS_ALLOW_MORE_THAN_SIX"
 
-[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/CreationSettings/AllowMoreThanSix"]
-layout_mode = 0
-offset_left = 308.54
-offset_right = 348.54
-offset_bottom = 24.0
+[node name="CheckButton" type="CheckButton" parent="ScrollContainer/VBoxContainer2/CreationSettings/HBoxContainer"]
+layout_mode = 2
 
 [node name="DefaultVisualSettings" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2"]
 layout_mode = 2
@@ -232,25 +232,24 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 mouse_filter = 2
 
-[node name="Autosave Time" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+layout_mode = 2
+
+[node name="Autosave Time" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 tooltip_text = "EDS_AUTOSAVE_FREQ_TOOLTIP"
 mouse_filter = 1
 text = "EDS_AUTOSAVE_FREQ"
 
-[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time"]
-layout_mode = 0
-offset_left = 275.0
-offset_top = 8.0
-offset_right = 544.0
-offset_bottom = 24.0
+[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2"]
+layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxFlat_owvrv")
 max_value = 200.0
 value = 3.0
 allow_greater = true
 
-[node name="ValueEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider"]
+[node name="ValueEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2/HSlider"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 0
 offset_left = -6.0
@@ -260,7 +259,7 @@ offset_bottom = 46.0
 mouse_filter = 1
 text = "3"
 
-[node name="Resetbutton" type="Button" parent="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider"]
+[node name="Resetbutton" type="Button" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2/HSlider"]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 15.0
@@ -270,18 +269,19 @@ theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = -12
 icon = ExtResource("2_ik3cf")
 
-[node name="AutosaveMaxFiles" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+layout_mode = 2
+
+[node name="AutosaveMaxFiles" type="Label" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer3"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 tooltip_text = "EDS_MAX_AUTOSAVE_FILES_TOOLTIP"
 mouse_filter = 1
 text = "EDS_MAX_AUTOSAVE_FILES"
+vertical_alignment = 1
 
-[node name="ValueEdit" type="SpinBox" parent="ScrollContainer/VBoxContainer2/FileSettings/AutosaveMaxFiles"]
-layout_mode = 0
-offset_left = 269.0
-offset_right = 352.063
-offset_bottom = 31.0
+[node name="ValueEdit" type="SpinBox" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer3"]
+layout_mode = 2
 mouse_filter = 1
 
 [node name="HSeparator3" type="HSeparator" parent="ScrollContainer/VBoxContainer2/FileSettings"]
@@ -304,14 +304,15 @@ mouse_filter = 1
 autowrap_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory"]
-title = "Open a Directory"
+title = "FILE_TITLE"
 position = Vector2i(0, 36)
 size = Vector2i(700, 600)
-ok_button_text = "Select Current Folder"
+ok_button_text = "Select This Folder"
+cancel_button_text = "CANCEL"
 file_mode = 2
 access = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer2/FileSettings"]
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
@@ -363,19 +364,20 @@ horizontal_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer2/Language/LanguageOption" to="." method="_on_language_option_item_selected"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="text_submitted" from="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider/ValueEdit" to="." method="_on_value_edit_text_submitted"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer2/GridSettings/HideConnectionDistance/HSlider/Resetbutton" to="." method="_on_resetbutton_pressed"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer2/GridSettings/EnableGridSnap/CheckButton" to="." method="_on_undo_button_toggled"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer2/GridSettings/HoldShift/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer2/CreationSettings/AllowMoreThanSix/CheckButton" to="." method="_on_allow_six_check_button_toggled"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="text_submitted" from="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer/HSlider/ValueEdit" to="." method="_on_value_edit_text_submitted"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer/HSlider/Resetbutton" to="." method="_on_resetbutton_pressed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer2/CheckButton" to="." method="_on_undo_button_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer2/GridSettings/HBoxContainer3/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer2/CreationSettings/HBoxContainer/CheckButton" to="." method="_on_allow_six_check_button_toggled"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer2/DefaultVisualSettings/VisualPresetButton" to="." method="_on_visual_preset_button_item_selected"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer2/Default Spacing Preset/SpacingPresetButton" to="." method="_on_spacing_preset_button_item_selected"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider" to="." method="_on_autosave_h_slider_changed"]
-[connection signal="text_changed" from="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider/ValueEdit" to="." method="_on_autosave_value_edit_text_changed"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider/Resetbutton" to="." method="_on_autosave_resetbutton_pressed"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer2/FileSettings/AutosaveMaxFiles/ValueEdit" to="." method="_on_autosave_max_files_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2/HSlider" to="." method="_on_autosave_h_slider_changed"]
+[connection signal="text_changed" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2/HSlider/ValueEdit" to="." method="_on_autosave_value_edit_text_changed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer2/HSlider/Resetbutton" to="." method="_on_autosave_resetbutton_pressed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer3/ValueEdit" to="." method="_on_autosave_max_files_value_changed"]
 [connection signal="canceled" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_canceled"]
 [connection signal="dir_selected" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_dir_selected"]
-[connection signal="button_up" from="ScrollContainer/VBoxContainer2/FileSettings/Button" to="." method="_on_change_directorybutton_button_up"]
+[connection signal="visibility_changed" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
+[connection signal="button_up" from="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Button" to="." method="_on_change_directorybutton_button_up"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+/CNPC+Check" to="." method="_on_cnpc_check_toggled"]

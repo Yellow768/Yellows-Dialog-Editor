@@ -149,19 +149,14 @@ offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
-visible = false
-layout_mode = 0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 6.0
-offset_top = -16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 1
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1051.0
+offset_bottom = 37.0
 
 [node name="Add Dialog" type="Button" parent="TopPanel/TopPanelContainer"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 tooltip_text = "ADD_DIALOG_TOOLTIP"
 theme_override_styles/normal = SubResource("18")
@@ -245,6 +240,8 @@ theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
 text = "CO_REIMPORT"
 icon = ExtResource("9_mukh6")
+text_overrun_behavior = 3
+clip_text = true
 
 [node name="BttnSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 visible = false
@@ -301,21 +298,19 @@ popup/item_2/icon = ExtResource("9_mukh6")
 popup/item_2/id = 2
 
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -332.0
-offset_top = -16.0
-offset_right = -12.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -405.002
+offset_top = 5.0
+offset_bottom = 37.0
+grow_horizontal = 0
+alignment = 2
 
 [node name="EditorSettingsButton" type="Button" parent="TopPanel/EditorContainer"]
 process_mode = 1
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
@@ -324,12 +319,12 @@ text = "EDITOR_SETTINGS"
 icon = ExtResource("11_u3t51")
 
 [node name="VSeparator5" type="VSeparator" parent="TopPanel/EditorContainer"]
-custom_minimum_size = Vector2(25, 0)
+custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
 [node name="HomeButton" type="Button" parent="TopPanel/EditorContainer"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
 tooltip_text = "Returns to the home page"
 theme_override_styles/normal = SubResource("18")
@@ -370,9 +365,9 @@ offset_right = 70.0
 offset_bottom = 19.0
 grow_horizontal = 2
 text = "INFORMATION_PANEL_LABEL"
+clip_text = true
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -382,6 +377,7 @@ mouse_filter = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 script = ExtResource("17_fph0n")
 information_panel_path = NodePath("../..")
@@ -657,10 +653,10 @@ availability_level_path = NodePath("Availability/VBoxContainer/TimeandLevel/Play
 information_panel_path = NodePath("../..")
 
 [node name="Availability" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY"]
-custom_minimum_size = Vector2(436, 1500)
+custom_minimum_size = Vector2(436, 300)
 layout_mode = 2
 offset_right = 436.0
-offset_bottom = 1500.0
+offset_bottom = 937.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability"]
 custom_minimum_size = Vector2(435, 1080)
@@ -1330,7 +1326,6 @@ text = "LINK_PRESET"
 icon = ExtResource("32_jwfbh")
 
 [node name="IMAGES" type="Control" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 script = ExtResource("31_teijp")
 image_id_list_path = NodePath("HBoxContainer/VBoxContainer/ItemList")
@@ -1358,8 +1353,9 @@ information_panel_path = NodePath("../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES"]
 layout_mode = 1
-offset_right = 534.0
-offset_bottom = 400.0
+offset_top = 15.0
+offset_right = 549.0
+offset_bottom = 915.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer"]
 layout_mode = 2
@@ -1782,6 +1778,7 @@ text = "AV_MODE"
 [node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
 process_mode = 2
 visible = false
+custom_minimum_size = Vector2(1000, 700)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

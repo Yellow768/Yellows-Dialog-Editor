@@ -628,5 +628,6 @@ offset_bottom = 300.0
 [connection signal="pressed" from="Panel/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
+[connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
 [connection signal="pressed" from="Panel/InvalidFolderWarning/Confirm" to="." method="_on_Confirm_pressed"]
 [connection signal="button_up" from="Panel/InvalidFolderWarning/Cancel" to="." method="_on_Cancel_button_up"]

@@ -41,6 +41,7 @@ visible = false
 layout_mode = 2
 tooltip_text = "MAIL_ITEM_NBT_TOOLTIP"
 placeholder_text = "MAIL_CUSTOM_NBT"
+wrap_mode = 1
 autowrap_mode = 2
 max_size = 300
 

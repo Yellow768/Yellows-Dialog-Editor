@@ -18,6 +18,7 @@ func _ready():
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$PrevDirsContainer.add_child(quick_dir_button)
 	$Panel/FileDialog.current_dir = GlobalDeclarations.default_user_directory
+	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
 	print("Launched Succesfully")
 	
 
@@ -98,3 +99,7 @@ func _on_Confirm_pressed():
 		dir.make_dir(chosen_dir+"/customnpcs")
 		dir.make_dir(chosen_dir+"/customnpcs/dialogs")
 	change_to_editor(chosen_dir+"/customnpcs")
+
+
+func _on_file_dialog_visibility_changed():
+	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))

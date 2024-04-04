@@ -21,30 +21,22 @@ anchor_bottom = 1.0
 offset_right = 35.0
 theme_override_styles/panel = SubResource("1")
 
-[node name="ChooseFaction" parent="Panel" instance=ExtResource("2")]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_top = 0.0
-anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = 21.5
-offset_top = 16.0
-offset_right = 103.94
-offset_bottom = 47.0
-grow_horizontal = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ChooseFaction" parent="Panel/HBoxContainer" instance=ExtResource("2")]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
 text = "SELECT_FACTION"
 
-[node name="IsIsnotbutton" type="OptionButton" parent="Panel"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 8.0
-offset_top = -9.0
-offset_right = 105.0
-offset_bottom = 22.0
-grow_vertical = 2
+[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="IsIsnotbutton" type="OptionButton" parent="Panel/HBoxContainer"]
+layout_mode = 2
 alignment = 1
 item_count = 3
 fit_to_longest_item = false
@@ -55,16 +47,12 @@ popup/item_1/id = 1
 popup/item_2/text = "AV_IS_NOT"
 popup/item_2/id = 2
 
-[node name="StanceButton" type="OptionButton" parent="Panel"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 121.0
-offset_top = -9.0
-offset_right = 246.0
-offset_bottom = 22.0
-grow_vertical = 2
+[node name="VSeparator2" type="VSeparator" parent="Panel/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="StanceButton" type="OptionButton" parent="Panel/HBoxContainer"]
+layout_mode = 2
 alignment = 1
 item_count = 3
 fit_to_longest_item = false
@@ -75,23 +63,16 @@ popup/item_1/id = 1
 popup/item_2/text = "FACTION_UNFRIENDLY"
 popup/item_2/id = 2
 
-[node name="SpinBox" type="SpinBox" parent="Panel"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -120.0
-offset_top = -9.0
-offset_right = -36.9375
-offset_bottom = 22.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="VSeparator3" type="VSeparator" parent="Panel/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="Panel/HBoxContainer"]
+layout_mode = 2
 max_value = 10000.0
 prefix = "ID"
 
-[connection signal="faction_chosen" from="Panel/ChooseFaction" to="." method="set_id"]
-[connection signal="item_selected" from="Panel/IsIsnotbutton" to="." method="_on_IsIsnotbutton_item_selected"]
-[connection signal="item_selected" from="Panel/StanceButton" to="." method="_on_StanceButton_item_selected"]
-[connection signal="value_changed" from="Panel/SpinBox" to="." method="_on_SpinBox_value_changed"]
+[connection signal="faction_chosen" from="Panel/HBoxContainer/ChooseFaction" to="." method="set_id"]
+[connection signal="item_selected" from="Panel/HBoxContainer/IsIsnotbutton" to="." method="_on_IsIsnotbutton_item_selected"]
+[connection signal="item_selected" from="Panel/HBoxContainer/StanceButton" to="." method="_on_StanceButton_item_selected"]
+[connection signal="value_changed" from="Panel/HBoxContainer/SpinBox" to="." method="_on_SpinBox_value_changed"]
