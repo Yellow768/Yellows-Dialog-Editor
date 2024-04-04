@@ -372,6 +372,7 @@ grow_horizontal = 2
 text = "INFORMATION_PANEL_LABEL"
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -545,8 +546,7 @@ text = "PRESETS"
 [node name="TogglePresetVisible" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
 layout_mode = 2
 toggle_mode = true
-button_pressed = true
-text = "v"
+text = ">"
 
 [node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
 modulate = Color(1, 1, 1, 0)
@@ -554,6 +554,7 @@ custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
 [node name="Presets" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
+visible = false
 layout_mode = 2
 
 [node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]

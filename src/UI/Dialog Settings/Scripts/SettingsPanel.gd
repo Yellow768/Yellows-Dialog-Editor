@@ -60,6 +60,8 @@ func dialog_selected(dialog):
 func load_dialog_settings(dialog : dialog_node):
 	DialogSettingsTab.visible = true
 	await get_tree().create_timer(.01).timeout
+	if !is_instance_valid(dialog) || dialog == null:
+		return
 	DialogGeneralTab.load_current_dialog_settings(dialog)
 	DialogAvailabilityTab.load_current_dialog_settings(dialog)
 	DialogMailTab.load_current_dialog_settings(dialog)
