@@ -1378,6 +1378,7 @@ text = "-"
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer"]
 custom_minimum_size = Vector2(500, 900)
 layout_mode = 2
+vertical_scroll_mode = 0
 
 [node name="ImageSettings" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(0, 4000)

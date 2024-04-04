@@ -219,7 +219,6 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 		for page in json["DialogMail"]["Message"]["pages"]:
 			node.mail.pages.append(page.c_unescape())
 	for item in json["DialogMail"]["MailItems"]:
-		print(item["Slot"].replace("b",""))
 		var item_as_string := JSON.stringify(item,"	",false)
 		item_as_string = item_as_string.replace('"Slot": "0b",',"")
 		item_as_string = item_as_string.replace('"Slot": "1b",',"")

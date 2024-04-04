@@ -367,9 +367,6 @@ func _on_response_text_gui_input(event):
 			selected = true
 
 
-func _on_spin_box_gui_input(event):
-	print("test")
-
 
 func _on_color_picker_button_pressed():
 	for color in ColorPickerNode.get_picker().get_presets():

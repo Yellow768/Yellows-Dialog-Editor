@@ -140,7 +140,6 @@ func add_color_preset(preset):
 	
 func remove_color_preset(preset):
 	color_presets.remove_at(color_presets.find(preset))
-	print("test")
 	save_config()
 
 func int_to_color(integer : int) -> Color:

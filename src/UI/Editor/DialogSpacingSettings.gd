@@ -269,7 +269,6 @@ func _on_preset_option_button_item_selected(index):
 	set_settings_to_preset(PresetOptionButton.get_item_id(index))
 	
 func set_settings_to_preset(ID):
-	print(GlobalDeclarations.spacing_presets)
 	var preset_parameters = GlobalDeclarations.spacing_presets[int(ID)]
 	PresetTextEdit.text = ""
 	current_dialog.title_pos = preset_parameters.TitlePosition

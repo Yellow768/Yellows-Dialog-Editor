@@ -310,7 +310,7 @@ func _on_add_preset_button_pressed():
 
 
 func _on_remove_preset_button_pressed():
-	if PresetOptionButton.selected == -1 or PresetOptionButton.selected == 0 or PresetOptionButton.selected == 1 :
+	if PresetOptionButton.selected == -1 or PresetOptionButton.selected == 0:
 		return
 	var confirm_deletion_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
 	confirm_deletion_popup.connect("confirmed", Callable(self, "delete_preset"))
