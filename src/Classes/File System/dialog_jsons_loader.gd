@@ -47,7 +47,7 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 	regex.compile("(\\w+(?: \\w+)*):") # Some really old dialogs don't have quotes around JSON keys. This adds them so that Godot can properly load it
 	while(json_file.get_position() < json_file.get_length()):
 		var current_line := json_file.get_line()
-		if !'"DialogSound"' in current_line and !'"DialogCommand"' in current_line and !"TextSound" in current_line:
+		if !'"DialogSound"' in current_line and !'"DialogCommand"' in current_line and !"TextSound" in current_line and !"Texture" in current_line:
 			#Sounds and Commands might use the name space, minecraft: , which the above regex would change to "minecraft":, which would mess up the json
 			final_result = final_result.replace(current_line,regex.sub(current_line,'"$1": ',false))
 			current_line = regex.sub(current_line,'"$1": ',false)
@@ -64,7 +64,7 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 		if "Alpha" in current_line or "Scale" in current_line or "TextPitch" in current_line or "NPCScale" in current_line or "Rotation" in current_line:
 			replace_line = current_line.replace("f","")
 			final_result = final_result.replace(current_line,replace_line)
-		
+	print(final_result)
 	return final_result
 
 func replace_unparsable_data_in_mail_items(mail_items : String):

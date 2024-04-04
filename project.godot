@@ -31,6 +31,7 @@ file_logging/max_log_files=10
 
 [display]
 
+window/size/initial_position_type=2
 window/vsync/vsync_mode=false
 
 [editor]
@@ -174,4 +175,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 environment/defaults/default_environment="res://default_env.tres"
