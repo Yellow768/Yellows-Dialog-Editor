@@ -64,7 +64,6 @@ func replace_unparseable_dialog_json_values(json_file : FileAccess) -> String:
 		if "Alpha" in current_line or "Scale" in current_line or "TextPitch" in current_line or "NPCScale" in current_line or "Rotation" in current_line:
 			replace_line = current_line.replace("f","")
 			final_result = final_result.replace(current_line,replace_line)
-	print(final_result)
 	return final_result
 
 func replace_unparsable_data_in_mail_items(mail_items : String):
