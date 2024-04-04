@@ -121,6 +121,12 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	if commit_to_undo:
 		emit_signal("dialog_node_added",new_dialog)
 	current_dialog_index_map[new_dialog.node_index] = new_dialog
+	if new_dialog.visual_preset == -1:
+		new_dialog.visual_preset = GlobalDeclarations.default_visual_preset
+		new_dialog.update_visual_options_to_preset()
+	if new_dialog.spacing_preset == -1:
+		new_dialog.spacing_preset = GlobalDeclarations.default_spacing_preset
+		new_dialog.update_spacing_options_to_preset()
 	add_child(new_dialog)
 	return new_dialog
 

@@ -41,6 +41,7 @@ var total_height : int
 var initial_offset_x :float= 0
 var initial_offset_y :float= 0
 
+
 ##Dialog Data#
 
 @export var dialog_title : String = tr("NEW_DIALOG_TITLE")
@@ -61,6 +62,8 @@ var title_color : int = 0xffffff
 var dialog_color : int = 0xffffff
 var text_sound : String = 'minecraft:random.wood_click'
 var text_pitch : float = 1.0
+var visual_preset : int = -1
+var lock_visual_preset : bool = false
 
 #Spacing CustomNPCs + Option
 
@@ -80,6 +83,7 @@ var npc_offset_x : int = 0
 var npc_offset_y : int = 0
 var npc_scale : float = 1.0
 var spacing_preset : int = -1
+var lock_spacing_preset : bool = false
 
 
 var image_dictionary : Dictionary = {}
@@ -121,8 +125,6 @@ func _ready():
 	initial_offset_x = position_offset.x
 	DialogTextNode.text = text
 	TitleTextNode.text = dialog_title
-	if spacing_preset != -1:
-		update_spacing_options_to_preset()
 		
 
 func add_response_node(commit_to_undo := true):
@@ -264,6 +266,9 @@ func _on_TitleText_gui_input(event : InputEvent):
 
 
 func update_spacing_options_to_preset():
+	if !GlobalDeclarations.spacing_presets.has(spacing_preset):
+		spacing_preset = -1
+		return
 	var preset_parameters = GlobalDeclarations.spacing_presets[spacing_preset]
 	title_pos = preset_parameters.TitlePosition
 	alignment = preset_parameters.Alignment
@@ -280,6 +285,23 @@ func update_spacing_options_to_preset():
 	npc_offset_x = preset_parameters.NPCOffsetX
 	npc_offset_y = preset_parameters.NPCOffsetY
 	npc_scale = preset_parameters.NPCScale
+
+func update_visual_options_to_preset():
+	if !GlobalDeclarations.visual_presets.has(visual_preset):
+		visual_preset = -1
+		return
+	var preset_parameters = GlobalDeclarations.visual_presets[visual_preset]
+	hide_npc = preset_parameters.HideNPC
+	show_wheel = preset_parameters.ShowDialogWheel
+	disable_esc = preset_parameters.DisableEsc
+	darken_screen = preset_parameters.DarkenScreen
+	render_gradual = preset_parameters.RenderType
+	text_sound = preset_parameters.TextSound
+	text_pitch = preset_parameters.TextPitch
+	show_previous_dialog = preset_parameters.ShowPreviousDialog
+	show_response_options = preset_parameters.ShowResponseOptions
+	dialog_color = preset_parameters.DialogColor
+	title_color = preset_parameters.TitleColor
 
 func sort_ascending(a, b):
 	if a[0] < b[0]:
@@ -424,7 +446,9 @@ func save():
 		"mail" : save_mail,
 		"connected_response_indexes" : connected_response_indexes,
 		"image_dictionary" : JSON.stringify(image_dictionary),
-		"spacing_preset" : spacing_preset
+		"spacing_preset" : spacing_preset,
+		"visual_preset" : visual_preset,
+		"lock_visual_preset" : lock_visual_preset
 	}
 	return save_dict
 

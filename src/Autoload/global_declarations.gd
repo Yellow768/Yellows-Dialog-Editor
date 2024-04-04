@@ -31,6 +31,11 @@ var enable_customnpcs_plus_options := false
 var last_used_export_version := 2
 var spacing_presets : Dictionary = {}
 var spacing_presets_stringified : String
+var visual_presets : Dictionary = {}
+var visual_presets_stringified : String
+
+var default_visual_preset : int = 0
+var default_spacing_preset : int = 0
 
 var allow_above_six_responses := false
 
@@ -56,8 +61,14 @@ func _ready():
 	enable_customnpcs_plus_options = config.get_value("user_settings","enable_customnpcs_plus_options",enable_customnpcs_plus_options)
 	last_used_export_version = config.get_value("user_settings","last_used_export_version",last_used_export_version)
 	spacing_presets_stringified = config.get_value("user_settings","spacing_presets_stringified","{}")
+	visual_presets_stringified = config.get_value("user_settings","visual_presets_stringified","{}")
 	for key in JSON.parse_string(spacing_presets_stringified).keys():
 		spacing_presets[int(key)] = JSON.parse_string(spacing_presets_stringified)[key]
+	for key in JSON.parse_string(visual_presets_stringified).keys():
+		visual_presets[int(key)] = JSON.parse_string(visual_presets_stringified)[key]
+	default_visual_preset = config.get_value("user_settings","default_visual_preset",default_visual_preset)
+	default_spacing_preset = config.get_value("user_settings","default_spacing_preset",default_spacing_preset)
+	add_default_presets()
 	language = config.get_value("user_settings","language",language)
 	TranslationServer.set_locale(language)
 	for action in actions:
@@ -65,7 +76,41 @@ func _ready():
 		InputMap.action_erase_events(action)
 		for event in config.get_value("keybinds",action,temp_action):
 			InputMap.action_add_event(action,event)
-		
+
+func add_default_presets():
+	GlobalDeclarations.spacing_presets[0]={
+		"Name" : "Default",
+		"TitlePosition" : 0,
+		"Alignment" : true,
+		"Width" : 300,
+		"Height" : 400,
+		"TextOffsetX" : 0,
+		"TextOffsetY" : 0,
+		"TitleOffsetX" : 0,
+		"TitleOffsetY" : 0,
+		"OptionOffsetX" : 0,
+		"OptionOffsetY" : 0,
+		"OptionSpacingX" : 0,
+		"OptionSpacingY" : 0,
+		"NPCOffsetX" : 0,
+		"NPCOffsetY" : 0,
+		"NPCScale" : 1.0
+	}
+	GlobalDeclarations.visual_presets[0] = {
+		"Name" : "Default",
+		"HideNPC" : false,
+		"ShowDialogWheel" : false,
+		"DisableEsc" : false,
+		"DarkenScreen" : true,
+		"RenderType" : 0,
+		"TextSound" : "minecraft:random.wood_click",
+		"TextPitch" : 1.0,
+		"ShowPreviousDialog" : true,
+		"ShowResponseOptions" : true,
+		"DialogColor" : Color(1,1,1).to_html(false).hex_to_int(),
+		"TitleColor" : Color(1,1,1).to_html(false).hex_to_int() 
+		}
+	
 func save_config():
 	var config = ConfigFile.new()
 	config.load(user_settings_path)
@@ -82,6 +127,9 @@ func save_config():
 	config.set_value("user_settings","enable_customnpcs_plus_options",enable_customnpcs_plus_options)
 	config.set_value("user_settings","last_used_export_version",last_used_export_version)
 	config.set_value("user_settings","spacing_presets_stringified",JSON.stringify(spacing_presets))
+	config.set_value("user_settings","visual_presets_stringified",JSON.stringify(visual_presets))
+	config.set_value("user_settings","default_visual_preset",default_visual_preset)
+	config.set_value("user_settings","default_spacing_preset",default_spacing_preset)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)

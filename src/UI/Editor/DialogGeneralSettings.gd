@@ -24,7 +24,8 @@ var current_dialog : dialog_node
 @export var toggle_preset_visible_path : NodePath
 @export var preset_text_edit_path : NodePath
 @export var preset_option_button_path : NodePath
-
+@export var visual_settings_path : NodePath
+@export var preset_lock_path : NodePath
 
 @export_group("General Settings")
 @export var command_edit_path: NodePath
@@ -51,6 +52,9 @@ var current_dialog : dialog_node
 @onready var TitleColor : ColorPickerButton= get_node(title_color_path)
 @onready var PresetOptions : VBoxContainer = get_node(preset_options_path)
 @onready var TogglePresetOptionsVisible : Button = get_node(toggle_preset_visible_path)
+@onready var VisualSettings : VBoxContainer = get_node(visual_settings_path)
+@onready var PresetLock : Button = get_node(preset_lock_path)
+
 
 @onready var PresetOptionButton : OptionButton = get_node(preset_option_button_path)
 @onready var PresetTextEdit : TextEdit = get_node(preset_text_edit_path)
@@ -74,7 +78,8 @@ func _ready():
 	DialogColor.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
 	TitleColor.get_picker().connect("preset_added",Callable(GlobalDeclarations,"add_color_preset"))
 	TitleColor.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
-
+	create_preset_list()
+	PresetTextEdit.placeholder_text = tr("NEW_PRESET_TEXT")
 
 func update_customnpcs_plus_options():
 	DarkenScreenCheckbox.visible = GlobalDeclarations.enable_customnpcs_plus_options
@@ -118,6 +123,16 @@ func load_current_dialog_settings(dialog : dialog_node):
 	DialogColor.color = GlobalDeclarations.int_to_color(current_dialog.dialog_color)
 	TitleColor.color = GlobalDeclarations.int_to_color(current_dialog.title_color)
 	TextSoundOptions.visible = bool(RenderTypeOption.selected)
+	print(current_dialog.visual_preset)
+	if current_dialog.visual_preset != -1 && GlobalDeclarations.visual_presets.has(current_dialog.visual_preset):
+		PresetOptionButton.select(PresetOptionButton.get_item_index(current_dialog.visual_preset))
+	else:
+		PresetOptionButton.select(-1)
+		current_dialog.visual_preset = -1
+	PresetLock.button_pressed = current_dialog.lock_visual_preset
+	PresetLock.toggled.emit(PresetLock.button_pressed)
+	if current_dialog.lock_visual_preset:
+		set_settings_to_preset(current_dialog.visual_preset)
 	
 
 func disconnect_current_dialog(dialog: dialog_node):
@@ -260,10 +275,14 @@ func create_preset_list():
 	for preset in GlobalDeclarations.visual_presets.keys():
 		PresetOptionButton.add_item(GlobalDeclarations.visual_presets[preset].Name,int(preset))
 	if current_dialog:
-		PresetOptionButton.select(current_dialog.visual_preset)
+		PresetOptionButton.select(PresetOptionButton.get_item_index(current_dialog.visual_preset))
 
 func _on_add_preset_button_pressed():
 	if PresetTextEdit.text != "":
+		var preset_name = PresetTextEdit.text
+		for preset in GlobalDeclarations.visual_presets:
+			if GlobalDeclarations.visual_presets[preset].Name == PresetTextEdit.text:
+				preset_name += "_"
 		var preset_keys = GlobalDeclarations.visual_presets.keys()
 		preset_keys.sort()
 		var ID 
@@ -272,7 +291,7 @@ func _on_add_preset_button_pressed():
 		else:
 			ID = preset_keys.back() + 1
 		GlobalDeclarations.visual_presets[ID] = {
-			"Name" : PresetTextEdit.text,
+			"Name" : preset_name,
 			"HideNPC" : HideNpcCheckbox.button_pressed,
 			"ShowDialogWheel" : ShowWheelCheckbox.button_pressed,
 			"DisableEsc" : DisableEscCheckbox.button_pressed,
@@ -283,7 +302,7 @@ func _on_add_preset_button_pressed():
 			"ShowPreviousDialog" : ShowPreviousDialog.button_pressed,
 			"ShowResponseOptions" : ShowResponses.button_pressed,
 			"DialogColor" : DialogColor.color.to_html(false).hex_to_int(),
-			"Title" : TitleColor.color.to_html(false).hex_to_int() 
+			"TitleColor" : TitleColor.color.to_html(false).hex_to_int() 
 		}
 		current_dialog.visual_preset = ID
 	create_preset_list()
@@ -291,7 +310,7 @@ func _on_add_preset_button_pressed():
 
 
 func _on_remove_preset_button_pressed():
-	if PresetOptionButton.selected == -1:
+	if PresetOptionButton.selected == -1 or PresetOptionButton.selected == 0 or PresetOptionButton.selected == 1 :
 		return
 	var confirm_deletion_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
 	confirm_deletion_popup.connect("confirmed", Callable(self, "delete_preset"))
@@ -302,21 +321,25 @@ func _on_remove_preset_button_pressed():
 
 
 func delete_preset():
+	if GlobalDeclarations.default_visual_preset == PresetOptionButton.get_item_id(PresetOptionButton.selected):
+		GlobalDeclarations.default_visual_preset = -1
 	GlobalDeclarations.visual_presets.erase(PresetOptionButton.get_item_id(PresetOptionButton.selected))
 	current_dialog.visual_preset = -1
 	create_preset_list()
 	GlobalDeclarations.save_config()
+	
 
 func _on_update_preset_button_pressed():
-	if PresetOptionButton.selected == -1:
+	
+	if PresetOptionButton.selected == -1 or PresetOptionButton.selected == 0:
 		return
 	var preset_name
-	if PresetTextEdit.text == "":
+	if PresetTextEdit.text.is_empty():
 		preset_name = PresetOptionButton.get_item_text(PresetOptionButton.selected)
 	else:
 		preset_name = PresetTextEdit.text
-	GlobalDeclarations.spacing_presets[PresetOptionButton.get_item_id(PresetOptionButton.selected)]={
-		"Name" : PresetTextEdit.text,
+	GlobalDeclarations.visual_presets[PresetOptionButton.get_item_id(PresetOptionButton.selected)]={
+		"Name" : preset_name,
 		"HideNPC" : HideNpcCheckbox.button_pressed,
 		"ShowDialogWheel" : ShowWheelCheckbox.button_pressed,
 		"DisableEsc" : DisableEscCheckbox.button_pressed,
@@ -327,13 +350,13 @@ func _on_update_preset_button_pressed():
 		"ShowPreviousDialog" : ShowPreviousDialog.button_pressed,
 		"ShowResponseOptions" : ShowResponses.button_pressed,
 		"DialogColor" : DialogColor.color.to_html(false).hex_to_int(),
-		"Title" : TitleColor.color.to_html(false).hex_to_int()
+		"TitleColor" : TitleColor.color.to_html(false).hex_to_int()
 	}
 	create_preset_list()
 	GlobalDeclarations.save_config()
 	for node in get_tree().get_nodes_in_group("Save"):
-		if node.node_type == "Dialog Node" && node.visual_preset == PresetOptionButton.get_item_id(PresetOptionButton.selected):
-			node.update_spacing_options_to_preset()
+		if node.node_type == "Dialog Node" && node.visual_preset == PresetOptionButton.get_item_id(PresetOptionButton.selected) && node.lock_visual_preset:
+			node.update_visual_options_to_preset()
 
 
 func _on_preset_option_button_item_selected(index):
@@ -342,23 +365,41 @@ func _on_preset_option_button_item_selected(index):
 	set_settings_to_preset(PresetOptionButton.get_item_id(index))
 	
 func set_settings_to_preset(ID):
-	print(GlobalDeclarations.visual_presets)
-	var preset_parameters = GlobalDeclarations.spacing_presets[int(ID)]
-	PresetTextEdit.text = ""
-	current_dialog. = preset_parameters.TitlePosition
-	current_dialog.alignment = preset_parameters.Alignment
-	current_dialog.text_width = preset_parameters.Width
-	current_dialog.text_height = preset_parameters.Height
-	current_dialog.title_offset_x = preset_parameters.TitleOffsetX
-	current_dialog.title_offset_y = preset_parameters.TitleOffsetY
-	current_dialog.text_offset_x = preset_parameters.TextOffsetX
-	current_dialog.text_offset_y = preset_parameters.TextOffsetY
-	current_dialog.option_offset_x = preset_parameters.OptionOffsetX
-	current_dialog.option_offset_y = preset_parameters.OptionOffsetY
-	current_dialog.option_spacing_x = preset_parameters.OptionSpacingX
-	current_dialog.option_spacing_y = preset_parameters.OptionSpacingY
-	current_dialog.npc_offset_x = preset_parameters.NPCOffsetX
-	current_dialog.npc_offset_y = preset_parameters.NPCOffsetY
-	current_dialog.npc_scale = preset_parameters.NPCScale
-	current_dialog.visual_preset = ID
 
+	var preset_parameters = GlobalDeclarations.visual_presets[int(ID)]
+	PresetTextEdit.text = ""
+	current_dialog.hide_npc = preset_parameters.HideNPC
+	current_dialog.show_wheel = preset_parameters.ShowDialogWheel
+	current_dialog.disable_esc = preset_parameters.DisableEsc
+	current_dialog.darken_screen = preset_parameters.DarkenScreen
+	current_dialog.render_gradual = preset_parameters.RenderType
+	current_dialog.text_sound = preset_parameters.TextSound
+	current_dialog.text_pitch = preset_parameters.TextPitch
+	current_dialog.show_previous_dialog = preset_parameters.ShowPreviousDialog
+	current_dialog.show_response_options = preset_parameters.ShowResponseOptions
+	current_dialog.dialog_color = preset_parameters.DialogColor
+	current_dialog.title_color = preset_parameters.TitleColor
+	current_dialog.visual_preset = ID
+	HideNpcCheckbox.button_pressed = current_dialog.hide_npc
+	ShowWheelCheckbox.button_pressed = current_dialog.show_wheel
+	DisableEscCheckbox.button_pressed = current_dialog.disable_esc
+	DarkenScreenCheckbox.button_pressed = current_dialog.darken_screen
+	RenderTypeOption.selected = current_dialog.render_gradual
+	TextSound.text = current_dialog.text_sound
+	TextPitch.value = current_dialog.text_pitch
+	ShowPreviousDialog.button_pressed = current_dialog.show_previous_dialog
+	ShowResponses.button_pressed = current_dialog.show_response_options
+	DialogColor.color = GlobalDeclarations.int_to_color(current_dialog.dialog_color)
+	TitleColor.color = GlobalDeclarations.int_to_color(current_dialog.title_color)
+
+
+
+func _on_lock_toggled(button_pressed):
+	current_dialog.lock_visual_preset = button_pressed
+	if button_pressed:
+		VisualSettings.mouse_filter = Control.MOUSE_FILTER_STOP
+		VisualSettings.modulate = Color(.5,.5,.5)
+		
+	else:
+		VisualSettings.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		VisualSettings.modulate = Color(1,1,1)

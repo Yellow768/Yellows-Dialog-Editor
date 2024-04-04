@@ -45,6 +45,8 @@ default_directory_label_path = NodePath("ScrollContainer/VBoxContainer2/FileSett
 default_directory_file_dialog_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory/FileDialog")
 language_option_path = NodePath("ScrollContainer/VBoxContainer2/Language/LanguageOption")
 cnpc_plus_check_path = NodePath("ScrollContainer/VBoxContainer2/FileSettings/CustomNPCs+/CNPC+Check")
+default_visual_preset_path = NodePath("ScrollContainer/VBoxContainer2/DefaultVisualSettings/VisualPresetButton")
+default_spacing_preset_path = NodePath("ScrollContainer/VBoxContainer2/Default Spacing Preset/SpacingPresetButton")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -194,6 +196,32 @@ offset_left = 308.54
 offset_right = 348.54
 offset_bottom = 24.0
 
+[node name="DefaultVisualSettings" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer2/DefaultVisualSettings"]
+layout_mode = 2
+tooltip_text = "DEFAULT_VISUAL_PRESET_TOOLTIP"
+mouse_filter = 1
+text = "DEFAULT_VISUAL_PRESET"
+
+[node name="VisualPresetButton" type="OptionButton" parent="ScrollContainer/VBoxContainer2/DefaultVisualSettings"]
+layout_mode = 2
+
+[node name="Default Spacing Preset" type="HBoxContainer" parent="ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer2/Default Spacing Preset"]
+layout_mode = 2
+tooltip_text = "DEFAULT_SPACING_PRESET_TOOLTIP"
+mouse_filter = 1
+text = "DEFAULT_SPACING_PRESET"
+
+[node name="SpacingPresetButton" type="OptionButton" parent="ScrollContainer/VBoxContainer2/Default Spacing Preset"]
+layout_mode = 2
+
 [node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
@@ -341,6 +369,8 @@ horizontal_alignment = 1
 [connection signal="toggled" from="ScrollContainer/VBoxContainer2/GridSettings/EnableGridSnap/CheckButton" to="." method="_on_undo_button_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer2/GridSettings/HoldShift/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer2/CreationSettings/AllowMoreThanSix/CheckButton" to="." method="_on_allow_six_check_button_toggled"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer2/DefaultVisualSettings/VisualPresetButton" to="." method="_on_visual_preset_button_item_selected"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer2/Default Spacing Preset/SpacingPresetButton" to="." method="_on_spacing_preset_button_item_selected"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider" to="." method="_on_autosave_h_slider_changed"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider/ValueEdit" to="." method="_on_autosave_value_edit_text_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer2/FileSettings/Autosave Time/HSlider/Resetbutton" to="." method="_on_autosave_resetbutton_pressed"]

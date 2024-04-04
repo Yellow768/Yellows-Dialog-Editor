@@ -20,6 +20,8 @@ extends Control
 @export var preset_text_edit_path : NodePath
 @export var preset_option_button_path : NodePath
 @export var update_preset_button_path : NodePath
+@export var spacing_options_path : NodePath
+@export var lock_spacing_preset_path : NodePath
 
 @onready var InformationPanel : Panel = get_node(information_panel_path)
 @onready var TitlePosition : OptionButton = get_node(title_position_path)
@@ -39,8 +41,13 @@ extends Control
 @onready var NPCScale : SpinBox = get_node(npc_scale_path)
 @onready var PresetOptionButton : OptionButton = get_node(preset_option_button_path)
 @onready var PresetTextEdit : TextEdit = get_node(preset_text_edit_path)
+@onready var SpacingOptions : VBoxContainer = get_node(spacing_options_path)
+@onready var LockSpackingPreset : Button = get_node(lock_spacing_preset_path)
 
 var current_dialog : dialog_node
+
+func _ready():
+	PresetTextEdit.placeholder_text = tr("NEW_PRESET_TEXT")
 
 func load_current_dialog_settings(dialog : dialog_node):
 	current_dialog = dialog
@@ -61,10 +68,13 @@ func load_current_dialog_settings(dialog : dialog_node):
 	NPCScale.value = current_dialog.npc_scale
 	if current_dialog.spacing_preset != -1 && GlobalDeclarations.spacing_presets.has(current_dialog.spacing_preset):
 		PresetOptionButton.select(PresetOptionButton.get_item_index(current_dialog.spacing_preset))
-		set_settings_to_preset(current_dialog.spacing_preset)
 	else:
 		PresetOptionButton.select(-1)
 		current_dialog.spacing_preset = -1
+	LockSpackingPreset.button_pressed = current_dialog.lock_spacing_preset
+	LockSpackingPreset.toggled.emit(LockSpackingPreset.button_pressed)
+	if current_dialog.lock_spacing_preset:
+		set_settings_to_preset(current_dialog.spacing_preset)
 	
 func _on_title_position_option_item_selected(index):
 	current_dialog.title_pos = index
@@ -167,6 +177,10 @@ func create_preset_list():
 
 func _on_add_preset_button_pressed():
 	if PresetTextEdit.text != "":
+		var preset_name = PresetTextEdit.text
+		for preset in GlobalDeclarations.spacing_presets:
+			if GlobalDeclarations.spacing_presets[preset].Name == PresetTextEdit.text:
+				preset_name += "_"
 		var preset_keys = GlobalDeclarations.spacing_presets.keys()
 		preset_keys.sort()
 		var ID 
@@ -175,7 +189,7 @@ func _on_add_preset_button_pressed():
 		else:
 			ID = preset_keys.back() + 1
 		GlobalDeclarations.spacing_presets[ID] = {
-			"Name" : PresetTextEdit.text,
+			"Name" : preset_name,
 			"TitlePosition" : TitlePosition.selected,
 			"Alignment" : Alignment.selected,
 			"Width" : DialogWidth.value,
@@ -198,7 +212,7 @@ func _on_add_preset_button_pressed():
 
 
 func _on_remove_preset_button_pressed():
-	if PresetOptionButton.selected == -1:
+	if PresetOptionButton.selected == -1 or PresetOptionButton.selected == 0:
 		return
 	var confirm_deletion_popup = load("res://src/UI/Util/ConfirmDeletion.tscn").instantiate()
 	confirm_deletion_popup.connect("confirmed", Callable(self, "delete_preset"))
@@ -209,13 +223,15 @@ func _on_remove_preset_button_pressed():
 
 
 func delete_preset():
+	if GlobalDeclarations.default_spacing_preset == PresetOptionButton.get_item_id(PresetOptionButton.selected):
+		GlobalDeclarations.default_spacing_preset = -1
 	GlobalDeclarations.spacing_presets.erase(PresetOptionButton.get_item_id(PresetOptionButton.selected))
 	current_dialog.spacing_preset = -1
 	create_preset_list()
 	GlobalDeclarations.save_config()
 
 func _on_update_preset_button_pressed():
-	if PresetOptionButton.selected == -1:
+	if PresetOptionButton.selected == -1 or PresetOptionButton.selected == 0:
 		return
 	var preset_name
 	if PresetTextEdit.text == "":
@@ -287,3 +303,11 @@ func set_settings_to_preset(ID):
 	NPCOffsetX.value = current_dialog.npc_offset_x
 	NPCOffsetY.value = current_dialog.npc_offset_y
 	NPCScale.value = current_dialog.npc_scale
+
+
+func _on_lock_toggled(button_pressed):
+	current_dialog.lock_spacing_preset = button_pressed
+	if button_pressed:
+		SpacingOptions.modulate = Color(.5,.5,.5)
+	else:
+		SpacingOptions.modulate = Color(1,1,1)

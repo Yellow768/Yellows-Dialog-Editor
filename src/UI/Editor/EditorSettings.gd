@@ -19,6 +19,8 @@ signal language_changed
 @export var default_directory_file_dialog_path : NodePath
 @export var language_option_path : NodePath
 @export var cnpc_plus_check_path : NodePath
+@export var default_visual_preset_path : NodePath
+@export var default_spacing_preset_path : NodePath
 
 @onready var HideConnectionSlider : HSlider= get_node(hide_connection_slider_path)
 @onready var HoldShiftCheck :Button= get_node(hold_shift_check_path)
@@ -31,6 +33,9 @@ signal language_changed
 @onready var DefaultDirectoryFileDialog : FileDialog = get_node(default_directory_file_dialog_path)
 @onready var LanguageOption : OptionButton = get_node(language_option_path)
 @onready var CNPCPlusCheck : CheckButton = get_node(cnpc_plus_check_path)
+@onready var DefaultVisualPreset : OptionButton = get_node(default_visual_preset_path)
+@onready var DefaultSpacingPreset : OptionButton = get_node(default_spacing_preset_path)
+
 
 func _ready():
 	HideConnectionSlider.value = GlobalDeclarations.hide_connection_distance
@@ -42,7 +47,7 @@ func _ready():
 	DefaultDirectoryLabel.text = GlobalDeclarations.default_user_directory
 	DefaultDirectoryFileDialog.current_dir = GlobalDeclarations.default_user_directory
 	CNPCPlusCheck.button_pressed = GlobalDeclarations.enable_customnpcs_plus_options
-	
+	$"ScrollContainer/VBoxContainer2/Default Spacing Preset".visible = GlobalDeclarations.enable_customnpcs_plus_options
 	for action in GlobalDeclarations.actions:
 		var keybind_instance = keybind_scene.instantiate()
 		keybind_instance.assign_action(action)
@@ -50,8 +55,17 @@ func _ready():
 	for lang in TranslationServer.get_loaded_locales():
 		LanguageOption.add_item(language_names_in_their_language[TranslationServer.get_language_name(lang)])
 	LanguageOption.selected = TranslationServer.get_loaded_locales().find(GlobalDeclarations.language)
-	
-		
+	DefaultVisualPreset.add_item("Default",0)
+	DefaultSpacingPreset.add_item("Default",0)
+	for preset in GlobalDeclarations.visual_presets.keys():
+		DefaultVisualPreset.add_item(GlobalDeclarations.visual_presets[preset].Name,preset)
+	for preset in GlobalDeclarations.spacing_presets.keys():
+		DefaultSpacingPreset.add_item(GlobalDeclarations.spacing_presets[preset].Name,preset)
+	if GlobalDeclarations.visual_presets.has(GlobalDeclarations.default_visual_preset):
+		DefaultVisualPreset.select(DefaultVisualPreset.get_item_index(GlobalDeclarations.default_visual_preset))
+	if GlobalDeclarations.spacing_presets.has(GlobalDeclarations.default_spacing_preset):
+		DefaultSpacingPreset.select(DefaultSpacingPreset.get_item_index(GlobalDeclarations.default_spacing_preset))
+
 var language_names_in_their_language = {
 	"English" : "English",
 	"Spanish" : "Español",
@@ -91,6 +105,16 @@ func _on_button_pressed():
 
 func _on_editor_settings_button_pressed():
 	visible = true
+	DefaultVisualPreset.clear()
+	DefaultSpacingPreset.clear()
+	for preset in GlobalDeclarations.visual_presets.keys():
+		DefaultVisualPreset.add_item(GlobalDeclarations.visual_presets[preset].Name,preset)
+	for preset in GlobalDeclarations.spacing_presets.keys():
+		DefaultSpacingPreset.add_item(GlobalDeclarations.spacing_presets[preset].Name,preset)
+	if GlobalDeclarations.visual_presets.has(GlobalDeclarations.default_visual_preset):
+		DefaultVisualPreset.select(DefaultVisualPreset.get_item_index(GlobalDeclarations.default_visual_preset))
+	if GlobalDeclarations.spacing_presets.has(GlobalDeclarations.default_spacing_preset):
+		DefaultSpacingPreset.select(DefaultSpacingPreset.get_item_index(GlobalDeclarations.default_spacing_preset))
 	get_tree().paused = true
 
 
@@ -147,4 +171,13 @@ func _on_language_option_item_selected(index):
 
 func _on_cnpc_check_toggled(button_pressed):
 	GlobalDeclarations.enable_customnpcs_plus_options = button_pressed
+	$"ScrollContainer/VBoxContainer2/Default Spacing Preset".visible = button_pressed
 	emit_signal("custom_npcs_plus_changed")
+
+
+func _on_visual_preset_button_item_selected(index):
+	GlobalDeclarations.default_visual_preset = DefaultVisualPreset.get_item_id(index)
+
+
+func _on_spacing_preset_button_item_selected(index):
+	GlobalDeclarations.default_spacing_preset = DefaultSpacingPreset.get_item_id(index)
