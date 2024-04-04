@@ -80,6 +80,7 @@ func _ready():
 	TitleColor.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
 	create_preset_list()
 	PresetTextEdit.placeholder_text = tr("NEW_PRESET_TEXT")
+	update_customnpcs_plus_options()
 
 func update_customnpcs_plus_options():
 	DarkenScreenCheckbox.visible = GlobalDeclarations.enable_customnpcs_plus_options

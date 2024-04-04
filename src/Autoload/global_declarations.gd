@@ -45,7 +45,7 @@ var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_r
 
 var assigning_keybind = false
 
-var language = OS.get_locale()
+var language = OS.get_locale_language()
 
 func _ready():
 	var config = ConfigFile.new()
