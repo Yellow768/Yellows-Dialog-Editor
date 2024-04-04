@@ -304,10 +304,10 @@ mouse_filter = 1
 autowrap_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="ScrollContainer/VBoxContainer2/FileSettings/HBoxContainer/Default Directory"]
-title = "FILE_TITLE"
+title = "Open a Directory"
 position = Vector2i(0, 36)
 size = Vector2i(700, 600)
-ok_button_text = "Select This Folder"
+ok_button_text = "Select Current Folder"
 cancel_button_text = "CANCEL"
 file_mode = 2
 access = 2
