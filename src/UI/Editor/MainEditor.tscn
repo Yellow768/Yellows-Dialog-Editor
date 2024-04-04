@@ -585,10 +585,9 @@ layout_mode = 2
 tooltip_text = "ADD_NEW_PRESET_TOOLTIP"
 text = "ADD_NEW_PRESET"
 
-[node name="Lock" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="Lock" type="CheckButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
 layout_mode = 2
 tooltip_text = "LINK_PRESET_TOOLTIP"
-toggle_mode = true
 text = "LINK_PRESET"
 icon = ExtResource("20_wkm7u")
 
@@ -1318,10 +1317,9 @@ layout_mode = 2
 tooltip_text = "ADD_NEW_PRESET_TOOLTIP"
 text = "ADD_NEW_PRESET"
 
-[node name="Lock" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="Lock" type="CheckButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "LINK_PRESET_TOOLTIP"
-toggle_mode = true
 text = "LINK_PRESET"
 icon = ExtResource("32_jwfbh")
 

@@ -50,7 +50,7 @@ var category_temp_data : Dictionary = {}
 func _ready():
 	create_category_buttons(EnvironmentIndex.index_categories())
 	EnvironmentIndex.connect("category_duplicated",Callable(self,"load_duplicated_category"))
-
+	export_version = GlobalDeclarations.last_used_export_version
 	
 
 func create_category_buttons(categories):
