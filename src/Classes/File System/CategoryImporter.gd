@@ -152,6 +152,11 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 	node.time_availability = json["AvailabilityDayTime"]
 	if json.has("DialogAlignment"):
 		print("Dialog has CustomNPCs+ formatting. Importing settings")
+		print(json["NPCScale"])
+		node.visual_preset = 0
+		node.spacing_preset = 0
+		node.lock_spacing_preset = false
+		node.lock_visual_preset = false
 		node.alignment = bool(json["DialogAlignment"])
 		node.option_offset_x = json["OptionOffsetX"]
 		node.option_offset_y = json["OptionOffsetY"]
