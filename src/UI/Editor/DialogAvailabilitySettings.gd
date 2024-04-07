@@ -113,7 +113,7 @@ func exit_dialog_availability_mode():
 func find_dialog_node_from_id(id : int):
 	var dialog_nodes = get_tree().get_nodes_in_group("Save")
 	for dialog in dialog_nodes:
-		if dialog.dialog_id == id:
+		if dialog.node_type == "Dialog Node" && dialog.dialog_id == id:
 			return dialog
 			
 
