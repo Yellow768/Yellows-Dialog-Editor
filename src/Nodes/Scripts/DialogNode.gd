@@ -146,7 +146,6 @@ func delete_response_node(deletion_slot : int,response_node : response_node):
 func clear_responses():
 	var responses_to_clear = response_options.duplicate()
 	for response in responses_to_clear:
-		print(response.response_title)
 		response.delete_self(false)
 		
 	response_options.clear()

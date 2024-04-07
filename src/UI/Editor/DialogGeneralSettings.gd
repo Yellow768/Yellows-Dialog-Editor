@@ -124,7 +124,6 @@ func load_current_dialog_settings(dialog : dialog_node):
 	DialogColor.color = GlobalDeclarations.int_to_color(current_dialog.dialog_color)
 	TitleColor.color = GlobalDeclarations.int_to_color(current_dialog.title_color)
 	TextSoundOptions.visible = bool(RenderTypeOption.selected)
-	print(current_dialog.visual_preset)
 	if current_dialog.visual_preset != -1 && GlobalDeclarations.visual_presets.has(current_dialog.visual_preset):
 		PresetOptionButton.select(PresetOptionButton.get_item_index(current_dialog.visual_preset))
 	else:

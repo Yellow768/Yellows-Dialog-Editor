@@ -516,7 +516,6 @@ func execute_action_move_color_organizer(action):
 func execute_action_add_multiple_nodes(action):
 	for dialog in action.dialog_data:
 		execute_action_add_dialog({"dialog_data":dialog})
-		print(action.dialog_data)
 	for response in action.response_data:
 		execute_action_add_response({"response_data":response})
 	for color_org in action.color_organizer_data:
@@ -526,7 +525,6 @@ func execute_action_delete_multiple_nodes(action):
 	for dialog in action.dialogs:
 		emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[dialog],true,false)
 	for response in action.responses:
-		print(dialog_editor.current_response_index_map)
 		emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[response].parent_dialog,dialog_editor.current_response_index_map[response],false)
 	for col_org in action.color_organizers:
 		emit_signal("request_action_delete_color_organizer",dialog_editor.current_color_organizer_index_map[col_org],false)
