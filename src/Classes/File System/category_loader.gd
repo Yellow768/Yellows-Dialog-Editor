@@ -95,6 +95,12 @@ func connect_all_responses():
 				connected_dialog = dialog
 		if response.to_dialog_id > 0 && connected_dialog != null:
 			emit_signal("request_connect_nodes",response,0,connected_dialog,0)
+		if response.to_dialog_id > 0 && connected_dialog == null:
+			response.set_slot_enabled_right(1,false)
+			response.RemoteConnectionContainer.visible = true
+			response.RemoteConnectionVSeparator.visible = false
+			response.RemoteConnectionJumpButton.visible = false
+			response.RemoteConnectionText.text = "ID Manually Set."
 
 
 func create_new_dialog_node_from_ydec(node_data : Dictionary):

@@ -10,6 +10,7 @@ extends GraphNode
 @export var _remote_connection_text_path: NodePath
 @export var _remote_connection_disconnect_button_path: NodePath
 @export var _remote_connection_jump_button_path: NodePath
+@export var _remote_connection_vseparation_path : NodePath
 @export var _id_spinbox: NodePath
 
 @onready var ResponseTextNode := get_node(_response_text_node_path)
@@ -21,7 +22,9 @@ extends GraphNode
 @onready var RemoteConnectionText := get_node(_remote_connection_text_path)
 @onready var RemoteConnectionDisconnectButton := get_node(_remote_connection_disconnect_button_path)
 @onready var RemoteConnectionJumpButton := get_node(_remote_connection_jump_button_path)
-@onready var IdSpinbox := get_node(_id_spinbox)
+@onready var RemoteConnectionVSeparator : VSeparator = get_node(_remote_connection_vseparation_path)
+
+@onready var IdSpinbox : SpinBox= get_node(_id_spinbox)
 
 
 
@@ -69,7 +72,8 @@ func _ready():
 	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
 	CommandTextNode.text = command
-	IdSpinbox.value = to_dialog_id
+	IdSpinbox.set_value_no_signal(to_dialog_id) 
+	IdSpinbox.update_on_text_changed = true
 	ResponseTextNode.add_theme_color_override("font_color",ColorPickerNode.color)
 	for color in GlobalDeclarations.color_presets:
 		ColorPickerNode.get_picker().add_preset(color)
@@ -134,20 +138,19 @@ func set_command(new_command : String):
 	emit_signal("unsaved_change")
 
 func set_connected_dialog(new_connected_dialog):
+	if connected_dialog != null:
+		if connected_dialog.dialog_id == IdSpinbox.value:
+			IdSpinbox.set_value_no_signal(0)
 	connected_dialog = new_connected_dialog
 	if not is_inside_tree(): await self.ready
-	if connected_dialog != null:
+	if connected_dialog != null && connected_dialog.dialog_id != -1:
 		to_dialog_id = connected_dialog.dialog_id
-		spinbox_ignore_changes = true
-		IdSpinbox.value = to_dialog_id
+		IdSpinbox.set_value_no_signal(to_dialog_id) 
 		hide_button()
 		update_connection_text()
-		check_dialog_distance()
-		
-		
+		check_dialog_distance()	
 	else:
 		reveal_button()
-
 
 func set_to_dialog_id(new_id : int):
 	to_dialog_id = new_id
@@ -173,18 +176,21 @@ func update_connection_text():
 		RemoteConnectionText.text = format_string % connected_dialog.dialog_title.left(10)
 		RemoteConnectionJumpButton.visible = true
 		RemoteConnectionDisconnectButton.visible = true
+		RemoteConnectionVSeparator.visible = true
 		
 func check_dialog_distance():
+	
 	if connected_dialog != null:
-		if position_offset.distance_to(connected_dialog.position_offset) > GlobalDeclarations.hide_connection_distance && !connection_hidden:
-			set_connection_hidden()	
-		if position_offset.distance_to(connected_dialog.position_offset) < GlobalDeclarations.hide_connection_distance && connection_hidden:
+		if position_offset.distance_to(connected_dialog.position_offset) > GlobalDeclarations.hide_connection_distance:
+			set_connection_hidden()		
+		if position_offset.distance_to(connected_dialog.position_offset) < GlobalDeclarations.hide_connection_distance:
 			set_connection_shown()
 
 func set_connection_hidden():
 	emit_signal("request_connection_line_hidden",self,connected_dialog)
 	connection_hidden = true
 	RemoteConnectionContainer.visible = true
+	RemoteConnectionVSeparator.visible = true
 	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color_hidden)
 	set_slot_enabled_right(1,false)
 	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color_hidden)
@@ -192,6 +198,7 @@ func set_connection_hidden():
 	
 
 func set_connection_shown():
+	
 	emit_signal("request_connection_line_shown",self,connected_dialog)
 	connection_hidden = false
 	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color)
@@ -208,6 +215,7 @@ func disconnect_from_dialog(commit_to_undo := true):
 	to_dialog_id = -1
 	IdSpinbox.value = 0
 	RemoteConnectionContainer.visible = false
+
 
 func delete_self(commit_to_undo := true):
 	if(connected_dialog != null):
@@ -258,13 +266,11 @@ func add_new_connected_dialog(commit_to_undo := true):
 		return
 	if connected_dialog:
 		return
-	spinbox_ignore_changes = true
 	var new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
 	if ResponseTextNode.text != '':
 		new_dialog.dialog_title = ResponseTextNode.text
 	connected_dialog = new_dialog
-	new_dialog.connected_responses.append(self)
 	emit_signal("request_add_dialog",new_dialog,true,commit_to_undo)
 	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0,false)
 
@@ -323,24 +329,23 @@ func get_full_tree(all_children : Array = []) -> Array:
 	return all_children
 
 
-var spinbox_ignore_changes = true
-
 func _on_spin_box_value_changed(value):
-	if spinbox_ignore_changes:
-		spinbox_ignore_changes = false
-		return
-	if !connection_hidden && connected_dialog != null:
-		set_connection_hidden()
-	hide_button()
 	to_dialog_id = value
-	
+	for dialog in get_tree().get_nodes_in_group("Save"):
+		if dialog.node_type == "Dialog Node" && dialog.dialog_id == to_dialog_id:
+			disconnect_from_dialog(true)
+			set_connected_dialog(dialog)
+			emit_signal("connect_to_dialog_request",self,0,dialog,0,false)
+			dialog.connected_responses.append(self)
+			return
 	RemoteConnectionContainer.visible = true
+	RemoteConnectionVSeparator.visible = false
 	RemoteConnectionJumpButton.visible = false
 	RemoteConnectionText.text = "ID Manually Set."
+	
 	if connected_dialog != null:
 		connected_dialog.remove_connected_response(self)
 		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
-		connected_dialog = null
 
 	
 func save():

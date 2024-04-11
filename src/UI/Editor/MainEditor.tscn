@@ -117,7 +117,6 @@ text = "BLANK_EDITOR_LABEL"
 horizontal_alignment = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
-visible = false
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
@@ -131,7 +130,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 right_disconnects = true
 scroll_offset = Vector2(-15, -21)
-snap_distance = 40
+snap_distance = 43
 zoom_min = 0.001
 show_zoom_label = true
 minimap_enabled = false

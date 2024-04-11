@@ -160,7 +160,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
 	elif parent_dialog.response_options.size() == 0:
-		new_offset = parent_dialog.position_offset +Vector2(400,0)
+		new_offset = parent_dialog.position_offset +Vector2(387,0)
 	else:
 		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+300)
 	parent_dialog.response_options.append(new_response)
@@ -266,7 +266,6 @@ func _on_begin_node_move():
 	color_organizer_multi_drag_start_position = {}
 
 func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : int,commit_to_undo := true):
-	
 	var response : response_node
 	var dialog : dialog_node
 	if from.node_type == "Player Response Node":
@@ -299,11 +298,10 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 		dialog = from
 	
 	if response.connected_dialog == dialog:
-		response.set_connection_shown()
 		disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 		dialog.remove_connected_response(response)
-		response.reveal_button()	
-		response.connected_dialog = null	
+		response.connected_dialog = null
+		response.to_dialog_id = 0
 	relay_unsaved_changes()
 	if commit_to_undo:
 		emit_signal("nodes_disconnected",from,to)
@@ -453,6 +451,7 @@ func select_node(node):
 				
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
+			print(node.connected_responses)
 		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":

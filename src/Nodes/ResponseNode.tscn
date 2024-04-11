@@ -102,6 +102,7 @@ _remote_connection_container_path = NodePath("VBOXRemoteConnection")
 _remote_connection_text_path = NodePath("VBOXRemoteConnection/ConnectedLabel")
 _remote_connection_disconnect_button_path = NodePath("VBOXRemoteConnection/HBoxContainer/DisconnectButton")
 _remote_connection_jump_button_path = NodePath("VBOXRemoteConnection/HBoxContainer/JumpButton")
+_remote_connection_vseparation_path = NodePath("VBOXRemoteConnection/HBoxContainer/VSeparator")
 _id_spinbox = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/SpinBox")
 
 [node name="HSeparator" type="HSeparator" parent="."]
