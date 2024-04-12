@@ -24,6 +24,10 @@ func _ready():
 	selected = false
 	resizable = false
 	set_locked(locked)
+	for color in $HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().get_presets():
+		$HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().erase_preset(color)
+	for color in GlobalDeclarations.color_presets:
+		$HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().add_preset(color)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
@@ -136,3 +140,10 @@ func save():
 		"node_index" : node_index
 	}
 	return save_dict
+
+
+func _on_color_picker_button_pressed():
+	for color in $HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().get_presets():
+		$HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().erase_preset(color)
+	for color in GlobalDeclarations.color_presets:
+		$HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().add_preset(color)

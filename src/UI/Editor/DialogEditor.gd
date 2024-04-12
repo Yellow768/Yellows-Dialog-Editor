@@ -70,6 +70,7 @@ func _ready():
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 	set_process_input(false)
+	$CLAYER.z_index = 2
 
 
 

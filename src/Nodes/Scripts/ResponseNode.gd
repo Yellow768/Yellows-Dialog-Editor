@@ -123,6 +123,7 @@ func set_option_type(new_type : int):
 		set_slot_enabled_right(1,false)
 		IdSpinbox.visible = false
 		IdSpinbox.value = -1
+		RemoteConnectionContainer.visible = false
 		if connected_dialog != null:
 			emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 	emit_signal("unsaved_change")
