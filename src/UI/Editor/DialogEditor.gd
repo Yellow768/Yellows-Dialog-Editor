@@ -452,7 +452,6 @@ func select_node(node):
 				
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
-			print(node.connected_responses)
 		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":

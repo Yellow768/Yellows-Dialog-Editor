@@ -312,7 +312,7 @@ func _on_dialog_editor_import_category_canceled():
 	#create_category_buttons(EnvironmentIndex.index_categories())
 
 
-func _on_dialog_editor_unsaved_changes(name):
+func _on_dialog_editor_unsaved_changes(_name):
 	if current_category_button != null && !loading_category:
 		current_category_button.set_unsaved(true)
 
@@ -331,5 +331,5 @@ func _on_dialog_file_system_index_category_deleted(category):
 	category_temp_data.erase(category)
 
 
-func _on_dialog_file_system_index_category_renamed(old_name,new_name):
+func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
 	category_temp_data.erase(old_name)
