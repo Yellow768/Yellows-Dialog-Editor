@@ -67,22 +67,6 @@ func save_factions_list():
 	file.get_line()
 	file.store_line("JSON.new().stringify($DialogList.all_loaded_dialogstes")
 
-	
-func give_factions_to_nodes(json : String):
-	var file = FileAccess.open(json,FileAccess.READ)
-	
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(file.get_as_text())
-	var json_parsed : Dictionary = test_json_conv.get_data()
-	file.close()
-	if test_json_conv.error == OK:
-		var faction_choosers := get_tree().get_nodes_in_group("faction_access")
-		for node in faction_choosers:
-			node.load_faction_data(json_parsed)
-	else:
-		printerr("Bad Faction JSON File")
-
-
 var is_quit_return_to_home := false
 
 func _on_HomeButton_pressed():

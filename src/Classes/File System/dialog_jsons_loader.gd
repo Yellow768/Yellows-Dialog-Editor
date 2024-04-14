@@ -76,9 +76,8 @@ func replace_unparsable_data_in_mail_items(mail_items : String):
 func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool:
 	if !dialog_json.has("DialogTitle") or typeof(dialog_json["DialogTitle"]) != TYPE_STRING:
 		printerr("DialogTitle is malformed")
-		return false
+		dialog_json.merge({"DialogTitle" : "Error When Importing"})
 	if !dialog_json.has("DialogId") or typeof(dialog_json["DialogId"]) != TYPE_FLOAT:
-		
 		if file.get_file().replace(".json","").is_valid_int():
 			dialog_json.merge({"DialogId" : int(file.get_file().replace(".json",""))})
 			push_warning("DialogId is malformed or missing, substituting with file name in json ",file)
@@ -87,37 +86,37 @@ func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool
 			push_warning("DialogId is malformed or missing, file name is not a vlid number, setting ID to -1 in json ",file)
 	if !dialog_json.has("DialogText") or typeof(dialog_json["DialogText"]) != TYPE_STRING:
 		printerr("DialogText is malformed")
-		return false
+		dialog_json.merge({"DialogText" : "Error When Importing"})
 	if !dialog_json.has("DialogQuest") or typeof(dialog_json["DialogQuest"]) != TYPE_FLOAT:
 		printerr("DialogQuest is malformed in json ",file)
-		return false
+		dialog_json.merge({"DialogQuest" : -1})
 	if !dialog_json.has("DialogDisableEsc") or typeof(dialog_json["DialogDisableEsc"]) != TYPE_FLOAT:
 		printerr("DialogDisableEsc is malformed in json ",file)
-		return false
+		dialog_json.merge({"DialogDisableEsc" : false})
 	if !dialog_json.has("DialogShowWheel") or typeof(dialog_json["DialogShowWheel"]) != TYPE_FLOAT:
 		printerr("DialogShowWheel is malformed in json ",file)
-		return false
+		dialog_json.merge({"DialogShowWheel" : false})
 	if !dialog_json.has("AvailabilityMinPlayerLevel") or typeof(dialog_json["AvailabilityMinPlayerLevel"]) != TYPE_FLOAT:
 		printerr("DialogLevelAvailability is malformed in json,file")
-		return false
+		dialog_json.merge({"AvailabilityMinPlayerLevel" : -1})
 	if !dialog_json.has("AvailabilityDayTime") or typeof(dialog_json["AvailabilityDayTime"]) != TYPE_FLOAT:
 		printerr("DialogDaytimeAvail is malformed in json ",file)
-		return false
+		dialog_json.merge({"AvailabilityDayTime" : -1})
 
 	var id := ["","2","3","4"]
 	for i in 4:
 		if !dialog_json.has("AvailabilityQuest"+id[i]+"Id") or typeof(dialog_json["AvailabilityQuest"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityQuest"+id[i]+"Id"+" is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityQuest"+id[i]+"Id" : -1})
 		if !dialog_json.has("AvailabilityQuest"+id[i]) or typeof(dialog_json["AvailabilityQuest"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityQuest"+id[i]+" is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityQuest"+id[i] : -1})
 		if !dialog_json.has("AvailabilityDialog"+id[i]+"Id") or typeof(dialog_json["AvailabilityDialog"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityDialog"+id[i]+"Id"+" is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityDialog"+id[i]+"Id" : -1})
 		if !dialog_json.has("AvailabilityDialog"+id[i]) or typeof(dialog_json["AvailabilityDialog"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityDialog"+id[i]+" is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityDialog"+id[i] : -1})
 	for i in 2:
 		if !dialog_json.has("AvailabilityScoreboard"+id[i]+"Objective") or typeof(dialog_json["AvailabilityScoreboard"+id[i]+"Objective"]) != TYPE_STRING:
 			push_warning("AvailabilityScoreboard"+id[i]+"Objective is malformed or missing. Assuming pre 1.12 in json ",file)
@@ -131,59 +130,55 @@ func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool
 		
 		if !dialog_json.has("AvailabilityFaction"+id[i]+"Id") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+"Id is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityFaction"+id[i]+"Id" : 0})
 		if !dialog_json.has("AvailabilityFaction"+id[i]+"Stance") or typeof(dialog_json["AvailabilityFaction"+id[i]+"Stance"]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+"Stance is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityFaction"+id[i]+"Stance" : 0})
 		if !dialog_json.has("AvailabilityFaction"+id[i]) or typeof(dialog_json["AvailabilityFaction"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityFaction"+id[i]+" is malformed in json ",file)
-			return false
+			dialog_json.merge({"AvailabilityFaction"+id[i] : 0})
 
 		if !dialog_json.has("OptionFactions"+str(i+1)) or typeof(dialog_json["OptionFactions"+str(i+1)]) != TYPE_FLOAT:
 			printerr("OptionFactions"+str(i+1)+" is malformed in json ",file)
-			return false
+			dialog_json.merge({"OptionFactions"+str(i+1) : -1})
 		if !dialog_json.has("OptionFaction"+str(i+1)+"Points") or typeof(dialog_json["OptionFaction"+str(i+1)+"Points"]) != TYPE_FLOAT:
 			printerr("OptionFactions"+str(i+1)+"Points is malformed in json ",file)
-			return false
+			dialog_json.merge({"OptionFaction"+str(i+1)+"Points" : 0})
 		if !dialog_json.has("DecreaseFaction"+str(i+1)+"Points") or typeof(dialog_json["DecreaseFaction"+str(i+1)+"Points"]) != TYPE_FLOAT:
 			printerr("DecreaseFactions"+str(i+1)+"Points is malformed in json ",file)
-			return false
+			dialog_json.merge({"DecreaseFaction"+str(i+1)+"Points" : false})
 		
 		if !dialog_json.has("Options") or typeof(dialog_json["Options"]) != TYPE_ARRAY:
 			printerr("Options is malformed in json ",file)
-			return false
+			dialog_json.merge({"Options" : []})
+			
 	
-	var response_options_are_valid := true
 	for i in dialog_json["Options"]:
 		if !i.has("OptionSlot") or typeof(i["OptionSlot"]) != TYPE_FLOAT:
 			printerr("A Response OptionSlot is malformed in json ",file)
-			response_options_are_valid = false
-			return false
+			i.merge({"OptionSlot" : dialog_json["Options"].find(i)})
+			
 		if !i["Option"].has("DialogCommand") or typeof(i["Option"]["DialogCommand"]) != TYPE_STRING:
 			printerr("A Response DialogCommand is malformed in json ",file)
-			response_options_are_valid = false
-			return false
+			i["Option"].merge({"DialogCommand" : ""})
+			
 		if !i["Option"].has("Title") or typeof(i["Option"]["Title"]) != TYPE_STRING:
 			printerr("A Response Title is malformed in json ",file)
-			response_options_are_valid = false
-			return false
+			i["Option"].merge({"Title" : ""})
+			
 		if !i["Option"].has("DialogColor") or typeof(i["Option"]["DialogColor"]) != TYPE_FLOAT:
 			printerr("A Response Color is malformed in json ",file)
-			response_options_are_valid = false
-			return false
+			i["Option"].merge({"DialogColor" : 0xffffff})
+			
 		if !i["Option"].has("OptionType") or typeof(i["Option"]["OptionType"]) != TYPE_FLOAT:
 			printerr("A Response OptionType is malformed in json ",file)
-			response_options_are_valid = false
-			return false
+			i["Option"].merge({"OptionType" : 0})
+			
 		if !i["Option"].has("Dialog") or typeof(i["Option"]["Dialog"]) != TYPE_FLOAT:
 			printerr("A Response Dialog is malformed in json ",file)
-			response_options_are_valid = false
-			return false
-	
-	if response_options_are_valid:
-		return true
-	else:
-		return false
+			i["Option"].merge({"Dialog" : -1})
+	return true
+
 
 
 
