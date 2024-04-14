@@ -403,3 +403,13 @@ func _on_lock_toggled(button_pressed):
 	else:
 		VisualSettings.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		VisualSettings.modulate = Color(1,1,1)
+
+
+func _on_dialog_text_mouse_entered():
+	$ScrollContainer.vertical_scroll_mode = 0
+	
+
+
+
+func _on_dialog_text_mouse_exited():
+	$ScrollContainer.vertical_scroll_mode = 1

@@ -96,11 +96,12 @@ theme_override_font_sizes/font_size = 14
 text = "New Dialog"
 
 [node name="DialogText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(275, 111)
+custom_minimum_size = Vector2(275, 120)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 13
 wrap_mode = 1
+draw_tabs = true
 script = ExtResource("2")
 
 [node name="AddPlayerResponse" type="Button" parent="HBoxContainer"]

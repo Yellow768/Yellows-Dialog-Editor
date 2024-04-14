@@ -30,6 +30,7 @@ func is_valid_faction_data(file : FileAccess) -> bool:
 		printerr("Not a valid faction.dat file.")
 		return false
 	return true
+	
 		
 
 

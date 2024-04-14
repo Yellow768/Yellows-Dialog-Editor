@@ -638,6 +638,13 @@ func _on_DialogEditor_gui_input(event):
 			set_scroll_ofs(scroll_offset+Vector2(0,10))
 	if Input.is_action_just_pressed("show_minimap"):	
 		minimap_enabled = !minimap_enabled
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		match get_window().mode:
+			Window.MODE_FULLSCREEN:
+				get_window().mode = Window.MODE_MAXIMIZED
+			_:
+				get_window().mode = Window.MODE_FULLSCREEN
+		
 	
 
 

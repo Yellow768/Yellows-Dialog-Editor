@@ -432,6 +432,8 @@ clip_text = true
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 wrap_mode = 1
+scroll_smooth = true
+scroll_past_end_of_file = true
 script = ExtResource("17")
 
 [node name="VisualOptionsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
@@ -1934,6 +1936,8 @@ one_shot = true
 [connection signal="hide_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_hide_information_panel"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
+[connection signal="mouse_entered" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_entered"]
+[connection signal="mouse_exited" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_exited"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DialogText_text_changed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton/ToggleVisualOptions" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_toggle_visual_options_toggled"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_HideNPC_pressed"]
