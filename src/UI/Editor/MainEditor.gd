@@ -31,11 +31,6 @@ func _ready():
 		$DialogList.all_loaded_dialogs = loaded_list
 	else:
 		push_warning("Loaded Dialogs List not valid.")
-	var faction_choosers := get_tree().get_nodes_in_group("faction_access")
-	var fact_loader := faction_loader.new()
-	var fact_dict := fact_loader.get_faction_data(CurrentEnvironment.current_directory)
-	for node in faction_choosers:
-		node.load_faction_data(fact_dict)
 	get_tree().auto_accept_quit = false
 	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
 	$DialogEditor.use_snap = GlobalDeclarations.snap_enabled

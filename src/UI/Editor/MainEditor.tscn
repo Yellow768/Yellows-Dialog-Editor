@@ -149,7 +149,6 @@ offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
-visible = false
 layout_mode = 1
 offset_left = 5.0
 offset_top = 5.0
@@ -231,55 +230,6 @@ custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="ReimportButton" type="Button" parent="TopPanel/TopPanelContainer"]
-visible = false
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-tooltip_text = "Reimport the category, deleting all nodes and creating a new YDEC file. Same as when you open a category that hasn't been imported yet "
-theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
-theme_override_styles/pressed = SubResource("17")
-text = "CO_REIMPORT"
-icon = ExtResource("9_mukh6")
-text_overrun_behavior = 3
-clip_text = true
-
-[node name="BttnSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-visible = false
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/separator = SubResource("19")
-
-[node name="ScanButton" type="Button" parent="TopPanel/TopPanelContainer"]
-visible = false
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-tooltip_text = "Scans for new JSONS and for changes in existing JSONS, and creates and/or modifies dialog and response nodes as needed"
-theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
-theme_override_styles/pressed = SubResource("17")
-text = "Scan For Changes "
-icon = ExtResource("10_cc0sy")
-
-[node name="BttnSep3" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-visible = false
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/separator = SubResource("19")
-
-[node name="AssignNewIDs" type="Button" parent="TopPanel/TopPanelContainer"]
-visible = false
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-tooltip_text = "Reindexes the current highest ID in the environment, and gives dialog nodes new IDS.
-
-Remotely connected responses will NOT update their connected dialog ID's!"
-theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
-theme_override_styles/pressed = SubResource("17")
-text = "Reindex IDs"
-icon = ExtResource("9_mukh6")
-
 [node name="MenuButton" type="MenuButton" parent="TopPanel/TopPanelContainer"]
 layout_mode = 2
 tooltip_text = "CATEGORY_OPTIONS_TOOLTIP"
@@ -308,6 +258,21 @@ offset_top = 5.0
 offset_bottom = 37.0
 grow_horizontal = 0
 alignment = 2
+
+[node name="Rescan Quests and Factions" type="Button" parent="TopPanel/EditorContainer"]
+process_mode = 1
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
+text = "Rescan Quests and Factions"
+icon = ExtResource("12_ry04q")
+
+[node name="VSeparator6" type="VSeparator" parent="TopPanel/EditorContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
 
 [node name="EditorSettingsButton" type="Button" parent="TopPanel/EditorContainer"]
 process_mode = 1
@@ -1765,6 +1730,18 @@ offset_bottom = 95.0
 theme = ExtResource("14")
 text = "SAVE_FAILED"
 
+[node name="Rescan" type="Label" parent="UI Anims"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.0
+offset_top = 66.0
+offset_right = 114.0
+offset_bottom = 95.0
+theme = ExtResource("14")
+text = "Rescanned Quests and Factions"
+
 [node name="AvailabilityMode" type="Label" parent="UI Anims"]
 visible = false
 modulate = Color(0.129412, 0, 1, 1)
@@ -1928,12 +1905,11 @@ one_shot = true
 [connection signal="pressed" from="TopPanel/TopPanelContainer/SaveButton" to="TopPanel" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ExportButton" to="TopPanel" method="_on_ExportButton_pressed"]
 [connection signal="item_selected" from="TopPanel/TopPanelContainer/ExportTypeButton" to="CategoryPanel" method="_on_export_type_button_item_selected"]
-[connection signal="pressed" from="TopPanel/TopPanelContainer/ReimportButton" to="TopPanel" method="_on_ReimportButton_pressed"]
-[connection signal="pressed" from="TopPanel/TopPanelContainer/ScanButton" to="TopPanel" method="_on_ScanButton_pressed"]
-[connection signal="pressed" from="TopPanel/TopPanelContainer/AssignNewIDs" to="DialogEditor" method="reindex_ids"]
+[connection signal="pressed" from="TopPanel/EditorContainer/Rescan Quests and Factions" to="InformationPanel" method="scan_quest_and_faction_data"]
 [connection signal="pressed" from="TopPanel/EditorContainer/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="TopPanel/EditorContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
 [connection signal="hide_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_hide_information_panel"]
+[connection signal="scanned_quests_and_factions" from="InformationPanel" to="UI Anims" method="_on_information_panel_scanned_quests_and_factions"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
 [connection signal="mouse_entered" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_entered"]
