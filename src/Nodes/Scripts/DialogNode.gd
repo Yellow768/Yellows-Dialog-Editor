@@ -44,16 +44,16 @@ var initial_offset_y :float= 0
 
 ##Dialog Data#
 
-@export var dialog_title : String = tr("NEW_DIALOG_TITLE")
+var dialog_title : String = tr("NEW_DIALOG_TITLE")
 
 #Immutable
-@export var dialog_id : int = -1: set = set_dialog_id
+var dialog_id : int = -1: set = set_dialog_id
 
 #Display
 
-@export var show_wheel : bool = false
-@export var hide_npc : bool = false
-@export var disable_esc : bool = false
+var show_wheel : bool = false
+var hide_npc : bool = false
+var disable_esc : bool = false
 var darken_screen : bool = true
 var render_gradual : bool = false
 var show_previous_dialog : bool = true
@@ -89,8 +89,8 @@ var lock_spacing_preset : bool = false
 var image_dictionary : Dictionary = {}
 var last_viewed_image : int = -1
 #String Inputs
-@export var command : String = ''
-@export var sound : String = ''
+var command : String = ''
+var sound : String = ''
 var text : String = ''
 
 
@@ -102,13 +102,13 @@ var faction_availabilities :Array[faction_availability_object]= [faction_availab
 var faction_changes :Array[faction_change_object]= [faction_change_object.new(),faction_change_object.new()]
 var mail = mail_data_object.new()
 
-@export var time_availability : int = 0
-@export var min_level_availability : int = 0
+var time_availability : int = 0
+var min_level_availability : int = 0
 
 
 
 #Outcomes
-@export var start_quest : int = -1
+var start_quest : int = -1
 
 #States
 

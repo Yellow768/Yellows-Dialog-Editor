@@ -63,12 +63,6 @@ func _on_availability_mode_entered() -> void:
 func _on_availability_mode_exited() -> void:
 	$AvailabilityMode.visible = false
 
-	
-
-
-
-
-
 func _on_information_panel_scanned_quests_and_factions():
 	$Rescan.tr("Scanned Quests and Factions")
 	$Rescan.modulate = Color(1,1,1,1)
