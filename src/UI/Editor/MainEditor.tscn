@@ -321,7 +321,7 @@ category_panel_path = NodePath("../CategoryPanel")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 mail_data_path = NodePath("DialogNodeTabs/MAIL")
-attribute_check_path = NodePath("DialogNodeTabs/ATTRIBUTE_CHECK")
+attribute_check_path = NodePath("DialogNodeTabs/Attribute Check")
 
 [node name="Label" type="Label" parent="InformationPanel"]
 layout_mode = 1
@@ -337,6 +337,7 @@ text = "INFORMATION_PANEL_LABEL"
 clip_text = true
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 18.0
@@ -346,6 +347,7 @@ mouse_filter = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 script = ExtResource("17_fph0n")
 information_panel_path = NodePath("../..")
@@ -1607,7 +1609,7 @@ item_6/text = "■"
 item_7/text = "■"
 item_8/text = "■"
 
-[node name="ATTRIBUTE_CHECK" type="Control" parent="InformationPanel/DialogNodeTabs"]
+[node name="Attribute Check" type="Control" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 layout_mode = 2
 script = ExtResource("34_c1nas")
@@ -1625,112 +1627,143 @@ pass_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/PassXPValue")
 fail_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/FailXPValue")
 update_dialog_button_path = NodePath("VBoxContainer/UpdateDialog")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check"]
 layout_mode = 0
 offset_top = 20.0
 offset_right = 400.0
 offset_bottom = 121.0
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 layout_mode = 2
 text = "Attributes and Target"
 horizontal_alignment = 1
 
-[node name="Attributes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+[node name="Attributes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="AttributeSelection" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Attributes"]
+[node name="AttributeSelection" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
 layout_mode = 2
 
-[node name="Heart" type="CheckBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Heart" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Heart"
 
-[node name="Body" type="CheckBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Body" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Body"
 
-[node name="Mind" type="CheckBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Mind" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Mind"
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Attributes"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Target" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Attributes"]
+[node name="Target" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
 layout_mode = 2
 
-[node name="Tag Modifiers" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+[node name="Tag Modifiers" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 layout_mode = 2
 text = "Tag Modifiers
 "
 horizontal_alignment = 1
 
-[node name="Tags" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+[node name="Tags" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags"]
 layout_mode = 2
 
-[node name="TagsList" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2"]
+[node name="TagsList" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="TagContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2/TagsList" instance=ExtResource("35_w1inp")]
+[node name="TagContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/TagsList" instance=ExtResource("35_w1inp")]
 layout_mode = 2
 
-[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2"]
+[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2"]
 layout_mode = 2
 text = "+"
 
-[node name="PassIDContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+[node name="PassIDContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/PassIDContainer"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/PassIDContainer"]
 layout_mode = 2
 text = "PassID"
 
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/PassIDContainer"]
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/PassIDContainer"]
+layout_mode = 2
+allow_greater = true
+
+[node name="FailIDContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 layout_mode = 2
 
-[node name="FailIDContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/FailIDContainer"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/FailIDContainer"]
 layout_mode = 2
 text = "FailID"
 
-[node name="SpinBox2" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/FailIDContainer"]
+[node name="SpinBox2" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/FailIDContainer"]
+layout_mode = 2
+allow_greater = true
+
+[node name="XPContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 layout_mode = 2
 
-[node name="XPContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
-layout_mode = 2
-
-[node name="PassXpLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+[node name="PassXpLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
 layout_mode = 2
 text = "Pass XP"
 
-[node name="PassXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+[node name="PassXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
 layout_mode = 2
+allow_greater = true
 
-[node name="FailXPLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+[node name="FailXPLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
 layout_mode = 2
 text = "Fail XP"
 
-[node name="FailXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+[node name="FailXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
+allow_greater = true
 
-[node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+[node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
 layout_mode = 2
 text = "Update Dialog"
+
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "§0 black
+§1 dark_blue
+§2 dark_green
+§3 dark_aqua
+§4 dark_red
+§5 dark_purple
+§6 gold
+§7 gray
+§8 dark_gray
+§9 blue
+§a green
+§b aqua
+§c red
+§d light_purple
+§e yellow
+§f white
+
+§k obfuscared
+§l bold
+§m strikethrough
+§o italic
+§r reset"
+editable = false
 
 [node name="ToggleVisiblity" type="Button" parent="InformationPanel"]
 layout_mode = 0
@@ -2129,8 +2162,8 @@ one_shot = true
 [connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_selected_color_color_changed"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_type_button_item_selected"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_alignment_item_selected"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2/AddTagButton" to="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK" method="_on_add_tag_button_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/UpdateDialog" to="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK" method="_on_update_dialog_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/AddTagButton" to="InformationPanel/DialogNodeTabs/Attribute Check" method="_on_add_tag_button_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/UpdateDialog" to="InformationPanel/DialogNodeTabs/Attribute Check" method="_on_update_dialog_pressed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_failed_save"]
