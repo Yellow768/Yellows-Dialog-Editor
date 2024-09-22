@@ -1,5 +1,18 @@
 extends HBoxContainer
 
+var display : set = set_display
+var id : set = set_id
+var value : set = set_value
+
+
+func set_display(value):
+	$DisplayLineEdit.text = value
+
+func set_id(value) :
+	$IDLineEdit.text = value
+	
+func set_value(value):
+	$SpinBox.value = value
 
 # Called when the node enters the scene tree for the first time.
 func export():

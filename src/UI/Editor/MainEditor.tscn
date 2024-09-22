@@ -1621,7 +1621,8 @@ tags_list_path = NodePath("VBoxContainer/Tags/VBoxContainer2/TagsList")
 add_tag_path = NodePath("VBoxContainer/Tags/VBoxContainer2/AddTagButton")
 pass_id_spinbox_path = NodePath("VBoxContainer/PassIDContainer/SpinBox")
 fail_id_spinbox_path = NodePath("VBoxContainer/FailIDContainer/SpinBox2")
-xp_spinbox_path = NodePath("VBoxContainer/XPContainer/SpinBox3")
+pass_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/PassXPValue")
+fail_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/FailXPValue")
 update_dialog_button_path = NodePath("VBoxContainer/UpdateDialog")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK"]
@@ -1712,11 +1713,19 @@ layout_mode = 2
 [node name="XPContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+[node name="PassXpLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
 layout_mode = 2
-text = "XP"
+text = "Pass XP"
 
-[node name="SpinBox3" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+[node name="PassXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+layout_mode = 2
+
+[node name="FailXPLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+layout_mode = 2
+text = "Fail XP"
+
+[node name="FailXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
+custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 
 [node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]

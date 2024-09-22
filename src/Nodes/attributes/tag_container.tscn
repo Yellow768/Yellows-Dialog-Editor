@@ -26,6 +26,7 @@ layout_mode = 2
 
 [node name="SpinBox" type="SpinBox" parent="."]
 layout_mode = 2
+allow_greater = true
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2

@@ -16,7 +16,8 @@ var tag_container = load("res://src/Nodes/attributes/tag_container.tscn")
 @export var add_tag_path : NodePath
 @export var pass_id_spinbox_path : NodePath
 @export var fail_id_spinbox_path : NodePath
-@export var xp_spinbox_path : NodePath
+@export var pass_xp_spinbox_path : NodePath
+@export var fail_xp_spinbox_path : NodePath
 
 @export var update_dialog_button_path : NodePath
 
@@ -30,7 +31,8 @@ var tag_container = load("res://src/Nodes/attributes/tag_container.tscn")
 @onready var Add_Tag_Button : Button = get_node(add_tag_path)
 @onready var Pass_ID_SpinBox : SpinBox = get_node(pass_id_spinbox_path)
 @onready var Fail_ID_SpinBox : SpinBox = get_node(fail_id_spinbox_path)
-@onready var XP_Spinbox : SpinBox = get_node(xp_spinbox_path)
+@onready var Pass_XP_Spinbox : SpinBox = get_node(pass_xp_spinbox_path)
+@onready var Fail_XP_Spinbox : SpinBox = get_node(fail_xp_spinbox_path)
 
 @onready var Update_Dialog_Button : Button = get_node(update_dialog_button_path)
 
@@ -42,18 +44,40 @@ func _ready():
 func load_current_dialog_settings(dialog_to_load : dialog_node):
 	
 	current_dialog = dialog_to_load
-	print(current_dialog.attribute_check)
-	return
-	var attribute_check = JSON.parse_string(current_dialog.attribute_check)
-	if attribute_check.attributes.has("Heart"):
-		Heart.button_pressed = true
-	if attribute_check.attributes.has("Body"):
-		Body.button_pressed = true
-	if attribute_check.attributes.has("Mind"):
-		Mind.button_pressed = true
+	var attribute_check = current_dialog.attribute_check
+	if attribute_check == {}: 
+		attribute_check = {
+		"target" : 0,
+		"attributes" : [], 
+		"tag_modifiers":[],
+		"passID":0,
+		"failID":0,
+		"pass_xp" : 0,
+		"fail_xp" : 0
+	}
+	var keys = ["target","attributes","tag_modifiers","passID","failID","pass_xp","fail_xp"]
+	for key in keys:
+		if !attribute_check.has(key):
+			attribute_check[key] = 0
+	
+	Heart.button_pressed = attribute_check.attributes.has("Heart")
+	Body.button_pressed = attribute_check.attributes.has("Body")
+	Mind.button_pressed =attribute_check.attributes.has("Mind")
 	Pass_ID_SpinBox.value = attribute_check.passID
 	Fail_ID_SpinBox.value = attribute_check.failID
-	XP_Spinbox.value = attribute_check.XP
+	Pass_XP_Spinbox.value = attribute_check.pass_xp
+	Fail_XP_Spinbox.value = attribute_check.fail_xp
+	Target_Value.value = attribute_check.target
+	for child in Tags_List.get_children():
+		child.queue_free()
+	var tags =attribute_check.tag_modifiers
+	for tag in tags:
+		var parse_tag = JSON.parse_string(tag)
+		var new_tag = tag_container.instantiate()
+		new_tag.display = parse_tag.display
+		new_tag.id = parse_tag.id
+		new_tag.value = parse_tag.value
+		Tags_List.add_child(new_tag)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,16 +99,17 @@ func createAttributeCheckJson():
 		"tag_modifiers":tags,
 		"passID":Pass_ID_SpinBox.value,
 		"failID":Fail_ID_SpinBox.value,
-		"xp" : XP_Spinbox.value
+		"pass_xp" : Pass_XP_Spinbox.value,
+		"fail_xp" : Fail_XP_Spinbox.value
 	}
 	return json
 
 
 
 func _on_update_dialog_pressed():
-	InformationPanel.current_dialog.set_dialog_text(JSON.stringify(createAttributeCheckJson()))
+	InformationPanel.current_dialog.set_dialog_text("<att check> \n"+JSON.stringify(createAttributeCheckJson()))
 	InformationPanel.current_dialog.attribute_check = createAttributeCheckJson()
-	print(current_dialog.attribute_check)
+	
 
 func _on_add_tag_button_pressed():
 	var new_tag_instance = tag_container.instantiate()
