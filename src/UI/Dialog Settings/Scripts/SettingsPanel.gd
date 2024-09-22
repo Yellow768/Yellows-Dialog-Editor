@@ -15,7 +15,7 @@ signal scanned_quests_and_factions
 @export var toggle_visiblity_path: NodePath
 @export var dialog_editor_path: NodePath
 @export var mail_data_path : NodePath
-
+@export var attribute_check_path : NodePath
 
 
 @onready var DialogSettingsTab := get_node(dialog_settings_tab_path)
@@ -28,7 +28,7 @@ signal scanned_quests_and_factions
 @onready var ToggleVisibility := get_node(toggle_visiblity_path)
 @onready var DialogEditor : GraphEdit = get_node(dialog_editor_path)
 @onready var MailData := get_node(mail_data_path)
-
+@onready var AttributeCheck : Control = get_node(attribute_check_path)
 
 var current_dialog : dialog_node
 
@@ -80,6 +80,8 @@ func load_dialog_settings(dialog : dialog_node):
 	DialogMailTab.load_current_dialog_settings(dialog)
 	DialogSpacingTab.load_current_dialog_settings(dialog)
 	DialogImagesTab.load_current_dialog_settings(dialog)
+	AttributeCheck.load_current_dialog_settings(dialog)
+	
 	if current_dialog != dialog:
 		if current_dialog != null && is_instance_valid(current_dialog) && current_dialog.is_connected("request_deletion", Callable(self, "disconnect_current_dialog")):
 			current_dialog.disconnect("request_deletion", Callable(self, "disconnect_current_dialog"))

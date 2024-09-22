@@ -110,6 +110,9 @@ var min_level_availability : int = 0
 #Outcomes
 var start_quest : int = -1
 
+#Attribute Check. ONLY FOR RAINMIRE
+var attribute_check = {}
+
 #States
 
 var set_as_availability := false
@@ -447,7 +450,8 @@ func save():
 		"image_dictionary" : JSON.stringify(image_dictionary),
 		"spacing_preset" : spacing_preset,
 		"visual_preset" : visual_preset,
-		"lock_visual_preset" : lock_visual_preset
+		"lock_visual_preset" : lock_visual_preset,
+		"attribute_check": JSON.stringify(attribute_check)
 	}
 	return save_dict
 

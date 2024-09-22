@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://gqxq7kkkgl8l"]
+
+[ext_resource type="Script" path="res://src/Nodes/attributes/tag_container.gd" id="1_cw6p5"]
+
+[node name="TagContainer" type="HBoxContainer"]
+script = ExtResource("1_cw6p5")
+
+[node name="IDLabel" type="Label" parent="."]
+layout_mode = 2
+text = "ID"
+
+[node name="IDLineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(90, 20)
+layout_mode = 2
+
+[node name="DiplayLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Display"
+
+[node name="DisplayLineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(120, 25)
+layout_mode = 2
+
+[node name="ValueLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

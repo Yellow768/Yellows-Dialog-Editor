@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=48 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" path="res://src/UI/Editor/DialogImageSettings.gd" id="31_teijp"]
 [ext_resource type="Texture2D" uid="uid://ymrya147pb6v" path="res://Assets/UI Textures/Icon Font/link-line.svg" id="32_jwfbh"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogAttributeCheckSettings.gd" id="34_c1nas"]
+[ext_resource type="PackedScene" uid="uid://gqxq7kkkgl8l" path="res://src/Nodes/attributes/tag_container.tscn" id="35_w1inp"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -320,6 +321,7 @@ category_panel_path = NodePath("../CategoryPanel")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 mail_data_path = NodePath("DialogNodeTabs/MAIL")
+attribute_check_path = NodePath("DialogNodeTabs/ATTRIBUTE_CHECK")
 
 [node name="Label" type="Label" parent="InformationPanel"]
 layout_mode = 1
@@ -344,7 +346,6 @@ mouse_filter = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
-visible = false
 layout_mode = 2
 script = ExtResource("17_fph0n")
 information_panel_path = NodePath("../..")
@@ -1607,8 +1608,21 @@ item_7/text = "■"
 item_8/text = "■"
 
 [node name="ATTRIBUTE_CHECK" type="Control" parent="InformationPanel/DialogNodeTabs"]
+visible = false
 layout_mode = 2
 script = ExtResource("34_c1nas")
+information_panel_path = NodePath("../..")
+heart_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Heart")
+body_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Body")
+mind_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Mind")
+target_value_path = NodePath("VBoxContainer/Attributes/Target")
+attributes_selection_container = NodePath("VBoxContainer/Attributes/AttributeSelection")
+tags_list_path = NodePath("VBoxContainer/Tags/VBoxContainer2/TagsList")
+add_tag_path = NodePath("VBoxContainer/Tags/VBoxContainer2/AddTagButton")
+pass_id_spinbox_path = NodePath("VBoxContainer/PassIDContainer/SpinBox")
+fail_id_spinbox_path = NodePath("VBoxContainer/FailIDContainer/SpinBox2")
+xp_spinbox_path = NodePath("VBoxContainer/XPContainer/SpinBox3")
+update_dialog_button_path = NodePath("VBoxContainer/UpdateDialog")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK"]
 layout_mode = 0
@@ -1661,40 +1675,17 @@ custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags"]
+layout_mode = 2
+
+[node name="TagsList" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2"]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="TagContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer"]
+[node name="TagContainer" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2/TagsList" instance=ExtResource("35_w1inp")]
 layout_mode = 2
 
-[node name="IDLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-layout_mode = 2
-text = "ID"
-
-[node name="IDLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-custom_minimum_size = Vector2(90, 20)
-layout_mode = 2
-
-[node name="DiplayLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-layout_mode = 2
-text = "Display"
-
-[node name="DisplayLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-custom_minimum_size = Vector2(120, 25)
-layout_mode = 2
-
-[node name="ValueLabel" type="Label" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-layout_mode = 2
-
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer/TagContainer"]
-layout_mode = 2
-text = "X"
-
-[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer"]
+[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2"]
 layout_mode = 2
 text = "+"
 
@@ -1727,6 +1718,10 @@ text = "XP"
 
 [node name="SpinBox3" type="SpinBox" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/XPContainer"]
 layout_mode = 2
+
+[node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer"]
+layout_mode = 2
+text = "Update Dialog"
 
 [node name="ToggleVisiblity" type="Button" parent="InformationPanel"]
 layout_mode = 0
@@ -2125,6 +2120,8 @@ one_shot = true
 [connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_selected_color_color_changed"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_type_button_item_selected"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_alignment_item_selected"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/Tags/VBoxContainer2/AddTagButton" to="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK" method="_on_add_tag_button_pressed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK/VBoxContainer/UpdateDialog" to="InformationPanel/DialogNodeTabs/ATTRIBUTE_CHECK" method="_on_update_dialog_pressed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_failed_save"]
