@@ -135,7 +135,7 @@ func relay_unsaved_changes():
 	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
 func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,commit_to_undo := true):
-	if commit_to_undo && selected_dialogs.size() < 2:
+	if commit_to_undo:
 		dialog_node_deleted.emit(dialog.save())
 	if selected_dialogs.find(dialog,0) != -1:
 		selected_dialogs.erase(dialog)
@@ -371,6 +371,7 @@ func set_last_selected_node_as_selected():
 	if selected_dialogs.size() < 1:
 		emit_signal("no_dialog_selected")
 	else:
+		print(selected_dialogs.size())
 		if selected_dialogs.back().node_type == "Dialog Node":
 			emit_signal("dialog_selected",selected_dialogs.back())
 
@@ -456,15 +457,18 @@ func select_node(node):
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
+		print(selected_dialogs.size())
 		
 
 func unselect_node(node):
+	
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
 	if node.node_type == "Color Organizer":
 		selected_color_organizers.erase(node)
 	if node.node_type == "Dialog Node":
 		selected_dialogs.erase(node)
+		print(selected_dialogs.size())
 		set_last_selected_node_as_selected()
 		if double_clicked:
 			node.selected = true

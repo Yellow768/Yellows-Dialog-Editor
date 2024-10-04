@@ -164,6 +164,7 @@ func reveal_button():
 	if option_type == 0:
 		NewDialogButtonNode.modulate = Color(1,1,1,1)
 		NewDialogButtonNode.disabled = false
+		set_slot_enabled_right(1,true)
 
 	
 func hide_button():

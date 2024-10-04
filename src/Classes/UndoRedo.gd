@@ -555,6 +555,7 @@ func create_response_node_from_data(response_data):
 	currently_loaded_response.set_option_from_index(response_data.option_type)
 	currently_loaded_response.response_title = response_data["response_title"]
 	currently_loaded_response.position_offset = Vector2(response_data["position_offset_x"],response_data["position_offset_y"])
+	currently_loaded_response.node_index = response_data["node_index"]
 	return currently_loaded_response
 
 func find_dialog_node_from_id(id : int):
