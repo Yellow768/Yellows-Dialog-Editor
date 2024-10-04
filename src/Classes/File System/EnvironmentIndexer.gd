@@ -21,6 +21,7 @@ func index_categories() -> Array[String]:
 	indexed_dialog_categories = []
 	var dir_search := DirectorySearch.new()
 	indexed_dialog_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/dialogs")
+	indexed_dialog_categories.sort()
 	CurrentEnvironment.highest_id = find_highest_index()
 	emit_signal("category_buttons_created",indexed_dialog_categories)
 	return indexed_dialog_categories
@@ -73,11 +74,6 @@ func create_new_category(new_category_name : String = ''):
 	
 	
 
-func sort_array_by_category_name(a,b):
-	if a["category_name"].to_lower() != b["category_name"].to_lower():
-		return a["category_name"].to_lower() < b["category_name"].to_lower()
-	else:
-		return a["category_name"].to_lower()  < b["category_name"].to_lower() 	
 
 
 
