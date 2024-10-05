@@ -97,17 +97,6 @@ func delete_category(category_name : String):
 	if DirAccess.get_open_error() == OK:
 		OS.move_to_trash(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 		print("Deleting Category "+category_name)
-		#dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-		#var file_name := dir.get_next()
-		#while file_name != "":
-		#	if dir.current_is_dir():
-		#		delete_category(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+file_name)
-		#	else:
-		#		dir.remove(file_name)
-		#	file_name = dir.get_next()
-		#var delete_error = 	dir.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
-		#if delete_error != 0:
-		#	printerr("Category failed to delete, error code : ",delete_error)
 	index_categories()
 	emit_signal("category_deleted",category_name)
 	

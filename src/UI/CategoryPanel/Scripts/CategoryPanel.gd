@@ -30,7 +30,7 @@ signal unsaved_change
 var loading_category : bool = false
 
 var current_directory_path
-var current_category
+var current_category : set = set_current_category
 var current_category_button : Button
 
 var export_version : int = 2
@@ -46,6 +46,10 @@ var export_version : int = 2
 var categoryPanelRevealed = false
 var category_temp_data : Dictionary = {}
 
+
+func set_current_category(name):
+	current_category = name
+	CurrentEnvironment.current_category_name = current_category
 
 func _ready():
 	create_category_buttons(EnvironmentIndex.index_categories())
@@ -175,11 +179,12 @@ func save_all_categories():
 
 	
 func save_all_backups():
+	print(category_temp_data.keys())
 	for key in category_temp_data.keys():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
 		
-		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+key+"/autosave")
+		prints(DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+key+"/autosave"),key)
 		if current_category == key:
 			var temp_cat_save = category_saver.new()
 			add_child(temp_cat_save)
@@ -328,7 +333,10 @@ func _on_editor_settings_autosave_time_changed():
 
 
 func _on_dialog_file_system_index_category_deleted(category):
+	if current_category == category:
+		current_category = null
 	category_temp_data.erase(category)
+	
 
 
 func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
