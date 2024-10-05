@@ -55,6 +55,7 @@ var option_type = 0: set = set_option_type
 var node_index := -1
 
 var parent_dialog : dialog_node
+var parent_dialog_id : int
 
 var total_height : int
 
@@ -224,7 +225,8 @@ func delete_self(commit_to_undo := true):
 		connected_dialog.remove_connected_response(self)
 	emit_signal("request_delete_self",parent_dialog,self,commit_to_undo)
 	
-
+func set_orphaned():
+	title = "Orphaned Response Node"
 
 
 
@@ -351,6 +353,10 @@ func _on_spin_box_value_changed(value):
 
 	
 func save():
+	if parent_dialog:
+		parent_dialog_id = parent_dialog.dialog_id
+	else:
+		parent_dialog_id = -1
 	return {
 		"slot" : slot,
 		"option_type" : option_type,
@@ -360,7 +366,7 @@ func save():
 		"to_dialog_id" : to_dialog_id,
 		"position_offset_x" : position_offset.x,
 		"position_offset_y" : position_offset.y,
-		"parent_dialog_id" : parent_dialog.dialog_id,
+		"parent_dialog_id" : parent_dialog_id,
 		"node_index" : node_index
 	}
 

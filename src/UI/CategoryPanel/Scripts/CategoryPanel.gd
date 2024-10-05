@@ -53,7 +53,6 @@ func set_current_category(name):
 
 func _ready():
 	create_category_buttons(EnvironmentIndex.index_categories())
-	EnvironmentIndex.connect("category_duplicated",Callable(self,"load_duplicated_category"))
 	export_version = GlobalDeclarations.last_used_export_version
 	
 
@@ -304,8 +303,8 @@ func _on_export_type_button_item_selected(index:int):
 
 func load_duplicated_category(name : String):
 	save_category_request()
-	load_category(name)
-	emit_signal("request_dialog_ids_reassigned")
+	#load_category(name)
+	#emit_signal("request_dialog_ids_reassigned")
 	
 
 

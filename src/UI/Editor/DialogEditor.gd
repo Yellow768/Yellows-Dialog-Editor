@@ -192,8 +192,9 @@ func delete_response_node(dialog : dialog_node,response : response_node, commit_
 
 	if commit_to_undo:
 		emit_signal("response_node_deleted",response.save())
-	dialog.delete_response_node(response.slot,response)
-	disconnect_node(dialog.get_name(),0,response.get_name(),0)
+	if dialog != null :
+		dialog.delete_response_node(response.slot,response)
+		disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
 		response.connected_dialog.remove_connected_response(response)
@@ -294,18 +295,21 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 	if from.node_type == "Player Response Node":
 		response = from
 		dialog = to
+		if response.connected_dialog == dialog:
+			disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
+			dialog.remove_connected_response(response)
+			response.connected_dialog = null
+			response.to_dialog_id = 0
+		relay_unsaved_changes()
+		if commit_to_undo:
+			emit_signal("nodes_disconnected",from,to)
 	else:
 		response = to
 		dialog = from
-	
-	if response.connected_dialog == dialog:
+		response.parent_dialog = null
+		response.set_orphaned()
+		dialog.delete_response_node(response.slot,response)
 		disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
-		dialog.remove_connected_response(response)
-		response.connected_dialog = null
-		response.to_dialog_id = 0
-	relay_unsaved_changes()
-	if commit_to_undo:
-		emit_signal("nodes_disconnected",from,to)
 
 func hide_connection_line(from: GraphNode,to: GraphNode):
 	disconnect_node(from.name,0,to.name,0)
@@ -423,9 +427,13 @@ func clear_editor():
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):
+	prints(from,from_slot,to,to_slot)
+
 	connect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
+	prints(from,from_slot,to,to_slot)
+
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):

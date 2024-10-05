@@ -102,10 +102,16 @@ func delete_category(category_name : String):
 	
 func duplicate_category(category_name : String):
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
-	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_")
-	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+category_name+"_/"+category_name+"_.ydec")
-	emit_signal("new_category_created",category_name)
-	emit_signal("category_duplicated",category_name+"_")
+	var new_category_name = add_as_many_underscores_needed_to_make_unique(category_name)
+	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+new_category_name)
+	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
+	emit_signal("new_category_created",new_category_name)
+	emit_signal("category_duplicated",add_as_many_underscores_needed_to_make_unique(category_name))
 	index_categories()
 
-
+func add_as_many_underscores_needed_to_make_unique(old_name):
+	var new_name = old_name+"_"
+	if indexed_dialog_categories.has(new_name):
+		return add_as_many_underscores_needed_to_make_unique(new_name)
+	else:
+		return new_name
