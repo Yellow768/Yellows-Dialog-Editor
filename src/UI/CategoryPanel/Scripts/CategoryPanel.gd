@@ -179,12 +179,11 @@ func save_all_categories():
 
 	
 func save_all_backups():
-	print(category_temp_data.keys())
 	for key in category_temp_data.keys():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
 		
-		prints(DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+key+"/autosave"),key)
+		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/"+key+"/autosave")
 		if current_category == key:
 			var temp_cat_save = category_saver.new()
 			add_child(temp_cat_save)
