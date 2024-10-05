@@ -339,4 +339,7 @@ func _on_dialog_file_system_index_category_deleted(category):
 
 
 func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
+	if current_category== old_name:
+		current_category = _new_name
 	category_temp_data.erase(old_name)
+	
