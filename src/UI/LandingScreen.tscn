@@ -7,22 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w7n4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kf54y"]
-bg_color = Color(0.223529, 0.223529, 0.223529, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3qmf"]
-bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [sub_resource type="FontVariation" id="FontVariation_mmhe0"]
 base_font = ExtResource("4_tgwf2")
 
@@ -81,6 +65,22 @@ Label/fonts/font = SubResource("3")
 Window/fonts/title_font = SubResource("4")
 Window/styles/panel = SubResource("6")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w7n4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kf54y"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3qmf"]
+bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="LabelSettings" id="LabelSettings_01jgx"]
 font_size = 22
 
@@ -102,22 +102,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EditorSettingsButton" type="Button" parent="Panel"]
-process_mode = 1
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -165.0
-offset_bottom = 73.0
-grow_horizontal = 0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5w7n4")
-theme_override_styles/hover = SubResource("StyleBoxFlat_kf54y")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_v3qmf")
-text = "EDITOR_SETTINGS"
-icon = ExtResource("3_rydwl")
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel"]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 0
@@ -127,14 +111,14 @@ offset_right = 912.0
 offset_bottom = 599.0
 
 [node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2"]
-custom_minimum_size = Vector2(600, 200)
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
 text = "[b]Yellow's Dialog Editor 
-v1.0.0"
+v0.7.0"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
@@ -185,11 +169,11 @@ autowrap_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer2/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="PrevDirsContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(600, 580)
+custom_minimum_size = Vector2(900, 580)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/PrevDirsContainer"]
@@ -247,6 +231,22 @@ offset_right = -123.0
 offset_bottom = -25.0
 text = "Cancel"
 
+[node name="EditorSettingsButton" type="Button" parent="."]
+process_mode = 1
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -165.0
+offset_bottom = 73.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5w7n4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kf54y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v3qmf")
+text = "EDITOR_SETTINGS"
+icon = ExtResource("3_rydwl")
+
 [node name="InvalidDirectory" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 0, 0, 1)
@@ -284,9 +284,9 @@ offset_top = -300.0
 offset_right = 500.0
 offset_bottom = 300.0
 
-[connection signal="pressed" from="Panel/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
 [connection signal="pressed" from="Panel/InvalidFolderWarning/Confirm" to="." method="_on_Confirm_pressed"]
 [connection signal="button_up" from="Panel/InvalidFolderWarning/Cancel" to="." method="_on_Cancel_button_up"]
+[connection signal="pressed" from="EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]

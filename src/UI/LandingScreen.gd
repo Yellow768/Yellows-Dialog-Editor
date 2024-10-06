@@ -14,6 +14,9 @@ func _ready():
 	for dir in JSON.parse_string(config.get_value("prev_dirs","dir_array","[]")):
 	
 		var quick_dir_button := Button.new()
+		quick_dir_button.text_overrun_behavior = 3
+		quick_dir_button.clip_text = true
+		quick_dir_button.alignment = 0
 		quick_dir_button.text = dir
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
 		$Panel/VBoxContainer2/HBoxContainer/PrevDirsContainer.add_child(quick_dir_button)
