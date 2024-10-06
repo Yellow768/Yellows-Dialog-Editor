@@ -23,8 +23,10 @@ func load_temp(data):
 				load_editor_settings(dict)
 			elif dict.get("node_type") == "Dialog Node":
 				load_dialog_data(dict)	
-			else:
+			elif dict.get("node_type") == "Color Organizer":
 				load_color_category(dict)
+			elif dict.get("node_type") == "Player Response Node":
+				load_orphaned_response(dict)
 		connect_all_responses()
 		queue_free()
 		DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+CurrentEnvironment.current_category_name+" | CNPC Dialog Editor")
@@ -55,6 +57,8 @@ func load_category(category_name):
 					load_dialog_data(node_data)	
 				elif node_data.get("node_type") == "Color Organizer":
 					load_color_category(node_data)
+				elif node_data.get("node_type") == "Player Response Node":
+					load_orphaned_response(node_data)
 					
 			connect_all_responses()
 			save_category.close()
@@ -87,6 +91,12 @@ func load_dialog_data(node_data : Dictionary):
 			loaded_responses.append(currently_loaded_response)
 	loaded_dialogs.append(currently_loaded_dialog)
 	
+func load_orphaned_response(node_data : Dictionary):
+	var orphaned_response_node = create_response_node_from_ydec(node_data)
+	orphaned_response_node.set_orphaned(true)
+	emit_signal("add_response",null,orphaned_response_node)
+	loaded_responses.append(orphaned_response_node)
+					
 func connect_all_responses():
 	for response in loaded_responses:
 		var connected_dialog
