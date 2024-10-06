@@ -149,6 +149,7 @@ offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+visible = false
 layout_mode = 1
 offset_left = 5.0
 offset_top = 5.0
@@ -266,7 +267,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("18")
 theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
-text = "Rescan Quests and Factions"
+text = "RESCAN_QUEST_AND_FACTIONS"
 icon = ExtResource("12_ry04q")
 
 [node name="VSeparator6" type="VSeparator" parent="TopPanel/EditorContainer"]
@@ -1754,6 +1755,16 @@ offset_right = 165.5
 offset_bottom = 111.0
 theme = ExtResource("14")
 text = "AV_MODE"
+
+[node name="NotificationCenter" type="VBoxContainer" parent="UI Anims"]
+custom_minimum_size = Vector2(200, 100)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -148.0
+offset_right = 470.0
+grow_vertical = 0
+alignment = 2
 
 [node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
 process_mode = 2

@@ -156,23 +156,28 @@ func _on_availability_mode_entered():
 func save_category_request():
 	if current_category == null:
 		emit_signal("category_failed_save")
+		printerr("Category is null")
 		return
 	var cat_save = category_saver.new()
 	add_child(cat_save)
-	if cat_save.save_category(current_category) == OK:
+	var result = cat_save.save_category(current_category) 
+	if result == OK:
 		emit_signal("category_succesfully_saved",current_category)
 		current_category_button.set_unsaved(false)
 	else:
 		emit_signal("category_failed_save")
+		printerr(error_string(result))
 
 
 func save_all_categories():
 	for key in category_temp_data.keys():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
-		if cat_save.save_category(key,category_temp_data[key]) == OK:
+		var result =cat_save.save_category(key,category_temp_data[key]) 
+		if  result == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:
+			printerr(error_string(result))
 			emit_signal("category_failed_save")
 	emit_signal("unsaved_change",false)
 
@@ -187,9 +192,11 @@ func save_all_backups():
 			var temp_cat_save = category_saver.new()
 			add_child(temp_cat_save)
 			category_temp_data[key] = temp_cat_save.save_temp(current_category)
-		if cat_save.save_category(key,category_temp_data[key],true) == OK:
+		var result = cat_save.save_category(key,category_temp_data[key],true)
+		if  result == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:
+			printerr(error_string(result))
 			emit_signal("category_failed_save")
 	emit_signal("unsaved_change",false)
 
@@ -198,6 +205,7 @@ func save_all_backups():
 func export_category_request():
 	if current_category == null:
 		emit_signal("category_export_failed",current_category)
+		printerr("Cannot export a null category")
 		return
 	var cat_exp = category_exporter.new()
 	add_child(cat_exp)
