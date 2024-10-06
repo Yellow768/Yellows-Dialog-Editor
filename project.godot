@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="CNPC Dialog Editor"
-config/description="Yellow's External CustomNPCs Dialog Editor"
+config/name="Yellow's Dialog Editor"
+config/description="Yellow's Dialog Editor"
 run/main_scene="res://src/UI/Program.tscn"
 config/features=PackedStringArray("4.1")
 run/low_processor_mode=true

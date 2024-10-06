@@ -30,7 +30,7 @@ signal unsaved_change
 var loading_category : bool = false
 
 var current_directory_path
-var current_category
+var current_category : set = set_current_category
 var current_category_button : Button
 
 var export_version : int = 2
@@ -47,9 +47,12 @@ var categoryPanelRevealed = false
 var category_temp_data : Dictionary = {}
 
 
+func set_current_category(name):
+	current_category = name
+	CurrentEnvironment.current_category_name = current_category
+
 func _ready():
 	create_category_buttons(EnvironmentIndex.index_categories())
-	EnvironmentIndex.connect("category_duplicated",Callable(self,"load_duplicated_category"))
 	export_version = GlobalDeclarations.last_used_export_version
 	
 
@@ -153,23 +156,28 @@ func _on_availability_mode_entered():
 func save_category_request():
 	if current_category == null:
 		emit_signal("category_failed_save")
+		printerr("Category is null")
 		return
 	var cat_save = category_saver.new()
 	add_child(cat_save)
-	if cat_save.save_category(current_category) == OK:
+	var result = cat_save.save_category(current_category) 
+	if result == OK:
 		emit_signal("category_succesfully_saved",current_category)
 		current_category_button.set_unsaved(false)
 	else:
 		emit_signal("category_failed_save")
+		printerr(error_string(result))
 
 
 func save_all_categories():
 	for key in category_temp_data.keys():
 		var cat_save = category_saver.new()
 		add_child(cat_save)
-		if cat_save.save_category(key,category_temp_data[key]) == OK:
+		var result =cat_save.save_category(key,category_temp_data[key]) 
+		if  result == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:
+			printerr(error_string(result))
 			emit_signal("category_failed_save")
 	emit_signal("unsaved_change",false)
 
@@ -184,9 +192,11 @@ func save_all_backups():
 			var temp_cat_save = category_saver.new()
 			add_child(temp_cat_save)
 			category_temp_data[key] = temp_cat_save.save_temp(current_category)
-		if cat_save.save_category(key,category_temp_data[key],true) == OK:
+		var result = cat_save.save_category(key,category_temp_data[key],true)
+		if  result == OK:
 			emit_signal("category_succesfully_saved",current_category)
 		else:
+			printerr(error_string(result))
 			emit_signal("category_failed_save")
 	emit_signal("unsaved_change",false)
 
@@ -195,6 +205,7 @@ func save_all_backups():
 func export_category_request():
 	if current_category == null:
 		emit_signal("category_export_failed",current_category)
+		printerr("Cannot export a null category")
 		return
 	var cat_exp = category_exporter.new()
 	add_child(cat_exp)
@@ -250,6 +261,7 @@ func load_category(category_name : String,category_button : Button = null):
 	loading_category = false
 	for org in DialogEditor.color_organizers:
 		org.set_locked(org.locked)
+	category_loading_finished.emit(category_name)
 		
 	
 func initialize_category_import(category_name : String):
@@ -300,8 +312,8 @@ func _on_export_type_button_item_selected(index:int):
 
 func load_duplicated_category(name : String):
 	save_category_request()
-	load_category(name)
-	emit_signal("request_dialog_ids_reassigned")
+	#load_category(name)
+	#emit_signal("request_dialog_ids_reassigned")
 	
 
 
@@ -328,8 +340,14 @@ func _on_editor_settings_autosave_time_changed():
 
 
 func _on_dialog_file_system_index_category_deleted(category):
+	if current_category == category:
+		current_category = null
 	category_temp_data.erase(category)
+	
 
 
 func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
+	if current_category== old_name:
+		current_category = _new_name
 	category_temp_data.erase(old_name)
+	

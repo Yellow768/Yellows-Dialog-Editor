@@ -54,7 +54,8 @@ var to_dialog_id = -1: set = set_to_dialog_id
 var option_type = 0: set = set_option_type
 var node_index := -1
 
-var parent_dialog : dialog_node
+var parent_dialog : dialog_node : set = set_parent_dialog
+var parent_dialog_id : int
 
 var total_height : int
 
@@ -156,6 +157,14 @@ func set_connected_dialog(new_connected_dialog):
 func set_to_dialog_id(new_id : int):
 	to_dialog_id = new_id
 
+func set_parent_dialog(new_parent_dialog):
+	parent_dialog = new_parent_dialog
+	if new_parent_dialog == null: 
+		parent_dialog_id = 0
+		return
+	
+	parent_dialog_id = parent_dialog.dialog_id
+
 func set_connection_text(dialog_name : String,dialog_node_index: int):
 	if not is_inside_tree(): await self.ready
 	RemoteConnectionText.text = tr("RESPONSE_CONNECTED")+dialog_name+" | "+tr("NODE") +str(dialog_node_index)
@@ -164,6 +173,7 @@ func reveal_button():
 	if option_type == 0:
 		NewDialogButtonNode.modulate = Color(1,1,1,1)
 		NewDialogButtonNode.disabled = false
+		set_slot_enabled_right(1,true)
 
 	
 func hide_button():
@@ -206,6 +216,7 @@ func set_connection_shown():
 	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color)
 	set_slot_enabled_right(1,true)
 	RemoteConnectionContainer.visible = false
+	size.y = 215
 	
 
 func disconnect_from_dialog(commit_to_undo := true):
@@ -223,7 +234,15 @@ func delete_self(commit_to_undo := true):
 		connected_dialog.remove_connected_response(self)
 	emit_signal("request_delete_self",parent_dialog,self,commit_to_undo)
 	
-
+func set_orphaned(orphaned):
+	if orphaned:
+		title = tr("ORPHANED_RESPONSE_OPTION")
+		$"Warning Label".visible = true
+		add_to_group("Save")
+	else:
+		remove_from_group("Save")
+		$"Warning Label".visible = false
+		size.y = 215
 
 
 
@@ -350,7 +369,12 @@ func _on_spin_box_value_changed(value):
 
 	
 func save():
+	if parent_dialog:
+		parent_dialog_id = parent_dialog.dialog_id
+	else:
+		parent_dialog_id = -1
 	return {
+		"node_type" : node_type,
 		"slot" : slot,
 		"option_type" : option_type,
 		"color_decimal" :  color_decimal,
@@ -359,7 +383,7 @@ func save():
 		"to_dialog_id" : to_dialog_id,
 		"position_offset_x" : position_offset.x,
 		"position_offset_y" : position_offset.y,
-		"parent_dialog_id" : parent_dialog.dialog_id,
+		"parent_dialog_id" : parent_dialog_id,
 		"node_index" : node_index
 	}
 

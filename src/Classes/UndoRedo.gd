@@ -522,10 +522,11 @@ func execute_action_add_multiple_nodes(action):
 		execute_action_add_color_organizer({"color_org_data":color_org})
 
 func execute_action_delete_multiple_nodes(action):
-	for dialog in action.dialogs:
-		emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[dialog],true,false)
 	for response in action.responses:
 		emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[response].parent_dialog,dialog_editor.current_response_index_map[response],false)
+	for dialog in action.dialogs:
+		emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[dialog],true,false)
+	
 	for col_org in action.color_organizers:
 		emit_signal("request_action_delete_color_organizer",dialog_editor.current_color_organizer_index_map[col_org],false)
 
@@ -555,6 +556,7 @@ func create_response_node_from_data(response_data):
 	currently_loaded_response.set_option_from_index(response_data.option_type)
 	currently_loaded_response.response_title = response_data["response_title"]
 	currently_loaded_response.position_offset = Vector2(response_data["position_offset_x"],response_data["position_offset_y"])
+	currently_loaded_response.node_index = response_data["node_index"]
 	return currently_loaded_response
 
 func find_dialog_node_from_id(id : int):

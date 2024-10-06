@@ -135,7 +135,7 @@ func relay_unsaved_changes():
 	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
 func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,commit_to_undo := true):
-	if commit_to_undo && selected_dialogs.size() < 2:
+	if commit_to_undo:
 		dialog_node_deleted.emit(dialog.save())
 	if selected_dialogs.find(dialog,0) != -1:
 		selected_dialogs.erase(dialog)
@@ -160,14 +160,13 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	response_node_index +=1
 	if new_response.position_offset!=Vector2(0,0):
 		new_offset = new_response.position_offset
+
 	elif parent_dialog.response_options.size() == 0:
 		new_offset = parent_dialog.position_offset +Vector2(387,0)
 	else:
-		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+300)
-	parent_dialog.response_options.append(new_response)
+		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+300)	
+	
 	new_response.position_offset = new_offset
-	new_response.slot = parent_dialog.response_options.size()-1
-	new_response.parent_dialog = parent_dialog
 	new_response.connect("request_delete_self", Callable(self, "delete_response_node"))
 	new_response.connect("connect_to_dialog_request", Callable(self, "connect_nodes"))
 	new_response.connect("disconnect_from_dialog_request", Callable(self, "disconnect_nodes"))
@@ -181,8 +180,17 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
+
+	if parent_dialog:
+		parent_dialog.response_options.append(new_response)
+		new_response.slot = parent_dialog.response_options.size()-1
+		new_response.parent_dialog = parent_dialog
+		connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
+		new_response.parent_dialog_id = parent_dialog.dialog_id
+	else:
+		new_response.set_orphaned(true)
 	current_response_index_map[new_response.node_index] = new_response
-	connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
+	
 	relay_unsaved_changes()
 	if commit_to_undo:
 		emit_signal("response_node_added",new_response)
@@ -192,8 +200,9 @@ func delete_response_node(dialog : dialog_node,response : response_node, commit_
 
 	if commit_to_undo:
 		emit_signal("response_node_deleted",response.save())
-	dialog.delete_response_node(response.slot,response)
-	disconnect_node(dialog.get_name(),0,response.get_name(),0)
+	if dialog != null :
+		dialog.delete_response_node(response.slot,response)
+		disconnect_node(dialog.get_name(),0,response.get_name(),0)
 	if response.connected_dialog != null:
 		disconnect_node(response.get_name(),0,response.connected_dialog.get_name(),0)
 		response.connected_dialog.remove_connected_response(response)
@@ -272,18 +281,26 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 	if from.node_type == "Player Response Node":
 		response = from
 		dialog = to
+		if response.connected_dialog != null:
+			disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
+		response.connected_dialog = dialog
+		if response.position_offset.distance_to(dialog.position_offset) < GlobalDeclarations.hide_connection_distance:
+			connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
+		dialog.add_connected_response(response)
+		relay_unsaved_changes()
+		if commit_to_undo:
+			emit_signal("nodes_connected",from,to)
 	else:
 		response = to
 		dialog = from
-	if response.connected_dialog != null:
-		disconnect_node(response.get_name(),from_slot,response.connected_dialog.get_name(),to_slot)
-	response.connected_dialog = dialog
-	if response.position_offset.distance_to(dialog.position_offset) < GlobalDeclarations.hide_connection_distance:
+		if response.parent_dialog:
+
+			return
+		dialog.response_options.append(response)
+		response.slot = dialog.response_options.size()-1
+		response.parent_dialog = dialog
 		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
-	dialog.add_connected_response(response)
-	relay_unsaved_changes()
-	if commit_to_undo:
-		emit_signal("nodes_connected",from,to)
+		response.set_orphaned(false)
 
 	
 func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot : int, commit_to_undo := true):
@@ -294,18 +311,21 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 	if from.node_type == "Player Response Node":
 		response = from
 		dialog = to
+		if response.connected_dialog == dialog:
+			disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
+			dialog.remove_connected_response(response)
+			response.connected_dialog = null
+			response.to_dialog_id = 0
+		relay_unsaved_changes()
+		if commit_to_undo:
+			emit_signal("nodes_disconnected",from,to)
 	else:
 		response = to
 		dialog = from
-	
-	if response.connected_dialog == dialog:
+		response.parent_dialog = null
+		response.set_orphaned(true)
+		dialog.delete_response_node(response.slot,response)
 		disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
-		dialog.remove_connected_response(response)
-		response.connected_dialog = null
-		response.to_dialog_id = 0
-	relay_unsaved_changes()
-	if commit_to_undo:
-		emit_signal("nodes_disconnected",from,to)
 
 func hide_connection_line(from: GraphNode,to: GraphNode):
 	disconnect_node(from.name,0,to.name,0)
@@ -422,9 +442,13 @@ func clear_editor():
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):
+
+
 	connect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
+
+
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):
@@ -449,6 +473,7 @@ func select_node(node):
 			selected_color_organizers.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
+
 				
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
@@ -456,15 +481,18 @@ func select_node(node):
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
+
 		
 
 func unselect_node(node):
+	
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
 	if node.node_type == "Color Organizer":
 		selected_color_organizers.erase(node)
 	if node.node_type == "Dialog Node":
 		selected_dialogs.erase(node)
+
 		set_last_selected_node_as_selected()
 		if double_clicked:
 			node.selected = true
@@ -710,3 +738,83 @@ func _on_editor_settings_language_changed():
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
 			child.update_language()
+
+var currently_copied_dialogs : Array[Dictionary]
+var currently_copied_responses : Array[Dictionary]
+
+func _on_copy_nodes_request():
+	currently_copied_dialogs.clear()
+	currently_copied_responses.clear()
+	for dialog in selected_dialogs:
+		currently_copied_dialogs.append(dialog.save())
+	for response in selected_responses:
+		currently_copied_responses.append(response.save())
+
+
+	
+
+
+
+func _on_paste_nodes_request():
+	var node_loader = category_loader.new()
+	var initial_node_offset : Vector2 = Vector2.ZERO
+	var inital_pasted_offset : Vector2
+	var id_map = {}
+	var new_dialogs = []
+	var new_responses = []
+	for dialog in currently_copied_dialogs:
+		var original_id = dialog.dialog_id
+		var pasted_offset = Vector2.ZERO
+		if initial_node_offset == Vector2.ZERO:
+			initial_node_offset = Vector2(dialog["position_offset.x"],dialog["position_offset.y"])
+			inital_pasted_offset = get_local_mouse_position()
+			pasted_offset = inital_pasted_offset
+		else:
+			pasted_offset = inital_pasted_offset - (initial_node_offset - Vector2(dialog["position_offset.x"],dialog["position_offset.y"]))*zoom
+		var pasted_dialog = node_loader.create_new_dialog_node_from_ydec(dialog) 
+		pasted_dialog.dialog_id = -1
+		pasted_dialog.position_offset =pasted_offset
+		pasted_dialog.response_options.clear()
+		pasted_dialog.connected_responses.clear()
+		pasted_dialog.node_index = -1
+		add_dialog_node(pasted_dialog,false,false)
+		id_map[original_id] = pasted_dialog
+		new_dialogs.append(pasted_dialog.node_index)
+	for response in currently_copied_responses:
+		
+		var pasted_offset = Vector2.ZERO
+		if initial_node_offset == Vector2.ZERO:
+			initial_node_offset = Vector2(response.position_offset_x,response.position_offset_y)
+			inital_pasted_offset = get_local_mouse_position()
+			pasted_offset = inital_pasted_offset
+		else:
+			pasted_offset = inital_pasted_offset - (initial_node_offset - Vector2(response.position_offset_x,response.position_offset_y))*zoom
+
+		var pasted_response = node_loader.create_response_node_from_ydec(response)
+		pasted_response.node_index = -1
+		pasted_response.parent_dialog_id = response.parent_dialog_id
+		pasted_response.position_offset = (pasted_offset+scroll_offset)/zoom
+		
+		var new_parent_dialog = null
+		
+		if id_map.has(pasted_response.parent_dialog_id):
+			new_parent_dialog = id_map[pasted_response.parent_dialog_id]
+		add_response_node(new_parent_dialog,pasted_response,false)
+		
+		if id_map.has(pasted_response.to_dialog_id):
+			connect_nodes(pasted_response,0,id_map[pasted_response.to_dialog_id],0)
+	
+		else:
+			var dialog = find_dialog_node_from_id(pasted_response.to_dialog_id)
+			if dialog != null:
+				connect_nodes(pasted_response,0,dialog,0)
+		new_responses.append(pasted_response.node_index)
+	emit_signal("multiple_nodes_created",new_dialogs,new_responses)
+		
+
+func find_dialog_node_from_id(id : int):
+	var dialog_nodes = get_tree().get_nodes_in_group("Dialogs")
+	for dialog in dialog_nodes:
+		if dialog.dialog_id == id:
+			return dialog
+	return null

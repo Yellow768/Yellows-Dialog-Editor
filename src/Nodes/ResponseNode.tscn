@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dro88tu4x6qee"]
+[gd_scene load_steps=15 format=3 uid="uid://dro88tu4x6qee"]
 
 [ext_resource type="Script" path="res://src/Nodes/Scripts/ResponseNode.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
@@ -43,21 +43,17 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
+[sub_resource type="LabelSettings" id="LabelSettings_a4k5e"]
+font_size = 43
+
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(323, 174)
 
 [node name="PlayerResponseNode" type="GraphNode" groups=["Response_Nodes"]]
 z_as_relative = false
 custom_minimum_size = Vector2(335, 215)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -50.0
-offset_right = 210.0
-offset_bottom = 12.0
+offset_right = 335.0
+offset_bottom = 215.0
 theme = ExtResource("2")
 theme_override_styles/frame = SubResource("8")
 theme_override_styles/selected_frame = SubResource("6")
@@ -75,7 +71,7 @@ slot/0/right_color = Color(0, 0, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = false
 slot/1/left_enabled = true
-slot/1/left_type = 3
+slot/1/left_type = 1
 slot/1/left_color = Color(1, 0.294118, 0.105882, 1)
 slot/1/left_icon = null
 slot/1/right_enabled = true
@@ -92,6 +88,15 @@ slot/2/right_type = 0
 slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
 script = ExtResource("1")
 _response_text_node_path = NodePath("HBoxContainer/VBoxContainer/ResponseText")
 _color_picker_node_path = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ColorPickerButton")
@@ -204,6 +209,16 @@ layout_mode = 2
 [node name="JumpButton" type="Button" parent="VBOXRemoteConnection/HBoxContainer"]
 layout_mode = 2
 text = "Jump To Node"
+
+[node name="Warning Label" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "ORPHANED_RESPONSE_OPTION_WARNING"
+mouse_filter = 1
+text = "⚠"
+label_settings = SubResource("LabelSettings_a4k5e")
+horizontal_alignment = 1
 
 [node name="ResponseNodeArea" type="Area2D" parent="."]
 

@@ -67,7 +67,7 @@ func _on_popup_menu_id_pressed(id):
 		4:
 			emit_signal("duplicate_category_request",category_name)
 		6:
-			OS.shell_open(CurrentEnvironment.current_dialog_directory+"/"+category_name)
+			OS.shell_show_in_file_manager(CurrentEnvironment.current_dialog_directory+"/"+category_name,true)
 		7: 
 			$PopupMenu.visible = false
 	
