@@ -16,7 +16,7 @@ func _ready():
 		var quick_dir_button := Button.new()
 		quick_dir_button.text = dir
 		quick_dir_button.connect("pressed", Callable(self, "change_to_editor").bind(dir))
-		$PrevDirsContainer.add_child(quick_dir_button)
+		$Panel/VBoxContainer2/HBoxContainer/PrevDirsContainer.add_child(quick_dir_button)
 	$Panel/FileDialog.current_dir = GlobalDeclarations.default_user_directory
 	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
 	print("Launched Succesfully")
