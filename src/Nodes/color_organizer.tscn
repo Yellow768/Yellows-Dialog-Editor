@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://csqosyiphjom2"]
+[gd_scene load_steps=11 format=3 uid="uid://csqosyiphjom2"]
 
 [ext_resource type="Script" path="res://src/Nodes/Scripts/color_organizer.gd" id="1_lo3x2"]
 [ext_resource type="Texture2D" uid="uid://doa0qf5wgt1u7" path="res://Assets/UI Textures/Icon Font/lock-off-line.svg" id="2_ss77x"]
@@ -10,7 +10,47 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxyas"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6h4y"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up2jj"]
+bg_color = Color(0.0156863, 0.211765, 0.321569, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tq2m2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rsi8k"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nf6x1"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hflk"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="color_organizer" type="GraphNode" groups=["Save"]]
 z_index = -1
@@ -23,7 +63,6 @@ theme_override_colors/resizer_color = Color(1, 1, 1, 1)
 theme_override_styles/frame = SubResource("StyleBoxFlat_br6ho")
 theme_override_styles/selected_frame = SubResource("StyleBoxFlat_br6ho")
 theme_override_styles/comment = SubResource("StyleBoxFlat_br6ho")
-show_close = true
 resizable = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -38,15 +77,20 @@ script = ExtResource("1_lo3x2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 tooltip_text = "COLOR_ORGANIZER_TOOLTIP"
+theme_override_styles/normal = SubResource("StyleBoxFlat_jxyas")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t6h4y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_up2jj")
 toggle_mode = true
 icon = ExtResource("2_ss77x")
 icon_alignment = 1
@@ -71,6 +115,16 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tq2m2")
 text = "Category Color"
 alignment = 1
 
+[node name="CloseButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_rsi8k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nf6x1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4hflk")
+text = "X"
+
 [connection signal="close_request" from="." to="." method="_on_close_request"]
 [connection signal="node_deselected" from="." to="." method="_on_node_deselected"]
 [connection signal="node_selected" from="." to="." method="_on_node_selected"]
@@ -79,3 +133,4 @@ alignment = 1
 [connection signal="toggled" from="HBoxContainer/VBoxContainer/Button" to="." method="_on_button_toggled"]
 [connection signal="color_changed" from="HBoxContainer/VBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

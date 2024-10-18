@@ -327,6 +327,7 @@ func _on_dialog_editor_import_category_canceled():
 func _on_dialog_editor_unsaved_changes(_name):
 	if current_category_button != null && !loading_category:
 		current_category_button.set_unsaved(true)
+		emit_signal("unsaved_change",current_category)
 
 
 func _on_autosave_timer_timeout():
