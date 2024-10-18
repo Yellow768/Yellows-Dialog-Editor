@@ -179,7 +179,6 @@ func save_all_categories():
 		else:
 			printerr(error_string(result))
 			emit_signal("category_failed_save")
-	emit_signal("unsaved_change",false)
 
 	
 func save_all_backups():
