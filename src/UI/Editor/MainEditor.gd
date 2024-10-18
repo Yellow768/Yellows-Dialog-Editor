@@ -83,9 +83,9 @@ func _notification(what):
 			update_unsaved_categories_text_list()
 
 func update_unsaved_categories_text_list():
-	$"UnsavedPanel/UnsavedPanel/VBoxContainer/Unsaved Categories".text = ""
+	$UnsavedPanel/VBoxContainer/UnsavedCategoriesLabel.text = ""
 	for category_name in unsaved_categories:
-		$"UnsavedPanel/UnsavedPanel/VBoxContainer/Unsaved Categories".text += category_name+"\n"
+		$UnsavedPanel/VBoxContainer/UnsavedCategoriesLabel.text += category_name+"\n"
 					
 func add_to_unsaved_categories(category):
 	if !unsaved_categories.has(category) && category != null:

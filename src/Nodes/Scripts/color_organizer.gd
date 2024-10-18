@@ -1,5 +1,7 @@
 extends GraphNode
 class_name color_organizer
+
+signal request_deletion
 var node_type = "Color Organizer"
 var text = tr("NEW_COLOR_ORGANIZER")
 var box_color : Color = Color(1,1,1,1)
@@ -93,10 +95,10 @@ func _on_node_deselected():
 
 
 func _on_close_request():
-	queue_free()
+	request_deletion.emit(self,true)
 	
 func delete_self(_useless_bool):
-	queue_free()
+	request_deletion.emit(self,true)
 
 func set_locked(value : bool):
 	
@@ -154,4 +156,4 @@ func _on_color_picker_button_pressed():
 
 
 func _on_close_button_pressed():
-	queue_free()
+	request_deletion.emit(self,true)

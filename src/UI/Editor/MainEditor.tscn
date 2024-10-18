@@ -117,7 +117,6 @@ text = "BLANK_EDITOR_LABEL"
 horizontal_alignment = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
-visible = false
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
@@ -1781,8 +1780,7 @@ offset_top = -300.0
 offset_right = 500.0
 offset_bottom = 300.0
 
-[node name="UnsavedPanel" type="Panel" parent="."]
-visible = false
+[node name="UnsavedPanel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1797,51 +1795,52 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_np52e")
 
-[node name="Label" type="Label" parent="UnsavedPanel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -138.0
-offset_top = 19.5
-offset_right = 138.0
-offset_bottom = 45.5
-grow_horizontal = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="UnsavedPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UnsavedPanel/VBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
 text = "UNSAVED"
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel"]
+[node name="HSeparator" type="HSeparator" parent="UnsavedPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnsavedCategoriesLabel" type="Label" parent="UnsavedPanel/VBoxContainer"]
+layout_mode = 2
+text = "UNSAVED"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="UnsavedPanel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -181.0
-offset_top = -40.0
-offset_right = 181.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
+alignment = 1
 
-[node name="SaveAndClose" type="Button" parent="UnsavedPanel/HBoxContainer"]
+[node name="SaveAndClose" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "SAVE_AND_CLOSE"
 
-[node name="VSeparator" type="VSeparator" parent="UnsavedPanel/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="NoSave" type="Button" parent="UnsavedPanel/HBoxContainer"]
+[node name="NoSave" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "CLOSE_NO_SAVE"
 
-[node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="UnsavedPanel/HBoxContainer"]
+[node name="Cancel" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "CANCEL"
 
@@ -2045,8 +2044,8 @@ one_shot = true
 [connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/GENERAL" method="_language_updated"]
 [connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_editor_settings_language_changed"]
 [connection signal="snap_enabled_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_snap_enabled_changed"]
-[connection signal="pressed" from="UnsavedPanel/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]
-[connection signal="pressed" from="UnsavedPanel/HBoxContainer/NoSave" to="." method="_on_no_save_pressed"]
-[connection signal="pressed" from="UnsavedPanel/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]
+[connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/NoSave" to="." method="_on_no_save_pressed"]
+[connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
 [connection signal="timeout" from="AutosaveTimer" to="CategoryPanel" method="_on_autosave_timer_timeout"]
 [connection signal="timeout" from="DoubleClickTimer" to="DialogEditor" method="_on_double_click_timer_timeout"]
