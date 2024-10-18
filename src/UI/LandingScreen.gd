@@ -9,8 +9,6 @@ func _ready():
 	OS.low_processor_usage_mode = true
 	get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	get_window().min_size = Vector2(1280,720)
-	if get_window().mode == Window.MODE_MAXIMIZED:
-		get_window().size = DisplayServer.screen_get_usable_rect().size
 	var config := ConfigFile.new()
 	config.load(user_settings_path)
 	for dir in JSON.parse_string(config.get_value("prev_dirs","dir_array","[]")):

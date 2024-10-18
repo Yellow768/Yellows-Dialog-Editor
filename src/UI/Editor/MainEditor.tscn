@@ -117,6 +117,7 @@ text = "BLANK_EDITOR_LABEL"
 horizontal_alignment = 1
 
 [node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
+visible = false
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
@@ -301,12 +302,16 @@ icon = ExtResource("12_jpjxe")
 
 [node name="InformationPanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(462, 100)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -462.0
-offset_top = 49.0
-offset_bottom = 1080.0
+offset_top = 47.5
+offset_bottom = 47.5
+grow_horizontal = 0
+grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
@@ -335,12 +340,14 @@ clip_text = true
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
 visible = false
-layout_mode = 0
-offset_left = 8.0
-offset_top = 18.0
-offset_right = 452.0
-offset_bottom = 1005.0
-mouse_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 18.225
+offset_bottom = 18.225
+grow_horizontal = 2
+grow_vertical = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
@@ -377,12 +384,14 @@ start_quest_path = NodePath("ScrollContainer/VBoxContainer/StartQuest")
 dialog_text_edit_path = NodePath("ScrollContainer/VBoxContainer/DialogText")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
-layout_mode = 0
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -468.5
-offset_right = 425.0
-offset_bottom = 469.5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.77
+offset_bottom = 4.77002
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer"]
 custom_minimum_size = Vector2(0, 1500)
@@ -396,6 +405,7 @@ clip_text = true
 [node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 wrap_mode = 1
 scroll_smooth = true
 scroll_past_end_of_file = true
@@ -623,7 +633,9 @@ information_panel_path = NodePath("../..")
 custom_minimum_size = Vector2(436, 300)
 layout_mode = 2
 offset_right = 436.0
-offset_bottom = 937.0
+offset_bottom = 1065.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability"]
 custom_minimum_size = Vector2(435, 1080)
@@ -1620,10 +1632,13 @@ text = ">"
 [node name="CategoryPanel" type="Panel" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(360, 600)
-layout_mode = 0
-offset_top = 49.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 49.35
 offset_right = 360.0
-offset_bottom = 1062.0
+offset_bottom = 49.35
+grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("11")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
@@ -1924,8 +1939,6 @@ one_shot = true
 [connection signal="scanned_quests_and_factions" from="InformationPanel" to="UI Anims" method="_on_information_panel_scanned_quests_and_factions"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
-[connection signal="mouse_entered" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_entered"]
-[connection signal="mouse_exited" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_exited"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DialogText_text_changed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton/ToggleVisualOptions" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_toggle_visual_options_toggled"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_HideNPC_pressed"]
