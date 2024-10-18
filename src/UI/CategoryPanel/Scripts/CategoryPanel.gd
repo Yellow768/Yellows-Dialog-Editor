@@ -21,6 +21,7 @@ signal category_failed_save
 signal category_succesfully_exported
 signal category_export_failed
 signal unsaved_change
+signal saved_backups
 
 @export var category_file_container_path: NodePath
 @export var environment_index_path: NodePath
@@ -179,7 +180,6 @@ func save_all_categories():
 		else:
 			printerr(error_string(result))
 			emit_signal("category_failed_save")
-	emit_signal("unsaved_change",false)
 
 	
 func save_all_backups():
@@ -193,13 +193,10 @@ func save_all_backups():
 			add_child(temp_cat_save)
 			category_temp_data[key] = temp_cat_save.save_temp(current_category)
 		var result = cat_save.save_category(key,category_temp_data[key],true)
-		if  result == OK:
-			emit_signal("category_succesfully_saved",current_category)
-		else:
+		if  result != OK:
 			printerr(error_string(result))
-			emit_signal("category_failed_save")
-	emit_signal("unsaved_change",false)
-
+			emit_signal("category_failed_save",key)
+	emit_signal("saved_backups")
 
 
 func export_category_request():
@@ -327,6 +324,7 @@ func _on_dialog_editor_import_category_canceled():
 func _on_dialog_editor_unsaved_changes(_name):
 	if current_category_button != null && !loading_category:
 		current_category_button.set_unsaved(true)
+		emit_signal("unsaved_change",current_category)
 
 
 func _on_autosave_timer_timeout():

@@ -304,12 +304,16 @@ icon = ExtResource("12_jpjxe")
 
 [node name="InformationPanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(462, 100)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -462.0
-offset_top = 49.0
-offset_bottom = 1080.0
+offset_top = 47.5
+offset_bottom = 47.5
+grow_horizontal = 0
+grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("2")
 dialog_settings_tab_path = NodePath("DialogNodeTabs")
@@ -339,12 +343,14 @@ clip_text = true
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
 visible = false
-layout_mode = 0
-offset_left = 8.0
-offset_top = 18.0
-offset_right = 452.0
-offset_bottom = 1005.0
-mouse_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 18.225
+offset_bottom = 18.225
+grow_horizontal = 2
+grow_vertical = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
@@ -381,12 +387,14 @@ start_quest_path = NodePath("ScrollContainer/VBoxContainer/StartQuest")
 dialog_text_edit_path = NodePath("ScrollContainer/VBoxContainer/DialogText")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
-layout_mode = 0
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -468.5
-offset_right = 425.0
-offset_bottom = 469.5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.77
+offset_bottom = 4.77002
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer"]
 custom_minimum_size = Vector2(0, 1500)
@@ -400,6 +408,7 @@ clip_text = true
 [node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 wrap_mode = 1
 scroll_smooth = true
 scroll_past_end_of_file = true
@@ -627,7 +636,9 @@ information_panel_path = NodePath("../..")
 custom_minimum_size = Vector2(436, 300)
 layout_mode = 2
 offset_right = 436.0
-offset_bottom = 937.0
+offset_bottom = 1065.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability"]
 custom_minimum_size = Vector2(435, 1080)
@@ -1780,10 +1791,13 @@ text = ">"
 [node name="CategoryPanel" type="Panel" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(360, 600)
-layout_mode = 0
-offset_top = 49.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 49.35
 offset_right = 360.0
-offset_bottom = 1062.0
+offset_bottom = 49.35
+grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("11")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
@@ -1940,7 +1954,7 @@ offset_top = -300.0
 offset_right = 500.0
 offset_bottom = 300.0
 
-[node name="UnsavedPanel" type="Panel" parent="."]
+[node name="UnsavedPanel" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -1956,51 +1970,52 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_np52e")
 
-[node name="Label" type="Label" parent="UnsavedPanel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -138.0
-offset_top = 19.5
-offset_right = 138.0
-offset_bottom = 45.5
-grow_horizontal = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="UnsavedPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UnsavedPanel/VBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
 text = "UNSAVED"
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel"]
+[node name="HSeparator" type="HSeparator" parent="UnsavedPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnsavedCategoriesLabel" type="Label" parent="UnsavedPanel/VBoxContainer"]
+layout_mode = 2
+text = "UNSAVED"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="UnsavedPanel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -181.0
-offset_top = -40.0
-offset_right = 181.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
+alignment = 1
 
-[node name="SaveAndClose" type="Button" parent="UnsavedPanel/HBoxContainer"]
+[node name="SaveAndClose" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "SAVE_AND_CLOSE"
 
-[node name="VSeparator" type="VSeparator" parent="UnsavedPanel/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="NoSave" type="Button" parent="UnsavedPanel/HBoxContainer"]
+[node name="NoSave" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "CLOSE_NO_SAVE"
 
-[node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="UnsavedPanel/HBoxContainer"]
+[node name="Cancel" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "CANCEL"
 
@@ -2051,7 +2066,6 @@ one_shot = true
 [connection signal="response_node_deleted" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_response_node_deleted"]
 [connection signal="response_nodes_swapped" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_response_nodes_swapped"]
 [connection signal="save_all" from="DialogEditor" to="CategoryPanel" method="save_all_categories"]
-[connection signal="unsaved_changes" from="DialogEditor" to="." method="add_to_unsaved_categories"]
 [connection signal="unsaved_changes" from="DialogEditor" to="CategoryPanel" method="_on_dialog_editor_unsaved_changes"]
 [connection signal="request_action_add_color_organizer" from="DialogEditor/UndoSystem" to="DialogEditor" method="add_color_organizer"]
 [connection signal="request_action_add_dialog_node" from="DialogEditor/UndoSystem" to="DialogEditor" method="add_dialog_node"]
@@ -2084,8 +2098,6 @@ one_shot = true
 [connection signal="scanned_quests_and_factions" from="InformationPanel" to="UI Anims" method="_on_information_panel_scanned_quests_and_factions"]
 [connection signal="show_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_show_information_panel"]
 [connection signal="unsaved_change" from="InformationPanel" to="DialogEditor" method="relay_unsaved_changes"]
-[connection signal="mouse_entered" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_entered"]
-[connection signal="mouse_exited" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_text_mouse_exited"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogText" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_DialogText_text_changed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton/ToggleVisualOptions" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_toggle_visual_options_toggled"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/HideNPC" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_HideNPC_pressed"]
@@ -2190,7 +2202,9 @@ one_shot = true
 [connection signal="hide_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="request_dialog_ids_reassigned" from="CategoryPanel" to="DialogEditor" method="_on_category_panel_request_dialog_ids_reassigned"]
 [connection signal="reveal_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_reveal_category_panel"]
+[connection signal="saved_backups" from="CategoryPanel" to="UI Anims" method="_on_category_panel_saved_backups"]
 [connection signal="scan_for_changes" from="CategoryPanel" to="DialogEditor" method="scan_for_changes"]
+[connection signal="unsaved_change" from="CategoryPanel" to="." method="add_to_unsaved_categories"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="category_buttons_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
@@ -2206,8 +2220,8 @@ one_shot = true
 [connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/GENERAL" method="_language_updated"]
 [connection signal="language_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/MAIL" method="_on_editor_settings_language_changed"]
 [connection signal="snap_enabled_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_snap_enabled_changed"]
-[connection signal="pressed" from="UnsavedPanel/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]
-[connection signal="pressed" from="UnsavedPanel/HBoxContainer/NoSave" to="." method="_on_no_save_pressed"]
-[connection signal="pressed" from="UnsavedPanel/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/SaveAndClose" to="." method="_on_save_and_close_pressed"]
+[connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/NoSave" to="." method="_on_no_save_pressed"]
+[connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
 [connection signal="timeout" from="AutosaveTimer" to="CategoryPanel" method="_on_autosave_timer_timeout"]
 [connection signal="timeout" from="DoubleClickTimer" to="DialogEditor" method="_on_double_click_timer_timeout"]

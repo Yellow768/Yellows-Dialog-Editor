@@ -71,6 +71,7 @@ func _on_HomeButton_pressed():
 	else:
 		$UnsavedPanel.visible = true
 		is_quit_return_to_home = true
+		update_unsaved_categories_text_list()
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -79,6 +80,12 @@ func _notification(what):
 			get_tree().quit()
 		else:
 			$UnsavedPanel.visible = true
+			update_unsaved_categories_text_list()
+
+func update_unsaved_categories_text_list():
+	$UnsavedPanel/VBoxContainer/UnsavedCategoriesLabel.text = ""
+	for category_name in unsaved_categories:
+		$UnsavedPanel/VBoxContainer/UnsavedCategoriesLabel.text += category_name+"\n"
 					
 func add_to_unsaved_categories(category):
 	if !unsaved_categories.has(category) && category != null:

@@ -228,8 +228,10 @@ func add_color_organizer(col_org :color_organizer= GlobalDeclarations.COLOR_ORGA
 		col_org.position_offset = get_window().size/3
 	if !use_exact_offset:
 		col_org.position_offset = (col_org.position_offset+scroll_offset)/zoom
+	col_org.connect("request_deletion",Callable(self,"delete_color_organizer"))
 	add_child(col_org)
 	color_organizers.append(col_org)
+	
 	if commit_to_undo:
 		color_organizer_added.emit(col_org)
 	

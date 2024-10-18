@@ -1,5 +1,7 @@
 extends GraphNode
 class_name color_organizer
+
+signal request_deletion
 var node_type = "Color Organizer"
 var text = tr("NEW_COLOR_ORGANIZER")
 var box_color : Color = Color(1,1,1,1)
@@ -54,7 +56,7 @@ func change_color(color):
 func _on_resize_request(new_minsize):
 	custom_minimum_size = new_minsize
 	size = new_minsize
-	$HBoxContainer/VBoxContainer/Button.custom_minimum_size = new_minsize/12
+	$HBoxContainer/VBoxContainer/Button.custom_minimum_size = clamp(new_minsize/12,Vector2(50,50),Vector2(900,900))
 	$HBoxContainer/VBoxContainer/ColorPickerButton.custom_minimum_size = new_minsize/12
 	$HBoxContainer/TextEdit.custom_minimum_size.x = new_minsize.x
 	$HBoxContainer/TextEdit.add_theme_font_size_override("font_size",new_minsize.y/8)
@@ -93,10 +95,10 @@ func _on_node_deselected():
 
 
 func _on_close_request():
-	queue_free()
+	request_deletion.emit(self,true)
 	
 func delete_self(_useless_bool):
-	queue_free()
+	request_deletion.emit(self,true)
 
 func set_locked(value : bool):
 	
@@ -111,11 +113,15 @@ func set_locked(value : bool):
 		resizable = false
 		draggable = false
 		$HBoxContainer/VBoxContainer/ColorPickerButton.visible = false
+		$HBoxContainer/CloseButton.modulate = Color(1,1,1,0)
+		$HBoxContainer/CloseButton.disabled = true
 		$HBoxContainer/TextEdit.mouse_filter = MOUSE_FILTER_IGNORE
 		selected = false
 	else:
 		$HBoxContainer/VBoxContainer/Button.icon = load("res://Assets/UI Textures/Icon Font/lock-off-line.svg")
 		$HBoxContainer/VBoxContainer/ColorPickerButton.visible = true
+		$HBoxContainer/CloseButton.modulate = Color(1,1,1,1)
+		$HBoxContainer/CloseButton.disabled = false
 		mouse_filter = 1
 		resizable = true
 		draggable = true
@@ -147,3 +153,7 @@ func _on_color_picker_button_pressed():
 		$HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().erase_preset(color)
 	for color in GlobalDeclarations.color_presets:
 		$HBoxContainer/VBoxContainer/ColorPickerButton.get_picker().add_preset(color)
+
+
+func _on_close_button_pressed():
+	request_deletion.emit(self,true)

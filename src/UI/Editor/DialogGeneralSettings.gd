@@ -103,7 +103,7 @@ func load_current_dialog_settings(dialog : dialog_node):
 		if !current_dialog.is_connected("text_changed", Callable(self, "update_text")):
 			current_dialog.connect("text_changed", Callable(self, "update_text"))
 			current_dialog.connect("title_changed", Callable(self, "update_title").bind(current_dialog))
-	set_title_text(current_dialog.dialog_title,current_dialog.node_index)	
+	set_title_text(current_dialog.dialog_title,current_dialog.dialog_id)	
 	HideNpcCheckbox.button_pressed = current_dialog.hide_npc
 	ShowWheelCheckbox.button_pressed = current_dialog.show_wheel
 	DisableEscCheckbox.button_pressed = current_dialog.disable_esc
@@ -146,7 +146,7 @@ func _language_updated():
 func set_title_text(title_text : String,node_index : int):
 	if title_text.length() > 35:
 		title_text = title_text.left(35)+"..."
-	TitleLabel.text = title_text+"| Node "+str(node_index)
+	TitleLabel.text = title_text+"| ID "+str(node_index)
 
 func _on_HideNPC_pressed():
 	current_dialog.hide_npc = HideNpcCheckbox.button_pressed
@@ -189,7 +189,7 @@ func update_text():
 	DialogTextEdit.text = current_dialog.text
 
 func update_title(_text):
-	set_title_text(current_dialog.dialog_title,current_dialog.node_index)
+	set_title_text(current_dialog.dialog_title,current_dialog.dialog_id)
 	
 func _on_StartQuest_id_changed(value : int):
 	current_dialog.start_quest = value
@@ -405,11 +405,4 @@ func _on_lock_toggled(button_pressed):
 		VisualSettings.modulate = Color(1,1,1)
 
 
-func _on_dialog_text_mouse_entered():
-	$ScrollContainer.vertical_scroll_mode = 0
-	
 
-
-
-func _on_dialog_text_mouse_exited():
-	$ScrollContainer.vertical_scroll_mode = 1

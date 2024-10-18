@@ -38,8 +38,8 @@ func _on_CategoryPanel_category_succesfully_saved(cname):
 	add_notification(save_string % cname)
 
 
-func _on_CategoryPanel_category_failed_save():
-	add_notification(tr("SAVE_FAILED"))
+func _on_CategoryPanel_category_failed_save(cname):
+	add_notification(cname+" "+ tr("SAVE_FAILED"))
 	
 
 
@@ -64,3 +64,7 @@ func _on_availability_mode_exited() -> void:
 func _on_information_panel_scanned_quests_and_factions():
 	add_notification(tr("RESCANNED_QUEST_AND_FACTIONS"))
 
+
+
+func _on_category_panel_saved_backups():
+	add_notification(tr("SAVED_BACKUPS"))
