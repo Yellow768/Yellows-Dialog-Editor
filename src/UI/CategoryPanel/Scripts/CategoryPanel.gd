@@ -194,10 +194,10 @@ func save_all_backups():
 			category_temp_data[key] = temp_cat_save.save_temp(current_category)
 		var result = cat_save.save_category(key,category_temp_data[key],true)
 		if  result == OK:
-			emit_signal("category_succesfully_saved",current_category)
+			emit_signal("category_succesfully_saved",key)
 		else:
 			printerr(error_string(result))
-			emit_signal("category_failed_save")
+			emit_signal("category_failed_save",key)
 	emit_signal("unsaved_change",false)
 
 

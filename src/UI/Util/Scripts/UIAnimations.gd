@@ -38,8 +38,8 @@ func _on_CategoryPanel_category_succesfully_saved(cname):
 	add_notification(save_string % cname)
 
 
-func _on_CategoryPanel_category_failed_save():
-	add_notification(tr("SAVE_FAILED"))
+func _on_CategoryPanel_category_failed_save(cname):
+	add_notification(cname+" "+ tr("SAVE_FAILED"))
 	
 
 
