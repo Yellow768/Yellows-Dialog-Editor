@@ -1781,6 +1781,7 @@ offset_right = 500.0
 offset_bottom = 300.0
 
 [node name="UnsavedPanel" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2027,6 +2028,7 @@ one_shot = true
 [connection signal="hide_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="request_dialog_ids_reassigned" from="CategoryPanel" to="DialogEditor" method="_on_category_panel_request_dialog_ids_reassigned"]
 [connection signal="reveal_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_reveal_category_panel"]
+[connection signal="saved_backups" from="CategoryPanel" to="UI Anims" method="_on_category_panel_saved_backups"]
 [connection signal="scan_for_changes" from="CategoryPanel" to="DialogEditor" method="scan_for_changes"]
 [connection signal="unsaved_change" from="CategoryPanel" to="." method="add_to_unsaved_categories"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]

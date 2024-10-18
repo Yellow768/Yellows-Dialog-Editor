@@ -21,6 +21,7 @@ signal category_failed_save
 signal category_succesfully_exported
 signal category_export_failed
 signal unsaved_change
+signal saved_backups
 
 @export var category_file_container_path: NodePath
 @export var environment_index_path: NodePath
@@ -192,13 +193,10 @@ func save_all_backups():
 			add_child(temp_cat_save)
 			category_temp_data[key] = temp_cat_save.save_temp(current_category)
 		var result = cat_save.save_category(key,category_temp_data[key],true)
-		if  result == OK:
-			emit_signal("category_succesfully_saved",key)
-		else:
+		if  result != OK:
 			printerr(error_string(result))
 			emit_signal("category_failed_save",key)
-	emit_signal("unsaved_change",false)
-
+	emit_signal("saved_backups")
 
 
 func export_category_request():
