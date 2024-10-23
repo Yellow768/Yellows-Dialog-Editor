@@ -73,6 +73,17 @@ spacing_space = 9
 base_font = ExtResource("23_rr465")
 spacing_space = 17
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j53uj"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_ik4xw"]
+font_size = 21
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np52e"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 1)
 corner_radius_top_left = 14
@@ -581,8 +592,10 @@ layout_mode = 2
 text = "SOUND_FILE"
 
 [node name="Soundfile" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 caret_blink = true
+min_size = 40
 
 [node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -593,7 +606,9 @@ layout_mode = 2
 text = "CONSOLE_COMMAND"
 
 [node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+min_size = 40
 
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -1916,18 +1931,24 @@ offset_bottom = 95.0
 theme = ExtResource("14")
 text = "Rescanned Quests and Factions"
 
-[node name="AvailabilityMode" type="Label" parent="UI Anims"]
+[node name="AvailabilityMode" type="PanelContainer" parent="UI Anims"]
 visible = false
-modulate = Color(0.129412, 0, 1, 1)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -165.5
-offset_top = 82.0
-offset_right = 165.5
-offset_bottom = 111.0
+offset_left = -196.0
+offset_top = 78.0
+offset_right = 188.0
+offset_bottom = 139.0
+grow_horizontal = 2
 theme = ExtResource("14")
-text = "AV_MODE"
+theme_override_styles/panel = SubResource("StyleBoxFlat_j53uj")
+
+[node name="Label" type="Label" parent="UI Anims/AvailabilityMode"]
+layout_mode = 2
+text = "DOUBLE_CLICK_AVAIL"
+label_settings = SubResource("LabelSettings_ik4xw")
+horizontal_alignment = 1
 
 [node name="NotificationCenter" type="VBoxContainer" parent="UI Anims"]
 custom_minimum_size = Vector2(200, 100)
