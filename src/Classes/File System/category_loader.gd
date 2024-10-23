@@ -143,9 +143,9 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 			currently_loaded_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
 		
 		if node_data.has("scoreboard_availabilities"):
-			currently_loaded_dialog.scoreboard_availabilities[i].set_objective_name(node_data["scoreboard_availabilities"][i].objective_name)
-			currently_loaded_dialog.scoreboard_availabilities[i].set_comparison_type(node_data["scoreboard_availabilities"][i].comparison_type)
-			currently_loaded_dialog.scoreboard_availabilities[i].set_value(node_data["scoreboard_availabilities"][i].value)
+			currently_loaded_dialog.scoreboard_availabilities[i].objective_name = node_data["scoreboard_availabilities"][i].objective_name
+			currently_loaded_dialog.scoreboard_availabilities[i].comparison_type = node_data["scoreboard_availabilities"][i].comparison_type
+			currently_loaded_dialog.scoreboard_availabilities[i].value = node_data["scoreboard_availabilities"][i].value
 	if node_data.has("mail"):
 		currently_loaded_dialog.mail.sender = node_data["mail"].sender
 		currently_loaded_dialog.mail.subject = node_data["mail"].subject

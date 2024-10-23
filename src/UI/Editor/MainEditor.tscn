@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=48 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -70,6 +70,17 @@ spacing_space = 9
 [sub_resource type="FontVariation" id="FontVariation_rv42o"]
 base_font = ExtResource("23_rr465")
 spacing_space = 17
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j53uj"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_ik4xw"]
+font_size = 21
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np52e"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 1)
@@ -339,7 +350,6 @@ text = "INFORMATION_PANEL_LABEL"
 clip_text = true
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -578,8 +588,10 @@ layout_mode = 2
 text = "SOUND_FILE"
 
 [node name="Soundfile" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 caret_blink = true
+min_size = 40
 
 [node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -590,7 +602,9 @@ layout_mode = 2
 text = "CONSOLE_COMMAND"
 
 [node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+min_size = 40
 
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -1757,18 +1771,23 @@ offset_bottom = 95.0
 theme = ExtResource("14")
 text = "Rescanned Quests and Factions"
 
-[node name="AvailabilityMode" type="Label" parent="UI Anims"]
-visible = false
-modulate = Color(0.129412, 0, 1, 1)
+[node name="AvailabilityMode" type="PanelContainer" parent="UI Anims"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -165.5
-offset_top = 82.0
-offset_right = 165.5
-offset_bottom = 111.0
+offset_left = -196.0
+offset_top = 78.0
+offset_right = 188.0
+offset_bottom = 139.0
+grow_horizontal = 2
 theme = ExtResource("14")
-text = "AV_MODE"
+theme_override_styles/panel = SubResource("StyleBoxFlat_j53uj")
+
+[node name="Label" type="Label" parent="UI Anims/AvailabilityMode"]
+layout_mode = 2
+text = "Double Click a Dialog Node to set Availability"
+label_settings = SubResource("LabelSettings_ik4xw")
+horizontal_alignment = 1
 
 [node name="NotificationCenter" type="VBoxContainer" parent="UI Anims"]
 custom_minimum_size = Vector2(200, 100)

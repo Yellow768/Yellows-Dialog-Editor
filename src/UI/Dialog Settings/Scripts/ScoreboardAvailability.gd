@@ -1,9 +1,9 @@
 extends Control
 class_name scoreboard_availability_object
 
-@export var objective_name: String
-@export var value: int = 0
-@export_enum("Smaller Than","Equal To","Bigger Than") var comparison_type := 1
+@export var objective_name: String : set = set_objective_name
+@export var value: int = 0 : set = set_value
+@export_enum("Smaller Than","Equal To","Bigger Than") var comparison_type := 1 : set = set_comparison_type
 
 signal comparison_type_changed
 signal objective_name_changed
@@ -19,16 +19,19 @@ func get_value():
 	return $Panel/SpinBox.value
 
 func set_comparison_type(type : int):
+	comparison_type = type
 	if not is_inside_tree(): await self.ready
 	$Panel/OptionButton.selected = type
 	
 func set_objective_name(obj_name : String):
+	objective_name = obj_name
 	if not is_inside_tree(): await self.ready
 	$Panel/LineEdit.text = obj_name
 	
-func set_value(value : int):
+func set_value(val : int):
+	value = val
 	if not is_inside_tree(): await self.ready
-	$Panel/SpinBox.value = value
+	$Panel/SpinBox.value = val
 	
 
 
