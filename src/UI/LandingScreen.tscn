@@ -118,7 +118,7 @@ theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "[b]Yellow's Dialog Editor 
+text = "[b]Yellow's Dialog Editor RAINMIRE BUILD
 v0.7.2"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]

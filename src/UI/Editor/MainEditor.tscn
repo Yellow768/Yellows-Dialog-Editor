@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=50 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
