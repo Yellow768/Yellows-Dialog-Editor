@@ -164,7 +164,8 @@ func create_response_node_from_ydec(response_data):
 	currently_loaded_response.slot = response_data.slot
 	currently_loaded_response.color_decimal = response_data.color_decimal
 	currently_loaded_response.to_dialog_id = response_data.to_dialog_id
-	currently_loaded_response.command = response_data.command
+	currently_loaded_response.option_command = response_data.option_command
+	currently_loaded_response.commands = response_data.commands
 	currently_loaded_response.set_option_from_index(response_data.option_type)
 	currently_loaded_response.response_title = response_data.response_title
 	currently_loaded_response.position_offset = Vector2(response_data.position_offset_x,response_data.position_offset_y)

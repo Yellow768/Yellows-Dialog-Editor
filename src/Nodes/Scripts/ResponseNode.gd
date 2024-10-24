@@ -40,6 +40,13 @@ signal request_set_scroll_offset
 signal response_double_clicked
 signal unsaved_change
 
+signal type_changed
+signal title_changed
+signal text_changed
+signal to_id_changed
+signal option_command_changed
+signal color_changed
+
 
 var node_type : String = "Player Response Node"
 
@@ -47,8 +54,10 @@ var slot : int = -1: set = set_response_slot
 
 
 var response_title : String = ''
+var response_text : String = ''
 var color_decimal :int = 16777215: set = set_color_decimal
-var command :String = ''
+var option_command :String = ''
+var commands : Array[String]
 var connected_dialog : dialog_node = null: set = set_connected_dialog
 var to_dialog_id = -1: set = set_to_dialog_id
 var option_type = 0: set = set_option_type
@@ -72,7 +81,7 @@ func _ready():
 	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
-	CommandTextNode.text = command
+	CommandTextNode.text = option_command
 	IdSpinbox.set_value_no_signal(to_dialog_id) 
 	IdSpinbox.update_on_text_changed = true
 	ResponseTextNode.add_theme_color_override("font_color",ColorPickerNode.color)
@@ -134,7 +143,7 @@ func set_color_decimal(new_color : int):
 	emit_signal("unsaved_change")
 
 func set_command(new_command : String):
-	command = new_command
+	option_command = new_command
 	if not is_inside_tree(): await self.ready
 	CommandTextNode.text = new_command
 	emit_signal("unsaved_change")
@@ -309,10 +318,11 @@ func set_response_title(text: String):
 
 func _on_ResponseText_text_changed(new_text : String):
 	response_title = ResponseTextNode.text
+	emit_signal("title_changed")
 	emit_signal("unsaved_change")
 
 func _on_CommandText_text_changed():
-	command = CommandTextNode.text
+	option_command = CommandTextNode.text
 	emit_signal("unsaved_change")
 
 
@@ -378,7 +388,8 @@ func save():
 		"slot" : slot,
 		"option_type" : option_type,
 		"color_decimal" :  color_decimal,
-		"command" : command,
+		"option_command" : option_command,
+		"commands" : commands,
 		"response_title": response_title,
 		"to_dialog_id" : to_dialog_id,
 		"position_offset_x" : position_offset.x,

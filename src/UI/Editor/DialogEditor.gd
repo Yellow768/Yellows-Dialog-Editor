@@ -4,6 +4,8 @@ class_name DialogGraphEdit
 
 signal no_dialog_selected
 signal dialog_selected
+signal response_selected
+signal no_response_selected
 signal editor_cleared
 signal finished_loading
 
@@ -395,7 +397,8 @@ func set_last_selected_node_as_selected():
 	else:
 		if selected_dialogs.back().node_type == "Dialog Node":
 			emit_signal("dialog_selected",selected_dialogs.back())
-
+	if selected_responses.size() < 1:
+		emit_signal("no_response_selected")
 	
 func save():
 	return {
@@ -483,6 +486,8 @@ func select_node(node):
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":
 		emit_signal("dialog_selected",node)
+	if node.node_type == "Player Response Node":
+		emit_signal("response_selected",node)
 
 		
 
@@ -495,9 +500,10 @@ func unselect_node(node):
 	if node.node_type == "Dialog Node":
 		selected_dialogs.erase(node)
 
-		set_last_selected_node_as_selected()
+		
 		if double_clicked:
 			node.selected = true
+	set_last_selected_node_as_selected()
 
 
 var double_clicked = false
