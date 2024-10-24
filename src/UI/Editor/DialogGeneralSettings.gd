@@ -1,5 +1,6 @@
 extends Control
 var current_dialog : dialog_node
+var faction_change_instance = load("res://src/UI/Dialog Settings/FactionChange.tscn")
 
 @export var information_panel_path : NodePath
 
@@ -30,11 +31,11 @@ var current_dialog : dialog_node
 @export_group("General Settings")
 @export var command_edit_path: NodePath
 @export var playsound_edit_path: NodePath
-@export var faction_changes_1_path: NodePath
-@export var faction_changes_2_path: NodePath
+@export var faction_changes_path: NodePath
 @export var start_quest_path: NodePath
 @export var dialog_text_edit_path: NodePath
-
+@export var faction_visibility_button_path : NodePath
+@export var add_faction_button_path : NodePath
 
 @onready var InformationPanel : Panel = get_node(information_panel_path)
 @onready var VisualOptionsGroup : VBoxContainer = get_node(visual_options_group_path)
@@ -44,7 +45,7 @@ var current_dialog : dialog_node
 @onready var DisableEscCheckbox := get_node(disable_esc_checkbox_path)
 @onready var DarkenScreenCheckbox := get_node(darken_screen_checkbox_path)
 @onready var RenderTypeOption : OptionButton = get_node(render_type_option_path)
-@onready var TextSound : TextEdit = get_node(text_sound_path)
+@onready var TextSound : Control = get_node(text_sound_path)
 @onready var TextPitch : SpinBox = get_node(text_pitch_path)
 @onready var ShowPreviousDialog : CheckBox = get_node(show_previous_dialog_path)
 @onready var ShowResponses : CheckBox = get_node(show_responses_path)
@@ -61,12 +62,13 @@ var current_dialog : dialog_node
 @onready var TitleLabel := get_node(title_label_path)
 @onready var CommandEdit := get_node(command_edit_path)
 @onready var PlaysoundEdit := get_node(playsound_edit_path)
-@onready var FactionChanges1 := get_node(faction_changes_1_path)
-@onready var FactionChanges2 := get_node(faction_changes_2_path)
+@onready var FactionChanges := get_node(faction_changes_path)
 @onready var StartQuest := get_node(start_quest_path)
 @onready var DialogTextEdit := get_node(dialog_text_edit_path)
 @onready var ColorOptions := get_node(color_options_path)
 @onready var TextSoundOptions : VBoxContainer = get_node(text_sound_options)
+@onready var FactionVisibilityButton : Button = get_node(faction_visibility_button_path)
+@onready var AddFactionButton : Button = get_node(add_faction_button_path)
 
 # Called when the node enters the scene tree for the first time.
 
@@ -111,10 +113,13 @@ func load_current_dialog_settings(dialog : dialog_node):
 	PlaysoundEdit.text = current_dialog.sound
 	StartQuest.set_id(current_dialog.start_quest)
 	DialogTextEdit.text = current_dialog.text
-	FactionChanges1.set_id(current_dialog.faction_changes[0].faction_id)
-	FactionChanges1.set_points(current_dialog.faction_changes[0].points)
-	FactionChanges2.set_id(current_dialog.faction_changes[1].faction_id)
-	FactionChanges2.set_points(current_dialog.faction_changes[1].points)
+	for child in FactionChanges.get_children():
+		FactionChanges.remove_child(child)
+		child.queue_free()
+	for faction_change in current_dialog.faction_changes:
+		var new_faction_change_component = add_and_connect_faction_change_component()
+		new_faction_change_component.set_id(faction_change.faction_id)
+		new_faction_change_component.set_points(faction_change.points)
 	DarkenScreenCheckbox.button_pressed = current_dialog.darken_screen
 	RenderTypeOption.selected = current_dialog.render_gradual
 	TextSound.text = current_dialog.text_sound
@@ -140,8 +145,8 @@ func disconnect_current_dialog(dialog: dialog_node):
 	dialog.disconnect("title_changed", Callable(self, "update_title"))
 	
 func _language_updated():
-	FactionChanges1.update_language()
-	FactionChanges2.update_language()
+	for child in FactionChanges.get_children():
+		child.update_language()
 
 func set_title_text(title_text : String,node_index : int):
 	if title_text.length() > 35:
@@ -161,20 +166,14 @@ func _on_DisableEsc_pressed():
 	InformationPanel.emit_signal("unsaved_change")
 
 
-func _on_FactionChange_faction_id_changed(id : int):
-	current_dialog.faction_changes[0].faction_id = id
+func FactionChange_faction_id_changed(id : int,faction_change):
+	var slot = FactionChanges.get_children().find(faction_change)
+	current_dialog.faction_changes[slot].faction_id = id
 	InformationPanel.emit_signal("unsaved_change")
 
-func _on_FactionChange2_faction_id_changed(id : int):
-	current_dialog.faction_changes[1].faction_id = id
-	InformationPanel.emit_signal("unsaved_change")
-
-func _on_FactionChange2_faction_points_changed(points : int):
-	current_dialog.faction_changes[1].points = points
-	InformationPanel.emit_signal("unsaved_change")
-
-func _on_FactionChange_faction_points_changed(points : int):
-	current_dialog.faction_changes[0].points = points
+func FactionChange_faction_points_changed(points : int,faction_change):
+	var slot = FactionChanges.get_children().find(faction_change)
+	current_dialog.faction_changes[slot].points = points
 	InformationPanel.emit_signal("unsaved_change")
 
 func _on_Command_text_changed():
@@ -406,3 +405,24 @@ func _on_lock_toggled(button_pressed):
 
 
 
+func add_and_connect_faction_change_component():
+	var new_faction_change = faction_change_instance.instantiate()
+	new_faction_change.connect("faction_id_changed",Callable(self,"FactionChange_faction_id_changed"))
+	new_faction_change.connect("faction_points_changed",Callable(self,"FactionChange_faction_points_changed"))
+	FactionChanges.add_child(new_faction_change)
+	return new_faction_change
+
+func _on_add_faction_change_pressed():
+	current_dialog.faction_changes.append(faction_change_object.new())
+	add_and_connect_faction_change_component()
+	
+
+
+func _on_factions_visibility_button_toggled(button_pressed):
+	if button_pressed:
+		FactionVisibilityButton.icon = load("res://Assets/UI Textures/Icon Font/chevron-down-line.svg")
+	else:
+		FactionVisibilityButton.icon = load("res://Assets/UI Textures/Icon Font/chevron-up-line.svg")
+	FactionChanges.visible = button_pressed
+	AddFactionButton.visible = button_pressed
+	

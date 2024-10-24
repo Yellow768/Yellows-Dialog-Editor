@@ -40,12 +40,8 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 tooltip_text = "MAIL_ITEM_NBT_TOOLTIP"
-placeholder_text = "MAIL_CUSTOM_NBT"
-wrap_mode = 1
-autowrap_mode = 2
 max_size = 300
 
 [connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]
 [connection signal="text_changed" from="ID and Count/ItemID" to="." method="_on_item_id_text_changed"]
 [connection signal="value_changed" from="ID and Count/SpinBox" to="." method="_on_spin_box_value_changed"]
-[connection signal="text_changed" from="NBTTextEdit" to="." method="_on_nbt_text_edit_text_changed"]

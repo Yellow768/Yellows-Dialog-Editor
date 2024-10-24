@@ -30,7 +30,7 @@ extends Control
 @onready var ImageAddButton : Button = get_node(image_add_button_path)
 @onready var ImageRemoveButton : Button = get_node(image_remove_button_path)
 @onready var ImageId : SpinBox = get_node(image_id_path)
-@onready var ImageTextureString : TextEdit = get_node(image_texture_path)
+@onready var ImageTextureString : Control = get_node(image_texture_path)
 @onready var ImagePositionX : SpinBox = get_node(image_position_x_path)
 @onready var ImagePositionY : SpinBox = get_node(image_position_y_path)
 @onready var ImageWidth : SpinBox = get_node(image_width_path)
