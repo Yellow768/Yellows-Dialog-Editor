@@ -86,7 +86,7 @@ func load_dialog_settings(dialog : dialog_node):
 		current_dialog = dialog
 		if !current_dialog.is_connected("request_deletion", Callable(self, "disconnect_current_dialog")):
 			current_dialog.connect("request_deletion", Callable(self, "disconnect_current_dialog"))
-
+	set_fact_dict()
 func no_dialog_selected():
 	DialogSettingsTab.visible = false
 

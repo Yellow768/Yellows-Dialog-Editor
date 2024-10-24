@@ -89,8 +89,8 @@ var lock_spacing_preset : bool = false
 var image_dictionary : Dictionary = {}
 var last_viewed_image : int = -1
 #String Inputs
-@export var command : String = ''
-@export var sound : String = ''
+var commands : Array[String]
+var sound : String = ''
 var text : String = ''
 
 
@@ -410,7 +410,7 @@ func save():
 		"hide_npc" : hide_npc,
 		"disable_esc" : disable_esc,
 		"sound" : sound,
-		"command" : command,
+		"commands" : commands,
 		"text" : text,
 		"start_quest" : start_quest,
 		"darken_screen" : darken_screen,

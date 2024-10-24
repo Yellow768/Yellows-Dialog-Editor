@@ -66,3 +66,4 @@ icon = ExtResource("5_yq0v3")
 [connection signal="faction_chosen" from="Panel/HBoxContainer/ChooseFaction" to="." method="set_id"]
 [connection signal="value_changed" from="Panel/HBoxContainer/FactionID" to="." method="_on_FactionID_value_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/Factionpoints" to="." method="_on_Factionpoints_value_changed"]
+[connection signal="pressed" from="Panel/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]

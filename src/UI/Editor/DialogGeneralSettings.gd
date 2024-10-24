@@ -1,6 +1,7 @@
 extends Control
 var current_dialog : dialog_node
 var faction_change_instance = load("res://src/UI/Dialog Settings/FactionChange.tscn")
+var command_text_instance = load("res://src/UI/Dialog Settings/Command.tscn")
 
 @export var information_panel_path : NodePath
 
@@ -29,13 +30,15 @@ var faction_change_instance = load("res://src/UI/Dialog Settings/FactionChange.t
 @export var preset_lock_path : NodePath
 
 @export_group("General Settings")
-@export var command_edit_path: NodePath
+@export var commands_path: NodePath
 @export var playsound_edit_path: NodePath
 @export var faction_changes_path: NodePath
 @export var start_quest_path: NodePath
 @export var dialog_text_edit_path: NodePath
 @export var faction_visibility_button_path : NodePath
 @export var add_faction_button_path : NodePath
+@export var add_command_button_path : NodePath
+@export var command_visibility_button_path : NodePath
 
 @onready var InformationPanel : Panel = get_node(information_panel_path)
 @onready var VisualOptionsGroup : VBoxContainer = get_node(visual_options_group_path)
@@ -60,7 +63,7 @@ var faction_change_instance = load("res://src/UI/Dialog Settings/FactionChange.t
 @onready var PresetOptionButton : OptionButton = get_node(preset_option_button_path)
 @onready var PresetTextEdit : TextEdit = get_node(preset_text_edit_path)
 @onready var TitleLabel := get_node(title_label_path)
-@onready var CommandEdit := get_node(command_edit_path)
+@onready var Commands := get_node(commands_path)
 @onready var PlaysoundEdit := get_node(playsound_edit_path)
 @onready var FactionChanges := get_node(faction_changes_path)
 @onready var StartQuest := get_node(start_quest_path)
@@ -69,6 +72,8 @@ var faction_change_instance = load("res://src/UI/Dialog Settings/FactionChange.t
 @onready var TextSoundOptions : VBoxContainer = get_node(text_sound_options)
 @onready var FactionVisibilityButton : Button = get_node(faction_visibility_button_path)
 @onready var AddFactionButton : Button = get_node(add_faction_button_path)
+@onready var AddCommandButton : Button = get_node(add_command_button_path)
+@onready var CommandVisibilityButton : Button = get_node(command_visibility_button_path)
 
 # Called when the node enters the scene tree for the first time.
 
@@ -109,7 +114,12 @@ func load_current_dialog_settings(dialog : dialog_node):
 	HideNpcCheckbox.button_pressed = current_dialog.hide_npc
 	ShowWheelCheckbox.button_pressed = current_dialog.show_wheel
 	DisableEscCheckbox.button_pressed = current_dialog.disable_esc
-	CommandEdit.text = current_dialog.command
+	for child in Commands.get_children():
+		Commands.remove_child(child)
+		child.queue_free()
+	for command in current_dialog.commands:
+		var new_command_text_component = add_and_connect_command_component()
+		new_command_text_component.text = command
 	PlaysoundEdit.text = current_dialog.sound
 	StartQuest.set_id(current_dialog.start_quest)
 	DialogTextEdit.text = current_dialog.text
@@ -176,8 +186,9 @@ func FactionChange_faction_points_changed(points : int,faction_change):
 	current_dialog.faction_changes[slot].points = points
 	InformationPanel.emit_signal("unsaved_change")
 
-func _on_Command_text_changed():
-	current_dialog.command = CommandEdit.text
+func command_text_changed(command):
+	var slot = Commands.get_children().find(command)
+	current_dialog.commands[slot] = command.text
 	InformationPanel.emit_signal("unsaved_change")
 	
 func _on_DialogText_text_changed():
@@ -409,6 +420,7 @@ func add_and_connect_faction_change_component():
 	var new_faction_change = faction_change_instance.instantiate()
 	new_faction_change.connect("faction_id_changed",Callable(self,"FactionChange_faction_id_changed"))
 	new_faction_change.connect("faction_points_changed",Callable(self,"FactionChange_faction_points_changed"))
+	new_faction_change.connect("faction_change_request_deletion",Callable(self,"delete_faction_change"))
 	FactionChanges.add_child(new_faction_change)
 	return new_faction_change
 
@@ -426,3 +438,36 @@ func _on_factions_visibility_button_toggled(button_pressed):
 	FactionChanges.visible = button_pressed
 	AddFactionButton.visible = button_pressed
 	
+func delete_faction_change(faction_change):
+	var slot = FactionChanges.get_children().find(faction_change)
+	FactionChanges.remove_child(faction_change)
+	faction_change.queue_free()
+	current_dialog.faction_changes.remove_at(slot)
+
+func add_and_connect_command_component():
+	var new_command_component = command_text_instance.instantiate()
+	new_command_component.connect("text_changed",Callable(self,"command_text_changed"))
+	new_command_component.connect("command_request_deletion",Callable(self,"delete_command"))
+	Commands.add_child(new_command_component)
+	return new_command_component
+	
+func delete_command(command):
+	var slot = Commands.get_children().find(command)
+	current_dialog.commands.remove_at(slot)
+	Commands.remove_child(command)
+	command.queue_free()
+
+
+func _on_add_command_button_pressed():
+	current_dialog.commands.append("")
+	add_and_connect_command_component()
+
+
+func _on_command_visibility_button_toggled(button_pressed):
+	Commands.visible = button_pressed
+	AddCommandButton.visible = button_pressed
+	if button_pressed:
+		CommandVisibilityButton.icon = load("res://Assets/UI Textures/Icon Font/chevron-down-line.svg")
+	else:
+		CommandVisibilityButton.icon = load("res://Assets/UI Textures/Icon Font/chevron-up-line.svg")
+			

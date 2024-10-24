@@ -29,7 +29,7 @@
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogGeneralSettings.gd" id="17_fph0n"]
 [ext_resource type="Texture2D" uid="uid://qb2hwr1a28ve" path="res://Assets/UI Textures/Icon Font/lock-line.svg" id="20_wkm7u"]
-[ext_resource type="Texture2D" uid="uid://dxcjj18mm7mhb" path="res://Assets/UI Textures/Icon Font/chevron-down-line.svg" id="21_65i6y"]
+[ext_resource type="Texture2D" uid="uid://d0yjew358qowc" path="res://Assets/UI Textures/Icon Font/chevron-up-line.svg" id="21_vtqsr"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogAvailabilitySettings.gd" id="22_ko4m2"]
 [ext_resource type="Script" path="res://src/UI/Editor/MailData.gd" id="22_teu44"]
 [ext_resource type="PackedScene" uid="uid://bqw7nlvwgcprr" path="res://src/UI/Dialog Settings/MailItemSlot.tscn" id="23_o8k7p"]
@@ -362,6 +362,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
+custom_minimum_size = Vector2(425, 0)
 layout_mode = 2
 script = ExtResource("17_fph0n")
 information_panel_path = NodePath("../..")
@@ -387,26 +388,30 @@ preset_text_edit_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/P
 preset_option_button_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Presets/PresetOptionButton")
 visual_settings_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/VBoxContainer")
 preset_lock_path = NodePath("ScrollContainer/VBoxContainer/Visual Options/Presets/Lock")
-command_edit_path = NodePath("ScrollContainer/VBoxContainer/Commands/Command")
+commands_path = NodePath("ScrollContainer/VBoxContainer/Commands")
 playsound_edit_path = NodePath("ScrollContainer/VBoxContainer/Soundfile")
 faction_changes_path = NodePath("ScrollContainer/VBoxContainer/FactionChanges")
 start_quest_path = NodePath("ScrollContainer/VBoxContainer/StartQuest")
 dialog_text_edit_path = NodePath("ScrollContainer/VBoxContainer/DialogText")
 faction_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/FactionsLabelandButton/FactionsVisibilityButton")
 add_faction_button_path = NodePath("ScrollContainer/VBoxContainer/AddFactionChange")
+add_command_button_path = NodePath("ScrollContainer/VBoxContainer/AddCommandButton")
+command_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 4.77
-offset_bottom = 4.77002
+offset_left = -4.0
+offset_top = 5.0
+offset_right = 6.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer"]
-custom_minimum_size = Vector2(405, 1500)
+custom_minimum_size = Vector2(410, 1500)
 layout_mode = 2
 
 [node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
@@ -608,19 +613,23 @@ layout_mode = 2
 layout_mode = 2
 text = "CONSOLE_COMMAND"
 
-[node name="Button" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton"]
+[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton"]
 layout_mode = 2
-text = ">"
+toggle_mode = true
+icon = ExtResource("21_vtqsr")
 
 [node name="Commands" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
+size_flags_stretch_ratio = 1.65
 
 [node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands" instance=ExtResource("15")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 min_size = 40
 
-[node name="AddButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="AddCommandButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Add (1.18+ Only)"
 
@@ -638,9 +647,10 @@ text = "FACTION_CHANGES"
 [node name="FactionsVisibilityButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton"]
 layout_mode = 2
 toggle_mode = true
-icon = ExtResource("21_65i6y")
+icon = ExtResource("21_vtqsr")
 
 [node name="FactionChanges" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="FactionChange" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges" instance=ExtResource("6")]
@@ -652,6 +662,7 @@ layout_mode = 2
 allow_deletion = false
 
 [node name="AddFactionChange" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Add (1.18+ Only)"
 
@@ -2015,7 +2026,9 @@ one_shot = true
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets/AddPresetButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_preset_button_pressed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets/Lock" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_lock_toggled"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_soundfile_text_changed"]
+[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_command_visibility_button_toggled"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/AddCommandButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_command_button_pressed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton/FactionsVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_factions_visibility_button_toggled"]
 [connection signal="faction_id_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges/FactionChange2" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange2_faction_id_changed"]
 [connection signal="faction_points_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges/FactionChange2" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_FactionChange2_faction_points_changed"]

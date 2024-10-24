@@ -2,6 +2,7 @@ extends Control
 
 signal faction_id_changed
 signal faction_points_changed
+signal faction_change_request_deletion
 
 var faction_data := {}
 @export var allow_deletion := true
@@ -36,3 +37,7 @@ func _input(_event : InputEvent):
 
 func update_language():
 	$Panel/HBoxContainer/Factionpoints.suffix = tr("POINTS_ABBRV")
+
+
+func _on_delete_button_pressed():
+	emit_signal("faction_change_request_deletion",self)
