@@ -215,6 +215,7 @@ func delete_response_node(dialog : dialog_node,response : response_node, commit_
 	current_response_index_map.erase(response.node_index)
 	relay_unsaved_changes()
 	response_node_index -=1
+	set_last_selected_node_as_selected()
 	
 
 var color_organizers = [] #Used to fix a bug where color organizers are made last, so dont allow mouse through them

@@ -312,11 +312,12 @@ func _on_OptionButton_item_selected(index : int):
 func _on_ColorPickerButton_color_changed(color : Color):
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
-	ResponseTextNode.add_theme_color_override("font_color",color)
+	update_color(color)
 	emit_signal("color_changed",color)
 	
 func update_color(color):
 	ColorPickerNode.color = color
+	ResponseTextNode.add_theme_color_override("font_color",color)
 
 func set_response_title(text: String):
 	ResponseTextNode.text = text
@@ -402,6 +403,7 @@ func save():
 		"option_command" : option_command,
 		"commands" : commands,
 		"response_title": response_title,
+		"response_text" : response_text,
 		"to_dialog_id" : to_dialog_id,
 		"position_offset_x" : position_offset.x,
 		"position_offset_y" : position_offset.y,
