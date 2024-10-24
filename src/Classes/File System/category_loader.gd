@@ -132,15 +132,17 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		if node_data.has("dialog_availabilities"):
 			currently_loaded_dialog.dialog_availabilities[i].set_id(node_data["dialog_availabilities"][i].dialog_id)
 			currently_loaded_dialog.dialog_availabilities[i].set_availability(node_data["dialog_availabilities"][i].availability_type)
-		
+	
+	if node_data.has("faction_changes"):
+		for i in node_data["faction_changes"].size():
+			currently_loaded_dialog.faction_changes.append(faction_change_object.new())
+			currently_loaded_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
+			currently_loaded_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)	
 	for i in 2:
 		if node_data.has("faction_availabilities"):
 			currently_loaded_dialog.faction_availabilities[i].set_id(node_data["faction_availabilities"][i].faction_id)
 			currently_loaded_dialog.faction_availabilities[i].set_stance(node_data["faction_availabilities"][i].stance_type)
-			currently_loaded_dialog.faction_availabilities[i].set_operator(node_data["faction_availabilities"][i].availability_operator)
-		if node_data.has("faction_changes"):
-			currently_loaded_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
-			currently_loaded_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
+			currently_loaded_dialog.faction_availabilities[i].set_operator(node_data["faction_availabilities"][i].availability_operator)	
 		
 		if node_data.has("scoreboard_availabilities"):
 			currently_loaded_dialog.scoreboard_availabilities[i].objective_name = node_data["scoreboard_availabilities"][i].objective_name
