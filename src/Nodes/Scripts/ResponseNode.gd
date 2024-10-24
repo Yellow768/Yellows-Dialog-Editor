@@ -137,6 +137,7 @@ func set_option_type(new_type : int):
 		if connected_dialog != null:
 			emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 	emit_signal("unsaved_change")
+	emit_signal("type_changed")
 	
 func set_color_decimal(new_color : int):
 	color_decimal = new_color
@@ -165,6 +166,7 @@ func set_connected_dialog(new_connected_dialog):
 
 func set_to_dialog_id(new_id : int):
 	to_dialog_id = new_id
+	emit_signal("to_id_changed")
 
 func set_parent_dialog(new_parent_dialog):
 	parent_dialog = new_parent_dialog
@@ -311,8 +313,11 @@ func _on_ColorPickerButton_color_changed(color : Color):
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
 	ResponseTextNode.add_theme_color_override("font_color",color)
+	emit_signal("color_changed",color)
 	
-	
+func update_color(color):
+	ColorPickerNode.color = color
+
 func set_response_title(text: String):
 	ResponseTextNode.text = text
 
@@ -323,6 +328,7 @@ func _on_ResponseText_text_changed(new_text : String):
 
 func _on_CommandText_text_changed():
 	option_command = CommandTextNode.text
+	emit_signal("option_command_changed")
 	emit_signal("unsaved_change")
 
 
@@ -360,7 +366,10 @@ func get_full_tree(all_children : Array = []) -> Array:
 
 
 func _on_spin_box_value_changed(value):
-	to_dialog_id = value
+	attempt_to_connect_to_dialog_from_id(value)
+
+func attempt_to_connect_to_dialog_from_id(id):
+	to_dialog_id = id
 	for dialog in get_tree().get_nodes_in_group("Save"):
 		if dialog.node_type == "Dialog Node" && dialog.dialog_id == to_dialog_id:
 			disconnect_from_dialog(true)
@@ -377,7 +386,9 @@ func _on_spin_box_value_changed(value):
 		connected_dialog.remove_connected_response(self)
 		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 
-	
+func update_to_id_spinbox(value):
+	IdSpinbox.value = value
+
 func save():
 	if parent_dialog:
 		parent_dialog_id = parent_dialog.dialog_id
@@ -414,3 +425,5 @@ func _on_color_picker_button_pressed():
 		ColorPickerNode.get_picker().erase_preset(color)
 	for color in GlobalDeclarations.color_presets:
 		ColorPickerNode.get_picker().add_preset(color)
+		
+

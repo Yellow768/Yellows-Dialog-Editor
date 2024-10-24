@@ -1704,11 +1704,11 @@ tab_alignment = 1
 script = ExtResource("35_n4s6j")
 ResponseTitle = NodePath("Response Node Settings/VBoxContainer/ResponseTitle")
 ResponseText = NodePath("Response Node Settings/VBoxContainer/ResponseText")
-ResponseColor = NodePath("Response Node Settings/VBoxContainer/ColorPickerButton")
+ResponseColor = NodePath("Response Node Settings/VBoxContainer/HBoxContainer/ColorPickerButton")
 Commands = NodePath("Response Node Settings/VBoxContainer/Commands")
 AddCommandButton = NodePath("Response Node Settings/VBoxContainer/AddCommandButton")
 ResponseType = NodePath("Response Node Settings/VBoxContainer/OptionTypeButton")
-OptionCommand = NodePath("Response Node Settings/VBoxContainer/Control")
+OptionCommand = NodePath("Response Node Settings/VBoxContainer/OptionCommand")
 DialogIDSpinbox = NodePath("Response Node Settings/VBoxContainer/SpinBox")
 CommandVisibilityButton = NodePath("Response Node Settings/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
 
@@ -1720,6 +1720,7 @@ custom_minimum_size = Vector2(405, 0)
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="ResponseTitleLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
@@ -1731,17 +1732,28 @@ layout_mode = 2
 placeholder_text = "Response Title"
 
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="ResponseTextLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
 layout_mode = 2
-text = "Response Title"
+text = "Response Text"
 
-[node name="ResponseText" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer" instance=ExtResource("15")]
-custom_minimum_size = Vector2(0, 40)
+[node name="ResponseText" type="TextEdit" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "Changes what the player said after they've chosen the response"
+wrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
 layout_mode = 2
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="Label" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
 [node name="HSeparator3" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
@@ -1765,15 +1777,14 @@ visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 1.65
 
-[node name="Command" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/Commands" instance=ExtResource("15")]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-min_size = 40
-
 [node name="AddCommandButton" type="Button" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Add (1.18+ Only)"
+
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="OptionTypeButton" type="OptionButton" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
 clip_contents = true
@@ -1797,7 +1808,7 @@ popup/item_3/id = 0
 popup/item_4/text = "RESPONSE_OPTION_DISABLED"
 popup/item_4/id = 2
 
-[node name="Control" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer" instance=ExtResource("15")]
+[node name="OptionCommand" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer" instance=ExtResource("15")]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -2213,9 +2224,13 @@ one_shot = true
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_alignment_item_selected"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/ResponseTitle" to="InformationPanel/ResponseNodeSettings" method="_on_response_title_text_changed"]
-[connection signal="toggled" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_command_visibility_button_toggled"]
-[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/Commands/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
-[connection signal="pressed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/AddCommandButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_command_button_pressed"]
+[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/ResponseText" to="InformationPanel/ResponseNodeSettings" method="_on_response_text_text_changed"]
+[connection signal="color_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/HBoxContainer/ColorPickerButton" to="InformationPanel/ResponseNodeSettings" method="_on_color_picker_button_color_changed"]
+[connection signal="toggled" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/ResponseNodeSettings" method="_on_command_visibility_button_toggled"]
+[connection signal="pressed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/AddCommandButton" to="InformationPanel/ResponseNodeSettings" method="_on_add_command_button_pressed"]
+[connection signal="item_selected" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/OptionTypeButton" to="InformationPanel/ResponseNodeSettings" method="_on_option_type_button_item_selected"]
+[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/OptionCommand" to="InformationPanel/ResponseNodeSettings" method="_on_option_command_text_changed"]
+[connection signal="value_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/SpinBox" to="InformationPanel/ResponseNodeSettings" method="_on_spin_box_value_changed"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_failed_save"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="DialogEditor/UndoSystem" method="load_category_undo_redo_history"]

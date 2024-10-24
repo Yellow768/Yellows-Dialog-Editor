@@ -319,7 +319,8 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 			disconnect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 			dialog.remove_connected_response(response)
 			response.connected_dialog = null
-			response.to_dialog_id = 0
+			if response.to_dialog_id == dialog.dialog_id:
+				response.to_dialog_id = 0
 		relay_unsaved_changes()
 		if commit_to_undo:
 			emit_signal("nodes_disconnected",from,to)
