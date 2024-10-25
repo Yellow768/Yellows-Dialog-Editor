@@ -184,6 +184,10 @@ func FactionChange_faction_id_changed(id : int,faction_change):
 func FactionChange_faction_points_changed(points : int,faction_change):
 	var slot = FactionChanges.get_children().find(faction_change)
 	current_dialog.faction_changes[slot].points = points
+	if points <= 0:
+		current_dialog.faction_changes[slot].operator = 1
+	else:
+		current_dialog.faction_changes[slot].operator = 0
 	InformationPanel.emit_signal("unsaved_change")
 
 func command_text_changed(command):

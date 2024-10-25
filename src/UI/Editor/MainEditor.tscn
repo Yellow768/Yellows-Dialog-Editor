@@ -228,16 +228,12 @@ icon = ExtResource("8_vgh51")
 custom_minimum_size = Vector2(26.47, 18.52)
 layout_mode = 2
 tooltip_text = "EXPORT_TYPE_TOOLTIP"
-item_count = 4
-selected = 2
-popup/item_0/text = "Pre 1.7.10"
+item_count = 2
+selected = 0
+popup/item_0/text = "1.7.10 - 1.16.5 & Unoffical 1.20"
 popup/item_0/id = 0
-popup/item_1/text = "1.7.10"
+popup/item_1/text = "Official 1.18.2"
 popup/item_1/id = 1
-popup/item_2/text = "1.12-1.20"
-popup/item_2/id = 2
-popup/item_3/text = "CustomNPCs+"
-popup/item_3/id = 3
 
 [node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(75, 0)

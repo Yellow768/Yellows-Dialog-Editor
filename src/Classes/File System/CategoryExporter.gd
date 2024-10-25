@@ -17,10 +17,9 @@ func export_category(directory : String = CurrentEnvironment.current_directory+"
 		if i.node_type != "Dialog Node":
 			continue
 		var dialog_file := FileAccess.open(directory+category_name+"/"+str(i.dialog_id)+".json",FileAccess.WRITE)
-		var new_dict : Array[String] = create_dialog_dict(i,export_version)
+		var new_dict = create_dialog_dict(i,export_version)
 		#var jsonprint = JSON.print(new_dict,"\r\n")
-		for line in new_dict:
-			dialog_file.store_line(line)
+		dialog_file.store_line(new_dict)
 		dialog_file.close()
 		
 func empty_category_jsons(category_name : String):
@@ -42,410 +41,196 @@ func empty_category_jsons(category_name : String):
 			file_name = dir.get_next()
 		
 
-func create_dialog_dict(dialog : dialog_node, version):
-	match version :
-		0:
-			var dialog_json_array : Array[String] =  [
-			'{',
-			'	DialogShowWheel: '+str(int(dialog.show_wheel))+'b,',
-			'	AvailabilityQuestId: '+str(dialog.quest_availabilities[0].quest_id)+',',
-			'	Options:['
-			]
-			for i in dialog.response_options.size():
-				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1,true)
-				for line in new_option_dict:
-					dialog_json_array.append(line)
-			var rest_of_dialog_json_array :Array[String]= [
-			'	],',
-			'	DialogHideNPC: '+str(int(dialog.hide_npc))+'b,',
-			'	AvailabilityFactionStance: '+str(dialog.faction_availabilities[0].stance_type)+',',
-			'	DialogId: '+str(dialog.dialog_id)+',',
-			'	AvailabilityQuest: '+str(dialog.quest_availabilities[0].availability_type)+',',
-			'	AvailabilityDialog4: '+str(dialog.dialog_availabilities[3].availability_type)+',',
-			'	AvailabilityDialog3: '+str(dialog.dialog_availabilities[2].availability_type)+',',
-			'	AvailabilityQuest2: '+str(dialog.quest_availabilities[1].availability_type)+',',
-			'	AvailabilityQuest3: '+str(dialog.quest_availabilities[2].availability_type)+',',
-			'	AvailabilityQuest4: '+str(dialog.quest_availabilities[3].availability_type)+',',
-			'	ModRev: '+str(16)+',',
-			'	DecreaseFaction1Points: '+str(dialog.faction_changes[0].operator)+'b,',
-			'	DialogQuest: '+str(dialog.start_quest)+',',
-			'	AvailabilityDialog2: '+str(dialog.dialog_availabilities[1].availability_type)+',',
-			'	OptionFactions1: '+str(dialog.faction_changes[0].faction_id)+',',
-			'	AvailabilityDayTime: '+str(dialog.time_availability)+',',
-			'	OptionFactions2: '+str(dialog.faction_changes[1].faction_id)+',',
-			'	AvailabilityFaction2Id: '+str(dialog.faction_availabilities[1].faction_id)+',',
-			'	OptionFaction1Points: '+str(abs(dialog.faction_changes[0].points))+',',
-			'	DialogDisableEsc: '+str(int(dialog.disable_esc))+'b,',
-			'	AvailabilityFaction: '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	DialogTitle : "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
-			'	AvailabilityDialog: '+str(dialog.dialog_availabilities[0].availability_type)+',',
-			'	AvailabilityFaction2: '+str(dialog.faction_availabilities[1].availability_operator)+',',
-			'	DialogSound: "'+str(dialog.sound)+'",',
-			'	AvailabilityFactionId: '+str(dialog.faction_availabilities[0].faction_id)+',',
-			'	AvailabilityFaction2Stance: '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	DialogCommand: "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
-			'	AvailabilityDialogId: '+str(dialog.dialog_availabilities[0].dialog_id)+',',
-			'	OptionFaction2Points: '+str(abs(dialog.faction_changes[1].points))+',',
-			'	DialogText: "'+str(dialog.text).c_unescape().replace("\\'","'").replace("\\n","\n")+'",',
-			'	AvailabilityQuest4Id: '+str(dialog.quest_availabilities[3].quest_id)+',',
-			'	AvailabilityQuest3Id: '+str(dialog.quest_availabilities[2].quest_id)+',',
-			'	AvailabilityQuest2Id: '+str(dialog.quest_availabilities[1].quest_id)+',',
-			'	AvailabilityDialog2Id: '+str(dialog.dialog_availabilities[1].dialog_id)+',',
-			'	AvailabilityDialog3Id: '+str(dialog.dialog_availabilities[2].dialog_id)+',',
-			'	AvailabilityDialog4Id: '+str(dialog.dialog_availabilities[3].dialog_id)+',',
-			'	AvailabilityMinPlayerLevel: '+str(dialog.min_level_availability)+',',
-			'	DecreaseFaction2Points: '+str(dialog.faction_changes[1].operator)+'b,',
-				'	DialogMail: {',
-				'		Sender: "'+dialog.mail.sender+'",',
-				'		BeenRead: 0,',
-				'		Message: {',
-						dialog.mail.compose_pages_string(),
-				'		},',
-				'		MailItems: [',
-						dialog.mail.compose_items_string(),
-				'		],',
-				'		MailQuest: '+dialog.mail.quest_id+',',
-				'		TimePast: 1669491043541L,',
-				'		Time: 0L,',
-				'		Subject: "'+dialog.mail.subject+'"',
-				'	}',
-			'}'
-			]
-			dialog_json_array.append_array(rest_of_dialog_json_array)
-			return dialog_json_array
-		1:
-			var dialog_json_array : Array[String] =  [
-			'{',
-			'	"DialogShowWheel": '+str(int(dialog.show_wheel))+'b,',
-			'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
-			'	"Options":['
-			]
-			for i in dialog.response_options.size():
-				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
-				for line in new_option_dict:
-					dialog_json_array.append(line)
-			var rest_of_dialog_json_array :Array[String]= [
-			'	],',
-			'	"DialogHideNPC": '+str(int(dialog.hide_npc))+'b,',
-			'	"AvailabilityFactionStance": '+str(dialog.faction_availabilities[0].stance_type)+',',
-			'	"DialogId": '+str(dialog.dialog_id)+',',
-			'	"AvailabilityQuest": '+str(dialog.quest_availabilities[0].availability_type)+',',
-			'	"AvailabilityDialog4": '+str(dialog.dialog_availabilities[3].availability_type)+',',
-			'	"AvailabilityDialog3": '+str(dialog.dialog_availabilities[2].availability_type)+',',
-			'	"AvailabilityQuest2": '+str(dialog.quest_availabilities[1].availability_type)+',',
-			'	"AvailabilityQuest3": '+str(dialog.quest_availabilities[2].availability_type)+',',
-			'	"AvailabilityQuest4": '+str(dialog.quest_availabilities[3].availability_type)+',',
-			'	"ModRev": '+str(18)+',',
-			'	"DecreaseFaction1Points": '+str(dialog.faction_changes[0].operator)+'b,',
-			'	"DialogQuest": '+str(dialog.start_quest)+',',
-			'	"AvailabilityDialog2": '+str(dialog.dialog_availabilities[1].availability_type)+',',
-			'	"OptionFactions1": '+str(dialog.faction_changes[0].faction_id)+',',
-			'	"AvailabilityDayTime": '+str(dialog.time_availability)+',',
-			'	"OptionFactions2": '+str(dialog.faction_changes[1].faction_id)+',',
-			'	"AvailabilityFaction2Id": '+str(dialog.faction_availabilities[1].faction_id)+',',
-			'	"OptionFaction1Points": '+str(abs(dialog.faction_changes[0].points))+',',
-			'	"DialogDisableEsc": '+str(int(dialog.disable_esc))+'b,',
-			'	"AvailabilityFaction": '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	"DialogTitle": "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
-			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
-			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
-			'	"DialogSound": "'+str(dialog.sound)+'",',
-			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
-			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	"DialogCommand": "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
-			'	"AvailabilityDialogId": '+str(dialog.dialog_availabilities[0].dialog_id)+',',
-			'	"OptionFaction2Points": '+str(abs(dialog.faction_changes[1].points))+',',
-			'	"DialogText": "'+str(dialog.text).c_unescape().replace("\\'","'").replace("\\n","\n")+'",',
-			'	"AvailabilityQuest4Id": '+str(dialog.quest_availabilities[3].quest_id)+',',
-			'	"AvailabilityQuest3Id": '+str(dialog.quest_availabilities[2].quest_id)+',',
-			'	"AvailabilityQuest2Id": '+str(dialog.quest_availabilities[1].quest_id)+',',
-			'	"AvailabilityDialog2Id": '+str(dialog.dialog_availabilities[1].dialog_id)+',',
-			'	"AvailabilityDialog3Id": '+str(dialog.dialog_availabilities[2].dialog_id)+',',
-			'	"AvailabilityDialog4Id": '+str(dialog.dialog_availabilities[3].dialog_id)+',',
-			'	"AvailabilityMinPlayerLevel": '+str(dialog.min_level_availability)+',',
-			'	"DecreaseFaction2Points": '+str(dialog.faction_changes[1].operator)+'b,',
-				'"DialogMail": {',
-				'		"Sender": "'+dialog.mail.sender+'",',
-				'		"BeenRead": 0,',
-				'		"Message": {',
-						dialog.mail.compose_pages_string(),
-				'		},',
-				'		"MailItems": [',
-						dialog.mail.compose_items_string(),
-				'		],',
-				'		"MailQuest": '+str(dialog.mail.quest_id)+',',
-				'		"TimePast": 1669491043541L,',
-				'		"Time": 0L,',
-				'		"Subject": "'+dialog.mail.subject+'"',
-				'	}',
-			'}'
-			]
-			dialog_json_array.append_array(rest_of_dialog_json_array)
-			return dialog_json_array
+
+func create_dialog_dict(dialog : dialog_node, new_version):
+	var dialog_dict = {
+		"DialogShowWheel" : int(dialog.show_wheel),
+		"DialogDisableEsc": int(dialog.disable_esc),
+		"DialogHideNpc": int(dialog.hide_npc),
+		"DialogText":dialog.text,
+		"DialogTitle":dialog.dialog_title,
+		"DialogSound":dialog.sound,
+		"DialogId" : dialog.dialog_id,
+		"ModRev":18,
+		"Options": create_option_dict(dialog.response_options,new_version),
+		"DialogHideNPC":int(dialog.hide_npc),
+		"AvailabilityFactionStance" : dialog.faction_availabilities[0].stance_type,
+		"AvailabilityFactionId" : dialog.faction_availabilities[0].faction_id,
+		"AvailabilityFaction" : dialog.faction_availabilities[0].availability_operator,
+		"AvailabilityFaction2Stance" : dialog.faction_availabilities[1].stance_type,
+		"AvailabilityFaction2Id" : dialog.faction_availabilities[1].faction_id,
+		"AvailabilityFaction2" : dialog.faction_availabilities[1].availability_operator,
+		"AvailabilityScoreboardObjective" : dialog.scoreboard_availabilities[0].objective_name,
+		"AvailabilityScoreboardType": dialog.scoreboard_availabilities[0].comparison_type,
+		"AvailabilityScoreboardValue": dialog.scoreboard_availabilities[0].value,
+		"AvailabilityScoreboard2Objective" : dialog.scoreboard_availabilities[1].objective_name,
+		"AvailabilityScoreboard2Type": dialog.scoreboard_availabilities[1].comparison_type,
+		"AvailabilityScoreboard2Value": dialog.scoreboard_availabilities[1].value,
+		"AvailabilityQuestId":dialog.quest_availabilities[0].quest_id,
+		"AvailabilityQuest": dialog.quest_availabilities[0].availability_type,
+		"AvailabilityQuest2Id":dialog.quest_availabilities[1].quest_id,
+		"AvailabilityQuest2": dialog.quest_availabilities[1].availability_type,
+		"AvailabilityQuest3Id":dialog.quest_availabilities[2].quest_id,
+		"AvailabilityQuest3": dialog.quest_availabilities[2].availability_type,
+		"AvailabilityQuest4Id":dialog.quest_availabilities[3].quest_id,
+		"AvailabilityQuest4": dialog.quest_availabilities[3].availability_type,
+		"AvailabilityDialog": dialog.dialog_availabilities[0].availability_type,
+		"AvailabilityDialogId": dialog.dialog_availabilities[0].dialog_id,
+		"AvailabilityDialog2": dialog.dialog_availabilities[1].availability_type,
+		"AvailabilityDialog2Id": dialog.dialog_availabilities[1].dialog_id,
+		"AvailabilityDialog3": dialog.dialog_availabilities[2].availability_type,
+		"AvailabilityDialog3Id": dialog.dialog_availabilities[2].dialog_id,
+		"AvailabilityDialog4": dialog.dialog_availabilities[3].availability_type,
+		"AvailabilityDialogId4": dialog.dialog_availabilities[3].dialog_id,
 		
-		2:  
-			var dialog_json_array : Array[String] =  [
-			'{',
-			'	"DialogShowWheel": '+str(int(dialog.show_wheel))+'b,',
-			'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
-			'	"Options":['
-			]
-			for i in dialog.response_options.size():
-				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
-				for line in new_option_dict:
-					dialog_json_array.append(line)
-			var rest_of_dialog_json_array :Array[String]= [
-			'	],',
-			'	"AvailabilityScoreboardType": '+str(dialog.scoreboard_availabilities[0].comparison_type)+',',
-			'	"DialogHideNPC": '+str(int(dialog.hide_npc))+'b,',
-			'	"AvailabilityFactionStance": '+str(dialog.faction_availabilities[0].stance_type)+',',
-			'	"AvailabilityScoreboard2Value": '+str(dialog.scoreboard_availabilities[1].value)+',',
-			'	"DialogId": '+str(dialog.dialog_id)+',',
-			'	"AvailabilityQuest": '+str(dialog.quest_availabilities[0].availability_type)+',',
-			'	"AvailabilityDialog4": '+str(dialog.dialog_availabilities[3].availability_type)+',',
-			'	"AvailabilityScoreboardObjective": "'+str(dialog.scoreboard_availabilities[0].objective_name)+'",',
-			'	"AvailabilityDialog3": '+str(dialog.dialog_availabilities[2].availability_type)+',',
-			'	"AvailabilityQuest2": '+str(dialog.quest_availabilities[1].availability_type)+',',
-			'	"AvailabilityQuest3": '+str(dialog.quest_availabilities[2].availability_type)+',',
-			'	"AvailabilityScoreboard2Objective": "'+str(dialog.scoreboard_availabilities[1].objective_name)+'",',
-			'	"AvailabilityQuest4": '+str(dialog.quest_availabilities[3].availability_type)+',',
-			'	"ModRev": '+str(18)+',',
-			'	"DecreaseFaction1Points": '+str(dialog.faction_changes[0].operator)+'b,',
-			'	"DialogQuest": '+str(dialog.start_quest)+',',
-			'	"AvailabilityDialog2": '+str(dialog.dialog_availabilities[1].availability_type)+',',
-			'	"OptionFactions1": '+str(dialog.faction_changes[0].faction_id)+',',
-			'	"AvailabilityDayTime": '+str(dialog.time_availability)+',',
-			'	"OptionFactions2": '+str(dialog.faction_changes[1].faction_id)+',',
-			'	"AvailabilityFaction2Id": '+str(dialog.faction_availabilities[1].faction_id)+',',
-			'	"OptionFaction1Points": '+str(abs(dialog.faction_changes[0].points))+',',
-			'	"AvailabilityScoreboardValue": '+str(dialog.scoreboard_availabilities[0].value)+',',
-			'	"DialogDisableEsc": '+str(int(dialog.disable_esc))+'b,',
-			'	"AvailabilityFaction": '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	"DialogTitle": "'+str(dialog.dialog_title).c_escape().replace("\\'","'")+'",',
-			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
-			'	"AvailabilityScoreboard2Type": '+str(dialog.scoreboard_availabilities[1].comparison_type)+',',
-			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
-			'	"DialogSound": "'+str(dialog.sound)+'",',
-			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
-			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	"DialogCommand": "'+str(dialog.command).c_escape().replace("\\'","'")+'",',
-			'	"AvailabilityDialogId": '+str(dialog.dialog_availabilities[0].dialog_id)+',',
-			'	"OptionFaction2Points": '+str(abs(dialog.faction_changes[1].points))+',',
-			'	"DialogText": "'+str(dialog.text).c_escape().replace("\\'","'").replace("\\n","\n")+'",',
-			'	"AvailabilityQuest4Id": '+str(dialog.quest_availabilities[3].quest_id)+',',
-			'	"AvailabilityQuest3Id": '+str(dialog.quest_availabilities[2].quest_id)+',',
-			'	"AvailabilityQuest2Id": '+str(dialog.quest_availabilities[1].quest_id)+',',
-			'	"AvailabilityDialog2Id": '+str(dialog.dialog_availabilities[1].dialog_id)+',',
-			'	"AvailabilityDialog3Id": '+str(dialog.dialog_availabilities[2].dialog_id)+',',
-			'	"AvailabilityDialog4Id": '+str(dialog.dialog_availabilities[3].dialog_id)+',',
-			'	"AvailabilityMinPlayerLevel": '+str(dialog.min_level_availability)+',',
-			'	"DecreaseFaction2Points": '+str(dialog.faction_changes[1].operator)+'b,',
-				'	"DialogMail": {',
-				'		"Sender": "'+dialog.mail.sender.c_escape()+'",',
-				'		"BeenRead": 0,',
-				'		"Message": {',
-						dialog.mail.compose_pages_string(),
-				'		},',
-				'		"MailItems": [',
-						dialog.mail.compose_items_string(),
-				'		],',
-				'		"MailQuest": '+str(dialog.mail.quest_id)+',',
-				'		"TimePast": 1669491043541L,',
-				'		"Time": 0L,',
-				'		"Subject": "'+dialog.mail.subject.c_escape()+'"',
-				'	}',
-			'}'
-			]
-			dialog_json_array.append_array(rest_of_dialog_json_array)
-			return dialog_json_array
-		3:
-			var dialog_json_array : Array[String] =  [
-			'{',
-			'	"DialogShowWheel": '+str(int(dialog.show_wheel))+'b,',
-			'	"DialogAlignment": ' +str(int(dialog.alignment))+'b,',
-			'	"RenderGradual": '+str(int(dialog.render_gradual))+'b,',
-			'	"OptionOffsetX": '+str(dialog.option_offset_x)+',',
-			'	"OptionOffsetY": '+str(dialog.option_offset_y)+',',
-			'	"TextOffsetX": '+str(dialog.text_offset_x)+',',
-			'	"TextOffsetY": '+str(dialog.text_offset_y)+',',
-			'	"TitlePos": '+str(dialog.title_pos)+',',
-			'	"TitleColor": '+str(dialog.title_color)+',',
-			'	"ShowOptionLine": '+str(int(dialog.show_response_options))+'b,',
-			'	"Color": '+str(dialog.dialog_color)+',',
-			'	"NPCScale": '+str(dialog.npc_scale)+'f,',
-			'	"TextSound": "'+str(dialog.text_sound)+'",',
-			'	"TextPitch": '+str(dialog.text_pitch)+'f,',
-			'	"NPCOffsetY": '+str(dialog.npc_offset_y)+',',
-			'	"NPCOffsetX": '+str(dialog.npc_offset_x)+',',
-			'	"TextHeight": '+str(dialog.text_height)+',',
-			'	"OptionSpaceX": '+str(dialog.option_spacing_x)+',',
-			'	"OptionSpaceY": '+str(dialog.option_spacing_y)+',',
-			'	"TitleOffsetX": '+str(dialog.title_offset_x)+',',
-			'	"TitleOffsetY": '+str(dialog.title_offset_y)+',',
-			'	"DialogDarkScreen": '+str(int(dialog.darken_screen))+'b,',
-			'	"TextWidth": '+str(dialog.text_width)+',',
-			'	"PreviousBlocks": '+str(int(dialog.show_previous_dialog))+'b,',
-			'	"AvailabilityQuestId": '+str(dialog.quest_availabilities[0].quest_id)+',',
-			'	"Options":['
-			]
-			for i in dialog.response_options.size():
-				var new_option_dict : Array[String]= create_option_dict(dialog.response_options[i],i==dialog.response_options.size()-1)
-				for line in new_option_dict:
-					dialog_json_array.append(line)
-			
-			dialog_json_array.append('	],')
-			dialog_json_array.append('	"Images": [')
-			
-			for i in dialog.image_dictionary.keys():
-				var new_image_dict : Array[String] = create_image_dict(dialog.image_dictionary[i],dialog.image_dictionary.keys().find(i) == dialog.image_dictionary.size()-1,i)
-				for line in new_image_dict:
-					dialog_json_array.append(line)
-			
-			var rest_of_dialog_json_array = [
-			'	],',
-			'	"DialogHideNPC": '+str(int(dialog.hide_npc))+'b,',
-			'	"AvailabilityFactionStance": '+str(dialog.faction_availabilities[0].stance_type)+',',
-			'	"DialogId": '+str(dialog.dialog_id)+',',
-			'	"AvailabilityQuest": '+str(dialog.quest_availabilities[0].availability_type)+',',
-			'	"AvailabilityDialog4": '+str(dialog.dialog_availabilities[3].availability_type)+',',
-			'	"AvailabilityDialog3": '+str(dialog.dialog_availabilities[2].availability_type)+',',
-			'	"AvailabilityQuest2": '+str(dialog.quest_availabilities[1].availability_type)+',',
-			'	"AvailabilityQuest3": '+str(dialog.quest_availabilities[2].availability_type)+',',
-			'	"AvailabilityQuest4": '+str(dialog.quest_availabilities[3].availability_type)+',',
-			'	"ModRev": '+str(22)+',',
-			'	"DecreaseFaction1Points": '+str(dialog.faction_changes[0].operator)+'b,',
-			'	"DialogQuest": '+str(dialog.start_quest)+',',
-			'	"AvailabilityDialog2": '+str(dialog.dialog_availabilities[1].availability_type)+',',
-			'	"OptionFactions1": '+str(dialog.faction_changes[0].faction_id)+',',
-			'	"AvailabilityDayTime": '+str(dialog.time_availability)+',',
-			'	"OptionFactions2": '+str(dialog.faction_changes[1].faction_id)+',',
-			'	"AvailabilityFaction2Id": '+str(dialog.faction_availabilities[1].faction_id)+',',
-			'	"OptionFaction1Points": '+str(abs(dialog.faction_changes[0].points))+',',
-			'	"DialogDisableEsc": '+str(int(dialog.disable_esc))+'b,',
-			'	"AvailabilityFaction": '+str(dialog.faction_availabilities[0].availability_operator)+',',
-			'	"DialogTitle": "'+str(dialog.dialog_title).c_unescape().replace("\\'","'")+'",',
-			'	"AvailabilityDialog": '+str(dialog.dialog_availabilities[0].availability_type)+',',
-			'	"AvailabilityFaction2": '+str(dialog.faction_availabilities[1].availability_operator)+',',
-			'	"DialogSound": "'+str(dialog.sound)+'",',
-			'	"AvailabilityFactionId": '+str(dialog.faction_availabilities[0].faction_id)+',',
-			'	"AvailabilityFaction2Stance": '+str(dialog.faction_availabilities[1].stance_type)+',',
-			'	"DialogCommand": "'+ str(dialog.command).c_unescape().replace("\\'","'")+'",',
-			'	"AvailabilityDialogId": '+str(dialog.dialog_availabilities[0].dialog_id)+',',
-			'	"OptionFaction2Points": '+str(abs(dialog.faction_changes[1].points))+',',
-			'	"DialogText": "'+str(dialog.text).c_unescape().replace("\\'","'").replace("\\n","\n")+'",',
-			'	"AvailabilityQuest4Id": '+str(dialog.quest_availabilities[3].quest_id)+',',
-			'	"AvailabilityQuest3Id": '+str(dialog.quest_availabilities[2].quest_id)+',',
-			'	"AvailabilityQuest2Id": '+str(dialog.quest_availabilities[1].quest_id)+',',
-			'	"AvailabilityDialog2Id": '+str(dialog.dialog_availabilities[1].dialog_id)+',',
-			'	"AvailabilityDialog3Id": '+str(dialog.dialog_availabilities[2].dialog_id)+',',
-			'	"AvailabilityDialog4Id": '+str(dialog.dialog_availabilities[3].dialog_id)+',',
-			'	"AvailabilityMinPlayerLevel": '+str(dialog.min_level_availability)+',',
-			'	"DecreaseFaction2Points": '+str(dialog.faction_changes[1].operator)+'b,',
-				'"DialogMail": {',
-				'		"Sender": "'+dialog.mail.sender+'",',
-				'		"BeenRead": 0,',
-				'		"Message": {',
-						dialog.mail.compose_pages_string(),
-				'		},',
-				'		"MailItems": [',
-						dialog.mail.compose_items_string(),
-				'		],',
-				'		"MailQuest": '+str(dialog.mail.quest_id)+',',
-				'		"TimePast": 1669491043541L,',
-				'		"Time": 0L,',
-				'		"Subject": "'+dialog.mail.subject+'"',
-				'	}',
-			'}'
-			]
-			dialog_json_array.append_array(rest_of_dialog_json_array)
-			return dialog_json_array
-	
-func create_option_dict(response:response_node,islast:bool,withoutQuotes : bool = false):
-	var response_dict :Array[String]= []
-	if withoutQuotes:
-		if islast == false:
-			response_dict = [
-						'		{',
-						'				OptionSlot: '+str(response.slot)+',',
-						'				Option: {',
-						'				DialogCommand: "'+str(response.command).c_escape().replace("\\'","'")+'",',
-						'				Dialog: '+str(response.to_dialog_id)+',',
-						'				Title: "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
-						'				DialogColor: '+str(response.color_decimal)+',',
-						'				OptionType: '+str(response.get_option_id_from_index(response.option_type)),
-						'			}',
-						'		},'
-				]
+		}
+	if GlobalDeclarations.enable_customnpcs_plus_options:
+		dialog_dict["DialogAlignment"] = int(dialog.alignment)
+		dialog_dict["RenderGradual"] = int(dialog.render_gradual)
+		dialog_dict["OptionOffsetX"] = dialog.option_offset_x
+		dialog_dict["OptionOffsetY"] = dialog.option_offset_y
+		dialog_dict["TextOffsetX"] = dialog.text_offset_x
+		dialog_dict["TextOffsetY"] = dialog.text_offset_y
+		dialog_dict["TitlePos"] = dialog.title_pos
+		dialog_dict["TitleColor"] = dialog.title_color
+		dialog_dict["ShowOptionLine"] = int(dialog.show_response_options)
+		dialog_dict["Color"] = dialog.dialog_color
+		dialog_dict["NPCScale"] = dialog.npc_scale
+		dialog_dict["TextSound"] = dialog.text_sound
+		dialog_dict["TextPitch"] = dialog.text_pitch
+		dialog_dict["NPCOffsetX"] = dialog.npc_offset_x
+		dialog_dict["NPCOffsetY"] = dialog.npc_offset_y
+		dialog_dict["TextHeight"] = dialog.text_height
+		dialog_dict["OptionSpaceX"] = dialog.option_spacing_x
+		dialog_dict["OptionSpaceY"] = dialog.option_spacing_y
+		dialog_dict["TitleOffsetX"] = dialog.title_offset_x
+		dialog_dict["TitleOffsetY"] = dialog.title_offset_y
+		dialog_dict["DialogDarkScreen"] = int(dialog.darken_screen)
+		dialog_dict["TextWidth"] = dialog.text_width
+		dialog_dict["PreviousBlocks"] = int(dialog.show_previous_dialog)
+		dialog_dict["Images"] = create_image_dict(dialog)
+
+	if !new_version:
+		var fact1 = -1
+		var fact1pts = 0
+		var fact1decrease = 100
+		var fact2 = -1
+		var fact2pts = 100
+		var fact2decrease = 0
+		if dialog.faction_changes.size() == 1:
+			fact1 = dialog.faction_changes[0].faction_id
+			fact1pts = abs(dialog.faction_changes[0].points)
+			fact1decrease = dialog.faction_changes[0].operator
+		if dialog.faction_changes.size() == 2:
+			fact2 = dialog.faction_changes[1].faction_id
+			fact2pts = abs(dialog.faction_changes[1].points)
+			fact2decrease = dialog.faction_changes[1].operator	
+		dialog_dict.merge({
+		"OptionFactions1": fact1,
+		"OptionFaction1Points" : fact1pts,
+		"DecreaseFaction1Points" : fact1decrease,
+		"OptionFactions2": fact2,
+		"OptionFaction2Points" : fact2pts,
+		"DecreaseFaction2Points" : fact2decrease})
+		if dialog.commands.size() > 0:
+			dialog_dict["DialogCommand"] = dialog.commands[0]
 		else:
-			response_dict = [
-				'		{',
-					'			OptionSlot: '+str(response.slot)+',',
-					'			Option: {',
-						'				DialogCommand: "'+str(response.command).c_escape().replace("\\'","'")+'",',
-						'				Dialog: '+str(response.to_dialog_id)+',',
-						'				Title: "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
-						'				DialogColor: '+str(response.color_decimal)+',',
-						'				OptionType: '+str(response.get_option_id_from_index(response.option_type)),
-						"			}",
-						'		}'
-				]
-		return response_dict	
-	if islast == false:
-		response_dict = [
-					'		{',
-					'				"OptionSlot": '+str(response.slot)+',',
-					'				"Option": {',
-					'				"DialogCommand": "'+str(response.command).c_escape().replace("\\'","'")+'",',
-					'				"Dialog": '+str(response.to_dialog_id)+',',
-					'				"Title": "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
-					'				"DialogColor": '+str(response.color_decimal)+',',
-					'				"OptionType": '+str(response.get_option_id_from_index(response.option_type)),
-					'			}',
-					'		},'
-			]
+			dialog_dict["DialogCommand"] = ""
 	else:
-		response_dict = [
-			'		{',
-				'			"OptionSlot": '+str(response.slot)+',',
-				'			"Option": {',
-					'				"DialogCommand": "'+str(response.command).c_escape().replace("\\'","'")+'",',
-					'				"Dialog": '+str(response.to_dialog_id)+',',
-					'				"Title": "'+str(response.response_title).c_escape().replace("\\'","'")+'",',
-					'				"DialogColor": '+str(response.color_decimal)+',',
-					'				"OptionType": '+str(response.get_option_id_from_index(response.option_type)),
-					"			}",
-					'		}'
-			]
-	return response_dict	
-	
-	
-func create_image_dict(image,isLast,ID):
-	var image_dict : Array[String]
-	image_dict = [
-				'		{',
-				'				"PosX": '+str(image.PosX)+',',
-				'				"PosY": '+str(image.PosY)+',',
-				'				"Color": '+str(image.Color)+',',
-				'				"TextureY": '+str(image.TextureY)+',',
-				'				"TextureX": '+str(image.TextureX)+',',
-				'				"Scale": '+str(snapped(image.Scale,0.001))+'f,',
-				'				"SelectedColor":' +str(image.SelectedColor)+',',
-				'				"Texture": "'+str(image.Texture).c_escape().replace("\\'","'")+'",',
-				'				"Rotation": '+str(snapped(image.Rotation,0.01))+'f,',
-				'				"ImageType": '+str(image.ImageType)+',',
-				'				"Alignment": '+str(image.Alignment)+',',
-				'				"Alpha": '+str(snapped(image.Alpha,0.01)).pad_decimals(2)+'f,',
-				'				"Height": '+str(image.Height)+',',
-				'				"ID": '+str(ID)+',',
-				'				"Width": '+str(image.Width)
-				]
-	if isLast:
-		image_dict.append(
-			'		}'
-		)
-	else:
-		image_dict.append(
-			'		},'
-		)
+		var points_array = []
+		for faction_change in dialog.faction_changes:
+			points_array.append({
+				"Points" : abs(faction_change.points),
+				"Decrease" : faction_change.operator,
+				"Faction" : faction_change.faction_id
+			})
+		dialog_dict["Points"] = points_array
+		var command_array = []
+		for command in dialog.commands:
+			command_array.append({
+				"Line":command
+			})
+		dialog_dict["DialogCommands"] = command_array
 			
-	return image_dict	
+		
+	var dialog_dict_as_text = JSON.stringify(dialog_dict)
+	dialog_dict_as_text = dialog_dict_as_text.left(-1)
+	var mail_array_string = [",",
+		'	"DialogMail": {',
+			'		"Sender": "'+dialog.mail.sender.c_escape()+'",',
+			'		"BeenRead": 0,',
+			'		"Message": {',
+					dialog.mail.compose_pages_string(),
+			'		},',
+			'		"MailItems": [',
+					dialog.mail.compose_items_string(),
+			'		],',
+			'		"MailQuest": '+str(dialog.mail.quest_id)+',',
+			'		"TimePast": 1669491043541L,',
+			'		"Time": 0L,',
+			'		"Subject": "'+dialog.mail.subject.c_escape()+'"',
+			'	}',
+		'}']
+	for line in mail_array_string:
+		dialog_dict_as_text += "\n"+line
+	print(dialog_dict_as_text)
+	return(dialog_dict_as_text)
+	
+func create_option_dict(responses,new_version):
+	var response_array = []
+	
+	for response in responses:
+		if !new_version:
+			response_array.append({
+				"OptionSlot":response.slot,
+				"Option":{
+					"DialogCommand":response.option_command,
+					"Dialog":response.to_dialog_id,
+					"Title":response.response_title,
+					"DialogColor":response.color_decimal,
+					"OptionType":response.option_type
+				}
+			})
+		else:
+			var commands = []
+			for command in response.commands:
+				commands.append({
+					"Line" : command
+				})
+			response_array.append({
+				"OptionSlot":response.slot,
+				"Option":{
+					"Commands":commands,
+					"Dialog":response.to_dialog_id,
+					"Title":response.response_title,
+					"Text": response.response_text,
+					"DialogColor":response.color_decimal,
+					"OptionType":response.option_type
+				}
+			})
+	return response_array
+
+	
+	
+
+func create_image_dict(dialog):
+	var images = []
+	for image in dialog.image_dictionary:
+		images.append({
+			"PosX": image.PosX,
+			"PosY": image.PosY,
+			"Color":image.Color,
+			"TextureY": image.TextureY,
+			"TextureX": image.TextureX,
+			"Scale": snapped(image.Scale,0.001),
+			"SelectedColor": image.SelectedColor,
+			"Texture": image.Texture.c_escape().replace("\\'","'"),
+			"Rotation": snapped(image.Rotation,0.01),
+			"ImageType": image.ImageType,
+			"Alignment": image.Alignment,
+			"Alpha": snapped(image.Alpha,0.01).pad_decimals(2),
+			"Height": image.Height,
+			"ID": dialog.image_dictionary.find(image),
+			"Width": image.Width
+		})
+	return images	
