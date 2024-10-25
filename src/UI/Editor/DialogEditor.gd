@@ -46,6 +46,7 @@ var node_index := 0
 var response_node_index := 0
 var color_organizer_node_index := 0
 
+var selected_dialogs_and_responses : Array[GraphNode]
 var selected_dialogs : Array[GraphNode]= []
 var selected_responses :Array[GraphNode]= []
 var selected_color_organizers :Array[GraphNode] = []
@@ -141,6 +142,7 @@ func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,c
 		dialog_node_deleted.emit(dialog.save())
 	if selected_dialogs.find(dialog,0) != -1:
 		selected_dialogs.erase(dialog)
+		selected_dialogs_and_responses.erase(dialog)
 	set_last_selected_node_as_selected()
 	if remove_from_global_index:
 		emit_signal("request_remove_dialog_from_environment_index",dialog.dialog_id)
@@ -211,6 +213,7 @@ func delete_response_node(dialog : dialog_node,response : response_node, commit_
 		response.connected_dialog = null
 	if selected_responses.find(response) != -1:
 		selected_responses.erase(response)
+		selected_dialogs_and_responses.erase(response)
 	response.queue_free()
 	current_response_index_map.erase(response.node_index)
 	relay_unsaved_changes()
@@ -395,12 +398,14 @@ func set_scroll_offset(new_offset : Vector2):
 
 func set_last_selected_node_as_selected():
 	if selected_dialogs.size() < 1:
-		emit_signal("no_dialog_selected")
-	else:
-		if selected_dialogs.back().node_type == "Dialog Node":
-			emit_signal("dialog_selected",selected_dialogs.back())
+		emit_signal("no_dialog_selected")		
 	if selected_responses.size() < 1:
 		emit_signal("no_response_selected")
+	if selected_dialogs_and_responses.size() > 0:
+		if selected_dialogs_and_responses.back().node_type == "Dialog Node":
+			emit_signal("dialog_selected",selected_dialogs_and_responses.back())
+		if selected_dialogs_and_responses.back().node_type == "Player Response Node":
+			emit_signal("response_selected",selected_dialogs_and_responses.back())
 	
 func save():
 	return {
@@ -463,8 +468,10 @@ func select_node(node):
 	if Input.is_action_pressed("select_multiple") || multi_select_mouse_mode:
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
+			selected_dialogs_and_responses.append(node)
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
+			selected_dialogs_and_responses.append(node)
 		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
 			selected_color_organizers.append(node)
 	else:
@@ -480,10 +487,12 @@ func select_node(node):
 			selected_color_organizers.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
+			selected_dialogs_and_responses.append(node)
 
 				
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
+			selected_dialogs_and_responses.append(node)
 		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":
@@ -497,10 +506,12 @@ func unselect_node(node):
 	
 	if node.node_type == "Player Response Node":
 		selected_responses.erase(node)
+		selected_dialogs_and_responses.erase(node)
 	if node.node_type == "Color Organizer":
 		selected_color_organizers.erase(node)
 	if node.node_type == "Dialog Node":
 		selected_dialogs.erase(node)
+		selected_dialogs_and_responses.erase(node)
 
 		
 		if double_clicked:

@@ -68,3 +68,6 @@ func _on_editor_settings_custom_npcs_plus_changed():
 
 func _on_rescan_quests_and_factions_pressed():
 	pass # Replace with function body.
+
+
+

@@ -146,3 +146,9 @@ func _on_response_text_text_changed():
 func command_text_changed(command_component):
 	var slot = Commands.get_children().find(command_component)
 	current_response.commands[slot] = command_component.text
+
+
+func _on_dialog_editor_dialog_selected(_node):
+	if current_response:
+		disconnect_current_response()
+	visible = false

@@ -113,3 +113,9 @@ func update_customnpcs_plus_enabled():
 	$DialogNodeTabs.set_tab_hidden(3,!GlobalDeclarations.enable_customnpcs_plus_options)
 	$DialogNodeTabs.set_tab_hidden(4,!GlobalDeclarations.enable_customnpcs_plus_options)
 	
+
+
+func _on_dialog_editor_response_selected(_node):
+	if current_dialog:
+		disconnect_current_dialog(current_dialog,false,false)
+	$DialogNodeTabs.visible = false
