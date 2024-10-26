@@ -27,13 +27,13 @@ func load_response_settings(response: response_node):
 		current_response.disconnect("option_command_changed",Callable(self,"update_option_command"))
 		current_response.disconnect("request_delete_self",Callable(self,"disconnect_current_response"))
 	current_response = response
-	
-	current_response.connect("title_changed",Callable(self,"update_title"))
-	current_response.connect("color_changed",Callable(self,"update_color"))
-	current_response.connect("type_changed",Callable(self,"update_type"))
-	current_response.connect("to_id_changed",Callable(self,"update_id"))
-	current_response.connect("option_command_changed",Callable(self,"update_option_command"))
-	current_response.connect("request_delete_self",Callable(self,"disconnect_current_response"))
+	if !current_response.is_connected("title_changed",Callable(self,"update_title")):
+		current_response.connect("title_changed",Callable(self,"update_title"))
+		current_response.connect("color_changed",Callable(self,"update_color"))
+		current_response.connect("type_changed",Callable(self,"update_type"))
+		current_response.connect("to_id_changed",Callable(self,"update_id"))
+		current_response.connect("option_command_changed",Callable(self,"update_option_command"))
+		current_response.connect("request_delete_self",Callable(self,"disconnect_current_response"))
 	ResponseTitle.text = response.response_title
 	ResponseText.text = response.response_text
 	ResponseColor.color = GlobalDeclarations.int_to_color(response.color_decimal)

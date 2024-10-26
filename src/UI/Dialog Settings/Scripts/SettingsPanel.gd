@@ -36,21 +36,12 @@ var current_dialog : dialog_node
 
 func _ready(): 
 	set_quest_dict()
-	set_fact_dict()
 	update_customnpcs_plus_enabled()
 	DialogSpacingTab.create_preset_list()
 
 func scan_quest_and_faction_data():
 	set_quest_dict()
-	set_fact_dict()
 	emit_signal("scanned_quests_and_factions")
-
-func set_fact_dict():
-	var faction_choosers := get_tree().get_nodes_in_group("faction_access")
-	var fact_loader := faction_loader.new()
-	var fact_dict := fact_loader.get_faction_data(CurrentEnvironment.current_directory)
-	for node in faction_choosers:
-		node.load_faction_data(fact_dict)
 
 func set_quest_dict():
 	var access_to_quests = get_tree().get_nodes_in_group("quest_access")
@@ -86,7 +77,6 @@ func load_dialog_settings(dialog : dialog_node):
 		current_dialog = dialog
 		if !current_dialog.is_connected("request_deletion", Callable(self, "disconnect_current_dialog")):
 			current_dialog.connect("request_deletion", Callable(self, "disconnect_current_dialog"))
-	set_fact_dict()
 func no_dialog_selected():
 	DialogSettingsTab.visible = false
 

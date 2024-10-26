@@ -60,10 +60,6 @@ func _on_dialog_editor_import_category_canceled():
 	$TopPanelContainer.visible = false
 
 
-func _on_editor_settings_custom_npcs_plus_changed():
-	$TopPanelContainer/ExportTypeButton.set_item_disabled(3,!GlobalDeclarations.enable_customnpcs_plus_options)
-	if $TopPanelContainer/ExportTypeButton.get_selected_id() == 3 && !GlobalDeclarations.enable_customnpcs_plus_options:
-		$TopPanelContainer/ExportTypeButton.select(1)
 
 
 func _on_rescan_quests_and_factions_pressed():

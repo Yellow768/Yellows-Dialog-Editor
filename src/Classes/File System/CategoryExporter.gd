@@ -50,7 +50,11 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 		"DialogText":dialog.text,
 		"DialogTitle":dialog.dialog_title,
 		"DialogSound":dialog.sound,
+		"DialogStopMusic":int(dialog.stop_music),
 		"DialogId" : dialog.dialog_id,
+		"DialogQuest": dialog.start_quest,
+		"AvailabilityMinPlayerLevel" : dialog.min_level_availability,
+		"AvailabilityDayTime": dialog.time_availability,
 		"ModRev":18,
 		"Options": create_option_dict(dialog.response_options,new_version),
 		"DialogHideNPC":int(dialog.hide_npc),
@@ -81,7 +85,7 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 		"AvailabilityDialog3": dialog.dialog_availabilities[2].availability_type,
 		"AvailabilityDialog3Id": dialog.dialog_availabilities[2].dialog_id,
 		"AvailabilityDialog4": dialog.dialog_availabilities[3].availability_type,
-		"AvailabilityDialogId4": dialog.dialog_availabilities[3].dialog_id,
+		"AvailabilityDialog4Id": dialog.dialog_availabilities[3].dialog_id,
 		
 		}
 	if GlobalDeclarations.enable_customnpcs_plus_options:
@@ -113,9 +117,9 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 	if !new_version:
 		var fact1 = -1
 		var fact1pts = 0
-		var fact1decrease = 100
+		var fact1decrease = 0
 		var fact2 = -1
-		var fact2pts = 100
+		var fact2pts = 0
 		var fact2decrease = 0
 		if dialog.faction_changes.size() == 1:
 			fact1 = dialog.faction_changes[0].faction_id
@@ -153,27 +157,43 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 		dialog_dict["DialogCommands"] = command_array
 			
 		
-	var dialog_dict_as_text = JSON.stringify(dialog_dict)
+	var dialog_dict_as_text = JSON.stringify(dialog_dict," ")
 	dialog_dict_as_text = dialog_dict_as_text.left(-1)
-	var mail_array_string = [",",
-		'	"DialogMail": {',
-			'		"Sender": "'+dialog.mail.sender.c_escape()+'",',
-			'		"BeenRead": 0,',
-			'		"Message": {',
-					dialog.mail.compose_pages_string(),
-			'		},',
-			'		"MailItems": [',
-					dialog.mail.compose_items_string(),
-			'		],',
-			'		"MailQuest": '+str(dialog.mail.quest_id)+',',
-			'		"TimePast": 1669491043541L,',
-			'		"Time": 0L,',
-			'		"Subject": "'+dialog.mail.subject.c_escape()+'"',
-			'	}',
-		'}']
+	var mail_array_string = []
+	if !new_version:
+		mail_array_string = [",",
+			'	"DialogMail": {',
+				'		"Sender": "'+dialog.mail.sender.c_escape()+'",',
+				'		"BeenRead": 0,',
+				'		"Message": {',
+						dialog.mail.compose_pages_string(),
+				'		},',
+				'		"MailItems": [',
+						dialog.mail.compose_items_string(),
+				'		],',
+				'		"MailQuest": '+str(dialog.mail.quest_id)+',',
+				'		"TimePast": 1669491043541L,',
+				'		"Time": 0L,',
+				'		"Subject": "'+dialog.mail.subject.c_escape()+'"',
+				'	}',
+			'}']
+	else:
+		mail_array_string = [",",
+			'	"DialogMail": {',
+				'		"Sender": "'+dialog.mail.sender.c_escape()+'",',
+				'		"BeenRead": 0,',
+				'		"Text": "'+dialog.mail.compose_pages_string(true)+'",',
+				'		"MailIItems": [',
+						dialog.mail.compose_items_string(),
+				'		],',
+				'		"MailQuest": '+str(dialog.mail.quest_id)+',',
+				'		"TimePast": 1669491043541L,',
+				'		"Time": 0L,',
+				'		"Subject": "'+dialog.mail.subject.c_escape()+'"',
+				'	}',
+			'}']
 	for line in mail_array_string:
 		dialog_dict_as_text += "\n"+line
-	print(dialog_dict_as_text)
 	return(dialog_dict_as_text)
 	
 func create_option_dict(responses,new_version):
@@ -217,20 +237,20 @@ func create_image_dict(dialog):
 	var images = []
 	for image in dialog.image_dictionary:
 		images.append({
-			"PosX": image.PosX,
-			"PosY": image.PosY,
-			"Color":image.Color,
-			"TextureY": image.TextureY,
-			"TextureX": image.TextureX,
-			"Scale": snapped(image.Scale,0.001),
-			"SelectedColor": image.SelectedColor,
-			"Texture": image.Texture.c_escape().replace("\\'","'"),
-			"Rotation": snapped(image.Rotation,0.01),
-			"ImageType": image.ImageType,
-			"Alignment": image.Alignment,
-			"Alpha": snapped(image.Alpha,0.01).pad_decimals(2),
-			"Height": image.Height,
-			"ID": dialog.image_dictionary.find(image),
-			"Width": image.Width
+			"PosX": dialog.image_dictionary[image].PosX,
+			"PosY": dialog.image_dictionary[image].PosY,
+			"Color":dialog.image_dictionary[image].Color,
+			"TextureY": dialog.image_dictionary[image].TextureY,
+			"TextureX": dialog.image_dictionary[image].TextureX,
+			"Scale": snapped(dialog.image_dictionary[image].Scale,0.001),
+			"SelectedColor": dialog.image_dictionary[image].SelectedColor,
+			"Texture": dialog.image_dictionary[image].Texture.c_escape().replace("\\'","'"),
+			"Rotation": snapped(dialog.image_dictionary[image].Rotation,0.01),
+			"ImageType": dialog.image_dictionary[image].ImageType,
+			"Alignment": dialog.image_dictionary[image].Alignment,
+			"Alpha": snapped(dialog.image_dictionary[image].Alpha,0.01),
+			"Height": dialog.image_dictionary[image].Height,
+			"ID": image,
+			"Width": dialog.image_dictionary[image].Width
 		})
 	return images	

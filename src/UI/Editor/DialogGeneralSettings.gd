@@ -39,6 +39,7 @@ var command_text_instance = load("res://src/UI/Dialog Settings/Command.tscn")
 @export var add_faction_button_path : NodePath
 @export var add_command_button_path : NodePath
 @export var command_visibility_button_path : NodePath
+@export var StopMusicCheckbox : CheckBox
 
 @onready var InformationPanel : Panel = get_node(information_panel_path)
 @onready var VisualOptionsGroup : VBoxContainer = get_node(visual_options_group_path)
@@ -123,6 +124,7 @@ func load_current_dialog_settings(dialog : dialog_node):
 	PlaysoundEdit.text = current_dialog.sound
 	StartQuest.set_id(current_dialog.start_quest)
 	DialogTextEdit.text = current_dialog.text
+	StopMusicCheckbox.button_pressed = current_dialog.stop_music
 	for child in FactionChanges.get_children():
 		FactionChanges.remove_child(child)
 		child.queue_free()
@@ -475,3 +477,7 @@ func _on_command_visibility_button_toggled(button_pressed):
 	else:
 		CommandVisibilityButton.icon = load("res://Assets/UI Textures/Icon Font/chevron-up-line.svg")
 			
+
+
+func _on_dialog_stop_music_toggled(button_pressed):
+	current_dialog.stop_music = button_pressed

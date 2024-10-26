@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/MailItemSlot.gd" id="1_tbl47"]
 
 [node name="VBoxContainer" type="VBoxContainer"]
-custom_minimum_size = Vector2(320, 0)
-offset_right = 315.0
-offset_bottom = 95.0
+custom_minimum_size = Vector2(320, 30)
+offset_right = 320.0
+offset_bottom = 31.0
 script = ExtResource("1_tbl47")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -38,9 +38,14 @@ layout_mode = 2
 
 [node name="NBTTextEdit" parent="." instance=ExtResource("1_k4lbn")]
 visible = false
+custom_minimum_size = Vector2(400, 25)
 layout_mode = 2
 tooltip_text = "MAIL_ITEM_NBT_TOOLTIP"
 max_size = 300
+
+[node name="HSeparator" type="HSeparator" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 
 [connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]
 [connection signal="text_changed" from="ID and Count/ItemID" to="." method="_on_item_id_text_changed"]

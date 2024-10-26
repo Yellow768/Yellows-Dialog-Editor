@@ -120,11 +120,14 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		return currently_loaded_dialog
 	currently_loaded_dialog.position_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
 	for i in node_data.keys():
-		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options" or i == "mail" or i == "image_dictionary":
+		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options" or i == "mail" or i == "image_dictionary" or i == "command":
 			continue
 		currently_loaded_dialog.set(i, node_data[i])
 	#currently_loaded_dialog.time_availability = node_data["time_availability"]
 	#currently_loaded_dialog.min_level_availability = node_data["min_level_availability"]
+	if node_data.has("command"):
+		currently_loaded_dialog.commands.append(node_data["command"])
+	
 	for i in 4:
 		if node_data.has("quest_availabilities"):
 			currently_loaded_dialog.quest_availabilities[i].set_id(node_data["quest_availabilities"][i].quest_id)

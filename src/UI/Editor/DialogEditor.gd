@@ -439,6 +439,7 @@ func clear_editor():
 	color_organizers = []
 	selected_responses = []
 	selected_dialogs = []
+	selected_dialogs_and_responses = []
 	var save_nodes = get_tree().get_nodes_in_group("Save")
 	var response_nodes = get_tree().get_nodes_in_group("Response_Nodes")
 	for i in save_nodes:
@@ -485,6 +486,7 @@ func select_node(node):
 			selected_responses.clear()
 			selected_dialogs.clear()
 			selected_color_organizers.clear()
+			selected_dialogs_and_responses.clear()
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			selected_dialogs_and_responses.append(node)

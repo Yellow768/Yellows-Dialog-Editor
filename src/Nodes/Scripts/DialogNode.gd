@@ -54,6 +54,7 @@ var initial_offset_y :float= 0
 @export var show_wheel : bool = false
 @export var hide_npc : bool = false
 @export var disable_esc : bool = false
+var stop_music : bool = false
 var darken_screen : bool = true
 var render_gradual : bool = false
 var show_previous_dialog : bool = true
@@ -410,6 +411,7 @@ func save():
 		"hide_npc" : hide_npc,
 		"disable_esc" : disable_esc,
 		"sound" : sound,
+		"stop_music": stop_music,
 		"commands" : commands,
 		"text" : text,
 		"start_quest" : start_quest,

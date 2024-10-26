@@ -7,7 +7,7 @@ signal faction_change_request_deletion
 var faction_data := {}
 @export var allow_deletion := true
 func _ready():
-	$Panel/HBoxContainer/ChooseFaction.load_faction_data(faction_data)
+	$Panel/HBoxContainer/ChooseFaction.load_faction_data(CurrentEnvironment.faction_dict)
 	$Panel/HBoxContainer/Factionpoints.prefix = "+"
 	$Panel/HBoxContainer/Factionpoints.suffix = tr("POINTS_ABBRV")
 

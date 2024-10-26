@@ -6,7 +6,7 @@ signal faction_chosen
 var faction_data = {}
 
 func _ready():
-	pass
+	load_faction_data(CurrentEnvironment.faction_dict)
 
 
 func _on_ChooseFaction_pressed():

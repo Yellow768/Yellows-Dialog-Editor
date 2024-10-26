@@ -76,6 +76,7 @@ func load_current_dialog_settings(dialog : dialog_node):
 	AlignmentContainer.visible = ImageType.selected == 0
 	SelectedColorContainer.visible = ImageType.selected == 2
 	if current_dialog.last_viewed_image != -1:
+		prints(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		ImageList.select(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		_on_item_list_item_selected(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 	else:
@@ -113,6 +114,8 @@ var selecting_new_image := false
 
 
 func _on_item_list_item_selected(index):
+	if index == -1 :
+		return
 	selecting_new_image = true
 	await get_tree().create_timer(.01).timeout
 	ImageSettingsContainer.visible = true
@@ -151,9 +154,9 @@ func _on_id_value_value_changed(value):
 		ImageId.value = old_value
 		return
 	ImageList.set_item_text(ImageList.get_selected_items()[0],str(value))
-	
 	current_dialog.image_dictionary[int(value)] = current_dialog.image_dictionary[old_value]
 	current_dialog.image_dictionary.erase(old_value)
+	current_dialog.last_viewed_image = int(value)
 	sort_image_list(value)
 	InformationPanel.emit_signal("unsaved_change")
 	

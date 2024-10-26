@@ -359,7 +359,7 @@ grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
 
-[node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs" node_paths=PackedStringArray("StopMusicCheckbox")]
+[node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs"]
 custom_minimum_size = Vector2(425, 0)
 layout_mode = 2
 script = ExtResource("17_fph0n")
@@ -395,7 +395,6 @@ faction_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/Faction
 add_faction_button_path = NodePath("ScrollContainer/VBoxContainer/AddFactionChange")
 add_command_button_path = NodePath("ScrollContainer/VBoxContainer/AddCommandButton")
 command_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
-StopMusicCheckbox = NodePath("ScrollContainer/VBoxContainer/DialogStopMusic")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
 layout_mode = 1
@@ -1454,9 +1453,6 @@ text = "TEXTURE"
 custom_minimum_size = Vector2(250, 25)
 layout_mode = 2
 
-[node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit/HBoxContainer" index="0"]
-custom_minimum_size = Vector2(250, 25)
-
 [node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
@@ -2158,7 +2154,6 @@ one_shot = true
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets/AddPresetButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_preset_button_pressed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets/Lock" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_lock_toggled"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_soundfile_text_changed"]
-[connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogStopMusic" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_stop_music_toggled"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_command_visibility_button_toggled"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/AddCommandButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_command_button_pressed"]
@@ -2213,7 +2208,6 @@ one_shot = true
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/AddImage" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_add_image_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer/RemoveImage" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_remove_image_pressed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID/IDValue" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_id_value_value_changed"]
-[connection signal="text_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_line_edit_text_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionX" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_image_position_x_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position/ImagePositionY" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_image_position_y_value_changed"]
 [connection signal="value_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight/Width" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_width_value_changed"]
@@ -2260,6 +2254,7 @@ one_shot = true
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]
 [connection signal="autosave_time_changed" from="EditorSettings" to="CategoryPanel" method="_on_editor_settings_autosave_time_changed"]
+[connection signal="custom_npcs_plus_changed" from="EditorSettings" to="TopPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
 [connection signal="custom_npcs_plus_changed" from="EditorSettings" to="InformationPanel" method="_on_editor_settings_custom_npcs_plus_changed"]
 [connection signal="custom_npcs_plus_changed" from="EditorSettings" to="InformationPanel/DialogNodeTabs/GENERAL" method="update_customnpcs_plus_options"]
 [connection signal="language_changed" from="EditorSettings" to="DialogEditor" method="_on_editor_settings_language_changed"]
@@ -2271,5 +2266,3 @@ one_shot = true
 [connection signal="pressed" from="UnsavedPanel/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
 [connection signal="timeout" from="AutosaveTimer" to="CategoryPanel" method="_on_autosave_timer_timeout"]
 [connection signal="timeout" from="DoubleClickTimer" to="DialogEditor" method="_on_double_click_timer_timeout"]
-
-[editable path="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit"]

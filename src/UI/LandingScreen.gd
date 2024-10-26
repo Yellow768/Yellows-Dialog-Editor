@@ -31,6 +31,7 @@ func change_to_editor(directory : String) -> void:
 	if DirAccess.dir_exists_absolute(directory):
 		var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
 		CurrentEnvironment.current_directory = directory
+		CurrentEnvironment.load_faction_data()
 		get_parent().add_child(editor)
 		DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
 		print("Loaded "+directory)

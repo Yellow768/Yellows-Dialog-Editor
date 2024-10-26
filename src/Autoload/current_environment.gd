@@ -14,6 +14,10 @@ var faction_dict
 func _ready():
 	pass
 
+func load_faction_data():
+	var fact_loader := faction_loader.new()
+	faction_dict = fact_loader.get_faction_data(current_directory)
+
 func set_highest_id(new_id):
 	highest_id = new_id
 	var file = FileAccess.open(current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
