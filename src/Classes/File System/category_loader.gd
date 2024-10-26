@@ -155,6 +155,8 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		currently_loaded_dialog.mail.sender = node_data["mail"].sender
 		currently_loaded_dialog.mail.subject = node_data["mail"].subject
 		currently_loaded_dialog.mail.items_slots = JSON.parse_string(node_data["mail"].items)
+		if currently_loaded_dialog.mail.items_slots.size() == 4:
+			currently_loaded_dialog.mail.items_slots.append({})
 		currently_loaded_dialog.mail.pages = JSON.parse_string(node_data["mail"].pages) as Array[String]
 		currently_loaded_dialog.mail.quest_id = node_data["mail"].quest_id
 	if node_data.has("image_dictionary"):

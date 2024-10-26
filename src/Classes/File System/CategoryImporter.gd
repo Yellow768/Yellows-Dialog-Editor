@@ -255,6 +255,7 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 		item_as_string = item_as_string.replace('"Slot": 1,',"")
 		item_as_string = item_as_string.replace('"Slot": 2,',"")
 		item_as_string = item_as_string.replace('"Slot": 3,',"")
+		item_as_string = item_as_string.replace('"Slot": 4,',"")
 		item_as_string = item_as_string.substr(1,item_as_string.length()-2)
 		item_as_string = item_as_string.strip_edges()
 		item_as_string = item_as_string.replace("\\n","\n")

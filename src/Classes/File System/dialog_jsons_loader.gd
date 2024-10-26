@@ -118,7 +118,8 @@ func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool
 	if !dialog_json["DialogMail"].has("Message") or typeof(dialog_json["DialogMail"]["Message"]) != TYPE_DICTIONARY:
 		dialog_json["DialogMail"]["Message"] = {}
 	if !dialog_json["DialogMail"].has("MailItems") or typeof(dialog_json["DialogMail"]["MailItems"]) != TYPE_ARRAY:
-		dialog_json["DialogMail"]["MailItems"] = []
+		if !dialog_json["DialogMail"].has("MailIItems") or typeof(dialog_json["DialogMail"]["MailIItems"]) != TYPE_ARRAY:
+			dialog_json["DialogMail"]["MailItems"] = []
 	if !dialog_json["DialogMail"].has("MailQuest") or typeof(dialog_json["DialogMail"]["MailQuest"]) != TYPE_INT:
 		dialog_json["DialogMail"]["MailQuest"] = -1
 	if !dialog_json["DialogMail"].has("Subject") or typeof(dialog_json["DialogMail"]["Subject"]) != TYPE_STRING:

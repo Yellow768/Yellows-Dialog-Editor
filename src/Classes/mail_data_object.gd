@@ -8,7 +8,7 @@ signal quest_changed
 signal items_changed
 
 var pages = []
-var items_slots = [{},{},{},{}]
+var items_slots = [{},{},{},{},{}]
 var quest_id = -1
 var subject = ""
 var sender = ""

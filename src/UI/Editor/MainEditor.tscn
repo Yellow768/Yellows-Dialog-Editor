@@ -1010,6 +1010,10 @@ slot = 2
 layout_mode = 2
 slot = 3
 
+[node name="Item5" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+layout_mode = 2
+slot = 4
+
 [node name="SPACING" type="Control" parent="InformationPanel/DialogNodeTabs"]
 visible = false
 layout_mode = 2
