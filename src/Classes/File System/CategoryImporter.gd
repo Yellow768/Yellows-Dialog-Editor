@@ -156,7 +156,6 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 	node.min_level_availability = json["AvailabilityMinPlayerLevel"]
 	node.time_availability = json["AvailabilityDayTime"]
 	if json.has("DialogAlignment"):
-		print(json.has("OptionOffsetX"))
 		print("Dialog "+str(json["DialogId"])+" has CustomNPCs+ formatting. Importing settings")
 		node.visual_preset = 0
 		node.spacing_preset = 0

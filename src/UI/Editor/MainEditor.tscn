@@ -309,7 +309,7 @@ theme_override_styles/pressed = SubResource("17")
 text = "RETURN_HOME_BUTTON"
 icon = ExtResource("12_jpjxe")
 
-[node name="InformationPanel" type="Panel" parent="."]
+[node name="InformationPanel" type="Panel" parent="." node_paths=PackedStringArray("response_settings_tab")]
 custom_minimum_size = Vector2(462, 100)
 layout_mode = 1
 anchors_preset = 11
@@ -333,6 +333,7 @@ category_panel_path = NodePath("../CategoryPanel")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 mail_data_path = NodePath("DialogNodeTabs/MAIL")
+response_settings_tab = NodePath("ResponseNodeSettings")
 
 [node name="Label" type="Label" parent="InformationPanel"]
 layout_mode = 1
@@ -2251,6 +2252,7 @@ one_shot = true
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_saved"]
 [connection signal="current_category_deleted" from="CategoryPanel" to="DialogEditor" method="_on_CategoryPanel_current_category_deleted"]
 [connection signal="hide_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_hide_category_panel"]
+[connection signal="request_clear_editor" from="CategoryPanel" to="InformationPanel" method="_on_category_panel_request_clear_editor"]
 [connection signal="request_dialog_ids_reassigned" from="CategoryPanel" to="DialogEditor" method="_on_category_panel_request_dialog_ids_reassigned"]
 [connection signal="reveal_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_reveal_category_panel"]
 [connection signal="saved_backups" from="CategoryPanel" to="UI Anims" method="_on_category_panel_saved_backups"]

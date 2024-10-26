@@ -208,7 +208,7 @@ func create_option_dict(responses,new_version):
 					"Dialog":response.to_dialog_id,
 					"Title":response.response_title,
 					"DialogColor":response.color_decimal,
-					"OptionType":response.option_type
+					"OptionType":response.get_option_id_from_index(response.option_type)
 				}
 			})
 		else:
@@ -225,7 +225,7 @@ func create_option_dict(responses,new_version):
 					"Title":response.response_title,
 					"Text": response.response_text,
 					"DialogColor":response.color_decimal,
-					"OptionType":response.option_type
+					"OptionType":response.get_option_id_from_index(response.option_type)
 				}
 			})
 	return response_array

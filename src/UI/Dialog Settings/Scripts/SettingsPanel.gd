@@ -15,6 +15,7 @@ signal scanned_quests_and_factions
 @export var toggle_visiblity_path: NodePath
 @export var dialog_editor_path: NodePath
 @export var mail_data_path : NodePath
+@export var response_settings_tab : TabContainer
 
 
 
@@ -109,3 +110,8 @@ func _on_dialog_editor_response_selected(_node):
 	if current_dialog:
 		disconnect_current_dialog(current_dialog,false,false)
 	$DialogNodeTabs.visible = false
+
+
+func _on_category_panel_request_clear_editor():
+	DialogSettingsTab.visible = false
+	response_settings_tab.visible = false
