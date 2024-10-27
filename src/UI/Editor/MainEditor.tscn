@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=51 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="12_ry04q"]
 [ext_resource type="Script" path="res://src/Classes/File System/EnvironmentIndexer.gd" id="13"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="14"]
+[ext_resource type="Texture2D" uid="uid://cegdm7cac1amv" path="res://Assets/UI Textures/Icon Font/map-simple-off-line.svg" id="14_fmlij"]
 [ext_resource type="PackedScene" uid="uid://b8aewr7debfni" path="res://src/UI/Util/Expandable Line Edit.tscn" id="15"]
 [ext_resource type="Script" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
@@ -249,7 +250,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_xovix")
 text = "CATEGORY_OPTIONS"
 icon = ExtResource("11_qxp7e")
 language = "en"
-item_count = 3
+item_count = 4
 popup/item_0/text = "CO_REIMPORT"
 popup/item_0/icon = ExtResource("12_ry04q")
 popup/item_0/id = 0
@@ -259,6 +260,9 @@ popup/item_1/id = 1
 popup/item_2/text = "CO_REINDEX"
 popup/item_2/icon = ExtResource("9_mukh6")
 popup/item_2/id = 2
+popup/item_3/text = "Deselect All"
+popup/item_3/icon = ExtResource("14_fmlij")
+popup/item_3/id = 3
 
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
 layout_mode = 1
@@ -1981,6 +1985,8 @@ layout_mode = 2
 
 [node name="SpinBox" type="SpinBox" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
 layout_mode = 2
+allow_greater = true
+allow_lesser = true
 prefix = "ID: "
 
 [node name="CategoryPanel" type="Panel" parent="."]
@@ -2287,6 +2293,7 @@ one_shot = true
 [connection signal="request_add_response" from="DialogEditor/UndoSystem" to="DialogEditor" method="add_response_node"]
 [connection signal="request_connect_nodes" from="DialogEditor/UndoSystem" to="DialogEditor" method="connect_nodes"]
 [connection signal="assign_new_ids_request" from="TopPanel" to="DialogEditor" method="reindex_ids"]
+[connection signal="deselect_all_selected" from="TopPanel" to="DialogEditor" method="_on_top_panel_deselect_all_selected"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
