@@ -15,12 +15,9 @@ signal scanned_quests_and_factions
 @export var toggle_visiblity_path: NodePath
 @export var dialog_editor_path: NodePath
 @export var mail_data_path : NodePath
-<<<<<<< HEAD
 @export var attribute_check_path : NodePath
-=======
 @export var response_settings_tab : TabContainer
 
->>>>>>> master
 
 
 @onready var DialogSettingsTab := get_node(dialog_settings_tab_path)

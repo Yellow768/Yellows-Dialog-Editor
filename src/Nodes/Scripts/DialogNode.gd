@@ -51,16 +51,15 @@ var dialog_id : int = -1: set = set_dialog_id
 
 #Display
 
-<<<<<<< HEAD
+
 var show_wheel : bool = false
 var hide_npc : bool = false
 var disable_esc : bool = false
-=======
+
 @export var show_wheel : bool = false
 @export var hide_npc : bool = false
 @export var disable_esc : bool = false
 var stop_music : bool = false
->>>>>>> master
 var darken_screen : bool = true
 var render_gradual : bool = false
 var show_previous_dialog : bool = true
@@ -96,11 +95,7 @@ var lock_spacing_preset : bool = false
 var image_dictionary : Dictionary = {}
 var last_viewed_image : int = -1
 #String Inputs
-<<<<<<< HEAD
-var command : String = ''
-=======
 var commands : Array[String]
->>>>>>> master
 var sound : String = ''
 var text : String = ''
 
