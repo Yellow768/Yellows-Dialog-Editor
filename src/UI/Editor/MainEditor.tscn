@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=53 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -40,8 +40,8 @@
 [ext_resource type="Script" path="res://src/UI/Editor/DialogImageSettings.gd" id="31_teijp"]
 [ext_resource type="Texture2D" uid="uid://ymrya147pb6v" path="res://Assets/UI Textures/Icon Font/link-line.svg" id="32_jwfbh"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogAttributeCheckSettings.gd" id="34_c1nas"]
-[ext_resource type="PackedScene" uid="uid://gqxq7kkkgl8l" path="res://src/Nodes/attributes/tag_container.tscn" id="35_w1inp"]
 [ext_resource type="Script" path="res://src/UI/Editor/ResponseNodeSettings.gd" id="35_n4s6j"]
+[ext_resource type="PackedScene" uid="uid://gqxq7kkkgl8l" path="res://src/Nodes/attributes/tag_container.tscn" id="35_w1inp"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -341,7 +341,6 @@ dialog_editor_path = NodePath("../DialogEditor")
 mail_data_path = NodePath("DialogNodeTabs/MAIL")
 attribute_check_path = NodePath("DialogNodeTabs/Attribute Check")
 response_settings_tab = NodePath("ResponseNodeSettings")
-
 
 [node name="Label" type="Label" parent="InformationPanel"]
 layout_mode = 1
