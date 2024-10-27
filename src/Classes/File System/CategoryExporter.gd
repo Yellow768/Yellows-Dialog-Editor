@@ -43,6 +43,7 @@ func empty_category_jsons(category_name : String):
 
 
 func create_dialog_dict(dialog : dialog_node, new_version):
+	print(dialog.text)
 	var dialog_dict = {
 		"DialogShowWheel" : int(dialog.show_wheel),
 		"DialogDisableEsc": int(dialog.disable_esc),
@@ -157,7 +158,7 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 		dialog_dict["DialogCommands"] = command_array
 			
 		
-	var dialog_dict_as_text = JSON.stringify(dialog_dict," ")
+	var dialog_dict_as_text = JSON.stringify(dialog_dict," ").replace("\\n","\n")
 	dialog_dict_as_text = dialog_dict_as_text.left(-1)
 	var mail_array_string = []
 	if !new_version:
