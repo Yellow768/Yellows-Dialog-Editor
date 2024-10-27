@@ -841,3 +841,17 @@ func find_dialog_node_from_id(id : int):
 		if dialog.dialog_id == id:
 			return dialog
 	return null
+
+
+func _on_top_panel_deselect_all_selected():
+	for node in selected_dialogs.duplicate():
+		node.selected = false
+	for node in selected_responses.duplicate():
+		node.selected = false
+	for node in selected_color_organizers.duplicate():
+		node.selected = false
+	selected_color_organizers = []
+	selected_dialogs = []
+	selected_responses = []
+	selected_dialogs_and_responses = []
+	

@@ -119,7 +119,7 @@ theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
 text = "[b]Yellow's Dialog Editor 
-v0.8.0"
+v0.8.1"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
