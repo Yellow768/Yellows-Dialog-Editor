@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfl1pkyh2gaqd"]
+[gd_scene load_steps=7 format=3 uid="uid://bfl1pkyh2gaqd"]
 
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/FactionChange.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bokoikotidj57" path="res://src/UI/Dialog Settings/ChooseFaction.tscn" id="2"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="3"]
 [ext_resource type="FontFile" uid="uid://baod7xnbr0oe7" path="res://Assets/Font/TinyFont.tres" id="4"]
+[ext_resource type="Texture2D" uid="uid://sigthghnjsn6" path="res://Assets/UI Textures/Icon Font/delete-bin-line.svg" id="5_yq0v3"]
 
 [sub_resource type="StyleBoxEmpty" id="1"]
 
@@ -17,65 +18,52 @@ offset_bottom = 318.0
 theme = ExtResource("3")
 script = ExtResource("1")
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(350, 50)
+[node name="Panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(350, 25)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 5.0
 theme_override_styles/panel = SubResource("1")
 
-[node name="ChooseFaction" parent="Panel" instance=ExtResource("2")]
-layout_mode = 0
-anchors_preset = 0
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = 5.0
-offset_top = 9.0
-offset_right = 119.0
-offset_bottom = 40.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="ChooseFaction" parent="Panel/HBoxContainer" instance=ExtResource("2")]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("4")
 text = "SELECT_FACTION"
+text_overrun_behavior = 3
 
-[node name="FactionID" type="SpinBox" parent="Panel"]
-layout_mode = 0
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 134.0
-offset_top = -12.0
-offset_right = 228.0
-offset_bottom = 12.0
+[node name="FactionID" type="SpinBox" parent="Panel/HBoxContainer"]
+layout_mode = 2
 min_value = -1.0
 max_value = 65535.0
 value = -1.0
 prefix = "ID"
 
-[node name="Factionpoints" type="SpinBox" parent="Panel"]
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -167.0
-offset_top = -12.0
-offset_right = -7.0
-offset_bottom = 12.0
+[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Factionpoints" type="SpinBox" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 min_value = -1e+08
 max_value = 1e+06
 value = 100.0
 update_on_text_changed = true
 
-[node name="VSeparator" type="VSeparator" parent="Panel"]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 25.0
-offset_top = -20.0
-offset_right = 29.0
-offset_bottom = 20.0
+[node name="VSeparator2" type="VSeparator" parent="Panel/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
 
-[connection signal="faction_chosen" from="Panel/ChooseFaction" to="." method="set_id"]
-[connection signal="value_changed" from="Panel/FactionID" to="." method="_on_FactionID_value_changed"]
-[connection signal="value_changed" from="Panel/Factionpoints" to="." method="_on_Factionpoints_value_changed"]
+[node name="DeleteButton" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_yq0v3")
+
+[connection signal="faction_chosen" from="Panel/HBoxContainer/ChooseFaction" to="." method="set_id"]
+[connection signal="value_changed" from="Panel/HBoxContainer/FactionID" to="." method="_on_FactionID_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Factionpoints" to="." method="_on_Factionpoints_value_changed"]
+[connection signal="pressed" from="Panel/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]

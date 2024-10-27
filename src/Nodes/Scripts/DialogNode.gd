@@ -51,9 +51,16 @@ var dialog_id : int = -1: set = set_dialog_id
 
 #Display
 
+<<<<<<< HEAD
 var show_wheel : bool = false
 var hide_npc : bool = false
 var disable_esc : bool = false
+=======
+@export var show_wheel : bool = false
+@export var hide_npc : bool = false
+@export var disable_esc : bool = false
+var stop_music : bool = false
+>>>>>>> master
 var darken_screen : bool = true
 var render_gradual : bool = false
 var show_previous_dialog : bool = true
@@ -89,7 +96,11 @@ var lock_spacing_preset : bool = false
 var image_dictionary : Dictionary = {}
 var last_viewed_image : int = -1
 #String Inputs
+<<<<<<< HEAD
 var command : String = ''
+=======
+var commands : Array[String]
+>>>>>>> master
 var sound : String = ''
 var text : String = ''
 
@@ -99,7 +110,7 @@ var dialog_availabilities : Array[dialog_availability_object] = [dialog_availabi
 var quest_availabilities : Array[quest_availability_object]= [quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new(),quest_availability_object.new()]
 var scoreboard_availabilities = [scoreboard_availability_object.new(),scoreboard_availability_object.new()]
 var faction_availabilities :Array[faction_availability_object]= [faction_availability_object.new(),faction_availability_object.new()]
-var faction_changes :Array[faction_change_object]= [faction_change_object.new(),faction_change_object.new()]
+var faction_changes :Array[faction_change_object]
 var mail = mail_data_object.new()
 
 var time_availability : int = 0
@@ -413,7 +424,8 @@ func save():
 		"hide_npc" : hide_npc,
 		"disable_esc" : disable_esc,
 		"sound" : sound,
-		"command" : command,
+		"stop_music": stop_music,
+		"commands" : commands,
 		"text" : text,
 		"start_quest" : start_quest,
 		"darken_screen" : darken_screen,

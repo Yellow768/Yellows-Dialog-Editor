@@ -8,7 +8,7 @@ signal quest_changed
 signal items_changed
 
 var pages = []
-var items_slots = [{},{},{},{}]
+var items_slots = [{},{},{},{},{}]
 var quest_id = -1
 var subject = ""
 var sender = ""
@@ -41,11 +41,11 @@ func compose_items_string():
 				string += ",\n			{\n		"+item_as_string+"\n			}"
 			else:
 				string += "			{\n		"+item_as_string+"\n			}"
-	return string.c_unescape().replace("\\'","'")
+	return string.replace("\\'","'")
 			
-func compose_pages_string():
+func compose_pages_string(new_version : bool = false):
 	var string = ""
-	if !pages.is_empty():
+	if !pages.is_empty() && !new_version:
 		string += '			"pages": ['
 		for page_index in pages.size():
 			var page_text : String = pages[page_index].c_escape().replace("\\n","\n").replace("\\'","'")
@@ -53,6 +53,9 @@ func compose_pages_string():
 			if page_index != pages.size()-1 && pages.size() != 1:
 				string += ","
 		string += "\n			]"
+	elif !pages.is_empty() && new_version:
+		for page in pages:
+			string+=page.c_escape().replace("\\n","\n").replace("\\'","'")+"\n"
 	return string #.c_unescape().replace("\\'","'")
 	
 			

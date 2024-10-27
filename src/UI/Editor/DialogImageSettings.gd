@@ -30,7 +30,7 @@ extends Control
 @onready var ImageAddButton : Button = get_node(image_add_button_path)
 @onready var ImageRemoveButton : Button = get_node(image_remove_button_path)
 @onready var ImageId : SpinBox = get_node(image_id_path)
-@onready var ImageTextureString : TextEdit = get_node(image_texture_path)
+@onready var ImageTextureString : Control = get_node(image_texture_path)
 @onready var ImagePositionX : SpinBox = get_node(image_position_x_path)
 @onready var ImagePositionY : SpinBox = get_node(image_position_y_path)
 @onready var ImageWidth : SpinBox = get_node(image_width_path)
@@ -76,6 +76,7 @@ func load_current_dialog_settings(dialog : dialog_node):
 	AlignmentContainer.visible = ImageType.selected == 0
 	SelectedColorContainer.visible = ImageType.selected == 2
 	if current_dialog.last_viewed_image != -1:
+		prints(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		ImageList.select(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		_on_item_list_item_selected(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 	else:
@@ -113,6 +114,8 @@ var selecting_new_image := false
 
 
 func _on_item_list_item_selected(index):
+	if index == -1 :
+		return
 	selecting_new_image = true
 	await get_tree().create_timer(.01).timeout
 	ImageSettingsContainer.visible = true
@@ -151,9 +154,9 @@ func _on_id_value_value_changed(value):
 		ImageId.value = old_value
 		return
 	ImageList.set_item_text(ImageList.get_selected_items()[0],str(value))
-	
 	current_dialog.image_dictionary[int(value)] = current_dialog.image_dictionary[old_value]
 	current_dialog.image_dictionary.erase(old_value)
+	current_dialog.last_viewed_image = int(value)
 	sort_image_list(value)
 	InformationPanel.emit_signal("unsaved_change")
 	

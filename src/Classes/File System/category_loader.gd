@@ -120,11 +120,18 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		return currently_loaded_dialog
 	currently_loaded_dialog.position_offset = Vector2(node_data["position_offset.x"],node_data["position_offset.y"])
 	for i in node_data.keys():
+<<<<<<< HEAD
 		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options" or i == "mail" or i == "image_dictionary" or i == "attribute_check":
+=======
+		if i == "position_offset.x" or i == "position_offset.y" or i == "filename" or i == "quest_availabilities" or i == "dialog_availabilities" or i == "faction_availabilities" or i == "scoreboard_availabilities" or i == "faction_changes" or i == "response_options" or i == "mail" or i == "image_dictionary" or i == "command":
+>>>>>>> master
 			continue
 		currently_loaded_dialog.set(i, node_data[i])
 	#currently_loaded_dialog.time_availability = node_data["time_availability"]
 	#currently_loaded_dialog.min_level_availability = node_data["min_level_availability"]
+	if node_data.has("command"):
+		currently_loaded_dialog.commands.append(node_data["command"])
+	
 	for i in 4:
 		if node_data.has("quest_availabilities"):
 			currently_loaded_dialog.quest_availabilities[i].set_id(node_data["quest_availabilities"][i].quest_id)
@@ -132,15 +139,17 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		if node_data.has("dialog_availabilities"):
 			currently_loaded_dialog.dialog_availabilities[i].set_id(node_data["dialog_availabilities"][i].dialog_id)
 			currently_loaded_dialog.dialog_availabilities[i].set_availability(node_data["dialog_availabilities"][i].availability_type)
-		
+	
+	if node_data.has("faction_changes"):
+		for i in node_data["faction_changes"].size():
+			currently_loaded_dialog.faction_changes.append(faction_change_object.new())
+			currently_loaded_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
+			currently_loaded_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)	
 	for i in 2:
 		if node_data.has("faction_availabilities"):
 			currently_loaded_dialog.faction_availabilities[i].set_id(node_data["faction_availabilities"][i].faction_id)
 			currently_loaded_dialog.faction_availabilities[i].set_stance(node_data["faction_availabilities"][i].stance_type)
-			currently_loaded_dialog.faction_availabilities[i].set_operator(node_data["faction_availabilities"][i].availability_operator)
-		if node_data.has("faction_changes"):
-			currently_loaded_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
-			currently_loaded_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
+			currently_loaded_dialog.faction_availabilities[i].set_operator(node_data["faction_availabilities"][i].availability_operator)	
 		
 		if node_data.has("scoreboard_availabilities"):
 			currently_loaded_dialog.scoreboard_availabilities[i].objective_name = node_data["scoreboard_availabilities"][i].objective_name
@@ -150,6 +159,8 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		currently_loaded_dialog.mail.sender = node_data["mail"].sender
 		currently_loaded_dialog.mail.subject = node_data["mail"].subject
 		currently_loaded_dialog.mail.items_slots = JSON.parse_string(node_data["mail"].items)
+		if currently_loaded_dialog.mail.items_slots.size() == 4:
+			currently_loaded_dialog.mail.items_slots.append({})
 		currently_loaded_dialog.mail.pages = JSON.parse_string(node_data["mail"].pages) as Array[String]
 		currently_loaded_dialog.mail.quest_id = node_data["mail"].quest_id
 	if node_data.has("image_dictionary"):
@@ -164,9 +175,18 @@ func create_response_node_from_ydec(response_data):
 	currently_loaded_response.slot = response_data.slot
 	currently_loaded_response.color_decimal = response_data.color_decimal
 	currently_loaded_response.to_dialog_id = response_data.to_dialog_id
-	currently_loaded_response.command = response_data.command
+	if response_data.has("option_command"):
+		currently_loaded_response.option_command = response_data.option_command
+	if response_data.has("command"):
+		currently_loaded_response.option_command = response_data.command
+	if response_data.has("commands"):
+		var commands :Array[String]
+		commands.assign(response_data.commands)
+		currently_loaded_response.commands = commands
 	currently_loaded_response.set_option_from_index(response_data.option_type)
 	currently_loaded_response.response_title = response_data.response_title
+	if response_data.has("response_text"):
+		currently_loaded_response.response_text = response_data.response_text
 	currently_loaded_response.position_offset = Vector2(response_data.position_offset_x,response_data.position_offset_y)
 	return currently_loaded_response
 	

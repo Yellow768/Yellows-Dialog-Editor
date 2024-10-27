@@ -40,6 +40,13 @@ signal request_set_scroll_offset
 signal response_double_clicked
 signal unsaved_change
 
+signal type_changed
+signal title_changed
+signal text_changed
+signal to_id_changed
+signal option_command_changed
+signal color_changed
+
 
 var node_type : String = "Player Response Node"
 
@@ -47,8 +54,10 @@ var slot : int = -1: set = set_response_slot
 
 
 var response_title : String = ''
+var response_text : String = ''
 var color_decimal :int = 16777215: set = set_color_decimal
-var command :String = ''
+var option_command :String = ''
+var commands : Array[String]
 var connected_dialog : dialog_node = null: set = set_connected_dialog
 var to_dialog_id = -1: set = set_to_dialog_id
 var option_type = 0: set = set_option_type
@@ -72,7 +81,7 @@ func _ready():
 	#set_slot(1,true,GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_RESPONSE,GlobalDeclarations.response_left_slot_color,true,GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE,GlobalDeclarations.response_right_slot_color)
 	OptionTypeNode.select(option_type)
 	ResponseTextNode.text = response_title
-	CommandTextNode.text = command
+	CommandTextNode.text = option_command
 	IdSpinbox.set_value_no_signal(to_dialog_id) 
 	IdSpinbox.update_on_text_changed = true
 	ResponseTextNode.add_theme_color_override("font_color",ColorPickerNode.color)
@@ -128,13 +137,14 @@ func set_option_type(new_type : int):
 		if connected_dialog != null:
 			emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 	emit_signal("unsaved_change")
+	emit_signal("type_changed")
 	
 func set_color_decimal(new_color : int):
 	color_decimal = new_color
 	emit_signal("unsaved_change")
 
 func set_command(new_command : String):
-	command = new_command
+	option_command = new_command
 	if not is_inside_tree(): await self.ready
 	CommandTextNode.text = new_command
 	emit_signal("unsaved_change")
@@ -156,6 +166,7 @@ func set_connected_dialog(new_connected_dialog):
 
 func set_to_dialog_id(new_id : int):
 	to_dialog_id = new_id
+	emit_signal("to_id_changed")
 
 func set_parent_dialog(new_parent_dialog):
 	parent_dialog = new_parent_dialog
@@ -301,18 +312,24 @@ func _on_OptionButton_item_selected(index : int):
 func _on_ColorPickerButton_color_changed(color : Color):
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
+	update_color(color)
+	emit_signal("color_changed",color)
+	
+func update_color(color):
+	ColorPickerNode.color = color
 	ResponseTextNode.add_theme_color_override("font_color",color)
-	
-	
+
 func set_response_title(text: String):
 	ResponseTextNode.text = text
 
 func _on_ResponseText_text_changed(new_text : String):
 	response_title = ResponseTextNode.text
+	emit_signal("title_changed")
 	emit_signal("unsaved_change")
 
 func _on_CommandText_text_changed():
-	command = CommandTextNode.text
+	option_command = CommandTextNode.text
+	emit_signal("option_command_changed")
 	emit_signal("unsaved_change")
 
 
@@ -350,7 +367,10 @@ func get_full_tree(all_children : Array = []) -> Array:
 
 
 func _on_spin_box_value_changed(value):
-	to_dialog_id = value
+	attempt_to_connect_to_dialog_from_id(value)
+
+func attempt_to_connect_to_dialog_from_id(id):
+	to_dialog_id = id
 	for dialog in get_tree().get_nodes_in_group("Save"):
 		if dialog.node_type == "Dialog Node" && dialog.dialog_id == to_dialog_id:
 			disconnect_from_dialog(true)
@@ -367,7 +387,9 @@ func _on_spin_box_value_changed(value):
 		connected_dialog.remove_connected_response(self)
 		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
 
-	
+func update_to_id_spinbox(value):
+	IdSpinbox.value = value
+
 func save():
 	if parent_dialog:
 		parent_dialog_id = parent_dialog.dialog_id
@@ -378,8 +400,10 @@ func save():
 		"slot" : slot,
 		"option_type" : option_type,
 		"color_decimal" :  color_decimal,
-		"command" : command,
+		"option_command" : option_command,
+		"commands" : commands,
 		"response_title": response_title,
+		"response_text" : response_text,
 		"to_dialog_id" : to_dialog_id,
 		"position_offset_x" : position_offset.x,
 		"position_offset_y" : position_offset.y,
@@ -403,3 +427,5 @@ func _on_color_picker_button_pressed():
 		ColorPickerNode.get_picker().erase_preset(color)
 	for color in GlobalDeclarations.color_presets:
 		ColorPickerNode.get_picker().add_preset(color)
+		
+

@@ -66,10 +66,15 @@ func create_response_nodes_from_json(node : dialog_node,json : Dictionary) -> in
 	for i in json["Options"]:
 		var response : response_node = GlobalDeclarations.RESPONSE_NODE.instantiate() 
 		response.slot = i["OptionSlot"]
-		response.command = i["Option"]["DialogCommand"]
+		if i["Option"].has(["DialogCommand"]):
+			response.option_command = i["Option"]["DialogCommand"]
 		response.to_dialog_id = i["Option"]["Dialog"]
 		response.response_title = i["Option"]["Title"]
+		response.response_text = i["Option"]["Text"]
 		response.color_decimal = i["Option"]["DialogColor"]
+		if i["Option"].has("Commands"):
+			for command in i["Option"]["Commands"]:
+				response.commands.append(command["Line"])
 		response.set_option_from_json_index(i["Option"]["OptionType"])
 		emit_signal("request_add_response",node,response)
 	return total_num_of_responses
@@ -212,28 +217,50 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 		node.faction_availabilities[i].stance_type = json["AvailabilityFaction"+id[i]+"Stance"]
 		node.faction_availabilities[i].availability_operator = json["AvailabilityFaction"+id[i]]
 		
+		if json.has("OptionFactions1"):
+			var operator := [1,-1]
+			node.faction_changes.append(faction_change_object.new())
+			node.faction_changes[i].faction_id = json["OptionFactions"+str(i+1)]
+			node.faction_changes[i].points = json["OptionFaction"+str(i+1)+"Points"] * operator[json["DecreaseFaction"+str(i+1)+"Points"]]
+		
+	for faction_change in json["Points"]:
 		var operator := [1,-1]
-		node.faction_changes[i].faction_id = json["OptionFactions"+str(i+1)]
-		node.faction_changes[i].points = json["OptionFaction"+str(i+1)+"Points"] * operator[json["DecreaseFaction"+str(i+1)+"Points"]]
+		var new_faction_change = faction_change_object.new()
+		node.faction_changes.append(new_faction_change)
+		new_faction_change.faction_id = faction_change["Faction"]
+		new_faction_change.points = faction_change["Points"] * operator[faction_change["Decrease"]]
+	for command in json["DialogCommands"]:
+		node.commands.append(command["Line"])
+	if json.has("DialogCommand"):
+		node.commands.append(json["DialogCommand"])
 	
 	node.mail.sender = json["DialogMail"]["Sender"]
 	node.mail.subject = json["DialogMail"]["Subject"]
 	node.mail.quest_id = json["DialogMail"]["MailQuest"]
-	if json["DialogMail"]["Message"].has("pages"):
+	
+	if json["DialogMail"].has("Message") && json["DialogMail"]["Message"].has("pages"):
 		for page in json["DialogMail"]["Message"]["pages"]:
 			node.mail.pages.append(page.c_unescape())
-	for item in json["DialogMail"]["MailItems"]:
+	if json["DialogMail"].has("Text"):
+		node.mail.pages.append(json["DialogMail"]["Text"])
+	var mail_items
+	if json["DialogMail"].has("MailItems"):
+		mail_items = json["DialogMail"]["MailItems"]
+	else:
+		mail_items = json["DialogMail"]["MailIItems"]
+	for item in mail_items:
 		var item_as_string := JSON.stringify(item,"	",false)
-		item_as_string = item_as_string.replace('"Slot": "0b",',"")
-		item_as_string = item_as_string.replace('"Slot": "1b",',"")
-		item_as_string = item_as_string.replace('"Slot": "2b",',"")
-		item_as_string = item_as_string.replace('"Slot": "3b",',"")
+		item_as_string = item_as_string.replace('"Slot": 0,',"")
+		item_as_string = item_as_string.replace('"Slot": 1,',"")
+		item_as_string = item_as_string.replace('"Slot": 2,',"")
+		item_as_string = item_as_string.replace('"Slot": 3,',"")
+		item_as_string = item_as_string.replace('"Slot": 4,',"")
 		item_as_string = item_as_string.substr(1,item_as_string.length()-2)
 		item_as_string = item_as_string.strip_edges()
 		item_as_string = item_as_string.replace("\\n","\n")
 		var regex = RegEx.new()
 		regex.compile('"(\\d+\\.?\\d*[bf])"')
-		node.mail.items_slots[int(item["Slot"].replace("b",""))] = {"id":"","count":0,"custom_nbt":regex.sub(item_as_string,"$1",true)}
+		node.mail.items_slots[int(item["Slot"])] = {"id":"","count":0,"custom_nbt":regex.sub(item_as_string,"$1",true)}
 	
 	return node
 
