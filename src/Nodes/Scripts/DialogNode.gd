@@ -55,10 +55,6 @@ var dialog_id : int = -1: set = set_dialog_id
 var show_wheel : bool = false
 var hide_npc : bool = false
 var disable_esc : bool = false
-
-@export var show_wheel : bool = false
-@export var hide_npc : bool = false
-@export var disable_esc : bool = false
 var stop_music : bool = false
 var darken_screen : bool = true
 var render_gradual : bool = false
