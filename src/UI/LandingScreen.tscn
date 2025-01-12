@@ -275,15 +275,10 @@ texture = ExtResource("4_edwkw")
 process_mode = 2
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = -300.0
-offset_right = 500.0
-offset_bottom = 300.0
+offset_left = -325.0
+offset_top = -375.0
+offset_right = 325.0
+offset_bottom = 375.0
 
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]

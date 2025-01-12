@@ -6,7 +6,7 @@ var current_category_name
 var highest_id = 0: set = set_highest_id
 var loading_stage = false
 var allow_save_state
-
+var dialog_name_preset
 
 var quest_dict
 var faction_dict

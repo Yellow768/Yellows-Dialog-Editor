@@ -42,6 +42,8 @@ func category_menu_pressed(id):
 			emit_signal("assign_new_ids_request")
 		3:
 			emit_signal("deselect_all_selected")
+		4:
+			show_category_settings()
 
 func _input(event):
 	if $TopPanelContainer.visible && !GlobalDeclarations.assigning_keybind:
@@ -64,6 +66,9 @@ func _on_dialog_editor_import_category_canceled():
 
 
 
+func show_category_settings():
+	var category_settings = load("res://src/UI/Editor/CategorySettings.tscn").instantiate()
+	get_parent().add_child(category_settings)
 
 func _on_rescan_quests_and_factions_pressed():
 	pass # Replace with function body.

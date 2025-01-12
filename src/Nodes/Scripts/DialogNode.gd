@@ -44,7 +44,7 @@ var initial_offset_y :float= 0
 
 ##Dialog Data#
 
-@export var dialog_title : String = tr("NEW_DIALOG_TITLE")
+var dialog_title
 
 #Immutable
 @export var dialog_id : int = -1: set = set_dialog_id
@@ -125,8 +125,31 @@ func _ready():
 	initial_offset_y = position_offset.y
 	initial_offset_x = position_offset.x
 	DialogTextNode.text = text
+	if dialog_title != null:
+		TitleTextNode.text = tr("NEW_DIALOG_TITLE")
+	else:
+		determine_name(null)
 	TitleTextNode.text = dialog_title
 		
+
+func determine_name(_response):
+	if not is_inside_tree(): await self.ready
+	var name_preset_string = CurrentEnvironment.dialog_name_preset
+	if name_preset_string == "":
+		name_preset_string = GlobalDeclarations.dialog_name_preset
+	var new_name = ''
+	new_name = name_preset_string.replace("$DialogNode",str(node_index))
+	new_name = new_name.replace("$CategoryName",CurrentEnvironment.current_category_name)
+	new_name = new_name.replace("$Blank","")
+	if _response:
+		new_name = new_name.replace("$ResponseTitle",_response.response_title)
+	else:
+		new_name = new_name.replace("$ResponseTitle","")
+	if new_name == '':
+		dialog_title = "New Dialog"
+	else:
+		dialog_title = new_name
+	TitleTextNode.text = dialog_title
 
 func add_response_node(commit_to_undo := true):
 	if !GlobalDeclarations.allow_above_six_responses:
@@ -161,6 +184,8 @@ func remove_connected_response(response : response_node):
 func delete_self(perm := true,commit_to_undo := true):
 	emit_signal("request_deletion",self,perm,commit_to_undo)
 	emit_signal("unsaved_changes")
+	for response in connected_responses:
+		remove_connected_response(response)
 
 func delete_response_options():
 	while response_options.size() > 0:

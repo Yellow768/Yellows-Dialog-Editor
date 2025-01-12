@@ -3,16 +3,29 @@
 [ext_resource type="Script" path="res://src/UI/Editor/keybind.gd" id="1_ab5md"]
 
 [node name="Keybind" type="HBoxContainer"]
-custom_minimum_size = Vector2(325, 31)
+custom_minimum_size = Vector2(300, 31)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.5
+offset_top = -15.5
+offset_right = 316.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+alignment = 2
 script = ExtResource("1_ab5md")
 
 [node name="Label" type="Label" parent="."]
-custom_minimum_size = Vector2(166.135, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 text = "Drag/Don't Drag Response Nodes"
 
 [node name="VSeparator" type="VSeparator" parent="."]
-custom_minimum_size = Vector2(15, 0)
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
 [node name="Button" type="Button" parent="."]

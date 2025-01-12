@@ -70,6 +70,10 @@ func load_category(category_name):
 func load_editor_settings(node_data):
 	emit_signal("zoom_loaded",node_data["zoom"])
 	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
+	if !node_data.has("dialog_name_preset"):
+		CurrentEnvironment.dialog_name_preset = ""
+	else:
+		CurrentEnvironment.dialog_name_preset = node_data["dialog_name_preset"]
 	
 func load_color_category(node_data):
 	var loaded_color_organizer : color_organizer = GlobalDeclarations.COLOR_ORGANIZER.instantiate()

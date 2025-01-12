@@ -299,10 +299,9 @@ func add_new_connected_dialog(commit_to_undo := true):
 		return
 	var new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
-	if ResponseTextNode.text != '':
-		new_dialog.dialog_title = ResponseTextNode.text
 	connected_dialog = new_dialog
 	emit_signal("request_add_dialog",new_dialog,true,commit_to_undo)
+	new_dialog.determine_name(self)
 	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0,false)
 
 func _on_OptionButton_item_selected(index : int):
