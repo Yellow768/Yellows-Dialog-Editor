@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=19 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="4_3xjq6"]
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
+[ext_resource type="Script" path="res://src/UI/SFTP Tester.gd" id="7_safcj"]
 
 [sub_resource type="FontVariation" id="FontVariation_mmhe0"]
 base_font = ExtResource("4_tgwf2")
@@ -83,6 +84,8 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_01jgx"]
 font_size = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl01b"]
 
 [node name="LandingScreen" type="Control"]
 layout_mode = 3
@@ -290,9 +293,94 @@ offset_top = -375.0
 offset_right = 325.0
 offset_bottom = 375.0
 
+[node name="SFTP Tester" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1200, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dl01b")
+script = ExtResource("7_safcj")
+username_textbox_path = NodePath("HBoxContainer/VBoxContainer/Username")
+hostname_textbox_path = NodePath("HBoxContainer/VBoxContainer/Hostname")
+port_spinbox_path = NodePath("HBoxContainer/VBoxContainer/Port")
+password_textbox_path = NodePath("HBoxContainer/VBoxContainer/Password")
+connect_button_path = NodePath("HBoxContainer/VBoxContainer/Button")
+tree_path = NodePath("HBoxContainer/SFTP Files/Tree")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Tester"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="SFTP Tester/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SFTP Tester/HBoxContainer"]
+custom_minimum_size = Vector2(200, 340)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SFTP Connecting Test"
+horizontal_alignment = 1
+
+[node name="Username" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "YDE"
+placeholder_text = "Username"
+alignment = 1
+
+[node name="Hostname" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "debian-server.local"
+placeholder_text = "Hostname"
+alignment = 1
+
+[node name="Password" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "godot_test"
+placeholder_text = "Password"
+alignment = 1
+
+[node name="Port" type="SpinBox" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+value = 22.0
+allow_greater = true
+alignment = 1
+prefix = "Port:"
+
+[node name="Button" type="Button" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="VSeparator2" type="VSeparator" parent="SFTP Tester/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="SFTP Files" type="VBoxContainer" parent="SFTP Tester/HBoxContainer"]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+
+[node name="Tree" type="Tree" parent="SFTP Tester/HBoxContainer/SFTP Files"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
 [connection signal="pressed" from="Panel/InvalidFolderWarning/Confirm" to="." method="_on_Confirm_pressed"]
 [connection signal="button_up" from="Panel/InvalidFolderWarning/Cancel" to="." method="_on_Cancel_button_up"]
 [connection signal="pressed" from="EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
+[connection signal="pressed" from="SFTP Tester/HBoxContainer/VBoxContainer/Button" to="SFTP Tester" method="_on_button_pressed"]
+[connection signal="item_activated" from="SFTP Tester/HBoxContainer/SFTP Files/Tree" to="SFTP Tester" method="_on_tree_item_activated"]
