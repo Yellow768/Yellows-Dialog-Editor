@@ -82,7 +82,6 @@ layout_mode = 2
 text = "EDITOR_SETTINGS"
 
 [node name="Preferences" type="VBoxContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -359,6 +358,7 @@ layout_mode = 2
 tooltip_text = "EDS_CNPC+_TOOLTIP"
 
 [node name="KeyBinds" type="VBoxContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(600, 217.62)
 layout_mode = 2
 size_flags_horizontal = 4
