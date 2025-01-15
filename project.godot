@@ -37,6 +37,10 @@ window/size/mode=2
 window/size/initial_position_type=2
 window/vsync/vsync_mode=false
 
+[dotnet]
+
+project/assembly_name="Yellow-s Dialog Editor"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
