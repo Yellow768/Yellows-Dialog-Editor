@@ -7,9 +7,17 @@ var highest_id = 0: set = set_highest_id
 var loading_stage = false
 var allow_save_state
 var dialog_name_preset
+var sftp_client
 
 var quest_dict
 var faction_dict
+
+func create_sftpclient():
+	var SFTP_ClientScript = load("res://src/Classes/File System/SFTP/SFTP_Client.cs")
+	sftp_client = SFTP_ClientScript.new()
+
+func get_sftpclient():
+	return sftp_client
 
 func _ready():
 	pass
