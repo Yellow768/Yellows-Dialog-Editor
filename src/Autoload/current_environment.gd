@@ -8,6 +8,8 @@ var loading_stage = false
 var allow_save_state
 var dialog_name_preset
 var sftp_client
+var sftp_hostname
+var sftp_cached_path
 
 var quest_dict
 var faction_dict
@@ -47,3 +49,7 @@ func sort_array_by_dialog_id(a,b):
 		return a.dialog_id > b.dialog_id
 	else:
 		return a.dialog_id > b.dialog_id
+		
+func download_sftp_to_cache(source,dest):
+	CurrentEnvironment.sftp_client.DownloadDirectory(source,dest)
+	

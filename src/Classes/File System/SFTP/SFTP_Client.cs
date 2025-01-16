@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Renci.SshNet;
+using System.IO;
 
 public partial class SFTP_Client : Node
 {
@@ -58,4 +59,34 @@ public partial class SFTP_Client : Node
 		}
 	}
 
+	public string GetCurrentDirectory(){
+		return _SFTPClient.WorkingDirectory;
+	}
+
+	public bool Exists(string path){
+		return _SFTPClient.Exists(path);
+	}
+
+	public void DownloadDirectory(string source, string dest){
+		_DownloadDirectory(_SFTPClient,source,dest);
+	}
+
+	private static void _DownloadDirectory(Renci.SshNet.SftpClient sftp_client,string sourceRemotePath, string destLocalPath){
+		Directory.CreateDirectory(destLocalPath);
+		System.Collections.IEnumerable files = sftp_client.ListDirectory(sourceRemotePath);
+		foreach (Renci.SshNet.Sftp.SftpFile file in files){
+			if ((file.Name != ".") && (file.Name != ".")){
+				string sourceFilePath = sourceRemotePath+"/"+file.Name;
+				string destFilePath = Path.Combine(destLocalPath,file.Name);
+				if(file.IsDirectory){
+					_DownloadDirectory(sftp_client,sourceRemotePath,destFilePath);
+				}
+				else{
+					using(Stream fileStream = File.Create(destFilePath)){
+						sftp_client.DownloadFile(sourceFilePath,fileStream);
+					}
+				}
+			}
+		} 
+	}
 }

@@ -83,6 +83,7 @@ func _on_FileDialog_dir_selected(path : String):
 	if valid_path == "":
 		chosen_dir = path
 		$Panel/InvalidFolderWarning.popup_centered()
+		$Panel/InvalidFolderWarning/Confirm.connect("pressed",Callable(self,"_on_Confirm_pressed"))
 	else:
 		change_to_editor(valid_path)
 
@@ -93,6 +94,8 @@ func _on_FileDialog_dir_selected(path : String):
 func _on_Cancel_button_up():
 	$Panel/FileDialog.popup_centered()
 	$Panel/InvalidFolderWarning.visible = false
+	$Panel/InvalidFolderWarning/Confirm.disconnect("pressed",Callable(self,"_on_Confirm_pressed"))
+	$Panel/InvalidFolderWarning/Confirm.disconnect("pressed",Callable($"SFTP Tester","_on_Confirm_pressed"))
 
 
 func _on_Confirm_pressed():
@@ -107,3 +110,8 @@ func _on_Confirm_pressed():
 
 func _on_file_dialog_visibility_changed():
 	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
+
+
+func _on_sftp_tester_sftp_directory_invalid_customnpcs_dir():
+	$Panel/InvalidFolderWarning.popup_centered()
+	$Panel/InvalidFolderWarning/Confirm.connect("pressed",Callable($"SFTP Tester","_on_Confirm_pressed"))

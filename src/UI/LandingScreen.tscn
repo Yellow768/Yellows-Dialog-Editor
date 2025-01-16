@@ -376,15 +376,16 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="SFTP Tester/HBoxContainer"]
+[node name="SelectFolder" type="Button" parent="SFTP Tester/HBoxContainer"]
 layout_mode = 2
 text = "select folder"
 
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
-[connection signal="pressed" from="Panel/InvalidFolderWarning/Confirm" to="." method="_on_Confirm_pressed"]
 [connection signal="button_up" from="Panel/InvalidFolderWarning/Cancel" to="." method="_on_Cancel_button_up"]
 [connection signal="pressed" from="EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
+[connection signal="sftp_directory_invalid_customnpcs_dir" from="SFTP Tester" to="." method="_on_sftp_tester_sftp_directory_invalid_customnpcs_dir"]
 [connection signal="pressed" from="SFTP Tester/HBoxContainer/VBoxContainer/Button" to="SFTP Tester" method="_on_button_pressed"]
 [connection signal="item_activated" from="SFTP Tester/HBoxContainer/SFTP Files/Tree" to="SFTP Tester" method="_on_tree_item_activated"]
+[connection signal="pressed" from="SFTP Tester/HBoxContainer/SelectFolder" to="SFTP Tester" method="_on_select_folder_pressed"]
