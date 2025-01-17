@@ -1,6 +1,11 @@
 extends Control
 const user_settings_path := "user://user_settings.cfg"
 
+
+@export var invalid_folder_path : NodePath
+
+@onready var InvalidFolder : Popup = get_node(invalid_folder_path)
+
 var chosen_dir : String
 
 func _ready():
@@ -27,7 +32,6 @@ func _ready():
 
 
 func change_to_editor(directory : String) -> void:
-	add_directory_to_config(directory)
 	if DirAccess.dir_exists_absolute(directory):
 		var editor = load("res://src/UI/Editor/MainEditor.tscn").instantiate()
 		CurrentEnvironment.current_directory = directory
@@ -82,9 +86,11 @@ func _on_FileDialog_dir_selected(path : String):
 	var valid_path := find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path
-		$Panel/InvalidFolderWarning.popup_centered()
-		$Panel/InvalidFolderWarning/Confirm.connect("pressed",Callable(self,"_on_Confirm_pressed"))
+		InvalidFolder.popup_centered()
+		InvalidFolder.connect("confirm_button_pressed",Callable(self,"_on_Confirm_pressed"))
+		InvalidFolder.connect("cancel_button_pressed",Callable(self,"_on_Cancel_button_up"))
 	else:
+		add_directory_to_config(valid_path)
 		change_to_editor(valid_path)
 
 
@@ -93,9 +99,9 @@ func _on_FileDialog_dir_selected(path : String):
 
 func _on_Cancel_button_up():
 	$Panel/FileDialog.popup_centered()
-	$Panel/InvalidFolderWarning.visible = false
-	$Panel/InvalidFolderWarning/Confirm.disconnect("pressed",Callable(self,"_on_Confirm_pressed"))
-	$Panel/InvalidFolderWarning/Confirm.disconnect("pressed",Callable($"SFTP Tester","_on_Confirm_pressed"))
+	InvalidFolder.hide()
+	InvalidFolder.disconnect("confirm_button_pressed",Callable(self,"_on_Confirm_pressed"))
+	InvalidFolder.disconnect("cancel_button_pressed",Callable(self,"_on_Cancel_button_up"))
 
 
 func _on_Confirm_pressed():
@@ -105,6 +111,7 @@ func _on_Confirm_pressed():
 	else:
 		dir.make_dir(chosen_dir+"/customnpcs")
 		dir.make_dir(chosen_dir+"/customnpcs/dialogs")
+	add_directory_to_config(chosen_dir+"/customnpcs")
 	change_to_editor(chosen_dir+"/customnpcs")
 
 
@@ -112,6 +119,5 @@ func _on_file_dialog_visibility_changed():
 	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
 
 
-func _on_sftp_tester_sftp_directory_invalid_customnpcs_dir():
-	$Panel/InvalidFolderWarning.popup_centered()
-	$Panel/InvalidFolderWarning/Confirm.connect("pressed",Callable($"SFTP Tester","_on_Confirm_pressed"))
+func _on_sftp_tester_sftp_directory_chosen(path):
+	change_to_editor(path)

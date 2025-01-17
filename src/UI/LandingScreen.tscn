@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=20 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="3_rydwl"]
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="4_3xjq6"]
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
+[ext_resource type="Script" path="res://src/UI/InvalidFolderWarning.gd" id="4_o71e8"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
 [ext_resource type="Script" path="res://src/UI/SFTP Tester.gd" id="7_safcj"]
 
@@ -96,6 +97,45 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2")
 script = ExtResource("1")
+invalid_folder_path = NodePath("InvalidFolderWarning")
+
+[node name="InvalidFolderWarning" type="Popup" parent="."]
+title = "FILE_INVALID"
+size = Vector2i(1660, 230)
+script = ExtResource("4_o71e8")
+
+[node name="Label" type="Label" parent="InvalidFolderWarning"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "The selected folder is not a valid CustomNPCS environment.
+
+You may continue, but you will not be able to access named quests, factions, or existing dialogs, and exported dialogs will not properly index their IDs, with will cause conflicts if you manually move them into a world.
+
+Do you wish to proceed?"
+horizontal_alignment = 1
+
+[node name="Confirm" type="Button" parent="InvalidFolderWarning"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 137.0
+offset_top = -42.0
+offset_right = 199.0
+offset_bottom = -22.0
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="InvalidFolderWarning"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -45.0
+offset_right = -123.0
+offset_bottom = -25.0
+text = "Cancel"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -176,6 +216,11 @@ custom_minimum_size = Vector2(435, 50)
 layout_mode = 2
 text = "OPEN_ENV"
 
+[node name="Connect to SFTP Server" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(435, 50)
+layout_mode = 2
+text = "Connect to SFTP Server"
+
 [node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "BEGIN_SPLASH"
@@ -207,43 +252,6 @@ mode_overrides_title = false
 file_mode = 2
 access = 2
 show_hidden_files = true
-
-[node name="InvalidFolderWarning" type="Popup" parent="Panel"]
-title = "FILE_INVALID"
-size = Vector2i(1660, 230)
-
-[node name="Label" type="Label" parent="Panel/InvalidFolderWarning"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "The selected folder is not a valid CustomNPCS environment.
-
-You may continue, but you will not be able to access named quests, factions, or existing dialogs, and exported dialogs will not properly index their IDs, with will cause conflicts if you manually move them into a world.
-
-Do you wish to proceed?"
-horizontal_alignment = 1
-
-[node name="Confirm" type="Button" parent="Panel/InvalidFolderWarning"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 137.0
-offset_top = -42.0
-offset_right = 199.0
-offset_bottom = -22.0
-text = "Confirm"
-
-[node name="Cancel" type="Button" parent="Panel/InvalidFolderWarning"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -177.0
-offset_top = -45.0
-offset_right = -123.0
-offset_bottom = -25.0
-text = "Cancel"
 
 [node name="EditorSettingsButton" type="Button" parent="."]
 process_mode = 1
@@ -294,6 +302,7 @@ offset_right = 325.0
 offset_bottom = 375.0
 
 [node name="SFTP Tester" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1200, 400)
 layout_mode = 1
 anchors_preset = 8
@@ -315,6 +324,7 @@ port_spinbox_path = NodePath("HBoxContainer/VBoxContainer/Port")
 password_textbox_path = NodePath("HBoxContainer/VBoxContainer/Password")
 connect_button_path = NodePath("HBoxContainer/VBoxContainer/Button")
 tree_path = NodePath("HBoxContainer/SFTP Files/Tree")
+invalid_directory_path = NodePath("../InvalidFolderWarning")
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SFTP Tester"]
@@ -337,19 +347,16 @@ horizontal_alignment = 1
 
 [node name="Username" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "YDE"
 placeholder_text = "Username"
 alignment = 1
 
 [node name="Hostname" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "debian-server.local"
 placeholder_text = "Hostname"
 alignment = 1
 
 [node name="Password" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "godot_test"
 placeholder_text = "Password"
 alignment = 1
 
@@ -372,6 +379,17 @@ layout_mode = 2
 custom_minimum_size = Vector2(600, 60)
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Tester/HBoxContainer/SFTP Files"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="SFTP Tester/HBoxContainer/SFTP Files/HBoxContainer"]
+layout_mode = 2
+text = "<-"
+
+[node name="Forward" type="Button" parent="SFTP Tester/HBoxContainer/SFTP Files/HBoxContainer"]
+layout_mode = 2
+text = "->"
+
 [node name="Tree" type="Tree" parent="SFTP Tester/HBoxContainer/SFTP Files"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
@@ -380,12 +398,25 @@ layout_mode = 2
 layout_mode = 2
 text = "select folder"
 
+[node name="VSeparator3" type="VSeparator" parent="SFTP Tester/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="SFTP Tester/HBoxContainer"]
+layout_mode = 2
+text = "X"
+
+[connection signal="pressed" from="InvalidFolderWarning/Confirm" to="InvalidFolderWarning" method="_on_confirm_pressed"]
+[connection signal="pressed" from="InvalidFolderWarning/Cancel" to="InvalidFolderWarning" method="_on_cancel_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Connect to SFTP Server" to="SFTP Tester" method="_on_connect_to_sftp_server_pressed"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
-[connection signal="button_up" from="Panel/InvalidFolderWarning/Cancel" to="." method="_on_Cancel_button_up"]
 [connection signal="pressed" from="EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
-[connection signal="sftp_directory_invalid_customnpcs_dir" from="SFTP Tester" to="." method="_on_sftp_tester_sftp_directory_invalid_customnpcs_dir"]
+[connection signal="sftp_directory_chosen" from="SFTP Tester" to="." method="_on_sftp_tester_sftp_directory_chosen"]
 [connection signal="pressed" from="SFTP Tester/HBoxContainer/VBoxContainer/Button" to="SFTP Tester" method="_on_button_pressed"]
+[connection signal="pressed" from="SFTP Tester/HBoxContainer/SFTP Files/HBoxContainer/Back" to="SFTP Tester" method="_on_back_pressed"]
+[connection signal="pressed" from="SFTP Tester/HBoxContainer/SFTP Files/HBoxContainer/Forward" to="SFTP Tester" method="_on_forward_pressed"]
 [connection signal="item_activated" from="SFTP Tester/HBoxContainer/SFTP Files/Tree" to="SFTP Tester" method="_on_tree_item_activated"]
 [connection signal="pressed" from="SFTP Tester/HBoxContainer/SelectFolder" to="SFTP Tester" method="_on_select_folder_pressed"]
+[connection signal="pressed" from="SFTP Tester/HBoxContainer/CloseButton" to="SFTP Tester" method="_on_close_button_pressed"]
