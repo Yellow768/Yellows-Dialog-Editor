@@ -9,6 +9,7 @@ var allow_save_state
 var dialog_name_preset
 var sftp_client
 var sftp_hostname
+var sftp_username
 var sftp_cached_path
 
 var quest_dict

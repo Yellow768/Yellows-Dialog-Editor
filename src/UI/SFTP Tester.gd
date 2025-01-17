@@ -35,7 +35,8 @@ func _on_button_pressed():
 	CurrentEnvironment.create_sftpclient()
 	CurrentEnvironment.sftp_client.ConnectToSftpServer(UsernameTextEdit.text,HostnameTextEdit.text,PortSpinBox.value,PasswordTextEdit.text)
 	CurrentEnvironment.sftp_hostname = HostnameTextEdit.text
-	files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory()
+	CurrentEnvironment.sftp_username = UsernameTextEdit.text
+	files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 	for file in files_in_sftp_directory:
 		var new_file = FileTree.create_item(tree_root)
 		new_file.set_text(0,file)
@@ -56,7 +57,7 @@ func _on_tree_item_activated():
 		var item_to_delete = tree_root.get_first_child()
 		for tree_item in tree_root.get_children():
 			tree_item.free()
-		files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory()
+		files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 		for file in files_in_sftp_directory:
 			var new_file = FileTree.create_item(tree_root)
 			new_file.set_text(0,file)
@@ -67,38 +68,25 @@ func _on_tree_item_activated():
 
 
 func _on_select_folder_pressed():
-	var chosen_path = CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/"+FileTree.get_selected().get_text(0)
-	var valid_path = find_valid_customnpcs_directory_over_sftp()
-	if valid_path == "":
-		print("invalid path")
-		emit_signal("sftp_directory_invalid_customnpcs_dir",chosen_path)
-	else:
-		print("test")
-		CurrentEnvironment.sftp_cached_path = create_cached_directory()
-		CurrentEnvironment.download_sftp_to_cache(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/"+FileTree.get_selected().get_text(0),CurrentEnvironment.sftp_cached_path)
-		
-
-
-func _on_Confirm_pressed():
-	CurrentEnvironment.sftp_cached_path = create_cached_directory()
-	CurrentEnvironment.download_sftp_to_cache(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/"+FileTree.get_selected().get_text(0),CurrentEnvironment.sftp_cached_path)
-	
-	
-
-func find_valid_customnpcs_directory_over_sftp():
+	var remote_path_to_download_from : String
 	if FileTree.get_selected().get_text(0) == "customnpcs":
-		return CurrentEnvironment.sftp_client.GetCurrentDirectory()
-	if CurrentEnvironment.sftp_client.ListDirectory().has("customnpcs"):
 		if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/customnpcs/dialogs"):
-			return CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/customnpcs"
-	CurrentEnvironment.sftp_client.ChangeDirectory("..")
-	if CurrentEnvironment.sftp_client.ListDirectory().has("customnpcs"):
-		if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/customnpcs/dialogs"):
-			return CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/customnpcs"
-	return ""
+			print("this is a valid ")
+			remote_path_to_download_from = CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/customnpcs"		
+	if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/"+FileTree.get_selected().get_text(0)+"/customnpcs"):
+		if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/"+FileTree.get_selected().get_text(0)+"/customnpcs/dialogs"):
+			print("customnpcs was found inside and valid")
+			remote_path_to_download_from = CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/"+FileTree.get_selected().get_text(0)+"/customnpcs"
+	var local_cache_directory_path = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname+"/"
+	DirAccess.make_dir_recursive_absolute(local_cache_directory_path)
+	if remote_path_to_download_from:
+		if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
+			DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
+			CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"customnpcs/dialogs")
+		if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
+			DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
+			CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",local_cache_directory_path+"customnpcs/quests")
+		if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/factions.dat"):
+			CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",local_cache_directory_path+"customnpcs/")
+	return
 	
-func create_cached_directory():
-	var dir = DirAccess.open("user://")
-	dir.make_dir("cached_sftp/"+CurrentEnvironment.sftp_hostname+"/")
-	print(ProjectSettings.globalize_path(dir.get_current_dir()+"/cached_sftp/"+CurrentEnvironment.sftp_hostname+"/"))
-	return ProjectSettings.globalize_path(dir.get_current_dir()+"/cached_sftp/"+CurrentEnvironment.sftp_hostname+"/")

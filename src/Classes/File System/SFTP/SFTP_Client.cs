@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Renci.SshNet;
+using Renci.SshNet.Sftp;
 using System.IO;
 
 public partial class SFTP_Client : Node
@@ -31,7 +32,7 @@ public partial class SFTP_Client : Node
 		}
 	}
 
-	public Godot.Collections.Dictionary<string, bool> ListDirectory()
+	public Godot.Collections.Dictionary<string, bool> ListDirectory(string directory)
 	{
 		Godot.Collections.Dictionary<string, bool> DirectoryList = new Godot.Collections.Dictionary<string, bool>();
 		if (!_SFTPClient.IsConnected)
@@ -41,7 +42,7 @@ public partial class SFTP_Client : Node
 		}
 		else
 		{
-			foreach (var file in _SFTPClient.ListDirectory(_SFTPClient.WorkingDirectory))
+			foreach (var file in _SFTPClient.ListDirectory(directory))
 			{
 				DirectoryList.Add(file.Name, file.IsDirectory);
 			}
@@ -67,26 +68,28 @@ public partial class SFTP_Client : Node
 		return _SFTPClient.Exists(path);
 	}
 
-	public void DownloadDirectory(string source, string dest){
-		_DownloadDirectory(_SFTPClient,source,dest);
+	public void DownloadFile(string file_path, string local_dest){
+		var remote_file = _SFTPClient.Get(file_path);
+		using(Stream fileStream = File.OpenWrite(Path.Combine(local_dest,remote_file.Name))){
+		_SFTPClient.DownloadFile(file_path,fileStream);
+		fileStream.Position = 0;
+		}
 	}
 
-	private static void _DownloadDirectory(Renci.SshNet.SftpClient sftp_client,string sourceRemotePath, string destLocalPath){
-		Directory.CreateDirectory(destLocalPath);
-		System.Collections.IEnumerable files = sftp_client.ListDirectory(sourceRemotePath);
-		foreach (Renci.SshNet.Sftp.SftpFile file in files){
-			if ((file.Name != ".") && (file.Name != ".")){
-				string sourceFilePath = sourceRemotePath+"/"+file.Name;
-				string destFilePath = Path.Combine(destLocalPath,file.Name);
-				if(file.IsDirectory){
-					_DownloadDirectory(sftp_client,sourceRemotePath,destFilePath);
-				}
-				else{
-					using(Stream fileStream = File.Create(destFilePath)){
-						sftp_client.DownloadFile(sourceFilePath,fileStream);
-					}
-				}
+	public void DownloadDirectory(string remote_directory_path, string local_directory_dest){
+		System.Collections.IEnumerable files = _SFTPClient.ListDirectory(remote_directory_path);
+		foreach(ISftpFile file in files){
+			if(file.IsDirectory && !(file.Name == "." || file.Name == "..")){
+				Directory.CreateDirectory(local_directory_dest+"/"+file.Name);
+				DownloadDirectory(file.FullName,local_directory_dest+"/"+file.Name);
 			}
-		} 
+			if(!file.IsDirectory){
+				DownloadFile(file.FullName,local_directory_dest);
+			}
+		}
 	}
+
+
+	
+	
 }
