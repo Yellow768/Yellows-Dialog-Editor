@@ -80,11 +80,16 @@ public delegate void ProgressDoneEventHandler();
 	public delegate void ProgressHandler(float progress);
 	public event ProgressHandler OnProgress;
 
-	private void DownloadFile(string file_path, string local_dest){
+	public void DownloadFile(string file_path, string local_dest){
+		_DownloadFile(file_path,local_dest);
+	}
+
+	private async Task _DownloadFile(string file_path, string local_dest){
 		var remote_file = _SFTPClient.Get(file_path);
 		using(Stream fileStream = File.OpenWrite(Path.Combine(local_dest,remote_file.Name))){
-		_SFTPClient.DownloadFile(file_path,fileStream);
+		await Task.Run(() =>_SFTPClient.DownloadFile(file_path,fileStream));
 		fileStream.Position = 0;
+		EmitSignal(SignalName.ProgressDone);
 		}
 	}
 
@@ -131,7 +136,7 @@ public delegate void ProgressDoneEventHandler();
 
 		foreach(ISftpFile file in files){
 			if(file.IsDirectory && !(file.Name == "." || file.Name == "..")){
-				Directory.CreateDirectory(local_directory_dest+"/"+file.Name);
+				await Task.Run(() => Directory.CreateDirectory(local_directory_dest+"/"+file.Name));
 				if(onlyDownloadFolders){
 					downloadedSize+=1;
 				}

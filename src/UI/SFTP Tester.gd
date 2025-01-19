@@ -103,6 +103,7 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
 		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"/customnpcs/dialogs",true)
+		CurrentEnvironment.sftp_client.connect("Progress",Callable(self,"update_progress_bar"))
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
 		DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/quests")

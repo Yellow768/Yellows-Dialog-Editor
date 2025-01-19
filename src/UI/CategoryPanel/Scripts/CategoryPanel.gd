@@ -247,7 +247,7 @@ func load_category(category_name : String,category_button : Button = null):
 			category_loading_finished.emit(category_name)
 			DialogEditor.visible = true
 	else:
-		CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name)
+		CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false)
 		await CurrentEnvironment.sftp_client.ProgressDone
 		if new_category_loader.load_category(category_name) == OK:
 			category_loading_finished.emit(category_name)

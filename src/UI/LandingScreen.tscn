@@ -324,6 +324,7 @@ password_textbox_path = NodePath("HBoxContainer/VBoxContainer/Password")
 connect_button_path = NodePath("HBoxContainer/VBoxContainer/Button")
 tree_path = NodePath("HBoxContainer/SFTP Files/Tree")
 invalid_directory_path = NodePath("../InvalidFolderWarning")
+progress_bar_path = NodePath("../ProgressBar")
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SFTP Tester"]
@@ -408,6 +409,20 @@ layout_mode = 2
 [node name="CloseButton" type="Button" parent="SFTP Tester/HBoxContainer"]
 layout_mode = 2
 text = "X"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -27.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="pressed" from="InvalidFolderWarning/Confirm" to="InvalidFolderWarning" method="_on_confirm_pressed"]
 [connection signal="pressed" from="InvalidFolderWarning/Cancel" to="InvalidFolderWarning" method="_on_cancel_pressed"]
