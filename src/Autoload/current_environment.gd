@@ -12,6 +12,9 @@ var sftp_hostname
 var sftp_username
 var sftp_cached_path
 
+var sftp_saved_categories = []
+var sftp_directory
+
 var quest_dict
 var faction_dict
 
@@ -53,4 +56,7 @@ func sort_array_by_dialog_id(a,b):
 		
 func download_sftp_to_cache(source,dest):
 	CurrentEnvironment.sftp_client.DownloadDirectory(source,dest)
+	
+	
+
 	

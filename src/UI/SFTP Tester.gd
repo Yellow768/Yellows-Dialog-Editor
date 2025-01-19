@@ -6,6 +6,8 @@ extends PanelContainer
 @export var connect_button_path : NodePath
 @export var tree_path : NodePath
 @export var invalid_directory_path : NodePath
+@export var progress_bar_path : NodePath
+
 
 @onready var UsernameTextEdit : LineEdit = get_node(username_textbox_path)
 @onready var HostnameTextEdit : LineEdit = get_node(hostname_textbox_path)
@@ -14,6 +16,7 @@ extends PanelContainer
 @onready var ConnectButton : Button = get_node(connect_button_path)
 @onready var FileTree : Tree = get_node(tree_path)
 @onready var InvalidDirectory : Popup = get_node(invalid_directory_path)
+@onready var Progress : ProgressBar = get_node(progress_bar_path)
 
 var tree_root
 var forward_dir = []
@@ -86,7 +89,7 @@ func _on_select_folder_pressed():
 	if remote_path_to_download_from == "":
 		remote_path_to_download_from = CurrentEnvironment.sftp_client.GetCurrentDirectory()
 		InvalidDirectory.popup_centered()
-		InvalidDirectory.connect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp"),remote_path_to_download_from)
+		InvalidDirectory.connect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp").bind(remote_path_to_download_from))
 		InvalidDirectory.connect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	else:
 		make_local_cache_and_download_sftp(remote_path_to_download_from)	
@@ -95,24 +98,36 @@ func _on_select_folder_pressed():
 	
 func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	var local_cache_directory_path = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname
+	CurrentEnvironment.sftp_directory = remote_path_to_download_from
 	DirAccess.make_dir_recursive_absolute(local_cache_directory_path)
+	DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
-		DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"/customnpcs/dialogs")
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"/customnpcs/dialogs",true)
+		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
-		DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",local_cache_directory_path+"/customnpcs/quests")
+		DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/quests")
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",local_cache_directory_path+"/customnpcs/quests",false)
+		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/factions.dat"):
 		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",local_cache_directory_path+"/customnpcs/")
+		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
 	sftp_directory_chosen.emit(local_cache_directory_path+"/customnpcs")
+	
 	
 func disconnect_invalid_directory():
 	InvalidDirectory.disconect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp"))
 	InvalidDirectory.disconect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	InvalidDirectory.hide()
 
-
+func switch_editor():
+	var local_cache_directory_path = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname
+	sftp_directory_chosen.emit(local_cache_directory_path+"/customnpcs")
+	
+func update_progress_bar(downloaded,total):
+	Progress.max_value = total
+	Progress.value = downloaded
+	
 func _on_back_pressed():
 	forward_dir.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 	change_tree_directory("..")

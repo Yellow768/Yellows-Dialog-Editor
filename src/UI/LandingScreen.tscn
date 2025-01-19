@@ -302,7 +302,6 @@ offset_right = 325.0
 offset_bottom = 375.0
 
 [node name="SFTP Tester" type="PanelContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(1200, 400)
 layout_mode = 1
 anchors_preset = 8
@@ -347,22 +346,26 @@ horizontal_alignment = 1
 
 [node name="Username" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+text = "xanderl775971.62f660ad"
 placeholder_text = "Username"
 alignment = 1
 
 [node name="Hostname" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+text = "gamesla216.bisecthosting.com"
 placeholder_text = "Hostname"
 alignment = 1
 
 [node name="Password" type="LineEdit" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+text = "!b3SCB8-9sjr5J"
 placeholder_text = "Password"
 alignment = 1
 
 [node name="Port" type="SpinBox" parent="SFTP Tester/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-value = 22.0
+max_value = 99999.0
+value = 2022.0
 allow_greater = true
 alignment = 1
 prefix = "Port:"
