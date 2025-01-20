@@ -101,15 +101,22 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	CurrentEnvironment.sftp_directory = remote_path_to_download_from
 	DirAccess.make_dir_recursive_absolute(local_cache_directory_path)
 	DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
+	var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
+	get_parent().add_child(Progress)
+	CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
+	CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
+	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"/customnpcs/dialogs",true)
-		CurrentEnvironment.sftp_client.connect("Progress",Callable(self,"update_progress_bar"))
+		Progress.set_overall_task_name("Downloading Dialog Categories")
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"/customnpcs/dialogs",false,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
+		Progress.set_overall_task_name("Downloading Quests")
 		DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/quests")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",local_cache_directory_path+"/customnpcs/quests",false)
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",local_cache_directory_path+"/customnpcs/quests",false,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/factions.dat"):
+		Progress.set_overall_task_name("Downloading Factions")
 		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",local_cache_directory_path+"/customnpcs/")
 		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
@@ -125,10 +132,7 @@ func switch_editor():
 	var local_cache_directory_path = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname
 	sftp_directory_chosen.emit(local_cache_directory_path+"/customnpcs")
 	
-func update_progress_bar(downloaded,total):
-	Progress.max_value = total
-	Progress.value = downloaded
-	
+
 func _on_back_pressed():
 	forward_dir.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 	change_tree_directory("..")

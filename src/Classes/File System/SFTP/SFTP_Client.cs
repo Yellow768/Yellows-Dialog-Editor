@@ -4,15 +4,23 @@ using Renci.SshNet;
 using Renci.SshNet.Sftp;
 using System.IO;
 using System.Threading.Tasks;
+using System.Linq;
 
 public partial class SFTP_Client : Node
 {
 
-[Signal]
-public delegate void ProgressEventHandler(int progress,int total);
+	[Signal]
+	public delegate void ProgressEventHandler(int progress);
 
-[Signal]
-public delegate void ProgressDoneEventHandler();
+	[Signal]
+	public delegate void ProgressMaxChangedEventHandler(int progressMax);
+
+	[Signal]
+	public delegate void ProgressItemChangedEventHandler(string item);
+
+	[Signal]
+	public delegate void ProgressDoneEventHandler();
+
 
 
 	private Renci.SshNet.SftpClient _SFTPClient;
@@ -59,104 +67,206 @@ public delegate void ProgressDoneEventHandler();
 		}
 	}
 
-	public void ChangeDirectory(string path){
-		try{
+	public void ChangeDirectory(string path)
+	{
+		try
+		{
 			_SFTPClient.ChangeDirectory(path);
 			GD.Print(_SFTPClient.WorkingDirectory);
 		}
-		catch(Exception e){
+		catch (Exception e)
+		{
 			GD.Print(e);
 		}
 	}
 
-	public string GetCurrentDirectory(){
+	public string GetCurrentDirectory()
+	{
 		return _SFTPClient.WorkingDirectory;
 	}
 
-	public bool Exists(string path){
+	public bool Exists(string path)
+	{
 		return _SFTPClient.Exists(path);
 	}
 
 	public delegate void ProgressHandler(float progress);
 	public event ProgressHandler OnProgress;
 
-	public void DownloadFile(string file_path, string local_dest){
-		_DownloadFile(file_path,local_dest);
+	public void DownloadFile(string file_path, string local_dest)
+	{
+		_DownloadFile(file_path, local_dest);
 	}
 
-	private async Task _DownloadFile(string file_path, string local_dest){
+	private async Task _DownloadFile(string file_path, string local_dest)
+	{
 		var remote_file = _SFTPClient.Get(file_path);
-		using(Stream fileStream = File.OpenWrite(Path.Combine(local_dest,remote_file.Name))){
-		await Task.Run(() =>_SFTPClient.DownloadFile(file_path,fileStream));
-		fileStream.Position = 0;
-		EmitSignal(SignalName.ProgressDone);
+		using (Stream fileStream = File.OpenWrite(Path.Combine(local_dest, remote_file.Name)))
+		{
+			await Task.Run(() => _SFTPClient.DownloadFile(file_path, fileStream));
+			fileStream.Position = 0;
+			EmitSignal(SignalName.ProgressItemChanged, remote_file.Name);
+			EmitSignal(SignalName.ProgressDone);
 		}
 	}
 
-	private long GetTotalAmountOfFileSizesInDirectoryRecursive(string directory,bool only_directories){
+	private long GetTotalAmountOfFileSizesInDirectoryRecursive(string directory, bool only_directories, bool recursive = true)
+	{
 		long total_amount = 0;
 		System.Collections.IEnumerable files = _SFTPClient.ListDirectory(directory);
-		foreach (ISftpFile file in files){
-			if(!file.IsDirectory){
-				if(!only_directories){
-				total_amount+=file.Attributes.Size;
+		foreach (ISftpFile file in files)
+		{
+			if (!file.IsDirectory)
+			{
+				if (!only_directories)
+				{
+					total_amount += file.Attributes.Size;
 				}
 			}
-			else{
-				if(file.Name != ".." && file.Name != "." && !file.IsSymbolicLink){
-					if(only_directories){
-						total_amount+=1;
+			else
+			{
+				if (file.Name != ".." && file.Name != "." && !file.IsSymbolicLink)
+				{
+					if (only_directories)
+					{
+						total_amount += 1;
 					}
-				total_amount += GetTotalAmountOfFileSizesInDirectoryRecursive(directory+"/"+file.Name,only_directories);
+					if (recursive)
+					{
+						total_amount += GetTotalAmountOfFileSizesInDirectoryRecursive(directory + "/" + file.Name, only_directories, recursive);
+					}
 				}
 			}
 		}
+		GD.Print("Runs");
 		return total_amount;
 	}
 
 	long downloadedSize = 0;
-	long totalSize = 0; 
+	long totalSize = 0;
 
-	public void DownloadDirectory(string remote_directory_path, string local_directory_dest,bool onlyDownloadFolders = false){
+	public void DownloadDirectory(string remote_directory_path, string local_directory_dest, bool onlyDownloadFolders = false, bool recursive = true)
+	{
 		downloadedSize = 0;
 		totalSize = 0;
 
-		try{
-		totalSize = GetTotalAmountOfFileSizesInDirectoryRecursive(remote_directory_path,onlyDownloadFolders);
+		try
+		{
+			totalSize = GetTotalAmountOfFileSizesInDirectoryRecursive(remote_directory_path, onlyDownloadFolders, recursive);
+			EmitSignal(SignalName.ProgressMaxChanged, totalSize);
 		}
-		catch(Exception e){
+		catch (Exception e)
+		{
 			GD.Print(e);
 		}
-		
-		_DownloadDirectory(remote_directory_path,local_directory_dest,onlyDownloadFolders);
+		if (totalSize == 0)
+		{
+			EmitSignal(SignalName.ProgressDone);
+		}
+		else
+		{
+			_DownloadDirectory(remote_directory_path, local_directory_dest, onlyDownloadFolders, recursive);
+		}
 	}
 
-	public async Task _DownloadDirectory(string remote_directory_path, string local_directory_dest,bool onlyDownloadFolders = false){
+	public async Task _DownloadDirectory(string remote_directory_path, string local_directory_dest, bool onlyDownloadFolders = false, bool recursive = true)
+	{
 		System.Collections.IEnumerable files = _SFTPClient.ListDirectory(remote_directory_path);
-
-		foreach(ISftpFile file in files){
-			if(file.IsDirectory && !(file.Name == "." || file.Name == "..")){
-				await Task.Run(() => Directory.CreateDirectory(local_directory_dest+"/"+file.Name));
-				if(onlyDownloadFolders){
-					downloadedSize+=1;
-				}
-				_DownloadDirectory(file.FullName,local_directory_dest+"/"+file.Name,onlyDownloadFolders);
+		if (files.Cast<ISftpFile>().ToList().Count() == 0)
+		{
+			EmitSignal(SignalName.Progress, downloadedSize);
+			if (downloadedSize == totalSize)
+			{
+				GD.Print("test");
+				EmitSignal(SignalName.ProgressDone);
 			}
-			if(!file.IsDirectory){
-				if(!onlyDownloadFolders){
-					using(Stream fileStream = File.OpenWrite(Path.Combine(local_directory_dest,file.Name))){
-						await Task.Run(() => _SFTPClient.DownloadFile(file.FullName,fileStream));
-						downloadedSize += file.Attributes.Size;
-						fileStream.Position = 0;
+		}
+		else
+		{
+			foreach (ISftpFile file in files)
+			{
+				if (file.IsDirectory && !(file.Name == "." || file.Name == ".."))
+				{
+					await Task.Run(() => Directory.CreateDirectory(local_directory_dest + "/" + file.Name));
+					if (onlyDownloadFolders)
+					{
+						downloadedSize += 1;
+					}
+					if (recursive)
+					{
+						_DownloadDirectory(file.FullName, local_directory_dest + "/" + file.Name, onlyDownloadFolders);
+						EmitSignal(SignalName.ProgressItemChanged, file.Name);
 					}
 				}
+				if (!file.IsDirectory)
+				{
+					if (!onlyDownloadFolders)
+					{
+						using (Stream fileStream = File.OpenWrite(Path.Combine(local_directory_dest, file.Name)))
+						{
+							await Task.Run(() => _SFTPClient.DownloadFile(file.FullName, fileStream));
+							EmitSignal(SignalName.ProgressItemChanged, file.Name);
+							downloadedSize += file.Attributes.Size;
+							fileStream.Position = 0;
+						}
+					}
+				}
+				EmitSignal(SignalName.Progress, downloadedSize);
+				if (downloadedSize == totalSize)
+				{
+					EmitSignal(SignalName.ProgressDone);
+				}
 			}
-					EmitSignal(SignalName.Progress,downloadedSize,totalSize);
-					GD.Print(file.Name+" "+downloadedSize+" "+totalSize);
-					if(downloadedSize==totalSize){
-						GD.Print("DoneDownloading");
-						EmitSignal(SignalName.ProgressDone);
-					}	
+		}
+	}
+
+	public void UploadFile(string local_file_path, string remote_file_path)
+	{
+		_UploadFile(local_file_path, remote_file_path);
+		GD.Print("Test");
+	}
+
+	private async Task _UploadFile(string local_file_path, string remote_file_path)
+	{
+		Stream fileStream = File.OpenRead(local_file_path);
+		await Task.Run(() => _SFTPClient.UploadFile(fileStream, remote_file_path, true, null));
+	}
+
+	public void UploadDirectory(string local_path, string remote_path)
+	{
+		try
+		{
+			_UploadDirectory(local_path, remote_path);
+		}
+		catch (Exception e)
+		{
+			GD.Print(e);
+		}
+	}
+
+	private async Task _UploadDirectory(string local_path, string remote_path)
+	{
+		foreach (ISftpFile file in _SFTPClient.ListDirectory(remote_path))
+		{
+			if (file.IsDirectory && !file.Name.Contains("ydec"))
+			{
+				file.Delete();
+			}
+		}
+		DirectoryInfo d = new DirectoryInfo(local_path);
+		FileInfo[] Files = d.GetFiles("*.json");
+		foreach (FileInfo file in Files)
+		{
+			try
+			{
+				GD.Print("THE PATH IS --- " + Path.Join(local_path, file.Name) + " " + remote_path + "--- PATH END");
+				Stream fileStream = File.OpenRead(Path.Join(local_path, file.Name));
+				await Task.Run(() => _SFTPClient.UploadFile(fileStream, remote_path + "/" + file.Name, true, null));
+			}
+			catch (Exception e)
+			{
+				GD.Print(e);
+			}
 		}
 	}
 }

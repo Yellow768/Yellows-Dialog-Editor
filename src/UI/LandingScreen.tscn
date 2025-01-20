@@ -302,6 +302,7 @@ offset_right = 325.0
 offset_bottom = 375.0
 
 [node name="SFTP Tester" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1200, 400)
 layout_mode = 1
 anchors_preset = 8

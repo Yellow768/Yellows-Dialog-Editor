@@ -23,6 +23,8 @@ signal category_export_failed
 signal unsaved_change
 signal saved_backups
 
+signal sftp_done
+
 @export var category_file_container_path: NodePath
 @export var environment_index_path: NodePath
 @export var dialog_editor_path : NodePath
@@ -165,6 +167,8 @@ func save_category_request():
 	if result == OK:
 		emit_signal("category_succesfully_saved",current_category)
 		current_category_button.set_unsaved(false)
+		if CurrentEnvironment.sftp_client:
+			CurrentEnvironment.sftp_client.UploadFile(CurrentEnvironment.current_directory+"/dialogs/"+current_category+"/"+current_category+".ydec",CurrentEnvironment.sftp_directory+"/dialogs/"+current_category+"/"+current_category+".ydec")
 	else:
 		emit_signal("category_failed_save")
 		printerr(error_string(result))
@@ -209,6 +213,9 @@ func export_category_request():
 	print("Exported Category "+current_category)
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
+	if CurrentEnvironment.sftp_client:
+		print("exporting sftp")
+		CurrentEnvironment.sftp_client.UploadDirectory(CurrentEnvironment.current_directory+"/dialogs/"+current_category,CurrentEnvironment.sftp_directory+"/dialogs/"+current_category)
 	emit_signal("category_succesfully_exported",current_category)
 	
 
@@ -247,8 +254,6 @@ func load_category(category_name : String,category_button : Button = null):
 			category_loading_finished.emit(category_name)
 			DialogEditor.visible = true
 	else:
-		CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false)
-		await CurrentEnvironment.sftp_client.ProgressDone
 		if new_category_loader.load_category(category_name) == OK:
 			category_loading_finished.emit(category_name)
 			DialogEditor.visible = true
@@ -261,11 +266,23 @@ func load_category(category_name : String,category_button : Button = null):
 	for org in DialogEditor.color_organizers:
 		org.set_locked(org.locked)
 	category_loading_finished.emit(category_name)
-		
 	
 func initialize_category_import(category_name : String):
 	
 	DialogEditor.visible = false
+	if CurrentEnvironment.sftp_client:
+			if CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name).size() > 0:
+				var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
+				get_parent().get_parent().add_child(Progress)
+				Progress.set_overall_task_name("Downloading "+category_name)
+				CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
+				CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
+				CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
+				CurrentEnvironment.sftp_client.connect("ProgressDone",Callable(self,"emit_signal").bind("sftp_done"))
+				CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false,true)
+				await self.sftp_done
+				print("Afterwards")
+				Progress.queue_free()
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
 	choose_dialog_popup.connect("import_canceled", Callable(DialogEditor, "import_canceled"))
@@ -280,6 +297,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	emit_signal("category_loading_initiated",category_name)
 	CurrentEnvironment.current_category_name = null
 	CurrentEnvironment.allow_save_state = false
+	
 	var new_category_importer := category_importer.new()
 	new_category_importer.connect("request_add_dialog", Callable(DialogEditor, "add_dialog_node"))
 	new_category_importer.connect("request_add_response", Callable(DialogEditor, "add_response_node"))
