@@ -10,7 +10,9 @@ var dialog_name_preset
 var sftp_client
 var sftp_hostname
 var sftp_username
+var sftp_port
 var sftp_cached_path
+var sftp_local_cache_directory
 
 var sftp_saved_categories = []
 var sftp_directory

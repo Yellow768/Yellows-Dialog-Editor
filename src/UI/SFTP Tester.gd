@@ -38,10 +38,21 @@ var files_in_sftp_directory : Dictionary
 
 func _on_button_pressed():
 	CurrentEnvironment.create_sftpclient()
-	CurrentEnvironment.sftp_client.ConnectToSftpServer(UsernameTextEdit.text,HostnameTextEdit.text,PortSpinBox.value,PasswordTextEdit.text)
-	CurrentEnvironment.sftp_hostname = HostnameTextEdit.text
-	CurrentEnvironment.sftp_username = UsernameTextEdit.text
+	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(UsernameTextEdit.text,HostnameTextEdit.text,PortSpinBox.value,PasswordTextEdit.text)
+	if connection_result == "OK":
+		CurrentEnvironment.sftp_hostname = HostnameTextEdit.text
+		CurrentEnvironment.sftp_username = UsernameTextEdit.text
+		CurrentEnvironment.sftp_port = PortSpinBox.value
+	else:
+		var failure_alert := AcceptDialog.new()
+		get_parent().add_child(failure_alert)
+		failure_alert.dialog_text = connection_result
+		failure_alert.title = "SFTP Failed To Connect"
+		failure_alert.popup_centered()
+		return
 	files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
+	for tree_item in tree_root.get_children():
+		tree_item.free()
 	for file in files_in_sftp_directory:
 		if (file == "." || file == ".."):
 			continue
@@ -92,15 +103,16 @@ func _on_select_folder_pressed():
 		InvalidDirectory.connect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp").bind(remote_path_to_download_from))
 		InvalidDirectory.connect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	else:
+		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname+remote_path_to_download_from
 		make_local_cache_and_download_sftp(remote_path_to_download_from)	
 
 	
 	
 func make_local_cache_and_download_sftp(remote_path_to_download_from):
-	var local_cache_directory_path = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname
+		
 	CurrentEnvironment.sftp_directory = remote_path_to_download_from
-	DirAccess.make_dir_recursive_absolute(local_cache_directory_path)
-	DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/dialogs")
+	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory)
+	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/dialogs")
 	var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
 	get_parent().add_child(Progress)
 	CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
@@ -108,24 +120,46 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
 		Progress.set_overall_task_name("Downloading Dialog Categories")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",local_cache_directory_path+"/customnpcs/dialogs",false,true)
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",CurrentEnvironment.sftp_local_cache_directory+"/dialogs",false,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
 		Progress.set_overall_task_name("Downloading Quests")
-		DirAccess.make_dir_recursive_absolute(local_cache_directory_path+"/customnpcs/quests")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",local_cache_directory_path+"/customnpcs/quests",false,true)
+		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/quests")
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",CurrentEnvironment.sftp_local_cache_directory+"/quests",false,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/factions.dat"):
 		Progress.set_overall_task_name("Downloading Factions")
-		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",local_cache_directory_path+"/customnpcs/")
+		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",CurrentEnvironment.sftp_local_cache_directory)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
-	sftp_directory_chosen.emit(local_cache_directory_path+"/customnpcs")
+	sftp_directory_chosen.emit(CurrentEnvironment.sftp_local_cache_directory)
 	
 	
+func connect_to_established_sftp(password,username,hostname,port,remote_dir,local_dir):
+	CurrentEnvironment.create_sftpclient()
+	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(username,hostname,port,password)
+	if connection_result == "OK":
+		CurrentEnvironment.sftp_hostname = hostname
+		CurrentEnvironment.sftp_username = username
+		CurrentEnvironment.sftp_port = port
+		CurrentEnvironment.sftp_directory = remote_dir
+		CurrentEnvironment.sftp_client.ChangeDirectory(remote_dir)
+		if DirAccess.dir_exists_absolute(local_dir):
+			sftp_directory_chosen.emit(local_dir)
+		else:
+			CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname+remote_dir
+			make_local_cache_and_download_sftp(remote_dir)
+	else:
+		var failure_alert := AcceptDialog.new()
+		get_parent().add_child(failure_alert)
+		failure_alert.dialog_text = connection_result
+		failure_alert.title = "SFTP Failed To Connect"
+		failure_alert.popup_centered()
+		
+		
 func disconnect_invalid_directory():
-	InvalidDirectory.disconect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp"))
-	InvalidDirectory.disconect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
+	InvalidDirectory.disconnect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp"))
+	InvalidDirectory.disconnect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	InvalidDirectory.hide()
 
 func switch_editor():

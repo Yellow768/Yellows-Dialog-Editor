@@ -35,17 +35,18 @@ public partial class SFTP_Client : Node
 	{
 	}
 
-	public void ConnectToSftpServer(string _user, string _hostname, int _port, string _password)
+	public string ConnectToSftpServer(string _user, string _hostname, int _port, string _password)
 	{
 		_SFTPClient = new Renci.SshNet.SftpClient(_hostname, _port, _user, _password);
 		try
 		{
 			_SFTPClient.Connect();
 			GD.Print("Connected" + _SFTPClient.IsConnected + " Working Directory: " + _SFTPClient.WorkingDirectory);
+			return "OK";
 		}
 		catch (Exception e)
 		{
-			GD.Print(e.Message);
+			return e.ToString();
 		}
 	}
 
