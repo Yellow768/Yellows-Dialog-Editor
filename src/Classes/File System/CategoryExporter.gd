@@ -113,19 +113,19 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 		dialog_dict["TextWidth"] = dialog.text_width
 		dialog_dict["PreviousBlocks"] = int(dialog.show_previous_dialog)
 		dialog_dict["Images"] = create_image_dict(dialog)
-
 	if !new_version:
+		print("not new version")
 		var fact1 = -1
 		var fact1pts = 0
 		var fact1decrease = 0
 		var fact2 = -1
 		var fact2pts = 0
 		var fact2decrease = 0
-		if dialog.faction_changes.size() == 1:
+		if dialog.faction_changes.size() >= 1:
 			fact1 = dialog.faction_changes[0].faction_id
 			fact1pts = abs(dialog.faction_changes[0].points)
 			fact1decrease = dialog.faction_changes[0].operator
-		if dialog.faction_changes.size() == 2:
+		if dialog.faction_changes.size() >= 2:
 			fact2 = dialog.faction_changes[1].faction_id
 			fact2pts = abs(dialog.faction_changes[1].points)
 			fact2decrease = dialog.faction_changes[1].operator	

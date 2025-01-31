@@ -50,6 +50,14 @@ public partial class SFTP_Client : Node
 		}
 	}
 
+	public void Disconnect()
+	{
+		if (_SFTPClient.IsConnected)
+		{
+			_SFTPClient.Disconnect();
+		}
+	}
+
 	public Godot.Collections.Dictionary<string, bool> ListDirectory(string directory)
 	{
 		Godot.Collections.Dictionary<string, bool> DirectoryList = new Godot.Collections.Dictionary<string, bool>();

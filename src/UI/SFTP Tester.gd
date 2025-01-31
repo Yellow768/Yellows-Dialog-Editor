@@ -3,23 +3,39 @@ extends PanelContainer
 @export var hostname_textbox_path : NodePath
 @export var port_spinbox_path : NodePath
 @export var password_textbox_path : NodePath
+@export var key_file_line_edit_path : NodePath
+@export var key_file_hbox_path : NodePath
+@export var key_passphrase_path : NodePath
+
+
 @export var connect_button_path : NodePath
 @export var tree_path : NodePath
 @export var invalid_directory_path : NodePath
 @export var progress_bar_path : NodePath
+@export var select_button_path : NodePath
+@export var path_line_edit_path : NodePath
 
 
 @onready var UsernameTextEdit : LineEdit = get_node(username_textbox_path)
 @onready var HostnameTextEdit : LineEdit = get_node(hostname_textbox_path)
 @onready var PortSpinBox : SpinBox = get_node(port_spinbox_path)
 @onready var PasswordTextEdit : LineEdit = get_node(password_textbox_path)
+@onready var KeyFileLineEdit : LineEdit = get_node(key_file_line_edit_path)
+@onready var KeyFileHbox : HBoxContainer = get_node(key_file_hbox_path)
+@onready var KeyPassPhrase : LineEdit = get_node(key_passphrase_path)
+
+
+
 @onready var ConnectButton : Button = get_node(connect_button_path)
 @onready var FileTree : Tree = get_node(tree_path)
 @onready var InvalidDirectory : Popup = get_node(invalid_directory_path)
 @onready var Progress : ProgressBar = get_node(progress_bar_path)
+@onready var SelectButton : Button = get_node(select_button_path)
+@onready var PathLineEdit : LineEdit = get_node(path_line_edit_path)
 
 var tree_root
 var forward_dir = []
+enum CHOSEN_AUTH_METHOD{PASSWORD,KEY,KEY_AND_PASSPHRASE}
 
 signal sftp_directory_chosen
 
@@ -38,7 +54,16 @@ var files_in_sftp_directory : Dictionary
 
 func _on_button_pressed():
 	CurrentEnvironment.create_sftpclient()
+	var connecting_popup = AcceptDialog.new()
+	connecting_popup.get_ok_button().set_visible(false)
+	connecting_popup.add_theme_icon_override("close",Texture2D.new())
+	connecting_popup.dialog_text = "\nConnecting to SFTP Server..."
+	connecting_popup.title = ""
+	get_parent().add_child(connecting_popup)
+	connecting_popup.popup_centered()
+	await get_tree().create_timer(1.0).timeout
 	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(UsernameTextEdit.text,HostnameTextEdit.text,PortSpinBox.value,PasswordTextEdit.text)
+	connecting_popup.queue_free()
 	if connection_result == "OK":
 		CurrentEnvironment.sftp_hostname = HostnameTextEdit.text
 		CurrentEnvironment.sftp_username = UsernameTextEdit.text
@@ -50,40 +75,26 @@ func _on_button_pressed():
 		failure_alert.title = "SFTP Failed To Connect"
 		failure_alert.popup_centered()
 		return
-	files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
-	for tree_item in tree_root.get_children():
-		tree_item.free()
-	for file in files_in_sftp_directory:
-		if (file == "." || file == ".."):
-			continue
-		var new_file = FileTree.create_item(tree_root)
-		new_file.set_text(0,file)
-		if files_in_sftp_directory[file]:
-			new_file.set_icon(0,load("res://Assets/UI Textures/Icon Font/folder-line.svg"))
-		else:
-			new_file.set_icon(0,load("res://Assets/UI Textures/Icon Font/file-line.svg"))
+	change_tree_directory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 		
 		
 	
 
 
 func change_tree_directory(text):
+		SelectButton.disabled =true
 		CurrentEnvironment.sftp_client.ChangeDirectory(text)
+		PathLineEdit.text = CurrentEnvironment.sftp_client.GetCurrentDirectory()
 		FileTree.deselect_all()
-		var item = tree_root.get_first_child()
-		var item_to_delete = tree_root.get_first_child()
 		for tree_item in tree_root.get_children():
 			tree_item.free()
 		files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 		for file in files_in_sftp_directory:
-			if (file == "." || file == ".."):
+			if (file == "." || file == ".." || !files_in_sftp_directory[file]):
 				continue
 			var new_file = FileTree.create_item(tree_root)
 			new_file.set_text(0,file)
-			if files_in_sftp_directory[file]:
-				new_file.set_icon(0,load("res://Assets/UI Textures/Icon Font/folder-line.svg"))
-			else:
-				new_file.set_icon(0,load("res://Assets/UI Textures/Icon Font/file-line.svg"))
+			new_file.set_icon(0,load("res://Assets/UI Textures/Icon Font/folder-line.svg"))
 
 func sftp_find_customnpcs_dir():
 	if FileTree.get_selected().get_text(0) == "customnpcs":
@@ -179,11 +190,69 @@ func _on_tree_item_activated():
 func _on_forward_pressed():
 	change_tree_directory(forward_dir.pop_front())
 	
-
+var sftp_background_darkener
 
 func _on_connect_to_sftp_server_pressed():
+	sftp_background_darkener = ColorRect.new()
+	sftp_background_darkener.color = Color(0,0,0,.3)
+	
+	get_parent().add_child(sftp_background_darkener)
+	get_parent().move_child(sftp_background_darkener,get_index()-1)
+	sftp_background_darkener.size = Vector2(DisplayServer.window_get_size())
+	sftp_background_darkener.set_anchors_preset(Control.PRESET_FULL_RECT)
 	visible = true
 
 
 func _on_close_button_pressed():
 	visible = false
+	sftp_background_darkener.queue_free()
+	for child in tree_root.get_children():
+		child.free()
+	PathLineEdit.text = ""
+	HostnameTextEdit.text = ""
+	PasswordTextEdit.text = ""
+	UsernameTextEdit.text = ""
+	PortSpinBox.value = 22
+	CurrentEnvironment.sftp_client.Disconnect()
+
+
+func _on_tree_nothing_selected():
+	SelectButton.disabled = true
+	if FileTree.get_selected():
+		FileTree.get_selected().deselect(0)
+
+
+func _on_tree_item_selected():
+	SelectButton.disabled = false
+	SelectButton.text = tr("Use Selected Folder As Environemnt")
+
+
+func _on_line_edit_text_submitted(new_text):
+	if !CurrentEnvironment.sftp_client:
+		PathLineEdit.text = ""
+		return
+	if CurrentEnvironment.sftp_client.Exists(new_text):
+		change_tree_directory(new_text)
+	else:
+		PathLineEdit.text = CurrentEnvironment.sftp_client.GetCurrentDirectory()
+
+
+func _on_auth_type_button_item_selected(index):
+	match index:
+		CHOSEN_AUTH_METHOD.PASSWORD:
+			PasswordTextEdit.visible = true
+			KeyFileHbox.visible = false
+			KeyPassPhrase.visible = false
+		CHOSEN_AUTH_METHOD.KEY:
+			PasswordTextEdit.visible = false
+			KeyFileHbox.visible = true
+			KeyPassPhrase.visible = false
+		CHOSEN_AUTH_METHOD.KEY_AND_PASSPHRASE:
+			PasswordTextEdit.visible = false
+			KeyFileHbox.visible = true
+			KeyPassPhrase.visible = true
+
+
+func _on_select_key_file_button_pressed():
+	var key_file_dialog = FileDialog.new()
+	key_file_dialog.add_filter("*.")

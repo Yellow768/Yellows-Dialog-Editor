@@ -36,7 +36,7 @@ var current_directory_path
 var current_category : set = set_current_category
 var current_category_button : Button
 
-var export_version : int = 2
+var export_version : int = 0
 
 
 

@@ -29,7 +29,7 @@ var color_presets : PackedColorArray
 var autosave_time := 3
 var autosave_max_files := 10
 var enable_customnpcs_plus_options := false
-var last_used_export_version := 2
+var last_used_export_version := 0
 var spacing_presets : Dictionary = {}
 var spacing_presets_stringified : String
 var visual_presets : Dictionary = {}
