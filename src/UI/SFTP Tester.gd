@@ -6,6 +6,7 @@ extends PanelContainer
 @export var key_file_line_edit_path : NodePath
 @export var key_file_hbox_path : NodePath
 @export var key_passphrase_path : NodePath
+@export var private_key_vbox_path : NodePath
 
 
 @export var connect_button_path : NodePath
@@ -23,7 +24,7 @@ extends PanelContainer
 @onready var KeyFileLineEdit : LineEdit = get_node(key_file_line_edit_path)
 @onready var KeyFileHbox : HBoxContainer = get_node(key_file_hbox_path)
 @onready var KeyPassPhrase : LineEdit = get_node(key_passphrase_path)
-
+@onready var PrivateKeyVbox : VBoxContainer = get_node(private_key_vbox_path)
 
 
 @onready var ConnectButton : Button = get_node(connect_button_path)
@@ -62,7 +63,18 @@ func _on_button_pressed():
 	get_parent().add_child(connecting_popup)
 	connecting_popup.popup_centered()
 	await get_tree().create_timer(1.0).timeout
-	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(UsernameTextEdit.text,HostnameTextEdit.text,PortSpinBox.value,PasswordTextEdit.text)
+	var connection_info = {
+		"username" : UsernameTextEdit.text,
+		"hostname" : HostnameTextEdit.text, 
+		"port":PortSpinBox.value
+	}
+	if PasswordTextEdit.text != "":
+		connection_info["password"] = PasswordTextEdit.text
+	if KeyFileLineEdit.text != "":
+		connection_info["private_key"] = KeyFileLineEdit.text
+	if KeyPassPhrase.text != "":
+		connection_info["private_key_passphrase"]
+	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(connection_info)
 	connecting_popup.queue_free()
 	if connection_result == "OK":
 		CurrentEnvironment.sftp_hostname = HostnameTextEdit.text
@@ -256,3 +268,7 @@ func _on_auth_type_button_item_selected(index):
 func _on_select_key_file_button_pressed():
 	var key_file_dialog = FileDialog.new()
 	key_file_dialog.add_filter("*.")
+
+
+func _on_key_file_button_toggled(button_pressed):
+	PrivateKeyVbox.visible = button_pressed

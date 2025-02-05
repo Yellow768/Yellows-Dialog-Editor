@@ -185,3 +185,5 @@ func _on_prev_dirs_tree_button_clicked(item, column, id, mouse_button_index):
 	config.set_value("prev_dirs","dir_array",JSON.new().stringify((dir_array)))
 	config.save(user_settings_path)
 	item.free()
+
+

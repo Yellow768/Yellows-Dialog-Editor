@@ -5,6 +5,8 @@ using Renci.SshNet.Sftp;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 public partial class SFTP_Client : Node
 {
@@ -34,10 +36,42 @@ public partial class SFTP_Client : Node
 	public override void _Process(double delta)
 	{
 	}
+	/*
+	there are 4 types of connections
 
-	public string ConnectToSftpServer(string _user, string _hostname, int _port, string _password)
+	- password
+	- password and key
+	- no password and key
+	- no password and key with passphrase
+
+	on the connect button pressed, call the correct method based on
+
+
+	*/
+	public string ConnectToSftpServer(Godot.Collections.Dictionary connection_info)
 	{
-		_SFTPClient = new Renci.SshNet.SftpClient(_hostname, _port, _user, _password);
+		var AuthMethods = new List<AuthenticationMethod>();
+		if (connection_info.ContainsKey("password"))
+		{
+			AuthMethods.Add(new PasswordAuthenticationMethod(connection_info["username"].ToString(), connection_info["password"].ToString()));
+		}
+		if (connection_info.ContainsKey("private_key"))
+		{
+			PrivateKeyFile PrivateKey;
+			if (connection_info.ContainsKey("private_key_passphrase"))
+			{
+				PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString(), connection_info["private_key_passphrase"].ToString());
+			}
+			else
+			{
+				PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString());
+			}
+			var KeyFiles = new[] { PrivateKey };
+			AuthMethods.Add(new PrivateKeyAuthenticationMethod(connection_info["username"].ToString(), KeyFiles));
+		}
+
+		var connectionInfo = new ConnectionInfo(connection_info["hostname"].ToString(), connection_info["port"].As<int>(), connection_info["username"].ToString(), AuthMethods.ToArray());
+		_SFTPClient = new Renci.SshNet.SftpClient(connectionInfo);
 		try
 		{
 			_SFTPClient.Connect();
