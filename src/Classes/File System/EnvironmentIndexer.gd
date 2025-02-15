@@ -16,6 +16,9 @@ var highest_index := 0
 func _ready():
 	if CurrentEnvironment.sftp_client:
 		connect("new_category_created",Callable(CurrentEnvironment.sftp_client,"_OnNewCategoryCreated"))
+		connect("category_renamed",Callable(CurrentEnvironment.sftp_client,"_OnCategoryRenamed"))
+		connect("category_deleted",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDeleted"))
+		connect("category_duplicated",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDuplicated"))
 
 func index_categories() -> Array[String]:
 

@@ -421,5 +421,36 @@ public partial class SFTP_Client : Node
 			GD.Print(E);
 		}
 	}
+
+	public void _OnCategoryDeleted(string category_name)
+	{
+		try
+		{
+			_SFTPClient.DeleteDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
+		}
+		catch (Exception e)
+		{
+			EmitSignal(SignalName.SftpError, e.Message);
+			GD.Print(e);
+		}
+
+	}
+
+	public void _OnCategoryRenamed(string old_name, string new_name)
+	{
+		try
+		{
+			_SFTPClient.RenameFile(_SFTPClient.WorkingDirectory + "/dialogs/" + old_name, _SFTPClient.WorkingDirectory + "/dialogs/" + new_name);
+			if (_SFTPClient.Exists(_SFTPClient.WorkingDirectory + "/dialogs/" + new_name + "/" + old_name + ".ydec"))
+			{
+				_SFTPClient.RenameFile(_SFTPClient.WorkingDirectory + "/dialogs/" + new_name + "/" + old_name + ".ydec", _SFTPClient.WorkingDirectory + "/dialogs/" + new_name + "/" + new_name + ".ydec");
+			}
+		}
+		catch (Exception e)
+		{
+			EmitSignal(SignalName.SftpError, e.Message);
+			GD.Print(e);
+		}
+	}
 }
 
