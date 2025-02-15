@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene load_steps=52 format=3 uid="uid://dm212olg3jtq4"]
 
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" path="res://src/UI/Editor/DialogImageSettings.gd" id="31_teijp"]
 [ext_resource type="Texture2D" uid="uid://ymrya147pb6v" path="res://Assets/UI Textures/Icon Font/link-line.svg" id="32_jwfbh"]
 [ext_resource type="Script" path="res://src/UI/Editor/ResponseNodeSettings.gd" id="35_n4s6j"]
+[ext_resource type="Script" path="res://src/UI/Editor/SFTP_BOX.gd" id="38_78yl7"]
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -1850,15 +1851,14 @@ dialog_editor_path = NodePath("../DialogEditor")
 auto_save_path = NodePath("../AutosaveTimer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
-custom_minimum_size = Vector2(340, 700)
+custom_minimum_size = Vector2(340, 400)
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -170.0
-offset_right = 170.0
-offset_bottom = 700.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
 grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
@@ -1875,20 +1875,46 @@ layout_mode = 2
 placeholder_text = "SEARCH"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(340, 340)
+custom_minimum_size = Vector2(340, 400)
 layout_mode = 2
 size_flags_vertical = 15
 
 [node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(260, 400)
+custom_minimum_size = Vector2(260, 600)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 11
+size_flags_vertical = 2
 
 [node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
+
+[node name="SFTP_BOX" type="VBoxContainer" parent="CategoryPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+script = ExtResource("38_78yl7")
+
+[node name="SFTPLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "SFTP Connection"
+horizontal_alignment = 1
+
+[node name="SftpConnection" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFTP_CONNECTION"
+
+[node name="SftpDirectory" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFTP_DIRECTORY"
+autowrap_mode = 2
 
 [node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
 script = ExtResource("13")
@@ -2247,10 +2273,12 @@ one_shot = true
 [connection signal="value_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/SpinBox" to="InformationPanel/ResponseNodeSettings" method="_on_spin_box_value_changed"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_failed_save"]
+[connection signal="category_failed_sftp_save" from="CategoryPanel" to="UI Anims" method="_on_category_panel_category_failed_sftp_save"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="DialogEditor/UndoSystem" method="load_category_undo_redo_history"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="TopPanel" method="_on_category_panel_finished_loading"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="InformationPanel/DialogNodeTabs/AVAILABILITY" method="_on_category_panel_finished_loading"]
 [connection signal="category_loading_initiated" from="CategoryPanel" to="DialogEditor/UndoSystem" method="_on_category_panel_category_loading_initiated"]
+[connection signal="category_sftp_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_category_panel_category_sftp_succesfully_saved"]
 [connection signal="category_succesfully_exported" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_exported"]
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="." method="_on_category_panel_category_succesfully_saved"]
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_saved"]

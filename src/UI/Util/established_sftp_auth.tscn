@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://lnj7t28c8vpq"]
+
+[ext_resource type="Script" path="res://src/UI/Established SFTP Auth.gd" id="1_hhqcw"]
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="1_mle5g"]
+
+[node name="Established SFTP Auth" type="ConfirmationDialog"]
+title = "Authenticate Into SFTP Server"
+position = Vector2i(0, 36)
+size = Vector2i(618, 222)
+visible = true
+theme = ExtResource("1_mle5g")
+script = ExtResource("1_hhqcw")
+password_line_edit_path = NodePath("VBoxContainer/HBoxContainer/LineEdit")
+key_file_grid_container = NodePath("VBoxContainer/GridContainer")
+key_file_line_edit_path = NodePath("VBoxContainer/GridContainer/KeyFileHbox/PathToKeyLineEdit")
+key_file_passphrase_line_edit_path = NodePath("VBoxContainer/GridContainer/PassphraseLinedit")
+key_file_dialog_opener = NodePath("VBoxContainer/GridContainer/KeyFileHbox/FileDialogOpener")
+private_key_toggle_path = NodePath("VBoxContainer/HBoxContainer2/PrivateKeyToggle")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 618.0
+offset_bottom = 181.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PasswordLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Password:"
+horizontal_alignment = 3
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 15)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Private Key"
+
+[node name="PrivateKeyToggle" type="CheckBox" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+columns = 2
+
+[node name="KeyFileLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Key File"
+
+[node name="KeyFileHbox" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="PathToKeyLineEdit" type="LineEdit" parent="VBoxContainer/GridContainer/KeyFileHbox"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 4
+placeholder_text = "path/to/keyfile"
+editable = false
+
+[node name="FileDialogOpener" type="Button" parent="VBoxContainer/GridContainer/KeyFileHbox"]
+layout_mode = 2
+disabled = true
+text = "..."
+
+[node name="PassphraseLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Key Passphrase"
+horizontal_alignment = 2
+
+[node name="PassphraseLinedit" type="LineEdit" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+placeholder_text = "(leave blank if none)"
+editable = false
+
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/PrivateKeyToggle" to="." method="_on_private_key_toggle_toggled"]
+[connection signal="text_changed" from="VBoxContainer/GridContainer/KeyFileHbox/PathToKeyLineEdit" to="." method="_on_path_to_key_line_edit_text_submitted"]
+[connection signal="text_submitted" from="VBoxContainer/GridContainer/KeyFileHbox/PathToKeyLineEdit" to="." method="_on_path_to_key_line_edit_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/KeyFileHbox/FileDialogOpener" to="." method="_on_file_dialog_opener_pressed"]
+[connection signal="text_changed" from="VBoxContainer/GridContainer/PassphraseLinedit" to="." method="_on_passphrase_linedit_text_submitted"]
+[connection signal="text_submitted" from="VBoxContainer/GridContainer/PassphraseLinedit" to="." method="_on_passphrase_linedit_text_submitted"]

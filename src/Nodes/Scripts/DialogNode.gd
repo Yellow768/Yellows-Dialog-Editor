@@ -135,7 +135,7 @@ func _ready():
 func determine_name(_response):
 	if not is_inside_tree(): await self.ready
 	var name_preset_string = CurrentEnvironment.dialog_name_preset
-	if name_preset_string == "":
+	if name_preset_string == "" or name_preset_string == null:
 		name_preset_string = GlobalDeclarations.dialog_name_preset
 	var new_name = ''
 	new_name = name_preset_string.replace("$DialogNode",str(node_index))

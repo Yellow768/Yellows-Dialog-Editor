@@ -7,12 +7,15 @@ var highest_id = 0: set = set_highest_id
 var loading_stage = false
 var allow_save_state
 var dialog_name_preset
+
+
 var sftp_client
 var sftp_hostname
 var sftp_username
 var sftp_port
 var sftp_cached_path
 var sftp_local_cache_directory
+var sftp_private_key
 
 var sftp_saved_categories = []
 var sftp_directory

@@ -74,3 +74,11 @@ func _on_information_panel_scanned_quests_and_factions():
 
 func _on_category_panel_saved_backups():
 	add_notification(tr("SAVED_BACKUPS"))
+
+
+func _on_category_panel_category_failed_sftp_save():
+	add_notification(tr("Could not save ydec to SFTP Server (check logs)"))
+
+
+func _on_category_panel_category_sftp_succesfully_saved():
+	add_notification(tr("YDEC Saved to SFTP Server"))

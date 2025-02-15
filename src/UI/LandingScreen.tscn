@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=22 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
@@ -95,6 +95,8 @@ corner_radius_bottom_left = 15
 shadow_color = Color(0, 0, 0, 0.219608)
 shadow_size = 3
 shadow_offset = Vector2(0, 15)
+
+[sub_resource type="ImageTexture" id="ImageTexture_yc7ep"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aokfs"]
 bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
@@ -317,9 +319,8 @@ offset_right = -123.0
 offset_bottom = -25.0
 text = "Cancel"
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
-
 [node name="SFTP Dialog" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1200, 400)
 layout_mode = 1
 anchors_preset = 8
@@ -335,13 +336,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4ticj")
 script = ExtResource("7_safcj")
-username_textbox_path = NodePath("HBoxContainer/VBoxContainer/Username")
-hostname_textbox_path = NodePath("HBoxContainer/VBoxContainer/Hostname")
-port_spinbox_path = NodePath("HBoxContainer/VBoxContainer/Port")
-password_textbox_path = NodePath("HBoxContainer/VBoxContainer/Password")
-key_file_line_edit_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer/HBoxContainer/LineEdit")
-key_file_hbox_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer/HBoxContainer")
-key_passphrase_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer/Keyfile Passphrase")
+username_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Username")
+hostname_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Hostname")
+port_spinbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Port")
+password_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Password")
+key_file_line_edit_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer/LineEdit")
+key_file_hbox_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer")
+key_passphrase_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase")
 private_key_vbox_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods")
 connect_button_path = NodePath("HBoxContainer/VBoxContainer/Button")
 tree_path = NodePath("HBoxContainer/SFTP Files/Tree")
@@ -375,76 +376,113 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Connect to an SFTP Server"
 
-[node name="HSeparator3" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(20, 70)
+[node name="GridContainer" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+columns = 2
 
-[node name="Hostname" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Hostname:"
+
+[node name="Hostname" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "gamesla216.bisecthosting.com"
 placeholder_text = "Hostname"
 alignment = 1
 
-[node name="Port" type="SpinBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+text = "Port:"
+
+[node name="Port" type="SpinBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_icons/updown = SubResource("ImageTexture_yc7ep")
 max_value = 99999.0
 value = 2022.0
 allow_greater = true
 alignment = 1
-prefix = "Port:"
 
-[node name="HSeparator" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 
-[node name="Username" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Username:"
+
+[node name="Username" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "xanderl775971.62f660ad"
 placeholder_text = "Username"
 alignment = 1
 
-[node name="Password" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Password:"
+
+[node name="Password" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "!b3SCB8-9sjr5J"
 placeholder_text = "Password"
 alignment = 1
 
-[node name="HSeparator5" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="KeyFileButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-toggle_mode = true
-text = "Private Key >"
+
+[node name="Label5" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Private Key"
+
+[node name="KeyFileButton" type="CheckBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
 
 [node name="AuthenticationMethods" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(212, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods"]
+[node name="Private Key Grid" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+layout_mode = 2
+text = "Private Key:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer"]
-layout_mode = 2
-
-[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer"]
 custom_minimum_size = Vector2(223, 0)
 layout_mode = 2
 
-[node name="SelectKeyFileButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer/HBoxContainer"]
+[node name="SelectKeyFileButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer"]
 layout_mode = 2
 text = "..."
 
-[node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer"]
+[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+layout_mode = 2
+text = "Passphrase"
+
+[node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-placeholder_text = "Passphrase"
+placeholder_text = "(Leave Blank If None)"
 alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
@@ -507,8 +545,8 @@ text = "X"
 [connection signal="pressed" from="InvalidFolderWarning/Confirm" to="InvalidFolderWarning" method="_on_confirm_pressed"]
 [connection signal="pressed" from="InvalidFolderWarning/Cancel" to="InvalidFolderWarning" method="_on_cancel_pressed"]
 [connection signal="sftp_directory_chosen" from="SFTP Dialog" to="." method="_on_sftp_tester_sftp_directory_chosen"]
-[connection signal="toggled" from="SFTP Dialog/HBoxContainer/VBoxContainer/KeyFileButton" to="SFTP Dialog" method="_on_key_file_button_toggled"]
-[connection signal="pressed" from="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/VBoxContainer/HBoxContainer/SelectKeyFileButton" to="SFTP Dialog" method="_on_select_key_file_button_pressed"]
+[connection signal="toggled" from="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer/KeyFileButton" to="SFTP Dialog" method="_on_key_file_button_toggled"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer/SelectKeyFileButton" to="SFTP Dialog" method="_on_select_key_file_button_pressed"]
 [connection signal="pressed" from="SFTP Dialog/HBoxContainer/VBoxContainer/Button" to="SFTP Dialog" method="_on_button_pressed"]
 [connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Back" to="SFTP Dialog" method="_on_back_pressed"]
 [connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Forward" to="SFTP Dialog" method="_on_forward_pressed"]

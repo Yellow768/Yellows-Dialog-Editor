@@ -23,9 +23,16 @@ public partial class SFTP_Client : Node
 	[Signal]
 	public delegate void ProgressDoneEventHandler();
 
+	[Signal]
+	public delegate void SftpNotConnectedEventHandler();
+
+	[Signal]
+	public delegate void SftpErrorEventHandler(string error);
+
 
 
 	private Renci.SshNet.SftpClient _SFTPClient;
+	public Godot.Collections.Dictionary ConnectionInfoDict;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -48,34 +55,36 @@ public partial class SFTP_Client : Node
 
 
 	*/
+
+
 	public string ConnectToSftpServer(Godot.Collections.Dictionary connection_info)
 	{
-		var AuthMethods = new List<AuthenticationMethod>();
-		if (connection_info.ContainsKey("password"))
-		{
-			AuthMethods.Add(new PasswordAuthenticationMethod(connection_info["username"].ToString(), connection_info["password"].ToString()));
-		}
-		if (connection_info.ContainsKey("private_key"))
-		{
-			PrivateKeyFile PrivateKey;
-			if (connection_info.ContainsKey("private_key_passphrase"))
-			{
-				PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString(), connection_info["private_key_passphrase"].ToString());
-			}
-			else
-			{
-				PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString());
-			}
-			var KeyFiles = new[] { PrivateKey };
-			AuthMethods.Add(new PrivateKeyAuthenticationMethod(connection_info["username"].ToString(), KeyFiles));
-		}
-
-		var connectionInfo = new ConnectionInfo(connection_info["hostname"].ToString(), connection_info["port"].As<int>(), connection_info["username"].ToString(), AuthMethods.ToArray());
-		_SFTPClient = new Renci.SshNet.SftpClient(connectionInfo);
 		try
 		{
+			var AuthMethods = new List<AuthenticationMethod>();
+			if (connection_info.ContainsKey("password"))
+			{
+				AuthMethods.Add(new PasswordAuthenticationMethod(connection_info["username"].ToString(), connection_info["password"].ToString()));
+			}
+			if (connection_info.ContainsKey("private_key"))
+			{
+				PrivateKeyFile PrivateKey;
+				if (connection_info.ContainsKey("private_key_passphrase"))
+				{
+					PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString(), connection_info["private_key_passphrase"].ToString());
+				}
+				else
+				{
+					PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString());
+				}
+				var KeyFiles = new[] { PrivateKey };
+				AuthMethods.Add(new PrivateKeyAuthenticationMethod(connection_info["username"].ToString(), KeyFiles));
+			}
+			ConnectionInfo connectionInfo = new ConnectionInfo(connection_info["hostname"].ToString(), connection_info["port"].As<int>(), connection_info["username"].ToString(), AuthMethods.ToArray());
+			_SFTPClient = new Renci.SshNet.SftpClient(connectionInfo);
 			_SFTPClient.Connect();
 			GD.Print("Connected" + _SFTPClient.IsConnected + " Working Directory: " + _SFTPClient.WorkingDirectory);
+			ConnectionInfoDict = connection_info;
 			return "OK";
 		}
 		catch (Exception e)
@@ -97,14 +106,17 @@ public partial class SFTP_Client : Node
 		Godot.Collections.Dictionary<string, bool> DirectoryList = new Godot.Collections.Dictionary<string, bool>();
 		if (!_SFTPClient.IsConnected)
 		{
-			GD.Print("SFTP Client is not connected");
+			EmitSignal(SignalName.SftpNotConnected);
 			return DirectoryList;
 		}
 		else
 		{
-			foreach (var file in _SFTPClient.ListDirectory(directory))
+			if (_SFTPClient.Exists(directory))
 			{
-				DirectoryList.Add(file.Name, file.IsDirectory);
+				foreach (var file in _SFTPClient.ListDirectory(directory))
+				{
+					DirectoryList.Add(file.Name, file.IsDirectory);
+				}
 			}
 			return DirectoryList;
 		}
@@ -119,7 +131,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message);
 		}
 	}
 
@@ -136,13 +148,27 @@ public partial class SFTP_Client : Node
 	public delegate void ProgressHandler(float progress);
 	public event ProgressHandler OnProgress;
 
-	public void DownloadFile(string file_path, string local_dest)
+	public int DownloadFile(string file_path, string local_dest)
 	{
-		_DownloadFile(file_path, local_dest);
+		if (!_SFTPClient.IsConnected)
+		{
+			EmitSignal(SignalName.SftpNotConnected);
+			return -1;
+		}
+		try
+		{
+			_DownloadFile(file_path, local_dest);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return 100;
+		}
 	}
 
 	private async Task _DownloadFile(string file_path, string local_dest)
 	{
+
 		var remote_file = _SFTPClient.Get(file_path);
 		using (Stream fileStream = File.OpenWrite(Path.Combine(local_dest, remote_file.Name)))
 		{
@@ -155,6 +181,11 @@ public partial class SFTP_Client : Node
 
 	private long GetTotalAmountOfFileSizesInDirectoryRecursive(string directory, bool only_directories, bool recursive = true)
 	{
+		if (!_SFTPClient.IsConnected)
+		{
+			EmitSignal(SignalName.SftpNotConnected);
+			return 0;
+		}
 		long total_amount = 0;
 		System.Collections.IEnumerable files = _SFTPClient.ListDirectory(directory);
 		foreach (ISftpFile file in files)
@@ -188,8 +219,13 @@ public partial class SFTP_Client : Node
 	long downloadedSize = 0;
 	long totalSize = 0;
 
-	public void DownloadDirectory(string remote_directory_path, string local_directory_dest, bool onlyDownloadFolders = false, bool recursive = true)
+	public int DownloadDirectory(string remote_directory_path, string local_directory_dest, bool onlyDownloadFolders = false, bool recursive = true)
 	{
+		if (!_SFTPClient.IsConnected)
+		{
+			EmitSignal(SignalName.SftpNotConnected);
+			return -1;
+		}
 		downloadedSize = 0;
 		totalSize = 0;
 
@@ -200,15 +236,26 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message);
+			return 100;
 		}
 		if (totalSize == 0)
 		{
 			EmitSignal(SignalName.ProgressDone);
+			return 0;
 		}
 		else
 		{
-			_DownloadDirectory(remote_directory_path, local_directory_dest, onlyDownloadFolders, recursive);
+			try
+			{
+				_DownloadDirectory(remote_directory_path, local_directory_dest, onlyDownloadFolders, recursive);
+				return 0;
+			}
+			catch (Exception e)
+			{
+				EmitSignal(SignalName.SftpError, e.Message);
+				return 100;
+			}
 		}
 	}
 
@@ -226,64 +273,110 @@ public partial class SFTP_Client : Node
 		}
 		else
 		{
-			foreach (ISftpFile file in files)
+			try
 			{
-				if (file.IsDirectory && !(file.Name == "." || file.Name == ".."))
+				foreach (ISftpFile file in files)
 				{
-					await Task.Run(() => Directory.CreateDirectory(local_directory_dest + "/" + file.Name));
-					if (onlyDownloadFolders)
+					if (file.IsDirectory && !(file.Name == "." || file.Name == ".."))
 					{
-						downloadedSize += 1;
-					}
-					if (recursive)
-					{
-						_DownloadDirectory(file.FullName, local_directory_dest + "/" + file.Name, onlyDownloadFolders);
-						EmitSignal(SignalName.ProgressItemChanged, file.Name);
-					}
-				}
-				if (!file.IsDirectory)
-				{
-					if (!onlyDownloadFolders)
-					{
-						using (Stream fileStream = File.OpenWrite(Path.Combine(local_directory_dest, file.Name)))
+						await Task.Run(() => Directory.CreateDirectory(local_directory_dest + "/" + file.Name));
+						if (onlyDownloadFolders)
 						{
-							await Task.Run(() => _SFTPClient.DownloadFile(file.FullName, fileStream));
+							downloadedSize += 1;
+						}
+						if (recursive)
+						{
+							_DownloadDirectory(file.FullName, local_directory_dest + "/" + file.Name, onlyDownloadFolders);
 							EmitSignal(SignalName.ProgressItemChanged, file.Name);
-							downloadedSize += file.Attributes.Size;
-							fileStream.Position = 0;
 						}
 					}
-				}
-				EmitSignal(SignalName.Progress, downloadedSize);
-				if (downloadedSize == totalSize)
-				{
-					EmitSignal(SignalName.ProgressDone);
+					if (!file.IsDirectory)
+					{
+						if (!onlyDownloadFolders)
+						{
+							using (Stream fileStream = File.OpenWrite(Path.Combine(local_directory_dest, file.Name)))
+							{
+								await Task.Run(() => _SFTPClient.DownloadFile(file.FullName, fileStream));
+								EmitSignal(SignalName.ProgressItemChanged, file.Name);
+								downloadedSize += file.Attributes.Size;
+								fileStream.Position = 0;
+							}
+						}
+					}
+					EmitSignal(SignalName.Progress, downloadedSize);
+					if (downloadedSize == totalSize)
+					{
+						EmitSignal(SignalName.ProgressDone);
+					}
 				}
 			}
+			catch (Exception e)
+			{
+				EmitSignal(SignalName.SftpError, e.Message);
+				GD.Print(e);
+			}
 		}
+
 	}
 
-	public void UploadFile(string local_file_path, string remote_file_path)
+	public int UploadFile(string local_file_path, string remote_file_path)
 	{
-		_UploadFile(local_file_path, remote_file_path);
-		GD.Print("Test");
+		GD.Print(_SFTPClient.IsConnected);
+		if (!_SFTPClient.IsConnected)
+		{
+			EmitSignal(SignalName.SftpNotConnected);
+			return -1;
+		}
+		try
+		{
+			_UploadFile(local_file_path, remote_file_path);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			EmitSignal(SignalName.SftpError, e.Message);
+			return 100;
+		}
 	}
 
 	private async Task _UploadFile(string local_file_path, string remote_file_path)
 	{
-		Stream fileStream = File.OpenRead(local_file_path);
-		await Task.Run(() => _SFTPClient.UploadFile(fileStream, remote_file_path, true, null));
-	}
-
-	public void UploadDirectory(string local_path, string remote_path)
-	{
 		try
 		{
-			_UploadDirectory(local_path, remote_path);
+			MemoryStream FileMemoryStream = new MemoryStream();
+
+			using (Stream fileStream = File.OpenRead(local_file_path))
+			{
+				fileStream.CopyTo(FileMemoryStream);
+			}
+			FileMemoryStream.Position = 0;
+
+			await Task.Run(() => _SFTPClient.UploadFile(FileMemoryStream, remote_file_path, true, null));
 		}
 		catch (Exception e)
 		{
+			EmitSignal(SignalName.SftpError, e.Message);
 			GD.Print(e);
+		}
+	}
+
+	public int UploadDirectory(string local_path, string remote_path)
+	{
+		if (!_SFTPClient.IsConnected)
+		{
+			EmitSignal(SignalName.SftpNotConnected);
+			return -1;
+		}
+		try
+		{
+			_UploadDirectory(local_path, remote_path);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			EmitSignal(SignalName.SftpError, e.Message);
+			GD.Print(e);
+			return 100;
 		}
 	}
 
@@ -291,7 +384,7 @@ public partial class SFTP_Client : Node
 	{
 		foreach (ISftpFile file in _SFTPClient.ListDirectory(remote_path))
 		{
-			if (file.IsDirectory && !file.Name.Contains("ydec"))
+			if (!file.IsDirectory && file.Name.Contains("ydec"))
 			{
 				file.Delete();
 			}
@@ -303,13 +396,30 @@ public partial class SFTP_Client : Node
 			try
 			{
 				GD.Print("THE PATH IS --- " + Path.Join(local_path, file.Name) + " " + remote_path + "--- PATH END");
-				Stream fileStream = File.OpenRead(Path.Join(local_path, file.Name));
-				await Task.Run(() => _SFTPClient.UploadFile(fileStream, remote_path + "/" + file.Name, true, null));
+				using (Stream fileStream = File.OpenRead(Path.Join(local_path, file.Name)))
+				{
+					await Task.Run(() => _SFTPClient.UploadFile(fileStream, remote_path + "/" + file.Name, true, null));
+				}
 			}
 			catch (Exception e)
 			{
+				EmitSignal(SignalName.SftpError, e.Message);
 				GD.Print(e);
 			}
 		}
 	}
+	public void _OnNewCategoryCreated(string category_name)
+	{
+		try
+		{
+			GD.Print(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
+			_SFTPClient.CreateDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
+		}
+		catch (Exception E)
+		{
+			EmitSignal(SignalName.SftpError, E.Message);
+			GD.Print(E);
+		}
+	}
 }
+

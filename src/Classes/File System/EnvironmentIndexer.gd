@@ -14,7 +14,8 @@ var indexed_dialog_categories : Array[String]= []
 var highest_index := 0
 
 func _ready():
-	pass
+	if CurrentEnvironment.sftp_client:
+		connect("new_category_created",Callable(CurrentEnvironment.sftp_client,"_OnNewCategoryCreated"))
 
 func index_categories() -> Array[String]:
 

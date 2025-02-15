@@ -12,7 +12,6 @@ extends PanelContainer
 @export var connect_button_path : NodePath
 @export var tree_path : NodePath
 @export var invalid_directory_path : NodePath
-@export var progress_bar_path : NodePath
 @export var select_button_path : NodePath
 @export var path_line_edit_path : NodePath
 
@@ -30,12 +29,14 @@ extends PanelContainer
 @onready var ConnectButton : Button = get_node(connect_button_path)
 @onready var FileTree : Tree = get_node(tree_path)
 @onready var InvalidDirectory : Popup = get_node(invalid_directory_path)
-@onready var Progress : ProgressBar = get_node(progress_bar_path)
 @onready var SelectButton : Button = get_node(select_button_path)
 @onready var PathLineEdit : LineEdit = get_node(path_line_edit_path)
 
 var tree_root
 var forward_dir = []
+var connection_info = {}
+
+
 enum CHOSEN_AUTH_METHOD{PASSWORD,KEY,KEY_AND_PASSPHRASE}
 
 signal sftp_directory_chosen
@@ -63,7 +64,7 @@ func _on_button_pressed():
 	get_parent().add_child(connecting_popup)
 	connecting_popup.popup_centered()
 	await get_tree().create_timer(1.0).timeout
-	var connection_info = {
+	connection_info = {
 		"username" : UsernameTextEdit.text,
 		"hostname" : HostnameTextEdit.text, 
 		"port":PortSpinBox.value
@@ -73,14 +74,10 @@ func _on_button_pressed():
 	if KeyFileLineEdit.text != "":
 		connection_info["private_key"] = KeyFileLineEdit.text
 	if KeyPassPhrase.text != "":
-		connection_info["private_key_passphrase"]
+		connection_info["private_key_passphrase"] = KeyPassPhrase.text
 	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(connection_info)
 	connecting_popup.queue_free()
-	if connection_result == "OK":
-		CurrentEnvironment.sftp_hostname = HostnameTextEdit.text
-		CurrentEnvironment.sftp_username = UsernameTextEdit.text
-		CurrentEnvironment.sftp_port = PortSpinBox.value
-	else:
+	if connection_result != "OK":
 		var failure_alert := AcceptDialog.new()
 		get_parent().add_child(failure_alert)
 		failure_alert.dialog_text = connection_result
@@ -126,7 +123,7 @@ func _on_select_folder_pressed():
 		InvalidDirectory.connect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp").bind(remote_path_to_download_from))
 		InvalidDirectory.connect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	else:
-		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname+remote_path_to_download_from
+		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
 		make_local_cache_and_download_sftp(remote_path_to_download_from)	
 
 	
@@ -155,22 +152,20 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",CurrentEnvironment.sftp_local_cache_directory)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
-	sftp_directory_chosen.emit(CurrentEnvironment.sftp_local_cache_directory)
+	sftp_directory_chosen.emit(CurrentEnvironment.sftp_local_cache_directory,connection_info)
 	
 	
-func connect_to_established_sftp(password,username,hostname,port,remote_dir,local_dir):
+func connect_to_established_sftp(auth_data,remote_dir,local_dir):
 	CurrentEnvironment.create_sftpclient()
-	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(username,hostname,port,password)
+	connection_info = auth_data.call()
+	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(connection_info)
 	if connection_result == "OK":
-		CurrentEnvironment.sftp_hostname = hostname
-		CurrentEnvironment.sftp_username = username
-		CurrentEnvironment.sftp_port = port
 		CurrentEnvironment.sftp_directory = remote_dir
 		CurrentEnvironment.sftp_client.ChangeDirectory(remote_dir)
+		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
 		if DirAccess.dir_exists_absolute(local_dir):
-			sftp_directory_chosen.emit(local_dir)
+			sftp_directory_chosen.emit(local_dir,connection_info)
 		else:
-			CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname+remote_dir
 			make_local_cache_and_download_sftp(remote_dir)
 	else:
 		var failure_alert := AcceptDialog.new()
@@ -184,10 +179,6 @@ func disconnect_invalid_directory():
 	InvalidDirectory.disconnect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp"))
 	InvalidDirectory.disconnect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	InvalidDirectory.hide()
-
-func switch_editor():
-	var local_cache_directory_path = OS.get_user_data_dir()+"/sftp_cache/"+CurrentEnvironment.sftp_username+"@"+CurrentEnvironment.sftp_hostname
-	sftp_directory_chosen.emit(local_cache_directory_path+"/customnpcs")
 	
 
 func _on_back_pressed():
@@ -225,7 +216,8 @@ func _on_close_button_pressed():
 	PasswordTextEdit.text = ""
 	UsernameTextEdit.text = ""
 	PortSpinBox.value = 22
-	CurrentEnvironment.sftp_client.Disconnect()
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.Disconnect()
 
 
 func _on_tree_nothing_selected():
@@ -267,8 +259,23 @@ func _on_auth_type_button_item_selected(index):
 
 func _on_select_key_file_button_pressed():
 	var key_file_dialog = FileDialog.new()
-	key_file_dialog.add_filter("*.")
+	key_file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	key_file_dialog.title = "Select Private Key File"
+	key_file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	var ssh_dir
+	if OS.has_feature("windows"):
+		ssh_dir = OS.get_environment("USERPROFILE")+"/.ssh"
+	else:
+		ssh_dir = OS.get_environment("HOME")+"/.ssh"
+	key_file_dialog.current_dir = ssh_dir
+	key_file_dialog.connect("file_selected",Callable(self,"update_key_file_line_edit"))
+	key_file_dialog.min_size = Vector2(DisplayServer.window_get_size())/2
+	key_file_dialog.popup_centered()
+	get_parent().add_child(key_file_dialog)
+	key_file_dialog.popup_centered()
 
+func update_key_file_line_edit(text):
+	KeyFileLineEdit.text = text
 
 func _on_key_file_button_toggled(button_pressed):
 	PrivateKeyVbox.visible = button_pressed

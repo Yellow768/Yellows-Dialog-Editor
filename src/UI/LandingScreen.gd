@@ -76,14 +76,23 @@ func add_directory_to_config(directory : String) -> void:
 	config.set_value("prev_dirs","dir_array",JSON.new().stringify((dir_array)))
 	config.save(user_settings_path)
 	
-func add_ssh_to_config(hostname : String,username: String, port : int,directory: String,local_path : String):
+func add_ssh_to_config(connection_info,remote_directory,local_path : String):
 	var config = ConfigFile.new()
 	config.load(user_settings_path)
 	var dir_array = JSON.parse_string(config.get_value("prev_dirs","dir_array","[]"))
 	for dir in dir_array:
-		if dir["SSH"]["hostname"] == hostname && dir["SSH"]["username"] == username && dir["SSH"]["port"] == port && dir["SSH"]["directory"] == directory:
+		if typeof(dir) == TYPE_DICTIONARY && dir.has("SSH") && dir["SSH"]["hostname"] == connection_info["hostname"] && dir["SSH"]["username"] == connection_info["username"] && dir["SSH"]["port"] == connection_info["port"] && dir["SSH"]["directory"] == remote_directory:
 			dir_array.erase(dir)
-	dir_array.push_front({"SSH":{"hostname":hostname,"username":username,"port":port,"directory":directory,"path":local_path}})
+	var ssh_directory_saved_info = {"SSH":{}}
+	var ssh_dir_dict = ssh_directory_saved_info["SSH"]
+	ssh_dir_dict["hostname"] = connection_info["hostname"]
+	ssh_dir_dict["username"] = connection_info["username"]
+	ssh_dir_dict["port"] = connection_info["port"]
+	if connection_info.has("private_key_file"):
+		ssh_dir_dict["private_key_file"] = connection_info["private_key_file"]
+	ssh_dir_dict["directory"] = remote_directory
+	ssh_dir_dict["path"] = local_path
+	dir_array.push_front(ssh_directory_saved_info)
 	config.set_value("prev_dirs","dir_array",JSON.new().stringify((dir_array)))
 	config.save(user_settings_path)
 
@@ -149,8 +158,8 @@ func _on_file_dialog_visibility_changed():
 	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
 
 
-func _on_sftp_tester_sftp_directory_chosen(path):
-	add_ssh_to_config(CurrentEnvironment.sftp_hostname,CurrentEnvironment.sftp_username,CurrentEnvironment.sftp_port,CurrentEnvironment.sftp_directory,path)
+func _on_sftp_tester_sftp_directory_chosen(path,connection_info):
+	add_ssh_to_config(connection_info,CurrentEnvironment.sftp_directory,path)
 	change_to_editor(path)
 
 
@@ -161,13 +170,16 @@ func _on_prev_dirs_tree_item_activated():
 		change_to_editor(PrevDirTree.get_selected().get_text(0))
 	else:
 		var ssh_data = selected.get_metadata(0)
-		var PasswordEnter = load("res://src/UI/Util/TextEnterConfirmTemplate.tscn").instantiate()
-		PasswordEnter.set_secret(true)
-		PasswordEnter.title = "Enter Password for "+ssh_data["username"]+"@"+ssh_data["hostname"]
-		PasswordEnter.set_placeholder_text("Password")
-		get_parent().add_child(PasswordEnter)
-		PasswordEnter.position = Vector2(DisplayServer.window_get_size().x/2,DisplayServer.window_get_size().y/2)
-		PasswordEnter.connect("confirmed_send_text",Callable(SftpStarter,"connect_to_established_sftp").bind(ssh_data["username"],ssh_data["hostname"],ssh_data["port"],ssh_data["directory"],ssh_data["path"]))
+		var AuthData = load("res://src/UI/Util/established_sftp_auth.tscn").instantiate()
+		get_parent().add_child(AuthData)
+		AuthData.popup_centered()
+		AuthData.username = ssh_data["username"]
+		AuthData.hostname = ssh_data["hostname"]
+		AuthData.port = ssh_data["port"]
+		if ssh_data.has("private_key_file") && ssh_data["private_key_file"] != null:
+			AuthData.set_private_key_enabled(true)
+			AuthData.set_private_key_file(ssh_data["private_key_file"])
+		AuthData.connect("confirmed",Callable(SftpStarter,"connect_to_established_sftp").bind(Callable(AuthData,"get_auth_data"),ssh_data["directory"],ssh_data["path"]))
 
 
 func _on_prev_dirs_tree_button_clicked(item, column, id, mouse_button_index):
