@@ -452,5 +452,24 @@ public partial class SFTP_Client : Node
 			GD.Print(e);
 		}
 	}
+
+	public void _OnCategoryDuplicated(string old_category_name, string new_category_name){
+		try{
+			_SFTPClient.CreateDirectory(_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
+			var fsIn = _SFTPClient.OpenRead(_SFTPClient.WorkingDirectory+"/dialogs/"+old_category_name);
+			var fsOut = _SFTPClient.OpenWrite(_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
+			int data;
+			while ((data = fsIn.ReadByte()) != -1)
+				fsOut.WriteByte((byte)data);
+			fsOut.Flush();
+			fsIn.Close();
+			fsOut.Close();
+
+		}
+		catch(Exception e){
+			EmitSignal(SignalName.SftpError, e.Message);
+			GD.Print(e);
+		}
+	}
 }
 

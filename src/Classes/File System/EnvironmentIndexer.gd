@@ -110,7 +110,7 @@ func duplicate_category(category_name : String):
 	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+new_category_name)
 	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
 	emit_signal("new_category_created",new_category_name)
-	emit_signal("category_duplicated",add_as_many_underscores_needed_to_make_unique(category_name))
+	emit_signal("category_duplicated",category_name,new_category_name)
 	index_categories()
 
 func add_as_many_underscores_needed_to_make_unique(old_name):
