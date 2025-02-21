@@ -222,7 +222,6 @@ func export_category_request():
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
 	if CurrentEnvironment.sftp_client:
-		print("why teh hell")
 		CurrentEnvironment.sftp_client.UploadDirectory(CurrentEnvironment.current_directory+"/dialogs/"+current_category,CurrentEnvironment.sftp_directory+"/dialogs/"+current_category+"/")
 	
 	emit_signal("category_succesfully_exported",current_category)

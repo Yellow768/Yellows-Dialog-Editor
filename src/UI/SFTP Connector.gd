@@ -220,6 +220,8 @@ func _on_close_button_pressed():
 	PortSpinBox.value = 22
 	if CurrentEnvironment.sftp_client:
 		CurrentEnvironment.sftp_client.Disconnect()
+		CurrentEnvironment.sftp_client.queue_free()
+		CurrentEnvironment.sftp_client = null
 
 
 func _on_tree_nothing_selected():

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
 [ext_resource type="Script" path="res://src/UI/InvalidFolderWarning.gd" id="4_o71e8"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
-[ext_resource type="Script" path="res://src/UI/SFTP Tester.gd" id="7_safcj"]
+[ext_resource type="Script" path="res://src/UI/SFTP Connector.gd" id="8_4yg0d"]
 
 [sub_resource type="FontVariation" id="FontVariation_mmhe0"]
 base_font = ExtResource("4_tgwf2")
@@ -335,7 +335,7 @@ offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4ticj")
-script = ExtResource("7_safcj")
+script = ExtResource("8_4yg0d")
 username_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Username")
 hostname_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Hostname")
 port_spinbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Port")
