@@ -54,13 +54,18 @@ var categoryPanelRevealed = false
 var category_temp_data : Dictionary = {}
 
 
+func _ready():
+	create_category_buttons(EnvironmentIndex.index_categories())
+	export_version = GlobalDeclarations.last_used_export_version
+	if CurrentEnvironment.sftp_client:
+		connect("category_succesfully_exported",Callable(CurrentEnvironment.sftp_client,"_OnCategoryExported").bind())
+		connect("category_succesfully_saved",Callable(CurrentEnvironment.sftp_client,"_OnCategorySaved").bind())
+
 func set_current_category(name):
 	current_category = name
 	CurrentEnvironment.current_category_name = current_category
 
-func _ready():
-	create_category_buttons(EnvironmentIndex.index_categories())
-	export_version = GlobalDeclarations.last_used_export_version
+
 	
 
 func create_category_buttons(categories):
@@ -170,13 +175,7 @@ func save_category_request():
 	var result = cat_save.save_category(current_category) 
 	if result == OK:
 		emit_signal("category_succesfully_saved",current_category)
-		current_category_button.set_unsaved(false)
-		if CurrentEnvironment.sftp_client:
-			if CurrentEnvironment.sftp_client.UploadFile(CurrentEnvironment.current_directory+"/dialogs/"+current_category+"/"+current_category+".ydec",CurrentEnvironment.sftp_directory+"/dialogs/"+current_category+"/"+current_category+".ydec") != 0:
-				emit_signal("category_failed_sftp_save")
-			else:
-				emit_signal("category_sftp_succesfully_saved")
-			
+		current_category_button.set_unsaved(false)		
 	else:
 		emit_signal("category_failed_save")
 		printerr(error_string(result))
@@ -221,9 +220,6 @@ func export_category_request():
 	print("Exported Category "+current_category)
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
-	if CurrentEnvironment.sftp_client:
-		CurrentEnvironment.sftp_client.UploadDirectory(CurrentEnvironment.current_directory+"/dialogs/"+current_category,CurrentEnvironment.sftp_directory+"/dialogs/"+current_category+"/")
-	
 	emit_signal("category_succesfully_exported",current_category)
 	
 

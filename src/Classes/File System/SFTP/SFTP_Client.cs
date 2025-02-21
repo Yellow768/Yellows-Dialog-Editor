@@ -27,7 +27,7 @@ public partial class SFTP_Client : Node
 	public delegate void SftpNotConnectedEventHandler();
 
 	[Signal]
-	public delegate void SftpErrorEventHandler(string error);
+	public delegate void SftpErrorEventHandler(string error,string message);
 
 
 
@@ -129,11 +129,10 @@ public partial class SFTP_Client : Node
 		try
 		{
 			_SFTPClient.ChangeDirectory(path);
-			GD.Print(_SFTPClient.WorkingDirectory);
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
+			EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to change the directory on the SFTP server");
 		}
 	}
 
@@ -150,21 +149,20 @@ public partial class SFTP_Client : Node
 	public delegate void ProgressHandler(float progress);
 	public event ProgressHandler OnProgress;
 
-	public int DownloadFile(string file_path, string local_dest)
+	public void DownloadFile(string file_path, string local_dest)
 	{
 		if (!_SFTPClient.IsConnected)
 		{
 			EmitSignal(SignalName.SftpNotConnected);
-			return -1;
+			return;
 		}
 		try
 		{
 			_DownloadFile(file_path, local_dest);
-			return 0;
 		}
 		catch (Exception e)
 		{
-			return 100;
+			EmitSignal(SignalName.SftpError,e.Message,"An error occured trying to download a file from the SFTP server");
 		}
 	}
 
@@ -214,19 +212,18 @@ public partial class SFTP_Client : Node
 				}
 			}
 		}
-		GD.Print("Runs");
 		return total_amount;
 	}
 
 	long downloadedSize = 0;
 	long totalSize = 0;
 
-	public int DownloadDirectory(string remote_directory_path, string local_directory_dest, bool onlyDownloadFolders = false, bool recursive = true)
+	public void DownloadDirectory(string remote_directory_path, string local_directory_dest, bool onlyDownloadFolders = false, bool recursive = true)
 	{
 		if (!_SFTPClient.IsConnected)
 		{
 			EmitSignal(SignalName.SftpNotConnected);
-			return -1;
+			return ;
 		}
 		downloadedSize = 0;
 		totalSize = 0;
@@ -238,25 +235,25 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
-			return 100;
+			EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to download files from the SFTP server");
+			return;
 		}
 		if (totalSize == 0)
 		{
 			EmitSignal(SignalName.ProgressDone);
-			return 0;
+		return;
 		}
 		else
 		{
 			try
 			{
 				_DownloadDirectory(remote_directory_path, local_directory_dest, onlyDownloadFolders, recursive);
-				return 0;
+				return ;
 			}
 			catch (Exception e)
 			{
-				EmitSignal(SignalName.SftpError, e.Message);
-				return 100;
+				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to download files from the SFTP server");
+				return;
 			}
 		}
 	}
@@ -269,7 +266,6 @@ public partial class SFTP_Client : Node
 			EmitSignal(SignalName.Progress, downloadedSize);
 			if (downloadedSize == totalSize)
 			{
-				GD.Print("test");
 				EmitSignal(SignalName.ProgressDone);
 			}
 		}
@@ -314,30 +310,27 @@ public partial class SFTP_Client : Node
 			}
 			catch (Exception e)
 			{
-				EmitSignal(SignalName.SftpError, e.Message);
-				GD.Print(e);
+				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to download files from the SFTP server");
 			}
 		}
 
 	}
 
-	public int UploadFile(string local_file_path, string remote_file_path)
+	public void UploadFile(string local_file_path, string remote_file_path)
 	{
-		GD.Print(_SFTPClient.IsConnected);
 		if (!_SFTPClient.IsConnected)
 		{
 			EmitSignal(SignalName.SftpNotConnected);
-			return -1;
+			return ;
 		}
 		try
 		{
 			_UploadFile(local_file_path, remote_file_path);
-			return 0;
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
-			return 100;
+			EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to upload a file to the SFTP server");
+			return ;
 		}
 	}
 
@@ -347,7 +340,6 @@ public partial class SFTP_Client : Node
 			for(int i = 0; i < each_directory.Length -1; i++){
 				if(!string.IsNullOrEmpty(each_directory[i])){
 					current_dir += "/"+each_directory[i];
-					GD.Print("checking if "+current_dir+" exists");
 					if(!_SFTPClient.Exists(current_dir)){
 						_SFTPClient.CreateDirectory(current_dir);
 					}
@@ -372,8 +364,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message, "An error occured trying to upload a file to the SFTP Server");
 		}
 	}
 
@@ -385,13 +376,11 @@ public partial class SFTP_Client : Node
 		}
 		try
 		{
-			GD.Print("Upload Direcotry!!!!");
 			_UploadDirectory(local_path, remote_path);
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message, "An error occured trying to upload to an SFTP Directory");
 		}
 	}
 
@@ -412,7 +401,6 @@ public partial class SFTP_Client : Node
 		{
 			
 			
-				GD.Print("THE PATH IS --- " + Path.Join(local_path, file.Name) + " " + remote_path + "--- PATH END");
 				using (Stream fileStream = File.OpenRead(Path.Join(local_path, file.Name)))
 				{
 					
@@ -424,21 +412,18 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 			{
-				EmitSignal(SignalName.SftpError, e.Message);
-				GD.Print(e.Message);
+				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to upload to SFTP Directory");
 			}
 	}
 	public void _OnNewCategoryCreated(string category_name)
 	{
 		try
 		{
-			GD.Print(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
 			_SFTPClient.CreateDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
 		}
-		catch (Exception E)
+		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, E.Message);
-			GD.Print(E);
+			EmitSignal(SignalName.SftpError, e.Message, "Category failed to be created on SFTP Server");
 		}
 	}
 
@@ -450,8 +435,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message,"Category failed to be deleted on SFTP Server");
 		}
 
 	}
@@ -468,20 +452,36 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message);
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message,"Category failed to be renamed on SFTP Server");
 		}
 	}
 
 	public void _OnCategoryDuplicated(string old_category_name, string new_category_name){
 		try{
-			GD.Print(local_file_cache+"/dialogs/"+new_category_name);
-			GD.Print(_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
 			UploadDirectory(local_file_cache+"/dialogs/"+new_category_name,_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
 		}
 		catch(Exception e){
-			EmitSignal(SignalName.SftpError, e.Message);
-			GD.Print(e);
+			EmitSignal(SignalName.SftpError, e.Message,"Category failed to duplicate on SFTP Server");
+		}
+	}
+
+
+	public void _OnCategoryExported(string category_name){
+		try{
+		UploadDirectory(local_file_cache+"/dialogs/"+category_name,_SFTPClient.WorkingDirectory+"/dialogs/"+category_name+"/");
+		}
+		catch(Exception e){
+			EmitSignal(SignalName.SftpError,e.Message,"Category failed to export to SFTP Server");
+		}
+	}
+
+	public void _OnCategorySaved(string category_name){
+		try{
+			GD.Print("Saved");
+		UploadFile(local_file_cache+"/dialogs/"+category_name+"/"+category_name+".ydec",_SFTPClient.WorkingDirectory+"/dialogs/"+category_name+"/"+category_name+".ydec");
+		}
+		catch(Exception e){
+			EmitSignal(SignalName.SftpError,e.Message,"Category failed to save to SFTP Server");
 		}
 	}
 }

@@ -6,6 +6,7 @@ extends Node
 func _ready():
 	if CurrentEnvironment.sftp_client:
 		CurrentEnvironment.sftp_client.connect("SftpError",Callable(self,"_on_sftp_error"))
+		CurrentEnvironment.sftp_client.connect("SftpNotConnected",Callable(self,"_on_sftp_not_connected"))
 
 func tween(node,property,to,speed,type):
 	var tweener = get_tree().create_tween()
@@ -87,5 +88,10 @@ func _on_category_panel_category_failed_sftp_save():
 func _on_category_panel_category_sftp_succesfully_saved():
 	add_notification(tr("YDEC Saved to SFTP Server"))
 	
-func _on_sftp_error(error):
-	add_notification("An error occured with SFTP (check logs)",Color(1,0,0))
+func _on_sftp_error(error,message):
+	add_notification(message,Color(1,0,0))
+	push_error(error)
+
+func _on_sftp_not_connected():
+	add_notification("No Connection to SFTP server",Color(1,0,0))
+	push_error("No connection to SFTP server")
