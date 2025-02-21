@@ -66,26 +66,22 @@ _data = {
 "RESET": SubResource("Animation_dm7yp")
 }
 
-[node name="Panel" type="Panel"]
+[node name="Panel" type="PanelContainer"]
 custom_minimum_size = Vector2(25, 25)
 offset_right = 500.0
-offset_bottom = 92.0
+offset_bottom = 124.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_iqlgh")
 script = ExtResource("1_35q5m")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -19.0
-offset_right = 316.0
-offset_bottom = 19.0
-grow_vertical = 2
-text = "FLAVORNPC_Benjamin Lawrence"
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Category Saved"
 label_settings = SubResource("LabelSettings_i85sr")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

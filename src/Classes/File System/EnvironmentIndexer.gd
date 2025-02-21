@@ -18,7 +18,7 @@ func _ready():
 		connect("new_category_created",Callable(CurrentEnvironment.sftp_client,"_OnNewCategoryCreated"))
 		connect("category_renamed",Callable(CurrentEnvironment.sftp_client,"_OnCategoryRenamed"))
 		connect("category_deleted",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDeleted"))
-		connect("category_duplicated",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDuplicated"))
+		#connect("category_duplicated",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDuplicated"))
 
 func index_categories() -> Array[String]:
 
@@ -108,10 +108,11 @@ func duplicate_category(category_name : String):
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
 	var new_category_name = add_as_many_underscores_needed_to_make_unique(category_name)
 	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+new_category_name)
-	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
+	await dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
 	emit_signal("new_category_created",new_category_name)
-	emit_signal("category_duplicated",category_name,new_category_name)
 	index_categories()
+	emit_signal("category_duplicated",category_name,new_category_name)
+	
 
 func add_as_many_underscores_needed_to_make_unique(old_name):
 	var new_name = old_name+"_"

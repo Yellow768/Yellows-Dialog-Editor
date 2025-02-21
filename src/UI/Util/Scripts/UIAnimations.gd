@@ -3,13 +3,17 @@ extends Node
 @export var InformationPanel: NodePath
 @export var CategoryPanel: NodePath
 
+func _ready():
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.connect("SftpError",Callable(self,"_on_sftp_error"))
+
 func tween(node,property,to,speed,type):
 	var tweener = get_tree().create_tween()
 	tweener.tween_property(node,property,to,speed).set_trans(type)
 
-func add_notification(text):
+func add_notification(text,color = Color(1,1,1)):
 	var new_notif = GlobalDeclarations.NOTIFICATION.instantiate()
-	new_notif.set_notification_text(text)
+	new_notif.set_notification_text(text,color)
 	$NotificationCenter.add_child(new_notif)
 	$NotificationCenter.move_child(new_notif,0)
 	
@@ -82,3 +86,6 @@ func _on_category_panel_category_failed_sftp_save():
 
 func _on_category_panel_category_sftp_succesfully_saved():
 	add_notification(tr("YDEC Saved to SFTP Server"))
+	
+func _on_sftp_error(error):
+	add_notification("An error occured with SFTP (check logs)",Color(1,0,0))

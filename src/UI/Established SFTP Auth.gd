@@ -90,7 +90,6 @@ func _on_file_dialog_opener_pressed():
 	key_file_dialog.current_dir = ssh_dir
 	key_file_dialog.connect("file_selected",Callable(self,"set_private_key_file"))
 	key_file_dialog.min_size = Vector2(DisplayServer.window_get_size())/2
-	key_file_dialog.popup_centered()
 	get_parent().add_child(key_file_dialog)
 	key_file_dialog.popup_centered()
 	

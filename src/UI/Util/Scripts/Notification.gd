@@ -1,13 +1,11 @@
-extends Panel
+extends PanelContainer
 
 func _ready():
 	$AnimationPlayer.play("Notification")
 
-func set_notification_text(text):
+func set_notification_text(text,color):
 	$Label.text = text
-	var size_x = 200
-	size_x += text.length() * 8
-	custom_minimum_size.x = size_x
+	$Label.modulate = color
 
 	
 

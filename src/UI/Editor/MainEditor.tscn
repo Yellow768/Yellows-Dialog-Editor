@@ -2294,6 +2294,7 @@ one_shot = true
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="category_buttons_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_deleted"]
+[connection signal="category_duplicated" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="load_duplicated_category"]
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor/UndoSystem" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]

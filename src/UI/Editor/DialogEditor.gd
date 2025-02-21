@@ -8,6 +8,7 @@ signal response_selected
 signal no_response_selected
 signal editor_cleared
 signal finished_loading
+signal reindex_finished
 
 signal request_save
 signal import_category_canceled
@@ -719,7 +720,8 @@ func reindex_ids():
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
 			CurrentEnvironment.highest_id +=1
-			child.set_dialog_id(CurrentEnvironment.highest_id) 
+			child.set_dialog_id(CurrentEnvironment.highest_id)
+	emit_signal("reindex_finished")
 
 
 func _on_category_panel_request_dialog_ids_reassigned():

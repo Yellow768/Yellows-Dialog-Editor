@@ -33,6 +33,8 @@ public partial class SFTP_Client : Node
 
 	private Renci.SshNet.SftpClient _SFTPClient;
 	public Godot.Collections.Dictionary ConnectionInfoDict;
+	public string local_file_cache;
+	public string remote_file_directory;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -339,10 +341,25 @@ public partial class SFTP_Client : Node
 		}
 	}
 
+	private void _RecursiveCreateAllDirsInPath(string path){
+			string[] each_directory = path.Split('/');
+			string current_dir = "";
+			for(int i = 0; i < each_directory.Length -1; i++){
+				if(!string.IsNullOrEmpty(each_directory[i])){
+					current_dir += "/"+each_directory[i];
+					GD.Print("checking if "+current_dir+" exists");
+					if(!_SFTPClient.Exists(current_dir)){
+						_SFTPClient.CreateDirectory(current_dir);
+					}
+				}
+				
+			}
+	}
 	private async Task _UploadFile(string local_file_path, string remote_file_path)
 	{
 		try
 		{
+			_RecursiveCreateAllDirsInPath(remote_file_path);
 			MemoryStream FileMemoryStream = new MemoryStream();
 
 			using (Stream fileStream = File.OpenRead(local_file_path))
@@ -360,28 +377,28 @@ public partial class SFTP_Client : Node
 		}
 	}
 
-	public int UploadDirectory(string local_path, string remote_path)
+	public void UploadDirectory(string local_path, string remote_path)
 	{
 		if (!_SFTPClient.IsConnected)
 		{
 			EmitSignal(SignalName.SftpNotConnected);
-			return -1;
 		}
 		try
 		{
+			GD.Print("Upload Direcotry!!!!");
 			_UploadDirectory(local_path, remote_path);
-			return 0;
 		}
 		catch (Exception e)
 		{
 			EmitSignal(SignalName.SftpError, e.Message);
 			GD.Print(e);
-			return 100;
 		}
 	}
 
 	private async Task _UploadDirectory(string local_path, string remote_path)
 	{
+		try{
+		_RecursiveCreateAllDirsInPath(remote_path);
 		foreach (ISftpFile file in _SFTPClient.ListDirectory(remote_path))
 		{
 			if (!file.IsDirectory && file.Name.Contains("ydec"))
@@ -393,20 +410,23 @@ public partial class SFTP_Client : Node
 		FileInfo[] Files = d.GetFiles("*.json");
 		foreach (FileInfo file in Files)
 		{
-			try
-			{
+			
+			
 				GD.Print("THE PATH IS --- " + Path.Join(local_path, file.Name) + " " + remote_path + "--- PATH END");
 				using (Stream fileStream = File.OpenRead(Path.Join(local_path, file.Name)))
 				{
+					
 					await Task.Run(() => _SFTPClient.UploadFile(fileStream, remote_path + "/" + file.Name, true, null));
 				}
-			}
-			catch (Exception e)
+			
+			
+		}
+		}
+		catch (Exception e)
 			{
 				EmitSignal(SignalName.SftpError, e.Message);
-				GD.Print(e);
+				GD.Print(e.Message);
 			}
-		}
 	}
 	public void _OnNewCategoryCreated(string category_name)
 	{
@@ -455,16 +475,9 @@ public partial class SFTP_Client : Node
 
 	public void _OnCategoryDuplicated(string old_category_name, string new_category_name){
 		try{
-			_SFTPClient.CreateDirectory(_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
-			var fsIn = _SFTPClient.OpenRead(_SFTPClient.WorkingDirectory+"/dialogs/"+old_category_name);
-			var fsOut = _SFTPClient.OpenWrite(_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
-			int data;
-			while ((data = fsIn.ReadByte()) != -1)
-				fsOut.WriteByte((byte)data);
-			fsOut.Flush();
-			fsIn.Close();
-			fsOut.Close();
-
+			GD.Print(local_file_cache+"/dialogs/"+new_category_name);
+			GD.Print(_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
+			UploadDirectory(local_file_cache+"/dialogs/"+new_category_name,_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
 		}
 		catch(Exception e){
 			EmitSignal(SignalName.SftpError, e.Message);

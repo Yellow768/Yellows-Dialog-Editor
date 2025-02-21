@@ -124,6 +124,7 @@ func _on_select_folder_pressed():
 		InvalidDirectory.connect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	else:
 		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
+		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
 		make_local_cache_and_download_sftp(remote_path_to_download_from)	
 
 	
@@ -163,6 +164,7 @@ func connect_to_established_sftp(auth_data,remote_dir,local_dir):
 		CurrentEnvironment.sftp_directory = remote_dir
 		CurrentEnvironment.sftp_client.ChangeDirectory(remote_dir)
 		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
+		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
 		if DirAccess.dir_exists_absolute(local_dir):
 			sftp_directory_chosen.emit(local_dir,connection_info)
 		else:

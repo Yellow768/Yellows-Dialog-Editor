@@ -222,6 +222,7 @@ func export_category_request():
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
 	if CurrentEnvironment.sftp_client:
+		print("why teh hell")
 		CurrentEnvironment.sftp_client.UploadDirectory(CurrentEnvironment.current_directory+"/dialogs/"+current_category,CurrentEnvironment.sftp_directory+"/dialogs/"+current_category+"/")
 	
 	emit_signal("category_succesfully_exported",current_category)
@@ -237,6 +238,7 @@ func load_category(category_name : String,category_button : Button = null):
 				if child.category_name == category_name:
 					child.button_pressed = true
 					category_button = child
+					print("Found Category Name")
 	else:
 		category_loading_finished.emit(category_name)
 		return
@@ -337,10 +339,14 @@ func _on_export_type_button_item_selected(index:int):
 	GlobalDeclarations.last_used_export_version = index
 	GlobalDeclarations.save_config()
 
-func load_duplicated_category(name : String):
+func load_duplicated_category(old_name : String ,new_name : String):
 	save_category_request()
-	#load_category(name)
-	#emit_signal("request_dialog_ids_reassigned")
+	current_category_button = null
+	load_category(new_name)
+	emit_signal("request_dialog_ids_reassigned")
+	if CurrentEnvironment.sftp_client:
+		save_category_request()
+	
 	
 
 
