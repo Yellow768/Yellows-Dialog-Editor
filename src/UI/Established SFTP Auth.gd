@@ -102,7 +102,7 @@ func get_auth_data():
 		auth_data["password"] = password
 	if private_key_enabled:
 		if private_key_file != "":
-			auth_data["private_key"] = private_key_file
+			auth_data["private_key_file"] = private_key_file
 		if key_passphrase != "":
 			auth_data["private_key_passphrase"] = key_passphrase
 	return auth_data

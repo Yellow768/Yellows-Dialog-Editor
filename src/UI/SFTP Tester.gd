@@ -72,7 +72,7 @@ func _on_button_pressed():
 	if PasswordTextEdit.text != "":
 		connection_info["password"] = PasswordTextEdit.text
 	if KeyFileLineEdit.text != "":
-		connection_info["private_key"] = KeyFileLineEdit.text
+		connection_info["private_key_file"] = KeyFileLineEdit.text
 	if KeyPassPhrase.text != "":
 		connection_info["private_key_passphrase"] = KeyPassPhrase.text
 	var connection_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(connection_info)

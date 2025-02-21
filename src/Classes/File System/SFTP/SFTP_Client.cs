@@ -68,16 +68,16 @@ public partial class SFTP_Client : Node
 			{
 				AuthMethods.Add(new PasswordAuthenticationMethod(connection_info["username"].ToString(), connection_info["password"].ToString()));
 			}
-			if (connection_info.ContainsKey("private_key"))
+			if (connection_info.ContainsKey("private_key_file"))
 			{
 				PrivateKeyFile PrivateKey;
 				if (connection_info.ContainsKey("private_key_passphrase"))
 				{
-					PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString(), connection_info["private_key_passphrase"].ToString());
+					PrivateKey = new PrivateKeyFile(connection_info["private_key_file"].ToString(), connection_info["private_key_passphrase"].ToString());
 				}
 				else
 				{
-					PrivateKey = new PrivateKeyFile(connection_info["private_key"].ToString());
+					PrivateKey = new PrivateKeyFile(connection_info["private_key_file"].ToString());
 				}
 				var KeyFiles = new[] { PrivateKey };
 				AuthMethods.Add(new PrivateKeyAuthenticationMethod(connection_info["username"].ToString(), KeyFiles));
