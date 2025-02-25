@@ -1857,6 +1857,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -20.0
+offset_bottom = -180.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1868,6 +1869,7 @@ horizontal_alignment = 1
 [node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 1
 text = "CREATE_NEW_CATEGORY"
 
 [node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer"]
@@ -1875,9 +1877,9 @@ layout_mode = 2
 placeholder_text = "SEARCH"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(340, 400)
+custom_minimum_size = Vector2(340, 300)
 layout_mode = 2
-size_flags_vertical = 15
+size_flags_vertical = 2
 
 [node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer"]
 clip_contents = true
@@ -1887,19 +1889,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 2
 
 [node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 90)
+visible = false
 layout_mode = 2
+mouse_filter = 1
 
 [node name="SFTP_BOX" type="VBoxContainer" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 0
+alignment = 2
 script = ExtResource("38_78yl7")
 
 [node name="SFTPLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-text = "SFTP Connection"
+text = "SFTP Status : Connected"
 horizontal_alignment = 1
 
 [node name="SftpConnection" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
@@ -1910,11 +1915,17 @@ text = "SFTP_CONNECTION"
 
 [node name="SftpDirectory" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(300, 200)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 1
 text = "SFTP_DIRECTORY"
 autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+custom_minimum_size = Vector2(26, 20)
+layout_mode = 2
+text = "Reconnect"
 
 [node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
 script = ExtResource("13")
@@ -2292,6 +2303,7 @@ one_shot = true
 [connection signal="unsaved_change" from="CategoryPanel" to="." method="add_to_unsaved_categories"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
+[connection signal="pressed" from="CategoryPanel/VBoxContainer/SFTP_BOX/Button" to="CategoryPanel/VBoxContainer/SFTP_BOX" method="_on_button_pressed"]
 [connection signal="category_buttons_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_deleted"]
 [connection signal="category_duplicated" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="load_duplicated_category"]
