@@ -7,6 +7,8 @@ func _ready():
 	if CurrentEnvironment.sftp_client:
 		CurrentEnvironment.sftp_client.connect("SftpError",Callable(self,"_on_sftp_error"))
 		CurrentEnvironment.sftp_client.connect("SftpNotConnected",Callable(self,"_on_sftp_not_connected"))
+		CurrentEnvironment.sftp_client.connect("SftpDisconnected",Callable(self,"_on_sftp_disconnected"))
+		CurrentEnvironment.sftp_client.connect("SftpConnected",Callable(self,"_on_sftp_conneceted"))
 
 func tween(node,property,to,speed,type):
 	var tweener = get_tree().create_tween()
@@ -95,3 +97,18 @@ func _on_sftp_error(error,message):
 func _on_sftp_not_connected():
 	add_notification("No Connection to SFTP server",Color(1,0,0))
 	push_error("No connection to SFTP server")
+
+
+func _on_sftp_box_failed_to_reconnect():
+	add_notification("Failed to reconnect to SFTP server (check logs)",Color(1,0,0))
+	
+func _on_sftp_disconnected():
+	add_notification("Manually disconnected from SFTP server",Color(0,1,1))
+	
+func _on_sftp_connected():
+	await get_tree().create_timer(1).timeout
+	add_notification("Reconnected to SFTP Server",Color(0,1,0))
+
+
+func _on_sftp_box_reconnected():
+	add_notification("Reconnected to SFTP Server",Color(0,1,0))

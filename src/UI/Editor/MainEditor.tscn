@@ -1833,16 +1833,13 @@ allow_greater = true
 allow_lesser = true
 prefix = "ID: "
 
-[node name="CategoryPanel" type="Panel" parent="."]
+[node name="CategoryPanel" type="PanelContainer" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(360, 600)
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_top = 49.35
+offset_top = 50.0
 offset_right = 360.0
-offset_bottom = 49.35
-grow_vertical = 2
+offset_bottom = 1080.0
 size_flags_horizontal = 3
 script = ExtResource("11")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
@@ -1852,14 +1849,9 @@ auto_save_path = NodePath("../AutosaveTimer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
 custom_minimum_size = Vector2(340, 400)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -20.0
-offset_bottom = -180.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
@@ -1877,7 +1869,7 @@ layout_mode = 2
 placeholder_text = "SEARCH"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(340, 300)
+custom_minimum_size = Vector2(340, 600)
 layout_mode = 2
 size_flags_vertical = 2
 
@@ -1886,46 +1878,54 @@ clip_contents = true
 custom_minimum_size = Vector2(260, 600)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 2
+size_flags_vertical = 10
 
 [node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
-visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 mouse_filter = 1
 
 [node name="SFTP_BOX" type="VBoxContainer" parent="CategoryPanel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-alignment = 2
+mouse_filter = 2
 script = ExtResource("38_78yl7")
 
 [node name="SFTPLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+mouse_filter = 1
 text = "SFTP Status : Connected"
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+custom_minimum_size = Vector2(26, 20)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Disconnect"
 
 [node name="SftpConnection" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 1
 text = "SFTP_CONNECTION"
 
 [node name="SftpDirectory" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
 text = "SFTP_DIRECTORY"
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
-custom_minimum_size = Vector2(26, 20)
-layout_mode = 2
-text = "Reconnect"
+[node name="Timer" type="Timer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+wait_time = 30.0
+autostart = true
 
 [node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
 script = ExtResource("13")
@@ -2303,7 +2303,10 @@ one_shot = true
 [connection signal="unsaved_change" from="CategoryPanel" to="." method="add_to_unsaved_categories"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
+[connection signal="failed_to_reconnect" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="UI Anims" method="_on_sftp_box_failed_to_reconnect"]
+[connection signal="reconnected" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="UI Anims" method="_on_sftp_box_reconnected"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/SFTP_BOX/Button" to="CategoryPanel/VBoxContainer/SFTP_BOX" method="_on_button_pressed"]
+[connection signal="timeout" from="CategoryPanel/VBoxContainer/SFTP_BOX/Timer" to="CategoryPanel/VBoxContainer/SFTP_BOX" method="_on_timer_timeout"]
 [connection signal="category_buttons_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
 [connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_deleted"]
 [connection signal="category_duplicated" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="load_duplicated_category"]

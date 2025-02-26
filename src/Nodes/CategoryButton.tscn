@@ -16,7 +16,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [node name="Button" type="Button"]
-offset_right = 285.0
+offset_right = 200.0
 offset_bottom = 20.0
 theme = ExtResource("2")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_f2g8q")

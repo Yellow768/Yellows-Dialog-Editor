@@ -27,6 +27,15 @@ public partial class SFTP_Client : Node
 	public delegate void SftpNotConnectedEventHandler();
 
 	[Signal]
+	public delegate void SftpDisconnectedEventHandler();
+
+	[Signal]
+	public delegate void SftpConnectedEventHandler();
+
+	[Signal]
+	public delegate void SftpFailedToConnectEventHandler();
+
+	[Signal]
 	public delegate void SftpErrorEventHandler(string error,string message);
 
 
@@ -39,6 +48,7 @@ public partial class SFTP_Client : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,6 +68,18 @@ public partial class SFTP_Client : Node
 
 	*/
 
+	public bool IsConnected(){
+		return _SFTPClient.IsConnected;
+	}
+
+
+	
+	public bool CheckConnection(){
+		if(!_SFTPClient.IsConnected){
+			EmitSignal(SignalName.SftpNotConnected);
+		}
+		return _SFTPClient.IsConnected;
+	}
 
 	public string ConnectToSftpServer(Godot.Collections.Dictionary connection_info)
 	{
@@ -87,11 +109,14 @@ public partial class SFTP_Client : Node
 			_SFTPClient.Connect();
 			GD.Print("Connected" + _SFTPClient.IsConnected + " Working Directory: " + _SFTPClient.WorkingDirectory);
 			ConnectionInfoDict = connection_info;
+			EmitSignal(SignalName.SftpConnected);
 			return "OK";
 		}
 		catch (Exception e)
 		{
+			EmitSignal(SignalName.SftpFailedToConnect);
 			return e.ToString();
+			
 		}
 	}
 
@@ -100,6 +125,7 @@ public partial class SFTP_Client : Node
 		if (_SFTPClient.IsConnected)
 		{
 			_SFTPClient.Disconnect();
+			EmitSignal(SignalName.SftpDisconnected);
 		}
 	}
 

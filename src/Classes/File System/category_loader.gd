@@ -70,9 +70,9 @@ func load_category(category_name):
 func load_editor_settings(node_data):
 	emit_signal("zoom_loaded",node_data["zoom"])
 	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
-	if !node_data.has("dialog_name_preset"):
+	if !node_data.has("dialog_name_preset") or node_data["dialog_name_preset"] == null:
 		CurrentEnvironment.dialog_name_preset = ""
-	else:
+	else :
 		CurrentEnvironment.dialog_name_preset = node_data["dialog_name_preset"]
 	
 func load_color_category(node_data):

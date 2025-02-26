@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 signal request_clear_editor
 signal request_dialog_ids_reassigned
