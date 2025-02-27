@@ -36,8 +36,13 @@ func find_highest_index(reindex := false) -> int:
 		DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	var file : FileAccess
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
-		var dir_search := DirectorySearch.new()
-		var id_numbers : Array[String] = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
+		var id_numbers
+		if CurrentEnvironment.sftp_client:
+			print("test")
+			id_numbers = CurrentEnvironment.sftp_client.GetAllDialogFiles(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs")
+		else:
+			var dir_search := DirectorySearch.new()
+			id_numbers = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
 		var proper_id_numbers : Array[int]= []
 		for number in id_numbers:
 			number = number.replace(".json","")

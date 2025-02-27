@@ -226,6 +226,20 @@ func export_category_request():
 	
 func load_category(category_name : String,category_button : Button = null):
 	category_loading_initiated.emit(category_name)
+	if CurrentEnvironment.sftp_client && DirAccess.get_files_at(CurrentEnvironment.current_dialog_directory+"/"+category_name).size() < 1:
+		if CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name).size() > 2:
+			var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
+			get_parent().get_parent().add_child(Progress)
+			Progress.set_overall_task_name("Downloading "+category_name)
+			CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
+			CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
+			CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
+			CurrentEnvironment.sftp_client.connect("ProgressDone",Callable(self,"emit_signal").bind("sftp_done"))
+			CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false,true)
+			await self.sftp_done
+			CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
+			print("Afterwards")
+			Progress.queue_free()
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :
@@ -233,7 +247,6 @@ func load_category(category_name : String,category_button : Button = null):
 				if child.category_name == category_name:
 					child.button_pressed = true
 					category_button = child
-					print("Found Category Name")
 	else:
 		category_loading_finished.emit(category_name)
 		return
@@ -275,21 +288,6 @@ func load_category(category_name : String,category_button : Button = null):
 func initialize_category_import(category_name : String):
 	
 	DialogEditor.visible = false
-	if CurrentEnvironment.sftp_client:
-		print(CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name).keys())
-		if CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name).size() > 2:
-			var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
-			get_parent().get_parent().add_child(Progress)
-			Progress.set_overall_task_name("Downloading "+category_name)
-			CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
-			CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
-			CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
-			CurrentEnvironment.sftp_client.connect("ProgressDone",Callable(self,"emit_signal").bind("sftp_done"))
-			CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false,true)
-			await self.sftp_done
-			CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
-			print("Afterwards")
-			Progress.queue_free()
 	var choose_dialog_popup = load("res://src/UI/Util/ChooseInitialDialogPopup.tscn").instantiate()
 	choose_dialog_popup.connect("initial_dialog_chosen", Callable(self, "import_category"))
 	choose_dialog_popup.connect("import_canceled", Callable(DialogEditor, "import_canceled"))

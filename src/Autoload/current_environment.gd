@@ -41,6 +41,9 @@ func set_highest_id(new_id):
 	highest_id = new_id
 	var file = FileAccess.open(current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 	file.store_line(str(highest_id))
+	file.close()
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.UploadFile(current_directory+"/dialogs/highest_index.json",CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json")
 
 func set_current_directory(new_directory):
 	current_directory = new_directory

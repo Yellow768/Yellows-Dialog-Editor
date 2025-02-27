@@ -123,6 +123,7 @@ func _on_select_folder_pressed():
 		InvalidDirectory.connect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp").bind(remote_path_to_download_from))
 		InvalidDirectory.connect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
 	else:
+		CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
 		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
 		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
 		make_local_cache_and_download_sftp(remote_path_to_download_from)	
@@ -141,7 +142,7 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
 		Progress.set_overall_task_name("Downloading Dialog Categories")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",CurrentEnvironment.sftp_local_cache_directory+"/dialogs",false,true)
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",CurrentEnvironment.sftp_local_cache_directory+"/dialogs",true,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
 		Progress.set_overall_task_name("Downloading Quests")
