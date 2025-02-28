@@ -244,15 +244,12 @@ public partial class SFTP_Client : Node
 
 	public Godot.Collections.Array<string> GetAllDialogFiles(string dir){
 		Godot.Collections.Array<string> all_files = new Godot.Collections.Array<string>();
-		GD.Print(dir);
 		System.Collections.IEnumerable files = _SFTPClient.ListDirectory(dir);
 		foreach(ISftpFile file in files){
-			GD.Print(file.Name);
 			if(file.IsDirectory && file.Name != "." && file.Name != ".."){
 				all_files += GetAllDialogFiles(dir+"/"+file.Name);
 			}
 			if(!file.IsDirectory){
-				GD.Print("last 4 chars are "+file.Name.Substring(file.Name.Length-5,5));
 				if(file.Name.Substring(file.Name.Length-5,5) == ".json"){
 				all_files.Add(file.Name.Substring(0,file.Name.Length -5));
 				}
@@ -481,6 +478,7 @@ public partial class SFTP_Client : Node
 	{
 		try
 		{
+			GD.Print(_SFTPClient.WorkingDirectory+"/dialogs/"+category_name);
 			_SFTPClient.DeleteDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
 		}
 		catch (Exception e)

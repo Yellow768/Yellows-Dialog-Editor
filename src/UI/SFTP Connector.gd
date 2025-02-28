@@ -154,6 +154,7 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",CurrentEnvironment.sftp_local_cache_directory)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
+	CurrentEnvironment.sftp_client.remote_file_directory = remote_path_to_download_from
 	sftp_directory_chosen.emit(CurrentEnvironment.sftp_local_cache_directory,connection_info)
 	
 	
@@ -166,6 +167,7 @@ func connect_to_established_sftp(auth_data,remote_dir,local_dir):
 		CurrentEnvironment.sftp_client.ChangeDirectory(remote_dir)
 		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
 		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
+		CurrentEnvironment.sftp_client.remote_file_directory = remote_dir
 		if DirAccess.dir_exists_absolute(local_dir):
 			sftp_directory_chosen.emit(local_dir,connection_info)
 		else:

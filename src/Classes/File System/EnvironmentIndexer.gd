@@ -125,3 +125,8 @@ func add_as_many_underscores_needed_to_make_unique(old_name):
 		return add_as_many_underscores_needed_to_make_unique(new_name)
 	else:
 		return new_name
+
+
+func _on_sftp_box_resync_cache():
+	index_categories()
+	

@@ -857,3 +857,8 @@ func _on_top_panel_deselect_all_selected():
 	selected_responses = []
 	selected_dialogs_and_responses = []
 	
+
+
+func _on_sftp_box_resync_cache():
+	clear_editor()
+	visible = false

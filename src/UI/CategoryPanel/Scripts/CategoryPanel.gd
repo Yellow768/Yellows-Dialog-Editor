@@ -378,3 +378,7 @@ func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
 		current_category = _new_name
 	category_temp_data.erase(old_name)
 	
+
+
+func _on_sftp_box_resync_cache():
+	category_temp_data = {}
