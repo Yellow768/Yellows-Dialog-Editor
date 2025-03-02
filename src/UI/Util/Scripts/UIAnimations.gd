@@ -112,3 +112,11 @@ func _on_sftp_connected():
 
 func _on_sftp_box_reconnected():
 	add_notification("Reconnected to SFTP Server",Color(0,1,0))
+
+
+func _on_undo_system_nothing_to_redo():
+	add_notification("Nothing To Redo")
+
+
+func _on_undo_system_nothing_to_undo():
+	add_notification("Nothing To Undo")

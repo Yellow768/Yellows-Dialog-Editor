@@ -5,6 +5,7 @@ signal reimport_category_request
 signal scan_for_changes_request
 signal assign_new_ids_request
 signal deselect_all_selected
+signal rescan_quests_and_factions
 
 func _ready():
 	$TopPanelContainer/MenuButton.get_popup().connect("id_pressed",Callable(self,"category_menu_pressed"))
@@ -44,6 +45,8 @@ func category_menu_pressed(id):
 			emit_signal("deselect_all_selected")
 		4:
 			show_category_settings()
+		5:
+			emit_signal("rescan_quests_and_factions")
 
 func _input(event):
 	if $TopPanelContainer.visible && !GlobalDeclarations.assigning_keybind:

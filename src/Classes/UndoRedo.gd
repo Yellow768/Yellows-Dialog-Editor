@@ -39,6 +39,10 @@ signal request_action_connect_nodes
 signal request_action_disconnect_nodes
 
 
+signal nothing_to_undo
+signal nothing_to_redo
+
+
 #These signals are not 'actions', meaning they are not commited to the UndoRedo history.
 #For example, undoing a delete dialog should not commit the creation of all of it's response nodes
 #to the undo history.
@@ -113,6 +117,7 @@ func add_to_undo(type,node,args = []):
 func undo():
 	if 	undoRedoHistories[currentUndoCategoryName].undo_history.is_empty():
 		print("Nothing to undo")
+		emit_signal("nothing_to_undo")
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].undo_history.back()
 	var redo
@@ -174,6 +179,7 @@ func undo():
 func redo():
 	if 	undoRedoHistories[currentUndoCategoryName].redo_history.is_empty():
 		print("Nothing to redo")
+		emit_signal("nothing_to_redo")
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].redo_history.back()
 	var undo
@@ -430,13 +436,13 @@ func execute_action_add_dialog(action):
 		recreated_dialog.faction_availabilities[i].set_id(node_data["faction_availabilities"][i].faction_id)
 		recreated_dialog.faction_availabilities[i].set_stance(node_data["faction_availabilities"][i].stance_type)
 		recreated_dialog.faction_availabilities[i].set_operator(node_data["faction_availabilities"][i].availability_operator)
-		
-		recreated_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
-		recreated_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
-		
 		recreated_dialog.scoreboard_availabilities[i].set_objective_name(node_data["scoreboard_availabilities"][i].objective_name)
 		recreated_dialog.scoreboard_availabilities[i].set_comparison_type(node_data["scoreboard_availabilities"][i].comparison_type)
 		recreated_dialog.scoreboard_availabilities[i].set_value(node_data["scoreboard_availabilities"][i].value)
+	if node_data.has("faction_changes"):
+		for i in node_data["faction_changes"].size():
+			recreated_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
+			recreated_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
 	recreated_dialog.mail.sender = node_data["mail"].sender
 	recreated_dialog.mail.subject = node_data["mail"].subject
 	recreated_dialog.mail.items_slots = JSON.parse_string(node_data["mail"].items)
@@ -664,3 +670,11 @@ func _on_dialog_file_system_index_category_deleted(category_name):
 
 func _on_dialog_file_system_index_category_renamed(old_name,new_name):
 	undoRedoHistories.erase(old_name)
+
+
+func _on_undo_pressed():
+	undo()
+
+
+func _on_redo_pressed():
+	redo()
