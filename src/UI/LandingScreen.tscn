@@ -210,7 +210,7 @@ text = "OPEN_ENV"
 [node name="Connect to SFTP Server" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(435, 50)
 layout_mode = 2
-text = "Connect to SFTP Server"
+text = "CONNECT_TO_AN_SFTP_SERVER"
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -384,7 +384,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "Connect to an SFTP Server"
+text = "CONNECT_TO_AN_SFTP_SERVER"
 
 [node name="GridContainer" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -392,25 +392,24 @@ columns = 2
 
 [node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Hostname:"
+text = "HOSTNAME"
 
 [node name="Hostname" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "gamesla216.bisecthosting.com"
-placeholder_text = "Hostname"
+placeholder_text = "HOSTNAME"
 alignment = 1
 
 [node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Port:"
+text = "PORT"
 
 [node name="Port" type="SpinBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_icons/updown = SubResource("ImageTexture_yc7ep")
 max_value = 99999.0
-value = 2022.0
+value = 22.0
 allow_greater = true
 alignment = 1
 
@@ -426,23 +425,21 @@ layout_mode = 2
 
 [node name="Label3" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Username:"
+text = "USERNAME"
 
 [node name="Username" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "xanderl775971.62f660ad"
-placeholder_text = "Username"
+placeholder_text = "USERNAME"
 alignment = 1
 
 [node name="Label4" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Password:"
+text = "PASSWORD"
 
 [node name="Password" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "!b3SCB8-9sjr5J"
-placeholder_text = "Password"
+placeholder_text = "PASSWORD"
 alignment = 1
 secret = true
 
@@ -456,7 +453,7 @@ layout_mode = 2
 
 [node name="Label5" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Private Key"
+text = "PRIVATE_KEY"
 
 [node name="KeyFileButton" type="CheckBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
@@ -473,7 +470,7 @@ columns = 2
 
 [node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 layout_mode = 2
-text = "Private Key:"
+text = "PRIVATE_KEY"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 layout_mode = 2
@@ -488,12 +485,12 @@ text = "..."
 
 [node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 layout_mode = 2
-text = "Passphrase:"
+text = "PASSPHRASE"
 
 [node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-placeholder_text = "(Leave Blank If None)"
+placeholder_text = "LEAVE_BLANK_IF_NONE"
 alignment = 1
 secret = true
 
@@ -504,7 +501,7 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Connect"
+text = "CONNECT"
 
 [node name="VSeparator2" type="VSeparator" parent="SFTP Dialog/HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
@@ -538,7 +535,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_aokfs")
 [node name="SelectFolder" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
 layout_mode = 2
 disabled = true
-text = "Use Selected Directory As Environment"
+text = "USE_SELECTED_DIR"
 
 [node name="CloseButton" type="Button" parent="SFTP Dialog"]
 custom_minimum_size = Vector2(30, 0)

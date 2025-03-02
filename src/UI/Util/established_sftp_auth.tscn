@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="1_mle5g"]
 
 [node name="Established SFTP Auth" type="ConfirmationDialog"]
-title = "Authenticate Into SFTP Server"
+title = "AUTH_INTO_SFTP_SERVER"
 position = Vector2i(0, 36)
 size = Vector2i(618, 222)
 visible = true
@@ -27,7 +27,7 @@ layout_mode = 2
 [node name="PasswordLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Password:"
+text = "PASSWORD"
 horizontal_alignment = 3
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
@@ -41,7 +41,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Private Key"
+text = "PRIVATE_KEY"
 
 [node name="PrivateKeyToggle" type="CheckBox" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -54,7 +54,7 @@ columns = 2
 
 [node name="KeyFileLabel" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Key File"
+text = "PRIVATE_KEY"
 
 [node name="KeyFileHbox" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -75,14 +75,14 @@ text = "..."
 
 [node name="PassphraseLabel" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Key Passphrase"
+text = "PASSPHRASE"
 horizontal_alignment = 2
 
 [node name="PassphraseLinedit" type="LineEdit" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
-placeholder_text = "(leave blank if none)"
+placeholder_text = "LEAVE_BLANK_IF_NONE"
 editable = false
 secret = true
 

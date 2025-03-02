@@ -35,10 +35,10 @@ func update_connected_labels(is_connected):
 	var text
 	match is_connected:
 		true:
-			text = "Connected [img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img]"
+			text = tr("SFTP_CONNECTED")+"[img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img]"
 			ToggleConnection.text = "Disconnect"
 		false:
-			text = "Disconnected [img]res://Assets/UI Textures/Icon Font/globe-grid-line.png[/img]"
+			text = tr("SFTP_DISCONNECTED")+"[img]res://Assets/UI Textures/Icon Font/globe-grid-line.png[/img]"
 			ToggleConnection.text = "Connect"
 	StatusLabel.text = text
 
@@ -97,16 +97,16 @@ func _on_resync_button_pressed():
 	CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
 	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
 	CurrentEnvironment.sftp_client.connect("ProgressDone",Callable(self,"emit_signal").bind("sftp_done"))	
-	Progress.set_overall_task_name("Downloading Dialog Categories")
+	Progress.set_overall_task_name(tr("DOWNLOADING_DIALOGS"))
 	CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs",CurrentEnvironment.current_dialog_directory,true,true)
 	await self.sftp_done
 	if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/quests"):
-		Progress.set_overall_task_name("Downloading Quests")
+		Progress.set_overall_task_name(tr("DOWNLOADING_QUESTS"))
 		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/quests")
 		CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/quests",CurrentEnvironment.current_directory+"/quests",false,true)
 		await self.sftp_done
 	if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/factions.dat"):
-		Progress.set_overall_task_name("Downloading Factions")
+		Progress.set_overall_task_name(tr("DOWNLOADING_FACTIONS"))
 		CurrentEnvironment.sftp_client.DownloadFile(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/factions.dat",CurrentEnvironment.current_directory)
 		await self.sftp_done
 	CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))

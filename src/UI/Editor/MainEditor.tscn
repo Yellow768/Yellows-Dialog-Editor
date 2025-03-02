@@ -1927,7 +1927,7 @@ columns = 2
 
 [node name="SFTP_StatusTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
 layout_mode = 2
-text = "SFTP Status:"
+text = "SFTP_STATUS"
 
 [node name="StatusLabel" type="RichTextLabel" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -1937,9 +1937,22 @@ bbcode_enabled = true
 text = "Connected [img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img] "
 autowrap_mode = 2
 
+[node name="ServerTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+layout_mode = 2
+text = "SFTP_SERVER"
+
+[node name="ServerLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "SFTP_CONNECTION"
+justification_flags = 162
+text_overrun_behavior = 3
+
 [node name="RemoteDirTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
 layout_mode = 2
-text = "Remote Directory:"
+text = "REMOTE_DIRECTORY"
 horizontal_alignment = 2
 
 [node name="RemoteDirLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
@@ -1953,28 +1966,15 @@ autowrap_mode = 2
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="ServerTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
-layout_mode = 2
-text = "Server:"
-
-[node name="ServerLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
-custom_minimum_size = Vector2(200, 20)
-layout_mode = 2
-size_flags_horizontal = 4
-mouse_filter = 1
-text = "SFTP_CONNECTION"
-justification_flags = 162
-text_overrun_behavior = 3
-
 [node name="ToggleConnection" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 custom_minimum_size = Vector2(26, 20)
 layout_mode = 2
 size_flags_vertical = 8
-text = "Disconnect"
+text = "DISCONNECT"
 
 [node name="ResyncButton" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 layout_mode = 2
-text = "Sync Local Cache"
+text = "SYNC_LOCAL_CACHE"
 
 [node name="Timer" type="Timer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 wait_time = 30.0

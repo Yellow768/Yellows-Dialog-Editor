@@ -60,7 +60,7 @@ func _on_button_pressed():
 	var connecting_popup = AcceptDialog.new()
 	connecting_popup.get_ok_button().set_visible(false)
 	connecting_popup.add_theme_icon_override("close",Texture2D.new())
-	connecting_popup.dialog_text = "\nConnecting to SFTP Server..."
+	connecting_popup.dialog_text = "\n"+tr("CONNECTING_TO_SFTP_SERVER")
 	connecting_popup.title = ""
 	get_parent().add_child(connecting_popup)
 	connecting_popup.popup_centered()
@@ -142,16 +142,16 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
 	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
-		Progress.set_overall_task_name("Downloading Dialog Categories")
+		Progress.set_overall_task_name(tr("DOWNLOADING_DIALOGS"))
 		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",CurrentEnvironment.sftp_local_cache_directory+"/dialogs",true,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
-		Progress.set_overall_task_name("Downloading Quests")
+		Progress.set_overall_task_name(tr("DOWNLOADING_QUESTS"))
 		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/quests")
 		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",CurrentEnvironment.sftp_local_cache_directory+"/quests",false,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/factions.dat"):
-		Progress.set_overall_task_name("Downloading Factions")
+		Progress.set_overall_task_name(tr("DOWNLOADING_FACTIONS"))
 		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",CurrentEnvironment.sftp_local_cache_directory)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
@@ -241,7 +241,6 @@ func _on_tree_nothing_selected():
 
 func _on_tree_item_selected():
 	SelectButton.disabled = false
-	SelectButton.text = tr("Use Selected Folder As Environemnt")
 
 
 func _on_line_edit_text_submitted(new_text):

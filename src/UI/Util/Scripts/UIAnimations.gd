@@ -91,32 +91,32 @@ func _on_category_panel_category_sftp_succesfully_saved():
 	add_notification(tr("YDEC Saved to SFTP Server"))
 	
 func _on_sftp_error(error,message):
-	add_notification(message,Color(1,0,0))
+	add_notification(tr(message),Color(1,0,0))
 	push_error(error)
 
 func _on_sftp_not_connected():
-	add_notification("No Connection to SFTP server",Color(1,0,0))
+	add_notification(tr("SFTP_ERROR_NOT_CONNECTED"),Color(1,0,0))
 	push_error("No connection to SFTP server")
 
 
 func _on_sftp_box_failed_to_reconnect():
-	add_notification("Failed to reconnect to SFTP server (check logs)",Color(1,0,0))
+	add_notification(tr("SFTP_ERROR_FAILED_RECONNECT"),Color(1,0,0))
 	
 func _on_sftp_disconnected():
-	add_notification("Manually disconnected from SFTP server",Color(0,1,1))
+	add_notification(tr("SFTP_NOTIF_DISCONNECTED"),Color(0,1,1))
 	
 func _on_sftp_connected():
 	await get_tree().create_timer(1).timeout
-	add_notification("Reconnected to SFTP Server",Color(0,1,0))
+	add_notification(tr("SFTP_NOTIF_CONNECTED"),Color(0,1,0))
 
 
 func _on_sftp_box_reconnected():
-	add_notification("Reconnected to SFTP Server",Color(0,1,0))
+	add_notification(tr("SFTP_NOTIF_DISCONNECTED"),Color(0,1,0))
 
 
 func _on_undo_system_nothing_to_redo():
-	add_notification("Nothing To Redo")
+	add_notification(tr("NOTHING_REDO"))
 
 
 func _on_undo_system_nothing_to_undo():
-	add_notification("Nothing To Undo")
+	add_notification(tr("NOTHING_UNDO"))

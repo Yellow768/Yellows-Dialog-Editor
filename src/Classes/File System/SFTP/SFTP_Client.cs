@@ -158,7 +158,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to change the directory on the SFTP server");
+			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_CHANGE_DIR");
 		}
 	}
 
@@ -188,7 +188,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError,e.Message,"An error occured trying to download a file from the SFTP server");
+			EmitSignal(SignalName.SftpError,e.Message,"SFTP_ERROR_DOWNLOAD");
 		}
 	}
 
@@ -282,7 +282,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to download files from the SFTP server");
+			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_DOWNLOAD_FILES");
 			return;
 		}
 		if (totalSize == 0)
@@ -299,7 +299,7 @@ public partial class SFTP_Client : Node
 			}
 			catch (Exception e)
 			{
-				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to download files from the SFTP server");
+				EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_DOWNLOAD_FILES");
 				return;
 			}
 		}
@@ -357,7 +357,7 @@ public partial class SFTP_Client : Node
 			}
 			catch (Exception e)
 			{
-				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to download files from the SFTP server");
+				EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_DOWNLOAD_FILES");
 			}
 		}
 
@@ -376,7 +376,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to upload a file to the SFTP server");
+			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_UPLOAD");
 			return ;
 		}
 	}
@@ -411,7 +411,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message, "An error occured trying to upload a file to the SFTP Server");
+			EmitSignal(SignalName.SftpError, e.Message, "SFTP_ERROR_UPLOAD");
 		}
 	}
 
@@ -427,7 +427,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message, "An error occured trying to upload to an SFTP Directory");
+			EmitSignal(SignalName.SftpError, e.Message, "SFTP_ERROR_UPLOAD_DIRECTORY");
 		}
 	}
 
@@ -459,7 +459,7 @@ public partial class SFTP_Client : Node
 		}
 		catch (Exception e)
 			{
-				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to upload to SFTP Directory");
+				EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_UPLOAD_DIRECTORY");
 			}
 	}
 
@@ -493,7 +493,7 @@ private void DeleteDirectory(string path)
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message, "Category failed to be created on SFTP Server");
+			EmitSignal(SignalName.SftpError, e.Message, "SFTP_ERROR_CATEGORY_CREATE");
 		}
 	}
 
@@ -506,7 +506,7 @@ private void DeleteDirectory(string path)
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message,"Category failed to be deleted on SFTP Server");
+			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_CATEGORY_DELETE");
 		}
 
 	}
@@ -523,7 +523,7 @@ private void DeleteDirectory(string path)
 		}
 		catch (Exception e)
 		{
-			EmitSignal(SignalName.SftpError, e.Message,"Category failed to be renamed on SFTP Server");
+			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_CATEGORY_RENAME");
 		}
 	}
 
@@ -532,7 +532,7 @@ private void DeleteDirectory(string path)
 			UploadDirectory(local_file_cache+"/dialogs/"+new_category_name,_SFTPClient.WorkingDirectory+"/dialogs/"+new_category_name);
 		}
 		catch(Exception e){
-			EmitSignal(SignalName.SftpError, e.Message,"Category failed to duplicate on SFTP Server");
+			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_CATEGORY_DUPLICATE");
 		}
 	}
 
@@ -542,7 +542,7 @@ private void DeleteDirectory(string path)
 		UploadDirectory(local_file_cache+"/dialogs/"+category_name,_SFTPClient.WorkingDirectory+"/dialogs/"+category_name+"/");
 		}
 		catch(Exception e){
-			EmitSignal(SignalName.SftpError,e.Message,"Category failed to export to SFTP Server");
+			EmitSignal(SignalName.SftpError,e.Message,"SFTP_ERROR_CATEGORY_EXPORT");
 		}
 	}
 
@@ -551,7 +551,7 @@ private void DeleteDirectory(string path)
 		UploadFile(local_file_cache+"/dialogs/"+category_name+"/"+category_name+".ydec",_SFTPClient.WorkingDirectory+"/dialogs/"+category_name+"/"+category_name+".ydec");
 		}
 		catch(Exception e){
-			EmitSignal(SignalName.SftpError,e.Message,"Category failed to save to SFTP Server");
+			EmitSignal(SignalName.SftpError,e.Message,"SFTP_ERROR_CATEGORY_SAVE");
 		}
 	}
 }
