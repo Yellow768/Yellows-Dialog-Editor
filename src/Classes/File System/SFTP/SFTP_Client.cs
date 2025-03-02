@@ -107,7 +107,7 @@ public partial class SFTP_Client : Node
 			ConnectionInfo connectionInfo = new ConnectionInfo(connection_info["hostname"].ToString(), connection_info["port"].As<int>(), connection_info["username"].ToString(), AuthMethods.ToArray());
 			_SFTPClient = new Renci.SshNet.SftpClient(connectionInfo);
 			_SFTPClient.Connect();
-			GD.Print("Connected" + _SFTPClient.IsConnected + " Working Directory: " + _SFTPClient.WorkingDirectory);
+			GD.Print("Connected: " + _SFTPClient.IsConnected + " Working Directory: " + _SFTPClient.WorkingDirectory);
 			ConnectionInfoDict = connection_info;
 			EmitSignal(SignalName.SftpConnected);
 			return "OK";
@@ -548,7 +548,6 @@ private void DeleteDirectory(string path)
 
 	public void _OnCategorySaved(string category_name){
 		try{
-			GD.Print("Saved");
 		UploadFile(local_file_cache+"/dialogs/"+category_name+"/"+category_name+".ydec",_SFTPClient.WorkingDirectory+"/dialogs/"+category_name+"/"+category_name+".ydec");
 		}
 		catch(Exception e){

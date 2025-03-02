@@ -2352,6 +2352,7 @@ one_shot = true
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="." method="_on_category_panel_category_succesfully_saved"]
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_saved"]
 [connection signal="current_category_deleted" from="CategoryPanel" to="DialogEditor" method="_on_CategoryPanel_current_category_deleted"]
+[connection signal="current_category_deleted" from="CategoryPanel" to="TopPanel" method="_on_category_panel_current_category_deleted"]
 [connection signal="hide_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="request_clear_editor" from="CategoryPanel" to="InformationPanel" method="_on_category_panel_request_clear_editor"]
 [connection signal="request_dialog_ids_reassigned" from="CategoryPanel" to="DialogEditor" method="_on_category_panel_request_dialog_ids_reassigned"]

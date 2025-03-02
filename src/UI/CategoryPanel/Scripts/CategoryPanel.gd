@@ -238,7 +238,6 @@ func load_category(category_name : String,category_button : Button = null):
 			CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false,true)
 			await self.sftp_done
 			CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
-			print("Afterwards")
 			Progress.queue_free()
 	if !loading_category and category_name != current_category:
 		loading_category = true
@@ -369,6 +368,7 @@ func _on_editor_settings_autosave_time_changed():
 func _on_dialog_file_system_index_category_deleted(category):
 	if current_category == category:
 		current_category = null
+		emit_signal("current_category_deleted")
 	category_temp_data.erase(category)
 	
 

@@ -75,11 +75,24 @@ func delete_cached_dir(directory):
 				delete_cached_dir(directory+"/"+file_name)
 			dir.remove(file_name)
 			file_name = dir.get_next()
+	
+
+	
+
 
 func _on_resync_button_pressed():
+	var sftp_background_darkener
+	sftp_background_darkener = ColorRect.new()
+	sftp_background_darkener.color = Color(0,0,0,.5)
+	
+	
 	delete_cached_dir(CurrentEnvironment.current_directory)
 	var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
 	get_parent().get_parent().get_parent().add_child(Progress)
+	
+	get_parent().get_parent().add_child(sftp_background_darkener)
+	sftp_background_darkener.size = Vector2(DisplayServer.window_get_size())
+	sftp_background_darkener.set_anchors_preset(Control.PRESET_FULL_RECT)
 	CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
 	CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
 	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
@@ -99,3 +112,4 @@ func _on_resync_button_pressed():
 	CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
 	Progress.queue_free()
 	emit_signal("resync_cache")
+	sftp_background_darkener.queue_free()

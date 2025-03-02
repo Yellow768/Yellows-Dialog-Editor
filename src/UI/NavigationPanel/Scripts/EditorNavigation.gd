@@ -82,3 +82,7 @@ func _on_rescan_quests_and_factions_pressed():
 
 func _on_sftp_box_resync_cache():
 	$TopPanelContainer.visible = false
+
+
+func _on_category_panel_current_category_deleted():
+	$TopPanelContainer.visible = false

@@ -146,14 +146,24 @@ text = "[b]Yellow's Dialog Editor
 "
 
 [node name="ProgramVersionLabel" type="RichTextLabel" parent="Panel/VBoxContainer2"]
-custom_minimum_size = Vector2(400, 110)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "[b]v0.9.0"
+text = "[b]v10.0"
+
+[node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(400, 25)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
+theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
+theme_override_font_sizes/bold_font_size = 62
+bbcode_enabled = true
+text = "2025-03-01"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
