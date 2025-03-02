@@ -18,7 +18,9 @@ func _ready():
 		connect("new_category_created",Callable(CurrentEnvironment.sftp_client,"_OnNewCategoryCreated"))
 		connect("category_renamed",Callable(CurrentEnvironment.sftp_client,"_OnCategoryRenamed"))
 		connect("category_deleted",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDeleted"))
-		#connect("category_duplicated",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDuplicated"))
+	if !DirAccess.dir_exists_absolute(CurrentEnvironment.current_directory+"/dialogs"):
+		push_error("dialogs folder did not exist.")
+		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/dialogs")
 
 func index_categories() -> Array[String]:
 
@@ -38,7 +40,6 @@ func find_highest_index(reindex := false) -> int:
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
 		var id_numbers
 		if CurrentEnvironment.sftp_client:
-			print("test")
 			id_numbers = CurrentEnvironment.sftp_client.GetAllDialogFiles(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs")
 		else:
 			var dir_search := DirectorySearch.new()

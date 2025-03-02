@@ -434,6 +434,7 @@ layout_mode = 2
 text = "!b3SCB8-9sjr5J"
 placeholder_text = "Password"
 alignment = 1
+secret = true
 
 [node name="HSeparator5" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -477,13 +478,14 @@ text = "..."
 
 [node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 layout_mode = 2
-text = "Passphrase"
+text = "Passphrase:"
 
 [node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 placeholder_text = "(Leave Blank If None)"
 alignment = 1
+secret = true
 
 [node name="HSeparator2" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -508,14 +510,14 @@ layout_mode = 2
 
 [node name="Back" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
 layout_mode = 2
-text = "<-"
+text = "🠈"
 
 [node name="Forward" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
 layout_mode = 2
-text = "->"
+text = "🠊"
 
 [node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
 [node name="Tree" type="Tree" parent="SFTP Dialog/HBoxContainer/SFTP Files"]

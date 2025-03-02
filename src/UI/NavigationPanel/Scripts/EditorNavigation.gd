@@ -75,3 +75,7 @@ func _on_rescan_quests_and_factions_pressed():
 
 
 
+
+
+func _on_sftp_box_resync_cache():
+	$TopPanelContainer.visible = false

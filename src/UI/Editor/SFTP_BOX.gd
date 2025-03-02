@@ -4,38 +4,53 @@ signal reconnected
 signal resync_cache
 signal sftp_done
 
+
+@export var status_label_path : NodePath
+@export var remote_dir_label_path : NodePath
+@export var server_label_path : NodePath
+@export var toggle_connection_path : NodePath
+@export var resync_path : NodePath
+
+@onready var StatusLabel : RichTextLabel = get_node(status_label_path)
+@onready var RemoteDirLabel : Label = get_node(remote_dir_label_path)
+@onready var ServerLabel : Label = get_node(server_label_path)
+@onready var ToggleConnection : Button = get_node(toggle_connection_path)
+@onready var Resync : Button = get_node(resync_path)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if CurrentEnvironment.sftp_client:
-		$SftpConnection.self_modulate = Color(1,1,1,1)
-		$SftpDirectory.self_modulate = Color(1,1,1,1)
-		$SFTPLabel.self_modulate = Color(1,1,1,1)
-		$SftpConnection.text = "Server: "+CurrentEnvironment.sftp_client.ConnectionInfoDict["username"]+"@"+CurrentEnvironment.sftp_client.ConnectionInfoDict["hostname"]
-		$SftpDirectory.text = "Dir: "+CurrentEnvironment.sftp_directory
+		self.modulate = Color(1,1,1,1)
+		ServerLabel.text = CurrentEnvironment.sftp_client.ConnectionInfoDict["username"]+"@"+CurrentEnvironment.sftp_client.ConnectionInfoDict["hostname"]
+		ServerLabel.tooltip_text = CurrentEnvironment.sftp_client.ConnectionInfoDict["username"]+"@"+CurrentEnvironment.sftp_client.ConnectionInfoDict["hostname"]
+		RemoteDirLabel.text = CurrentEnvironment.sftp_directory
+		RemoteDirLabel.tooltip_text = CurrentEnvironment.sftp_directory
 		CurrentEnvironment.sftp_client.connect("SftpNotConnected",Callable(self,"_on_sftp_disconnected"))
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
 func _on_sftp_disconnected():
-	$SFTPLabel.text = "SFTP Status : Disconnected"
-	$Button.text = "Connect"
-	pass
+	update_connected_labels(false)
 
+func update_connected_labels(is_connected):
+	var text
+	match is_connected:
+		true:
+			text = "Connected [img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img]"
+			ToggleConnection.text = "Disconnect"
+		false:
+			text = "Disconnected [img]res://Assets/UI Textures/Icon Font/globe-grid-line.png[/img]"
+			ToggleConnection.text = "Connect"
+	StatusLabel.text = text
 
 func _on_button_pressed():
 	if CurrentEnvironment.sftp_client.IsConnected():
 		CurrentEnvironment.sftp_client.Disconnect()
-		$SFTPLabel.text = "SFTP Status : Disconnected"
-		$Button.text = "Connect"
+		update_connected_labels(false)
 	else:
 		var attempt_to_connect_result = CurrentEnvironment.sftp_client.ConnectToSftpServer(CurrentEnvironment.sftp_client.ConnectionInfoDict)
 		if attempt_to_connect_result == "OK":
 			CurrentEnvironment.sftp_client.ChangeDirectory(CurrentEnvironment.sftp_client.remote_file_directory)
-			$SFTPLabel.text = "SFTP Status : Connected"
-			$Button.text = "Disconnect"
+			update_connected_labels(true)
 			emit_signal("reconnected")
 		else:
 			emit_signal("failed_to_reconnect")
@@ -45,7 +60,8 @@ func _on_button_pressed():
 
 
 func _on_timer_timeout():
-	CurrentEnvironment.sftp_client.CheckConnection()
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.CheckConnection()
 
 
 func delete_cached_dir(directory):

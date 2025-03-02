@@ -33,7 +33,8 @@ extends PanelContainer
 @onready var PathLineEdit : LineEdit = get_node(path_line_edit_path)
 
 var tree_root
-var forward_dir = []
+var forward_dirs = []
+var previous_dirs = []
 var connection_info = {}
 
 
@@ -187,16 +188,21 @@ func disconnect_invalid_directory():
 	
 
 func _on_back_pressed():
-	forward_dir.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
-	change_tree_directory("..")
+	if previous_dirs.size() != 0:
+		forward_dirs.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
+		change_tree_directory(previous_dirs.pop_back())
 
 
 func _on_tree_item_activated():
+	previous_dirs.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
+	forward_dirs.clear()
 	change_tree_directory(FileTree.get_selected().get_text(0))
 
 
 func _on_forward_pressed():
-	change_tree_directory(forward_dir.pop_front())
+	if forward_dirs.size() != 0:
+		previous_dirs.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
+		change_tree_directory(forward_dirs.pop_back())
 	
 var sftp_background_darkener
 
@@ -243,7 +249,9 @@ func _on_line_edit_text_submitted(new_text):
 		PathLineEdit.text = ""
 		return
 	if CurrentEnvironment.sftp_client.Exists(new_text):
+		previous_dirs.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 		change_tree_directory(new_text)
+		forward_dirs.clear()
 	else:
 		PathLineEdit.text = CurrentEnvironment.sftp_client.GetCurrentDirectory()
 

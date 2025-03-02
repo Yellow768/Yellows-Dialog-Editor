@@ -462,6 +462,29 @@ public partial class SFTP_Client : Node
 				EmitSignal(SignalName.SftpError, e.Message,"An error occured trying to upload to SFTP Directory");
 			}
 	}
+
+
+private void DeleteDirectory(string path)
+{
+    foreach (SftpFile file in _SFTPClient.ListDirectory(path))
+    {
+        if ((file.Name != ".") && (file.Name != ".."))
+        {
+            if (file.IsDirectory)
+            {
+                DeleteDirectory(file.FullName);
+            }
+            else
+            {
+                _SFTPClient.DeleteFile(file.FullName);
+            }
+        }
+    }
+
+    _SFTPClient.DeleteDirectory(path);
+}
+
+
 	public void _OnNewCategoryCreated(string category_name)
 	{
 		try
@@ -479,7 +502,7 @@ public partial class SFTP_Client : Node
 		try
 		{
 			GD.Print(_SFTPClient.WorkingDirectory+"/dialogs/"+category_name);
-			_SFTPClient.DeleteDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
+			DeleteDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
 		}
 		catch (Exception e)
 		{

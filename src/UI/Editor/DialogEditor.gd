@@ -861,4 +861,5 @@ func _on_top_panel_deselect_all_selected():
 
 func _on_sftp_box_resync_cache():
 	clear_editor()
+	
 	visible = false
