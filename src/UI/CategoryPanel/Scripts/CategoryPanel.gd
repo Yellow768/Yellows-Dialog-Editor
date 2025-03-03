@@ -229,6 +229,13 @@ func load_category(category_name : String,category_button : Button = null):
 	if CurrentEnvironment.sftp_client && DirAccess.get_files_at(CurrentEnvironment.current_dialog_directory+"/"+category_name).size() < 1:
 		if CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name).size() > 2:
 			var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
+			var sftp_background_darkener
+			sftp_background_darkener = ColorRect.new()
+			sftp_background_darkener.color = Color(0,0,0,.8)
+			get_parent().get_parent().get_parent().add_child(Progress)
+			get_parent().get_parent().add_child(sftp_background_darkener)
+			sftp_background_darkener.size = Vector2(DisplayServer.window_get_size())
+			sftp_background_darkener.set_anchors_preset(Control.PRESET_FULL_RECT)
 			get_parent().get_parent().add_child(Progress)
 			Progress.set_overall_task_name("Downloading "+category_name)
 			CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
@@ -239,6 +246,7 @@ func load_category(category_name : String,category_button : Button = null):
 			await self.sftp_done
 			CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
 			Progress.queue_free()
+			sftp_background_darkener.queue_free()
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :

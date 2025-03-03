@@ -99,7 +99,9 @@ func change_tree_directory(text):
 		for tree_item in tree_root.get_children():
 			tree_item.free()
 		files_in_sftp_directory = CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory())
-		for file in files_in_sftp_directory:
+		var sorted_file_names = files_in_sftp_directory.keys()
+		sorted_file_names.sort()
+		for file in sorted_file_names:
 			if (file == "." || file == ".." || !files_in_sftp_directory[file]):
 				continue
 			var new_file = FileTree.create_item(tree_root)
