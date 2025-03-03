@@ -236,7 +236,6 @@ func load_category(category_name : String,category_button : Button = null):
 			get_parent().get_parent().add_child(sftp_background_darkener)
 			sftp_background_darkener.size = Vector2(DisplayServer.window_get_size())
 			sftp_background_darkener.set_anchors_preset(Control.PRESET_FULL_RECT)
-			get_parent().get_parent().add_child(Progress)
 			Progress.set_overall_task_name("Downloading "+category_name)
 			CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
 			CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))

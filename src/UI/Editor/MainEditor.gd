@@ -99,7 +99,5 @@ func _on_dialog_editor_node_double_clicked(_ignore):
 	$DoubleClickTimer.start()
 
 
-
-
 func _on_dialog_file_system_index_category_deleted(category):
 	remove_from_unsaved_categories(category)

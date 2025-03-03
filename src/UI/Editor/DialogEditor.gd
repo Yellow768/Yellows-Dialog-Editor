@@ -94,7 +94,8 @@ func delete_all_selected_nodes():
 		delete_color_organizer(i,false)
 		
 		
-
+func relay_unsaved_changes():
+	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
 
 
 func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false,commit_to_undo := true) -> dialog_node:
@@ -105,8 +106,6 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	if new_dialog.dialog_id == -1:
 		CurrentEnvironment.highest_id += 1
 		new_dialog.dialog_id = CurrentEnvironment.highest_id
-		
-		
 	if new_dialog.position_offset == Vector2.ZERO:
 		new_dialog.position_offset = get_window().size/3
 	if !use_exact_offset: 
@@ -120,22 +119,14 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
-	
 	emit_signal("request_add_dialog_to_environment_index",new_dialog)
 	if commit_to_undo:
 		emit_signal("dialog_node_added",new_dialog)
 	current_dialog_index_map[new_dialog.node_index] = new_dialog
-	if new_dialog.visual_preset == -1:
-		new_dialog.visual_preset = GlobalDeclarations.default_visual_preset
-		new_dialog.update_visual_options_to_preset()
-	if new_dialog.spacing_preset == -1:
-		new_dialog.spacing_preset = GlobalDeclarations.default_spacing_preset
-		new_dialog.update_spacing_options_to_preset()
 	add_child(new_dialog)
 	return new_dialog
 
-func relay_unsaved_changes():
-	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
+
 
 func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,commit_to_undo := true):
 	if commit_to_undo:
@@ -152,9 +143,6 @@ func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,c
 	dialog.queue_free()
 	relay_unsaved_changes()
 	node_index -=1
-	
-
-	
 
 func add_response_node(parent_dialog : dialog_node, new_response : response_node= GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo := true) -> response_node:
 	
@@ -184,13 +172,9 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_response.connect("unsaved_change",Callable(self,"relay_unsaved_changes"))
 	add_child(new_response)
-
 	if parent_dialog:
-		parent_dialog.response_options.append(new_response)
-		new_response.slot = parent_dialog.response_options.size()-1
-		new_response.parent_dialog = parent_dialog
+		parent_dialog.append_response(new_response)
 		connect_node(parent_dialog.get_name(),0,new_response.get_name(),0)
-		new_response.parent_dialog_id = parent_dialog.dialog_id
 	else:
 		new_response.set_orphaned(true)
 	current_response_index_map[new_response.node_index] = new_response
@@ -456,13 +440,9 @@ func clear_editor():
 
 
 func _on_DialogEditor_connection_request(from, from_slot, to, to_slot):
-
-
 	connect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func _on_DialogEditor_disconnection_request(from, from_slot, to, to_slot):
-
-
 	disconnect_nodes(get_node(String(from)), from_slot, get_node(String(to)), to_slot)
 
 func select_node(node):
@@ -491,8 +471,6 @@ func select_node(node):
 		if !selected_responses.has(node) and node.node_type == "Player Response Node":
 			selected_responses.append(node)
 			selected_dialogs_and_responses.append(node)
-
-				
 		if !selected_dialogs.has(node) and node.node_type == "Dialog Node" :
 			selected_dialogs.append(node)
 			selected_dialogs_and_responses.append(node)
@@ -558,6 +536,24 @@ func _on_CategoryImporter_clear_editor_request():
 func _on_SaveLoad_clear_editor_request():
 	clear_editor()
 
+#INPUT
+
+func handle_input(event : InputEvent):
+	if event.is_action_pressed("add_dialog_at_mouse"):
+		add_dialog_at_mouse()
+	if event.is_action_pressed("create_response"):
+		add_responses_and_dialogs_to_selected_nodes()	
+	if Input.is_action_just_pressed("delete_nodes"):
+		delete_all_selected_nodes()
+	if event.is_action_pressed("focus_below"):
+		focus_below()
+	if Input.is_action_just_pressed("focus_above"):
+		focus_above()
+	if Input.is_action_just_pressed("focus_left"):
+		focus_left()	
+	if Input.is_action_just_pressed("focus_right"):
+		focus_right()
+
 func add_responses_and_dialogs_to_selected_nodes():
 	var temp_dialog_node_index = node_index
 	var temp_response_node_index = response_node_index
@@ -568,85 +564,79 @@ func add_responses_and_dialogs_to_selected_nodes():
 		responses.append(temp_response_node_index)
 		temp_response_node_index += 1
 		dialog.add_response_node(false)
-		
-		
 	for response in selected_responses:
-		
 		dialogs.append(temp_dialog_node_index)
 		temp_dialog_node_index += 1
-		
 		response.add_new_connected_dialog(false) 
-		
-		
 	emit_signal("multiple_nodes_created",dialogs,responses)
 
-func handle_input(event : InputEvent):
-	if event.is_action_pressed("add_dialog_at_mouse"):
-		var new_dialog_node : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
-		new_dialog_node.position_offset = get_local_mouse_position()
-		add_dialog_node(new_dialog_node)
-	if event.is_action_pressed("create_response"):
-		add_responses_and_dialogs_to_selected_nodes()
-		
-	if Input.is_action_just_pressed("delete_nodes"):
-		delete_all_selected_nodes()
-	if event.is_action_pressed("focus_below"):
-		match get_viewport().gui_get_focus_owner().get_name(): 
-			"ResponseText":
-				var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				if response.slot != response.parent_dialog.response_options.size()-1:
-					response.parent_dialog.response_options[response.slot+1].set_focus_on_title()
-			"TitleText":
-				var dialog : dialog_node= get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				dialog.set_focus_on_text()	
-	if Input.is_action_just_pressed("focus_above"):
-		match get_viewport().gui_get_focus_owner().get_name(): 
-			"ResponseText":
-				var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				if response.slot != 0:
-					response.parent_dialog.response_options[response.slot-1].set_focus_on_title()
-			"DialogText":
-				var dialog : dialog_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
-				dialog.set_focus_on_title()
-	if Input.is_action_just_pressed("focus_left"):
-		
-		if selected_responses.size() == 1 && selected_dialogs.size() == 0:
-			var response : response_node = selected_responses[0]
-			if Input.is_action_pressed("focus_cycle"):
-				
-				var response_index : int = response.connected_dialog.connected_responses.find(response)
-				var next_response_index = response_index
-				if response_index == response.connected_dialog.connected_responses.size()-1:
-					next_response_index = 0
-				else:
-					next_response_index += 1
-				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
-			else:
-				response.parent_dialog.set_focus_on_text()
-		elif selected_responses.size() == 0 && selected_dialogs.size() == 1:
-			var dialog : dialog_node= selected_dialogs[0]
-			if dialog.connected_responses.size() != 0:
-				dialog.connected_responses[0].set_focus_on_title()
-	if Input.is_action_just_pressed("focus_right"):
+
+
+func add_dialog_at_mouse():
+	var new_dialog_node : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
+	new_dialog_node.position_offset = get_local_mouse_position()
+	add_dialog_node(new_dialog_node)
 	
-		if selected_responses.size() == 1 && selected_dialogs.size() == 0:
-			var response : response_node = selected_responses[0]
-			if response.connected_dialog == null:
-				return
-			if Input.is_action_pressed("focus_cycle"):
-				var response_index : int = response.connected_dialog.connected_responses.find(response)
-				var next_response_index = response_index
-				if response_index == 0:
-					next_response_index = response.connected_dialog.connected_responses.size()-1
-				else:
-					next_response_index -= 1
-				response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
+func focus_below():
+	match get_viewport().gui_get_focus_owner().get_name(): 
+		"ResponseText":
+			var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+			if response.slot != response.parent_dialog.response_options.size()-1:
+				response.parent_dialog.response_options[response.slot+1].set_focus_on_title()
+		"TitleText":
+			var dialog : dialog_node= get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+			dialog.set_focus_on_text()
+
+func focus_above():
+	match get_viewport().gui_get_focus_owner().get_name(): 
+		"ResponseText":
+			var response : response_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+			if response.slot != 0:
+				response.parent_dialog.response_options[response.slot-1].set_focus_on_title()
+		"DialogText":
+			var dialog : dialog_node = get_viewport().gui_get_focus_owner().get_parent().get_parent().get_parent()
+			dialog.set_focus_on_title()
+			
+func focus_left():
+	if selected_responses.size() == 1 && selected_dialogs.size() == 0:
+		var response : response_node = selected_responses[0]
+		if Input.is_action_pressed("focus_cycle"):
+			var response_index : int = response.connected_dialog.connected_responses.find(response)
+			var next_response_index = response_index
+			if response_index == response.connected_dialog.connected_responses.size()-1:
+				next_response_index = 0
 			else:
-				response.connected_dialog.set_focus_on_text()
-		elif selected_responses.size() == 0 && selected_dialogs.size() == 1:
-			var dialog : dialog_node = selected_dialogs[0]
-			if dialog.response_options.size() != 0:
-				dialog.response_options[0].set_focus_on_title()
+				next_response_index += 1
+			response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
+		else:
+			response.parent_dialog.set_focus_on_text()
+	elif selected_responses.size() == 0 && selected_dialogs.size() == 1:
+		var dialog : dialog_node= selected_dialogs[0]
+		if dialog.connected_responses.size() != 0:
+			dialog.connected_responses[0].set_focus_on_title()
+			
+func focus_right():
+	if selected_responses.size() == 1 && selected_dialogs.size() == 0:
+		var response : response_node = selected_responses[0]
+		if response.connected_dialog == null:
+			return
+		if Input.is_action_pressed("focus_cycle"):
+			var response_index : int = response.connected_dialog.connected_responses.find(response)
+			var next_response_index = response_index
+			if response_index == 0:
+				next_response_index = response.connected_dialog.connected_responses.size()-1
+			else:
+				next_response_index -= 1
+			response.connected_dialog.connected_responses[next_response_index].set_focus_on_title()
+		else:
+			response.connected_dialog.set_focus_on_text()
+	elif selected_responses.size() == 0 && selected_dialogs.size() == 1:
+		var dialog : dialog_node = selected_dialogs[0]
+		if dialog.response_options.size() != 0:
+			dialog.response_options[0].set_focus_on_title()
+
+
+		
 
 func _on_DialogEditor_gui_input(event):
 	var undo_redo_delay = 0
@@ -727,11 +717,6 @@ func reindex_ids():
 func _on_category_panel_request_dialog_ids_reassigned():
 	reindex_ids()
 
-
-func _on_autosave_timer_timeout():
-	pass # Replace with function body.
-
-
 func _on_editor_settings_snap_enabled_changed(value):
 	use_snap = value
 
@@ -752,13 +737,6 @@ func _on_undo_system_request_action_move_color_organizer(index: int, new_positio
 	current_color_organizer_index_map[index].position_offset = new_position
 	current_response_index_map[index].do_not_send_position_changed_signal = true
 
-
-
-
-
-
-
-
 func _on_editor_settings_language_changed():
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
@@ -774,11 +752,6 @@ func _on_copy_nodes_request():
 		currently_copied_dialogs.append(dialog.save())
 	for response in selected_responses:
 		currently_copied_responses.append(response.save())
-
-
-	
-
-
 
 func _on_paste_nodes_request():
 	var node_loader = category_loader.new()
@@ -861,5 +834,4 @@ func _on_top_panel_deselect_all_selected():
 
 func _on_sftp_box_resync_cache():
 	clear_editor()
-	
 	visible = false

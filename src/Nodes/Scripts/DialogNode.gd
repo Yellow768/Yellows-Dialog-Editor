@@ -130,6 +130,12 @@ func _ready():
 	else:
 		determine_name(null)
 	TitleTextNode.text = dialog_title
+	if visual_preset == -1:
+		visual_preset = GlobalDeclarations.default_visual_preset
+		update_visual_options_to_preset()
+	if spacing_preset == -1:
+		spacing_preset = GlobalDeclarations.default_spacing_preset
+		update_spacing_options_to_preset()
 		
 
 func determine_name(_response):
@@ -166,7 +172,12 @@ func delete_response_node(deletion_slot : int,response_node : response_node):
 			i.slot -=1
 	response_options.erase(response_node)
 	emit_signal("unsaved_changes")
-	
+
+func append_response(response):
+	response_options.append(response)
+	response.slot = response_options.size()-1
+	response.set_parent_dialog(self)
+
 func clear_responses():
 	var responses_to_clear = response_options.duplicate()
 	for response in responses_to_clear:

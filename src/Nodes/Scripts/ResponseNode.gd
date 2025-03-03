@@ -173,7 +173,6 @@ func set_parent_dialog(new_parent_dialog):
 	if new_parent_dialog == null: 
 		parent_dialog_id = 0
 		return
-	
 	parent_dialog_id = parent_dialog.dialog_id
 
 func set_connection_text(dialog_name : String,dialog_node_index: int):

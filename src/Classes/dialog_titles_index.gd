@@ -15,7 +15,6 @@ func load_environment_settings():
 	var loaded_list = JSON.parse_string(environemt_settings_file.get_as_text())
 	if loaded_list && loaded_list.has("dialog_names_map"):
 		all_loaded_dialogs = loaded_list["dialog_names_map"]
-		print(all_loaded_dialogs)
 		print("Loaded Dialog Names Map")
 	else:
 		push_warning("Dialog Names Map not valid.")
