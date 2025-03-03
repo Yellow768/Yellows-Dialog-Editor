@@ -133,6 +133,5 @@ func _on_category_panel_request_clear_editor():
 	DialogSettingsTab.visible = false
 	response_settings_tab.visible = false
 
-
-func _on_sftp_box_resync_cache():
-	pass # Replace with function body.
+func _on_dialog_editor_editor_cleared():
+	current_dialog = null

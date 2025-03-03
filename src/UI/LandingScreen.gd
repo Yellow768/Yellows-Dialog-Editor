@@ -64,7 +64,7 @@ func change_to_editor(directory : String) -> void:
 		var tween := get_tree().create_tween()
 		$InvalidDirectory.modulate = Color(1,1,1,1)
 		tween.tween_property($InvalidDirectory,"modulate",Color(1,1,1,0),2).set_delay(1)
-		printerr("Directory does not exist")
+		printerr("Directory "+directory+" does not exist")
 	
 func add_directory_to_config(directory : String) -> void:
 	var config = ConfigFile.new()
@@ -166,8 +166,8 @@ func _on_sftp_tester_sftp_directory_chosen(path,connection_info):
 func _on_prev_dirs_tree_item_activated():
 	var selected = PrevDirTree.get_selected()
 	if selected.get_metadata(0) == null:
-		add_directory_to_config(PrevDirTree.get_selected().get_text(0))
-		change_to_editor(PrevDirTree.get_selected().get_text(0))
+		add_directory_to_config(PrevDirTree.get_selected().get_tooltip_text(0))
+		change_to_editor(PrevDirTree.get_selected().get_tooltip_text(0))
 	else:
 		var ssh_data = selected.get_metadata(0)
 		var AuthData = load("res://src/UI/Util/established_sftp_auth.tscn").instantiate()

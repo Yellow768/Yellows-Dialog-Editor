@@ -2,7 +2,6 @@ class_name category_loader
 extends Node
 
 signal clear_editor_request
-signal update_current_category
 signal add_dialog
 signal add_response
 signal request_connect_nodes
@@ -62,7 +61,6 @@ func load_category(category_name):
 					
 			connect_all_responses()
 			save_category.close()
-			emit_signal("update_current_category",category_name)
 			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
 			emit_signal("category_finished_loading")
 		return OK

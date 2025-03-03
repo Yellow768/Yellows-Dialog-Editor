@@ -3,7 +3,6 @@ extends Node
 
 signal save_category_request
 signal clear_editor_request
-signal update_current_category
 signal request_add_dialog
 signal request_add_response
 signal request_connect_nodes
@@ -44,7 +43,6 @@ func create_nodes_from_index(category_name : String, index : int = 0):
 		create_nodes_from_index(category_name,0)
 	else:
 		unimported_dialog_position = Vector2(300,300)
-		emit_signal("update_current_category",imported_category_name)
 		#emit_signal("save_category_request")
 		loaded_dialog_nodes = []
 		loaded_responses = []
