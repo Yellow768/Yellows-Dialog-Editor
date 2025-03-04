@@ -1970,10 +1970,12 @@ text_overrun_behavior = 3
 custom_minimum_size = Vector2(26, 20)
 layout_mode = 2
 size_flags_vertical = 8
+tooltip_text = "TOGGLE_CONNECTION_TOOLTIP"
 text = "DISCONNECT"
 
 [node name="ResyncButton" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
 layout_mode = 2
+tooltip_text = "RESYNC_TOOLTIP"
 text = "SYNC_LOCAL_CACHE"
 
 [node name="Timer" type="Timer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
