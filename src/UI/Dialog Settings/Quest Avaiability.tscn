@@ -46,7 +46,7 @@ offset_bottom = 9.5
 alignment = 1
 text_overrun_behavior = 1
 clip_text = true
-item_count = 6
+item_count = 7
 popup/item_0/text = "AV_ALWAYS"
 popup/item_0/id = 0
 popup/item_1/text = "AV_AFTER"
@@ -59,6 +59,8 @@ popup/item_4/text = "AV_WHEN_NOT_ACTIVE"
 popup/item_4/id = 4
 popup/item_5/text = "AV_COMPLETE"
 popup/item_5/id = 5
+popup/item_6/text = "AV_CANSTART"
+popup/item_6/id = 6
 
 [node name="SpinBox" type="SpinBox" parent="Panel"]
 layout_mode = 1
