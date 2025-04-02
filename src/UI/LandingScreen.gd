@@ -125,9 +125,13 @@ func _on_FileDialog_dir_selected(path : String):
 	var valid_path := find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path
-		InvalidFolder.popup_centered()
-		InvalidFolder.connect("confirm_button_pressed",Callable(self,"_on_Confirm_pressed"))
-		InvalidFolder.connect("cancel_button_pressed",Callable(self,"_on_Cancel_button_up"))
+		var InvalidPathConfirmDialog = ConfirmationDialog.new()
+		InvalidPathConfirmDialog.get_label().text = tr("INVALID_CUSTOMNPCS_DIR")
+		InvalidPathConfirmDialog.get_ok_button().text = tr("INVALID_CUSTOMNPCS_DIR_ACCEPT")
+		InvalidPathConfirmDialog.connect("confirmed",Callable(self,"_on_InvalidCustomnpcsDirAccept_pressed"))
+		InvalidPathConfirmDialog.connect("canceled",Callable(self,"_on_InvalidCustomnpcsDirCancel_button_up()").bind(InvalidPathConfirmDialog))
+		add_child(InvalidPathConfirmDialog)
+		InvalidPathConfirmDialog.popup_centered()
 	else:
 		add_directory_to_config(valid_path)
 		change_to_editor(valid_path)
@@ -136,14 +140,13 @@ func _on_FileDialog_dir_selected(path : String):
 		
 
 
-func _on_Cancel_button_up():
+func _on_InvalidCustomnpcsDirCancel_button_up(invalid_popup_dialog):
+	invalid_popup_dialog.queue_free()
 	$Panel/FileDialog.popup_centered()
-	InvalidFolder.hide()
-	InvalidFolder.disconnect("confirm_button_pressed",Callable(self,"_on_Confirm_pressed"))
-	InvalidFolder.disconnect("cancel_button_pressed",Callable(self,"_on_Cancel_button_up"))
+	
 
 
-func _on_Confirm_pressed():
+func _on_InvalidCustomnpcsDirAccept_pressed():
 	var dir := DirAccess.open(chosen_dir)
 	if chosen_dir.replace(chosen_dir.get_base_dir(),"") == "/customnpcs":
 		dir.make_dir(chosen_dir+"/dialogs")
