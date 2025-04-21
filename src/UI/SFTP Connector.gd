@@ -7,11 +7,12 @@ extends PanelContainer
 @export var key_file_hbox_path : NodePath
 @export var key_passphrase_path : NodePath
 @export var private_key_vbox_path : NodePath
+@export var show_password_button_path : NodePath
+@export var show_passphrase_button_path : NodePath
 
 
 @export var connect_button_path : NodePath
 @export var tree_path : NodePath
-@export var invalid_directory_path : NodePath
 @export var select_button_path : NodePath
 @export var path_line_edit_path : NodePath
 
@@ -24,6 +25,8 @@ extends PanelContainer
 @onready var KeyFileHbox : HBoxContainer = get_node(key_file_hbox_path)
 @onready var KeyPassPhrase : LineEdit = get_node(key_passphrase_path)
 @onready var PrivateKeyVbox : VBoxContainer = get_node(private_key_vbox_path)
+@onready var ShowPasswordButton : Button = get_node(show_password_button_path)
+@onready var ShowPassphraseButton : Button = get_node(show_passphrase_button_path)
 
 
 @onready var ConnectButton : Button = get_node(connect_button_path)
@@ -54,7 +57,7 @@ func _process(delta):
 
 var files_in_sftp_directory : Dictionary
 
-func _on_button_pressed():
+func connect_to_sftp_server():
 	CurrentEnvironment.create_sftpclient()
 	var connecting_popup = AcceptDialog.new()
 	connecting_popup.get_ok_button().set_visible(false)
@@ -205,6 +208,8 @@ func _on_forward_pressed():
 var sftp_background_darkener
 
 func _on_connect_to_sftp_server_pressed():
+	if visible:
+		return
 	sftp_background_darkener = ColorRect.new()
 	sftp_background_darkener.color = Color(0,0,0,.3)
 	
@@ -291,3 +296,23 @@ func update_key_file_line_edit(text):
 
 func _on_key_file_button_toggled(button_pressed):
 	PrivateKeyVbox.visible = button_pressed
+
+
+func _on_show_password_button_down():
+	PasswordTextEdit.secret = false
+	ShowPasswordButton.icon = load("res://Assets/UI Textures/Icon Font/eye-line.svg")
+	
+	
+func _on_show_password_button_up():
+	PasswordTextEdit.secret = true
+	ShowPasswordButton.icon = load("res://Assets/UI Textures/Icon Font/eye-off-line.svg")
+
+
+func _on_show_passphrase_button_down():
+	KeyPassPhrase.secret = false
+	ShowPassphraseButton.icon = load("res://Assets/UI Textures/Icon Font/eye-line.svg")
+
+
+func _on_show_passphrase_button_up():
+	KeyPassPhrase.secret = true
+	ShowPassphraseButton.icon = load("res://Assets/UI Textures/Icon Font/eye-off-line.svg")

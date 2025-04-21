@@ -32,9 +32,8 @@ file_logging/max_log_files=10
 [display]
 
 window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
-window/size/initial_position_type=2
+window/size/viewport_height=1000
+window/size/initial_position_type=0
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
