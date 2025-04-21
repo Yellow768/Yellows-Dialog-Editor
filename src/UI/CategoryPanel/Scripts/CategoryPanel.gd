@@ -320,7 +320,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	emit_signal("category_loading_finished",category_name)
 	current_category = category_name
 	DialogEditor.visible = true
-	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
+	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | Yellow's Dialog Editor")
 
 func _on_Searchbar_text_changed(new_text : String):
 	for button in $VBoxContainer/ScrollContainer/CategoryContainers.get_children():

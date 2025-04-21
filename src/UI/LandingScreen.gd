@@ -14,7 +14,7 @@ var chosen_dir : String
 
 func _ready():
 	get_tree().auto_accept_quit = true
-	DisplayServer.window_set_title("Home | CNPC Dialog Editor")
+	DisplayServer.window_set_title("Home | Yellow's Dialog Editor")
 	OS.low_processor_usage_mode = true
 	#get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	get_window().min_size = Vector2(1280,720)
@@ -57,7 +57,7 @@ func change_to_editor(directory : String) -> void:
 		CurrentEnvironment.current_directory = directory
 		CurrentEnvironment.load_faction_data()
 		get_parent().add_child(editor)
-		DisplayServer.window_set_title(directory+" | CNPC Dialog Editor")
+		DisplayServer.window_set_title(directory+" | Yellow's Dialog Editor")
 		print("Loaded "+directory)
 		queue_free()
 	else:

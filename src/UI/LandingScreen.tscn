@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=27 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="3_rydwl"]
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="4_3xjq6"]
+[ext_resource type="Script" path="res://src/UI/EnvironmentFileDialog.gd" id="4_cfky2"]
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
 [ext_resource type="Script" path="res://src/UI/SFTP Connector.gd" id="8_4yg0d"]
@@ -238,16 +239,17 @@ metadata/_edit_group_ = true
 [node name="FileDialog" type="FileDialog" parent="Panel"]
 mode = 3
 title = "FILE_TITLE"
-position = Vector2i(160, 45)
+position = Vector2i(22, 36)
 size = Vector2i(915, 600)
 min_size = Vector2i(240, 600)
 theme = SubResource("5")
-ok_button_text = "Select Current Folder"
+ok_button_text = "Select This Folder"
 cancel_button_text = "CANCEL"
 mode_overrides_title = false
 file_mode = 2
 access = 2
 show_hidden_files = true
+script = ExtResource("4_cfky2")
 
 [node name="EditorSettingsButton" type="Button" parent="."]
 process_mode = 1
@@ -559,6 +561,7 @@ ok_button_text = "Ok"
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
 [connection signal="pressed" from="EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
+[connection signal="language_changed" from="EditorSettings" to="Panel/FileDialog" method="_on_editor_settings_language_changed"]
 [connection signal="sftp_directory_chosen" from="SFTP Dialog" to="." method="_on_sftp_tester_sftp_directory_chosen"]
 [connection signal="button_down" from="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password/ShowPassword" to="SFTP Dialog" method="_on_show_password_button_down"]
 [connection signal="button_up" from="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password/ShowPassword" to="SFTP Dialog" method="_on_show_password_button_up"]

@@ -28,7 +28,7 @@ func load_temp(data):
 				load_orphaned_response(dict)
 		connect_all_responses()
 		queue_free()
-		DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+CurrentEnvironment.current_category_name+" | CNPC Dialog Editor")
+		DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+CurrentEnvironment.current_category_name+" | Yellow's Dialog Editor")
 		return OK
 
 
@@ -61,7 +61,7 @@ func load_category(category_name):
 					
 			connect_all_responses()
 			save_category.close()
-			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
+			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | Yellow's Dialog Editor")
 			emit_signal("category_finished_loading")
 		return OK
 
