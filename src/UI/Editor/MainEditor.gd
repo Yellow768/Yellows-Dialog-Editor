@@ -34,6 +34,8 @@ func _on_HomeButton_pressed():
 	if unsaved_categories.is_empty():
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		queue_free()
+		if CurrentEnvironment.sftp_client:
+				CurrentEnvironment.sftp_client.Disconnect()
 	else:
 		$UnsavedPanel.visible = true
 		is_quit_return_to_home = true
@@ -44,7 +46,8 @@ func _notification(what):
 		is_quit_return_to_home = false
 		if unsaved_categories.is_empty():
 			get_tree().quit()
-			CurrentEnvironment.sftp_client.Disconnect()
+			if CurrentEnvironment.sftp_client:
+				CurrentEnvironment.sftp_client.Disconnect()
 		else:
 			$UnsavedPanel.visible = true
 			update_unsaved_categories_text_list()
@@ -76,6 +79,8 @@ func _on_no_save_pressed():
 
 func _on_save_and_close_pressed():
 	$CategoryPanel.save_all_categories()
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.Disconnect()
 	if is_quit_return_to_home:
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		get_tree().auto_accept_quit = true

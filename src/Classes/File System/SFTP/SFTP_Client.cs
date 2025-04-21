@@ -379,6 +379,7 @@ public partial class SFTP_Client : Node
 			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_UPLOAD");
 			return ;
 		}
+		GD.Print(remote_file_path);
 	}
 
 	private void _RecursiveCreateAllDirsInPath(string path){
@@ -466,22 +467,22 @@ public partial class SFTP_Client : Node
 
 private void DeleteDirectory(string path)
 {
-    foreach (SftpFile file in _SFTPClient.ListDirectory(path))
-    {
-        if ((file.Name != ".") && (file.Name != ".."))
-        {
-            if (file.IsDirectory)
-            {
-                DeleteDirectory(file.FullName);
-            }
-            else
-            {
-                _SFTPClient.DeleteFile(file.FullName);
-            }
-        }
-    }
+	foreach (SftpFile file in _SFTPClient.ListDirectory(path))
+	{
+		if ((file.Name != ".") && (file.Name != ".."))
+		{
+			if (file.IsDirectory)
+			{
+				DeleteDirectory(file.FullName);
+			}
+			else
+			{
+				_SFTPClient.DeleteFile(file.FullName);
+			}
+		}
+	}
 
-    _SFTPClient.DeleteDirectory(path);
+	_SFTPClient.DeleteDirectory(path);
 }
 
 

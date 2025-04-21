@@ -66,7 +66,7 @@ func create_response_nodes_from_json(node : dialog_node,json : Dictionary) -> in
 		response.slot = i["OptionSlot"]
 		if i["Option"].has(["DialogCommand"]):
 			response.option_command = i["Option"]["DialogCommand"]
-		response.to_dialog_id = i["Option"]["Dialog"]
+		response.to_dialog_id = i["Optiong u"]["Dialog"]
 		response.response_title = i["Option"]["Title"]
 		response.response_text = i["Option"]["Text"]
 		response.color_decimal = i["Option"]["DialogColor"]

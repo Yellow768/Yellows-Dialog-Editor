@@ -92,6 +92,7 @@ func _on_category_panel_category_sftp_succesfully_saved():
 	
 func _on_sftp_error(error,message):
 	add_notification(tr(message),Color(1,0,0))
+	print(error)
 	push_error(error)
 
 func _on_sftp_not_connected():
