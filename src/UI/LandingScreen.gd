@@ -7,7 +7,6 @@ const user_settings_path := "user://user_settings.cfg"
 @export var sftp_starter_path : NodePath
 
 
-@onready var InvalidFolder : Popup = get_node(invalid_folder_path)
 @onready var PrevDirTree : Tree = get_node(prev_dir_tree_path)
 @onready var SftpStarter : PanelContainer = get_node(sftp_starter_path)
 
@@ -47,6 +46,7 @@ func _ready():
 		
 	$Panel/FileDialog.current_dir = GlobalDeclarations.default_user_directory
 	$Panel/FileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
+	CurrentEnvironment.sftp_client = null
 	print("Launched Succesfully")
 	
 

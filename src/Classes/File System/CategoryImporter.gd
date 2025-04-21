@@ -64,9 +64,9 @@ func create_response_nodes_from_json(node : dialog_node,json : Dictionary) -> in
 	for i in json["Options"]:
 		var response : response_node = GlobalDeclarations.RESPONSE_NODE.instantiate() 
 		response.slot = i["OptionSlot"]
-		if i["Option"].has(["DialogCommand"]):
+		if i["Option"].has("DialogCommand"):
 			response.option_command = i["Option"]["DialogCommand"]
-		response.to_dialog_id = i["Optiong u"]["Dialog"]
+		response.to_dialog_id = i["Option"]["Dialog"]
 		response.response_title = i["Option"]["Title"]
 		response.response_text = i["Option"]["Text"]
 		response.color_decimal = i["Option"]["DialogColor"]

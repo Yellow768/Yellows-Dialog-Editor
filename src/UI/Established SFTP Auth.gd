@@ -7,6 +7,8 @@ signal auth_data_entered
 @export var key_file_passphrase_line_edit_path : NodePath
 @export var key_file_dialog_opener : NodePath
 @export var private_key_toggle_path : NodePath
+@export var show_password_button_path : NodePath
+@export var show_passphrase_button_path : NodePath
 
 @onready var KeyfileGrid : GridContainer = get_node(key_file_grid_container)
 @onready var PasswordLineEdit : LineEdit = get_node(password_line_edit_path)
@@ -14,6 +16,8 @@ signal auth_data_entered
 @onready var KeyPassphrase : LineEdit = get_node(key_file_passphrase_line_edit_path)
 @onready var KeyFileDialogOpener : Button = get_node(key_file_dialog_opener)
 @onready var PrivateKeyToggle : CheckBox = get_node(private_key_toggle_path)
+@onready var ShowPasswordButton : Button = get_node(show_password_button_path)
+@onready var ShowPassphraseButton : Button = get_node(show_passphrase_button_path)
 
 var username : String
 var hostname : String
@@ -106,3 +110,25 @@ func get_auth_data():
 		if key_passphrase != "":
 			auth_data["private_key_passphrase"] = key_passphrase
 	return auth_data
+
+
+func _on_show_password_button_button_down():
+	ShowPasswordButton.icon = load("res://Assets/UI Textures/Icon Font/eye-line.svg")
+	PasswordLineEdit.secret = false
+	
+
+
+
+func _on_show_password_button_button_up():
+	ShowPasswordButton.icon = load("res://Assets/UI Textures/Icon Font/eye-off-line.svg")
+	PasswordLineEdit.secret = true
+
+
+func _on_show_passphrase_button_button_down():
+	ShowPassphraseButton.icon = load("res://Assets/UI Textures/Icon Font/eye-line.svg")
+	KeyPassphrase.secret = false
+
+
+func _on_show_passphrase_button_button_up():
+	ShowPassphraseButton.icon = load("res://Assets/UI Textures/Icon Font/eye-off-line.svg")
+	KeyPassphrase.secret = true

@@ -45,11 +45,12 @@ func find_highest_index(reindex := false) -> int:
 			var dir_search := DirectorySearch.new()
 			id_numbers = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
 		var proper_id_numbers : Array[int]= []
-		for number in id_numbers:
-			number = number.replace(".json","")
-			if number.is_valid_int():
-				proper_id_numbers.append(int(number))
-		proper_id_numbers.sort()
+		if id_numbers:
+			for number in id_numbers:
+				number = number.replace(".json","")
+				if number.is_valid_int():
+					proper_id_numbers.append(int(number))
+			proper_id_numbers.sort()
 		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 		if proper_id_numbers != []:
 			file.store_line(str(proper_id_numbers.back()))

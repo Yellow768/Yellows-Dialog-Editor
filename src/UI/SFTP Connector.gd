@@ -28,7 +28,6 @@ extends PanelContainer
 
 @onready var ConnectButton : Button = get_node(connect_button_path)
 @onready var FileTree : Tree = get_node(tree_path)
-@onready var InvalidDirectory : Popup = get_node(invalid_directory_path)
 @onready var SelectButton : Button = get_node(select_button_path)
 @onready var PathLineEdit : LineEdit = get_node(path_line_edit_path)
 
@@ -122,19 +121,22 @@ func _on_select_folder_pressed():
 	var remote_path_to_download_from = sftp_find_customnpcs_dir()
 	if remote_path_to_download_from == "":
 		remote_path_to_download_from = CurrentEnvironment.sftp_client.GetCurrentDirectory()
-		InvalidDirectory.popup_centered()
-		InvalidDirectory.connect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp").bind(remote_path_to_download_from))
-		InvalidDirectory.connect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
+		var InvalidPathConfirmDialog = ConfirmationDialog.new()
+		InvalidPathConfirmDialog.get_label().text = tr("INVALID_CUSTOMNPCS_DIR")
+		InvalidPathConfirmDialog.get_ok_button().text = tr("INVALID_CUSTOMNPCS_DIR_ACCEPT")
+		InvalidPathConfirmDialog.connect("confirmed",Callable(self,"make_local_cache_and_download_sftp").bind(remote_path_to_download_from))
+		add_child(InvalidPathConfirmDialog)
+		InvalidPathConfirmDialog.popup_centered()
 	else:
-		CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
-		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
-		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
+		
 		make_local_cache_and_download_sftp(remote_path_to_download_from)	
 
 	
 	
 func make_local_cache_and_download_sftp(remote_path_to_download_from):
-		
+	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
+	CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
+	CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from		
 	CurrentEnvironment.sftp_directory = remote_path_to_download_from
 	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory)
 	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/dialogs")
@@ -182,12 +184,6 @@ func connect_to_established_sftp(auth_data,remote_dir,local_dir):
 		failure_alert.title = "SFTP Failed To Connect"
 		failure_alert.popup_centered()
 		
-		
-func disconnect_invalid_directory():
-	InvalidDirectory.disconnect("confirm_button_clicked",Callable(self,"make_local_cache_and_download_sftp"))
-	InvalidDirectory.disconnect("cancel_button_clicked",Callable(self,"disconnect_invalid_directory"))
-	InvalidDirectory.hide()
-	
 
 func _on_back_pressed():
 	if previous_dirs.size() != 0:

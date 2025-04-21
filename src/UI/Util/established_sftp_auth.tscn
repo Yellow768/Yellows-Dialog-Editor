@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://lnj7t28c8vpq"]
+[gd_scene load_steps=7 format=3 uid="uid://lnj7t28c8vpq"]
 
 [ext_resource type="Script" path="res://src/UI/Established SFTP Auth.gd" id="1_hhqcw"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="1_mle5g"]
+[ext_resource type="Texture2D" uid="uid://3q0ecreirj77" path="res://Assets/UI Textures/Icon Font/eye-off-line.svg" id="3_p7856"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kqqty"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vxf1o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w2x6b"]
 
 [node name="Established SFTP Auth" type="ConfirmationDialog"]
 title = "AUTH_INTO_SFTP_SERVER"
@@ -16,6 +23,8 @@ key_file_line_edit_path = NodePath("VBoxContainer/GridContainer/KeyFileHbox/Path
 key_file_passphrase_line_edit_path = NodePath("VBoxContainer/GridContainer/PassphraseLinedit")
 key_file_dialog_opener = NodePath("VBoxContainer/GridContainer/KeyFileHbox/FileDialogOpener")
 private_key_toggle_path = NodePath("VBoxContainer/HBoxContainer2/PrivateKeyToggle")
+show_password_button_path = NodePath("VBoxContainer/HBoxContainer/LineEdit/ShowPasswordButton")
+show_passphrase_button_path = NodePath("VBoxContainer/GridContainer/PassphraseLinedit/ShowPassphraseButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 618.0
@@ -35,6 +44,23 @@ custom_minimum_size = Vector2(400, 15)
 layout_mode = 2
 size_flags_vertical = 4
 secret = true
+
+[node name="ShowPasswordButton" type="Button" parent="VBoxContainer/HBoxContainer/LineEdit"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kqqty")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vxf1o")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w2x6b")
+icon = ExtResource("3_p7856")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -86,11 +112,32 @@ placeholder_text = "LEAVE_BLANK_IF_NONE"
 editable = false
 secret = true
 
+[node name="ShowPassphraseButton" type="Button" parent="VBoxContainer/GridContainer/PassphraseLinedit"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kqqty")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vxf1o")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w2x6b")
+icon = ExtResource("3_p7856")
+
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="text_submitted" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/LineEdit/ShowPasswordButton" to="." method="_on_show_password_button_button_down"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/LineEdit/ShowPasswordButton" to="." method="_on_show_password_button_button_up"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer2/PrivateKeyToggle" to="." method="_on_private_key_toggle_toggled"]
 [connection signal="text_changed" from="VBoxContainer/GridContainer/KeyFileHbox/PathToKeyLineEdit" to="." method="_on_path_to_key_line_edit_text_submitted"]
 [connection signal="text_submitted" from="VBoxContainer/GridContainer/KeyFileHbox/PathToKeyLineEdit" to="." method="_on_path_to_key_line_edit_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/KeyFileHbox/FileDialogOpener" to="." method="_on_file_dialog_opener_pressed"]
 [connection signal="text_changed" from="VBoxContainer/GridContainer/PassphraseLinedit" to="." method="_on_passphrase_linedit_text_submitted"]
 [connection signal="text_submitted" from="VBoxContainer/GridContainer/PassphraseLinedit" to="." method="_on_passphrase_linedit_text_submitted"]
+[connection signal="button_down" from="VBoxContainer/GridContainer/PassphraseLinedit/ShowPassphraseButton" to="." method="_on_show_passphrase_button_button_down"]
+[connection signal="button_up" from="VBoxContainer/GridContainer/PassphraseLinedit/ShowPassphraseButton" to="." method="_on_show_passphrase_button_button_up"]
