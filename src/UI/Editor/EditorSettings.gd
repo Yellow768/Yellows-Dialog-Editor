@@ -210,3 +210,4 @@ func _on_tab_bar_tab_changed(tab):
 
 func _on_text_edit_text_changed():
 	GlobalDeclarations.dialog_name_preset = DefaultDialogNamePreset.text
+

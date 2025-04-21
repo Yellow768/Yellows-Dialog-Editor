@@ -522,11 +522,11 @@ layout_mode = 2
 
 [node name="Back" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
 layout_mode = 2
-text = "🠈"
+text = "←"
 
 [node name="Forward" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
 layout_mode = 2
-text = "🠊"
+text = "→"
 
 [node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
 custom_minimum_size = Vector2(600, 0)

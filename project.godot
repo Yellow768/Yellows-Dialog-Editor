@@ -33,11 +33,16 @@ file_logging/max_log_files=10
 
 window/size/viewport_width=1920
 window/size/viewport_height=1000
+window/size/mode=2
 window/size/initial_position_type=0
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=false
+window/ios/allow_high_refresh_rate=false
+window/ios/hide_home_indicator=false
+window/ios/hide_status_bar=false
+window/ios/suppress_ui_gesture=false
 
 [dotnet]
 
