@@ -102,7 +102,7 @@ func _on_resync_button_pressed():
 	await self.sftp_done
 	if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/quests"):
 		Progress.set_overall_task_name(tr("DOWNLOADING_QUESTS"))
-		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/quests")
+		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_client.local_file_cache+"/quests")
 		CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/quests",CurrentEnvironment.current_directory+"/quests",false,true)
 		await self.sftp_done
 	if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/factions.dat"):

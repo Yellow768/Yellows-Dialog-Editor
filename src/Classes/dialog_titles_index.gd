@@ -11,8 +11,8 @@ func _ready():
 func load_environment_settings():
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/environment_settings.json"):
 		FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
-	var environemt_settings_file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.READ)
-	var loaded_list = JSON.parse_string(environemt_settings_file.get_as_text())
+	var environment_settings_file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.READ)
+	var loaded_list = JSON.parse_string(environment_settings_file.get_as_text())
 	if loaded_list && loaded_list.has("dialog_names_map"):
 		all_loaded_dialogs = loaded_list["dialog_names_map"]
 		print("Loaded Dialog Names Map")

@@ -138,11 +138,10 @@ func _on_select_folder_pressed():
 	
 func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
-	CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from
-	CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from		
+	CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_path_to_download_from.replace(":","")
 	CurrentEnvironment.sftp_directory = remote_path_to_download_from
-	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory)
-	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/dialogs")
+	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_client.local_file_cache)
+	DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_client.local_file_cache+"/dialogs")
 	var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
 	get_parent().add_child(Progress)
 	CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
@@ -150,20 +149,20 @@ func make_local_cache_and_download_sftp(remote_path_to_download_from):
 	CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/dialogs"):
 		Progress.set_overall_task_name(tr("DOWNLOADING_DIALOGS"))
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",CurrentEnvironment.sftp_local_cache_directory+"/dialogs",true,true)
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/dialogs",CurrentEnvironment.sftp_client.local_file_cache+"/dialogs",true,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/quests"):
 		Progress.set_overall_task_name(tr("DOWNLOADING_QUESTS"))
-		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_local_cache_directory+"/quests")
-		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",CurrentEnvironment.sftp_local_cache_directory+"/quests",false,true)
+		DirAccess.make_dir_recursive_absolute(CurrentEnvironment.sftp_client.local_file_cache+"/quests")
+		CurrentEnvironment.sftp_client.DownloadDirectory(remote_path_to_download_from+"/quests",CurrentEnvironment.sftp_client.local_file_cache+"/quests",false,true)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	if CurrentEnvironment.sftp_client.Exists(remote_path_to_download_from+"/factions.dat"):
 		Progress.set_overall_task_name(tr("DOWNLOADING_FACTIONS"))
-		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",CurrentEnvironment.sftp_local_cache_directory)
+		CurrentEnvironment.sftp_client.DownloadFile(remote_path_to_download_from+"/factions.dat",CurrentEnvironment.sftp_client.local_file_cache)
 		await CurrentEnvironment.sftp_client.ProgressDone
 	CurrentEnvironment.sftp_client.ChangeDirectory(remote_path_to_download_from)
 	CurrentEnvironment.sftp_client.remote_file_directory = remote_path_to_download_from
-	sftp_directory_chosen.emit(CurrentEnvironment.sftp_local_cache_directory,connection_info)
+	sftp_directory_chosen.emit(CurrentEnvironment.sftp_client.local_file_cache,connection_info)
 	
 	
 func connect_to_established_sftp(auth_data,remote_dir,local_dir):
@@ -173,8 +172,7 @@ func connect_to_established_sftp(auth_data,remote_dir,local_dir):
 	if connection_result == "OK":
 		CurrentEnvironment.sftp_directory = remote_dir
 		CurrentEnvironment.sftp_client.ChangeDirectory(remote_dir)
-		CurrentEnvironment.sftp_local_cache_directory = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
-		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir
+		CurrentEnvironment.sftp_client.local_file_cache = OS.get_user_data_dir()+"/sftp_cache/"+connection_info["username"]+"@"+connection_info["hostname"]+remote_dir.replace(":","")
 		CurrentEnvironment.sftp_client.remote_file_directory = remote_dir
 		if DirAccess.dir_exists_absolute(local_dir):
 			sftp_directory_chosen.emit(local_dir,connection_info)

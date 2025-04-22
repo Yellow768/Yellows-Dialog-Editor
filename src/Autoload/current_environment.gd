@@ -14,7 +14,6 @@ var sftp_hostname
 var sftp_username
 var sftp_port
 var sftp_cached_path
-var sftp_local_cache_directory
 var sftp_private_key
 
 var sftp_saved_categories = []
