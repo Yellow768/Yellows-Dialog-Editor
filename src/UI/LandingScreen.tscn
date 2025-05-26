@@ -1,11 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene load_steps=27 format=3 uid="uid://b3koueh5166hj"]
 
 [ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="3_rydwl"]
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="4_3xjq6"]
+[ext_resource type="Script" path="res://src/UI/EnvironmentFileDialog.gd" id="4_cfky2"]
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
+[ext_resource type="Script" path="res://src/UI/SFTP Connector.gd" id="8_4yg0d"]
+[ext_resource type="Texture2D" uid="uid://3q0ecreirj77" path="res://Assets/UI Textures/Icon Font/eye-off-line.svg" id="8_k1sfc"]
 
 [sub_resource type="FontVariation" id="FontVariation_mmhe0"]
 base_font = ExtResource("4_tgwf2")
@@ -84,6 +87,33 @@ corner_radius_bottom_left = 8
 [sub_resource type="LabelSettings" id="LabelSettings_01jgx"]
 font_size = 22
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ticj"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 0, 0, 0.219608)
+shadow_size = 3
+shadow_offset = Vector2(0, 15)
+
+[sub_resource type="ImageTexture" id="ImageTexture_yc7ep"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4fp8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_645wd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_na73n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdb5r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aokfs"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
 [node name="LandingScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -93,6 +123,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2")
 script = ExtResource("1")
+prev_dir_tree_path = NodePath("Panel/VBoxContainer2/HBoxContainer/PrevDirsTree")
+sftp_starter_path = NodePath("SFTP Dialog")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -111,15 +143,34 @@ offset_right = 912.0
 offset_bottom = 599.0
 
 [node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2"]
-custom_minimum_size = Vector2(400, 200)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "[b]Yellow's Dialog Editor 
-v0.8.1"
+text = "[b]Yellow's Dialog Editor"
+
+[node name="ProgramVersionLabel" type="RichTextLabel" parent="Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
+theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
+theme_override_font_sizes/bold_font_size = 62
+bbcode_enabled = true
+text = "[b]v10.1"
+
+[node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(400, 25)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
+theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
+theme_override_font_sizes/bold_font_size = 62
+bbcode_enabled = true
+text = "2025-04-21"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
@@ -163,6 +214,11 @@ custom_minimum_size = Vector2(435, 50)
 layout_mode = 2
 text = "OPEN_ENV"
 
+[node name="Connect to SFTP Server" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(435, 50)
+layout_mode = 2
+text = "CONNECT_TO_AN_SFTP_SERVER"
+
 [node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "BEGIN_SPLASH"
@@ -173,18 +229,17 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="PrevDirsContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(900, 580)
+[node name="PrevDirsTree" type="Tree" parent="Panel/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(1000, 500)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/PrevDirsContainer"]
-layout_mode = 2
-text = "RECENT_ENVS"
+columns = 2
+hide_root = true
+metadata/_edit_group_ = true
 
 [node name="FileDialog" type="FileDialog" parent="Panel"]
 mode = 3
 title = "FILE_TITLE"
-position = Vector2i(160, 45)
+position = Vector2i(22, 36)
 size = Vector2i(915, 600)
 min_size = Vector2i(240, 600)
 theme = SubResource("5")
@@ -194,43 +249,7 @@ mode_overrides_title = false
 file_mode = 2
 access = 2
 show_hidden_files = true
-
-[node name="InvalidFolderWarning" type="Popup" parent="Panel"]
-title = "FILE_INVALID"
-size = Vector2i(1660, 230)
-
-[node name="Label" type="Label" parent="Panel/InvalidFolderWarning"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "The selected folder is not a valid CustomNPCS environment.
-
-You may continue, but you will not be able to access named quests, factions, or existing dialogs, and exported dialogs will not properly index their IDs, with will cause conflicts if you manually move them into a world.
-
-Do you wish to proceed?"
-horizontal_alignment = 1
-
-[node name="Confirm" type="Button" parent="Panel/InvalidFolderWarning"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 137.0
-offset_top = -42.0
-offset_right = 199.0
-offset_bottom = -22.0
-text = "Confirm"
-
-[node name="Cancel" type="Button" parent="Panel/InvalidFolderWarning"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -177.0
-offset_top = -45.0
-offset_right = -123.0
-offset_bottom = -25.0
-text = "Cancel"
+script = ExtResource("4_cfky2")
 
 [node name="EditorSettingsButton" type="Button" parent="."]
 process_mode = 1
@@ -275,19 +294,287 @@ texture = ExtResource("4_edwkw")
 process_mode = 2
 visible = false
 layout_mode = 1
+offset_left = -325.0
+offset_top = -375.0
+offset_right = 325.0
+offset_bottom = 375.0
+
+[node name="SFTP Dialog" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(1200, 400)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = -300.0
-offset_right = 500.0
-offset_bottom = 300.0
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ticj")
+script = ExtResource("8_4yg0d")
+username_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Username")
+hostname_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Hostname")
+port_spinbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Port")
+password_textbox_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Password")
+key_file_line_edit_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer/LineEdit")
+key_file_hbox_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer")
+key_passphrase_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase")
+private_key_vbox_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods")
+show_password_button_path = NodePath("HBoxContainer/VBoxContainer/GridContainer/Password/ShowPassword")
+show_passphrase_button_path = NodePath("HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase/ShowPassphrase")
+connect_button_path = NodePath("HBoxContainer/VBoxContainer/ConnectButton")
+tree_path = NodePath("HBoxContainer/SFTP Files/Tree")
+select_button_path = NodePath("HBoxContainer/SFTP Files/SelectFolder")
+path_line_edit_path = NodePath("HBoxContainer/SFTP Files/HBoxContainer/LineEdit")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="SFTP Dialog/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer"]
+custom_minimum_size = Vector2(200, 340)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HSeparator4" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "CONNECT_TO_AN_SFTP_SERVER"
+
+[node name="GridContainer" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "HOSTNAME"
+
+[node name="Hostname" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+placeholder_text = "HOSTNAME"
+alignment = 1
+
+[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "PORT"
+
+[node name="Port" type="SpinBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_icons/updown = SubResource("ImageTexture_yc7ep")
+max_value = 99999.0
+value = 22.0
+allow_greater = true
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "USERNAME"
+
+[node name="Username" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+placeholder_text = "USERNAME"
+alignment = 1
+
+[node name="Label4" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "PASSWORD"
+
+[node name="Password" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+placeholder_text = "PASSWORD"
+alignment = 1
+secret = true
+
+[node name="ShowPassword" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_u4fp8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_645wd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_na73n")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jdb5r")
+icon = ExtResource("8_k1sfc")
+
+[node name="HSeparator5" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "PRIVATE_KEY"
+
+[node name="KeyFileButton" type="CheckBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="AuthenticationMethods" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(212, 0)
+layout_mode = 2
+
+[node name="Private Key Grid" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+layout_mode = 2
+text = "PRIVATE_KEY"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer"]
+custom_minimum_size = Vector2(223, 0)
+layout_mode = 2
+
+[node name="SelectKeyFileButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer"]
+layout_mode = 2
+text = "..."
+
+[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+layout_mode = 2
+text = "PASSPHRASE"
+
+[node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+placeholder_text = "LEAVE_BLANK_IF_NONE"
+alignment = 1
+secret = true
+
+[node name="ShowPassphrase" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_u4fp8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_645wd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_na73n")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jdb5r")
+icon = ExtResource("8_k1sfc")
+
+[node name="HSeparator2" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ConnectButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "CONNECT"
+
+[node name="VSeparator2" type="VSeparator" parent="SFTP Dialog/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="SFTP Files" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer"]
+custom_minimum_size = Vector2(800, 60)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+layout_mode = 2
+text = "←"
+
+[node name="Forward" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+layout_mode = 2
+text = "→"
+
+[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="Tree" type="Tree" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aokfs")
+
+[node name="SelectFolder" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
+layout_mode = 2
+disabled = true
+text = "USE_SELECTED_DIR"
+
+[node name="CloseButton" type="Button" parent="SFTP Dialog"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+ok_button_text = "Ok"
 
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Connect to SFTP Server" to="SFTP Dialog" method="_on_connect_to_sftp_server_pressed"]
+[connection signal="button_clicked" from="Panel/VBoxContainer2/HBoxContainer/PrevDirsTree" to="." method="_on_prev_dirs_tree_button_clicked"]
+[connection signal="item_activated" from="Panel/VBoxContainer2/HBoxContainer/PrevDirsTree" to="." method="_on_prev_dirs_tree_item_activated"]
 [connection signal="dir_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="visibility_changed" from="Panel/FileDialog" to="." method="_on_file_dialog_visibility_changed"]
-[connection signal="pressed" from="Panel/InvalidFolderWarning/Confirm" to="." method="_on_Confirm_pressed"]
-[connection signal="button_up" from="Panel/InvalidFolderWarning/Cancel" to="." method="_on_Cancel_button_up"]
 [connection signal="pressed" from="EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
+[connection signal="language_changed" from="EditorSettings" to="Panel/FileDialog" method="_on_editor_settings_language_changed"]
+[connection signal="sftp_directory_chosen" from="SFTP Dialog" to="." method="_on_sftp_tester_sftp_directory_chosen"]
+[connection signal="button_down" from="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password/ShowPassword" to="SFTP Dialog" method="_on_show_password_button_down"]
+[connection signal="button_up" from="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password/ShowPassword" to="SFTP Dialog" method="_on_show_password_button_up"]
+[connection signal="toggled" from="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer/KeyFileButton" to="SFTP Dialog" method="_on_key_file_button_toggled"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer/SelectKeyFileButton" to="SFTP Dialog" method="_on_select_key_file_button_pressed"]
+[connection signal="button_down" from="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase/ShowPassphrase" to="SFTP Dialog" method="_on_show_passphrase_button_down"]
+[connection signal="button_up" from="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase/ShowPassphrase" to="SFTP Dialog" method="_on_show_passphrase_button_up"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/VBoxContainer/ConnectButton" to="SFTP Dialog" method="connect_to_sftp_server"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Back" to="SFTP Dialog" method="_on_back_pressed"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Forward" to="SFTP Dialog" method="_on_forward_pressed"]
+[connection signal="text_submitted" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/LineEdit" to="SFTP Dialog" method="_on_line_edit_text_submitted"]
+[connection signal="item_activated" from="SFTP Dialog/HBoxContainer/SFTP Files/Tree" to="SFTP Dialog" method="_on_tree_item_activated"]
+[connection signal="item_selected" from="SFTP Dialog/HBoxContainer/SFTP Files/Tree" to="SFTP Dialog" method="_on_tree_item_selected"]
+[connection signal="nothing_selected" from="SFTP Dialog/HBoxContainer/SFTP Files/Tree" to="SFTP Dialog" method="_on_tree_nothing_selected"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/SelectFolder" to="SFTP Dialog" method="_on_select_folder_pressed"]
+[connection signal="pressed" from="SFTP Dialog/CloseButton" to="SFTP Dialog" method="_on_close_button_pressed"]

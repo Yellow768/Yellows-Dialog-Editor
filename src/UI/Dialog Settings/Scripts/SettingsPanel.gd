@@ -42,7 +42,24 @@ func _ready():
 	DialogSpacingTab.create_preset_list()
 
 func scan_quest_and_faction_data():
+	if CurrentEnvironment.sftp_client:
+		if CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/quests").size() > 0:
+			var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
+			get_parent().get_parent().add_child(Progress)
+			Progress.set_overall_task_name("Downloading Quests")
+			CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
+			CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
+			CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
+			CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/quests",CurrentEnvironment.current_directory+"/quests",false,true)
+			await CurrentEnvironment.sftp_client.ProgressDone
+			if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_directory+"/factions.dat"):
+				Progress.set_overall_task_name("Downloading Factions")
+				CurrentEnvironment.sftp_client.DownloadFile(CurrentEnvironment.sftp_directory+"/factions.dat",CurrentEnvironment.current_directory)
+				await CurrentEnvironment.sftp_client.ProgressDone
+			Progress.queue_free()
+	
 	set_quest_dict()
+	CurrentEnvironment.load_faction_data()
 	emit_signal("scanned_quests_and_factions")
 
 func set_quest_dict():
@@ -118,3 +135,6 @@ func _on_dialog_editor_response_selected(_node):
 func _on_category_panel_request_clear_editor():
 	DialogSettingsTab.visible = false
 	response_settings_tab.visible = false
+
+func _on_dialog_editor_editor_cleared():
+	current_dialog = null

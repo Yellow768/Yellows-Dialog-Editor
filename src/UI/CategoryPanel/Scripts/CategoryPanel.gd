@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 signal request_clear_editor
 signal request_dialog_ids_reassigned
@@ -17,11 +17,17 @@ signal category_loading_finished
 
 signal category_succesfully_saved
 signal category_failed_save
+signal category_sftp_succesfully_saved
+signal category_failed_sftp_save
 
 signal category_succesfully_exported
 signal category_export_failed
+signal category_sftp_export_failed
+
 signal unsaved_change
 signal saved_backups
+
+signal sftp_done
 
 @export var category_file_container_path: NodePath
 @export var environment_index_path: NodePath
@@ -34,7 +40,7 @@ var current_directory_path
 var current_category : set = set_current_category
 var current_category_button : Button
 
-var export_version : int = 2
+var export_version : int = 0
 
 
 
@@ -48,13 +54,18 @@ var categoryPanelRevealed = false
 var category_temp_data : Dictionary = {}
 
 
+func _ready():
+	create_category_buttons(EnvironmentIndex.index_categories())
+	export_version = GlobalDeclarations.last_used_export_version
+	if CurrentEnvironment.sftp_client:
+		connect("category_succesfully_exported",Callable(CurrentEnvironment.sftp_client,"_OnCategoryExported").bind())
+		connect("category_succesfully_saved",Callable(CurrentEnvironment.sftp_client,"_OnCategorySaved").bind())
+
 func set_current_category(name):
 	current_category = name
 	CurrentEnvironment.current_category_name = current_category
 
-func _ready():
-	create_category_buttons(EnvironmentIndex.index_categories())
-	export_version = GlobalDeclarations.last_used_export_version
+
 	
 
 func create_category_buttons(categories):
@@ -164,7 +175,7 @@ func save_category_request():
 	var result = cat_save.save_category(current_category) 
 	if result == OK:
 		emit_signal("category_succesfully_saved",current_category)
-		current_category_button.set_unsaved(false)
+		current_category_button.set_unsaved(false)		
 	else:
 		emit_signal("category_failed_save")
 		printerr(error_string(result))
@@ -215,6 +226,26 @@ func export_category_request():
 	
 func load_category(category_name : String,category_button : Button = null):
 	category_loading_initiated.emit(category_name)
+	if CurrentEnvironment.sftp_client && DirAccess.get_files_at(CurrentEnvironment.current_dialog_directory+"/"+category_name).size() < 1:
+		if CurrentEnvironment.sftp_client.ListDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name).size() > 2:
+			var Progress = load("res://src/UI/Util/EditorProgressBar.tscn").instantiate()
+			var sftp_background_darkener
+			sftp_background_darkener = ColorRect.new()
+			sftp_background_darkener.color = Color(0,0,0,.8)
+			get_parent().get_parent().get_parent().add_child(Progress)
+			get_parent().get_parent().add_child(sftp_background_darkener)
+			sftp_background_darkener.size = Vector2(DisplayServer.window_get_size())
+			sftp_background_darkener.set_anchors_preset(Control.PRESET_FULL_RECT)
+			Progress.set_overall_task_name("Downloading "+category_name)
+			CurrentEnvironment.sftp_client.connect("ProgressMaxChanged",Callable(Progress,"set_max_progress"))
+			CurrentEnvironment.sftp_client.connect("ProgressItemChanged",Callable(Progress,"set_current_item_text"))
+			CurrentEnvironment.sftp_client.connect("Progress",Callable(Progress,"set_progress"))
+			CurrentEnvironment.sftp_client.connect("ProgressDone",Callable(self,"emit_signal").bind("sftp_done"))
+			CurrentEnvironment.sftp_client.DownloadDirectory(CurrentEnvironment.sftp_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+category_name,false,true)
+			await self.sftp_done
+			CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
+			Progress.queue_free()
+			sftp_background_darkener.queue_free()
 	if !loading_category and category_name != current_category:
 		loading_category = true
 		if category_button == null :
@@ -259,7 +290,6 @@ func load_category(category_name : String,category_button : Button = null):
 	for org in DialogEditor.color_organizers:
 		org.set_locked(org.locked)
 	category_loading_finished.emit(category_name)
-		
 	
 func initialize_category_import(category_name : String):
 	
@@ -278,6 +308,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	emit_signal("category_loading_initiated",category_name)
 	CurrentEnvironment.current_category_name = null
 	CurrentEnvironment.allow_save_state = false
+	
 	var new_category_importer := category_importer.new()
 	new_category_importer.connect("request_add_dialog", Callable(DialogEditor, "add_dialog_node"))
 	new_category_importer.connect("request_add_response", Callable(DialogEditor, "add_response_node"))
@@ -289,7 +320,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	emit_signal("category_loading_finished",category_name)
 	current_category = category_name
 	DialogEditor.visible = true
-	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
+	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | Yellow's Dialog Editor")
 
 func _on_Searchbar_text_changed(new_text : String):
 	for button in $VBoxContainer/ScrollContainer/CategoryContainers.get_children():
@@ -307,10 +338,14 @@ func _on_export_type_button_item_selected(index:int):
 	GlobalDeclarations.last_used_export_version = index
 	GlobalDeclarations.save_config()
 
-func load_duplicated_category(name : String):
+func load_duplicated_category(old_name : String ,new_name : String):
 	save_category_request()
-	#load_category(name)
-	#emit_signal("request_dialog_ids_reassigned")
+	current_category_button = null
+	load_category(new_name)
+	emit_signal("request_dialog_ids_reassigned")
+	if CurrentEnvironment.sftp_client:
+		save_category_request()
+	
 	
 
 
@@ -340,6 +375,7 @@ func _on_editor_settings_autosave_time_changed():
 func _on_dialog_file_system_index_category_deleted(category):
 	if current_category == category:
 		current_category = null
+		emit_signal("current_category_deleted")
 	category_temp_data.erase(category)
 	
 
@@ -349,3 +385,7 @@ func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
 		current_category = _new_name
 	category_temp_data.erase(old_name)
 	
+
+
+func _on_sftp_box_resync_cache():
+	category_temp_data = {}

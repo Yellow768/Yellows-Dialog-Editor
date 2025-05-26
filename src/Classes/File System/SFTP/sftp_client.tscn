@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://s4cb8medtgth"]
+
+[ext_resource type="Script" path="res://src/Classes/File System/SFTP/SFTP_Client.cs" id="1_gc3dv"]
+
+[node name="SFTP_Client" type="Node"]
+script = ExtResource("1_gc3dv")

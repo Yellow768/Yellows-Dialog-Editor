@@ -5,6 +5,7 @@ signal reimport_category_request
 signal scan_for_changes_request
 signal assign_new_ids_request
 signal deselect_all_selected
+signal rescan_quests_and_factions
 
 func _ready():
 	$TopPanelContainer/MenuButton.get_popup().connect("id_pressed",Callable(self,"category_menu_pressed"))
@@ -42,6 +43,10 @@ func category_menu_pressed(id):
 			emit_signal("assign_new_ids_request")
 		3:
 			emit_signal("deselect_all_selected")
+		4:
+			show_category_settings()
+		5:
+			emit_signal("rescan_quests_and_factions")
 
 func _input(event):
 	if $TopPanelContainer.visible && !GlobalDeclarations.assigning_keybind:
@@ -64,9 +69,20 @@ func _on_dialog_editor_import_category_canceled():
 
 
 
+func show_category_settings():
+	var category_settings = load("res://src/UI/Editor/CategorySettings.tscn").instantiate()
+	get_parent().add_child(category_settings)
 
 func _on_rescan_quests_and_factions_pressed():
 	pass # Replace with function body.
 
 
 
+
+
+func _on_sftp_box_resync_cache():
+	$TopPanelContainer.visible = false
+
+
+func _on_category_panel_current_category_deleted():
+	$TopPanelContainer.visible = false

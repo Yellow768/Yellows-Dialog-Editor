@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 signal snap_enabled_changed
 signal autosave_time_changed
@@ -21,6 +21,7 @@ signal language_changed
 @export var cnpc_plus_check_path : NodePath
 @export var default_visual_preset_path : NodePath
 @export var default_spacing_preset_path : NodePath
+@export var dialog_name_preset_path : NodePath
 
 @onready var HideConnectionSlider : HSlider= get_node(hide_connection_slider_path)
 @onready var HoldShiftCheck :Button= get_node(hold_shift_check_path)
@@ -35,7 +36,7 @@ signal language_changed
 @onready var CNPCPlusCheck : CheckButton = get_node(cnpc_plus_check_path)
 @onready var DefaultVisualPreset : OptionButton = get_node(default_visual_preset_path)
 @onready var DefaultSpacingPreset : OptionButton = get_node(default_spacing_preset_path)
-
+@onready var DefaultDialogNamePreset : TextEdit = get_node(dialog_name_preset_path)
 
 func _ready():
 	HideConnectionSlider.value = GlobalDeclarations.hide_connection_distance
@@ -47,11 +48,19 @@ func _ready():
 	DefaultDirectoryLabel.text = GlobalDeclarations.default_user_directory
 	DefaultDirectoryFileDialog.current_dir = GlobalDeclarations.default_user_directory
 	CNPCPlusCheck.button_pressed = GlobalDeclarations.enable_customnpcs_plus_options
-	$"ScrollContainer/VBoxContainer2/Default Spacing Preset".visible = GlobalDeclarations.enable_customnpcs_plus_options
+	$"Preferences/Default Spacing Preset".visible = GlobalDeclarations.enable_customnpcs_plus_options
+	DefaultDialogNamePreset.text = GlobalDeclarations.dialog_name_preset
+	var color_highlighter = CodeHighlighter.new()
+	color_highlighter.symbol_color = Color(1,1,1)
+	color_highlighter.number_color = Color(1,1,1)
+	color_highlighter.function_color = Color(1,1,1)
+	color_highlighter.add_color_region("$"," ",Color(0, 1, 0),false)
+	DefaultDialogNamePreset.syntax_highlighter = color_highlighter
 	for action in GlobalDeclarations.actions:
 		var keybind_instance = keybind_scene.instantiate()
 		keybind_instance.assign_action(action)
 		KeybindsScroll.add_child(keybind_instance)
+		connect("language_changed",Callable(keybind_instance,"update_translation"))
 	for lang in TranslationServer.get_loaded_locales():
 		LanguageOption.add_item(language_names_in_their_language[TranslationServer.get_language_name(lang)])
 	LanguageOption.selected = TranslationServer.get_loaded_locales().find(GlobalDeclarations.language)
@@ -173,7 +182,7 @@ func _on_language_option_item_selected(index):
 
 func _on_cnpc_check_toggled(button_pressed):
 	GlobalDeclarations.enable_customnpcs_plus_options = button_pressed
-	$"ScrollContainer/VBoxContainer2/Default Spacing Preset".visible = button_pressed
+	$"Preferences/Default Spacing Preset".visible = button_pressed
 	emit_signal("custom_npcs_plus_changed")
 
 
@@ -187,3 +196,18 @@ func _on_spacing_preset_button_item_selected(index):
 
 func _on_file_dialog_visibility_changed():
 	DefaultDirectoryFileDialog.set_ok_button_text(tr("FILE_SELECT_FOLDER"))
+
+
+func _on_tab_bar_tab_changed(tab):
+	if tab == 1:
+		$KeyBinds.visible = true
+		$Preferences.visible = false 
+	else:
+		$KeyBinds.visible = false
+		$Preferences.visible = true
+		
+
+
+func _on_text_edit_text_changed():
+	GlobalDeclarations.dialog_name_preset = DefaultDialogNamePreset.text
+

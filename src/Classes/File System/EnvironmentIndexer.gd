@@ -14,7 +14,13 @@ var indexed_dialog_categories : Array[String]= []
 var highest_index := 0
 
 func _ready():
-	pass
+	if CurrentEnvironment.sftp_client:
+		connect("new_category_created",Callable(CurrentEnvironment.sftp_client,"_OnNewCategoryCreated"))
+		connect("category_renamed",Callable(CurrentEnvironment.sftp_client,"_OnCategoryRenamed"))
+		connect("category_deleted",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDeleted"))
+	if !DirAccess.dir_exists_absolute(CurrentEnvironment.current_directory+"/dialogs"):
+		push_error("dialogs folder did not exist.")
+		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/dialogs")
 
 func index_categories() -> Array[String]:
 
@@ -32,14 +38,19 @@ func find_highest_index(reindex := false) -> int:
 		DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	var file : FileAccess
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
-		var dir_search := DirectorySearch.new()
-		var id_numbers : Array[String] = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
+		var id_numbers
+		if CurrentEnvironment.sftp_client:
+			id_numbers = CurrentEnvironment.sftp_client.GetAllDialogFiles(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs")
+		else:
+			var dir_search := DirectorySearch.new()
+			id_numbers = dir_search.scan_all_subdirectories(CurrentEnvironment.current_directory+"/dialogs",["json"])
 		var proper_id_numbers : Array[int]= []
-		for number in id_numbers:
-			number = number.replace(".json","")
-			if number.is_valid_int():
-				proper_id_numbers.append(int(number))
-		proper_id_numbers.sort()
+		if id_numbers:
+			for number in id_numbers:
+				number = number.replace(".json","")
+				if number.is_valid_int():
+					proper_id_numbers.append(int(number))
+			proper_id_numbers.sort()
 		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 		if proper_id_numbers != []:
 			file.store_line(str(proper_id_numbers.back()))
@@ -104,10 +115,11 @@ func duplicate_category(category_name : String):
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
 	var new_category_name = add_as_many_underscores_needed_to_make_unique(category_name)
 	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+new_category_name)
-	dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
+	await dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
 	emit_signal("new_category_created",new_category_name)
-	emit_signal("category_duplicated",add_as_many_underscores_needed_to_make_unique(category_name))
 	index_categories()
+	emit_signal("category_duplicated",category_name,new_category_name)
+	
 
 func add_as_many_underscores_needed_to_make_unique(old_name):
 	var new_name = old_name+"_"
@@ -115,3 +127,8 @@ func add_as_many_underscores_needed_to_make_unique(old_name):
 		return add_as_many_underscores_needed_to_make_unique(new_name)
 	else:
 		return new_name
+
+
+func _on_sftp_box_resync_cache():
+	index_categories()
+	

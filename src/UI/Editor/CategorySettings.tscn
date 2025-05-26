@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx73c21ob1xiy"]
+
+[ext_resource type="Script" path="res://src/UI/Editor/CategorySettings.gd" id="1_e5o04"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjimb"]
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e5o04")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(550, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -100.0
+offset_right = 275.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vjimb")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.0
+offset_right = 82.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "CATEGORY_SETTINGS"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 320.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "CATEGORY_DIALOG_NAME_PRESET_TOOLTIP"
+text = "DEFAULT_DIALOG_NAME"
+
+[node name="TextEdit" type="TextEdit" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+tooltip_text = "CATEGORY_DIALOG_NAME_PRESET_TOOLTIP"
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="text_changed" from="Panel/HBoxContainer/TextEdit" to="." method="_on_text_edit_text_changed"]

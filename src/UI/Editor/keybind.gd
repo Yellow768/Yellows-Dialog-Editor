@@ -10,10 +10,16 @@ func assign_action(action : String):
 	var keybind_label = ''
 	for event in key_bind:
 		keybind_label +=event.as_text()
-	$Label.text = action
+	$Label.text = tr(action)
 	$Button.text = keybind_label
 
 
+func update_translation():
+	key_bind = InputMap.action_get_events(action_name)
+	var keybind_label = ''
+	for event in key_bind:
+		keybind_label +=event.as_text()
+	$Label.text = tr(action_name)
 
 
 func _on_button_pressed():

@@ -124,6 +124,8 @@ func update_type():
 
 
 func _on_spin_box_value_changed(value):
+	if value < 1:
+		return
 	current_response.attempt_to_connect_to_dialog_from_id(value)
 	current_response.update_to_id_spinbox(value)
 	

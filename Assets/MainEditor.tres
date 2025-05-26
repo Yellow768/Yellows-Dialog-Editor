@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=24 format=3 uid="uid://hgc7wambejk3"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://hgc7wambejk3"]
 
 [ext_resource type="StyleBox" uid="uid://cq3cuar4v71mg" path="res://Assets/Theme/DarkColorPanel.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://dawclfafqp0ju" path="res://Assets/UI Textures/Node.png" id="1_iyuox"]
@@ -105,6 +105,13 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubwx3"]
+bg_color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="39"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 corner_radius_top_left = 8
@@ -199,6 +206,7 @@ GraphNode/styles/frame = SubResource("31")
 GraphNode/styles/selected_frame = SubResource("32")
 LineEdit/styles/normal = SubResource("26")
 Panel/styles/panel = ExtResource("1")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ubwx3")
 Popup/styles/panel = SubResource("39")
 PopupMenu/styles/hover = SubResource("55")
 TabContainer/styles/panel = SubResource("17")

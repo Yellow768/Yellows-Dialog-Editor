@@ -15,6 +15,7 @@ func save_category(category_name,data = null,backup := false):
 					DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/autosave/"+all_files[i])
 		else:
 			save_category = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",FileAccess.WRITE)
+			print(FileAccess.get_open_error())
 		if data != null:
 			for datum in data:
 				save_category.store_line(JSON.new().stringify(datum))

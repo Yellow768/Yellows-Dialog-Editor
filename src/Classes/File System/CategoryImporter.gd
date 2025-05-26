@@ -3,7 +3,6 @@ extends Node
 
 signal save_category_request
 signal clear_editor_request
-signal update_current_category
 signal request_add_dialog
 signal request_add_response
 signal request_connect_nodes
@@ -44,7 +43,6 @@ func create_nodes_from_index(category_name : String, index : int = 0):
 		create_nodes_from_index(category_name,0)
 	else:
 		unimported_dialog_position = Vector2(300,300)
-		emit_signal("update_current_category",imported_category_name)
 		#emit_signal("save_category_request")
 		loaded_dialog_nodes = []
 		loaded_responses = []
@@ -66,7 +64,7 @@ func create_response_nodes_from_json(node : dialog_node,json : Dictionary) -> in
 	for i in json["Options"]:
 		var response : response_node = GlobalDeclarations.RESPONSE_NODE.instantiate() 
 		response.slot = i["OptionSlot"]
-		if i["Option"].has(["DialogCommand"]):
+		if i["Option"].has("DialogCommand"):
 			response.option_command = i["Option"]["DialogCommand"]
 		response.to_dialog_id = i["Option"]["Dialog"]
 		response.response_title = i["Option"]["Title"]

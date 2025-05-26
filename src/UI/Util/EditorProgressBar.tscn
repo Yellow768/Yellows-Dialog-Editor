@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://b55ndap42k275"]
+
+[ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="1_4t7i5"]
+[ext_resource type="Script" path="res://src/UI/Util/Scripts/EditorProgressBar.gd" id="2_h2xxn"]
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 100)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4t7i5")
+script = ExtResource("2_h2xxn")
+overall_task_label_path = NodePath("OverallTask")
+progress_bar_path = NodePath("Control")
+current_item_label_path = NodePath("CurrentItem")
+
+[node name="OverallTask" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Downloading Category"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(400, 27)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CurrentItem" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+horizontal_alignment = 1
+vertical_alignment = 1

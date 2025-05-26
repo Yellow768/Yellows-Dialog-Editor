@@ -2,7 +2,6 @@ class_name category_loader
 extends Node
 
 signal clear_editor_request
-signal update_current_category
 signal add_dialog
 signal add_response
 signal request_connect_nodes
@@ -29,7 +28,7 @@ func load_temp(data):
 				load_orphaned_response(dict)
 		connect_all_responses()
 		queue_free()
-		DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+CurrentEnvironment.current_category_name+" | CNPC Dialog Editor")
+		DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+CurrentEnvironment.current_category_name+" | Yellow's Dialog Editor")
 		return OK
 
 
@@ -62,14 +61,17 @@ func load_category(category_name):
 					
 			connect_all_responses()
 			save_category.close()
-			emit_signal("update_current_category",category_name)
-			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | CNPC Dialog Editor")
+			DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | Yellow's Dialog Editor")
 			emit_signal("category_finished_loading")
 		return OK
 
 func load_editor_settings(node_data):
 	emit_signal("zoom_loaded",node_data["zoom"])
 	emit_signal("editor_offset_loaded",Vector2(node_data["editor_offset.x"],node_data["editor_offset.y"]))
+	if !node_data.has("dialog_name_preset") or node_data["dialog_name_preset"] == null:
+		CurrentEnvironment.dialog_name_preset = ""
+	else :
+		CurrentEnvironment.dialog_name_preset = node_data["dialog_name_preset"]
 	
 func load_color_category(node_data):
 	var loaded_color_organizer : color_organizer = GlobalDeclarations.COLOR_ORGANIZER.instantiate()

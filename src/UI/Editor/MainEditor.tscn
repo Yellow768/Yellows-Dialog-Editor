@@ -1,5 +1,5 @@
-[gd_scene load_steps=53 format=3 uid="uid://dm212olg3jtq4"]
 
+[gd_scene load_steps=55 format=3 uid="uid://dm212olg3jtq4"]
 [ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
 [ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
 [ext_resource type="Script" path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" id="3"]
@@ -16,9 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://b5hvjqasdvdh5" path="res://Assets/UI Textures/Icon Font/reload-circle-line.png" id="9_mukh6"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogEditor.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://yboafh0lt84i" path="res://Assets/UI Textures/Icon Font/article-search-line.png" id="10_cc0sy"]
+[ext_resource type="Texture2D" uid="uid://dp2wp0l6uhna0" path="res://Assets/UI Textures/Icon Font/undo-line.svg" id="10_s1nhy"]
 [ext_resource type="Script" path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" id="11"]
 [ext_resource type="Texture2D" uid="uid://oqwy01vjynr5" path="res://Assets/UI Textures/Icon Font/menu-line.png" id="11_qxp7e"]
 [ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="11_u3t51"]
+[ext_resource type="Texture2D" uid="uid://bmucuvelywf10" path="res://Assets/UI Textures/Icon Font/redo-line.svg" id="11_vflym"]
 [ext_resource type="Script" path="res://src/Classes/dialog_titles_index.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://b0rt50ak2ixd4" path="res://Assets/UI Textures/Icon Font/home-line.png" id="12_jpjxe"]
 [ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="12_ry04q"]
@@ -27,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://cegdm7cac1amv" path="res://Assets/UI Textures/Icon Font/map-simple-off-line.svg" id="14_fmlij"]
 [ext_resource type="PackedScene" uid="uid://b8aewr7debfni" path="res://src/UI/Util/Expandable Line Edit.tscn" id="15"]
 [ext_resource type="Script" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
+[ext_resource type="Texture2D" uid="uid://bmh5cgcw0i2hg" path="res://Assets/UI Textures/Icon Font/rescan_qf.png" id="16_21agd"]
 [ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogGeneralSettings.gd" id="17_fph0n"]
 [ext_resource type="Texture2D" uid="uid://qb2hwr1a28ve" path="res://Assets/UI Textures/Icon Font/lock-line.svg" id="20_wkm7u"]
@@ -41,7 +44,11 @@
 [ext_resource type="Texture2D" uid="uid://ymrya147pb6v" path="res://Assets/UI Textures/Icon Font/link-line.svg" id="32_jwfbh"]
 [ext_resource type="Script" path="res://src/UI/Editor/DialogAttributeCheckSettings.gd" id="34_c1nas"]
 [ext_resource type="Script" path="res://src/UI/Editor/ResponseNodeSettings.gd" id="35_n4s6j"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://gqxq7kkkgl8l" path="res://src/Nodes/attributes/tag_container.tscn" id="35_w1inp"]
+=======
+[ext_resource type="Script" path="res://src/UI/Editor/SFTP_BOX.gd" id="38_78yl7"]
+>>>>>>> master
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
@@ -202,6 +209,29 @@ custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
+[node name="Undo" type="Button" parent="TopPanel/TopPanelContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
+icon = ExtResource("10_s1nhy")
+icon_alignment = 1
+
+[node name="Redo" type="Button" parent="TopPanel/TopPanelContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("18")
+theme_override_styles/hover = SubResource("16")
+theme_override_styles/pressed = SubResource("17")
+icon = ExtResource("11_vflym")
+icon_alignment = 1
+
+[node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("19")
+
 [node name="SaveButton" type="Button" parent="TopPanel/TopPanelContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
@@ -238,8 +268,8 @@ popup/item_0/id = 0
 popup/item_1/text = "Official 1.18.2"
 popup/item_1/id = 1
 
-[node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
-custom_minimum_size = Vector2(75, 0)
+[node name="SecSep4" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
@@ -247,11 +277,11 @@ theme_override_styles/separator = SubResource("19")
 layout_mode = 2
 tooltip_text = "CATEGORY_OPTIONS_TOOLTIP"
 theme_override_styles/hover = SubResource("StyleBoxFlat_xovix")
-text = "CATEGORY_OPTIONS"
+text = "EDITOR_ACTIONS"
 icon = ExtResource("11_qxp7e")
 language = "en"
-item_count = 4
-popup/item_0/text = "CO_REIMPORT"
+item_count = 7
+popup/item_0/text = "CATEGORY_REIMPORT"
 popup/item_0/icon = ExtResource("12_ry04q")
 popup/item_0/id = 0
 popup/item_1/text = "CO_SCAN_CHANGES"
@@ -260,9 +290,18 @@ popup/item_1/id = 1
 popup/item_2/text = "CO_REINDEX"
 popup/item_2/icon = ExtResource("9_mukh6")
 popup/item_2/id = 2
-popup/item_3/text = "Deselect All"
-popup/item_3/icon = ExtResource("14_fmlij")
-popup/item_3/id = 3
+popup/item_3/text = "CATEGORY_SETTINGS"
+popup/item_3/icon = ExtResource("11_u3t51")
+popup/item_3/id = 4
+popup/item_4/text = ""
+popup/item_4/id = 6
+popup/item_4/separator = true
+popup/item_5/text = "Deselect All"
+popup/item_5/icon = ExtResource("14_fmlij")
+popup/item_5/id = 3
+popup/item_6/text = "RESCAN_QUEST_AND_FACTIONS"
+popup/item_6/icon = ExtResource("16_21agd")
+popup/item_6/id = 5
 
 [node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
 layout_mode = 1
@@ -274,16 +313,6 @@ offset_top = 5.0
 offset_bottom = 37.0
 grow_horizontal = 0
 alignment = 2
-
-[node name="Rescan Quests and Factions" type="Button" parent="TopPanel/EditorContainer"]
-process_mode = 1
-custom_minimum_size = Vector2(140, 0)
-layout_mode = 2
-theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
-theme_override_styles/pressed = SubResource("17")
-text = "RESCAN_QUEST_AND_FACTIONS"
-icon = ExtResource("12_ry04q")
 
 [node name="VSeparator6" type="VSeparator" parent="TopPanel/EditorContainer"]
 custom_minimum_size = Vector2(15, 0)
@@ -323,8 +352,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -462.0
-offset_top = 47.5
-offset_bottom = 47.5
+offset_top = 50.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 1
@@ -607,7 +635,7 @@ min_size = 40
 
 [node name="DialogStopMusic" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Stop Music (1.18+ Only)"
+text = "STOP_MUSIC"
 
 [node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -1871,91 +1899,91 @@ grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
 script = ExtResource("35_n4s6j")
-ResponseTitle = NodePath("Response Node Settings/VBoxContainer/ResponseTitle")
-ResponseText = NodePath("Response Node Settings/VBoxContainer/ResponseText")
-ResponseColor = NodePath("Response Node Settings/VBoxContainer/HBoxContainer/ColorPickerButton")
-Commands = NodePath("Response Node Settings/VBoxContainer/Commands")
-AddCommandButton = NodePath("Response Node Settings/VBoxContainer/AddCommandButton")
-ResponseType = NodePath("Response Node Settings/VBoxContainer/OptionTypeButton")
-OptionCommand = NodePath("Response Node Settings/VBoxContainer/OptionCommand")
-DialogIDSpinbox = NodePath("Response Node Settings/VBoxContainer/SpinBox")
-CommandVisibilityButton = NodePath("Response Node Settings/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
+ResponseTitle = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseTitle")
+ResponseText = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseText")
+ResponseColor = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer/ColorPickerButton")
+Commands = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/Commands")
+AddCommandButton = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/AddCommandButton")
+ResponseType = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/OptionTypeButton")
+OptionCommand = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/OptionCommand")
+DialogIDSpinbox = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/SpinBox")
+CommandVisibilityButton = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
 
-[node name="Response Node Settings" type="ScrollContainer" parent="InformationPanel/ResponseNodeSettings"]
+[node name="RESPONSE_NODE_SETTINGS" type="ScrollContainer" parent="InformationPanel/ResponseNodeSettings"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/Response Node Settings"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS"]
 custom_minimum_size = Vector2(405, 0)
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="ResponseTitleLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="ResponseTitleLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 layout_mode = 2
 text = "RESPONSE_TITLE"
 
-[node name="ResponseTitle" type="LineEdit" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="ResponseTitle" type="LineEdit" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "RESPONSE_TITLE"
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="ResponseTextLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="ResponseTextLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 layout_mode = 2
 text = "RESPONSE_TEXT"
 
-[node name="ResponseText" type="TextEdit" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="ResponseText" type="TextEdit" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 placeholder_text = "RESPONSE_TEXT_HINT"
 wrap_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "COLOR"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/HBoxContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="CommandsLabelandButton" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="CommandsLabelandButton" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 layout_mode = 2
 
-[node name="Lbl Console" type="Label" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/CommandsLabelandButton"]
+[node name="Lbl Console" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton"]
 layout_mode = 2
 text = "CONSOLE_COMMAND"
 
-[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/CommandsLabelandButton"]
+[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton"]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("21_vtqsr")
 
-[node name="Commands" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="Commands" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 1.65
 
-[node name="AddCommandButton" type="Button" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="AddCommandButton" type="Button" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Add (1.18+ Only)"
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="OptionTypeButton" type="OptionButton" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="OptionTypeButton" type="OptionButton" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -1977,27 +2005,24 @@ popup/item_3/id = 0
 popup/item_4/text = "RESPONSE_OPTION_DISABLED"
 popup/item_4/id = 2
 
-[node name="OptionCommand" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer" instance=ExtResource("15")]
+[node name="OptionCommand" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" instance=ExtResource("15")]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 prefix = "ID: "
 
-[node name="CategoryPanel" type="Panel" parent="."]
+[node name="CategoryPanel" type="PanelContainer" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(360, 600)
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_top = 49.35
+offset_top = 50.0
 offset_right = 360.0
-offset_bottom = 49.35
-grow_vertical = 2
+offset_bottom = 1080.0
 size_flags_horizontal = 3
 script = ExtResource("11")
 category_file_container_path = NodePath("VBoxContainer/ScrollContainer/CategoryContainers")
@@ -2006,15 +2031,10 @@ dialog_editor_path = NodePath("../DialogEditor")
 auto_save_path = NodePath("../AutosaveTimer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
-custom_minimum_size = Vector2(340, 700)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -170.0
-offset_right = 170.0
-offset_bottom = 700.0
-grow_horizontal = 2
+custom_minimum_size = Vector2(340, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
@@ -2024,6 +2044,7 @@ horizontal_alignment = 1
 [node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 1
 text = "CREATE_NEW_CATEGORY"
 
 [node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer"]
@@ -2031,20 +2052,95 @@ layout_mode = 2
 placeholder_text = "SEARCH"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(340, 340)
+custom_minimum_size = Vector2(340, 600)
 layout_mode = 2
-size_flags_vertical = 15
+size_flags_vertical = 0
 
 [node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(260, 400)
+custom_minimum_size = Vector2(260, 600)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 11
+size_flags_vertical = 10
 
 [node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+mouse_filter = 1
+
+[node name="SFTP_BOX" type="VBoxContainer" parent="CategoryPanel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+script = ExtResource("38_78yl7")
+status_label_path = NodePath("GridContainer/StatusLabel")
+remote_dir_label_path = NodePath("GridContainer/RemoteDirLabel")
+server_label_path = NodePath("GridContainer/ServerLabel")
+toggle_connection_path = NodePath("ToggleConnection")
+resync_path = NodePath("ResyncButton")
+
+[node name="GridContainer" type="GridContainer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+layout_mode = 2
+columns = 2
+
+[node name="SFTP_StatusTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+layout_mode = 2
+text = "SFTP_STATUS"
+
+[node name="StatusLabel" type="RichTextLabel" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Connected [img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img] "
+autowrap_mode = 2
+
+[node name="ServerTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+layout_mode = 2
+text = "SFTP_SERVER"
+
+[node name="ServerLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "SFTP_CONNECTION"
+justification_flags = 162
+text_overrun_behavior = 3
+
+[node name="RemoteDirTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+layout_mode = 2
+text = "REMOTE_DIRECTORY"
+horizontal_alignment = 2
+
+[node name="RemoteDirLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "SFTP_DIRECTORY"
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="ToggleConnection" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+custom_minimum_size = Vector2(26, 20)
+layout_mode = 2
+size_flags_vertical = 8
+tooltip_text = "TOGGLE_CONNECTION_TOOLTIP"
+text = "DISCONNECT"
+
+[node name="ResyncButton" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+layout_mode = 2
+tooltip_text = "RESYNC_TOOLTIP"
+text = "SYNC_LOCAL_CACHE"
+
+[node name="Timer" type="Timer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+wait_time = 30.0
+autostart = true
 
 [node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
 script = ExtResource("13")
@@ -2143,22 +2239,16 @@ anchor_bottom = 1.0
 offset_top = -148.0
 offset_right = 470.0
 grow_vertical = 0
+mouse_filter = 2
 alignment = 2
 
 [node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
 process_mode = 2
 visible = false
-custom_minimum_size = Vector2(1000, 700)
+custom_minimum_size = Vector2(650, 700)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = -300.0
-offset_right = 500.0
-offset_bottom = 300.0
+offset_left = -325.0
+offset_right = 325.0
 
 [node name="UnsavedPanel" type="PanelContainer" parent="."]
 visible = false
@@ -2234,8 +2324,6 @@ wait_time = 0.2
 one_shot = true
 
 [connection signal="input_recieved" from="." to="DialogEditor" method="handle_input"]
-[connection signal="dialog_added_to_list" from="DialogList" to="." method="export_dialog_list"]
-[connection signal="dialog_title_changed" from="DialogList" to="." method="export_dialog_list"]
 [connection signal="begin_node_move" from="DialogEditor" to="DialogEditor" method="_on_begin_node_move"]
 [connection signal="color_organizer_added" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_color_organizer_added"]
 [connection signal="color_organizer_deleted" from="DialogEditor" to="DialogEditor/UndoSystem" method="_on_dialog_editor_color_organizer_deleted"]
@@ -2246,7 +2334,7 @@ one_shot = true
 [connection signal="dialog_selected" from="DialogEditor" to="InformationPanel" method="load_dialog_settings"]
 [connection signal="dialog_selected" from="DialogEditor" to="InformationPanel/ResponseNodeSettings" method="_on_dialog_editor_dialog_selected"]
 [connection signal="disconnection_request" from="DialogEditor" to="DialogEditor" method="_on_DialogEditor_disconnection_request"]
-[connection signal="editor_cleared" from="DialogEditor" to="." method="_on_DialogEditor_editor_cleared"]
+[connection signal="editor_cleared" from="DialogEditor" to="InformationPanel" method="_on_dialog_editor_editor_cleared"]
 [connection signal="finished_loading" from="DialogEditor" to="TopPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="finished_loading" from="DialogEditor" to="InformationPanel" method="_on_DialogEditor_finished_loading"]
 [connection signal="finished_loading" from="DialogEditor" to="CategoryPanel" method="_on_DialogEditor_finished_loading"]
@@ -2277,6 +2365,8 @@ one_shot = true
 [connection signal="response_selected" from="DialogEditor" to="InformationPanel/ResponseNodeSettings" method="load_response_settings"]
 [connection signal="save_all" from="DialogEditor" to="CategoryPanel" method="save_all_categories"]
 [connection signal="unsaved_changes" from="DialogEditor" to="CategoryPanel" method="_on_dialog_editor_unsaved_changes"]
+[connection signal="nothing_to_redo" from="DialogEditor/UndoSystem" to="UI Anims" method="_on_undo_system_nothing_to_redo"]
+[connection signal="nothing_to_undo" from="DialogEditor/UndoSystem" to="UI Anims" method="_on_undo_system_nothing_to_undo"]
 [connection signal="request_action_add_color_organizer" from="DialogEditor/UndoSystem" to="DialogEditor" method="add_color_organizer"]
 [connection signal="request_action_add_dialog_node" from="DialogEditor/UndoSystem" to="DialogEditor" method="add_dialog_node"]
 [connection signal="request_action_add_response_node" from="DialogEditor/UndoSystem" to="DialogEditor" method="add_response_node"]
@@ -2295,14 +2385,16 @@ one_shot = true
 [connection signal="deselect_all_selected" from="TopPanel" to="DialogEditor" method="_on_top_panel_deselect_all_selected"]
 [connection signal="export_category_request" from="TopPanel" to="CategoryPanel" method="export_category_request"]
 [connection signal="reimport_category_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_reimport_category_request"]
+[connection signal="rescan_quests_and_factions" from="TopPanel" to="InformationPanel" method="scan_quest_and_faction_data"]
 [connection signal="save_category_request" from="TopPanel" to="CategoryPanel" method="save_category_request"]
 [connection signal="scan_for_changes_request" from="TopPanel" to="CategoryPanel" method="_on_TopPanel_scan_for_changes_request"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/Add Dialog" to="DialogEditor" method="add_dialog_node"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/Add ColOrg" to="DialogEditor" method="add_color_organizer"]
+[connection signal="pressed" from="TopPanel/TopPanelContainer/Undo" to="DialogEditor/UndoSystem" method="_on_undo_pressed"]
+[connection signal="pressed" from="TopPanel/TopPanelContainer/Redo" to="DialogEditor/UndoSystem" method="_on_redo_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/SaveButton" to="TopPanel" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="TopPanel/TopPanelContainer/ExportButton" to="TopPanel" method="_on_ExportButton_pressed"]
 [connection signal="item_selected" from="TopPanel/TopPanelContainer/ExportTypeButton" to="CategoryPanel" method="_on_export_type_button_item_selected"]
-[connection signal="pressed" from="TopPanel/EditorContainer/Rescan Quests and Factions" to="InformationPanel" method="scan_quest_and_faction_data"]
 [connection signal="pressed" from="TopPanel/EditorContainer/EditorSettingsButton" to="EditorSettings" method="_on_editor_settings_button_pressed"]
 [connection signal="pressed" from="TopPanel/EditorContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
 [connection signal="hide_information_panel" from="InformationPanel" to="UI Anims" method="_on_InformationPanel_hide_information_panel"]
@@ -2402,24 +2494,27 @@ one_shot = true
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/AddTagButton" to="InformationPanel/DialogNodeTabs/Attribute Check" method="_on_add_tag_button_pressed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/UpdateDialog" to="InformationPanel/DialogNodeTabs/Attribute Check" method="_on_update_dialog_pressed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
-[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/ResponseTitle" to="InformationPanel/ResponseNodeSettings" method="_on_response_title_text_changed"]
-[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/ResponseText" to="InformationPanel/ResponseNodeSettings" method="_on_response_text_text_changed"]
-[connection signal="color_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/HBoxContainer/ColorPickerButton" to="InformationPanel/ResponseNodeSettings" method="_on_color_picker_button_color_changed"]
-[connection signal="toggled" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/ResponseNodeSettings" method="_on_command_visibility_button_toggled"]
-[connection signal="pressed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/AddCommandButton" to="InformationPanel/ResponseNodeSettings" method="_on_add_command_button_pressed"]
-[connection signal="item_selected" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/OptionTypeButton" to="InformationPanel/ResponseNodeSettings" method="_on_option_type_button_item_selected"]
-[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/OptionCommand" to="InformationPanel/ResponseNodeSettings" method="_on_option_command_text_changed"]
-[connection signal="value_changed" from="InformationPanel/ResponseNodeSettings/Response Node Settings/VBoxContainer/SpinBox" to="InformationPanel/ResponseNodeSettings" method="_on_spin_box_value_changed"]
+[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseTitle" to="InformationPanel/ResponseNodeSettings" method="_on_response_title_text_changed"]
+[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseText" to="InformationPanel/ResponseNodeSettings" method="_on_response_text_text_changed"]
+[connection signal="color_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer/ColorPickerButton" to="InformationPanel/ResponseNodeSettings" method="_on_color_picker_button_color_changed"]
+[connection signal="toggled" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/ResponseNodeSettings" method="_on_command_visibility_button_toggled"]
+[connection signal="pressed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/AddCommandButton" to="InformationPanel/ResponseNodeSettings" method="_on_add_command_button_pressed"]
+[connection signal="item_selected" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/OptionTypeButton" to="InformationPanel/ResponseNodeSettings" method="_on_option_type_button_item_selected"]
+[connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/OptionCommand" to="InformationPanel/ResponseNodeSettings" method="_on_option_command_text_changed"]
+[connection signal="value_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/SpinBox" to="InformationPanel/ResponseNodeSettings" method="_on_spin_box_value_changed"]
 [connection signal="category_export_failed" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_export_failed"]
 [connection signal="category_failed_save" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_failed_save"]
+[connection signal="category_failed_sftp_save" from="CategoryPanel" to="UI Anims" method="_on_category_panel_category_failed_sftp_save"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="DialogEditor/UndoSystem" method="load_category_undo_redo_history"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="TopPanel" method="_on_category_panel_finished_loading"]
 [connection signal="category_loading_finished" from="CategoryPanel" to="InformationPanel/DialogNodeTabs/AVAILABILITY" method="_on_category_panel_finished_loading"]
 [connection signal="category_loading_initiated" from="CategoryPanel" to="DialogEditor/UndoSystem" method="_on_category_panel_category_loading_initiated"]
+[connection signal="category_sftp_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_category_panel_category_sftp_succesfully_saved"]
 [connection signal="category_succesfully_exported" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_exported"]
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="." method="_on_category_panel_category_succesfully_saved"]
 [connection signal="category_succesfully_saved" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_category_succesfully_saved"]
 [connection signal="current_category_deleted" from="CategoryPanel" to="DialogEditor" method="_on_CategoryPanel_current_category_deleted"]
+[connection signal="current_category_deleted" from="CategoryPanel" to="TopPanel" method="_on_category_panel_current_category_deleted"]
 [connection signal="hide_category_panel" from="CategoryPanel" to="UI Anims" method="_on_CategoryPanel_hide_category_panel"]
 [connection signal="request_clear_editor" from="CategoryPanel" to="InformationPanel" method="_on_category_panel_request_clear_editor"]
 [connection signal="request_dialog_ids_reassigned" from="CategoryPanel" to="DialogEditor" method="_on_category_panel_request_dialog_ids_reassigned"]
@@ -2429,8 +2524,19 @@ one_shot = true
 [connection signal="unsaved_change" from="CategoryPanel" to="." method="add_to_unsaved_categories"]
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
+[connection signal="failed_to_reconnect" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="UI Anims" method="_on_sftp_box_failed_to_reconnect"]
+[connection signal="reconnected" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="UI Anims" method="_on_sftp_box_reconnected"]
+[connection signal="resync_cache" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="DialogEditor" method="_on_sftp_box_resync_cache"]
+[connection signal="resync_cache" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="TopPanel" method="_on_sftp_box_resync_cache"]
+[connection signal="resync_cache" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="CategoryPanel" method="_on_sftp_box_resync_cache"]
+[connection signal="resync_cache" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="CategoryPanel/DialogFileSystemIndex" method="_on_sftp_box_resync_cache"]
+[connection signal="pressed" from="CategoryPanel/VBoxContainer/SFTP_BOX/ToggleConnection" to="CategoryPanel/VBoxContainer/SFTP_BOX" method="_on_button_pressed"]
+[connection signal="pressed" from="CategoryPanel/VBoxContainer/SFTP_BOX/ResyncButton" to="CategoryPanel/VBoxContainer/SFTP_BOX" method="_on_resync_button_pressed"]
+[connection signal="timeout" from="CategoryPanel/VBoxContainer/SFTP_BOX/Timer" to="CategoryPanel/VBoxContainer/SFTP_BOX" method="_on_timer_timeout"]
 [connection signal="category_buttons_created" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="create_category_buttons"]
+[connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="." method="_on_dialog_file_system_index_category_deleted"]
 [connection signal="category_deleted" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_deleted"]
+[connection signal="category_duplicated" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="load_duplicated_category"]
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor/UndoSystem" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="category_renamed" from="CategoryPanel/DialogFileSystemIndex" to="CategoryPanel" method="_on_dialog_file_system_index_category_renamed"]
 [connection signal="clear_editor_request" from="CategoryPanel/DialogFileSystemIndex" to="DialogEditor" method="clear_editor"]

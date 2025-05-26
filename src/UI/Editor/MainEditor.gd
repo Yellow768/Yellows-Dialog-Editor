@@ -21,16 +21,6 @@ var unsaved_categories = []
 
 
 func _ready():
-	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/environment_settings.json"):
-		FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
-	var file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.READ)
-	var test_json_conv := JSON.new()
-	test_json_conv.parse(file.get_line())
-	var loaded_list = test_json_conv.get_data()
-	if loaded_list is Dictionary:
-		$DialogList.all_loaded_dialogs = loaded_list
-	else:
-		push_warning("Loaded Dialogs List not valid.")
 	get_tree().auto_accept_quit = false
 	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
 	$DialogEditor.use_snap = GlobalDeclarations.snap_enabled
@@ -38,36 +28,14 @@ func _ready():
 func _input(event : InputEvent):
 	emit_signal("input_recieved", event)
 	
-
-func update_current_directory(new_path : String):
-	CurrentEnvironment.current_directory = new_path
-	var file_acess_group := get_tree().get_nodes_in_group("File Access")
-	for node in file_acess_group:
-		node.update_current_directory(new_path)
-
-func update_current_category(category_name : String):
-	CurrentEnvironment.current_category_name = category_name
-
-
-func _on_DialogEditor_editor_cleared():
-	InformationPanel.current_dialog = null
-
-func export_dialog_list():
-	var file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
-
-	file.store_line(JSON.stringify($DialogList.all_loaded_dialogs))
-	
-func save_factions_list():
-	var file := FileAccess.open(CurrentEnvironment.current_directory+"/environment_settings.json",FileAccess.WRITE)
-	file.get_line()
-	file.store_line("JSON.new().stringify($DialogList.all_loaded_dialogstes")
-
 var is_quit_return_to_home := false
 
 func _on_HomeButton_pressed():
 	if unsaved_categories.is_empty():
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		queue_free()
+		if CurrentEnvironment.sftp_client:
+				CurrentEnvironment.sftp_client.Disconnect()
 	else:
 		$UnsavedPanel.visible = true
 		is_quit_return_to_home = true
@@ -78,6 +46,8 @@ func _notification(what):
 		is_quit_return_to_home = false
 		if unsaved_categories.is_empty():
 			get_tree().quit()
+			if CurrentEnvironment.sftp_client:
+				CurrentEnvironment.sftp_client.Disconnect()
 		else:
 			$UnsavedPanel.visible = true
 			update_unsaved_categories_text_list()
@@ -96,17 +66,21 @@ func remove_from_unsaved_categories(category):
 
 
 func _on_no_save_pressed():
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.Disconnect()
 	if is_quit_return_to_home:
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		get_tree().auto_accept_quit = true
-		queue_free()
-		
+		queue_free()	
 	else:
 		get_tree().quit()
+		
 
 
 func _on_save_and_close_pressed():
 	$CategoryPanel.save_all_categories()
+	if CurrentEnvironment.sftp_client:
+		CurrentEnvironment.sftp_client.Disconnect()
 	if is_quit_return_to_home:
 		get_parent().add_child(load("res://src/UI/LandingScreen.tscn").instantiate())
 		get_tree().auto_accept_quit = true
@@ -130,3 +104,5 @@ func _on_dialog_editor_node_double_clicked(_ignore):
 	$DoubleClickTimer.start()
 
 
+func _on_dialog_file_system_index_category_deleted(category):
+	remove_from_unsaved_categories(category)

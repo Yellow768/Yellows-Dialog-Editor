@@ -1,7 +1,7 @@
 extends Node
 
 const RESPONSE_NODE_VERTICAL_OFFSET := 100
-const DIALOG_NODE_HORIZONTAL_OFFSET := 400
+const DIALOG_NODE_HORIZONTAL_OFFSET := 387
 
 var user_settings_path = "user://user_settings.cfg"
 
@@ -29,7 +29,7 @@ var color_presets : PackedColorArray
 var autosave_time := 3
 var autosave_max_files := 10
 var enable_customnpcs_plus_options := false
-var last_used_export_version := 2
+var last_used_export_version := 0
 var spacing_presets : Dictionary = {}
 var spacing_presets_stringified : String
 var visual_presets : Dictionary = {}
@@ -38,6 +38,8 @@ var visual_presets_stringified : String
 var default_visual_preset : int = 0
 var default_spacing_preset : int = 0
 
+var dialog_name_preset = "$ResponseTitle"
+
 var allow_above_six_responses := false
 
 var default_user_directory := OS.get_data_dir()+"/.minecraft/saves"
@@ -45,6 +47,7 @@ var default_user_directory := OS.get_data_dir()+"/.minecraft/saves"
 var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_right","zoom_key","drag_responses_key","delete_nodes","add_dialog_at_mouse","create_response","zoom_in","zoom_out","select_multiple","save","export","scan_for_changes","reimport_category","swap_responses"]
 
 var assigning_keybind = false
+
 
 var language = OS.get_locale_language()
 
@@ -69,6 +72,7 @@ func _ready():
 		visual_presets[int(key)] = JSON.parse_string(visual_presets_stringified)[key]
 	default_visual_preset = config.get_value("user_settings","default_visual_preset",default_visual_preset)
 	default_spacing_preset = config.get_value("user_settings","default_spacing_preset",default_spacing_preset)
+	dialog_name_preset = config.get_value("user_settings","dialog_name_preset",dialog_name_preset)
 	add_default_presets()
 	language = config.get_value("user_settings","language",language)
 	TranslationServer.set_locale(language)
@@ -131,6 +135,7 @@ func save_config():
 	config.set_value("user_settings","visual_presets_stringified",JSON.stringify(visual_presets))
 	config.set_value("user_settings","default_visual_preset",default_visual_preset)
 	config.set_value("user_settings","default_spacing_preset",default_spacing_preset)
+	config.set_value("user_settings","dialog_name_preset",dialog_name_preset)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)

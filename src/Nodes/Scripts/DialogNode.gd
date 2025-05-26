@@ -44,6 +44,7 @@ var initial_offset_y :float= 0
 
 ##Dialog Data#
 
+
 var dialog_title : String = tr("NEW_DIALOG_TITLE")
 
 #Immutable
@@ -129,8 +130,37 @@ func _ready():
 	initial_offset_y = position_offset.y
 	initial_offset_x = position_offset.x
 	DialogTextNode.text = text
+	if dialog_title != null:
+		TitleTextNode.text = tr("NEW_DIALOG_TITLE")
+	else:
+		determine_name(null)
 	TitleTextNode.text = dialog_title
+	if visual_preset == -1:
+		visual_preset = GlobalDeclarations.default_visual_preset
+		update_visual_options_to_preset()
+	if spacing_preset == -1:
+		spacing_preset = GlobalDeclarations.default_spacing_preset
+		update_spacing_options_to_preset()
 		
+
+func determine_name(_response):
+	if not is_inside_tree(): await self.ready
+	var name_preset_string = CurrentEnvironment.dialog_name_preset
+	if name_preset_string == "" or name_preset_string == null:
+		name_preset_string = GlobalDeclarations.dialog_name_preset
+	var new_name = ''
+	new_name = name_preset_string.replace("$DialogNode",str(node_index))
+	new_name = new_name.replace("$CategoryName",CurrentEnvironment.current_category_name)
+	new_name = new_name.replace("$Blank","")
+	if _response:
+		new_name = new_name.replace("$ResponseTitle",_response.response_title)
+	else:
+		new_name = new_name.replace("$ResponseTitle","")
+	if new_name == '':
+		dialog_title = "New Dialog"
+	else:
+		dialog_title = new_name
+	TitleTextNode.text = dialog_title
 
 func add_response_node(commit_to_undo := true):
 	if !GlobalDeclarations.allow_above_six_responses:
@@ -147,7 +177,12 @@ func delete_response_node(deletion_slot : int,response_node : response_node):
 			i.slot -=1
 	response_options.erase(response_node)
 	emit_signal("unsaved_changes")
-	
+
+func append_response(response):
+	response_options.append(response)
+	response.slot = response_options.size()-1
+	response.set_parent_dialog(self)
+
 func clear_responses():
 	var responses_to_clear = response_options.duplicate()
 	for response in responses_to_clear:
@@ -165,6 +200,8 @@ func remove_connected_response(response : response_node):
 func delete_self(perm := true,commit_to_undo := true):
 	emit_signal("request_deletion",self,perm,commit_to_undo)
 	emit_signal("unsaved_changes")
+	for response in connected_responses:
+		remove_connected_response(response)
 
 func delete_response_options():
 	while response_options.size() > 0:
