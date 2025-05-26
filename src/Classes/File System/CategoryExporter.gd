@@ -114,7 +114,6 @@ func create_dialog_dict(dialog : dialog_node, new_version):
 		dialog_dict["PreviousBlocks"] = int(dialog.show_previous_dialog)
 		dialog_dict["Images"] = create_image_dict(dialog)
 	if !new_version:
-		print("not new version")
 		var fact1 = -1
 		var fact1pts = 0
 		var fact1decrease = 0

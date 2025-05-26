@@ -160,7 +160,7 @@ theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "[b]a10.1"
+text = "[b]v10.1"
 
 [node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(400, 25)
@@ -243,7 +243,7 @@ position = Vector2i(22, 36)
 size = Vector2i(915, 600)
 min_size = Vector2i(240, 600)
 theme = SubResource("5")
-ok_button_text = "Select This Folder"
+ok_button_text = "Select Current Folder"
 cancel_button_text = "CANCEL"
 mode_overrides_title = false
 file_mode = 2
