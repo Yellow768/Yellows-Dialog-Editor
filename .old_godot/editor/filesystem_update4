@@ -1,0 +1,21 @@
+res://default_env.tres
+res://src/UI/LandingScreen.tscn
+res://Assets/MainEditor.tres
+res://src/Classes/File System/CategoryExporter.gd
+res://src/Nodes/DialogNode.tscn
+res://src/UI/Editor/keybind.tscn
+res://src/UI/Editor/CategorySettings.tscn
+res://src/UI/Editor/EditorSettings.tscn
+res://src/Nodes/ResponseNode.tscn
+res://src/Classes/File System/SFTP/sftp_client.tscn
+res://src/UI/Util/EditorProgressBar.tscn
+res://src/UI/Util/ChooseInitialDialogPopup.tscn
+res://src/UI/Util/DirectoryShortcutButton.tscn
+res://src/UI/Util/TextEnterConfirmTemplate.tscn
+res://src/UI/Util/established_sftp_auth.tscn
+res://src/UI/Util/Notification.tscn
+res://src/UI/Editor/MainEditor.tscn
+res://src/Nodes/CategoryButton.tscn
+res://src/UI/Dialog Settings/Dialog Availability.tscn
+res://src/UI/Dialog Settings/ChooseQuest.tscn
+res://src/UI/Dialog Settings/Quest Avaiability.tscn

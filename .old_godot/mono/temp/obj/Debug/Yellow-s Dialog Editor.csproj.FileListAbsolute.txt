@@ -1,0 +1,39 @@
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.csproj.AssemblyReference.cache
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.GeneratedMSBuildEditorConfig.editorconfig
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.AssemblyInfoInputs.cache
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.AssemblyInfo.cs
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.csproj.CoreCompileInputs.cache
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.deps.json
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.runtimeconfig.json
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.pdb
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/BouncyCastle.Cryptography.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/GodotSharp.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/GodotSharpEditor.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Renci.SshNet.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.csproj.CopyComplete
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/refint/Yellow-s Dialog Editor.dll
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.pdb
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.genruntimeconfig.cache
+F:/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/ref/Yellow-s Dialog Editor.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.deps.json
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.runtimeconfig.json
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Yellow-s Dialog Editor.pdb
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/BouncyCastle.Cryptography.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/GodotSharp.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/GodotSharpEditor.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/bin/Debug/Renci.SshNet.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.csproj.AssemblyReference.cache
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.GeneratedMSBuildEditorConfig.editorconfig
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.AssemblyInfoInputs.cache
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.AssemblyInfo.cs
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.csproj.CoreCompileInputs.cache
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.sourcelink.json
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s.CB04FC66.Up2Date
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/refint/Yellow-s Dialog Editor.dll
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.pdb
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/Yellow-s Dialog Editor.genruntimeconfig.cache
+/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/Debug/ref/Yellow-s Dialog Editor.dll

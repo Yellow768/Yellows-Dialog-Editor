@@ -1,0 +1,105 @@
+{
+  "format": 1,
+  "restore": {
+    "/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/Yellow-s Dialog Editor.csproj": {}
+  },
+  "projects": {
+    "/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/Yellow-s Dialog Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/Yellow-s Dialog Editor.csproj",
+        "projectName": "Yellow-s Dialog Editor",
+        "projectPath": "/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/Yellow-s Dialog Editor.csproj",
+        "packagesPath": "/home/yellow768/.nuget/packages/",
+        "outputPath": "/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/.godot/mono/temp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/yellow768/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "/usr/lib64/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Godot.SourceGenerators": {
+              "target": "Package",
+              "version": "[4.1.4, )"
+            },
+            "GodotSharp": {
+              "target": "Package",
+              "version": "[4.1.4, )"
+            },
+            "SSH.NET": {
+              "target": "Package",
+              "version": "[2024.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.36, 6.0.36]"
+            },
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+              "version": "[6.0.36, 6.0.36]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.36, 6.0.36]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+              "version": "[6.0.36, 6.0.36]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/9.0.103/RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+﻿40055
+/home/yellow768/Desktop/Godot_v4.1.4-stable_mono_linux_x86_64/Godot_v4.1.4-stable_mono_linux.x86_64

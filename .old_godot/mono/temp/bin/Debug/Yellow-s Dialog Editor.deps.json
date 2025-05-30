@@ -1,0 +1,103 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Yellow-s Dialog Editor/1.0.0": {
+        "dependencies": {
+          "Godot.SourceGenerators": "4.1.4",
+          "GodotSharp": "4.1.4",
+          "GodotSharpEditor": "4.1.4",
+          "SSH.NET": "2024.2.0"
+        },
+        "runtime": {
+          "Yellow-s Dialog Editor.dll": {}
+        }
+      },
+      "BouncyCastle.Cryptography/2.4.0": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.4.0.33771"
+          }
+        }
+      },
+      "Godot.SourceGenerators/4.1.4": {},
+      "GodotSharp/4.1.4": {
+        "runtime": {
+          "lib/net6.0/GodotSharp.dll": {
+            "assemblyVersion": "4.1.4.0",
+            "fileVersion": "4.1.4.0"
+          }
+        }
+      },
+      "GodotSharpEditor/4.1.4": {
+        "dependencies": {
+          "GodotSharp": "4.1.4"
+        },
+        "runtime": {
+          "lib/net6.0/GodotSharpEditor.dll": {
+            "assemblyVersion": "4.1.4.0",
+            "fileVersion": "4.1.4.0"
+          }
+        }
+      },
+      "SSH.NET/2024.2.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.4.0"
+        },
+        "runtime": {
+          "lib/net6.0/Renci.SshNet.dll": {
+            "assemblyVersion": "2024.2.0.1",
+            "fileVersion": "2024.2.0.1"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Yellow-s Dialog Editor/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BouncyCastle.Cryptography/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SwXsAV3sMvAU/Nn31pbjhWurYSjJ+/giI/0n6tCrYoupEK34iIHCuk3STAd9fx8yudM85KkLSVdn951vTng/vQ==",
+      "path": "bouncycastle.cryptography/2.4.0",
+      "hashPath": "bouncycastle.cryptography.2.4.0.nupkg.sha512"
+    },
+    "Godot.SourceGenerators/4.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UdykSwyqpQI16VjgAxx+1EjlLdwmpVUcq81g/HJjkQ6SU/fnFoykiqBuSeIbmo4zVtJ9g6pOKAHojE2A6+CHjQ==",
+      "path": "godot.sourcegenerators/4.1.4",
+      "hashPath": "godot.sourcegenerators.4.1.4.nupkg.sha512"
+    },
+    "GodotSharp/4.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uLTc2HXwIrr7RJaT0H0+ntRRcnWipbiFtpEA8gvwdVTDbufwT/k2xV0errCFor1UouISSKIwvwrRNGmLjIN0WA==",
+      "path": "godotsharp/4.1.4",
+      "hashPath": "godotsharp.4.1.4.nupkg.sha512"
+    },
+    "GodotSharpEditor/4.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B5Pg82Onl0d/gAUtD/1BofIfSiXmrVewMV5gyBeVnyzuQk7FXVOrpiHyDlNATW+B9oIxtpxMZkxmwYlEL8dA+w==",
+      "path": "godotsharpeditor/4.1.4",
+      "hashPath": "godotsharpeditor.4.1.4.nupkg.sha512"
+    },
+    "SSH.NET/2024.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9r+4UF2P51lTztpd+H7SJywk7WgmlWB//Cm2o96c6uGVZU5r58ys2/cD9pCgTk0zCdSkfflWL1WtqQ9I4IVO9Q==",
+      "path": "ssh.net/2024.2.0",
+      "hashPath": "ssh.net.2024.2.0.nupkg.sha512"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "YMuqykTE81g=",
+  "success": true,
+  "projectFilePath": "/media/ProjectsDrive/DarumaProject/RainmireDirectory/External Projects/Tools/CNPC Dialog Editor/Yellow-s Dialog Editor.csproj",
+  "expectedPackageFiles": [
+    "/home/yellow768/.nuget/packages/bouncycastle.cryptography/2.4.0/bouncycastle.cryptography.2.4.0.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/godot.sourcegenerators/4.1.4/godot.sourcegenerators.4.1.4.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/godotsharp/4.1.4/godotsharp.4.1.4.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/ssh.net/2024.2.0/ssh.net.2024.2.0.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/microsoft.netcore.app.ref/6.0.36/microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/6.0.36/microsoft.netcore.app.runtime.linux-x64.6.0.36.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.36/microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/yellow768/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/6.0.36/microsoft.aspnetcore.app.runtime.linux-x64.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}
