@@ -390,6 +390,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs" node_paths=PackedStringArray("StopMusicCheckbox")]
+visible = false
 custom_minimum_size = Vector2(425, 0)
 layout_mode = 2
 script = ExtResource("17_fph0n")
@@ -1693,7 +1694,7 @@ layout_mode = 2
 text = "ALIGNMENT"
 
 [node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
-custom_minimum_size = Vector2(68, 90)
+custom_minimum_size = Vector2(71, 90)
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0
