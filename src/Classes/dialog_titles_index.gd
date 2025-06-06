@@ -41,17 +41,18 @@ func get_title_from_id(id : int) -> String:
 	return "Unindexed Dialog"
 
 func add_dialog_to_loaded(dialog : dialog_node):
+	if !dialog.is_connected("title_changed", Callable(self, "update_changed_dialog_title")):
+		dialog.connect("title_changed", Callable(self, "update_changed_dialog_title").bind(dialog))
 	if all_loaded_dialogs.has(dialog.dialog_id):
 		return
 	all_loaded_dialogs[dialog.dialog_id] = dialog.dialog_title
 	save_environment_settings()
-	if !dialog.is_connected("title_changed", Callable(self, "update_changed_dialog_title")):
-		dialog.connect("title_changed", Callable(self, "update_changed_dialog_title").bind(dialog))
+	
 	
 	
 			
 func update_changed_dialog_title(dialog : dialog_node) -> void:
-	all_loaded_dialogs[dialog.dialog_id] = dialog.dialog_title
+	all_loaded_dialogs[int(dialog.dialog_id)] = dialog.dialog_title
 	save_environment_settings()
 			
 			

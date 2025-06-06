@@ -390,7 +390,6 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs" node_paths=PackedStringArray("StopMusicCheckbox")]
-visible = false
 custom_minimum_size = Vector2(425, 0)
 layout_mode = 2
 script = ExtResource("17_fph0n")

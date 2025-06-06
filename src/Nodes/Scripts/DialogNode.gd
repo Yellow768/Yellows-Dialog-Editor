@@ -156,6 +156,7 @@ func determine_name(_response):
 	else:
 		dialog_title = new_name
 	TitleTextNode.text = dialog_title
+	emit_signal("title_changed")
 
 func add_response_node(commit_to_undo := true):
 	if !GlobalDeclarations.allow_above_six_responses:
