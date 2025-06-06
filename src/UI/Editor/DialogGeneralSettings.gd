@@ -119,6 +119,7 @@ func load_current_dialog_settings(dialog : dialog_node):
 		Commands.remove_child(child)
 		child.queue_free()
 	for command in current_dialog.commands:
+
 		var new_command_text_component = add_and_connect_command_component()
 		new_command_text_component.text = command
 	PlaysoundEdit.text = current_dialog.sound

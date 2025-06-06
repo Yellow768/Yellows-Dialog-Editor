@@ -1696,7 +1696,7 @@ layout_mode = 2
 text = "ALIGNMENT"
 
 [node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
-custom_minimum_size = Vector2(68, 90)
+custom_minimum_size = Vector2(71, 90)
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0

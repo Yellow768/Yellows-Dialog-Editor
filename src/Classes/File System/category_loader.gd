@@ -137,7 +137,8 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 		if node_data.has("dialog_availabilities"):
 			currently_loaded_dialog.dialog_availabilities[i].set_id(node_data["dialog_availabilities"][i].dialog_id)
 			currently_loaded_dialog.dialog_availabilities[i].set_availability(node_data["dialog_availabilities"][i].availability_type)
-	
+	if node_data.has("commands"):
+		currently_loaded_dialog.commands.assign(node_data["commands"])
 	if node_data.has("faction_changes"):
 		for i in node_data["faction_changes"].size():
 			currently_loaded_dialog.faction_changes.append(faction_change_object.new())
