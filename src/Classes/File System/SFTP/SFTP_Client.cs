@@ -438,7 +438,7 @@ public partial class SFTP_Client : Node
 		_RecursiveCreateAllDirsInPath(remote_path);
 		foreach (ISftpFile file in _SFTPClient.ListDirectory(remote_path))
 		{
-			if (!file.IsDirectory && file.Name.Contains("ydec"))
+			if (!file.IsDirectory && !file.Name.Contains("ydec"))
 			{
 				file.Delete();
 			}
