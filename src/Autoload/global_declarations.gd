@@ -22,6 +22,9 @@ var response_right_slot_color := Color(0.172549, 0.239216, 0.592157)
 var response_right_slot_color_hidden := Color(1,0,1)
 var dialog_left_slot_color_hidden := Color(1,0,1)
 
+var orange_slot_highlighted_color := Color('fd9176')
+var blue_slot_highlighted_color := Color('6d94fe')
+
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
 var snap_enabled := true

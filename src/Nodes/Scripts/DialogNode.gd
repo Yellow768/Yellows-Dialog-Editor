@@ -509,3 +509,23 @@ func _on_dialog_text_text_changed():
 	text = DialogTextNode.text
 	emit_signal("text_changed")
 	emit_signal("unsaved_changes")
+	
+func _on_node_selected():
+	for response in connected_responses:
+		response.set_slot_color_right(1,GlobalDeclarations.blue_slot_highlighted_color)
+	for response in response_options:
+		response.set_slot_color_left(1,GlobalDeclarations.orange_slot_highlighted_color)
+	set_slot_color_right(1,GlobalDeclarations.orange_slot_highlighted_color)
+	set_slot_color_left(1,GlobalDeclarations.blue_slot_highlighted_color)
+
+
+
+func _on_node_deselected():
+	for response in connected_responses:
+		if !response.selected:
+			response.set_slot_color_right(1,GlobalDeclarations.response_right_slot_color)
+	for response in response_options:
+		if !response.selected:
+			response.set_slot_color_left(1,GlobalDeclarations.response_left_slot_color)
+	set_slot_color_right(1,GlobalDeclarations.dialog_right_slot_color)
+	set_slot_color_left(1,GlobalDeclarations.dialog_left_slot_color)
