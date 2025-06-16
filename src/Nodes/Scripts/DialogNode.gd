@@ -515,3 +515,5 @@ func _on_dialog_text_text_changed():
 	text = DialogTextNode.text
 	emit_signal("text_changed")
 	emit_signal("unsaved_changes")
+
+

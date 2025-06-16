@@ -427,6 +427,8 @@ faction_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/Faction
 add_faction_button_path = NodePath("ScrollContainer/VBoxContainer/AddFactionChange")
 add_command_button_path = NodePath("ScrollContainer/VBoxContainer/AddCommandButton")
 command_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
+add_tag_button_path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/AddTagButton")
+tag_line_edit_path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/TagLineEdit")
 StopMusicCheckbox = NodePath("ScrollContainer/VBoxContainer/DialogStopMusic")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
@@ -473,6 +475,7 @@ button_pressed = true
 text = "v"
 
 [node name="Visual Options" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
@@ -649,8 +652,23 @@ layout_mode = 2
 toggle_mode = true
 icon = ExtResource("21_vtqsr")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "(Rainmire) Add Tag"
+
+[node name="TagLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_length = 16
+
+[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add"
+
 [node name="Commands" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 1.65
 
@@ -2408,6 +2426,7 @@ one_shot = true
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_soundfile_text_changed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogStopMusic" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_stop_music_toggled"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_command_visibility_button_toggled"]
+[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer/AddTagButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_tag_button_pressed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/AddCommandButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_command_button_pressed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton/FactionsVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_factions_visibility_button_toggled"]

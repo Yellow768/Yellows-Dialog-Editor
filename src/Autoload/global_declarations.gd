@@ -16,6 +16,9 @@ enum CONNECTION_TYPES{PORT_INTO_DIALOG,PORT_INTO_RESPONSE,PORT_FROM_DIALOG,PORT_
 var dialog_left_slot_color := Color(0.172549, 0.239216, 0.592157)
 var dialog_right_slot_color := Color(0.94902, 0.282353, 0.078431)
 
+var orange_slot_highlighted_color := Color('fd9176')
+var blue_slot_highlighted_color := Color('6d94fe')
+
 var response_left_slot_color := Color(0.94902, 0.282353, 0.078431)
 var response_right_slot_color := Color(0.172549, 0.239216, 0.592157)
 

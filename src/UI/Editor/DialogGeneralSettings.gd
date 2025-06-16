@@ -39,6 +39,8 @@ var command_text_instance = load("res://src/UI/Dialog Settings/Command.tscn")
 @export var add_faction_button_path : NodePath
 @export var add_command_button_path : NodePath
 @export var command_visibility_button_path : NodePath
+@export var add_tag_button_path : NodePath
+@export var tag_line_edit_path : NodePath
 @export var StopMusicCheckbox : CheckBox
 
 @onready var InformationPanel : Panel = get_node(information_panel_path)
@@ -75,6 +77,8 @@ var command_text_instance = load("res://src/UI/Dialog Settings/Command.tscn")
 @onready var AddFactionButton : Button = get_node(add_faction_button_path)
 @onready var AddCommandButton : Button = get_node(add_command_button_path)
 @onready var CommandVisibilityButton : Button = get_node(command_visibility_button_path)
+@onready var AddTagButton : Button = get_node(add_tag_button_path)
+@onready var TagLineEdit : LineEdit = get_node(tag_line_edit_path)
 
 # Called when the node enters the scene tree for the first time.
 
@@ -482,3 +486,11 @@ func _on_command_visibility_button_toggled(button_pressed):
 
 func _on_dialog_stop_music_toggled(button_pressed):
 	current_dialog.stop_music = button_pressed
+	
+	
+
+
+func _on_add_tag_button_pressed():
+	current_dialog.commands.append("/execute as @dp if entity @s[tag=!"+TagLineEdit.text+"] run tag @dp add "+TagLineEdit.text)
+	var new_tag = add_and_connect_command_component()
+	new_tag.text = "/execute as @dp if entity @s[tag=!"+TagLineEdit.text+"] run tag @dp add "+TagLineEdit.text

@@ -118,6 +118,8 @@ text = "    ID: -1"
 
 [connection signal="close_request" from="." to="." method="_on_DialogNode_close_request"]
 [connection signal="gui_input" from="." to="." method="_on_DialogNode_gui_input"]
+[connection signal="node_deselected" from="." to="." method="_on_node_deselected"]
+[connection signal="node_selected" from="." to="." method="_on_node_selected"]
 [connection signal="position_offset_changed" from="." to="." method="_on_DialogNode_offset_changed"]
 [connection signal="resize_request" from="." to="." method="_on_resize_request"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/TitleText" to="." method="_on_TitleText_gui_input"]

@@ -12,6 +12,7 @@ text = "ID"
 [node name="IDLineEdit" type="LineEdit" parent="."]
 custom_minimum_size = Vector2(90, 20)
 layout_mode = 2
+max_length = 16
 
 [node name="DiplayLabel" type="Label" parent="."]
 layout_mode = 2
@@ -27,6 +28,7 @@ layout_mode = 2
 [node name="SpinBox" type="SpinBox" parent="."]
 layout_mode = 2
 allow_greater = true
+allow_lesser = true
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
