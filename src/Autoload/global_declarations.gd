@@ -51,6 +51,8 @@ var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_r
 
 var assigning_keybind = false
 
+var del_clears_text = false
+
 
 var language = OS.get_locale_language()
 
@@ -84,6 +86,7 @@ func _ready():
 		InputMap.action_erase_events(action)
 		for event in config.get_value("keybinds",action,temp_action):
 			InputMap.action_add_event(action,event)
+	del_clears_text = config.get_value("user_settings","del_clears_text",dialog_name_preset)
 
 func add_default_presets():
 	GlobalDeclarations.spacing_presets[0]={
@@ -139,6 +142,7 @@ func save_config():
 	config.set_value("user_settings","default_visual_preset",default_visual_preset)
 	config.set_value("user_settings","default_spacing_preset",default_spacing_preset)
 	config.set_value("user_settings","dialog_name_preset",dialog_name_preset)
+	config.set_value("user_settings","del_clears_text",del_clears_text)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)
