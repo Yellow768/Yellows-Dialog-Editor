@@ -441,6 +441,7 @@ func execute_action_add_dialog(action):
 		recreated_dialog.scoreboard_availabilities[i].set_value(node_data["scoreboard_availabilities"][i].value)
 	if node_data.has("faction_changes"):
 		for i in node_data["faction_changes"].size():
+			recreated_dialog.faction_changes.append(faction_change_object.new())
 			recreated_dialog.faction_changes[i].set_id(node_data["faction_changes"][i].faction_id)
 			recreated_dialog.faction_changes[i].set_points(node_data["faction_changes"][i].points)
 	recreated_dialog.mail.sender = node_data["mail"].sender
@@ -558,7 +559,14 @@ func create_response_node_from_data(response_data):
 	currently_loaded_response.slot = response_data["slot"]
 	currently_loaded_response.color_decimal = response_data["color_decimal"]
 	currently_loaded_response.to_dialog_id = response_data["to_dialog_id"]
-	currently_loaded_response.command = response_data["command"]
+	if response_data.has("option_command"):
+		currently_loaded_response.option_command = response_data.option_command
+	if response_data.has("command"):
+		currently_loaded_response.option_command = response_data.command
+	if response_data.has("commands"):
+		var commands :Array[String]
+		commands.assign(response_data.commands)
+		currently_loaded_response.commands = commands
 	currently_loaded_response.set_option_from_index(response_data.option_type)
 	currently_loaded_response.response_title = response_data["response_title"]
 	currently_loaded_response.position_offset = Vector2(response_data["position_offset_x"],response_data["position_offset_y"])
