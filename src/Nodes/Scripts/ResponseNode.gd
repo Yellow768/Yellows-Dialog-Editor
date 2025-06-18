@@ -427,3 +427,28 @@ func _on_color_picker_button_pressed():
 		ColorPickerNode.get_picker().add_preset(color)
 		
 
+
+
+func _on_node_selected():
+	set_slot_color_left(1,GlobalDeclarations.orange_slot_highlighted_color)
+	set_slot_color_right(1,GlobalDeclarations.blue_slot_highlighted_color)
+	if parent_dialog:
+		parent_dialog.set_slot_color_right(1,GlobalDeclarations.orange_slot_highlighted_color)
+	if connected_dialog:
+		connected_dialog.set_slot_color_left(1,GlobalDeclarations.blue_slot_highlighted_color)
+
+
+func _on_node_deselected():
+	set_slot_color_left(1,GlobalDeclarations.response_left_slot_color)
+	set_slot_color_right(1,GlobalDeclarations.response_right_slot_color)
+	if parent_dialog:
+		parent_dialog.set_slot_color_right(1,GlobalDeclarations.dialog_right_slot_color)
+		for response in parent_dialog.response_options:
+			if response.selected:
+				parent_dialog.set_slot_color_right(1,GlobalDeclarations.orange_slot_highlighted_color)
+	if connected_dialog:
+		connected_dialog.set_slot_color_left(1,GlobalDeclarations.dialog_left_slot_color)
+		for response in connected_dialog.connected_responses:
+			if response.selected:
+				connected_dialog.set_slot_color_left(1,GlobalDeclarations.blue_slot_highlighted_color)
+	

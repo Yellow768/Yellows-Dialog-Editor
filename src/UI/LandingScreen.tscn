@@ -160,7 +160,7 @@ theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "[b]v10.2"
+text = "[b]v10.3"
 
 [node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(400, 25)
@@ -170,7 +170,7 @@ theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "2025-06-05"
+text = "2025-06-15"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2

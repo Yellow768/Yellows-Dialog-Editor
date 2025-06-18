@@ -22,6 +22,7 @@ signal language_changed
 @export var default_visual_preset_path : NodePath
 @export var default_spacing_preset_path : NodePath
 @export var dialog_name_preset_path : NodePath
+@export var delete_clears_text_path : NodePath
 
 @onready var HideConnectionSlider : HSlider= get_node(hide_connection_slider_path)
 @onready var HoldShiftCheck :Button= get_node(hold_shift_check_path)
@@ -37,6 +38,7 @@ signal language_changed
 @onready var DefaultVisualPreset : OptionButton = get_node(default_visual_preset_path)
 @onready var DefaultSpacingPreset : OptionButton = get_node(default_spacing_preset_path)
 @onready var DefaultDialogNamePreset : TextEdit = get_node(dialog_name_preset_path)
+@onready var DeleteClearsText : CheckButton = get_node(delete_clears_text_path)
 
 func _ready():
 	HideConnectionSlider.value = GlobalDeclarations.hide_connection_distance
@@ -45,6 +47,7 @@ func _ready():
 	EnableGridCheck.button_pressed = GlobalDeclarations.snap_enabled
 	AutoSaveMaxFiles.value = GlobalDeclarations.autosave_max_files
 	AllowMoreThanSix.button_pressed = GlobalDeclarations.allow_above_six_responses
+	DeleteClearsText.button_pressed = GlobalDeclarations.del_clears_text
 	DefaultDirectoryLabel.text = GlobalDeclarations.default_user_directory
 	DefaultDirectoryFileDialog.current_dir = GlobalDeclarations.default_user_directory
 	CNPCPlusCheck.button_pressed = GlobalDeclarations.enable_customnpcs_plus_options
@@ -211,3 +214,7 @@ func _on_tab_bar_tab_changed(tab):
 func _on_text_edit_text_changed():
 	GlobalDeclarations.dialog_name_preset = DefaultDialogNamePreset.text
 
+
+
+func _on_del_clears_check_toggled(button_pressed):
+	GlobalDeclarations.del_clears_text = button_pressed

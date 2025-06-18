@@ -25,6 +25,9 @@ var response_right_slot_color := Color(0.172549, 0.239216, 0.592157)
 var response_right_slot_color_hidden := Color(1,0,1)
 var dialog_left_slot_color_hidden := Color(1,0,1)
 
+var orange_slot_highlighted_color := Color('fd9176')
+var blue_slot_highlighted_color := Color('6d94fe')
+
 var hide_connection_distance
 var hold_shift_for_individual_movement = false
 var snap_enabled := true
@@ -50,6 +53,8 @@ var default_user_directory := OS.get_data_dir()+"/.minecraft/saves"
 var actions : Array[String] = ["focus_above","focus_below","focus_left","focus_right","zoom_key","drag_responses_key","delete_nodes","add_dialog_at_mouse","create_response","zoom_in","zoom_out","select_multiple","save","export","scan_for_changes","reimport_category","swap_responses"]
 
 var assigning_keybind = false
+
+var del_clears_text = false
 
 
 var language = OS.get_locale_language()
@@ -84,6 +89,7 @@ func _ready():
 		InputMap.action_erase_events(action)
 		for event in config.get_value("keybinds",action,temp_action):
 			InputMap.action_add_event(action,event)
+	del_clears_text = config.get_value("user_settings","del_clears_text",dialog_name_preset)
 
 func add_default_presets():
 	GlobalDeclarations.spacing_presets[0]={
@@ -139,6 +145,7 @@ func save_config():
 	config.set_value("user_settings","default_visual_preset",default_visual_preset)
 	config.set_value("user_settings","default_spacing_preset",default_spacing_preset)
 	config.set_value("user_settings","dialog_name_preset",dialog_name_preset)
+	config.set_value("user_settings","del_clears_text",del_clears_text)
 	for action in actions:
 		config.set_value("keybinds",action,InputMap.action_get_events(action))
 	config.save(user_settings_path)

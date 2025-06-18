@@ -59,6 +59,7 @@ cnpc_plus_check_path = NodePath("Preferences/CustomNPCs+/CNPC+Check")
 default_visual_preset_path = NodePath("Preferences/DefaultVisualSettings/VisualPresetButton")
 default_spacing_preset_path = NodePath("Preferences/Default Spacing Preset/SpacingPresetButton")
 dialog_name_preset_path = NodePath("Preferences/Default Dialog Name Preset/TextEdit")
+delete_clears_text_path = NodePath("Preferences/CreationSettings/DelClearsText/DelClearsCheck")
 
 [node name="TabBar" type="TabBar" parent="."]
 layout_mode = 2
@@ -229,6 +230,18 @@ text = "EDS_ALLOW_MORE_THAN_SIX"
 [node name="CheckButton" type="CheckButton" parent="Preferences/CreationSettings/HBoxContainer"]
 layout_mode = 2
 
+[node name="DelClearsText" type="HBoxContainer" parent="Preferences/CreationSettings"]
+layout_mode = 2
+
+[node name="DelClearsTextLabel" type="Label" parent="Preferences/CreationSettings/DelClearsText"]
+layout_mode = 2
+tooltip_text = "EDS_DEL_CLEARS_TEXT_TOOLTIP"
+mouse_filter = 1
+text = "EDS_DEL_CLEARS_TEXT"
+
+[node name="DelClearsCheck" type="CheckButton" parent="Preferences/CreationSettings/DelClearsText"]
+layout_mode = 2
+
 [node name="HSeparator" type="HSeparator" parent="Preferences"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
@@ -384,6 +397,7 @@ layout_mode = 2
 [connection signal="toggled" from="Preferences/GridSettings/HBoxContainer2/CheckButton" to="." method="_on_undo_button_toggled"]
 [connection signal="toggled" from="Preferences/GridSettings/HBoxContainer3/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Preferences/CreationSettings/HBoxContainer/CheckButton" to="." method="_on_allow_six_check_button_toggled"]
+[connection signal="toggled" from="Preferences/CreationSettings/DelClearsText/DelClearsCheck" to="." method="_on_del_clears_check_toggled"]
 [connection signal="item_selected" from="Preferences/DefaultVisualSettings/VisualPresetButton" to="." method="_on_visual_preset_button_item_selected"]
 [connection signal="item_selected" from="Preferences/Default Spacing Preset/SpacingPresetButton" to="." method="_on_spacing_preset_button_item_selected"]
 [connection signal="text_changed" from="Preferences/Default Dialog Name Preset/TextEdit" to="." method="_on_text_edit_text_changed"]
