@@ -43,7 +43,6 @@ func empty_category_jsons(category_name : String):
 
 
 func create_dialog_dict(dialog : dialog_node, new_version):
-	print(dialog.text)
 	var dialog_dict = {
 		"DialogShowWheel" : int(dialog.show_wheel),
 		"DialogDisableEsc": int(dialog.disable_esc),
