@@ -166,7 +166,7 @@ custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
 [node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(800, 80)
+custom_minimum_size = Vector2(1600, 80)
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
