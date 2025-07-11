@@ -270,7 +270,7 @@ func _on_DialogNode_offset_changed():
 	
 			
 func _on_TitleText_text_changed(_new_text : String):
-	print("title changed")
+
 	dialog_title = TitleTextNode.text
 	if connected_responses.size() > 0:
 		for i in connected_responses:
@@ -507,7 +507,7 @@ func update_language():
 		response.title = tr("RESPONSE_OPTION")+" "+str(response.node_index)
 
 func _on_dialog_text_text_changed():
-	print("check")
+
 	text = DialogTextNode.text
 	emit_signal("text_changed")
 	emit_signal("unsaved_changes")

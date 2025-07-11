@@ -37,7 +37,6 @@ func load_faction_data():
 	faction_dict = fact_loader.get_faction_data(current_directory)
 
 func set_highest_id(new_id):
-	print("new id "+ str(new_id))
 	highest_id = new_id
 	var file = FileAccess.open(current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 	file.store_line(str(new_id))
@@ -47,7 +46,6 @@ func set_highest_id(new_id):
 
 func get_highest_id():
 	if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.IsConnected():
-		print(CurrentEnvironment.sftp_client.GetHighestIDFromServer())
 		return int(CurrentEnvironment.sftp_client.GetHighestIDFromServer())
 	else:
 		return highest_id

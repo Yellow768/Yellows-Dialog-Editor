@@ -77,7 +77,6 @@ func load_current_dialog_settings(dialog : dialog_node):
 	AlignmentContainer.visible = ImageType.selected == 0
 	SelectedColorContainer.visible = ImageType.selected == 2
 	if current_dialog.last_viewed_image != -1:
-		prints(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		ImageList.select(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 		_on_item_list_item_selected(current_dialog.image_dictionary.keys().find(current_dialog.last_viewed_image))
 	else:

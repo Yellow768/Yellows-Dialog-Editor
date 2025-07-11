@@ -82,7 +82,6 @@ func delete_all_selected_nodes():
 	if GlobalDeclarations.del_clears_text && (get_viewport().gui_get_focus_owner() is TextEdit || get_viewport().gui_get_focus_owner() is LineEdit):
 		get_viewport().gui_get_focus_owner().clear()
 		get_viewport().gui_get_focus_owner().emit_signal("text_changed")
-		print("cleared text")
 		return
 	
 	var deleted_dialogs = selected_dialogs.duplicate()

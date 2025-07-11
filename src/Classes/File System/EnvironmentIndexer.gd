@@ -67,7 +67,6 @@ func find_highest_index(reindex := false) -> int:
 		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.READ)
 		var line := file.get_line()
 		if line.is_valid_int():
-			print("found it it is "+str(line))
 			return int(line)
 		else:
 			printerr("highest_index.json does not contain a valid integer.")

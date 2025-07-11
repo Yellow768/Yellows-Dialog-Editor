@@ -392,6 +392,5 @@ func _on_sftp_box_resync_cache():
 	category_temp_data = {}
 
 func resized():
-	print("asd")
 	$VBoxContainer/ScrollContainer.custom_minimum_size.y = DisplayServer.window_get_size().y-400
 	$VBoxContainer/ScrollContainer/CategoryContainers.custom_minimum_size.y = DisplayServer.window_get_size().y-400
