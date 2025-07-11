@@ -161,13 +161,13 @@ script = ExtResource("5_jh223")
 dialog_editor = NodePath("..")
 
 [node name="TopPanel" type="Panel" parent="."]
-visible = false
 layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 50.0
 script = ExtResource("3")
 
 [node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+visible = false
 layout_mode = 1
 offset_left = 5.0
 offset_top = 5.0

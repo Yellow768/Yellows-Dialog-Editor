@@ -60,6 +60,8 @@ func change_to_editor(directory : String) -> void:
 		get_parent().add_child(editor)
 		DisplayServer.window_set_title(directory+" | Yellow's Dialog Editor")
 		print("Loaded "+directory)
+		if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json"):
+			CurrentEnvironment.sftp_client.DownloadFile(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json",CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 		queue_free()
 	else:
 		var tween := get_tree().create_tween()

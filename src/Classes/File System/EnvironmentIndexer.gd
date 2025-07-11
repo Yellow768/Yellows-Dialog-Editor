@@ -18,8 +18,7 @@ func _ready():
 		connect("new_category_created",Callable(CurrentEnvironment.sftp_client,"_OnNewCategoryCreated"))
 		connect("category_renamed",Callable(CurrentEnvironment.sftp_client,"_OnCategoryRenamed"))
 		connect("category_deleted",Callable(CurrentEnvironment.sftp_client,"_OnCategoryDeleted"))
-		if CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json"):
-			CurrentEnvironment.sftp_client.DownloadFile(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json",CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
+		
 	if !DirAccess.dir_exists_absolute(CurrentEnvironment.current_directory+"/dialogs"):
 		push_error("dialogs folder did not exist.")
 		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/dialogs")
@@ -36,6 +35,8 @@ func index_categories() -> Array[String]:
 	
 	
 func find_highest_index(reindex := false) -> int:
+	if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json"):
+		CurrentEnvironment.highest_id = CurrentEnvironment.sftp_client.GetHighestIDFromServer()
 	if reindex:
 		DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	var file : FileAccess
@@ -66,6 +67,7 @@ func find_highest_index(reindex := false) -> int:
 		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.READ)
 		var line := file.get_line()
 		if line.is_valid_int():
+			print("found it it is "+str(line))
 			return int(line)
 		else:
 			printerr("highest_index.json does not contain a valid integer.")
