@@ -129,7 +129,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(270, 35)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-placeholder_text = "RESPONSE_TEXT"
+placeholder_text = "RESPONSE_TITLE"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
