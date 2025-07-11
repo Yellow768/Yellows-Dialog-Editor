@@ -370,6 +370,10 @@ text = "EDS_CNPC+"
 layout_mode = 2
 tooltip_text = "EDS_CNPC+_TOOLTIP"
 
+[node name="Open Logs Folder" type="Button" parent="Preferences"]
+layout_mode = 2
+text = "Open Logs Folder"
+
 [node name="KeyBinds" type="VBoxContainer" parent="."]
 visible = false
 custom_minimum_size = Vector2(600, 217.62)
@@ -406,3 +410,4 @@ layout_mode = 2
 [connection signal="pressed" from="Preferences/FileSettings/HBoxContainer2/HSlider/Resetbutton" to="." method="_on_autosave_resetbutton_pressed"]
 [connection signal="value_changed" from="Preferences/FileSettings/HBoxContainer3/ValueEdit" to="." method="_on_autosave_max_files_value_changed"]
 [connection signal="toggled" from="Preferences/CustomNPCs+/CNPC+Check" to="." method="_on_cnpc_check_toggled"]
+[connection signal="pressed" from="Preferences/Open Logs Folder" to="." method="_on_open_logs_folder_pressed"]

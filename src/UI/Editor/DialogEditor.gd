@@ -547,8 +547,10 @@ func _on_SaveLoad_clear_editor_request():
 func handle_input(event : InputEvent):
 	if event.is_action_pressed("add_dialog_at_mouse"):
 		add_dialog_at_mouse()
+		accept_event()
 	if event.is_action_pressed("create_response"):
-		add_responses_and_dialogs_to_selected_nodes()	
+		add_responses_and_dialogs_to_selected_nodes()
+		accept_event()	
 	if Input.is_action_just_pressed("delete_nodes"):
 		delete_all_selected_nodes()
 	if event.is_action_pressed("focus_below"):
@@ -649,8 +651,10 @@ func _on_DialogEditor_gui_input(event):
 	var undo_redo_started = false
 	if Input.is_action_just_pressed("ui_undo") && not Input.is_action_pressed("ui_redo"):
 		emit_signal("request_undo")
+		accept_event()
 	if Input.is_action_just_pressed("ui_redo"):
 		emit_signal("request_redo")
+		accept_event()
 	if Input.is_action_just_released("ui_undo"):
 		undo_redo_delay = 10
 		undo_redo_started = false
