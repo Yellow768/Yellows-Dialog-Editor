@@ -379,7 +379,6 @@ public partial class SFTP_Client : Node
 			EmitSignal(SignalName.SftpError, e.Message,"SFTP_ERROR_UPLOAD");
 			return ;
 		}
-		GD.Print(remote_file_path);
 	}
 
 	private void _RecursiveCreateAllDirsInPath(string path){
@@ -502,7 +501,6 @@ private void DeleteDirectory(string path)
 	{
 		try
 		{
-			GD.Print(_SFTPClient.WorkingDirectory+"/dialogs/"+category_name);
 			DeleteDirectory(_SFTPClient.WorkingDirectory + "/dialogs/" + category_name);
 		}
 		catch (Exception e)
