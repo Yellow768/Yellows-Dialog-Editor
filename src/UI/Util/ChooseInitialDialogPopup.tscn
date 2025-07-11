@@ -15,15 +15,9 @@ font_size = 34
 
 [node name="ChooseInitialDIalogPopup" type="Panel"]
 self_modulate = Color(1, 1, 1, 0.537255)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -574.0
-offset_top = -327.0
-offset_right = 571.0
-offset_bottom = 324.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2")

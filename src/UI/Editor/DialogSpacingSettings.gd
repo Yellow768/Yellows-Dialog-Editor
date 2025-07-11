@@ -47,6 +47,7 @@ extends Control
 var current_dialog : dialog_node
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	PresetTextEdit.placeholder_text = tr("NEW_PRESET_TEXT")
 
 func load_current_dialog_settings(dialog : dialog_node):
@@ -310,3 +311,6 @@ func _on_lock_toggled(button_pressed):
 		SpacingOptions.modulate = Color(.5,.5,.5)
 	else:
 		SpacingOptions.modulate = Color(1,1,1)
+
+func resized():
+	$ScrollContainer.size.y = DisplayServer.window_get_size().y

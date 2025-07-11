@@ -79,6 +79,7 @@ var command_text_instance = load("res://src/UI/Dialog Settings/Command.tscn")
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	for color in GlobalDeclarations.color_presets:
 		DialogColor.get_picker().add_preset(color)
 		TitleColor.get_picker().add_preset(color)
@@ -482,3 +483,6 @@ func _on_command_visibility_button_toggled(button_pressed):
 
 func _on_dialog_stop_music_toggled(button_pressed):
 	current_dialog.stop_music = button_pressed
+	
+func resized():
+	$ScrollContainer.size.y = DisplayServer.window_get_size().y

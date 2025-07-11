@@ -21,6 +21,7 @@ var unsaved_categories = []
 
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	get_tree().auto_accept_quit = false
 	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
 	$DialogEditor.use_snap = GlobalDeclarations.snap_enabled
@@ -106,3 +107,10 @@ func _on_dialog_editor_node_double_clicked(_ignore):
 
 func _on_dialog_file_system_index_category_deleted(category):
 	remove_from_unsaved_categories(category)
+
+func resized():
+	var ratio = DisplayServer.window_get_size().y/1080
+	if ratio > 1:
+		scale = Vector2(ratio,ratio)
+	else:
+		scale = Vector2(1,1)

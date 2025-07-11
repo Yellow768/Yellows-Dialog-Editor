@@ -3,7 +3,7 @@ extends Node
 var current_directory : set = set_current_directory
 var current_dialog_directory
 var current_category_name
-var highest_id = 0: set = set_highest_id
+var highest_id = 0: set = set_highest_id, get = get_highest_id
 var loading_stage = false
 var allow_save_state
 var dialog_name_preset
@@ -37,12 +37,21 @@ func load_faction_data():
 	faction_dict = fact_loader.get_faction_data(current_directory)
 
 func set_highest_id(new_id):
+	print("new id "+ str(new_id))
 	highest_id = new_id
 	var file = FileAccess.open(current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
-	file.store_line(str(highest_id))
+	file.store_line(str(new_id))
 	file.close()
-	if CurrentEnvironment.sftp_client:
+	if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.IsConnected():
 		CurrentEnvironment.sftp_client.UploadFile(current_directory+"/dialogs/highest_index.json",CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json")
+
+func get_highest_id():
+	if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.IsConnected():
+		print(CurrentEnvironment.sftp_client.GetHighestIDFromServer())
+		return int(CurrentEnvironment.sftp_client.GetHighestIDFromServer())
+	else:
+		return highest_id
+		
 
 func set_current_directory(new_directory):
 	current_directory = new_directory

@@ -22,10 +22,11 @@ func add_notification(text,color = Color(1,1,1)):
 	
 	
 func _on_InformationPanel_show_information_panel():
-	tween(get_node(InformationPanel),"position:x",get_window().size.x-450,.2,Tween.TRANS_LINEAR)
+	tween(get_node(InformationPanel),"position:x",DisplayServer.window_get_size_with_decorations().x-450,.2,Tween.TRANS_LINEAR)
 
 func _on_InformationPanel_hide_information_panel():
-	tween(get_node(InformationPanel),"position:x",get_window().size.x,.2,Tween.TRANS_LINEAR)
+	
+	tween(get_node(InformationPanel),"position:x",DisplayServer.window_get_size_with_decorations().x,.2,Tween.TRANS_LINEAR)
 
 func _on_CategoryPanel_reveal_category_panel():
 	tween(get_node(CategoryPanel),"position:x",0,.2,Tween.TRANS_LINEAR)

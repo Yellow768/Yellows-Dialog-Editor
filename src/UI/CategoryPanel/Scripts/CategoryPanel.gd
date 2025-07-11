@@ -55,6 +55,7 @@ var category_temp_data : Dictionary = {}
 
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	create_category_buttons(EnvironmentIndex.index_categories())
 	export_version = GlobalDeclarations.last_used_export_version
 	if CurrentEnvironment.sftp_client:
@@ -389,3 +390,8 @@ func _on_dialog_file_system_index_category_renamed(old_name,_new_name):
 
 func _on_sftp_box_resync_cache():
 	category_temp_data = {}
+
+func resized():
+	print("asd")
+	$VBoxContainer/ScrollContainer.custom_minimum_size.y = DisplayServer.window_get_size().y-400
+	$VBoxContainer/ScrollContainer/CategoryContainers.custom_minimum_size.y = DisplayServer.window_get_size().y-400

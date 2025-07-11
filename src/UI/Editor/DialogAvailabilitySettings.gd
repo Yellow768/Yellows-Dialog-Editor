@@ -36,6 +36,7 @@ var glob_node_selected_id : int
 var current_dialog
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	for i in 4:
 		AvailabilityQuests.get_child(i).connect("id_changed", Callable(self, "quest_id_changed"))
 		AvailabilityQuests.get_child(i).connect("type_changed", Callable(self, "quest_type_changed"))
@@ -180,3 +181,5 @@ func _on_LevelSpinBox_value_changed(value : int):
 	current_dialog.min_level_availability = value
 	InformationPanel.emit_signal("unsaved_change")
 
+func resized():
+	$Availability.size.y = DisplayServer.window_get_size().y
