@@ -109,8 +109,9 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 		new_dialog.node_index = node_index
 	node_index += 1
 	if new_dialog.dialog_id == -1:
-		CurrentEnvironment.highest_id += 1
-		new_dialog.dialog_id = CurrentEnvironment.highest_id
+		var next_highest = CurrentEnvironment.highest_id+1
+		CurrentEnvironment.set_highest_id(next_highest)
+		new_dialog.dialog_id = next_highest
 	if new_dialog.position_offset == Vector2.ZERO:
 		new_dialog.position_offset = get_window().size/3
 	if !use_exact_offset: 
