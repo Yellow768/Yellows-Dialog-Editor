@@ -54,6 +54,7 @@ var current_dialog : dialog_node
 var current_image : Dictionary
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	ImageHeight.update_on_text_changed = true
 	ImageWidth.update_on_text_changed = true
 	ImageId.update_on_text_changed = true
@@ -260,3 +261,5 @@ func _on_alignment_item_selected(index):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+func resized():
+	$HBoxContainer/ScrollContainer.size.y = DisplayServer.window_get_size().y

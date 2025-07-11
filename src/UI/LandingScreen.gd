@@ -13,6 +13,7 @@ const user_settings_path := "user://user_settings.cfg"
 var chosen_dir : String
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	get_tree().auto_accept_quit = true
 	DisplayServer.window_set_title("Home | Yellow's Dialog Editor")
 	OS.low_processor_usage_mode = true
@@ -59,6 +60,8 @@ func change_to_editor(directory : String) -> void:
 		get_parent().add_child(editor)
 		DisplayServer.window_set_title(directory+" | Yellow's Dialog Editor")
 		print("Loaded "+directory)
+		if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json"):
+			CurrentEnvironment.sftp_client.DownloadFile(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json",CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 		queue_free()
 	else:
 		var tween := get_tree().create_tween()
@@ -202,3 +205,6 @@ func _on_prev_dirs_tree_button_clicked(item, column, id, mouse_button_index):
 	item.free()
 
 
+func resized():
+	var y_scale = float((DisplayServer.window_get_size().y)/float(1080))
+	$Panel.scale = Vector2(y_scale,y_scale)

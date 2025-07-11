@@ -546,6 +546,7 @@ func _on_SaveLoad_clear_editor_request():
 func handle_input(event : InputEvent):
 	if event.is_action_pressed("add_dialog_at_mouse"):
 		add_dialog_at_mouse()
+		accept_event()
 	if event.is_action_pressed("create_response"):
 		add_responses_and_dialogs_to_selected_nodes()
 		accept_event()

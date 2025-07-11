@@ -126,6 +126,16 @@ script = ExtResource("1")
 prev_dir_tree_path = NodePath("Panel/VBoxContainer2/HBoxContainer/PrevDirsTree")
 sftp_starter_path = NodePath("SFTP Dialog")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(10000, 10000)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0390784, 0.0390784, 0.0390784, 1)
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -133,6 +143,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="EditorIcon" type="Sprite2D" parent="Panel"]
+position = Vector2(497.234, 174.537)
+scale = Vector2(0.851703, 0.881827)
+texture = ExtResource("4_edwkw")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel"]
 custom_minimum_size = Vector2(300, 100)
@@ -142,8 +158,15 @@ offset_top = 15.0
 offset_right = 912.0
 offset_bottom = 599.0
 
-[node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2"]
-custom_minimum_size = Vector2(400, 80)
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(800, 80)
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
@@ -152,7 +175,7 @@ theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
 text = "[b]Yellow's Dialog Editor (RAINMIRE EDITION)"
 
-[node name="ProgramVersionLabel" type="RichTextLabel" parent="Panel/VBoxContainer2"]
+[node name="ProgramVersionLabel" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 mouse_filter = 2
@@ -160,9 +183,9 @@ theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "[b]v10.3"
+text = "[b]v10.4"
 
-[node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2"]
+[node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(400, 25)
 layout_mode = 2
 mouse_filter = 2
@@ -170,7 +193,7 @@ theme_override_colors/default_color = Color(1, 0.74902, 0, 1)
 theme_override_fonts/bold_font = SubResource("FontVariation_mmhe0")
 theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
-text = "2025-06-15"
+text = "2025-07-11"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
@@ -284,11 +307,6 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Directory Does Not Exist"
 label_settings = SubResource("LabelSettings_01jgx")
-
-[node name="EditorIcon" type="Sprite2D" parent="."]
-position = Vector2(447, 167)
-scale = Vector2(0.712989, 0.712989)
-texture = ExtResource("4_edwkw")
 
 [node name="EditorSettings" parent="." instance=ExtResource("4_3xjq6")]
 process_mode = 2

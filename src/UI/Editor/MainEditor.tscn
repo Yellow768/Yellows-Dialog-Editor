@@ -739,7 +739,7 @@ availability_level_path = NodePath("Availability/VBoxContainer/TimeandLevel/Play
 information_panel_path = NodePath("../..")
 
 [node name="Availability" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY"]
-custom_minimum_size = Vector2(436, 300)
+custom_minimum_size = Vector2(436, 600)
 layout_mode = 2
 offset_right = 436.0
 offset_bottom = 1065.0
@@ -2039,7 +2039,7 @@ dialog_editor_path = NodePath("../DialogEditor")
 auto_save_path = NodePath("../AutosaveTimer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
-custom_minimum_size = Vector2(340, 400)
+custom_minimum_size = Vector2(340, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

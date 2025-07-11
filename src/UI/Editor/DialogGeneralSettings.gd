@@ -83,6 +83,7 @@ var command_text_instance = load("res://src/UI/Dialog Settings/Command.tscn")
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	for color in GlobalDeclarations.color_presets:
 		DialogColor.get_picker().add_preset(color)
 		TitleColor.get_picker().add_preset(color)
@@ -486,11 +487,14 @@ func _on_command_visibility_button_toggled(button_pressed):
 
 func _on_dialog_stop_music_toggled(button_pressed):
 	current_dialog.stop_music = button_pressed
-	
-	
+
 
 
 func _on_add_tag_button_pressed():
 	current_dialog.commands.append("/execute as @dp if entity @s[tag=!"+TagLineEdit.text+"] run tag @dp add "+TagLineEdit.text)
 	var new_tag = add_and_connect_command_component()
 	new_tag.text = "/execute as @dp if entity @s[tag=!"+TagLineEdit.text+"] run tag @dp add "+TagLineEdit.text
+
+func resized():
+	$ScrollContainer.size.y = DisplayServer.window_get_size().y
+

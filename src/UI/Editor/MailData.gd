@@ -30,6 +30,7 @@ var loading_mail : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	for slot in ItemSlots.get_children():
 		slot.connect("id_changed",Callable(self,"update_slot").bind(slot))
 		slot.connect("nbt_changed",Callable(self,"update_slot").bind(slot))
@@ -163,3 +164,6 @@ func _on_editor_settings_language_changed():
 	for child in ItemSlots.get_children():
 		child.update_item_slot_language()
 	update_page_language()
+	
+func resized():
+	$ScrollContainer.size.y = DisplayServer.window_get_size().y -100

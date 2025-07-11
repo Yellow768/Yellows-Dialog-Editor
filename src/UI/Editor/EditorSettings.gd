@@ -218,3 +218,7 @@ func _on_text_edit_text_changed():
 
 func _on_del_clears_check_toggled(button_pressed):
 	GlobalDeclarations.del_clears_text = button_pressed
+
+
+func _on_open_logs_folder_pressed():
+	OS.shell_show_in_file_manager(OS.get_user_data_dir()+"/logs/")

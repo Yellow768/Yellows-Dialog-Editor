@@ -52,6 +52,7 @@ func _on_button_pressed():
 			CurrentEnvironment.sftp_client.ChangeDirectory(CurrentEnvironment.sftp_client.remote_file_directory)
 			update_connected_labels(true)
 			emit_signal("reconnected")
+			
 		else:
 			emit_signal("failed_to_reconnect")
 			push_error(attempt_to_connect_result)

@@ -8,6 +8,10 @@ signal deselect_all_selected
 signal rescan_quests_and_factions
 
 func _ready():
+	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
+	$TopPanelContainer/SecSep3.custom_minimum_size.x = DisplayServer.window_get_size().x/50
+	$TopPanelContainer/SecSep2.custom_minimum_size.x = DisplayServer.window_get_size().x/50
+	$TopPanelContainer/SecSep4.custom_minimum_size.x = DisplayServer.window_get_size().x/50
 	$TopPanelContainer/MenuButton.get_popup().connect("id_pressed",Callable(self,"category_menu_pressed"))
 	$TopPanelContainer/ExportTypeButton.selected = GlobalDeclarations.last_used_export_version
 
@@ -88,3 +92,8 @@ func _on_sftp_box_resync_cache():
 
 func _on_category_panel_current_category_deleted():
 	$TopPanelContainer.visible = false
+
+func resized():
+	$TopPanelContainer/SecSep3.custom_minimum_size.x = DisplayServer.window_get_size().x/50
+	$TopPanelContainer/SecSep2.custom_minimum_size.x = DisplayServer.window_get_size().x/50
+	$TopPanelContainer/SecSep4.custom_minimum_size.x = DisplayServer.window_get_size().x/50

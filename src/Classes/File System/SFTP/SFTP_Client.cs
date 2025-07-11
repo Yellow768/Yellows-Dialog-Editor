@@ -555,5 +555,25 @@ private void DeleteDirectory(string path)
 			EmitSignal(SignalName.SftpError,e.Message,"SFTP_ERROR_CATEGORY_SAVE");
 		}
 	}
+
+
+	public string GetHighestIDFromServer(){
+		return ReadTextFile(_SFTPClient.WorkingDirectory+"/dialogs/highest_index.json").FirstOrDefault();
+	}
+
+	public void SetHighestIDToServer(int id){
+		string[] id_line = {id.ToString()};
+		_SFTPClient.WriteAllLines(_SFTPClient.WorkingDirectory+"/dialogs/highest_index.json",id_line);
+	}
+
+	public void WriteToTextFile(string file_path, string[] contents){
+		_SFTPClient.WriteAllLines(file_path,contents);
+	}
+
+	public IEnumerable<string> ReadTextFile(string file_path){
+		return _SFTPClient.ReadLines(file_path);
+	}
 }
+
+
 
