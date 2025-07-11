@@ -9,6 +9,7 @@ var tag_container = load("res://src/Nodes/attributes/tag_container.tscn")
 @export var heart_path : NodePath
 @export var body_path : NodePath
 @export var mind_path : NodePath
+@export var soul_path : NodePath
 @export var target_value_path : NodePath
 @export var attributes_selection_container : NodePath
 
@@ -23,6 +24,7 @@ var tag_container = load("res://src/Nodes/attributes/tag_container.tscn")
 @onready var Heart : CheckBox = get_node(heart_path)
 @onready var Body : CheckBox = get_node(body_path)
 @onready var Mind : CheckBox = get_node(mind_path)
+@onready var Soul : CheckBox = get_node(soul_path)
 @onready var Target_Value : SpinBox = get_node(target_value_path)
 @onready var Attribute_Selection_Container : VBoxContainer = get_node(attributes_selection_container)
 
@@ -60,6 +62,7 @@ func load_current_dialog_settings(dialog_to_load : dialog_node):
 	Heart.button_pressed = attribute_check.attributes.has("Heart")
 	Body.button_pressed = attribute_check.attributes.has("Body")
 	Mind.button_pressed =attribute_check.attributes.has("Mind")
+	Soul.button_pressed = attribute_check.attributes.has("Soul")
 	White_Check_Checkbox.button_pressed = attribute_check.white_check
 	Pass_XP_Spinbox.value = attribute_check.pass_xp
 	Fail_XP_Spinbox.value = attribute_check.fail_xp

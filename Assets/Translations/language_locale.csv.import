@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bpp7l0dq1ijar"
+
+[deps]
+
+files=["res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.es.translation", "res://Assets/Translations/language_locale.da.translation", "res://Assets/Translations/language_locale.nl.translation", "res://Assets/Translations/language_locale.fr.translation", "res://Assets/Translations/language_locale.de.translation", "res://Assets/Translations/language_locale.zh.translation", "res://Assets/Translations/language_locale.sv.translation", "res://Assets/Translations/language_locale.ru.translation", "res://Assets/Translations/language_locale.ja.translation", "res://Assets/Translations/language_locale.ko.translation"]
+
+source_file="res://Assets/Translations/language_locale.csv"
+dest_files=["res://Assets/Translations/language_locale.en.translation", "res://Assets/Translations/language_locale.es.translation", "res://Assets/Translations/language_locale.da.translation", "res://Assets/Translations/language_locale.nl.translation", "res://Assets/Translations/language_locale.fr.translation", "res://Assets/Translations/language_locale.de.translation", "res://Assets/Translations/language_locale.zh.translation", "res://Assets/Translations/language_locale.sv.translation", "res://Assets/Translations/language_locale.ru.translation", "res://Assets/Translations/language_locale.ja.translation", "res://Assets/Translations/language_locale.ko.translation"]
+
+[params]
+
+compress=true
+delimiter=0

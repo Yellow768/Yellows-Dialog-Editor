@@ -1741,6 +1741,7 @@ information_panel_path = NodePath("../..")
 heart_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Heart")
 body_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Body")
 mind_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Mind")
+soul_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Soul")
 target_value_path = NodePath("VBoxContainer/Attributes/Target")
 attributes_selection_container = NodePath("VBoxContainer/Attributes/AttributeSelection")
 tags_list_path = NodePath("VBoxContainer/Tags/VBoxContainer2/TagsList")
@@ -1782,6 +1783,11 @@ text = "Body"
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Mind"
+
+[node name="Soul" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Soul"
 
 [node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
 custom_minimum_size = Vector2(25, 0)
