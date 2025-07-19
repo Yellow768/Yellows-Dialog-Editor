@@ -129,15 +129,19 @@ func is_json_valid_dialog_format(dialog_json : Dictionary,file : String) -> bool
 		if !dialog_json.has("AvailabilityQuest"+id[i]+"Id") or typeof(dialog_json["AvailabilityQuest"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityQuest"+id[i]+"Id"+" is malformed in json ",file)
 			dialog_json.merge({"AvailabilityQuest"+id[i]+"Id" : -1})
+			
 		if !dialog_json.has("AvailabilityQuest"+id[i]) or typeof(dialog_json["AvailabilityQuest"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityQuest"+id[i]+" is malformed in json ",file)
 			dialog_json.merge({"AvailabilityQuest"+id[i] : -1})
+			
 		if !dialog_json.has("AvailabilityDialog"+id[i]+"Id") or typeof(dialog_json["AvailabilityDialog"+id[i]+"Id"]) != TYPE_FLOAT:
 			printerr("AvailabilityDialog"+id[i]+"Id"+" is malformed in json ",file)
 			dialog_json.merge({"AvailabilityDialog"+id[i]+"Id" : -1})
+			
 		if !dialog_json.has("AvailabilityDialog"+id[i]) or typeof(dialog_json["AvailabilityDialog"+id[i]]) != TYPE_FLOAT:
 			printerr("AvailabilityDialog"+id[i]+" is malformed in json ",file)
-			dialog_json.merge({"AvailabilityDialog"+id[i] : -1})
+			dialog_json.merge({"AvailabilityDialog"+id[i] : 0})
+			
 	if !dialog_json.has("Points") or typeof(dialog_json["Points"]) != TYPE_ARRAY:
 			dialog_json.merge({"Points" : []})
 	for i in 2:

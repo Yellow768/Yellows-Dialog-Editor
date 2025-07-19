@@ -8,7 +8,7 @@ func _ready():
 		CurrentEnvironment.sftp_client.connect("SftpError",Callable(self,"_on_sftp_error"))
 		CurrentEnvironment.sftp_client.connect("SftpNotConnected",Callable(self,"_on_sftp_not_connected"))
 		CurrentEnvironment.sftp_client.connect("SftpDisconnected",Callable(self,"_on_sftp_disconnected"))
-		CurrentEnvironment.sftp_client.connect("SftpConnected",Callable(self,"_on_sftp_conneceted"))
+		CurrentEnvironment.sftp_client.connect("SftpConnected",Callable(self,"_on_sftp_connected"))
 
 func tween(node,property,to,speed,type):
 	var tweener = get_tree().create_tween()
