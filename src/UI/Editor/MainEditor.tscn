@@ -2361,6 +2361,7 @@ one_shot = true
 [connection signal="pressed" from="CategoryPanel/VBoxContainer/CreateNewCategory" to="CategoryPanel" method="_on_CreateNewCategory_pressed"]
 [connection signal="text_changed" from="CategoryPanel/VBoxContainer/Searchbar" to="CategoryPanel" method="_on_Searchbar_text_changed"]
 [connection signal="failed_to_reconnect" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="UI Anims" method="_on_sftp_box_failed_to_reconnect"]
+[connection signal="reconnected" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="CategoryPanel/DialogFileSystemIndex" method="_on_sftp_box_reconnected"]
 [connection signal="reconnected" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="UI Anims" method="_on_sftp_box_reconnected"]
 [connection signal="resync_cache" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="DialogEditor" method="_on_sftp_box_resync_cache"]
 [connection signal="resync_cache" from="CategoryPanel/VBoxContainer/SFTP_BOX" to="TopPanel" method="_on_sftp_box_resync_cache"]

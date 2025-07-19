@@ -37,9 +37,11 @@ func update_connected_labels(is_connected):
 		true:
 			text = tr("SFTP_CONNECTED")+"[img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img]"
 			ToggleConnection.text = "Disconnect"
+			Resync.disabled = false
 		false:
 			text = tr("SFTP_DISCONNECTED")+"[img]res://Assets/UI Textures/Icon Font/globe-grid-line.png[/img]"
 			ToggleConnection.text = "Connect"
+			Resync.disabled = true
 	StatusLabel.text = text
 
 func _on_button_pressed():
@@ -52,7 +54,7 @@ func _on_button_pressed():
 			CurrentEnvironment.sftp_client.ChangeDirectory(CurrentEnvironment.sftp_client.remote_file_directory)
 			update_connected_labels(true)
 			emit_signal("reconnected")
-			
+		
 		else:
 			emit_signal("failed_to_reconnect")
 			push_error(attempt_to_connect_result)
@@ -82,6 +84,8 @@ func delete_cached_dir(directory):
 
 
 func _on_resync_button_pressed():
+	if !CurrentEnvironment.sftp_client.IsConnected():
+		return
 	var sftp_background_darkener
 	sftp_background_darkener = ColorRect.new()
 	sftp_background_darkener.color = Color(0,0,0,.5)

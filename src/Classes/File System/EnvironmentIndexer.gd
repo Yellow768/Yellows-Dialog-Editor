@@ -48,7 +48,7 @@ func find_highest_index(reindex := false) -> int:
 	var file : FileAccess
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
 		var id_numbers
-		if CurrentEnvironment.sftp_client:
+		if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.IsConnected():
 			id_numbers = CurrentEnvironment.sftp_client.GetAllDialogFiles(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs")
 		else:
 			var dir_search := DirectorySearch.new()
@@ -156,3 +156,7 @@ func _on_sftp_box_resync_cache():
 	index_categories()
 	CurrentEnvironment.highest_id = find_highest_index()
 	
+
+
+func _on_sftp_box_reconnected():
+	CurrentEnvironment.highest_id = find_highest_index()
