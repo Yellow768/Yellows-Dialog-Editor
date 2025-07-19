@@ -22,25 +22,30 @@ func _ready():
 	if !DirAccess.dir_exists_absolute(CurrentEnvironment.current_directory+"/dialogs"):
 		push_error("dialogs folder did not exist.")
 		DirAccess.make_dir_absolute(CurrentEnvironment.current_directory+"/dialogs")
+	CurrentEnvironment.highest_id = find_highest_index()
 
 func index_categories() -> Array[String]:
-
 	indexed_dialog_categories = []
 	var dir_search := DirectorySearch.new()
 	indexed_dialog_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/dialogs")
 	indexed_dialog_categories.sort()
-	CurrentEnvironment.highest_id = find_highest_index()
 	emit_signal("category_buttons_created",indexed_dialog_categories)
 	return indexed_dialog_categories
 	
-	
+
+
+# Join server. Do I have a local highest id?
+#	yes	
+#		is it higher than the server? if so use local
+#		if not, then use server
+#	no
+#		determine highest ID from server files
+
+
 func find_highest_index(reindex := false) -> int:
-	if CurrentEnvironment.sftp_client && CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json"):
-		CurrentEnvironment.highest_id = CurrentEnvironment.sftp_client.GetHighestIDFromServer()
 	if reindex:
 		DirAccess.remove_absolute(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	var file : FileAccess
-	
 	if !FileAccess.file_exists(CurrentEnvironment.current_directory+"/dialogs/highest_index.json"):
 		var id_numbers
 		if CurrentEnvironment.sftp_client:
@@ -58,20 +63,32 @@ func find_highest_index(reindex := false) -> int:
 		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.WRITE)
 		if proper_id_numbers != []:
 			file.store_line(str(proper_id_numbers.back()))
-			return proper_id_numbers.back()
 		else:
-			file.store_line(str(0))
-			return 0
-		
-	else:
-		file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.READ)
-		var line := file.get_line()
-		if line.is_valid_int():
-			return int(line)
-		else:
-			printerr("highest_index.json does not contain a valid integer.")
-			return 0
+			file.store_line(str(0))	
+	return choose_highest_id_between_local_and_server()
 
+func choose_highest_id_between_local_and_server():
+	var local_highest_id = 0
+	var file = FileAccess.open(CurrentEnvironment.current_directory+"/dialogs/highest_index.json",FileAccess.READ)
+	var line := file.get_line()
+	if line.is_valid_int():
+		local_highest_id = int(line)
+	if !CurrentEnvironment.sftp_client:
+		print("Not connected to an SFTP server | Don't need to choose highest id between local and server")
+		return local_highest_id
+	if !CurrentEnvironment.sftp_client.IsConnected():
+		print("SFTP server not connected | Can't choose between local and server")
+		return local_highest_id
+	if !CurrentEnvironment.sftp_client.Exists(CurrentEnvironment.sftp_client.GetCurrentDirectory()+"/dialogs/highest_index.json"):
+		print("SFTP server does not have a highest_index.json | Using local for highest id")
+		return local_highest_id
+	print("local highest is ",local_highest_id)
+	if local_highest_id > int(CurrentEnvironment.sftp_client.GetHighestIDFromServer()):
+		print("Using local highest id")
+		return local_highest_id
+	else:
+		print("Using server highest id")
+		return int(CurrentEnvironment.sftp_client.GetHighestIDFromServer())
 
 func create_new_category(new_category_name : String = ''):
 	if new_category_name == '':
@@ -113,6 +130,7 @@ func delete_category(category_name : String):
 		OS.move_to_trash(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 		print("Deleting Category "+category_name)
 	index_categories()
+	CurrentEnvironment.highest_id = find_highest_index(true)
 	emit_signal("category_deleted",category_name)
 	
 func duplicate_category(category_name : String):
@@ -122,6 +140,7 @@ func duplicate_category(category_name : String):
 	await dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
 	emit_signal("new_category_created",new_category_name)
 	index_categories()
+	CurrentEnvironment.highest_id = find_highest_index()
 	emit_signal("category_duplicated",category_name,new_category_name)
 	
 
@@ -135,4 +154,5 @@ func add_as_many_underscores_needed_to_make_unique(old_name):
 
 func _on_sftp_box_resync_cache():
 	index_categories()
+	CurrentEnvironment.highest_id = find_highest_index()
 	

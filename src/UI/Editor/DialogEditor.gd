@@ -717,10 +717,12 @@ func _on_availability_mode_exited() -> void:
 	
 func reindex_ids():
 	EnvironmentIndexer.new().find_highest_index(true)
+	var starting_id = CurrentEnvironment.highest_id
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
-			CurrentEnvironment.highest_id +=1
-			child.set_dialog_id(CurrentEnvironment.highest_id)
+			starting_id +=1
+			child.set_dialog_id(starting_id)
+	CurrentEnvironment.set_highest_id(starting_id)
 	emit_signal("reindex_finished")
 
 
