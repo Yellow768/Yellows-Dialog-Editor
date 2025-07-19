@@ -113,7 +113,7 @@ func _on_sftp_connected():
 
 
 func _on_sftp_box_reconnected():
-	add_notification(tr("SFTP_NOTIF_DISCONNECTED"),Color(0,1,0))
+	add_notification(tr("SFTP_NOTIF_CONNECTED"),Color(0,1,0))
 
 
 func _on_undo_system_nothing_to_redo():
