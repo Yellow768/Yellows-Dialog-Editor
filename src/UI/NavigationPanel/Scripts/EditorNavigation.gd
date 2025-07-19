@@ -56,12 +56,16 @@ func _input(event):
 	if $TopPanelContainer.visible && !GlobalDeclarations.assigning_keybind:
 		if Input.is_action_just_pressed("save"):
 			emit_signal("save_category_request")
+			accept_event()	
 		if Input.is_action_just_pressed("export"):
 			emit_signal("export_category_request")
+			accept_event()	
 		if Input.is_action_just_pressed("reimport_category"):
 			emit_signal("reimport_category_request")
+			accept_event()	
 		if Input.is_action_just_pressed("scan_for_changes"):
 			emit_signal("scan_for_changes_request")
+			accept_event()	
 
 
 func _on_category_panel_finished_loading(_ignore : String):
