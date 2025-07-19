@@ -87,7 +87,9 @@ func _ready():
 		for event in config.get_value("keybinds",action,temp_action):
 			InputMap.action_add_event(action,event)
 	del_clears_text = config.get_value("user_settings","del_clears_text",dialog_name_preset)
-
+	if last_used_export_version > 1:
+		last_used_export_version = 0
+	
 func add_default_presets():
 	GlobalDeclarations.spacing_presets[0]={
 		"Name" : "Default",

@@ -125,6 +125,7 @@ func _on_Open_Environment_pressed():
 
 
 func _on_FileDialog_dir_selected(path : String):
+	CurrentEnvironment.sftp_client = null
 	var valid_path := find_valid_customnpcs_dir(path)
 	if valid_path == "":
 		chosen_dir = path
@@ -172,6 +173,7 @@ func _on_sftp_tester_sftp_directory_chosen(path,connection_info):
 func _on_prev_dirs_tree_item_activated():
 	var selected = PrevDirTree.get_selected()
 	if selected.get_metadata(0) == null:
+		CurrentEnvironment.sftp_client = null
 		add_directory_to_config(PrevDirTree.get_selected().get_tooltip_text(0))
 		change_to_editor(PrevDirTree.get_selected().get_tooltip_text(0))
 	else:
