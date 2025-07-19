@@ -57,7 +57,19 @@ func _process(delta):
 
 var files_in_sftp_directory : Dictionary
 
+func remove_protocol_and_port_from_hostname(text):
+	text = text.replace("sftp://","")
+	var port_pattern = ":[\\d]+"
+	var regex := RegEx.new()
+	regex.compile(port_pattern)
+	var regex_matches := regex.search_all(text)
+	for regex_match in regex_matches:
+		for string in regex_match.get_strings():
+			text = text.replace(string,"")
+	return text
+	
 func connect_to_sftp_server():
+	HostnameTextEdit.text = remove_protocol_and_port_from_hostname(HostnameTextEdit.text)
 	CurrentEnvironment.create_sftpclient()
 	var connecting_popup = AcceptDialog.new()
 	connecting_popup.get_ok_button().set_visible(false)
@@ -67,6 +79,8 @@ func connect_to_sftp_server():
 	get_parent().add_child(connecting_popup)
 	connecting_popup.popup_centered()
 	await get_tree().create_timer(1.0).timeout
+	
+	
 	connection_info = {
 		"username" : UsernameTextEdit.text,
 		"hostname" : HostnameTextEdit.text, 
