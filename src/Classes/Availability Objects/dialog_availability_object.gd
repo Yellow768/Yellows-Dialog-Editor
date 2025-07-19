@@ -16,6 +16,10 @@ func set_id(id: int):
 	emit_signal("id_changed")
 
 func set_availability(type: int):
+	if type < 0:
+		type = 0
+	if type > 2:
+		type = 2
 	availability_type = type
 	emit_signal("availability_changed")
 

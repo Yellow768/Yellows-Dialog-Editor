@@ -553,14 +553,19 @@ func handle_input(event : InputEvent):
 		accept_event()
 	if Input.is_action_just_pressed("delete_nodes"):
 		delete_all_selected_nodes()
+		accept_event()	
 	if event.is_action_pressed("focus_below"):
 		focus_below()
+		accept_event()	
 	if Input.is_action_just_pressed("focus_above"):
 		focus_above()
+		accept_event()	
 	if Input.is_action_just_pressed("focus_left"):
 		focus_left()	
+		accept_event()	
 	if Input.is_action_just_pressed("focus_right"):
 		focus_right()
+		accept_event()	
 
 func add_responses_and_dialogs_to_selected_nodes():
 	var temp_dialog_node_index = node_index
@@ -677,8 +682,10 @@ func _on_DialogEditor_gui_input(event):
 			zoom -= .02
 	if Input.is_action_pressed("zoom_in"):
 		zoom += 0.2
+		accept_event()	
 	if Input.is_action_pressed("zoom_out"):
 		zoom -= 0.2
+		accept_event()	
 	if Input.is_key_pressed(KEY_CTRL):
 		if Input.is_action_pressed("ui_left"):
 			set_scroll_ofs(scroll_offset-Vector2(10,0))
@@ -692,6 +699,7 @@ func _on_DialogEditor_gui_input(event):
 		minimap_enabled = !minimap_enabled
 		accept_event()
 	if Input.is_action_just_pressed("toggle_fullscreen"):
+		accept_event()	
 		match get_window().mode:
 			Window.MODE_FULLSCREEN:
 				get_window().mode = Window.MODE_MAXIMIZED
@@ -718,10 +726,12 @@ func _on_availability_mode_exited() -> void:
 	
 func reindex_ids():
 	EnvironmentIndexer.new().find_highest_index(true)
+	var starting_id = CurrentEnvironment.highest_id
 	for child in get_children():
 		if child is GraphNode && child.node_type == "Dialog Node":
-			CurrentEnvironment.highest_id +=1
-			child.set_dialog_id(CurrentEnvironment.highest_id)
+			starting_id +=1
+			child.set_dialog_id(starting_id)
+	CurrentEnvironment.set_highest_id(starting_id)
 	emit_signal("reindex_finished")
 
 
