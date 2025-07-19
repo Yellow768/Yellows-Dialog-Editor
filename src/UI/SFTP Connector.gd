@@ -216,6 +216,17 @@ func _on_forward_pressed():
 	if forward_dirs.size() != 0:
 		previous_dirs.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
 		change_tree_directory(forward_dirs.pop_back())
+
+func _on_up_pressed():
+	var up_path_parts = CurrentEnvironment.sftp_client.GetCurrentDirectory().split("/")
+	var up_path = ""
+	for part in up_path_parts.size()-1:
+		up_path+=up_path_parts[part]+"/"
+	if CurrentEnvironment.sftp_client.GetCurrentDirectory() != up_path:
+		previous_dirs.append(CurrentEnvironment.sftp_client.GetCurrentDirectory())
+	change_tree_directory(up_path)
+	forward_dirs.clear()
+
 	
 var sftp_background_darkener
 
@@ -328,3 +339,6 @@ func _on_show_passphrase_button_down():
 func _on_show_passphrase_button_up():
 	KeyPassPhrase.secret = true
 	ShowPassphraseButton.icon = load("res://Assets/UI Textures/Icon Font/eye-off-line.svg")
+
+
+

@@ -548,6 +548,10 @@ text = "←"
 layout_mode = 2
 text = "→"
 
+[node name="Up" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+layout_mode = 2
+text = "↑"
+
 [node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
@@ -590,6 +594,7 @@ ok_button_text = "Ok"
 [connection signal="pressed" from="SFTP Dialog/HBoxContainer/VBoxContainer/ConnectButton" to="SFTP Dialog" method="connect_to_sftp_server"]
 [connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Back" to="SFTP Dialog" method="_on_back_pressed"]
 [connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Forward" to="SFTP Dialog" method="_on_forward_pressed"]
+[connection signal="pressed" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/Up" to="SFTP Dialog" method="_on_up_pressed"]
 [connection signal="text_submitted" from="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer/LineEdit" to="SFTP Dialog" method="_on_line_edit_text_submitted"]
 [connection signal="item_activated" from="SFTP Dialog/HBoxContainer/SFTP Files/Tree" to="SFTP Dialog" method="_on_tree_item_activated"]
 [connection signal="item_selected" from="SFTP Dialog/HBoxContainer/SFTP Files/Tree" to="SFTP Dialog" method="_on_tree_item_selected"]
