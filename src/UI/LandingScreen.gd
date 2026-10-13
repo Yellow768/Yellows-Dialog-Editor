@@ -38,7 +38,7 @@ func _ready():
 		else:
 			text = dir
 			new_file.set_icon(0,load("res://Assets/UI Textures/Icon Font/folder-line.png"))
-		new_file.add_button(1,load("res://Assets/UI Textures/Icon Font/delete-bin-line.svg"),-1,false,"Remove")
+		new_file.add_button(0,load("res://Assets/UI Textures/Icon Font/delete-bin-line.svg"),-1,false,"Remove")
 		new_file.set_tooltip_text(0,text)
 		if text.length() > 90:
 			new_file.set_text(0,text.left(87)+"...")

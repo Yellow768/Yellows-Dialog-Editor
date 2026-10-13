@@ -1,13 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://b3koueh5166hj"]
+[gd_scene format=3 uid="uid://b3koueh5166hj"]
 
-[ext_resource type="Script" path="res://src/UI/LandingScreen.gd" id="1"]
+[ext_resource type="Script" uid="uid://c22kjso3sn43" path="res://src/UI/LandingScreen.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="3_rydwl"]
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="4_3xjq6"]
-[ext_resource type="Script" path="res://src/UI/EnvironmentFileDialog.gd" id="4_cfky2"]
+[ext_resource type="Script" uid="uid://cupgwpjrfulfq" path="res://src/UI/EnvironmentFileDialog.gd" id="4_cfky2"]
 [ext_resource type="Texture2D" uid="uid://bd4txg8vqwt73" path="res://Assets/UI Textures/editor_icon.svg" id="4_edwkw"]
 [ext_resource type="FontFile" uid="uid://cyk3wyylndkgg" path="res://Assets/Font/Lexend-VariableFont_wght.ttf" id="4_tgwf2"]
-[ext_resource type="Script" path="res://src/UI/SFTP Connector.gd" id="8_4yg0d"]
+[ext_resource type="Script" uid="uid://dos02nc1a5qut" path="res://src/UI/SFTP Connector.gd" id="8_4yg0d"]
 [ext_resource type="Texture2D" uid="uid://3q0ecreirj77" path="res://Assets/UI Textures/Icon Font/eye-off-line.svg" id="8_k1sfc"]
 
 [sub_resource type="FontVariation" id="FontVariation_mmhe0"]
@@ -17,6 +17,15 @@ base_font = ExtResource("4_tgwf2")
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -28,6 +37,15 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -47,6 +65,15 @@ cache/0/20/0/kerning_overrides/20/0 = Vector2(0, 0)
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -70,15 +97,15 @@ Window/styles/panel = SubResource("6")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w7n4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kf54y"]
-bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3qmf"]
+bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3qmf"]
-bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kf54y"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -101,9 +128,9 @@ shadow_offset = Vector2(0, 15)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4fp8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_645wd"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_na73n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_645wd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdb5r"]
 
@@ -114,7 +141,7 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[node name="LandingScreen" type="Control"]
+[node name="LandingScreen" type="Control" unique_id=1762065993]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,7 +153,7 @@ script = ExtResource("1")
 prev_dir_tree_path = NodePath("Panel/VBoxContainer2/HBoxContainer/PrevDirsTree")
 sftp_starter_path = NodePath("SFTP Dialog")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1958936041]
 custom_minimum_size = Vector2(10000, 10000)
 layout_mode = 1
 anchors_preset = 15
@@ -136,7 +163,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0390784, 0.0390784, 0.0390784, 1)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1803190135]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,12 +172,12 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="EditorIcon" type="Sprite2D" parent="Panel"]
+[node name="EditorIcon" type="Sprite2D" parent="Panel" unique_id=583782799]
 position = Vector2(497.234, 174.537)
 scale = Vector2(0.851703, 0.881827)
 texture = ExtResource("4_edwkw")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel" unique_id=49256089]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 0
 offset_left = 175.0
@@ -158,14 +185,14 @@ offset_top = 15.0
 offset_right = 912.0
 offset_bottom = 599.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2" unique_id=1801821350]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer2" unique_id=162156020]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
+[node name="ProgramTitleLabe" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=1058966052]
 custom_minimum_size = Vector2(1600, 80)
 layout_mode = 2
 mouse_filter = 2
@@ -175,7 +202,7 @@ theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
 text = "[b]Yellow's Dialog Editor (RAINMIRE EDITION)"
 
-[node name="ProgramVersionLabel" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
+[node name="ProgramVersionLabel" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=621163974]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 mouse_filter = 2
@@ -185,7 +212,7 @@ theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
 text = "[b]v10.5"
 
-[node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer"]
+[node name="ProgramVersionDate" type="RichTextLabel" parent="Panel/VBoxContainer2/HBoxContainer2/VBoxContainer" unique_id=1413919148]
 custom_minimum_size = Vector2(400, 25)
 layout_mode = 2
 mouse_filter = 2
@@ -195,71 +222,70 @@ theme_override_font_sizes/bold_font_size = 62
 bbcode_enabled = true
 text = "2025-07-19"
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2" unique_id=538544253]
 layout_mode = 2
 
-[node name="Wiki Link" type="LinkButton" parent="Panel/VBoxContainer2/VBoxContainer"]
+[node name="Wiki Link" type="LinkButton" parent="Panel/VBoxContainer2/VBoxContainer" unique_id=791260474]
 layout_mode = 2
 text = "Wiki"
 uri = "https://github.com/Yellow768/Yellows-Dialog-Editor/wiki"
 
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer2/VBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer2/VBoxContainer" unique_id=328252110]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="GitHub Page" type="LinkButton" parent="Panel/VBoxContainer2/VBoxContainer"]
+[node name="GitHub Page" type="LinkButton" parent="Panel/VBoxContainer2/VBoxContainer" unique_id=10879661]
 layout_mode = 2
 text = "Github"
 uri = "https://github.com/Yellow768/Yellows-Dialog-Editor"
 
-[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer2/VBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer2/VBoxContainer" unique_id=2037767714]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Releases" type="LinkButton" parent="Panel/VBoxContainer2/VBoxContainer"]
+[node name="Releases" type="LinkButton" parent="Panel/VBoxContainer2/VBoxContainer" unique_id=1080989933]
 layout_mode = 2
 text = "Releases"
 uri = "https://github.com/Yellow768/Yellows-Dialog-Editor/releases"
 
-[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer2" unique_id=883585272]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2" unique_id=817348205]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer2/HBoxContainer" unique_id=1359661083]
 custom_minimum_size = Vector2(550, 0)
 layout_mode = 2
 
-[node name="Open Environment" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="Open Environment" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer" unique_id=1111123019]
 custom_minimum_size = Vector2(435, 50)
 layout_mode = 2
 text = "OPEN_ENV"
 
-[node name="Connect to SFTP Server" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="Connect to SFTP Server" type="Button" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer" unique_id=726516818]
 custom_minimum_size = Vector2(435, 50)
 layout_mode = 2
 text = "CONNECT_TO_AN_SFTP_SERVER"
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer2/HBoxContainer/VBoxContainer" unique_id=1876309318]
 layout_mode = 2
 text = "BEGIN_SPLASH"
 autowrap_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer2/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer2/HBoxContainer" unique_id=573413569]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="PrevDirsTree" type="Tree" parent="Panel/VBoxContainer2/HBoxContainer"]
+[node name="PrevDirsTree" type="Tree" parent="Panel/VBoxContainer2/HBoxContainer" unique_id=474487330]
 custom_minimum_size = Vector2(1000, 500)
 layout_mode = 2
-columns = 2
 hide_root = true
 metadata/_edit_group_ = true
 
-[node name="FileDialog" type="FileDialog" parent="Panel"]
+[node name="FileDialog" type="FileDialog" parent="Panel" unique_id=510247217]
 mode = 3
 title = "FILE_TITLE"
 position = Vector2i(22, 36)
@@ -274,7 +300,7 @@ access = 2
 show_hidden_files = true
 script = ExtResource("4_cfky2")
 
-[node name="EditorSettingsButton" type="Button" parent="."]
+[node name="EditorSettingsButton" type="Button" parent="." unique_id=1159079194]
 process_mode = 1
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 1
@@ -285,12 +311,12 @@ offset_left = -165.0
 offset_bottom = 73.0
 grow_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5w7n4")
-theme_override_styles/hover = SubResource("StyleBoxFlat_kf54y")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_v3qmf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kf54y")
 text = "EDITOR_SETTINGS"
 icon = ExtResource("3_rydwl")
 
-[node name="InvalidDirectory" type="Label" parent="."]
+[node name="InvalidDirectory" type="Label" parent="." unique_id=1933151986]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 0, 0, 1)
 layout_mode = 1
@@ -308,7 +334,7 @@ grow_vertical = 0
 text = "Directory Does Not Exist"
 label_settings = SubResource("LabelSettings_01jgx")
 
-[node name="EditorSettings" parent="." instance=ExtResource("4_3xjq6")]
+[node name="EditorSettings" parent="." unique_id=1382254131 instance=ExtResource("4_3xjq6")]
 process_mode = 2
 visible = false
 layout_mode = 1
@@ -317,7 +343,7 @@ offset_top = -375.0
 offset_right = 325.0
 offset_bottom = 375.0
 
-[node name="SFTP Dialog" type="PanelContainer" parent="."]
+[node name="SFTP Dialog" type="PanelContainer" parent="." unique_id=250430353]
 visible = false
 custom_minimum_size = Vector2(1200, 400)
 layout_mode = 1
@@ -350,50 +376,50 @@ select_button_path = NodePath("HBoxContainer/SFTP Files/SelectFolder")
 path_line_edit_path = NodePath("HBoxContainer/SFTP Files/HBoxContainer/LineEdit")
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog" unique_id=820813575]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="SFTP Dialog/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="SFTP Dialog/HBoxContainer" unique_id=153672930]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer" unique_id=1500520350]
 custom_minimum_size = Vector2(200, 340)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="HSeparator4" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=177325699]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=616715097]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "CONNECT_TO_AN_SFTP_SERVER"
 
-[node name="GridContainer" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=1836435935]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=45350788]
 layout_mode = 2
 text = "HOSTNAME"
 
-[node name="Hostname" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Hostname" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=689130483]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 placeholder_text = "HOSTNAME"
 alignment = 1
 
-[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=96135607]
 layout_mode = 2
 text = "PORT"
 
-[node name="Port" type="SpinBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Port" type="SpinBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=1323818597]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_icons/updown = SubResource("ImageTexture_yc7ep")
@@ -402,37 +428,37 @@ value = 22.0
 allow_greater = true
 alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="HSeparator" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=739421392]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="HSeparator3" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=770192382]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label3" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=1552989232]
 layout_mode = 2
 text = "USERNAME"
 
-[node name="Username" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Username" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=1834744960]
 layout_mode = 2
 placeholder_text = "USERNAME"
 alignment = 1
 
-[node name="Label4" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Label4" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=579580762]
 layout_mode = 2
 text = "PASSWORD"
 
-[node name="Password" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Password" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=207179963]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 placeholder_text = "PASSWORD"
 alignment = 1
 secret = true
 
-[node name="ShowPassword" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password"]
+[node name="ShowPassword" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer/Password" unique_id=477389717]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -445,63 +471,63 @@ offset_bottom = 4.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u4fp8")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_645wd")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_na73n")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_645wd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jdb5r")
 icon = ExtResource("8_k1sfc")
 
-[node name="HSeparator5" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="HSeparator5" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer/GridContainer" unique_id=1527614309]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=1502268122]
 layout_mode = 2
 
-[node name="Label5" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label5" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1004824012]
 layout_mode = 2
 text = "PRIVATE_KEY"
 
-[node name="KeyFileButton" type="CheckBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="KeyFileButton" type="CheckBox" parent="SFTP Dialog/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2024869895]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="AuthenticationMethods" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="AuthenticationMethods" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=1596020790]
 visible = false
 custom_minimum_size = Vector2(212, 0)
 layout_mode = 2
 
-[node name="Private Key Grid" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods"]
+[node name="Private Key Grid" type="GridContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods" unique_id=1918872264]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+[node name="Label" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid" unique_id=341977179]
 layout_mode = 2
 text = "PRIVATE_KEY"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid" unique_id=998950294]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer" unique_id=35272133]
 custom_minimum_size = Vector2(223, 0)
 layout_mode = 2
 
-[node name="SelectKeyFileButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer"]
+[node name="SelectKeyFileButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/HBoxContainer" unique_id=150746111]
 layout_mode = 2
 text = "..."
 
-[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+[node name="Label2" type="Label" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid" unique_id=1138759927]
 layout_mode = 2
 text = "PASSPHRASE"
 
-[node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid"]
+[node name="Keyfile Passphrase" type="LineEdit" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid" unique_id=1357969647]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 placeholder_text = "LEAVE_BLANK_IF_NONE"
 alignment = 1
 secret = true
 
-[node name="ShowPassphrase" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase"]
+[node name="ShowPassphrase" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer/AuthenticationMethods/Private Key Grid/Keyfile Passphrase" unique_id=1042439298]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -514,66 +540,66 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u4fp8")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_645wd")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_na73n")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_645wd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jdb5r")
 icon = ExtResource("8_k1sfc")
 
-[node name="HSeparator2" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=517516220]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="ConnectButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer"]
+[node name="ConnectButton" type="Button" parent="SFTP Dialog/HBoxContainer/VBoxContainer" unique_id=989453446]
 layout_mode = 2
 text = "CONNECT"
 
-[node name="VSeparator2" type="VSeparator" parent="SFTP Dialog/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="SFTP Dialog/HBoxContainer" unique_id=990116665]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="SFTP Files" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer"]
+[node name="SFTP Files" type="VBoxContainer" parent="SFTP Dialog/HBoxContainer" unique_id=1995405187]
 custom_minimum_size = Vector2(800, 60)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SFTP Dialog/HBoxContainer/SFTP Files" unique_id=175674287]
 layout_mode = 2
 
-[node name="Back" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+[node name="Back" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer" unique_id=511007707]
 layout_mode = 2
 text = "←"
 
-[node name="Forward" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+[node name="Forward" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer" unique_id=1711652740]
 layout_mode = 2
 text = "→"
 
-[node name="Up" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+[node name="Up" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer" unique_id=1678455342]
 layout_mode = 2
 text = "↑"
 
-[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="SFTP Dialog/HBoxContainer/SFTP Files/HBoxContainer" unique_id=1951389458]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="Tree" type="Tree" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
+[node name="Tree" type="Tree" parent="SFTP Dialog/HBoxContainer/SFTP Files" unique_id=1394707862]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_aokfs")
 
-[node name="SelectFolder" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files"]
+[node name="SelectFolder" type="Button" parent="SFTP Dialog/HBoxContainer/SFTP Files" unique_id=393198057]
 layout_mode = 2
 disabled = true
 text = "USE_SELECTED_DIR"
 
-[node name="CloseButton" type="Button" parent="SFTP Dialog"]
+[node name="CloseButton" type="Button" parent="SFTP Dialog" unique_id=1159845376]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "X"
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1416479088]
 ok_button_text = "Ok"
 
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/VBoxContainer/Open Environment" to="." method="_on_Open_Environment_pressed"]

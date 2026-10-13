@@ -261,6 +261,3 @@ func update_dialog_node_information(node : dialog_node,json : Dictionary) -> dia
 		node.mail.items_slots[int(item["Slot"])] = {"id":"","count":0,"custom_nbt":regex.sub(item_as_string,"$1",true)}
 	
 	return node
-
-
-

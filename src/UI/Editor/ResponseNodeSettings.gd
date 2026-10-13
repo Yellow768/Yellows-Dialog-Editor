@@ -20,12 +20,7 @@ func _ready():
 
 func load_response_settings(response: response_node):
 	if current_response != null:
-		current_response.disconnect("title_changed",Callable(self,"update_title"))
-		current_response.disconnect("color_changed",Callable(self,"update_color"))
-		current_response.disconnect("type_changed",Callable(self,"update_type"))
-		current_response.disconnect("to_id_changed",Callable(self,"update_id"))
-		current_response.disconnect("option_command_changed",Callable(self,"update_option_command"))
-		current_response.disconnect("request_delete_self",Callable(self,"disconnect_current_response"))
+		disconnect_current_response()
 	current_response = response
 	if !current_response.is_connected("title_changed",Callable(self,"update_title")):
 		current_response.connect("title_changed",Callable(self,"update_title"))
@@ -56,6 +51,7 @@ func disconnect_current_response():
 	current_response.disconnect("type_changed",Callable(self,"update_type"))
 	current_response.disconnect("to_id_changed",Callable(self,"update_id"))
 	current_response.disconnect("option_command_changed",Callable(self,"update_option_command"))
+	current_response.disconnect("request_delete_self",Callable(self,"disconnect_current_response"))
 	current_response = null
 
 

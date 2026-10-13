@@ -24,7 +24,6 @@ func _ready():
 	get_tree().get_root().size_changed.connect(Callable(self,"resized"))
 	get_tree().auto_accept_quit = false
 	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
-	$DialogEditor.use_snap = GlobalDeclarations.snap_enabled
 	
 func _input(event : InputEvent):
 	emit_signal("input_recieved", event)

@@ -25,7 +25,7 @@ extends GraphNode
 @onready var RemoteConnectionVSeparator : VSeparator = get_node(_remote_connection_vseparation_path)
 
 @onready var IdSpinbox : SpinBox= get_node(_id_spinbox)
-
+@onready var IndexSpinBox : SpinBox = SpinBox.new()
 
 
 
@@ -46,6 +46,8 @@ signal text_changed
 signal to_id_changed
 signal option_command_changed
 signal color_changed
+
+signal request_slot_change
 
 
 var node_type : String = "Player Response Node"
@@ -89,6 +91,18 @@ func _ready():
 		ColorPickerNode.get_picker().add_preset(color)
 	ColorPickerNode.get_picker().connect("preset_added",Callable(GlobalDeclarations,"add_color_preset"))
 	ColorPickerNode.get_picker().connect("preset_removed",Callable(GlobalDeclarations,"remove_color_preset"))
+	get_titlebar_hbox().add_child(IndexSpinBox)
+	get_titlebar_hbox().move_child(IndexSpinBox,0)
+	IndexSpinBox.min_value = 1
+	IndexSpinBox.value_changed.connect(index_spinbox_changed)
+	IndexSpinBox.get_line_edit().add_theme_constant_override("minimum_character_width", 1)
+	var close_btn = Button.new()
+	close_btn.add_theme_stylebox_override("normal",StyleBoxEmpty.new())
+	close_btn.add_theme_stylebox_override("hover",StyleBoxEmpty.new())
+	close_btn.add_theme_stylebox_override("pressed",StyleBoxEmpty.new())
+	close_btn.text = "X  "
+	close_btn.pressed.connect(Callable(self,"delete_self"))
+	get_titlebar_hbox().add_child(close_btn)
 
 func get_option_id_from_index(index : int):
 	return OptionTypeNode.get_item_id(index)
@@ -111,9 +125,30 @@ func set_focus_on_title():
 	emit_signal("request_set_scroll_offset",position_offset)
 
 func set_response_slot(value : int):
+	var original_value = slot
 	slot = value
-	title = tr("RESPONSE_OPTION")+" "+str(value+1) 
+	title = tr("RESPONSE_OPTION")
+	if IndexSpinBox:
+		IndexSpinBox.set_value_no_signal(value+1)
 	emit_signal("unsaved_change")
+	
+func update_max_size_id(value):
+	IndexSpinBox.max_value = value
+	
+	
+func update_other_responses_slots(original_slot):
+	if !parent_dialog:
+		return
+	for response in parent_dialog.response_options:
+		if response == self:
+			continue
+		response.update_max_size_id(parent_dialog.response_options.size())
+		if response.slot == slot:
+			response.set_response_slot(original_slot)
+		
+	
+func index_spinbox_changed(value):
+	request_slot_change.emit(self,value-1)
 	
 
 func set_option_type(new_type : int):
@@ -174,6 +209,9 @@ func set_parent_dialog(new_parent_dialog):
 		parent_dialog_id = 0
 		return
 	parent_dialog_id = parent_dialog.dialog_id
+	IndexSpinBox.set_value_no_signal(slot+1)
+	update_max_size_id(parent_dialog.response_options.size()) 
+	update_other_responses_slots(slot)
 
 func set_connection_text(dialog_name : String,dialog_node_index: int):
 	if not is_inside_tree(): await self.ready
@@ -271,14 +309,12 @@ func toggle_minimize_node():
 			custom_minimum_size.y = 60
 			size.y = 47
 			minimized = true
-			overlay = GraphNode.OVERLAY_BREAKPOINT
 		true:
 			$HSeparator.custom_minimum_size.y = 35
 			$HBoxContainer/VBoxContainer.visible = true
 			$HBoxContainer/AddNewDialog.visible = true
 			custom_minimum_size.y = 215
 			size.y = 215
-			overlay =GraphNode.OVERLAY_DISABLED
 			minimized = false
 			
 			
@@ -340,17 +376,6 @@ func _on_JumpButton_pressed():
 	var dialog_location = connected_dialog.position_offset
 	emit_signal("request_set_scroll_offset",dialog_location)
 	connected_dialog.selected = true
-
-
-func _on_ResponseNodeArea_area_entered(area : Area2D):
-	overlapping_response = area.get_parent()
-	
-
-func _on_ResponseNodeArea_area_exited(_area : Area2D):
-	if !$ResponseNodeArea.get_overlapping_areas().is_empty():
-		overlapping_response = $ResponseNodeArea.get_overlapping_areas().back().get_parent()
-	else:
-		overlapping_response = null
 
 
 func _on_PlayerResponseNode_offset_changed():

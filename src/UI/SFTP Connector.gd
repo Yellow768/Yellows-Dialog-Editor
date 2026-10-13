@@ -339,6 +339,3 @@ func _on_show_passphrase_button_down():
 func _on_show_passphrase_button_up():
 	KeyPassPhrase.secret = true
 	ShowPassphraseButton.icon = load("res://Assets/UI Textures/Icon Font/eye-off-line.svg")
-
-
-

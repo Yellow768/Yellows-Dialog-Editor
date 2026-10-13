@@ -18,12 +18,10 @@ signal unsaved_changes
 @export var _dialog_text_path: NodePath
 @export var _title_text_path: NodePath
 @export var _add_response_path: NodePath
-@export var _id_label_path: NodePath
 
 @onready var TitleTextNode : LineEdit = get_node(_title_text_path)
 @onready var DialogTextNode : TextEdit = get_node(_dialog_text_path)
 @onready var AddResponseButtonNode : Button = get_node(_add_response_path)
-@onready var IdLabelNode :Label= get_node(_id_label_path)
 
 
 var node_type :String = "Dialog Node" 
@@ -141,6 +139,13 @@ func _ready():
 	if spacing_preset == -1:
 		spacing_preset = GlobalDeclarations.default_spacing_preset
 		update_spacing_options_to_preset()
+	var close_btn = Button.new()
+	close_btn.add_theme_stylebox_override("normal",StyleBoxEmpty.new())
+	close_btn.add_theme_stylebox_override("hover",StyleBoxEmpty.new())
+	close_btn.add_theme_stylebox_override("pressed",StyleBoxEmpty.new())
+	close_btn.text = "X  "
+	close_btn.pressed.connect(Callable(self,"delete_self"))
+	get_titlebar_hbox().add_child(close_btn)
 		
 
 func determine_name(_response):
@@ -172,17 +177,27 @@ func add_response_node(commit_to_undo := true):
 		emit_signal("add_response_request",self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
 		emit_signal("unsaved_changes")
 	
-func delete_response_node(deletion_slot : int,response_node : response_node):
+func delete_response_node(deletion_slot : int,this_response_node : response_node):
+	response_options.erase(this_response_node)
 	for i in response_options:
-		if i.slot > deletion_slot:
-			i.slot -=1
-	response_options.erase(response_node)
+		i.slot = response_options.find(i)
+		i.update_max_size_id(response_options.size())
 	emit_signal("unsaved_changes")
 
 func append_response(response):
 	response_options.append(response)
+	response.slot = response_options.find(response)
 	response.slot = response_options.size()-1
 	response.set_parent_dialog(self)
+	response.request_slot_change.connect(change_response_slot)
+	
+func change_response_slot(response,slot):
+	var response_already_at_index = response_options[int(slot)]
+	var initial_slot = response.slot
+	response_options[initial_slot] = response_already_at_index
+	response_options[int(slot)] = response
+	response.slot = int(slot)
+	response_already_at_index.slot = initial_slot
 
 func clear_responses():
 	var responses_to_clear = response_options.duplicate()
@@ -245,14 +260,14 @@ func set_dialog_text(string : String):
 func set_dialog_id(id: int):
 	dialog_id = id
 	if not is_inside_tree(): await self.ready
-	IdLabelNode.text = "    ID: "+str(id)
 	emit_signal("unsaved_changes")
 	for response in connected_responses:
 		response.set_connected_dialog(self)
+	title = tr("DIALOG_NODE")+" | "+str(dialog_id)
 
 func set_node_index(index : int):
 	node_index = index
-	title = tr("DIALOG_NODE")+" "+str(index)
+	
 
 func _on_AddPlayerResponse_pressed():
 	add_response_node()
@@ -507,7 +522,7 @@ func get_full_tree(all_children : Array[GraphNode] = []):
 
 
 func update_language():
-	title = tr("DIALOG_NODE")+" "+str(node_index)
+	title = tr("DIALOG_NODE")+" | "+str(dialog_id)
 	for response in response_options:
 		response.title = tr("RESPONSE_OPTION")+" "+str(response.node_index)
 
@@ -535,6 +550,3 @@ func _on_node_deselected():
 			response.set_slot_color_left(1,GlobalDeclarations.response_left_slot_color)
 	set_slot_color_right(1,GlobalDeclarations.dialog_right_slot_color)
 	set_slot_color_left(1,GlobalDeclarations.dialog_left_slot_color)
-
-
-

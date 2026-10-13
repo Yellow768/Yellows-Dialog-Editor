@@ -1,8 +1,37 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmwat64q4hma3"]
+[gd_scene format=3 uid="uid://cmwat64q4hma3"]
 
-[ext_resource type="Script" path="res://src/Nodes/Scripts/DialogNode.gd" id="1"]
+[ext_resource type="Script" uid="uid://bp54cxv6s8c72" path="res://src/Nodes/Scripts/DialogNode.gd" id="1"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="1_u84re"]
-[ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="2"]
+[ext_resource type="Script" uid="uid://rxsr1hy13xxn" path="res://src/Nodes/Scripts/DialogText.gd" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4y2n"]
+content_margin_left = 0.0
+content_margin_top = 7.0
+bg_color = Color(0.12941177, 0.13333334, 0.12941177, 1)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gu4s6"]
+content_margin_left = 0.0
+bg_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gybui"]
+content_margin_left = 7.0
+bg_color = Color(0.16862746, 0.23921569, 0.5921569, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4xgq"]
+content_margin_left = 7.0
+bg_color = Color(0.50980395, 0.5137255, 0.7764706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_detail = 20
 
 [sub_resource type="StyleBoxEmpty" id="3"]
 
@@ -22,24 +51,23 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="FontFile" id="1"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[node name="DialogNode" type="GraphNode" groups=["Dialogs", "Save"]]
+[node name="DialogNode" type="GraphNode" unique_id=2097966243 groups=["Dialogs", "Save"]]
 z_as_relative = false
-custom_minimum_size = Vector2(345, 215)
-offset_right = 335.0
+custom_minimum_size = Vector2(351, 220)
+custom_maximum_size = Vector2(351, 220)
+offset_right = 320.0
 offset_bottom = 215.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_u84re")
+theme_override_constants/separation = 0
+theme_override_constants/port_h_offset = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n4y2n")
+theme_override_styles/panel_selected = SubResource("StyleBoxFlat_gu4s6")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_gybui")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_y4xgq")
 title = "Dialog Node"
-show_close = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(0.196078, 0.772549, 0.192157, 1)
@@ -58,36 +86,28 @@ slot/1/right_type = 1
 slot/1/right_color = Color(0.866667, 0.266667, 0.105882, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
-slot/2/left_enabled = false
-slot/2/left_type = 0
-slot/2/left_color = Color(1, 1, 1, 1)
-slot/2/left_icon = null
-slot/2/right_enabled = false
-slot/2/right_type = 0
-slot/2/right_color = Color(1, 1, 1, 1)
-slot/2/right_icon = null
-slot/2/draw_stylebox = true
 script = ExtResource("1")
 _dialog_text_path = NodePath("HBoxContainer/VBoxContainer/DialogText")
 _title_text_path = NodePath("HBoxContainer/VBoxContainer/TitleText")
 _add_response_path = NodePath("HBoxContainer/AddPlayerResponse")
-_id_label_path = NodePath("IDLabel")
 
-[node name="HSeparator" type="HSeparator" parent="."]
-custom_minimum_size = Vector2(0, 33)
+[node name="HSeparator" type="HSeparator" parent="." unique_id=873064445]
+custom_minimum_size = Vector2(0, 9)
+custom_maximum_size = Vector2(-1, 9)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/separator = SubResource("3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1413748926]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+offset_transform_enabled = true
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=216334992]
 layout_mode = 2
 
-[node name="TitleText" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
+[node name="TitleText" type="LineEdit" parent="HBoxContainer/VBoxContainer" unique_id=465919384]
 custom_minimum_size = Vector2(275, 20)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -95,7 +115,7 @@ tooltip_text = "Title of the dialog"
 theme_override_font_sizes/font_size = 14
 text = "New Dialog"
 
-[node name="DialogText" type="TextEdit" parent="HBoxContainer/VBoxContainer"]
+[node name="DialogText" type="TextEdit" parent="HBoxContainer/VBoxContainer" unique_id=672739305]
 custom_minimum_size = Vector2(275, 120)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -104,19 +124,13 @@ wrap_mode = 1
 draw_tabs = true
 script = ExtResource("2")
 
-[node name="AddPlayerResponse" type="Button" parent="HBoxContainer"]
+[node name="AddPlayerResponse" type="Button" parent="HBoxContainer" unique_id=1635695709]
 custom_minimum_size = Vector2(25, 110)
 layout_mode = 2
 theme_override_styles/normal = SubResource("4")
 theme_override_styles/hover = SubResource("2")
 text = "+"
 
-[node name="IDLabel" type="Label" parent="."]
-layout_mode = 2
-theme_override_fonts/font = SubResource("1")
-text = "    ID: -1"
-
-[connection signal="close_request" from="." to="." method="_on_DialogNode_close_request"]
 [connection signal="gui_input" from="." to="." method="_on_DialogNode_gui_input"]
 [connection signal="node_deselected" from="." to="." method="_on_node_deselected"]
 [connection signal="node_selected" from="." to="." method="_on_node_selected"]

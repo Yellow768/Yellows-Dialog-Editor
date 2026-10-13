@@ -161,7 +161,9 @@ func load_current_dialog_settings(dialog : dialog_node):
 func disconnect_current_dialog(dialog: dialog_node):
 	dialog.disconnect("text_changed", Callable(self, "update_text"))
 	dialog.disconnect("title_changed", Callable(self, "update_title"))
-	
+	current_dialog = null
+
+
 func _language_updated():
 	for child in FactionChanges.get_children():
 		child.update_language()
@@ -497,4 +499,3 @@ func _on_add_tag_button_pressed():
 
 func resized():
 	$ScrollContainer.size.y = DisplayServer.window_get_size().y
-

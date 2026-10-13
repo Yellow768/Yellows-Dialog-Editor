@@ -61,7 +61,7 @@ func _ready():
 	if CurrentEnvironment.sftp_client:
 		connect("category_succesfully_exported",Callable(CurrentEnvironment.sftp_client,"_OnCategoryExported").bind())
 		connect("category_succesfully_saved",Callable(CurrentEnvironment.sftp_client,"_OnCategorySaved").bind())
-
+	resized()
 func set_current_category(name):
 	current_category = name
 	CurrentEnvironment.current_category_name = current_category
@@ -392,5 +392,5 @@ func _on_sftp_box_resync_cache():
 	category_temp_data = {}
 
 func resized():
-	$VBoxContainer/ScrollContainer.custom_minimum_size.y = DisplayServer.window_get_size().y-400
-	$VBoxContainer/ScrollContainer/CategoryContainers.custom_minimum_size.y = DisplayServer.window_get_size().y-400
+	$VBoxContainer/ScrollContainer.custom_minimum_size.y = DisplayServer.window_get_size().y-380
+	$VBoxContainer/ScrollContainer/CategoryContainers.custom_minimum_size.y = DisplayServer.window_get_size().y-300

@@ -1,11 +1,11 @@
-[gd_scene load_steps=57 format=3 uid="uid://dm212olg3jtq4"]
+[gd_scene format=3 uid="uid://dm212olg3jtq4"]
 
-[ext_resource type="Script" path="res://src/UI/Editor/MainEditor.gd" id="1"]
-[ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
-[ext_resource type="Script" path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" id="3"]
+[ext_resource type="Script" uid="uid://bltpum678oof7" path="res://src/UI/Editor/MainEditor.gd" id="1"]
+[ext_resource type="Script" uid="uid://h832fm4wceog" path="res://src/UI/Dialog Settings/Scripts/SettingsPanel.gd" id="2"]
+[ext_resource type="Script" uid="uid://bhi4p1dr71fl5" path="res://src/UI/NavigationPanel/Scripts/EditorNavigation.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://dj443rk8yk0hi" path="res://src/UI/Dialog Settings/StartQuest.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://b8hqt3kn3abc2" path="res://src/UI/Dialog Settings/Dialog Availability.tscn" id="5"]
-[ext_resource type="Script" path="res://src/Classes/UndoRedo.gd" id="5_jh223"]
+[ext_resource type="Script" uid="uid://di82xon7remsp" path="res://src/Classes/UndoRedo.gd" id="5_jh223"]
 [ext_resource type="PackedScene" uid="uid://bfl1pkyh2gaqd" path="res://src/UI/Dialog Settings/FactionChange.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://2vhumwny7qul" path="res://Assets/UI Textures/Icon Font/plus-line.png" id="6_xqxhf"]
 [ext_resource type="PackedScene" uid="uid://cvg34wikii27f" path="res://src/UI/Dialog Settings/Faction Availability.tscn" id="7"]
@@ -14,50 +14,53 @@
 [ext_resource type="Texture2D" uid="uid://mdckhsyuc7am" path="res://Assets/UI Textures/Icon Font/share-line.png" id="8_vgh51"]
 [ext_resource type="PackedScene" uid="uid://b38oc862r1lp2" path="res://src/UI/Dialog Settings/ScoreboardAvailability.tscn" id="9"]
 [ext_resource type="Texture2D" uid="uid://b5hvjqasdvdh5" path="res://Assets/UI Textures/Icon Font/reload-circle-line.png" id="9_mukh6"]
-[ext_resource type="Script" path="res://src/UI/Editor/DialogEditor.gd" id="10"]
+[ext_resource type="Script" uid="uid://c6nvcjh43whaq" path="res://src/UI/Editor/DialogEditor.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://yboafh0lt84i" path="res://Assets/UI Textures/Icon Font/article-search-line.png" id="10_cc0sy"]
 [ext_resource type="Texture2D" uid="uid://dp2wp0l6uhna0" path="res://Assets/UI Textures/Icon Font/undo-line.svg" id="10_s1nhy"]
-[ext_resource type="Script" path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" id="11"]
+[ext_resource type="Script" uid="uid://crybtvhssex8c" path="res://src/UI/CategoryPanel/Scripts/CategoryPanel.gd" id="11"]
 [ext_resource type="Texture2D" uid="uid://oqwy01vjynr5" path="res://Assets/UI Textures/Icon Font/menu-line.png" id="11_qxp7e"]
 [ext_resource type="Texture2D" uid="uid://dl16h251n4u8p" path="res://Assets/UI Textures/Icon Font/settings-cog-line.png" id="11_u3t51"]
 [ext_resource type="Texture2D" uid="uid://bmucuvelywf10" path="res://Assets/UI Textures/Icon Font/redo-line.svg" id="11_vflym"]
-[ext_resource type="Script" path="res://src/Classes/dialog_titles_index.gd" id="12"]
+[ext_resource type="Script" uid="uid://df6tgxsk64h4r" path="res://src/Classes/dialog_titles_index.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://b0rt50ak2ixd4" path="res://Assets/UI Textures/Icon Font/home-line.png" id="12_jpjxe"]
 [ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="12_ry04q"]
-[ext_resource type="Script" path="res://src/Classes/File System/EnvironmentIndexer.gd" id="13"]
+[ext_resource type="Script" uid="uid://cppf1ov5ygdcw" path="res://src/Classes/File System/EnvironmentIndexer.gd" id="13"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="14"]
 [ext_resource type="Texture2D" uid="uid://cegdm7cac1amv" path="res://Assets/UI Textures/Icon Font/map-simple-off-line.svg" id="14_fmlij"]
 [ext_resource type="PackedScene" uid="uid://b8aewr7debfni" path="res://src/UI/Util/Expandable Line Edit.tscn" id="15"]
-[ext_resource type="Script" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
+[ext_resource type="Script" uid="uid://c0hvs6h1q2nqs" path="res://src/UI/Util/Scripts/UIAnimations.gd" id="16"]
 [ext_resource type="Texture2D" uid="uid://bmh5cgcw0i2hg" path="res://Assets/UI Textures/Icon Font/rescan_qf.png" id="16_21agd"]
-[ext_resource type="Script" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
-[ext_resource type="Script" path="res://src/UI/Editor/DialogGeneralSettings.gd" id="17_fph0n"]
+[ext_resource type="Script" uid="uid://rxsr1hy13xxn" path="res://src/Nodes/Scripts/DialogText.gd" id="17"]
+[ext_resource type="Script" uid="uid://3kry5qv06maf" path="res://src/UI/Editor/DialogGeneralSettings.gd" id="17_fph0n"]
 [ext_resource type="Texture2D" uid="uid://qb2hwr1a28ve" path="res://Assets/UI Textures/Icon Font/lock-line.svg" id="20_wkm7u"]
 [ext_resource type="Texture2D" uid="uid://d0yjew358qowc" path="res://Assets/UI Textures/Icon Font/chevron-up-line.svg" id="21_vtqsr"]
-[ext_resource type="Script" path="res://src/UI/Editor/DialogAvailabilitySettings.gd" id="22_ko4m2"]
-[ext_resource type="Script" path="res://src/UI/Editor/MailData.gd" id="22_teu44"]
+[ext_resource type="Script" uid="uid://biqvmyfeidago" path="res://src/UI/Editor/DialogAvailabilitySettings.gd" id="22_ko4m2"]
+[ext_resource type="Script" uid="uid://brnxtkxsnaihk" path="res://src/UI/Editor/MailData.gd" id="22_teu44"]
 [ext_resource type="PackedScene" uid="uid://bqw7nlvwgcprr" path="res://src/UI/Dialog Settings/MailItemSlot.tscn" id="23_o8k7p"]
 [ext_resource type="FontFile" uid="uid://dnq4gj617agk3" path="res://Assets/Font/minecraft_font.ttf" id="23_rr465"]
 [ext_resource type="PackedScene" uid="uid://b8upc5vs5ynlw" path="res://src/UI/Editor/EditorSettings.tscn" id="25_ypfkb"]
-[ext_resource type="Script" path="res://src/UI/Editor/DialogSpacingSettings.gd" id="30_tinmk"]
-[ext_resource type="Script" path="res://src/UI/Editor/DialogImageSettings.gd" id="31_teijp"]
+[ext_resource type="Script" uid="uid://xyc7ea7ipnuy" path="res://src/UI/Editor/DialogSpacingSettings.gd" id="30_tinmk"]
+[ext_resource type="Script" uid="uid://jre40algc7b8" path="res://src/UI/Editor/DialogImageSettings.gd" id="31_teijp"]
 [ext_resource type="Texture2D" uid="uid://ymrya147pb6v" path="res://Assets/UI Textures/Icon Font/link-line.svg" id="32_jwfbh"]
-[ext_resource type="Script" path="res://src/UI/Editor/DialogAttributeCheckSettings.gd" id="34_c1nas"]
-[ext_resource type="Script" path="res://src/UI/Editor/ResponseNodeSettings.gd" id="35_n4s6j"]
+[ext_resource type="Script" uid="uid://ppr3urqcd2oq" path="res://src/UI/Editor/DialogAttributeCheckSettings.gd" id="34_c1nas"]
+[ext_resource type="Script" uid="uid://rmapf413n7sn" path="res://src/UI/Editor/ResponseNodeSettings.gd" id="35_n4s6j"]
 [ext_resource type="PackedScene" uid="uid://gqxq7kkkgl8l" path="res://src/Nodes/attributes/tag_container.tscn" id="35_w1inp"]
-[ext_resource type="Script" path="res://src/UI/Editor/SFTP_BOX.gd" id="38_78yl7"]
+[ext_resource type="Script" uid="uid://dupc4ynb3livx" path="res://src/UI/Editor/SFTP_BOX.gd" id="38_78yl7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gybui"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="18"]
 
-[sub_resource type="StyleBoxFlat" id="16"]
-bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+[sub_resource type="StyleBoxFlat" id="17"]
+bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="17"]
-bg_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+[sub_resource type="StyleBoxFlat" id="16"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -100,7 +103,7 @@ corner_radius_bottom_left = 14
 shadow_size = 5
 shadow_offset = Vector2(0, 5)
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=1986368029]
 process_mode = 1
 layout_mode = 3
 anchors_preset = 15
@@ -119,10 +122,10 @@ _information_panel_path = NodePath("InformationPanel")
 _dialog_settings_tabs_path = NodePath("InformationPanel/DialogNodeTabs")
 _top_panel_path = NodePath("TopPanel")
 
-[node name="DialogList" type="Node" parent="."]
+[node name="DialogList" type="Node" parent="." unique_id=1744563802]
 script = ExtResource("12")
 
-[node name="StartingLabel" type="Label" parent="."]
+[node name="StartingLabel" type="Label" parent="." unique_id=1780526451]
 z_index = -2
 layout_mode = 1
 anchors_preset = 5
@@ -136,7 +139,7 @@ grow_horizontal = 2
 text = "BLANK_EDITOR_LABEL"
 horizontal_alignment = 1
 
-[node name="DialogEditor" type="GraphEdit" parent="." groups=["editor"]]
+[node name="DialogEditor" type="GraphEdit" parent="." unique_id=162283983 groups=["editor"]]
 visible = false
 z_index = -2
 layout_mode = 1
@@ -149,26 +152,26 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gybui")
+snapping_distance = 44
 right_disconnects = true
-scroll_offset = Vector2(-15, -21)
-snap_distance = 43
 zoom_min = 0.001
-show_zoom_label = true
 minimap_enabled = false
 minimap_size = Vector2(150, 150)
+show_zoom_label = true
 script = ExtResource("10")
 
-[node name="UndoSystem" type="Node" parent="DialogEditor" node_paths=PackedStringArray("dialog_editor")]
+[node name="UndoSystem" type="Node" parent="DialogEditor" unique_id=1717515817 node_paths=PackedStringArray("dialog_editor")]
 script = ExtResource("5_jh223")
 dialog_editor = NodePath("..")
 
-[node name="TopPanel" type="Panel" parent="."]
+[node name="TopPanel" type="Panel" parent="." unique_id=104695850]
 layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 50.0
 script = ExtResource("3")
 
-[node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel"]
+[node name="TopPanelContainer" type="HBoxContainer" parent="TopPanel" unique_id=198616327]
 visible = false
 layout_mode = 1
 offset_left = 5.0
@@ -176,101 +179,101 @@ offset_top = 5.0
 offset_right = 1051.0
 offset_bottom = 37.0
 
-[node name="Add Dialog" type="Button" parent="TopPanel/TopPanelContainer"]
+[node name="Add Dialog" type="Button" parent="TopPanel/TopPanelContainer" unique_id=1357829853]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 tooltip_text = "ADD_DIALOG_TOOLTIP"
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 text = "ADD_DIALOG"
 icon = ExtResource("6_xqxhf")
 
-[node name="SecSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+[node name="SecSep" type="VSeparator" parent="TopPanel/TopPanelContainer" unique_id=1786773251]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="Add ColOrg" type="Button" parent="TopPanel/TopPanelContainer"]
+[node name="Add ColOrg" type="Button" parent="TopPanel/TopPanelContainer" unique_id=1138664498]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 tooltip_text = "ADD_COLOR_ORGANIZER_TOOL_TIP"
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 text = "ADD_COLOR_ORGANIZER"
 icon = ExtResource("6_xqxhf")
 
-[node name="SecSep3" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+[node name="SecSep3" type="VSeparator" parent="TopPanel/TopPanelContainer" unique_id=715316586]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="Undo" type="Button" parent="TopPanel/TopPanelContainer"]
+[node name="Undo" type="Button" parent="TopPanel/TopPanelContainer" unique_id=742334365]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 icon = ExtResource("10_s1nhy")
 icon_alignment = 1
 
-[node name="Redo" type="Button" parent="TopPanel/TopPanelContainer"]
+[node name="Redo" type="Button" parent="TopPanel/TopPanelContainer" unique_id=824769859]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 icon = ExtResource("11_vflym")
 icon_alignment = 1
 
-[node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+[node name="SecSep2" type="VSeparator" parent="TopPanel/TopPanelContainer" unique_id=1631843777]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="SaveButton" type="Button" parent="TopPanel/TopPanelContainer"]
+[node name="SaveButton" type="Button" parent="TopPanel/TopPanelContainer" unique_id=719413293]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 tooltip_text = "SAVE_TOOL_TIP"
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 text = "SAVE"
 icon = ExtResource("7_6q1oh")
 
-[node name="BttnSep" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+[node name="BttnSep" type="VSeparator" parent="TopPanel/TopPanelContainer" unique_id=1591440708]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="ExportButton" type="Button" parent="TopPanel/TopPanelContainer"]
+[node name="ExportButton" type="Button" parent="TopPanel/TopPanelContainer" unique_id=1586951555]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 tooltip_text = "EXPORT_TOOL_TIP"
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 text = "EXPORT"
 icon = ExtResource("8_vgh51")
 
-[node name="ExportTypeButton" type="OptionButton" parent="TopPanel/TopPanelContainer"]
+[node name="ExportTypeButton" type="OptionButton" parent="TopPanel/TopPanelContainer" unique_id=1616799020]
 custom_minimum_size = Vector2(26.47, 18.52)
 layout_mode = 2
 tooltip_text = "EXPORT_TYPE_TOOLTIP"
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "1.7.10 - 1.16.5 & Goodbird Ports"
 popup/item_0/id = 0
 popup/item_1/text = "Official 1.18.2"
 popup/item_1/id = 1
 
-[node name="SecSep4" type="VSeparator" parent="TopPanel/TopPanelContainer"]
+[node name="SecSep4" type="VSeparator" parent="TopPanel/TopPanelContainer" unique_id=341839175]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="MenuButton" type="MenuButton" parent="TopPanel/TopPanelContainer"]
+[node name="MenuButton" type="MenuButton" parent="TopPanel/TopPanelContainer" unique_id=43695720]
 layout_mode = 2
 tooltip_text = "CATEGORY_OPTIONS_TOOLTIP"
 theme_override_styles/hover = SubResource("StyleBoxFlat_xovix")
@@ -290,7 +293,6 @@ popup/item_2/id = 2
 popup/item_3/text = "CATEGORY_SETTINGS"
 popup/item_3/icon = ExtResource("11_u3t51")
 popup/item_3/id = 4
-popup/item_4/text = ""
 popup/item_4/id = 6
 popup/item_4/separator = true
 popup/item_5/text = "Deselect All"
@@ -300,7 +302,7 @@ popup/item_6/text = "RESCAN_QUEST_AND_FACTIONS"
 popup/item_6/icon = ExtResource("16_21agd")
 popup/item_6/id = 5
 
-[node name="EditorContainer" type="HBoxContainer" parent="TopPanel"]
+[node name="EditorContainer" type="HBoxContainer" parent="TopPanel" unique_id=129989106]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -311,37 +313,37 @@ offset_bottom = 37.0
 grow_horizontal = 0
 alignment = 2
 
-[node name="VSeparator6" type="VSeparator" parent="TopPanel/EditorContainer"]
+[node name="VSeparator6" type="VSeparator" parent="TopPanel/EditorContainer" unique_id=1617041327]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="EditorSettingsButton" type="Button" parent="TopPanel/EditorContainer"]
+[node name="EditorSettingsButton" type="Button" parent="TopPanel/EditorContainer" unique_id=1832689715]
 process_mode = 1
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 text = "EDITOR_SETTINGS"
 icon = ExtResource("11_u3t51")
 
-[node name="VSeparator5" type="VSeparator" parent="TopPanel/EditorContainer"]
+[node name="VSeparator5" type="VSeparator" parent="TopPanel/EditorContainer" unique_id=1752378383]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("19")
 
-[node name="HomeButton" type="Button" parent="TopPanel/EditorContainer"]
+[node name="HomeButton" type="Button" parent="TopPanel/EditorContainer" unique_id=243910037]
 custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
 tooltip_text = "Returns to the home page"
 theme_override_styles/normal = SubResource("18")
-theme_override_styles/hover = SubResource("16")
 theme_override_styles/pressed = SubResource("17")
+theme_override_styles/hover = SubResource("16")
 text = "RETURN_HOME_BUTTON"
 icon = ExtResource("12_jpjxe")
 
-[node name="InformationPanel" type="Panel" parent="." node_paths=PackedStringArray("response_settings_tab")]
+[node name="InformationPanel" type="Panel" parent="." unique_id=1782423318 node_paths=PackedStringArray("response_settings_tab")]
 custom_minimum_size = Vector2(462, 100)
 layout_mode = 1
 anchors_preset = 11
@@ -367,7 +369,7 @@ mail_data_path = NodePath("DialogNodeTabs/MAIL")
 attribute_check_path = NodePath("DialogNodeTabs/Attribute Check")
 response_settings_tab = NodePath("ResponseNodeSettings")
 
-[node name="Label" type="Label" parent="InformationPanel"]
+[node name="Label" type="Label" parent="InformationPanel" unique_id=1140780758]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -380,7 +382,8 @@ grow_horizontal = 2
 text = "INFORMATION_PANEL_LABEL"
 clip_text = true
 
-[node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel"]
+[node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel" unique_id=1503258172]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -390,8 +393,9 @@ offset_bottom = 18.225
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
+current_tab = 0
 
-[node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs" node_paths=PackedStringArray("StopMusicCheckbox")]
+[node name="GENERAL" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=956988875 node_paths=PackedStringArray("StopMusicCheckbox")]
 custom_minimum_size = Vector2(425, 0)
 layout_mode = 2
 script = ExtResource("17_fph0n")
@@ -430,8 +434,9 @@ command_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/Command
 add_tag_button_path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/AddTagButton")
 tag_line_edit_path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/TagLineEdit")
 StopMusicCheckbox = NodePath("ScrollContainer/VBoxContainer/DialogStopMusic")
+metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/GENERAL" unique_id=117198438]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -443,16 +448,16 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer" unique_id=1375826507]
 custom_minimum_size = Vector2(410, 1500)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1817599034]
 layout_mode = 2
 text = "Dialog Title"
 clip_text = true
 
-[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="DialogText" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1126155594]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 mouse_force_pass_scroll_events = false
@@ -461,272 +466,271 @@ scroll_smooth = true
 scroll_past_end_of_file = true
 script = ExtResource("17")
 
-[node name="VisualOptionsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="VisualOptionsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=530470524]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton" unique_id=2065785787]
 layout_mode = 2
 text = "VISUAL_OPTIONS"
 
-[node name="ToggleVisualOptions" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton"]
+[node name="ToggleVisualOptions" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/VisualOptionsLabelandButton" unique_id=466372875]
 layout_mode = 2
 toggle_mode = true
 button_pressed = true
 text = "v"
 
-[node name="Visual Options" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Visual Options" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1443343904]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options" unique_id=1566732666]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="HideNPC" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=1005209518]
 layout_mode = 2
 text = "HIDE_NPC"
 
-[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="ShowDialogWheel" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=561382841]
 layout_mode = 2
 text = "SHOW_DIALOG_WHEEL"
 
-[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="DisableEsc" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=1905559767]
 layout_mode = 2
 text = "DISABLE_USING_ESC"
 
-[node name="DarkenScreen" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="DarkenScreen" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=2064302027]
 layout_mode = 2
 text = "DARKEN_SCREEN"
 
-[node name="RenderType" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="RenderType" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=293120242]
 layout_mode = 2
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "RENDER_INSTANT"
 popup/item_0/id = 0
 popup/item_1/text = "RENDER_GRADUAL"
 popup/item_1/id = 1
 
-[node name="TextSound" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="TextSound" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=1316231583]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound" unique_id=1872257253]
 layout_mode = 2
 text = "TEXT_SOUND"
 
-[node name="TextSound" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound" instance=ExtResource("15")]
+[node name="TextSound" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound" unique_id=170522628 instance=ExtResource("15")]
 custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound" unique_id=1948400983]
 layout_mode = 2
 text = "TEXT_PITCH"
 
-[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound"]
+[node name="TextPitch" type="SpinBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/TextSound" unique_id=1492993870]
 layout_mode = 2
 step = 0.1
 allow_greater = true
 allow_lesser = true
 
-[node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="Show Previous Dialog" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=1998124578]
 layout_mode = 2
 text = "SHOW_PREVIOUS_DIALOG"
 
-[node name="Show Response Options" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="Show Response Options" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=1923401438]
 layout_mode = 2
 text = "SHOW_RESPONSE_OPTIONS"
 
-[node name="ColorOptions" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer"]
+[node name="ColorOptions" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer" unique_id=456755340]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions" unique_id=1927012272]
 layout_mode = 2
 text = "DIALOG_COLOR"
 
-[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions"]
+[node name="Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions" unique_id=527331988]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions" unique_id=954243363]
 layout_mode = 2
 text = "TITLE_COLOR"
 
-[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions"]
+[node name="Title Color" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/VBoxContainer/ColorOptions" unique_id=1364591584]
 layout_mode = 2
 text = "AAAA"
 color = Color(1, 1, 1, 1)
 
-[node name="PresetHBOX" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
+[node name="PresetHBOX" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options" unique_id=594037586]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX" unique_id=753524035]
 layout_mode = 2
 text = "PRESETS"
 
-[node name="TogglePresetVisible" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
+[node name="TogglePresetVisible" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX" unique_id=1544944835]
 layout_mode = 2
 toggle_mode = true
 text = ">"
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/PresetHBOX" unique_id=1130120002]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="Presets" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options"]
+[node name="Presets" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options" unique_id=216411797]
 visible = false
 layout_mode = 2
 
-[node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=1967445384]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 item_count = 1
-popup/item_0/text = ""
 popup/item_0/id = 0
 
-[node name="UpdatePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="UpdatePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=1688300098]
 layout_mode = 2
 tooltip_text = "UPDATE_PRESET_TOOLTIP"
 text = "UPDATE_PRESET"
 
-[node name="RemovePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="RemovePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=529421346]
 layout_mode = 2
 tooltip_text = "REMOVE_PRESET_TOOLTIP"
 text = "REMOVE_PRESET"
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=160135408]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=799058680]
 custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 tooltip_text = "PRESET_TEXT_TOOLTIP"
 placeholder_text = "NEW_PRESET_TEXT"
 
-[node name="AddPresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="AddPresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=1620727510]
 layout_mode = 2
 tooltip_text = "ADD_NEW_PRESET_TOOLTIP"
 text = "ADD_NEW_PRESET"
 
-[node name="Lock" type="CheckButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets"]
+[node name="Lock" type="CheckButton" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Visual Options/Presets" unique_id=1276562267]
 layout_mode = 2
 tooltip_text = "LINK_PRESET_TOOLTIP"
 text = "LINK_PRESET"
 icon = ExtResource("20_wkm7u")
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1229686373]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Lbl Sound File" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=403281307]
 layout_mode = 2
 text = "SOUND_FILE"
 
-[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" instance=ExtResource("15")]
+[node name="Soundfile" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=527180066 instance=ExtResource("15")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 min_size = 40
 
-[node name="DialogStopMusic" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="DialogStopMusic" type="CheckBox" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=95318913]
 layout_mode = 2
 text = "STOP_MUSIC"
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1377359253]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="CommandsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="CommandsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1112116009]
 layout_mode = 2
 
-[node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton"]
+[node name="Lbl Console" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton" unique_id=538949706]
 layout_mode = 2
 text = "CONSOLE_COMMAND"
 
-[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton"]
+[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton" unique_id=1780360453]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("21_vtqsr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1246631396]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=385573782]
 layout_mode = 2
 text = "(Rainmire) Add Tag"
 
-[node name="TagLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="TagLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=482415138]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 max_length = 16
 
-[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1959514934]
 layout_mode = 2
 text = "Add"
 
-[node name="Commands" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Commands" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=400697980]
 layout_mode = 2
 size_flags_stretch_ratio = 1.65
 
-[node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands" instance=ExtResource("15")]
+[node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands" unique_id=1069164304 instance=ExtResource("15")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 min_size = 40
 
-[node name="AddCommandButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="AddCommandButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=192516813]
 visible = false
 layout_mode = 2
 text = "ADD"
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1440837985]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="FactionsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="FactionsLabelandButton" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=840045437]
 layout_mode = 2
 
-[node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton"]
+[node name="Faction Changes" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton" unique_id=1878536892]
 layout_mode = 2
 text = "FACTION_CHANGES"
 
-[node name="FactionsVisibilityButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton"]
+[node name="FactionsVisibilityButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton" unique_id=696919753]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("21_vtqsr")
 
-[node name="FactionChanges" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="FactionChanges" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1599097445]
 visible = false
 layout_mode = 2
 
-[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges" instance=ExtResource("6")]
+[node name="FactionChange" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges" unique_id=302465059 instance=ExtResource("6")]
 layout_mode = 2
 allow_deletion = false
 
-[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges" instance=ExtResource("6")]
+[node name="FactionChange2" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionChanges" unique_id=731832171 instance=ExtResource("6")]
 layout_mode = 2
 allow_deletion = false
 
-[node name="AddFactionChange" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="AddFactionChange" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1974941039]
 visible = false
 layout_mode = 2
 text = "ADD"
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1985963266]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=974203969]
 layout_mode = 2
 text = "START_QUEST"
 
-[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" instance=ExtResource("4")]
+[node name="StartQuest" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=56395881 instance=ExtResource("4")]
 layout_mode = 2
 
-[node name="AVAILABILITY" type="Control" parent="InformationPanel/DialogNodeTabs"]
+[node name="AVAILABILITY" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=601087382]
 visible = false
 layout_mode = 2
 script = ExtResource("22_ko4m2")
@@ -737,122 +741,123 @@ availability_scoreboard_path = NodePath("Availability/VBoxContainer/ScoreboardOp
 availability_time_path = NodePath("Availability/VBoxContainer/TimeandLevel/Time/Panel/OptionButton")
 availability_level_path = NodePath("Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel/SpinBox")
 information_panel_path = NodePath("../..")
+metadata/_tab_index = 1
 
-[node name="Availability" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY"]
+[node name="Availability" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY" unique_id=777938993]
 custom_minimum_size = Vector2(436, 600)
-layout_mode = 2
+layout_mode = 0
 offset_right = 436.0
 offset_bottom = 1065.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability" unique_id=431865133]
 custom_minimum_size = Vector2(435, 1080)
 layout_mode = 2
 
-[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="QuestLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1570685794]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "QUEST_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="QuestOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=994634673]
 layout_mode = 2
 
-[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" unique_id=144707015 instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" unique_id=1348386071 instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" unique_id=1389594078 instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" instance=ExtResource("8")]
+[node name="Quest Avaiability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/QuestOptions" unique_id=108749967 instance=ExtResource("8")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1514962248]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="DialogLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1046058010]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "DIALOG_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="DialogOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=96694446]
 layout_mode = 2
 
-[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" unique_id=2005433013 instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" unique_id=916220531 instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability3" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" unique_id=979127605 instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" instance=ExtResource("5")]
+[node name="DialogAvailability4" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/DialogOptions" unique_id=1112068216 instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1658318973]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="FactionLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1501997924]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "FACTION_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="FactionOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1698698919]
 layout_mode = 2
 
-[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+[node name="FactionAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/FactionOptions" unique_id=2131802328 instance=ExtResource("7")]
 layout_mode = 2
 
-[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/FactionOptions" instance=ExtResource("7")]
+[node name="FactionAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/FactionOptions" unique_id=1373912721 instance=ExtResource("7")]
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=810118060]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="ScoreboardLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="ScoreboardLabel" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=403117517]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "SCORE_AVAILABILITIES"
 horizontal_alignment = 1
 
-[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="ScoreboardOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=1923613974]
 layout_mode = 2
 
-[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+[node name="ScoreboardAvailability" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/ScoreboardOptions" unique_id=540204733 instance=ExtResource("9")]
 layout_mode = 2
 
-[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/ScoreboardOptions" instance=ExtResource("9")]
+[node name="ScoreboardAvailability2" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/ScoreboardOptions" unique_id=1406901993 instance=ExtResource("9")]
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=750552747]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer"]
+[node name="TimeandLevel" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer" unique_id=68428651]
 layout_mode = 2
 
-[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel"]
+[node name="Time" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel" unique_id=344045393]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time"]
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time" unique_id=1105526713]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -15.0
 
-[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+[node name="OptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time/Panel" unique_id=1891924004]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -862,8 +867,8 @@ offset_left = 9.5
 offset_top = -17.0
 offset_right = 152.5
 offset_bottom = 15.0
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "AV_ALWAYS"
 popup/item_0/id = 0
 popup/item_1/text = "DAY"
@@ -871,7 +876,7 @@ popup/item_1/id = 1
 popup/item_2/text = "NIGHT"
 popup/item_2/id = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time/Panel"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/Time/Panel" unique_id=748502149]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -881,11 +886,11 @@ offset_right = 142.0
 offset_bottom = 14.0
 text = "TIME"
 
-[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel"]
+[node name="PlayerLevel" type="Control" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel" unique_id=242473780]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel"]
+[node name="Panel" type="Panel" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel" unique_id=27947732]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 0
 anchor_right = 1.0
@@ -893,7 +898,7 @@ anchor_bottom = 1.0
 offset_left = -0.952
 offset_right = -15.952
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel" unique_id=551682869]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -903,7 +908,7 @@ offset_right = 276.0
 offset_bottom = 16.0
 text = "MIN_PLAYER_LVL"
 
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel"]
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/DialogNodeTabs/AVAILABILITY/Availability/VBoxContainer/TimeandLevel/PlayerLevel/Panel" unique_id=752532597]
 layout_mode = 0
 anchor_left = 1.0
 anchor_top = 0.5
@@ -915,7 +920,7 @@ offset_right = -57.548
 offset_bottom = 13.0
 max_value = 10000.0
 
-[node name="MAIL" type="Control" parent="InformationPanel/DialogNodeTabs"]
+[node name="MAIL" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=112918738]
 visible = false
 layout_mode = 2
 mouse_filter = 1
@@ -930,8 +935,9 @@ subject_line_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/Subjec
 sender_line_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes/SenderLineEdit")
 page_label_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/PageButtons/Label")
 information_panel_path = NodePath("../..")
+metadata/_tab_index = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/MAIL"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/MAIL" unique_id=1024629341]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -943,37 +949,37 @@ offset_bottom = 899.0
 grow_horizontal = 2
 follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer" unique_id=498612279]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer" unique_id=950898987]
 layout_mode = 2
 
-[node name="SenderNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="SenderNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=83967121]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes" unique_id=215186723]
 layout_mode = 2
 text = "MAIL_SENDER"
 
-[node name="SenderLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes"]
+[node name="SenderLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SenderNodes" unique_id=190178266]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 placeholder_text = "MAIL_SENDER"
 
-[node name="SubjectNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="SubjectNodes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1121831860]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes" unique_id=495725107]
 layout_mode = 2
 text = "MAIL_SUBJECT"
 
-[node name="SubjectLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes"]
+[node name="SubjectLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/SubjectNodes" unique_id=154279644]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 placeholder_text = "MAIL_SUBJECT"
 
-[node name="Message" type="TextEdit" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="Message" type="TextEdit" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1543746715]
 custom_minimum_size = Vector2(395, 500)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -984,7 +990,7 @@ theme_override_font_sizes/font_size = 23
 wrap_mode = 1
 highlight_current_line = true
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/Message"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/Message" unique_id=883852178]
 visible = false
 modulate = Color(1, 0.572549, 0.498039, 1)
 layout_mode = 1
@@ -1004,67 +1010,67 @@ theme_override_fonts/font = SubResource("FontVariation_rv42o")
 text = "TEXT_LIMIT_WARNING"
 horizontal_alignment = 2
 
-[node name="PageButtons" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="PageButtons" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=91443095]
 layout_mode = 2
 alignment = 1
 
-[node name="PrevPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="PrevPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=1089327719]
 layout_mode = 2
 text = "<"
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=397583169]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=509805202]
 layout_mode = 2
 text = "Page 1/1"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=800156957]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="NextPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="NextPageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=704316371]
 layout_mode = 2
 text = ">"
 
-[node name="VSeparator3" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="VSeparator3" type="VSeparator" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=1238437876]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="DeletePageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons"]
+[node name="DeletePageButton" type="Button" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/PageButtons" unique_id=1375876646]
 layout_mode = 2
 text = "MAIL_DELETE_PAGE"
 
-[node name="StartQuest_Mail" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" instance=ExtResource("4")]
+[node name="StartQuest_Mail" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1613155033 instance=ExtResource("4")]
 layout_mode = 2
 
-[node name="ItemSlots" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="ItemSlots" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=746641954]
 layout_mode = 2
 
-[node name="Item1" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item1" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" unique_id=1484250292 instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 
-[node name="Item2" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item2" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" unique_id=1731065729 instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 1
 
-[node name="Item3" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item3" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" unique_id=1574019734 instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 2
 
-[node name="Item4" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item4" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" unique_id=317158590 instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 3
 
-[node name="Item5" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" instance=ExtResource("23_o8k7p")]
+[node name="Item5" parent="InformationPanel/DialogNodeTabs/MAIL/ScrollContainer/VBoxContainer/VBoxContainer/ItemSlots" unique_id=313513125 instance=ExtResource("23_o8k7p")]
 layout_mode = 2
 slot = 4
 
-[node name="SPACING" type="Control" parent="InformationPanel/DialogNodeTabs"]
+[node name="SPACING" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=345871339]
 visible = false
 layout_mode = 2
 script = ExtResource("30_tinmk")
@@ -1089,33 +1095,34 @@ preset_option_button_path = NodePath("ScrollContainer/VBoxContainer/VBoxContaine
 update_preset_button_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/UpdatePresetButton")
 spacing_options_path = NodePath("ScrollContainer/VBoxContainer/SpacingOptions")
 lock_spacing_preset_path = NodePath("ScrollContainer/VBoxContainer/VBoxContainer/Lock")
+metadata/_tab_index = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/SPACING"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/SPACING" unique_id=518762398]
 layout_mode = 1
 offset_top = 21.0
 offset_right = 425.0
 offset_bottom = 959.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer" unique_id=260242934]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.3
 
-[node name="SpacingOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer"]
+[node name="SpacingOptions" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer" unique_id=700191381]
 layout_mode = 2
 
-[node name="TitlePosition" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="TitlePosition" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=971795355]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitlePosition"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitlePosition" unique_id=16242394]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "TITLE_POSITION"
 
-[node name="TitlePositionOption" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitlePosition"]
+[node name="TitlePositionOption" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitlePosition" unique_id=454804831]
 layout_mode = 2
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "TITLE_POSITION_TEXT"
 popup/item_0/id = 0
 popup/item_1/text = "TITLE_POSITION_OPTION"
@@ -1123,300 +1130,299 @@ popup/item_1/id = 1
 popup/item_2/text = "TITLE_POSITION_FIXED"
 popup/item_2/id = 2
 
-[node name="Alignment" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="Alignment" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=178272152]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/Alignment"]
+[node name="Label2" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/Alignment" unique_id=622888140]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "ALIGNMENT"
 
-[node name="AlignmentButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/Alignment"]
+[node name="AlignmentButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/Alignment" unique_id=859926881]
 layout_mode = 2
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "ALIGNMENT_BOTTOM"
 popup/item_0/id = 0
 popup/item_1/text = "ALIGNMENT_TOP"
 popup/item_1/id = 1
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1605805100]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="WidthHeigth" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="WidthHeigth" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1404592428]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth" unique_id=767781378]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "WIDTH_AND_HEIGHT"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth" unique_id=1634866227]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="WidthValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth"]
+[node name="WidthValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth" unique_id=875073686]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth" unique_id=878018776]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="HeightValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth"]
+[node name="HeightValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/WidthHeigth" unique_id=1086117195]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1763340390]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 
-[node name="TextOffset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="TextOffset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1125750493]
 layout_mode = 2
 
-[node name="TextOffsetLBL" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset"]
+[node name="TextOffsetLBL" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset" unique_id=48040604]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "TEXT_OFFSET"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset" unique_id=1293790584]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="TextXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset"]
+[node name="TextXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset" unique_id=1749879903]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset" unique_id=209789521]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="TextYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset"]
+[node name="TextYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TextOffset" unique_id=203900837]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1908251429]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 
-[node name="TitleOffset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="TitleOffset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1827647651]
 layout_mode = 2
 
-[node name="TitleOffsetLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset"]
+[node name="TitleOffsetLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset" unique_id=307410260]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "TITLE_OFFSET"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset" unique_id=2129883896]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="TitleXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset"]
+[node name="TitleXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset" unique_id=758888961]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset" unique_id=547972731]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="TitleYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset"]
+[node name="TitleYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/TitleOffset" unique_id=1641390823]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=210653158]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 
-[node name="OptionOffset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="OptionOffset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1495750636]
 layout_mode = 2
 
-[node name="OptionOffsetLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset"]
+[node name="OptionOffsetLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset" unique_id=289733038]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "OPTION_OFFSET"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset" unique_id=790146396]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="OptionXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset"]
+[node name="OptionXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset" unique_id=70576981]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset" unique_id=926783604]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="OptionYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset"]
+[node name="OptionYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionOffset" unique_id=1363964479]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator5" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator5" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=418658893]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 
-[node name="OptionSpacing" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="OptionSpacing" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=365188562]
 layout_mode = 2
 
-[node name="Option Spacing Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing"]
+[node name="Option Spacing Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing" unique_id=979751815]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "OPTION_SPACING"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing" unique_id=1340212001]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="OptionSpacingXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing"]
+[node name="OptionSpacingXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing" unique_id=116748780]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing" unique_id=660573799]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="OptionSpacingYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing"]
+[node name="OptionSpacingYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/OptionSpacing" unique_id=2056790082]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator6" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator6" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=1428088509]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 
-[node name="NPC Offset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="NPC Offset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=690922437]
 layout_mode = 2
 
-[node name="Npc Offset Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset"]
+[node name="Npc Offset Label" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset" unique_id=151063381]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "NPC_OFFSET"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset" unique_id=83263733]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="NPCXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset"]
+[node name="NPCXOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset" unique_id=872390733]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset" unique_id=42122196]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="NPCYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset"]
+[node name="NPCYOffset" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Offset" unique_id=241864584]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator7" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="HSeparator7" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=692647933]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 
-[node name="NPC Scale" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions"]
+[node name="NPC Scale" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions" unique_id=516271056]
 layout_mode = 2
 
-[node name="NPCScaleLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Scale"]
+[node name="NPCScaleLabel" type="Label" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Scale" unique_id=674130887]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "NPC_SCALE"
 
-[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Scale"]
+[node name="VSeparator2" type="VSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Scale" unique_id=307630807]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="NPCScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Scale"]
+[node name="NPCScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/SpacingOptions/NPC Scale" unique_id=500530837]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 1e+07
+max_value = 10000000.0
 step = 0.01
 value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer" unique_id=2002632039]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=267254434]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="PresetOptionButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1000263264]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 item_count = 1
-popup/item_0/text = ""
 popup/item_0/id = 0
 
-[node name="UpdatePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="UpdatePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1417577390]
 layout_mode = 2
 tooltip_text = "UPDATE_PRESET_TOOLTIP"
 text = "UPDATE_PRESET"
 
-[node name="RemovePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="RemovePresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1071079980]
 layout_mode = 2
 tooltip_text = "REMOVE_PRESET_TOOLTIP"
 text = "REMOVE_PRESET"
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1711668854]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=408403378]
 custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 tooltip_text = "PRESET_TEXT_TOOLTIP"
 
-[node name="AddPresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="AddPresetButton" type="Button" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1538994218]
 layout_mode = 2
 tooltip_text = "ADD_NEW_PRESET_TOOLTIP"
 text = "ADD_NEW_PRESET"
 
-[node name="Lock" type="CheckButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="Lock" type="CheckButton" parent="InformationPanel/DialogNodeTabs/SPACING/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1040885082]
 layout_mode = 2
 tooltip_text = "LINK_PRESET_TOOLTIP"
 text = "LINK_PRESET"
 icon = ExtResource("32_jwfbh")
 
-[node name="IMAGES" type="Control" parent="InformationPanel/DialogNodeTabs"]
+[node name="IMAGES" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=308735449]
 visible = false
 layout_mode = 2
 script = ExtResource("31_teijp")
@@ -1442,257 +1448,258 @@ image_settings_container_path = NodePath("HBoxContainer/ScrollContainer/ImageSet
 image_alignment_container_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Alignment")
 selected_color_container_path = NodePath("HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor")
 information_panel_path = NodePath("../..")
+metadata/_tab_index = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES" unique_id=1350766260]
 layout_mode = 1
 offset_top = 15.0
 offset_right = 549.0
 offset_bottom = 915.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer" unique_id=1647759298]
 layout_mode = 2
 
-[node name="ItemList" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer"]
+[node name="ItemList" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer" unique_id=481119349]
 custom_minimum_size = Vector2(45, 300)
 layout_mode = 2
 allow_search = false
 
-[node name="AddImage" type="Button" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer"]
+[node name="AddImage" type="Button" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer" unique_id=649746530]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "+"
 
-[node name="RemoveImage" type="Button" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer"]
+[node name="RemoveImage" type="Button" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/VBoxContainer" unique_id=635578387]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "-"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer" unique_id=711834979]
 custom_minimum_size = Vector2(500, 900)
 layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="ImageSettings" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer"]
+[node name="ImageSettings" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer" unique_id=1678287410]
 custom_minimum_size = Vector2(0, 4000)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.3
 
-[node name="ID" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="ID" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1910901552]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID" unique_id=670368278]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "ID"
 
-[node name="IDValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID"]
+[node name="IDValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ID" unique_id=840316970]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1161531406]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="ImageBox" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="ImageBox" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1759035429]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox" unique_id=2039053941]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "TEXTURE"
 
-[node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox" instance=ExtResource("15")]
+[node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox" unique_id=1183800738 instance=ExtResource("15")]
 custom_minimum_size = Vector2(250, 25)
 layout_mode = 2
 
 [node name="LineEdit" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/ImageBox/LineEdit/HBoxContainer" index="0"]
 custom_minimum_size = Vector2(250, 25)
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=580026487]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Position" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Position" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=842714405]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position" unique_id=951387233]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "POSITION"
 
-[node name="ImagePositionX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position"]
+[node name="ImagePositionX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position" unique_id=922262097]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="ImagePositionY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position"]
+[node name="ImagePositionY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Position" unique_id=301828094]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=712591316]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="WidthHeight" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="WidthHeight" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1091619461]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight" unique_id=1689878397]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "WIDTH_AND_HEIGHT"
 
-[node name="Width" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
+[node name="Width" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight" unique_id=1005468253]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="Height" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight"]
+[node name="Height" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/WidthHeight" unique_id=1984178440]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=66158949]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Offset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Offset" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=183043745]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset" unique_id=543232980]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "OFFSET"
 
-[node name="OffsetX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
+[node name="OffsetX" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset" unique_id=789955502]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="OffsetY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset"]
+[node name="OffsetY" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Offset" unique_id=923690179]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator5" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator5" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1771968337]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Scale" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Scale" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=710600902]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Scale" unique_id=1871755594]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "SCALE"
 
-[node name="ScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Scale"]
+[node name="ScaleValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Scale" unique_id=817109033]
 layout_mode = 2
 step = 0.01
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator6" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator6" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=796815336]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Alpha" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Alpha" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=2122342586]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alpha" unique_id=1902600958]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "ALPHA"
 
-[node name="AlphaValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alpha"]
+[node name="AlphaValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alpha" unique_id=537661065]
 layout_mode = 2
 step = 0.01
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator7" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator7" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1858529032]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Rotation" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Rotation" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1529805418]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Rotation" unique_id=17831499]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 text = "ROTATION"
 
-[node name="RotationValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Rotation"]
+[node name="RotationValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Rotation" unique_id=1716782076]
 layout_mode = 2
 step = 0.01
 allow_greater = true
 allow_lesser = true
 
-[node name="HSeparator8" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator8" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=937338893]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Colors" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Colors" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1266083831]
 layout_mode = 2
 
-[node name="Color" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors"]
+[node name="Color" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors" unique_id=999800934]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color" unique_id=394109310]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "COLOR"
 
-[node name="ImageColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color"]
+[node name="ImageColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/Color" unique_id=365609194]
 layout_mode = 2
 text = "aaa"
 color = Color(1, 1, 1, 1)
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors" unique_id=349998796]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="SelectedColor" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors"]
+[node name="SelectedColor" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors" unique_id=1928635996]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor" unique_id=1394293334]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "SELECTED_COLOR"
 
-[node name="SelectedColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor"]
+[node name="SelectedColor" type="ColorPickerButton" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor" unique_id=176736889]
 layout_mode = 2
 text = "aaa"
 color = Color(1, 1, 1, 1)
 
-[node name="HSeparator9" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator9" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=1520084922]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Type" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Type" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=964413799]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type" unique_id=1799370379]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "TYPE"
 
-[node name="TypeButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type"]
+[node name="TypeButton" type="OptionButton" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type" unique_id=877815685]
 layout_mode = 2
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "SCREEN"
 popup/item_0/id = 0
 popup/item_1/text = "TEXT"
@@ -1700,25 +1707,25 @@ popup/item_1/id = 1
 popup/item_2/text = "OPTION"
 popup/item_2/id = 2
 
-[node name="HSeparator10" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="HSeparator10" type="HSeparator" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=465082376]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Alignment" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings"]
+[node name="Alignment" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings" unique_id=445056408]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment" unique_id=775236151]
 layout_mode = 2
 text = "ALIGNMENT"
 
-[node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment"]
+[node name="Alignment" type="ItemList" parent="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment" unique_id=797737639]
 custom_minimum_size = Vector2(71, 90)
-layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 size_flags_stretch_ratio = 1.1
+layout_direction = 1
 allow_search = false
 item_count = 9
 max_columns = 3
@@ -1733,7 +1740,7 @@ item_6/text = "■"
 item_7/text = "■"
 item_8/text = "■"
 
-[node name="Attribute Check" type="Control" parent="InformationPanel/DialogNodeTabs"]
+[node name="Attribute Check" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=1271926754]
 visible = false
 layout_mode = 2
 script = ExtResource("34_c1nas")
@@ -1750,113 +1757,114 @@ white_check_checkbox_path = NodePath("VBoxContainer/WhiteCheck/Checkbox")
 pass_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/PassXPValue")
 fail_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/FailXPValue")
 update_dialog_button_path = NodePath("VBoxContainer/UpdateDialog")
+metadata/_tab_index = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check" unique_id=625005758]
 layout_mode = 0
 offset_top = 20.0
 offset_right = 400.0
 offset_bottom = 121.0
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=921930555]
 layout_mode = 2
 text = "Attributes and Target"
 horizontal_alignment = 1
 
-[node name="Attributes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="Attributes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1425110627]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="AttributeSelection" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
+[node name="AttributeSelection" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes" unique_id=853001084]
 layout_mode = 2
 
-[node name="Heart" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Heart" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=2027506387]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Heart"
 
-[node name="Body" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Body" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=136320741]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Body"
 
-[node name="Mind" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Mind" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=622508501]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Mind"
 
-[node name="Soul" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection"]
+[node name="Soul" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=152936442]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Soul"
 
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
+[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes" unique_id=2083706896]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Target" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes"]
+[node name="Target" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes" unique_id=545200063]
 layout_mode = 2
 
-[node name="Tag Modifiers" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="Tag Modifiers" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1496340052]
 layout_mode = 2
 text = "Tag Modifiers
 "
 horizontal_alignment = 1
 
-[node name="Tags" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="Tags" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1622570404]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags" unique_id=780558793]
 layout_mode = 2
 
-[node name="TagsList" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2"]
+[node name="TagsList" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2" unique_id=1344869642]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 
-[node name="TagContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/TagsList" instance=ExtResource("35_w1inp")]
+[node name="TagContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/TagsList" unique_id=1151433869 instance=ExtResource("35_w1inp")]
 layout_mode = 2
 
-[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2"]
+[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2" unique_id=1939947440]
 layout_mode = 2
 text = "+"
 
-[node name="WhiteCheck" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="WhiteCheck" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=409623796]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/WhiteCheck"]
+[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/WhiteCheck" unique_id=372337359]
 layout_mode = 2
 text = "White Check (Retryable)"
 
-[node name="Checkbox" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/WhiteCheck"]
+[node name="Checkbox" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/WhiteCheck" unique_id=1768813690]
 layout_mode = 2
 button_pressed = true
 
-[node name="XPContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="XPContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=126343157]
 layout_mode = 2
 
-[node name="PassXpLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
+[node name="PassXpLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=1775959040]
 layout_mode = 2
 text = "Pass XP"
 
-[node name="PassXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
+[node name="PassXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=796647410]
 layout_mode = 2
 allow_greater = true
 
-[node name="FailXPLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
+[node name="FailXPLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=747321145]
 layout_mode = 2
 text = "Fail XP"
 
-[node name="FailXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer"]
+[node name="FailXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=337189306]
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 allow_greater = true
 
-[node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1084691829]
 layout_mode = 2
 text = "Update Dialog"
 
-[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=249678320]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 text = "§0 black
@@ -1883,7 +1891,7 @@ text = "§0 black
 §r reset"
 editable = false
 
-[node name="ToggleVisiblity" type="Button" parent="InformationPanel"]
+[node name="ToggleVisiblity" type="Button" parent="InformationPanel" unique_id=190667665]
 layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -1895,7 +1903,7 @@ toggle_mode = true
 button_pressed = true
 text = ">"
 
-[node name="ResponseNodeSettings" type="TabContainer" parent="InformationPanel" node_paths=PackedStringArray("ResponseTitle", "ResponseText", "ResponseColor", "Commands", "AddCommandButton", "ResponseType", "OptionCommand", "DialogIDSpinbox", "CommandVisibilityButton")]
+[node name="ResponseNodeSettings" type="TabContainer" parent="InformationPanel" unique_id=519942198 node_paths=PackedStringArray("ResponseTitle", "ResponseText", "ResponseColor", "Commands", "AddCommandButton", "ResponseType", "OptionCommand", "DialogIDSpinbox", "CommandVisibilityButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1906,6 +1914,7 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
+current_tab = 0
 script = ExtResource("35_n4s6j")
 ResponseTitle = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseTitle")
 ResponseText = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseText")
@@ -1917,91 +1926,92 @@ OptionCommand = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/OptionCommand")
 DialogIDSpinbox = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/SpinBox")
 CommandVisibilityButton = NodePath("RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
 
-[node name="RESPONSE_NODE_SETTINGS" type="ScrollContainer" parent="InformationPanel/ResponseNodeSettings"]
+[node name="RESPONSE_NODE_SETTINGS" type="ScrollContainer" parent="InformationPanel/ResponseNodeSettings" unique_id=1961574391]
 layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS" unique_id=1492776908]
 custom_minimum_size = Vector2(405, 0)
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=2015505206]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="ResponseTitleLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="ResponseTitleLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=519575526]
 layout_mode = 2
 text = "RESPONSE_TITLE"
 
-[node name="ResponseTitle" type="LineEdit" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="ResponseTitle" type="LineEdit" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=1442974200]
 layout_mode = 2
 placeholder_text = "RESPONSE_TITLE"
 
-[node name="HSeparator2" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=2052343578]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="ResponseTextLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="ResponseTextLabel" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=783579112]
 layout_mode = 2
 text = "RESPONSE_TEXT"
 
-[node name="ResponseText" type="TextEdit" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="ResponseText" type="TextEdit" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=1220260860]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 placeholder_text = "RESPONSE_TEXT_HINT"
 wrap_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=1361144823]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer" unique_id=1848756677]
 layout_mode = 2
 text = "COLOR"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/HBoxContainer" unique_id=1399525571]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=2117222485]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="CommandsLabelandButton" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="CommandsLabelandButton" type="HBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=188271067]
 layout_mode = 2
 
-[node name="Lbl Console" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton"]
+[node name="Lbl Console" type="Label" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton" unique_id=1476040830]
 layout_mode = 2
 text = "CONSOLE_COMMAND"
 
-[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton"]
+[node name="CommandVisibilityButton" type="Button" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/CommandsLabelandButton" unique_id=1457660492]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("21_vtqsr")
 
-[node name="Commands" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="Commands" type="VBoxContainer" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=1220895902]
 visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 1.65
 
-[node name="AddCommandButton" type="Button" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="AddCommandButton" type="Button" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=1172062542]
 visible = false
 layout_mode = 2
 text = "Add (1.18+ Only)"
 
-[node name="HSeparator4" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=983432724]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="OptionTypeButton" type="OptionButton" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
-clip_contents = true
+[node name="OptionTypeButton" type="OptionButton" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=321175519]
 custom_minimum_size = Vector2(150, 0)
+clip_contents = true
 layout_mode = 2
 alignment = 1
 text_overrun_behavior = 3
 clip_text = true
 icon_alignment = 1
-item_count = 5
 selected = 0
 fit_to_longest_item = false
+item_count = 5
 popup/item_0/text = "RESPONSE_OPTION_DIALOG"
 popup/item_0/id = 1
 popup/item_1/text = "RESPONSE_OPTION_ROLE"
@@ -2013,20 +2023,20 @@ popup/item_3/id = 0
 popup/item_4/text = "RESPONSE_OPTION_DISABLED"
 popup/item_4/id = 2
 
-[node name="OptionCommand" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" instance=ExtResource("15")]
+[node name="OptionCommand" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=1924720182 instance=ExtResource("15")]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="SpinBox" type="SpinBox" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer"]
+[node name="SpinBox" type="SpinBox" parent="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer" unique_id=145335341]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 prefix = "ID: "
 
-[node name="CategoryPanel" type="PanelContainer" parent="."]
-clip_contents = true
+[node name="CategoryPanel" type="PanelContainer" parent="." unique_id=2107320651]
 custom_minimum_size = Vector2(360, 600)
+clip_contents = true
 layout_mode = 1
 offset_top = 50.0
 offset_right = 360.0
@@ -2038,45 +2048,45 @@ environment_index_path = NodePath("DialogFileSystemIndex")
 dialog_editor_path = NodePath("../DialogEditor")
 auto_save_path = NodePath("../AutosaveTimer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CategoryPanel" unique_id=1387443386]
 custom_minimum_size = Vector2(340, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="CategoryPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="CategoryPanel/VBoxContainer" unique_id=1158034925]
 layout_mode = 2
 text = "CATEGORIES_PANEL_LABEL"
 horizontal_alignment = 1
 
-[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer"]
+[node name="CreateNewCategory" type="Button" parent="CategoryPanel/VBoxContainer" unique_id=182805407]
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 1
 text = "CREATE_NEW_CATEGORY"
 
-[node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer"]
+[node name="Searchbar" type="LineEdit" parent="CategoryPanel/VBoxContainer" unique_id=36991768]
 layout_mode = 2
 placeholder_text = "SEARCH"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CategoryPanel/VBoxContainer" unique_id=1831159001]
 custom_minimum_size = Vector2(340, 600)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer"]
-clip_contents = true
+[node name="CategoryContainers" type="VBoxContainer" parent="CategoryPanel/VBoxContainer/ScrollContainer" unique_id=114414171]
 custom_minimum_size = Vector2(260, 600)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 
-[node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CategoryPanel/VBoxContainer" unique_id=797751267]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="SFTP_BOX" type="VBoxContainer" parent="CategoryPanel/VBoxContainer"]
+[node name="SFTP_BOX" type="VBoxContainer" parent="CategoryPanel/VBoxContainer" unique_id=1246391572]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
@@ -2089,15 +2099,15 @@ server_label_path = NodePath("GridContainer/ServerLabel")
 toggle_connection_path = NodePath("ToggleConnection")
 resync_path = NodePath("ResyncButton")
 
-[node name="GridContainer" type="GridContainer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+[node name="GridContainer" type="GridContainer" parent="CategoryPanel/VBoxContainer/SFTP_BOX" unique_id=589223440]
 layout_mode = 2
 columns = 2
 
-[node name="SFTP_StatusTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+[node name="SFTP_StatusTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer" unique_id=1932150025]
 layout_mode = 2
 text = "SFTP_STATUS"
 
-[node name="StatusLabel" type="RichTextLabel" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+[node name="StatusLabel" type="RichTextLabel" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer" unique_id=380496527]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 mouse_filter = 1
@@ -2105,11 +2115,11 @@ bbcode_enabled = true
 text = "Connected [img]res://Assets/UI Textures/Icon Font/globe-earth-line.png[/img] "
 autowrap_mode = 2
 
-[node name="ServerTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+[node name="ServerTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer" unique_id=1011321732]
 layout_mode = 2
 text = "SFTP_SERVER"
 
-[node name="ServerLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+[node name="ServerLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer" unique_id=481036374]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2118,12 +2128,12 @@ text = "SFTP_CONNECTION"
 justification_flags = 162
 text_overrun_behavior = 3
 
-[node name="RemoteDirTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+[node name="RemoteDirTitle" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer" unique_id=582652573]
 layout_mode = 2
 text = "REMOTE_DIRECTORY"
 horizontal_alignment = 2
 
-[node name="RemoteDirLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer"]
+[node name="RemoteDirLabel" type="Label" parent="CategoryPanel/VBoxContainer/SFTP_BOX/GridContainer" unique_id=1896784548]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2134,31 +2144,31 @@ autowrap_mode = 2
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="ToggleConnection" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+[node name="ToggleConnection" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX" unique_id=1138980451]
 custom_minimum_size = Vector2(26, 20)
 layout_mode = 2
 size_flags_vertical = 8
 tooltip_text = "TOGGLE_CONNECTION_TOOLTIP"
 text = "DISCONNECT"
 
-[node name="ResyncButton" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+[node name="ResyncButton" type="Button" parent="CategoryPanel/VBoxContainer/SFTP_BOX" unique_id=1471664336]
 layout_mode = 2
 tooltip_text = "RESYNC_TOOLTIP"
 text = "SYNC_LOCAL_CACHE"
 
-[node name="Timer" type="Timer" parent="CategoryPanel/VBoxContainer/SFTP_BOX"]
+[node name="Timer" type="Timer" parent="CategoryPanel/VBoxContainer/SFTP_BOX" unique_id=14431461]
 wait_time = 30.0
 autostart = true
 
-[node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel"]
+[node name="DialogFileSystemIndex" type="Node" parent="CategoryPanel" unique_id=655434575]
 script = ExtResource("13")
 
-[node name="UI Anims" type="Node" parent="."]
+[node name="UI Anims" type="Node" parent="." unique_id=1550591031]
 script = ExtResource("16")
 InformationPanel = NodePath("../InformationPanel")
 CategoryPanel = NodePath("../CategoryPanel")
 
-[node name="SaveLabel" type="Label" parent="UI Anims"]
+[node name="SaveLabel" type="Label" parent="UI Anims" unique_id=1588082428]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -2170,7 +2180,7 @@ offset_bottom = 93.0
 theme = ExtResource("14")
 text = "SAVING"
 
-[node name="ExportFail" type="Label" parent="UI Anims"]
+[node name="ExportFail" type="Label" parent="UI Anims" unique_id=1231207799]
 modulate = Color(1, 0, 0, 0)
 self_modulate = Color(1, 0, 0, 1)
 anchors_preset = 5
@@ -2183,7 +2193,7 @@ offset_bottom = 102.0
 theme = ExtResource("14")
 text = "EXPORT_FAILED"
 
-[node name="Export" type="Label" parent="UI Anims"]
+[node name="Export" type="Label" parent="UI Anims" unique_id=113069710]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -2195,7 +2205,7 @@ offset_bottom = 93.0
 theme = ExtResource("14")
 text = "EXPORT"
 
-[node name="SaveFail" type="Label" parent="UI Anims"]
+[node name="SaveFail" type="Label" parent="UI Anims" unique_id=735793003]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 0, 0, 1)
 anchors_preset = 5
@@ -2208,7 +2218,7 @@ offset_bottom = 95.0
 theme = ExtResource("14")
 text = "SAVE_FAILED"
 
-[node name="Rescan" type="Label" parent="UI Anims"]
+[node name="Rescan" type="Label" parent="UI Anims" unique_id=1494685302]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -2220,7 +2230,7 @@ offset_bottom = 95.0
 theme = ExtResource("14")
 text = "Rescanned Quests and Factions"
 
-[node name="AvailabilityMode" type="PanelContainer" parent="UI Anims"]
+[node name="AvailabilityMode" type="PanelContainer" parent="UI Anims" unique_id=1250210336]
 visible = false
 anchors_preset = 5
 anchor_left = 0.5
@@ -2233,13 +2243,13 @@ grow_horizontal = 2
 theme = ExtResource("14")
 theme_override_styles/panel = SubResource("StyleBoxFlat_j53uj")
 
-[node name="Label" type="Label" parent="UI Anims/AvailabilityMode"]
+[node name="Label" type="Label" parent="UI Anims/AvailabilityMode" unique_id=579320021]
 layout_mode = 2
 text = "DOUBLE_CLICK_AVAIL"
 label_settings = SubResource("LabelSettings_ik4xw")
 horizontal_alignment = 1
 
-[node name="NotificationCenter" type="VBoxContainer" parent="UI Anims"]
+[node name="NotificationCenter" type="VBoxContainer" parent="UI Anims" unique_id=1817268300]
 custom_minimum_size = Vector2(200, 100)
 anchors_preset = 2
 anchor_top = 1.0
@@ -2250,7 +2260,7 @@ grow_vertical = 0
 mouse_filter = 2
 alignment = 2
 
-[node name="EditorSettings" parent="." instance=ExtResource("25_ypfkb")]
+[node name="EditorSettings" parent="." unique_id=32266244 instance=ExtResource("25_ypfkb")]
 process_mode = 2
 visible = false
 custom_minimum_size = Vector2(650, 700)
@@ -2258,7 +2268,7 @@ layout_mode = 1
 offset_left = -325.0
 offset_right = 325.0
 
-[node name="UnsavedPanel" type="PanelContainer" parent="."]
+[node name="UnsavedPanel" type="PanelContainer" parent="." unique_id=677660425]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -2274,60 +2284,60 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_np52e")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UnsavedPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UnsavedPanel" unique_id=699465655]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UnsavedPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="UnsavedPanel/VBoxContainer" unique_id=1595542667]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 text = "UNSAVED"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="UnsavedPanel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="UnsavedPanel/VBoxContainer" unique_id=744711422]
 layout_mode = 2
 
-[node name="UnsavedCategoriesLabel" type="Label" parent="UnsavedPanel/VBoxContainer"]
+[node name="UnsavedCategoriesLabel" type="Label" parent="UnsavedPanel/VBoxContainer" unique_id=808168420]
 layout_mode = 2
 text = "UNSAVED"
 horizontal_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="UnsavedPanel/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="UnsavedPanel/VBoxContainer" unique_id=786288941]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedPanel/VBoxContainer" unique_id=858222385]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="SaveAndClose" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
+[node name="SaveAndClose" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer" unique_id=2115837307]
 layout_mode = 2
 text = "SAVE_AND_CLOSE"
 
-[node name="VSeparator" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer" unique_id=842361075]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="NoSave" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
+[node name="NoSave" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer" unique_id=884254153]
 layout_mode = 2
 text = "CLOSE_NO_SAVE"
 
-[node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="UnsavedPanel/VBoxContainer/HBoxContainer" unique_id=919621862]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer"]
+[node name="Cancel" type="Button" parent="UnsavedPanel/VBoxContainer/HBoxContainer" unique_id=1860885029]
 layout_mode = 2
 text = "CANCEL"
 
-[node name="AutosaveTimer" type="Timer" parent="."]
+[node name="AutosaveTimer" type="Timer" parent="." unique_id=925372903]
 wait_time = 180.0
 one_shot = true
 
-[node name="DoubleClickTimer" type="Timer" parent="."]
+[node name="DoubleClickTimer" type="Timer" parent="." unique_id=1408151646]
 wait_time = 0.2
 one_shot = true
 

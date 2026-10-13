@@ -1,7 +1,7 @@
 extends Node
 
 const RESPONSE_NODE_VERTICAL_OFFSET := 100
-const DIALOG_NODE_HORIZONTAL_OFFSET := 387
+const DIALOG_NODE_HORIZONTAL_OFFSET :=440 
 
 var user_settings_path = "user://user_settings.cfg"
 

@@ -572,6 +572,3 @@ private void DeleteDirectory(string path)
 		return _SFTPClient.ReadLines(file_path);
 	}
 }
-
-
-

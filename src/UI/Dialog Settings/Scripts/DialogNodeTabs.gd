@@ -51,7 +51,7 @@ func load_dialog_settings(dialog):
 	current_dialog.connect("text_changed", Callable(self, "update_text"))
 	current_dialog.connect("dialog_ready_for_deletion", Callable(self, "disconnect_current_dialog"))
 	
-	title_label.text = current_dialog.dialog_title+" | Node "+String(current_dialog.node_index)
+	title_label.text = current_dialog.dialog_title+" | Node "+String(current_dialog.dialog_id)
 	hide_npc_checkbox.button_pressed = current_dialog.hide_npc
 	show_wheel_checkbox.button_pressed = current_dialog.show_wheel
 	disable_esc_checkbox.button_pressed = current_dialog.disable_esc

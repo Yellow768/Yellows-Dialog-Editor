@@ -84,6 +84,3 @@ func convert_bytes_to_s16(bytes: PackedByteArray) -> int:
 	return spb.get_16()
 	
 	
-
-
-

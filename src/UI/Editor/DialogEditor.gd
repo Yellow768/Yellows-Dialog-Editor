@@ -74,7 +74,6 @@ func _ready():
 	add_valid_left_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_INTO_DIALOG)
 	add_valid_right_disconnect_type(GlobalDeclarations.CONNECTION_TYPES.PORT_FROM_RESPONSE)
 	set_process_input(false)
-	$CLAYER.z_index = 2
 
 
 
@@ -160,7 +159,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 		new_offset = new_response.position_offset
 
 	elif parent_dialog.response_options.size() == 0:
-		new_offset = parent_dialog.position_offset +Vector2(387,0)
+		new_offset = parent_dialog.position_offset +Vector2(440,0)
 	else:
 		new_offset = Vector2(parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.x,parent_dialog.response_options[parent_dialog.response_options.size()-1].position_offset.y+300)	
 	
@@ -170,7 +169,7 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	new_response.connect("disconnect_from_dialog_request", Callable(self, "disconnect_nodes"))
 	new_response.connect("request_connection_line_shown", Callable(self, "show_connection_line"))
 	new_response.connect("request_connection_line_hidden", Callable(self, "hide_connection_line"))
-	new_response.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
+	new_response.connect("request_set_scroll_offset", Callable(self, "set_scroll_offs"))
 	new_response.connect("request_add_dialog", Callable(self, "add_dialog_node"))
 	new_response.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_response.connect("dragged", Callable(self, "response_node_dragged").bind(new_response))
@@ -292,11 +291,8 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 		response = to
 		dialog = from
 		if response.parent_dialog:
-
 			return
-		dialog.response_options.append(response)
-		response.slot = dialog.response_options.size()-1
-		response.parent_dialog = dialog
+		dialog.append_response(response)
 		connect_node(from.get_name(),from_slot,to.get_name(),to_slot)
 		response.set_orphaned(false)
 
@@ -333,24 +329,24 @@ func show_connection_line(from: GraphNode,to: GraphNode):
 	connect_node(from.name,0,to.name,0)
 
 
-func handle_swapping_responses(response_node : response_node ,overlapping_response : response_node,from : Vector2 ,to: Vector2,commit_to_undo := true):
-		var initial_slot := response_node.slot
-		var initial_parent := response_node.parent_dialog
+func handle_swapping_responses(this_response_node : response_node ,overlapping_response : response_node,from : Vector2 ,to: Vector2,commit_to_undo := true):
+		var initial_slot := this_response_node.slot
+		var initial_parent := this_response_node.parent_dialog
 		var initial_offset := from
 		
 		#Switch Slots
-		response_node.slot = overlapping_response.slot
+		this_response_node.slot = overlapping_response.slot
 		overlapping_response.slot = initial_slot
 	
 		
 		var tween := get_tree().create_tween()
 		var initial_tween := get_tree().create_tween()
-		tween.tween_property(response_node,"position_offset",overlapping_response.position_offset,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+		tween.tween_property(this_response_node,"position_offset",overlapping_response.position_offset,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		initial_tween.tween_property(overlapping_response,"position_offset",from,.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		
 		#Remove from parents array
-		response_node.parent_dialog.response_options.erase(response_node)
-		disconnect_node(response_node.parent_dialog.get_name(),0,response_node.name,0)
+		this_response_node.parent_dialog.response_options.erase(this_response_node)
+		disconnect_node(this_response_node.parent_dialog.get_name(),0,this_response_node.name,0)
 		
 		
 		overlapping_response.parent_dialog.response_options.erase(overlapping_response)
@@ -358,20 +354,20 @@ func handle_swapping_responses(response_node : response_node ,overlapping_respon
 		
 		
 		#Switch to other parents array. Make sure slot isn't invalid
-		if response_node.parent_dialog.response_options.size() >= overlapping_response.slot:
-			response_node.parent_dialog.response_options.insert(overlapping_response.slot,overlapping_response)
+		if this_response_node.parent_dialog.response_options.size() >= overlapping_response.slot:
+			this_response_node.parent_dialog.response_options.insert(overlapping_response.slot,overlapping_response)
 		else:
-			response_node.parent_dialog.response_options.append(overlapping_response)
-		connect_node(response_node.parent_dialog.get_name(),0,overlapping_response.get_name(),0)
+			this_response_node.parent_dialog.response_options.append(overlapping_response)
+		connect_node(this_response_node.parent_dialog.get_name(),0,overlapping_response.get_name(),0)
 		
-		if overlapping_response.parent_dialog.response_options.size() >= response_node.slot:
-			overlapping_response.parent_dialog.response_options.insert(response_node.slot,response_node)
+		if overlapping_response.parent_dialog.response_options.size() >= this_response_node.slot:
+			overlapping_response.parent_dialog.response_options.insert(this_response_node.slot,this_response_node)
 		else:
-			overlapping_response.parent_dialog.response_options.append(response_node)
-		connect_node(overlapping_response.parent_dialog.get_name(),0,response_node.get_name(),0)
+			overlapping_response.parent_dialog.response_options.append(this_response_node)
+		connect_node(overlapping_response.parent_dialog.get_name(),0,this_response_node.get_name(),0)
 		
 		#Switch Parents
-		response_node.parent_dialog = overlapping_response.parent_dialog
+		this_response_node.parent_dialog = overlapping_response.parent_dialog
 		overlapping_response.parent_dialog = initial_parent
 		
 		if commit_to_undo:
@@ -381,7 +377,7 @@ func handle_swapping_responses(response_node : response_node ,overlapping_respon
 func set_category_zoom(new_zoom : float):
 	zoom = new_zoom
 
-func set_scroll_offset(new_offset : Vector2):
+func set_scroll_offs(new_offset : Vector2):
 	var tween := get_tree().create_tween()
 	tween.tween_property(self,"scroll_offset",(new_offset * zoom)-Vector2(get_window().size)/2,.6).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 
@@ -688,13 +684,13 @@ func _on_DialogEditor_gui_input(event):
 		accept_event()	
 	if Input.is_key_pressed(KEY_CTRL):
 		if Input.is_action_pressed("ui_left"):
-			set_scroll_ofs(scroll_offset-Vector2(10,0))
+			set_scroll_offs(scroll_offset-Vector2(10,0))
 		if Input.is_action_pressed("ui_right"):
-			set_scroll_ofs(scroll_offset+Vector2(10,0))
+			set_scroll_offs(scroll_offset+Vector2(10,0))
 		if Input.is_action_pressed("ui_up"):
-			set_scroll_ofs(scroll_offset-Vector2(0,10))
+			set_scroll_offs(scroll_offset-Vector2(0,10))
 		if Input.is_action_pressed("ui_down"):
-			set_scroll_ofs(scroll_offset+Vector2(0,10))
+			set_scroll_offs(scroll_offset+Vector2(0,10))
 	if Input.is_action_just_pressed("show_minimap"):	
 		minimap_enabled = !minimap_enabled
 		accept_event()
@@ -738,8 +734,7 @@ func reindex_ids():
 func _on_category_panel_request_dialog_ids_reassigned():
 	reindex_ids()
 
-func _on_editor_settings_snap_enabled_changed(value):
-	use_snap = value
+
 
 
 func _on_double_click_timer_timeout():
@@ -815,14 +810,26 @@ func _on_paste_nodes_request():
 		pasted_response.position_offset = (pasted_offset+scroll_offset)/zoom
 		
 		var new_parent_dialog = null
+		if currently_copied_dialogs.is_empty():
+			if selected_dialogs.size() == 1:
+				new_parent_dialog = selected_dialogs[0]
+				pasted_response.position_offset.y = new_parent_dialog.position_offset.y
+				var last_response = new_parent_dialog.response_options.back()
+				if last_response:
+					pasted_response.position_offset.y = last_response.position_offset.y + GlobalDeclarations.RESPONSE_NODE_VERTICAL_OFFSET+300
+				
+				pasted_response.position_offset.x = new_parent_dialog.position_offset.x + GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET
+				
+				
 		
 		if id_map.has(pasted_response.parent_dialog_id):
 			new_parent_dialog = id_map[pasted_response.parent_dialog_id]
+			
 		add_response_node(new_parent_dialog,pasted_response,false)
 		
 		if id_map.has(pasted_response.to_dialog_id):
 			connect_nodes(pasted_response,0,id_map[pasted_response.to_dialog_id],0)
-	
+		
 		else:
 			var dialog = find_dialog_node_from_id(pasted_response.to_dialog_id)
 			if dialog != null:

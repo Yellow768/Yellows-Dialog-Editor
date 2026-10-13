@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://hgc7wambejk3"]
+[gd_resource type="Theme" format=3 uid="uid://hgc7wambejk3"]
 
 [ext_resource type="StyleBox" uid="uid://cq3cuar4v71mg" path="res://Assets/Theme/DarkColorPanel.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://dawclfafqp0ju" path="res://Assets/UI Textures/Node.png" id="1_iyuox"]
@@ -194,7 +194,6 @@ Button/styles/hover = SubResource("StyleBoxFlat_eom74")
 Button/styles/normal = SubResource("StyleBoxFlat_4ikwl")
 Button/styles/pressed = SubResource("StyleBoxFlat_vpvpv")
 GraphEdit/styles/bg = SubResource("8")
-GraphNode/colors/title_color = Color(1, 1, 1, 1)
 GraphNode/constants/close_h_offset = -6
 GraphNode/constants/close_offset = 18
 GraphNode/constants/separation = 2

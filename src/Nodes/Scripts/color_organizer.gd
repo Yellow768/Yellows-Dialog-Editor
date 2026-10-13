@@ -83,13 +83,11 @@ func _on_raise_request():
 func _on_node_selected():
 	mouse_filter = 1
 	resizable = true
-	overlay = GraphNode.OVERLAY_POSITION
 
 
 func _on_node_deselected():
 	mouse_filter = 2
 	resizable = false
-	overlay = GraphNode.OVERLAY_DISABLED
 
 	
 
@@ -103,7 +101,6 @@ func delete_self(_useless_bool):
 func set_locked(value : bool):
 	
 	locked = value
-	comment = locked
 	selectable = !value
 	$HBoxContainer/TextEdit.selecting_enabled = !value
 	
