@@ -10,4 +10,5 @@ addons/
 
 # Quick test bash script
 p.sh
+export_presets.cfg
 
