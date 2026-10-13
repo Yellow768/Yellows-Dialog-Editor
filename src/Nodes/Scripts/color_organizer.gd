@@ -41,9 +41,10 @@ func change_color(color):
 	style.corner_radius_bottom_right = 15
 	style.corner_radius_top_left = 15
 	style.corner_radius_top_right= 15
-	add_theme_stylebox_override("frame",style)
-	add_theme_stylebox_override("selected_frame",style)
-	add_theme_stylebox_override("comment",style)
+	add_theme_stylebox_override("panel",style)
+	add_theme_stylebox_override("panel_selected",style)
+	add_theme_stylebox_override("titlebar_selected",style)
+	add_theme_stylebox_override("titlebar",style)
 	if box_color.get_luminance() > 0.5:
 		$HBoxContainer/TextEdit.add_theme_color_override("font_color",Color(0,0,0,1))
 		add_theme_color_override("close_color",Color(0,0,0,1))
