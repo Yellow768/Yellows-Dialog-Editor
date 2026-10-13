@@ -106,6 +106,7 @@ func createAttributeCheckJson():
 
 func _on_update_dialog_pressed():
 	InformationPanel.current_dialog.set_dialog_text("<att check> \n"+JSON.stringify(createAttributeCheckJson()))
+	InformationPanel.current_dialog.update_style_to_attribute_check()
 	InformationPanel.current_dialog.attribute_check = createAttributeCheckJson()
 	
 

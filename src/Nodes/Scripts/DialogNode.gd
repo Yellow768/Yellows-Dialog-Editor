@@ -113,6 +113,7 @@ var start_quest : int = -1
 
 #Attribute Check. ONLY FOR RAINMIRE
 var attribute_check = {}
+var is_attribute_check := false
 
 #States
 
@@ -146,6 +147,8 @@ func _ready():
 	close_btn.text = "X  "
 	close_btn.pressed.connect(Callable(self,"delete_self"))
 	get_titlebar_hbox().add_child(close_btn)
+	if is_attribute_check:
+		update_style_to_attribute_check()
 		
 
 func determine_name(_response):
@@ -507,8 +510,9 @@ func save():
 		"spacing_preset" : spacing_preset,
 		"visual_preset" : visual_preset,
 		"lock_visual_preset" : lock_visual_preset,
-		"attribute_check": JSON.stringify(attribute_check)
-	}
+		"attribute_check": JSON.stringify(attribute_check),
+		"is_attribute_check":is_attribute_check	
+		}
 	return save_dict
 
 
@@ -550,3 +554,17 @@ func _on_node_deselected():
 			response.set_slot_color_left(1,GlobalDeclarations.response_left_slot_color)
 	set_slot_color_right(1,GlobalDeclarations.dialog_right_slot_color)
 	set_slot_color_left(1,GlobalDeclarations.dialog_left_slot_color)
+	
+	
+func update_style_to_attribute_check():
+	var attribute_style = StyleBoxFlat.new()
+	var attribute_style_selected = StyleBoxFlat.new()
+	attribute_style.corner_radius_top_left = 5
+	attribute_style.corner_radius_top_right = 5
+	attribute_style.bg_color = Color(.7,0,.7)
+	attribute_style_selected.corner_radius_top_left = 5
+	attribute_style_selected.corner_radius_top_right = 5
+	attribute_style_selected.bg_color = Color(1,0,1)
+	add_theme_stylebox_override("titlebar",attribute_style)
+	add_theme_stylebox_override("titlebar_selected",attribute_style_selected)
+	is_attribute_check = true
