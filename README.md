@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-This version is for developing my adventure map Rainmire. It has some features that are specific to some scripted mechanics on the map. You have no reason to use this.
-=======
 Yellow's CustomNPC's Dialog Editor
 ===================================
 
@@ -37,4 +34,4 @@ I also automatically load in quest and faction data, and keep in memory a list o
 The editor can also import in existing dialogs, both from the minecraft world, and on their own, and will automatically create the correct IDs for it.
 
 ### Checkout the [Wiki!](https://github.com/Yellow768/Yellows-Dialog-Editor/wiki)
->>>>>>> master
+
