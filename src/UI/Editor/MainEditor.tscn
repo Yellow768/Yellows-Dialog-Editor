@@ -42,9 +42,7 @@
 [ext_resource type="Script" uid="uid://xyc7ea7ipnuy" path="res://src/UI/Editor/DialogSpacingSettings.gd" id="30_tinmk"]
 [ext_resource type="Script" uid="uid://jre40algc7b8" path="res://src/UI/Editor/DialogImageSettings.gd" id="31_teijp"]
 [ext_resource type="Texture2D" uid="uid://ymrya147pb6v" path="res://Assets/UI Textures/Icon Font/link-line.svg" id="32_jwfbh"]
-[ext_resource type="Script" uid="uid://ppr3urqcd2oq" path="res://src/UI/Editor/DialogAttributeCheckSettings.gd" id="34_c1nas"]
 [ext_resource type="Script" uid="uid://rmapf413n7sn" path="res://src/UI/Editor/ResponseNodeSettings.gd" id="35_n4s6j"]
-[ext_resource type="PackedScene" uid="uid://gqxq7kkkgl8l" path="res://src/Nodes/attributes/tag_container.tscn" id="35_w1inp"]
 [ext_resource type="Script" uid="uid://dupc4ynb3livx" path="res://src/UI/Editor/SFTP_BOX.gd" id="38_78yl7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gybui"]
@@ -366,7 +364,6 @@ category_panel_path = NodePath("../CategoryPanel")
 toggle_visiblity_path = NodePath("ToggleVisiblity")
 dialog_editor_path = NodePath("../DialogEditor")
 mail_data_path = NodePath("DialogNodeTabs/MAIL")
-attribute_check_path = NodePath("DialogNodeTabs/Attribute Check")
 response_settings_tab = NodePath("ResponseNodeSettings")
 
 [node name="Label" type="Label" parent="InformationPanel" unique_id=1140780758]
@@ -383,7 +380,6 @@ text = "INFORMATION_PANEL_LABEL"
 clip_text = true
 
 [node name="DialogNodeTabs" type="TabContainer" parent="InformationPanel" unique_id=1503258172]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -431,8 +427,6 @@ faction_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/Faction
 add_faction_button_path = NodePath("ScrollContainer/VBoxContainer/AddFactionChange")
 add_command_button_path = NodePath("ScrollContainer/VBoxContainer/AddCommandButton")
 command_visibility_button_path = NodePath("ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton")
-add_tag_button_path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/AddTagButton")
-tag_line_edit_path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/TagLineEdit")
 StopMusicCheckbox = NodePath("ScrollContainer/VBoxContainer/DialogStopMusic")
 metadata/_tab_index = 0
 
@@ -656,27 +650,12 @@ layout_mode = 2
 toggle_mode = true
 icon = ExtResource("21_vtqsr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=1246631396]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=385573782]
-layout_mode = 2
-text = "(Rainmire) Add Tag"
-
-[node name="TagLineEdit" type="LineEdit" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=482415138]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-max_length = 16
-
-[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1959514934]
-layout_mode = 2
-text = "Add"
-
 [node name="Commands" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer" unique_id=400697980]
 layout_mode = 2
 size_flags_stretch_ratio = 1.65
 
 [node name="Command" parent="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands" unique_id=1069164304 instance=ExtResource("15")]
+visible = false
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 min_size = 40
@@ -1740,157 +1719,6 @@ item_6/text = "■"
 item_7/text = "■"
 item_8/text = "■"
 
-[node name="Attribute Check" type="Control" parent="InformationPanel/DialogNodeTabs" unique_id=1271926754]
-visible = false
-layout_mode = 2
-script = ExtResource("34_c1nas")
-information_panel_path = NodePath("../..")
-heart_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Heart")
-body_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Body")
-mind_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Mind")
-soul_path = NodePath("VBoxContainer/Attributes/AttributeSelection/Soul")
-target_value_path = NodePath("VBoxContainer/Attributes/Target")
-attributes_selection_container = NodePath("VBoxContainer/Attributes/AttributeSelection")
-tags_list_path = NodePath("VBoxContainer/Tags/VBoxContainer2/TagsList")
-add_tag_path = NodePath("VBoxContainer/Tags/VBoxContainer2/AddTagButton")
-white_check_checkbox_path = NodePath("VBoxContainer/WhiteCheck/Checkbox")
-pass_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/PassXPValue")
-fail_xp_spinbox_path = NodePath("VBoxContainer/XPContainer/FailXPValue")
-update_dialog_button_path = NodePath("VBoxContainer/UpdateDialog")
-metadata/_tab_index = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check" unique_id=625005758]
-layout_mode = 0
-offset_top = 20.0
-offset_right = 400.0
-offset_bottom = 121.0
-
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=921930555]
-layout_mode = 2
-text = "Attributes and Target"
-horizontal_alignment = 1
-
-[node name="Attributes" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1425110627]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-
-[node name="AttributeSelection" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes" unique_id=853001084]
-layout_mode = 2
-
-[node name="Heart" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=2027506387]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-text = "Heart"
-
-[node name="Body" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=136320741]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-text = "Body"
-
-[node name="Mind" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=622508501]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-text = "Mind"
-
-[node name="Soul" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes/AttributeSelection" unique_id=152936442]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-text = "Soul"
-
-[node name="VSeparator" type="VSeparator" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes" unique_id=2083706896]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="Target" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Attributes" unique_id=545200063]
-layout_mode = 2
-
-[node name="Tag Modifiers" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1496340052]
-layout_mode = 2
-text = "Tag Modifiers
-"
-horizontal_alignment = 1
-
-[node name="Tags" type="ScrollContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1622570404]
-custom_minimum_size = Vector2(300, 200)
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags" unique_id=780558793]
-layout_mode = 2
-
-[node name="TagsList" type="VBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2" unique_id=1344869642]
-custom_minimum_size = Vector2(350, 50)
-layout_mode = 2
-
-[node name="TagContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/TagsList" unique_id=1151433869 instance=ExtResource("35_w1inp")]
-layout_mode = 2
-
-[node name="AddTagButton" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2" unique_id=1939947440]
-layout_mode = 2
-text = "+"
-
-[node name="WhiteCheck" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=409623796]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/WhiteCheck" unique_id=372337359]
-layout_mode = 2
-text = "White Check (Retryable)"
-
-[node name="Checkbox" type="CheckBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/WhiteCheck" unique_id=1768813690]
-layout_mode = 2
-button_pressed = true
-
-[node name="XPContainer" type="HBoxContainer" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=126343157]
-layout_mode = 2
-
-[node name="PassXpLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=1775959040]
-layout_mode = 2
-text = "Pass XP"
-
-[node name="PassXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=796647410]
-layout_mode = 2
-allow_greater = true
-
-[node name="FailXPLabel" type="Label" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=747321145]
-layout_mode = 2
-text = "Fail XP"
-
-[node name="FailXPValue" type="SpinBox" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/XPContainer" unique_id=337189306]
-custom_minimum_size = Vector2(50, 20)
-layout_mode = 2
-allow_greater = true
-
-[node name="UpdateDialog" type="Button" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=1084691829]
-layout_mode = 2
-text = "Update Dialog"
-
-[node name="TextEdit" type="TextEdit" parent="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer" unique_id=249678320]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-text = "§0 black
-§1 dark_blue
-§2 dark_green
-§3 dark_aqua
-§4 dark_red
-§5 dark_purple
-§6 gold
-§7 gray
-§8 dark_gray
-§9 blue
-§a green
-§b aqua
-§c red
-§d light_purple
-§e yellow
-§f white
-
-§k obfuscared
-§l bold
-§m strikethrough
-§o italic
-§r reset"
-editable = false
-
 [node name="ToggleVisiblity" type="Button" parent="InformationPanel" unique_id=190667665]
 layout_mode = 0
 anchor_top = 0.5
@@ -2442,7 +2270,6 @@ one_shot = true
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Soundfile" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_soundfile_text_changed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/DialogStopMusic" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_dialog_stop_music_toggled"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/CommandsLabelandButton/CommandVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_command_visibility_button_toggled"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/HBoxContainer/AddTagButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_tag_button_pressed"]
 [connection signal="text_changed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/Commands/Command" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_Command_text_changed"]
 [connection signal="pressed" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/AddCommandButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_add_command_button_pressed"]
 [connection signal="toggled" from="InformationPanel/DialogNodeTabs/GENERAL/ScrollContainer/VBoxContainer/FactionsLabelandButton/FactionsVisibilityButton" to="InformationPanel/DialogNodeTabs/GENERAL" method="_on_factions_visibility_button_toggled"]
@@ -2510,8 +2337,6 @@ one_shot = true
 [connection signal="color_changed" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Colors/SelectedColor/SelectedColor" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_selected_color_color_changed"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Type/TypeButton" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_type_button_item_selected"]
 [connection signal="item_selected" from="InformationPanel/DialogNodeTabs/IMAGES/HBoxContainer/ScrollContainer/ImageSettings/Alignment/Alignment" to="InformationPanel/DialogNodeTabs/IMAGES" method="_on_alignment_item_selected"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/Tags/VBoxContainer2/AddTagButton" to="InformationPanel/DialogNodeTabs/Attribute Check" method="_on_add_tag_button_pressed"]
-[connection signal="pressed" from="InformationPanel/DialogNodeTabs/Attribute Check/VBoxContainer/UpdateDialog" to="InformationPanel/DialogNodeTabs/Attribute Check" method="_on_update_dialog_pressed"]
 [connection signal="toggled" from="InformationPanel/ToggleVisiblity" to="InformationPanel" method="_on_ToggleVisiblity_toggled"]
 [connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseTitle" to="InformationPanel/ResponseNodeSettings" method="_on_response_title_text_changed"]
 [connection signal="text_changed" from="InformationPanel/ResponseNodeSettings/RESPONSE_NODE_SETTINGS/VBoxContainer/ResponseText" to="InformationPanel/ResponseNodeSettings" method="_on_response_text_text_changed"]

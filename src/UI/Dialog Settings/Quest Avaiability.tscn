@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://crwipqkebweam"]
+[gd_scene format=3 uid="uid://crwipqkebweam"]
 
-[ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/Quest Avaiability.gd" id="1"]
+[ext_resource type="Script" uid="uid://csb5cy6h5mq6n" path="res://src/UI/Dialog Settings/Scripts/Quest Avaiability.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b3h2bvwm0hbhp" path="res://src/UI/Dialog Settings/ChooseQuest.tscn" id="2"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="3"]
 
 [sub_resource type="StyleBoxEmpty" id="1"]
 
-[node name="Quest Avaiability" type="Control"]
+[node name="Quest Avaiability" type="Control" unique_id=804536512]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 3
 anchors_preset = 0
@@ -15,7 +15,7 @@ offset_bottom = 50.0
 theme = ExtResource("3")
 script = ExtResource("1")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=369788743]
 custom_minimum_size = Vector2(435, 50)
 layout_mode = 0
 anchor_right = 1.0
@@ -23,7 +23,7 @@ anchor_bottom = 1.0
 offset_right = 35.0
 theme_override_styles/panel = SubResource("1")
 
-[node name="ChooseQuest" parent="Panel" instance=ExtResource("2")]
+[node name="ChooseQuest" parent="Panel" unique_id=1468988278 instance=ExtResource("2")]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -35,17 +35,20 @@ offset_right = 54.0
 offset_bottom = 10.0
 text = "SELECT_QUEST"
 
-[node name="OptionButton" type="OptionButton" parent="Panel"]
-layout_mode = 0
+[node name="OptionButton" type="OptionButton" parent="Panel" unique_id=103361477]
+layout_mode = 1
+anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 8.0
 offset_top = -9.5
-offset_right = 128.0
-offset_bottom = 9.5
+offset_right = 131.0
+offset_bottom = 21.0
+grow_vertical = 2
 alignment = 1
 text_overrun_behavior = 1
 clip_text = true
+fit_to_longest_item = false
 item_count = 7
 popup/item_0/text = "AV_ALWAYS"
 popup/item_0/id = 0
@@ -62,7 +65,7 @@ popup/item_5/id = 5
 popup/item_6/text = "AV_CANSTART"
 popup/item_6/id = 6
 
-[node name="SpinBox" type="SpinBox" parent="Panel"]
+[node name="SpinBox" type="SpinBox" parent="Panel" unique_id=859362505]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
