@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8upc5vs5ynlw"]
+[gd_scene format=3 uid="uid://b8upc5vs5ynlw"]
 
-[ext_resource type="Script" path="res://src/UI/Editor/EditorSettings.gd" id="1_b3w4b"]
+[ext_resource type="Script" uid="uid://dnct8vqhhvewe" path="res://src/UI/Editor/EditorSettings.gd" id="1_b3w4b"]
 [ext_resource type="Texture2D" uid="uid://didmtcov37apn" path="res://Assets/UI Textures/Icon Font/globe-earth-line.png" id="2_anhkt"]
 [ext_resource type="Texture2D" uid="uid://fs6yo18nrkpb" path="res://Assets/UI Textures/Icon Font/reload-line.png" id="2_ik3cf"]
 
@@ -25,7 +25,7 @@ symbol_color = Color(1, 1, 1, 1)
 function_color = Color(1, 1, 1, 1)
 member_variable_color = Color(1, 1, 1, 1)
 
-[node name="EditorSettings" type="PanelContainer"]
+[node name="EditorSettings" type="PanelContainer" unique_id=639241862]
 self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
 custom_minimum_size = Vector2(650, 750)
 anchors_preset = 8
@@ -61,67 +61,68 @@ default_spacing_preset_path = NodePath("Preferences/Default Spacing Preset/Spaci
 dialog_name_preset_path = NodePath("Preferences/Default Dialog Name Preset/TextEdit")
 delete_clears_text_path = NodePath("Preferences/CreationSettings/DelClearsText/DelClearsCheck")
 
-[node name="TabBar" type="TabBar" parent="."]
+[node name="TabBar" type="TabBar" parent="." unique_id=1977290793]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+current_tab = 0
 tab_alignment = 1
 clip_tabs = false
 tab_count = 2
 tab_0/title = "PREFERENCES"
 tab_1/title = "KEYBINDS"
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=2000616949]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "X"
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=2054189799]
 visible = false
 layout_mode = 2
 text = "EDITOR_SETTINGS"
 
-[node name="Preferences" type="VBoxContainer" parent="."]
+[node name="Preferences" type="VBoxContainer" parent="." unique_id=1556121505]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HSeparator3" type="HSeparator" parent="Preferences"]
+[node name="HSeparator3" type="HSeparator" parent="Preferences" unique_id=1871078239]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Language" type="HBoxContainer" parent="Preferences"]
+[node name="Language" type="HBoxContainer" parent="Preferences" unique_id=1498163246]
 layout_mode = 2
 
-[node name="CheckButton" type="Button" parent="Preferences/Language"]
+[node name="CheckButton" type="Button" parent="Preferences/Language" unique_id=1912724721]
 layout_mode = 2
 disabled = true
 icon = ExtResource("2_anhkt")
 
-[node name="Language" type="Label" parent="Preferences/Language"]
+[node name="Language" type="Label" parent="Preferences/Language" unique_id=1688807664]
 layout_mode = 2
 text = "LANGUAGE"
 
-[node name="LanguageOption" type="OptionButton" parent="Preferences/Language"]
+[node name="LanguageOption" type="OptionButton" parent="Preferences/Language" unique_id=196886101]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Preferences/Language"]
+[node name="Label" type="Label" parent="Preferences/Language" unique_id=953430934]
 layout_mode = 2
 tooltip_text = "GOOGLE_TRANSLATE"
 mouse_filter = 1
 text = "<!>"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Preferences"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Preferences" unique_id=916031880]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Preferences/HBoxContainer"]
+[node name="Label" type="Label" parent="Preferences/HBoxContainer" unique_id=1234536035]
 layout_mode = 2
 text = "EDS_DEFAULT_DIRECTORY"
 
-[node name="Default Directory" type="Label" parent="Preferences/HBoxContainer"]
+[node name="Default Directory" type="Label" parent="Preferences/HBoxContainer" unique_id=892379939]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
@@ -129,7 +130,7 @@ you click \"Open Environment\""
 mouse_filter = 1
 autowrap_mode = 2
 
-[node name="FileDialog" type="FileDialog" parent="Preferences/HBoxContainer/Default Directory"]
+[node name="FileDialog" type="FileDialog" parent="Preferences/HBoxContainer/Default Directory" unique_id=1676554498]
 title = "Open a Directory"
 position = Vector2i(0, 36)
 size = Vector2i(700, 600)
@@ -138,32 +139,32 @@ cancel_button_text = "CANCEL"
 file_mode = 2
 access = 2
 
-[node name="Button" type="Button" parent="Preferences/HBoxContainer"]
+[node name="Button" type="Button" parent="Preferences/HBoxContainer" unique_id=917358900]
 layout_mode = 2
 tooltip_text = "Change the default folder that's opened when
 you click \"Open Environment\""
 text = "CHANGE"
 
-[node name="HSeparator4" type="HSeparator" parent="Preferences"]
+[node name="HSeparator4" type="HSeparator" parent="Preferences" unique_id=1241008504]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="GridSettings" type="VBoxContainer" parent="Preferences"]
+[node name="GridSettings" type="VBoxContainer" parent="Preferences" unique_id=765053132]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Preferences/GridSettings"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Preferences/GridSettings" unique_id=1805955428]
 layout_mode = 2
 
-[node name="HideConnectionDistance" type="Label" parent="Preferences/GridSettings/HBoxContainer"]
+[node name="HideConnectionDistance" type="Label" parent="Preferences/GridSettings/HBoxContainer" unique_id=555486958]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 tooltip_text = "EDS_HIDE_CONNECTION_TOOLTIP"
 mouse_filter = 1
 text = "EDS_HIDE_CONNECTION"
 
-[node name="HSlider" type="HSlider" parent="Preferences/GridSettings/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="Preferences/GridSettings/HBoxContainer" unique_id=1142665742]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxFlat_owvrv")
@@ -171,7 +172,7 @@ max_value = 4000.0
 value = 1000.0
 allow_greater = true
 
-[node name="ValueEdit" type="LineEdit" parent="Preferences/GridSettings/HBoxContainer/HSlider"]
+[node name="ValueEdit" type="LineEdit" parent="Preferences/GridSettings/HBoxContainer/HSlider" unique_id=207526135]
 layout_mode = 0
 offset_left = -6.0
 offset_top = 20.0
@@ -180,7 +181,7 @@ offset_bottom = 46.0
 mouse_filter = 1
 text = "1000"
 
-[node name="Resetbutton" type="Button" parent="Preferences/GridSettings/HBoxContainer/HSlider"]
+[node name="Resetbutton" type="Button" parent="Preferences/GridSettings/HBoxContainer/HSlider" unique_id=2044725606]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 15.0
@@ -190,135 +191,135 @@ theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = -12
 icon = ExtResource("2_ik3cf")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Preferences/GridSettings"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Preferences/GridSettings" unique_id=532208884]
 layout_mode = 2
 
-[node name="EnableGridSnap" type="Label" parent="Preferences/GridSettings/HBoxContainer2"]
+[node name="EnableGridSnap" type="Label" parent="Preferences/GridSettings/HBoxContainer2" unique_id=178271755]
 layout_mode = 2
 tooltip_text = "EDS_SNAPPING_TOOLTIP"
 mouse_filter = 1
 text = "EDS_ENABLE_GRID_SNAP"
 
-[node name="CheckButton" type="CheckButton" parent="Preferences/GridSettings/HBoxContainer2"]
+[node name="CheckButton" type="CheckButton" parent="Preferences/GridSettings/HBoxContainer2" unique_id=671295771]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Preferences/GridSettings"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Preferences/GridSettings" unique_id=135429008]
 layout_mode = 2
 
-[node name="HoldShift" type="Label" parent="Preferences/GridSettings/HBoxContainer3"]
+[node name="HoldShift" type="Label" parent="Preferences/GridSettings/HBoxContainer3" unique_id=2027402832]
 layout_mode = 2
 tooltip_text = "EDS_HOLD_SHIFT_TOOLTIP"
 mouse_filter = 1
 text = "EDS_INVERT_DIALOG_MOVE"
 
-[node name="CheckButton" type="CheckButton" parent="Preferences/GridSettings/HBoxContainer3"]
+[node name="CheckButton" type="CheckButton" parent="Preferences/GridSettings/HBoxContainer3" unique_id=669984048]
 layout_mode = 2
 
-[node name="CreationSettings" type="VBoxContainer" parent="Preferences"]
+[node name="CreationSettings" type="VBoxContainer" parent="Preferences" unique_id=263355191]
 custom_minimum_size = Vector2(-11.56, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Preferences/CreationSettings"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Preferences/CreationSettings" unique_id=1143598723]
 layout_mode = 2
 
-[node name="AllowMoreThanSix" type="Label" parent="Preferences/CreationSettings/HBoxContainer"]
+[node name="AllowMoreThanSix" type="Label" parent="Preferences/CreationSettings/HBoxContainer" unique_id=1315022426]
 layout_mode = 2
 tooltip_text = "EDS_MORE_SIX_TOOLTIP"
 mouse_filter = 1
 text = "EDS_ALLOW_MORE_THAN_SIX"
 
-[node name="CheckButton" type="CheckButton" parent="Preferences/CreationSettings/HBoxContainer"]
+[node name="CheckButton" type="CheckButton" parent="Preferences/CreationSettings/HBoxContainer" unique_id=1885921890]
 layout_mode = 2
 
-[node name="DelClearsText" type="HBoxContainer" parent="Preferences/CreationSettings"]
+[node name="DelClearsText" type="HBoxContainer" parent="Preferences/CreationSettings" unique_id=14232543]
 layout_mode = 2
 
-[node name="DelClearsTextLabel" type="Label" parent="Preferences/CreationSettings/DelClearsText"]
+[node name="DelClearsTextLabel" type="Label" parent="Preferences/CreationSettings/DelClearsText" unique_id=1232700333]
 layout_mode = 2
 tooltip_text = "EDS_DEL_CLEARS_TEXT_TOOLTIP"
 mouse_filter = 1
 text = "EDS_DEL_CLEARS_TEXT"
 
-[node name="DelClearsCheck" type="CheckButton" parent="Preferences/CreationSettings/DelClearsText"]
+[node name="DelClearsCheck" type="CheckButton" parent="Preferences/CreationSettings/DelClearsText" unique_id=1638573632]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="Preferences"]
+[node name="HSeparator" type="HSeparator" parent="Preferences" unique_id=546829201]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="DefaultVisualSettings" type="HBoxContainer" parent="Preferences"]
+[node name="DefaultVisualSettings" type="HBoxContainer" parent="Preferences" unique_id=307274161]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Preferences/DefaultVisualSettings"]
+[node name="Label" type="Label" parent="Preferences/DefaultVisualSettings" unique_id=2127280948]
 layout_mode = 2
 tooltip_text = "DEFAULT_VISUAL_PRESET_TOOLTIP"
 mouse_filter = 1
 text = "DEFAULT_VISUAL_PRESET"
 
-[node name="VisualPresetButton" type="OptionButton" parent="Preferences/DefaultVisualSettings"]
+[node name="VisualPresetButton" type="OptionButton" parent="Preferences/DefaultVisualSettings" unique_id=1372286062]
 layout_mode = 2
 
-[node name="Default Spacing Preset" type="HBoxContainer" parent="Preferences"]
+[node name="Default Spacing Preset" type="HBoxContainer" parent="Preferences" unique_id=115566406]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Preferences/Default Spacing Preset"]
+[node name="Label" type="Label" parent="Preferences/Default Spacing Preset" unique_id=1962973878]
 layout_mode = 2
 tooltip_text = "DEFAULT_SPACING_PRESET_TOOLTIP"
 mouse_filter = 1
 text = "DEFAULT_SPACING_PRESET"
 
-[node name="SpacingPresetButton" type="OptionButton" parent="Preferences/Default Spacing Preset"]
+[node name="SpacingPresetButton" type="OptionButton" parent="Preferences/Default Spacing Preset" unique_id=1110731048]
 custom_minimum_size = Vector2(60, 20)
 layout_mode = 2
 
-[node name="Default Dialog Name Preset" type="HBoxContainer" parent="Preferences"]
+[node name="Default Dialog Name Preset" type="HBoxContainer" parent="Preferences" unique_id=2093599201]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Preferences/Default Dialog Name Preset"]
+[node name="Label" type="Label" parent="Preferences/Default Dialog Name Preset" unique_id=316684033]
 layout_mode = 2
 tooltip_text = "DEFAULT_SPACING_PRESET_TOOLTIP"
 mouse_filter = 1
 text = "DEFAULT_DIALOG_NAME"
 
-[node name="TextEdit" type="TextEdit" parent="Preferences/Default Dialog Name Preset"]
+[node name="TextEdit" type="TextEdit" parent="Preferences/Default Dialog Name Preset" unique_id=351409778]
 custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
 tooltip_text = "DIALOG_NAME_PRESET_TOOLTIP"
 text = "$ResponseTitle"
 syntax_highlighter = SubResource("CodeHighlighter_k4ox2")
 
-[node name="HSeparator2" type="HSeparator" parent="Preferences"]
+[node name="HSeparator2" type="HSeparator" parent="Preferences" unique_id=288752050]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="FileSettings" type="VBoxContainer" parent="Preferences"]
+[node name="FileSettings" type="VBoxContainer" parent="Preferences" unique_id=1394576338]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 mouse_filter = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Preferences/FileSettings"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Preferences/FileSettings" unique_id=23201128]
 layout_mode = 2
 
-[node name="Autosave Time" type="Label" parent="Preferences/FileSettings/HBoxContainer2"]
+[node name="Autosave Time" type="Label" parent="Preferences/FileSettings/HBoxContainer2" unique_id=958721624]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 tooltip_text = "EDS_AUTOSAVE_FREQ_TOOLTIP"
 mouse_filter = 1
 text = "EDS_AUTOSAVE_FREQ"
 
-[node name="HSlider" type="HSlider" parent="Preferences/FileSettings/HBoxContainer2"]
+[node name="HSlider" type="HSlider" parent="Preferences/FileSettings/HBoxContainer2" unique_id=637163914]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxFlat_owvrv")
 max_value = 200.0
 value = 3.0
 allow_greater = true
 
-[node name="ValueEdit" type="LineEdit" parent="Preferences/FileSettings/HBoxContainer2/HSlider"]
+[node name="ValueEdit" type="LineEdit" parent="Preferences/FileSettings/HBoxContainer2/HSlider" unique_id=1596502397]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 0
 offset_left = -6.0
@@ -328,7 +329,7 @@ offset_bottom = 46.0
 mouse_filter = 1
 text = "3"
 
-[node name="Resetbutton" type="Button" parent="Preferences/FileSettings/HBoxContainer2/HSlider"]
+[node name="Resetbutton" type="Button" parent="Preferences/FileSettings/HBoxContainer2/HSlider" unique_id=1590806238]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 15.0
@@ -338,10 +339,10 @@ theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = -12
 icon = ExtResource("2_ik3cf")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Preferences/FileSettings"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Preferences/FileSettings" unique_id=200149573]
 layout_mode = 2
 
-[node name="AutosaveMaxFiles" type="Label" parent="Preferences/FileSettings/HBoxContainer3"]
+[node name="AutosaveMaxFiles" type="Label" parent="Preferences/FileSettings/HBoxContainer3" unique_id=1441230778]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 tooltip_text = "EDS_MAX_AUTOSAVE_FILES_TOOLTIP"
@@ -349,32 +350,32 @@ mouse_filter = 1
 text = "EDS_MAX_AUTOSAVE_FILES"
 vertical_alignment = 1
 
-[node name="ValueEdit" type="SpinBox" parent="Preferences/FileSettings/HBoxContainer3"]
+[node name="ValueEdit" type="SpinBox" parent="Preferences/FileSettings/HBoxContainer3" unique_id=1309709905]
 layout_mode = 2
 mouse_filter = 1
 
-[node name="HSeparator4" type="HSeparator" parent="Preferences/FileSettings"]
+[node name="HSeparator4" type="HSeparator" parent="Preferences/FileSettings" unique_id=1337891237]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="CustomNPCs+" type="HBoxContainer" parent="Preferences"]
+[node name="CustomNPCs+" type="HBoxContainer" parent="Preferences" unique_id=1354854122]
 layout_mode = 2
 tooltip_text = "EDS_CNPC+_TOOLTIP"
 
-[node name="CNP+Label" type="Label" parent="Preferences/CustomNPCs+"]
+[node name="CNP+Label" type="Label" parent="Preferences/CustomNPCs+" unique_id=1297467483]
 layout_mode = 2
 tooltip_text = "EDS_CNPC+_TOOLTIP"
 text = "EDS_CNPC+"
 
-[node name="CNPC+Check" type="CheckButton" parent="Preferences/CustomNPCs+"]
+[node name="CNPC+Check" type="CheckButton" parent="Preferences/CustomNPCs+" unique_id=971238413]
 layout_mode = 2
 tooltip_text = "EDS_CNPC+_TOOLTIP"
 
-[node name="Open Logs Folder" type="Button" parent="Preferences"]
+[node name="Open Logs Folder" type="Button" parent="Preferences" unique_id=78116460]
 layout_mode = 2
 text = "Open Logs Folder"
 
-[node name="KeyBinds" type="VBoxContainer" parent="."]
+[node name="KeyBinds" type="VBoxContainer" parent="." unique_id=1190642797]
 visible = false
 custom_minimum_size = Vector2(600, 217.62)
 layout_mode = 2
@@ -382,7 +383,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="KeyBinds"]
+[node name="HSeparator" type="HSeparator" parent="KeyBinds" unique_id=1921072144]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 20)

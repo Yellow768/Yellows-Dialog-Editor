@@ -21,8 +21,6 @@ func set_unsaved(value):
 	else:
 		text = category_name
 
-func _on_Button_pressed():
-	emit_signal("open_category_request",category_name,self)
 
 
 func _on_Button_gui_input(event : InputEvent):
@@ -78,3 +76,7 @@ func _on_popup_menu_visibility_changed():
 		remove_theme_stylebox_override("pressed")
 		remove_theme_stylebox_override("normal")
 		remove_theme_stylebox_override("hover")
+
+
+func _on_pressed() -> void:
+	open_category_request.emit(category_name,self)

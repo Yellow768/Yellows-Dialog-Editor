@@ -25,7 +25,7 @@ func _on_FactionID_value_changed(value : int):
 	emit_signal("faction_id_changed",value,self)
 	
 func _on_Factionpoints_value_changed(value : int):
-	emit_signal("faction_points_changed",value,self)
+	faction_points_changed.emit(value,self)
 	if value >= 0:
 		$Panel/HBoxContainer/Factionpoints.prefix = "+"
 	else:

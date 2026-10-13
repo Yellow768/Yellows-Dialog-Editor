@@ -1,27 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://cypxxeh816ixd"]
+[gd_scene format=3 uid="uid://cypxxeh816ixd"]
 
 [ext_resource type="PackedScene" uid="uid://b8aewr7debfni" path="res://src/UI/Util/Expandable Line Edit.tscn" id="1_11ujc"]
-[ext_resource type="Script" path="res://src/UI/Dialog Settings/Command.gd" id="1_hik2m"]
+[ext_resource type="Script" uid="uid://dowhxnnakbgi" path="res://src/UI/Dialog Settings/Command.gd" id="1_hik2m"]
 [ext_resource type="Texture2D" uid="uid://sigthghnjsn6" path="res://Assets/UI Textures/Icon Font/delete-bin-line.svg" id="3_on8oc"]
 
-[node name="Command" type="HBoxContainer"]
+[node name="Command" type="HBoxContainer" unique_id=1017842693]
 custom_minimum_size = Vector2(375, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_hik2m")
 
-[node name="ExpandableLineEdit" parent="." instance=ExtResource("1_11ujc")]
+[node name="ExpandableLineEdit" parent="." unique_id=1434737372 instance=ExtResource("1_11ujc")]
 custom_minimum_size = Vector2(365, 0)
 layout_mode = 2
 
 [node name="LineEdit" parent="ExpandableLineEdit/HBoxContainer" index="0"]
 custom_minimum_size = Vector2(325, 25)
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1978451165]
 layout_mode = 2
 icon = ExtResource("3_on8oc")
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="." unique_id=457671631]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2

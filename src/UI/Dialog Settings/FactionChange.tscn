@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfl1pkyh2gaqd"]
+[gd_scene format=3 uid="uid://bfl1pkyh2gaqd"]
 
-[ext_resource type="Script" path="res://src/UI/Dialog Settings/Scripts/FactionChange.gd" id="1"]
+[ext_resource type="Script" uid="uid://dtatknij4swgm" path="res://src/UI/Dialog Settings/Scripts/FactionChange.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bokoikotidj57" path="res://src/UI/Dialog Settings/ChooseFaction.tscn" id="2"]
 [ext_resource type="Theme" uid="uid://hgc7wambejk3" path="res://Assets/MainEditor.tres" id="3"]
 [ext_resource type="FontFile" uid="uid://baod7xnbr0oe7" path="res://Assets/Font/TinyFont.tres" id="4"]
@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="1"]
 
-[node name="FactionChange" type="Control" groups=["faction_access"]]
+[node name="FactionChange" type="Control" unique_id=2047231398 groups=["faction_access"]]
 custom_minimum_size = Vector2(405, 50)
 layout_mode = 3
 anchors_preset = 0
@@ -18,7 +18,7 @@ offset_bottom = 318.0
 theme = ExtResource("3")
 script = ExtResource("1")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=1162543479]
 custom_minimum_size = Vector2(350, 25)
 layout_mode = 0
 anchor_right = 1.0
@@ -26,40 +26,40 @@ anchor_bottom = 1.0
 offset_right = 5.0
 theme_override_styles/panel = SubResource("1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1817919473]
 layout_mode = 2
 
-[node name="ChooseFaction" parent="Panel/HBoxContainer" instance=ExtResource("2")]
+[node name="ChooseFaction" parent="Panel/HBoxContainer" unique_id=463464205 instance=ExtResource("2")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4")
 text = "SELECT_FACTION"
 text_overrun_behavior = 3
 
-[node name="FactionID" type="SpinBox" parent="Panel/HBoxContainer"]
+[node name="FactionID" type="SpinBox" parent="Panel/HBoxContainer" unique_id=1448089741]
 layout_mode = 2
 min_value = -1.0
 max_value = 65535.0
 value = -1.0
 prefix = "ID"
 
-[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer" unique_id=104503285]
 layout_mode = 2
 
-[node name="Factionpoints" type="SpinBox" parent="Panel/HBoxContainer"]
+[node name="Factionpoints" type="SpinBox" parent="Panel/HBoxContainer" unique_id=75251751]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-min_value = -1e+08
-max_value = 1e+06
+min_value = -100000000.0
+max_value = 1000000.0
 value = 100.0
 update_on_text_changed = true
 
-[node name="VSeparator2" type="VSeparator" parent="Panel/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="Panel/HBoxContainer" unique_id=20720821]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="DeleteButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="DeleteButton" type="Button" parent="Panel/HBoxContainer" unique_id=2037474326]
 layout_mode = 2
 icon = ExtResource("5_yq0v3")
 

@@ -18,8 +18,8 @@ func set_text(new_text : String):
 
 
 func _on_expandable_line_edit_text_changed():
-	emit_signal("text_changed",self)
+	text_changed.emit(self)
 
 
 func _on_button_pressed():
-	emit_signal("command_request_deletion",self)
+	command_request_deletion.emit(self)
