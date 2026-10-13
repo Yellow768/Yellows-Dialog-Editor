@@ -16,7 +16,7 @@ func reset():
 
 func set_id(id: int):
 	faction_id = id
-	emit_signal("id_changed")
+	id_changed.emit()
 
 func set_points(new_points : int):
 	points = new_points
@@ -24,11 +24,11 @@ func set_points(new_points : int):
 		set_operator(0)
 	else:
 		set_operator(1)
-	emit_signal("points_changed")
+	points_changed.emit()
 
 func set_operator(type: int):
 	operator = type
-	emit_signal("operator_changed")
+	operator_changed.emit()
 
 func _ready():
 	pass

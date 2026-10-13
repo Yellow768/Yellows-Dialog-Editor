@@ -49,4 +49,4 @@ func _on_QuestFinder_id_pressed(id : int):
 	if id == 0:
 		CategoryFinder.popup()
 	else:
-		emit_signal("quest_chosen",QuestFinder.get_item_text(QuestFinder.get_item_index(id)),id)
+		quest_chosen.emit(QuestFinder.get_item_text(QuestFinder.get_item_index(id)),id)

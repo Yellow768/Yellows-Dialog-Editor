@@ -81,8 +81,8 @@ func enter_dialog_availability_mode(availability_scene):
 	stored_current_dialog_id = current_dialog.dialog_id
 	availability_slot = AvailabilityDialogs.get_children().find(availability_scene)
 	dialog_availability_mode = true
-	emit_signal("request_store_current_category")
-	emit_signal("availability_mode_entered")
+	request_store_current_category.emit()
+	availability_mode_entered.emit()
 	InformationPanel.set_panel_visible(false)
 	print("Availability Mode Entered")
 
@@ -107,7 +107,7 @@ func set_dialog_availability_from_selected_node(node_selected : GraphNode):
 		
 func exit_dialog_availability_mode():
 	exiting_availability_mode = true
-	emit_signal("request_switch_to_stored_category")
+	request_switch_to_stored_category.emit()
 	InformationPanel.set_panel_visible(true)
 
 
@@ -121,12 +121,12 @@ func find_dialog_node_from_id(id : int):
 func _on_category_panel_finished_loading(_ignore):
 	if exiting_availability_mode:
 		var initial_dialog : GraphNode = find_dialog_node_from_id(stored_current_dialog_id)
-		emit_signal("availability_mode_exited")
-		emit_signal("initial_dialog_from_availability_mode_loaded",initial_dialog)
+		availability_mode_exited.emit()
+		initial_dialog_from_availability_mode_loaded.emit(initial_dialog)
 		initial_dialog.dialog_availabilities[availability_slot].dialog_id = glob_node_selected_id
 		initial_dialog.selected = true
 		initial_dialog.draggable = false
-		InformationPanel.emit_signal("unsaved_change")
+		InformationPanel.unsaved_change.emit()
 		print("Availability Mode Exited")			
 		dialog_availability_mode = false
 		exiting_availability_mode = false
@@ -135,51 +135,51 @@ func _on_category_panel_finished_loading(_ignore):
 
 func scoreboard_objective_name_changed(child ,obj_name : String):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].objective_name = obj_name
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 func scoreboard_comparison_type_changed(child,type : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].comparison_type = type
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 	
 func scoreboard_value_changed(child ,value : int):
 	current_dialog.scoreboard_availabilities[AvailabilityScoreboard.get_children().find(child)].value = value
-	InformationPanel.emit_signal("unsaved_change")		
+	InformationPanel.unsaved_change.emit()		
 func faction_id_changed(child ,id : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].faction_id = id
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 func faction_stance_changed(child,stance:int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].stance_type = stance
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 func faction_isisnot_changed(child ,isisnot : int):
 	current_dialog.faction_availabilities[AvailabilityFactions.get_children().find(child)].availability_operator = isisnot
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func dialog_id_changed(child,id : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].dialog_id = id
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 	
 func dialog_type_changed(child,type : int):
 	current_dialog.dialog_availabilities[AvailabilityDialogs.get_children().find(child)].availability_type = type
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 
 func quest_id_changed(child,id : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].quest_id = id
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 	
 func quest_type_changed(child,type : int):
 	current_dialog.quest_availabilities[AvailabilityQuests.get_children().find(child)].availability_type = type
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 #Dialog Changes
 
 func _on_TimeButton_item_selected(index : int):
 	current_dialog.time_availability = index
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_LevelSpinBox_value_changed(value : int):
 	current_dialog.min_level_availability = value
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func resized():
 	$Availability.size.y = DisplayServer.window_get_size().y

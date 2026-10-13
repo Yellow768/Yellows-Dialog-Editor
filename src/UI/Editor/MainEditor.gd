@@ -26,7 +26,7 @@ func _ready():
 	$AutosaveTimer.start(GlobalDeclarations.autosave_time*60)
 	
 func _input(event : InputEvent):
-	emit_signal("input_recieved", event)
+	input_recieved.emit( event)
 	
 var is_quit_return_to_home := false
 

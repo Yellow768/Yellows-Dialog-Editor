@@ -31,7 +31,7 @@ func _on_FactionFinder_id_pressed(id):
 	if(id == 10000):
 		$FactionFinder.hide()
 	else:
-		emit_signal("faction_chosen",id)
+		faction_chosen.emit(id)
 
 
 func set_faction_name_from_id(id):

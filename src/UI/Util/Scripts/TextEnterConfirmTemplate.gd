@@ -8,7 +8,7 @@ func _ready():
 	$LineEdit.grab_focus()
 
 func _on_Confirm_Text_confirmed():
-	emit_signal("confirmed_send_text",text)
+	confirmed_send_text.emit(text)
 
 func set_placeholder_text(text):
 	$LineEdit.placeholder_text = text

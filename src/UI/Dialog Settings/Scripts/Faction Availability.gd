@@ -23,13 +23,13 @@ func set_isisnot(value : int):
 	$Panel/HBoxContainer/IsIsnotbutton.selected = value
 
 func _on_IsIsnotbutton_item_selected(index : int):
-	emit_signal("isisnot_changed",self,index)
+	isisnot_changed.emit(self,index)
 
 
 func _on_StanceButton_item_selected(index : int):
-	emit_signal("stance_changed",self,index)
+	stance_changed.emit(self,index)
 
 
 func _on_SpinBox_value_changed(value):
 	$Panel/HBoxContainer/ChooseFaction.set_faction_name_from_id(value)
-	emit_signal("id_changed",self,value)
+	id_changed.emit(self,value)

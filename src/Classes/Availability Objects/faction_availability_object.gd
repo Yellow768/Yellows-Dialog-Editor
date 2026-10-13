@@ -16,15 +16,15 @@ func reset():
 
 func set_id(id: int):
 	faction_id = id
-	emit_signal("id_changed")
+	id_changed.emit()
 
 func set_stance(type: int):
 	stance_type = type
-	emit_signal("stance_changed")
+	stance_changed.emit()
 	
 func set_operator(type: int):
 	availability_operator = type
-	emit_signal("availability_operator_changed")
+	availability_operator_changed.emit()
 
 func _ready():
 	pass

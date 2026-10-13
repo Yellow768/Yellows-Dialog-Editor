@@ -53,10 +53,10 @@ func _on_button_pressed():
 		if attempt_to_connect_result == "OK":
 			CurrentEnvironment.sftp_client.ChangeDirectory(CurrentEnvironment.sftp_client.remote_file_directory)
 			update_connected_labels(true)
-			emit_signal("reconnected")
+			reconnected.emit()
 		
 		else:
-			emit_signal("failed_to_reconnect")
+			failed_to_reconnect.emit()
 			push_error(attempt_to_connect_result)
 		
 		
@@ -116,5 +116,5 @@ func _on_resync_button_pressed():
 		await self.sftp_done
 	CurrentEnvironment.sftp_client.disconnect("ProgressDone",Callable(self,"emit_signal"))
 	Progress.queue_free()
-	emit_signal("resync_cache")
+	resync_cache.emit()
 	sftp_background_darkener.queue_free()

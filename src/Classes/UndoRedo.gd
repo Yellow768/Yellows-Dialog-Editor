@@ -117,7 +117,7 @@ func add_to_undo(type,node,args = []):
 func undo():
 	if 	undoRedoHistories[currentUndoCategoryName].undo_history.is_empty():
 		print("Nothing to undo")
-		emit_signal("nothing_to_undo")
+		nothing_to_undo.emit()
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].undo_history.back()
 	var redo
@@ -179,7 +179,7 @@ func undo():
 func redo():
 	if 	undoRedoHistories[currentUndoCategoryName].redo_history.is_empty():
 		print("Nothing to redo")
-		emit_signal("nothing_to_redo")
+		nothing_to_redo.emit()
 		return
 	var action = undoRedoHistories[currentUndoCategoryName].redo_history.back()
 	var undo
@@ -449,29 +449,29 @@ func execute_action_add_dialog(action):
 	recreated_dialog.mail.items_slots = JSON.parse_string(node_data["mail"].items)
 	recreated_dialog.mail.pages = JSON.parse_string(node_data["mail"].pages) as Array[String]
 	recreated_dialog.mail.quest_id = node_data["mail"].quest_id
-	emit_signal("request_action_add_dialog_node",recreated_dialog,true,false)
+	request_action_add_dialog_node.emit(recreated_dialog,true,false)
 	for response_data in node_data["response_options"]:
 		var recreated_response = create_response_node_from_data(response_data)
-		emit_signal("request_add_response",recreated_dialog,recreated_response,false)
+		request_add_response.emit(recreated_dialog,recreated_response,false)
 		var connected_dialog
 		if recreated_response.to_dialog_id != -1:
 			connected_dialog = find_dialog_node_from_id(recreated_response.to_dialog_id)
 		
 		if recreated_response.to_dialog_id > 0 && connected_dialog != null:
-			emit_signal("request_connect_nodes",recreated_response,0,connected_dialog,0,false)
+			request_connect_nodes.emit(recreated_response,0,connected_dialog,0,false)
 	for response_index in node_data["connected_response_indexes"]:
 		if dialog_editor.current_response_index_map.has(response_index):
-			emit_signal("request_connect_nodes",dialog_editor.current_response_index_map[response_index],0,recreated_dialog,0,false)
+			request_connect_nodes.emit(dialog_editor.current_response_index_map[response_index],0,recreated_dialog,0,false)
 		else:
 			dialogs_that_need_to_be_connected[recreated_dialog.node_index] = node_data["connected_response_indexes"]
 
 var dialogs_that_need_to_be_connected = {}
 
 func execute_action_delete_dialog(action):
-	emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[action.node_index],true,false)
+	request_action_delete_dialog_node.emit(dialog_editor.current_dialog_index_map[action.node_index],true,false)
 		
 func execute_action_move_dialog(action):
-	emit_signal("request_action_move_dialog_node",action.node_index,action.prev_position)
+	request_action_move_dialog_node.emit(action.node_index,action.prev_position)
 	
 #Responses
 func execute_action_add_response(action : Dictionary):
@@ -483,25 +483,25 @@ func execute_action_add_response(action : Dictionary):
 		connected_dialog = find_dialog_node_from_id(recreated_response.to_dialog_id)
 		
 	if recreated_response.to_dialog_id > 0 && connected_dialog != null:
-		emit_signal("request_connect_nodes",recreated_response,0,connected_dialog,0,false)	
+		request_connect_nodes.emit(recreated_response,0,connected_dialog,0,false)	
 	for dialog in dialogs_that_need_to_be_connected.keys():
 		if recreated_response.node_index in dialogs_that_need_to_be_connected[dialog]:
-			emit_signal("request_connect_nodes",recreated_response,0,dialog_editor.current_dialog_index_map[dialog],0,false)	
+			request_connect_nodes.emit(recreated_response,0,dialog_editor.current_dialog_index_map[dialog],0,false)	
 			dialogs_that_need_to_be_connected[dialog].erase(recreated_response.node_index)
 			if dialogs_that_need_to_be_connected[dialog].is_empty():
 				dialogs_that_need_to_be_connected.erase(dialog)
 
 func execute_action_delete_response(action):
-	emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[action.node_index].parent_dialog,dialog_editor.current_response_index_map[action.node_index],false)	
+	request_action_delete_response_node.emit(dialog_editor.current_response_index_map[action.node_index].parent_dialog,dialog_editor.current_response_index_map[action.node_index],false)	
 
 func execute_action_move_response(action):
-	emit_signal("request_action_move_response_node",action.node_index,action.prev_position)
+	request_action_move_response_node.emit(action.node_index,action.prev_position)
 	
 func execute_action_swap_response(action):
 	var original_response = dialog_editor.current_response_index_map[action.original_index]
 	var overlapping_response = dialog_editor.current_response_index_map[action.overlap_index]
 	
-	emit_signal("request_action_swap_response_nodes",original_response,overlapping_response,action.from,action.to,false)
+	request_action_swap_response_nodes.emit(original_response,overlapping_response,action.from,action.to,false)
 #Color Organizers
 func execute_action_add_color_organizer(action: Dictionary):
 	var node_data = action.color_org_data
@@ -512,13 +512,13 @@ func execute_action_add_color_organizer(action: Dictionary):
 	recreated_color_organizer.text = node_data["text"]
 	if node_data.has("locked"):
 		recreated_color_organizer.locked = bool(node_data["locked"])
-	emit_signal("request_action_add_color_organizer",recreated_color_organizer,true,false)
+	request_action_add_color_organizer.emit(recreated_color_organizer,true,false)
 
 func execute_action_delete_color_organizer(action):
-	emit_signal("request_action_delete_color_organizer",dialog_editor.current_color_organizer_index_map[action.node_index],false)
+	request_action_delete_color_organizer.emit(dialog_editor.current_color_organizer_index_map[action.node_index],false)
 
 func execute_action_move_color_organizer(action):
-	emit_signal("request_action_move_color_organizer",action.node_index,action.prev_position)
+	request_action_move_color_organizer.emit(action.node_index,action.prev_position)
 
 func execute_action_add_multiple_nodes(action):
 	for dialog in action.dialog_data:
@@ -530,27 +530,27 @@ func execute_action_add_multiple_nodes(action):
 
 func execute_action_delete_multiple_nodes(action):
 	for response in action.responses:
-		emit_signal("request_action_delete_response_node",dialog_editor.current_response_index_map[response].parent_dialog,dialog_editor.current_response_index_map[response],false)
+		request_action_delete_response_node.emit(dialog_editor.current_response_index_map[response].parent_dialog,dialog_editor.current_response_index_map[response],false)
 	for dialog in action.dialogs:
-		emit_signal("request_action_delete_dialog_node",dialog_editor.current_dialog_index_map[dialog],true,false)
+		request_action_delete_dialog_node.emit(dialog_editor.current_dialog_index_map[dialog],true,false)
 	
 	for col_org in action.color_organizers:
-		emit_signal("request_action_delete_color_organizer",dialog_editor.current_color_organizer_index_map[col_org],false)
+		request_action_delete_color_organizer.emit(dialog_editor.current_color_organizer_index_map[col_org],false)
 
 func execute_action_multi_move(action):
 	for dialog in action.dialogs:
-		emit_signal("request_action_move_dialog_node",dialog,action.dialogs[dialog])
+		request_action_move_dialog_node.emit(dialog,action.dialogs[dialog])
 	for response in action.responses:
-		emit_signal("request_action_move_response_node",response,action.responses[response])
+		request_action_move_response_node.emit(response,action.responses[response])
 	for color_org in action.color_organizers:
-		emit_signal("request_action_move_color_organizer",color_org,action.color_organizers[color_org])
+		request_action_move_color_organizer.emit(color_org,action.color_organizers[color_org])
 
 
 func execute_action_connect_nodes(dialog_index,response_index):
-	emit_signal("request_action_connect_nodes",dialog_editor.current_response_index_map[response_index],0,dialog_editor.current_dialog_index_map[dialog_index],0,false)
+	request_action_connect_nodes.emit(dialog_editor.current_response_index_map[response_index],0,dialog_editor.current_dialog_index_map[dialog_index],0,false)
 
 func execute_action_disconnect_nodes(dialog_index,response_index):
-	emit_signal("request_action_disconnect_nodes",dialog_editor.current_response_index_map[response_index],0,dialog_editor.current_dialog_index_map[dialog_index],0,false)
+	request_action_disconnect_nodes.emit(dialog_editor.current_response_index_map[response_index],0,dialog_editor.current_dialog_index_map[dialog_index],0,false)
 
 
 #Isolated Useful Methods		

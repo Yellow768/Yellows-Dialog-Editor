@@ -41,17 +41,17 @@ func clear_textboxes():
 	
 func _on_nbt_text_edit_text_changed():
 	nbt_data = $NBTTextEdit.text
-	emit_signal("nbt_changed")
+	nbt_changed.emit()
 
 
 func _on_item_id_text_changed(new_text):
 	item_id = new_text
-	emit_signal("id_changed")
+	id_changed.emit()
 
 
 func _on_spin_box_value_changed(value):
 	item_count = value
-	emit_signal("count_changed")
+	count_changed.emit()
 	
 func update_item_slot_language():
 	$HBoxContainer/Label.text = tr("MAIL_ITEM_SLOT")+" "+str(slot)

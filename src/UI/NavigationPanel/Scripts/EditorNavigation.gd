@@ -16,21 +16,21 @@ func _ready():
 	$TopPanelContainer/ExportTypeButton.selected = GlobalDeclarations.last_used_export_version
 
 func _on_SaveButton_pressed():
-	emit_signal("save_category_request")
+	save_category_request.emit()
 
 
 
 func _on_ExportButton_pressed():
-	emit_signal("export_category_request")
+	export_category_request.emit()
 
 
 func _on_ReimportButton_pressed():
-	emit_signal("reimport_category_request")
+	reimport_category_request.emit()
 	
 
 
 func _on_ScanButton_pressed():
-	emit_signal("scan_for_changes_request")
+	scan_for_changes_request.emit()
 
 
 func _on_DialogEditor_finished_loading(category_name : String):
@@ -40,31 +40,31 @@ func _on_DialogEditor_finished_loading(category_name : String):
 func category_menu_pressed(id):
 	match id:
 		0:
-			emit_signal("reimport_category_request")
+			reimport_category_request.emit()
 		1:
-			emit_signal("scan_for_changes_request")
+			scan_for_changes_request.emit()
 		2:
-			emit_signal("assign_new_ids_request")
+			assign_new_ids_request.emit()
 		3:
-			emit_signal("deselect_all_selected")
+			deselect_all_selected.emit()
 		4:
 			show_category_settings()
 		5:
-			emit_signal("rescan_quests_and_factions")
+			rescan_quests_and_factions.emit()
 
 func _input(event):
 	if $TopPanelContainer.visible && !GlobalDeclarations.assigning_keybind:
 		if Input.is_action_just_pressed("save"):
-			emit_signal("save_category_request")
+			save_category_request.emit()
 			accept_event()
 		if Input.is_action_just_pressed("export"):
-			emit_signal("export_category_request")
+			export_category_request.emit()
 			accept_event()	
 		if Input.is_action_just_pressed("reimport_category"):
-			emit_signal("reimport_category_request")
+			reimport_category_request.emit()
 			accept_event()	
 		if Input.is_action_just_pressed("scan_for_changes"):
-			emit_signal("scan_for_changes_request")
+			scan_for_changes_request.emit()
 			accept_event()	
 
 

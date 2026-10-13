@@ -29,7 +29,7 @@ func index_categories() -> Array[String]:
 	var dir_search := DirectorySearch.new()
 	indexed_dialog_categories = dir_search.scan_directory_for_folders(CurrentEnvironment.current_directory+"/dialogs")
 	indexed_dialog_categories.sort()
-	emit_signal("category_buttons_created",indexed_dialog_categories)
+	category_buttons_created.emit(indexed_dialog_categories)
 	return indexed_dialog_categories
 	
 
@@ -101,7 +101,7 @@ func create_new_category(new_category_name : String = ''):
 	var dir = DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/")
 	dir.make_dir(CurrentEnvironment.current_directory+"/dialogs/"+new_category_name)
 	index_categories()
-	emit_signal("new_category_created",new_category_name)
+	new_category_created.emit(new_category_name)
 
 	
 	
@@ -118,12 +118,12 @@ func rename_category(category_name : String,new_name : String):
 		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+"/dialogs/"+category_name+"/"+new_name+".ydec")
 		dir.rename(CurrentEnvironment.current_directory+"/dialogs/"+category_name,CurrentEnvironment.current_directory+"/dialogs/"+new_name)
 		index_categories()
-		emit_signal("category_renamed",category_name,new_name)
+		category_renamed.emit(category_name,new_name)
 
 	
 func delete_category(category_name : String):
 	if category_name == CurrentEnvironment.current_category_name:
-		emit_signal("clear_editor_request")
+		clear_editor_request.emit()
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+"/dialogs/"+category_name)
 	dir.remove(CurrentEnvironment.current_directory+"/dialogs/highest_index.json")
 	if DirAccess.get_open_error() == OK:
@@ -131,17 +131,17 @@ func delete_category(category_name : String):
 		print("Deleting Category "+category_name)
 	index_categories()
 	CurrentEnvironment.highest_id = find_highest_index(true)
-	emit_signal("category_deleted",category_name)
+	category_deleted.emit(category_name)
 	
 func duplicate_category(category_name : String):
 	var dir := DirAccess.open(CurrentEnvironment.current_directory+'/dialogs/'+category_name)
 	var new_category_name = add_as_many_underscores_needed_to_make_unique(category_name)
 	dir.make_dir(CurrentEnvironment.current_directory+'/dialogs/'+new_category_name)
 	await dir.copy(CurrentEnvironment.current_directory+'/dialogs/'+category_name+"/"+category_name+".ydec",CurrentEnvironment.current_directory+'/dialogs/'+new_category_name+"/"+new_category_name+".ydec")
-	emit_signal("new_category_created",new_category_name)
+	new_category_created.emit(new_category_name)
 	index_categories()
 	CurrentEnvironment.highest_id = find_highest_index()
-	emit_signal("category_duplicated",category_name,new_category_name)
+	category_duplicated.emit(category_name,new_category_name)
 	
 
 func add_as_many_underscores_needed_to_make_unique(old_name):

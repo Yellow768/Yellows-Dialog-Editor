@@ -13,7 +13,7 @@ func reset():
 
 func set_id(id: int):
 	dialog_id = id
-	emit_signal("id_changed")
+	id_changed.emit()
 
 func set_availability(type: int):
 	if type < 0:
@@ -21,7 +21,7 @@ func set_availability(type: int):
 	if type > 2:
 		type = 2
 	availability_type = type
-	emit_signal("availability_changed")
+	availability_changed.emit()
 
 func _ready():
 	pass

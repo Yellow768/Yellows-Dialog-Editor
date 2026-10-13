@@ -7,7 +7,7 @@ signal enter_dialog_availability_mode
 signal request_dialog_list_injection
 
 func _ready():
-	emit_signal("request_dialog_list_injection",self)
+	request_dialog_list_injection.emit(self)
 
 func get_id():
 	return $Panel/SpinBox.value
@@ -28,12 +28,12 @@ func _on_CategoryFinder_index_pressed(_index):
 
 
 func _on_ChooseDialog_pressed():
-	emit_signal("enter_dialog_availability_mode")
+	enter_dialog_availability_mode.emit()
 
 
 
 func _on_OptionButton_item_selected(index : int):
-	emit_signal("type_changed",self,index)
+	type_changed.emit(self,index)
 	if index != 0:
 		$Panel/ChooseDialog.disabled = false
 	else:
@@ -47,7 +47,7 @@ func _on_SpinBox_value_changed(value : int):
 		$Panel/ChooseDialog.text = "Select Dialog"
 	if dialog_list != null:
 		$Panel/ChooseDialog.text = dialog_list.get_title_from_id(value)
-	emit_signal("id_changed",self,value)
+	id_changed.emit(self,value)
 
 func set_choose_dialog_disbaled_proper():
 	$Panel/ChooseDialog.disabled = ($Panel/OptionButton.selected==0)

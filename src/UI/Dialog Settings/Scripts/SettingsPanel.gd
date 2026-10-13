@@ -60,7 +60,7 @@ func scan_quest_and_faction_data():
 	
 	set_quest_dict()
 	CurrentEnvironment.load_faction_data()
-	emit_signal("scanned_quests_and_factions")
+	scanned_quests_and_factions.emit()
 
 func set_quest_dict():
 	var access_to_quests = get_tree().get_nodes_in_group("quest_access")
@@ -103,10 +103,10 @@ func no_dialog_selected():
 
 func set_panel_visible(value : bool):
 	if value:
-		emit_signal("show_information_panel")
+		show_information_panel.emit()
 		ToggleVisibility.text = ">"
 	else:
-		emit_signal("hide_information_panel")
+		hide_information_panel.emit()
 		ToggleVisibility.text = "<"
 
 func _on_ToggleVisiblity_toggled(button_pressed : bool):
@@ -115,7 +115,7 @@ func _on_ToggleVisiblity_toggled(button_pressed : bool):
 
 func _on_DialogEditor_finished_loading(_category_name : String):
 	pass
-	#emit_signal("ready_to_set_availability")
+	#ready_to_set_availability.emit()
 
 func _on_editor_settings_custom_npcs_plus_changed():
 	update_customnpcs_plus_enabled()

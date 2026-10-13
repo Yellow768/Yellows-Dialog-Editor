@@ -19,7 +19,7 @@ func save_category(category_name,data = null,backup := false):
 			for datum in data:
 				save_category.store_line(JSON.new().stringify(datum))
 			save_category.close()
-			emit_signal("category_saved")
+			category_saved.emit()
 			queue_free()	
 			return OK
 		var save_nodes = get_tree().get_nodes_in_group("Save")
@@ -40,7 +40,7 @@ func save_category(category_name,data = null,backup := false):
 			var editor_data = editor.call("save")
 			save_category.store_line(JSON.new().stringify(editor_data))
 		save_category.close()
-		emit_signal("category_saved")
+		category_saved.emit()
 		queue_free()
 		return OK
 	else:

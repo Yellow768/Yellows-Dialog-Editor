@@ -48,7 +48,7 @@ func _on_PopupMenu_mouse_exited():
 
 func _on_LineEdit_text_entered(new_text: String):
 	$LineEdit.visible = false
-	emit_signal("rename_category_request",text,new_text)
+	rename_category_request.emit(text,new_text)
 
 
 func _on_popup_menu_id_pressed(id):
@@ -59,11 +59,11 @@ func _on_popup_menu_id_pressed(id):
 			$LineEdit.text = text
 			$LineEdit.caret_column = $LineEdit.text.length()
 		2:
-			emit_signal("reimport_category_request",category_name)
+			reimport_category_request.emit(category_name)
 		3:
-			emit_signal("delete_category_request",category_name)
+			delete_category_request.emit(category_name)
 		4:
-			emit_signal("duplicate_category_request",category_name)
+			duplicate_category_request.emit(category_name)
 		6:
 			OS.shell_show_in_file_manager(CurrentEnvironment.current_dialog_directory+"/"+category_name,true)
 		7: 

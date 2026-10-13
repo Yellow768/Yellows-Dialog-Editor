@@ -42,4 +42,4 @@ func _on_Button_toggled(button_pressed : bool):
 
 
 func _on_line_edit_text_changed():
-	emit_signal("text_changed")
+	text_changed.emit()

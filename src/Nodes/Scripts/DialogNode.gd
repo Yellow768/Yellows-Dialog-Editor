@@ -125,7 +125,7 @@ func set_self_as_unselected():
 
 func _ready():
 	#set_slot(1,true,CONNECTION_TYPES.PORT_INTO_DIALOG,GlobalDeclarations.dialog_left_slot_color,true,CONNECTION_TYPES.PORT_FROM_DIALOG,GlobalDeclarations.dialog_right_slot_color)
-	#emit_signal("set_self_as_selected",self)
+	#set_self_as_selected.emit(self)
 	initial_offset_y = position_offset.y
 	initial_offset_x = position_offset.x
 	DialogTextNode.text = text
@@ -169,23 +169,23 @@ func determine_name(_response):
 	else:
 		dialog_title = new_name
 	TitleTextNode.text = dialog_title
-	emit_signal("title_changed")
+	title_changed.emit()
 
 func add_response_node(commit_to_undo := true):
 	if !GlobalDeclarations.allow_above_six_responses:
 		if response_options.size() < 6:
-			emit_signal("add_response_request",self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
-			emit_signal("unsaved_changes")
+			add_response_request.emit(self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
+			unsaved_changes.emit()
 	else:
-		emit_signal("add_response_request",self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
-		emit_signal("unsaved_changes")
+		add_response_request.emit(self,GlobalDeclarations.RESPONSE_NODE.instantiate(),commit_to_undo)
+		unsaved_changes.emit()
 	
 func delete_response_node(deletion_slot : int,this_response_node : response_node):
 	response_options.erase(this_response_node)
 	for i in response_options:
 		i.slot = response_options.find(i)
 		i.update_max_size_id(response_options.size())
-	emit_signal("unsaved_changes")
+	unsaved_changes.emit()
 
 func append_response(response):
 	response_options.append(response)
@@ -208,7 +208,7 @@ func clear_responses():
 		response.delete_self(false)
 		
 	response_options.clear()
-	emit_signal("unsaved_changes")
+	unsaved_changes.emit()
 
 func add_connected_response(response : response_node):
 	connected_responses.append(response)
@@ -217,8 +217,8 @@ func remove_connected_response(response : response_node):
 	connected_responses.erase(response)
 
 func delete_self(perm := true,commit_to_undo := true):
-	emit_signal("request_deletion",self,perm,commit_to_undo)
-	emit_signal("unsaved_changes")
+	request_deletion.emit(self,perm,commit_to_undo)
+	unsaved_changes.emit()
 	for response in connected_responses:
 		remove_connected_response(response)
 
@@ -234,12 +234,12 @@ func delete_response_options():
 func set_focus_on_title():
 	TitleTextNode.grab_focus()
 	selected = true
-	emit_signal("request_set_scroll_offset",position_offset)
+	request_set_scroll_offset.emit(position_offset)
 	
 func set_focus_on_text():
 	DialogTextNode.grab_focus()
 	selected = true
-	emit_signal("request_set_scroll_offset",position_offset)
+	request_set_scroll_offset.emit(position_offset)
 
 
 
@@ -249,13 +249,13 @@ func set_dialog_title(string : String):
 	TitleTextNode.text = string
 	for i in connected_responses:
 		i.update_connection_text()
-	emit_signal("unsaved_changes")
+	unsaved_changes.emit()
 		
 func set_dialog_text(string : String):
 	if not is_inside_tree(): await self.ready
 	DialogTextNode.text = string
 	text = DialogTextNode.text
-	emit_signal("unsaved_changes")
+	unsaved_changes.emit()
 	
 	
 
@@ -263,7 +263,7 @@ func set_dialog_text(string : String):
 func set_dialog_id(id: int):
 	dialog_id = id
 	if not is_inside_tree(): await self.ready
-	emit_signal("unsaved_changes")
+	unsaved_changes.emit()
 	for response in connected_responses:
 		response.set_connected_dialog(self)
 	title = tr("DIALOG_NODE")+" | "+str(dialog_id)
@@ -297,17 +297,17 @@ func _on_TitleText_text_changed(_new_text : String):
 	if connected_responses.size() > 0:
 		for i in connected_responses:
 			i.update_connection_text()
-	emit_signal("title_changed")
-	emit_signal("unsaved_changes")
+	title_changed.emit()
+	unsaved_changes.emit()
 
 func handle_clicking(event : InputEvent, emit_signal = true):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT and emit_signal:
-			#emit_signal("set_self_as_selected",self)
+			#set_self_as_selected.emit(self)
 			selected = true
 			pass
 		if event.double_click:
-			emit_signal("node_double_clicked")
+			node_double_clicked.emit()
 
 	else:
 		if Input.is_key_pressed(KEY_TAB):
@@ -532,8 +532,8 @@ func update_language():
 
 func _on_dialog_text_text_changed():
 	text = DialogTextNode.text
-	emit_signal("text_changed")
-	emit_signal("unsaved_changes")
+	text_changed.emit()
+	unsaved_changes.emit()
 
 func _on_node_selected():
 	for response in connected_responses:

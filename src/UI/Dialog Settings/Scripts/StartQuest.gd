@@ -17,7 +17,7 @@ func set_id(value : int):
 
 func _on_QuestID_value_changed(value : int):
 	quest_id = value
-	emit_signal("id_changed",quest_id)
+	id_changed.emit(quest_id)
 	$Panel/ChooseQuest.text = find_quest_name_from_id(quest_id)
 	
 		

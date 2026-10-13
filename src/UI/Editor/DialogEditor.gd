@@ -80,13 +80,13 @@ func _ready():
 func delete_all_selected_nodes():
 	if GlobalDeclarations.del_clears_text && (get_viewport().gui_get_focus_owner() is TextEdit || get_viewport().gui_get_focus_owner() is LineEdit):
 		get_viewport().gui_get_focus_owner().clear()
-		get_viewport().gui_get_focus_owner().emit_signal("text_changed")
+		get_viewport().gui_get_focus_owner().text_changed.emit()
 		return
 	
 	var deleted_dialogs = selected_dialogs.duplicate()
 	var deleted_responses = selected_responses.duplicate()
 	var deleted_color_organizers = selected_color_organizers.duplicate()
-	emit_signal("multiple_nodes_deleted",deleted_dialogs,deleted_responses,deleted_color_organizers)
+	multiple_nodes_deleted.emit(deleted_dialogs,deleted_responses,deleted_color_organizers)
 	CurrentEnvironment.handle_subtracting_dialog_id(selected_dialogs)
 	for i in deleted_responses:
 		if selected_dialogs.has(i.parent_dialog):
@@ -99,7 +99,7 @@ func delete_all_selected_nodes():
 		
 		
 func relay_unsaved_changes():
-	emit_signal("unsaved_changes",CurrentEnvironment.current_category_name)
+	unsaved_changes.emit(CurrentEnvironment.current_category_name)
 
 
 func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate(), use_exact_offset : bool = false,commit_to_undo := true) -> dialog_node:
@@ -124,9 +124,9 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
 	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
-	emit_signal("request_add_dialog_to_environment_index",new_dialog)
+	request_add_dialog_to_environment_index.emit(new_dialog)
 	if commit_to_undo:
-		emit_signal("dialog_node_added",new_dialog)
+		dialog_node_added.emit(new_dialog)
 	current_dialog_index_map[new_dialog.node_index] = new_dialog
 	add_child(new_dialog)
 	return new_dialog
@@ -141,7 +141,7 @@ func delete_dialog_node(dialog : dialog_node,remove_from_global_index := false,c
 		selected_dialogs_and_responses.erase(dialog)
 	set_last_selected_node_as_selected()
 	if remove_from_global_index:
-		emit_signal("request_remove_dialog_from_environment_index",dialog.dialog_id)
+		request_remove_dialog_from_environment_index.emit(dialog.dialog_id)
 		CurrentEnvironment.handle_subtracting_dialog_id([dialog])
 	dialog.delete_response_options()
 	current_dialog_index_map.erase(dialog.node_index)
@@ -186,13 +186,13 @@ func add_response_node(parent_dialog : dialog_node, new_response : response_node
 	
 	relay_unsaved_changes()
 	if commit_to_undo:
-		emit_signal("response_node_added",new_response)
+		response_node_added.emit(new_response)
 	return new_response
 
 func delete_response_node(dialog : dialog_node,response : response_node, commit_to_undo := true):
 
 	if commit_to_undo:
-		emit_signal("response_node_deleted",response.save())
+		response_node_deleted.emit(response.save())
 	if dialog != null :
 		dialog.delete_response_node(response.slot,response)
 		disconnect_node(dialog.get_name(),0,response.get_name(),0)
@@ -267,7 +267,7 @@ func _on_begin_node_move():
 	var count_responses :bool = (GlobalDeclarations.hold_shift_for_individual_movement != Input.is_action_pressed("drag_responses_key"))
 	handle_multi_drag_undo_signal(count_responses)
 	multi_drag_started = false
-	emit_signal("multiple_nodes_moved",dialog_multi_drag_start_positions,response_multi_drag_start_positions,color_organizer_multi_drag_start_position)
+	multiple_nodes_moved.emit(dialog_multi_drag_start_positions,response_multi_drag_start_positions,color_organizer_multi_drag_start_position)
 	dialog_multi_drag_start_positions = {}
 	response_multi_drag_start_positions = {}	
 	color_organizer_multi_drag_start_position = {}
@@ -286,7 +286,7 @@ func connect_nodes(from : GraphNode, from_slot : int, to: GraphNode, to_slot : i
 		dialog.add_connected_response(response)
 		relay_unsaved_changes()
 		if commit_to_undo:
-			emit_signal("nodes_connected",from,to)
+			nodes_connected.emit(from,to)
 	else:
 		response = to
 		dialog = from
@@ -313,7 +313,7 @@ func disconnect_nodes(from: GraphNode, from_slot : int, to: GraphNode, to_slot :
 				response.to_dialog_id = 0
 		relay_unsaved_changes()
 		if commit_to_undo:
-			emit_signal("nodes_disconnected",from,to)
+			nodes_disconnected.emit(from,to)
 	else:
 		response = to
 		dialog = from
@@ -371,7 +371,7 @@ func handle_swapping_responses(this_response_node : response_node ,overlapping_r
 		overlapping_response.parent_dialog = initial_parent
 		
 		if commit_to_undo:
-			emit_signal("response_nodes_swapped",response_node,overlapping_response,from,to)
+			response_nodes_swapped.emit(response_node,overlapping_response,from,to)
 			
 	
 func set_category_zoom(new_zoom : float):
@@ -384,14 +384,14 @@ func set_scroll_offs(new_offset : Vector2):
 
 func set_last_selected_node_as_selected():
 	if selected_dialogs.size() < 1:
-		emit_signal("no_dialog_selected")		
+		no_dialog_selected.emit()		
 	if selected_responses.size() < 1:
-		emit_signal("no_response_selected")
+		no_response_selected.emit()
 	if selected_dialogs_and_responses.size() > 0:
 		if selected_dialogs_and_responses.back().node_type == "Dialog Node":
-			emit_signal("dialog_selected",selected_dialogs_and_responses.back())
+			dialog_selected.emit(selected_dialogs_and_responses.back())
 		if selected_dialogs_and_responses.back().node_type == "Player Response Node":
-			emit_signal("response_selected",selected_dialogs_and_responses.back())
+			response_selected.emit(selected_dialogs_and_responses.back())
 	
 func save():
 	return {
@@ -403,7 +403,7 @@ func save():
 	
 func on_no_dialogs(category_name):
 	clear_editor()
-	emit_signal("finished_loading",category_name)
+	finished_loading.emit(category_name)
 	visible = true
 
 func scan_for_changes(category_name):
@@ -419,7 +419,7 @@ func import_canceled():
 	visible = false
 	CurrentEnvironment.current_category_name = null
 	CurrentEnvironment.allow_save_state = false
-	emit_signal("import_category_canceled")
+	import_category_canceled.emit()
 	
 		
 func clear_editor():
@@ -437,7 +437,7 @@ func clear_editor():
 		i.queue_free()	
 	node_index = 0
 	response_node_index = 0
-	emit_signal("editor_cleared")
+	editor_cleared.emit()
 	
 
 
@@ -479,9 +479,9 @@ func select_node(node):
 		if !selected_color_organizers.has(node) and node.node_type == "Color Organizer" :
 			selected_color_organizers.append(node)
 	if node.node_type == "Dialog Node":
-		emit_signal("dialog_selected",node)
+		dialog_selected.emit(node)
 	if node.node_type == "Player Response Node":
-		emit_signal("response_selected",node)
+		response_selected.emit(node)
 
 		
 
@@ -516,7 +516,7 @@ func handle_double_click(node):
 					handle_double_click(response)
 		else:
 			node.selected = false
-		emit_signal("node_double_clicked",node)
+		node_double_clicked.emit(node)
 		
 				
 	if node.node_type == "Player Response Node":
@@ -525,7 +525,7 @@ func handle_double_click(node):
 				if !node.connection_hidden:
 					node.connected_dialog.selected = true
 					handle_double_click(node.connected_dialog)
-					node.connected_dialog.emit_signal("node_double_clicked")
+					node.connected_dialog.node_double_clicked.emit()
 					#selected_dialogs.append(node.connected_dialog)
 	multi_select_mouse_mode = false
 			
@@ -577,7 +577,7 @@ func add_responses_and_dialogs_to_selected_nodes():
 		dialogs.append(temp_dialog_node_index)
 		temp_dialog_node_index += 1
 		response.add_new_connected_dialog(false) 
-	emit_signal("multiple_nodes_created",dialogs,responses)
+	multiple_nodes_created.emit(dialogs,responses)
 
 
 
@@ -651,10 +651,10 @@ func _on_DialogEditor_gui_input(event):
 	var undo_redo_delay = 0
 	var undo_redo_started = false
 	if Input.is_action_just_pressed("ui_undo") && not Input.is_action_pressed("ui_redo"):
-		emit_signal("request_undo")
+		request_undo.emit()
 		accept_event()
 	if Input.is_action_just_pressed("ui_redo"):
-		emit_signal("request_redo")
+		request_redo.emit()
 		accept_event()
 	if Input.is_action_just_released("ui_undo"):
 		undo_redo_delay = 10
@@ -728,7 +728,7 @@ func reindex_ids():
 			starting_id +=1
 			child.set_dialog_id(starting_id)
 	CurrentEnvironment.set_highest_id(starting_id)
-	emit_signal("reindex_finished")
+	reindex_finished.emit()
 
 
 func _on_category_panel_request_dialog_ids_reassigned():
@@ -835,7 +835,7 @@ func _on_paste_nodes_request():
 			if dialog != null:
 				connect_nodes(pasted_response,0,dialog,0)
 		new_responses.append(pasted_response.node_index)
-	emit_signal("multiple_nodes_created",new_dialogs,new_responses)
+	multiple_nodes_created.emit(new_dialogs,new_responses)
 		
 
 func find_dialog_node_from_id(id : int):

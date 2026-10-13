@@ -22,7 +22,7 @@ func set_id(value : int):
 	
 func _on_FactionID_value_changed(value : int):
 	$Panel/HBoxContainer/ChooseFaction.set_faction_name_from_id(value)
-	emit_signal("faction_id_changed",value,self)
+	faction_id_changed.emit(value,self)
 	
 func _on_Factionpoints_value_changed(value : int):
 	faction_points_changed.emit(value,self)
@@ -40,4 +40,4 @@ func update_language():
 
 
 func _on_delete_button_pressed():
-	emit_signal("faction_change_request_deletion",self)
+	faction_change_request_deletion.emit(self)

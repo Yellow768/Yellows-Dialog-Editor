@@ -1,5 +1,8 @@
 extends TabContainer
 
+signal hide_information_panel
+signal show_information_panel
+
 @onready var hide_npc_checkbox = $DialogSettings/DialogSettings/VBoxContainer/HideNPC
 @onready var show_wheel_checkbox = $DialogSettings/DialogSettings/VBoxContainer/ShowDialogWheel
 @onready var disable_esc_checkbox = $DialogSettings/DialogSettings/VBoxContainer/DisableEsc
@@ -180,7 +183,6 @@ func no_dialog_selected():
 
 func _on_ToggleVisiblity_toggled(button_pressed):
 	if button_pressed:
-		
-		emit_signal("hide_information_panel")
+		hide_information_panel.emit()
 	else:
-		emit_signal("show_information_panel")
+		show_information_panel.emit()

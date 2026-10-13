@@ -32,7 +32,7 @@ func _on_CategoryFinder_index_pressed(_index : int):
 
 
 func _on_SpinBox_value_changed(value : int):
-	emit_signal("id_changed",self,value)
+	id_changed.emit(self,value)
 	$Panel/ChooseQuest.text = find_quest_name_from_id(value)
 	
 		
@@ -48,7 +48,7 @@ func find_quest_name_from_id(id : int) -> String:
 
 
 func _on_OptionButton_item_selected(index: int):
-	emit_signal("type_changed",self,index)
+	type_changed.emit(self,index)
 	$Panel/ChooseQuest.disabled = (index == 0)
 
 

@@ -98,10 +98,10 @@ func create_category_buttons(categories):
 
 func _process(delta):
 	if (categoryPanelRevealed and not Rect2(Vector2(),size).has_point(get_local_mouse_position())) or get_global_mouse_position().x < 0:
-		emit_signal("hide_category_panel")
+		hide_category_panel.emit()
 		categoryPanelRevealed = false
 	if !categoryPanelRevealed and Rect2(Vector2(),size).has_point(get_local_mouse_position()) and get_global_mouse_position().x > 0:
-		emit_signal("reveal_category_panel")
+		reveal_category_panel.emit()
 		categoryPanelRevealed = true
 
 
@@ -148,7 +148,7 @@ func _on_DialogEditor_finished_loading(category_name):
 
 
 func _on_TopPanel_scan_for_changes_request():
-	emit_signal("scan_for_changes",current_category)
+	scan_for_changes.emit(current_category)
 	
 var stored_category
 
@@ -168,17 +168,17 @@ func _on_availability_mode_entered():
 
 func save_category_request():
 	if current_category == null:
-		emit_signal("category_failed_save")
+		category_failed_save.emit()
 		printerr("Category is null")
 		return
 	var cat_save = category_saver.new()
 	add_child(cat_save)
 	var result = cat_save.save_category(current_category) 
 	if result == OK:
-		emit_signal("category_succesfully_saved",current_category)
+		category_succesfully_saved.emit(current_category)
 		current_category_button.set_unsaved(false)		
 	else:
-		emit_signal("category_failed_save")
+		category_failed_save.emit()
 		printerr(error_string(result))
 
 
@@ -188,10 +188,10 @@ func save_all_categories():
 		add_child(cat_save)
 		var result =cat_save.save_category(key,category_temp_data[key]) 
 		if  result == OK:
-			emit_signal("category_succesfully_saved",current_category)
+			category_succesfully_saved.emit(current_category)
 		else:
 			printerr(error_string(result))
-			emit_signal("category_failed_save")
+			category_failed_save.emit()
 
 	
 func save_all_backups():
@@ -207,13 +207,13 @@ func save_all_backups():
 		var result = cat_save.save_category(key,category_temp_data[key],true)
 		if  result != OK:
 			printerr(error_string(result))
-			emit_signal("category_failed_save",key)
-	emit_signal("saved_backups")
+			category_failed_save.emit(key)
+	saved_backups.emit()
 
 
 func export_category_request():
 	if current_category == null:
-		emit_signal("category_export_failed",current_category)
+		category_export_failed.emit(current_category)
 		printerr("Cannot export a null category")
 		return
 	var cat_exp = category_exporter.new()
@@ -221,7 +221,7 @@ func export_category_request():
 	print("Exported Category "+current_category)
 	cat_exp.export_category(CurrentEnvironment.current_directory+"/dialogs/",current_category,export_version)
 	cat_exp.queue_free()
-	emit_signal("category_succesfully_exported",current_category)
+	category_succesfully_exported.emit(current_category)
 	
 
 	
@@ -306,7 +306,7 @@ func initialize_category_import(category_name : String):
 	request_clear_editor.emit()
 	
 func import_category(category_name : String,all_dialogs : Array[Dictionary],index : int):
-	emit_signal("category_loading_initiated",category_name)
+	category_loading_initiated.emit(category_name)
 	CurrentEnvironment.current_category_name = null
 	CurrentEnvironment.allow_save_state = false
 	
@@ -318,7 +318,7 @@ func import_category(category_name : String,all_dialogs : Array[Dictionary],inde
 	new_category_importer.connect("editor_offset_loaded", Callable(DialogEditor, "set_scroll_ofs"))
 	new_category_importer.connect("save_category_request",Callable(DialogEditor,"emit_signal").bind("request_save"))
 	new_category_importer.initial_dialog_chosen(category_name,all_dialogs,index)
-	emit_signal("category_loading_finished",category_name)
+	category_loading_finished.emit(category_name)
 	current_category = category_name
 	DialogEditor.visible = true
 	DisplayServer.window_set_title(CurrentEnvironment.current_directory+"/"+category_name+" | Yellow's Dialog Editor")
@@ -343,7 +343,7 @@ func load_duplicated_category(old_name : String ,new_name : String):
 	save_category_request()
 	current_category_button = null
 	load_category(new_name)
-	emit_signal("request_dialog_ids_reassigned")
+	request_dialog_ids_reassigned.emit()
 	if CurrentEnvironment.sftp_client:
 		save_category_request()
 	
@@ -360,7 +360,7 @@ func _on_dialog_editor_import_category_canceled():
 func _on_dialog_editor_unsaved_changes(_name):
 	if current_category_button != null && !loading_category:
 		current_category_button.set_unsaved(true)
-		emit_signal("unsaved_change",current_category)
+		unsaved_change.emit(current_category)
 
 
 func _on_autosave_timer_timeout():
@@ -376,7 +376,7 @@ func _on_editor_settings_autosave_time_changed():
 func _on_dialog_file_system_index_category_deleted(category):
 	if current_category == category:
 		current_category = null
-		emit_signal("current_category_deleted")
+		current_category_deleted.emit()
 	category_temp_data.erase(category)
 	
 

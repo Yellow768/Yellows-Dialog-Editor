@@ -90,7 +90,7 @@ func _on_next_page_button_pressed():
 		current_mail_object.pages.append("")
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 func _on_prev_page_button_pressed():
@@ -98,7 +98,7 @@ func _on_prev_page_button_pressed():
 		current_page -=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 
@@ -112,11 +112,11 @@ func _on_delete_page_button_pressed():
 		current_page-=1
 	MessageBox.text = current_mail_object.pages[current_page-1]
 	PageLabel.text = tr("MAIL_PAGE_NUM")+" "+str(current_page)+"/"+str(current_mail_object.pages.size())
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_start_quest_mail_id_changed():
 	current_mail_object.quest_id = StartQuest.quest_id
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_message_text_changed():
 	var total_lines = 0
@@ -133,7 +133,7 @@ func _on_message_text_changed():
 		current_mail_object.pages.append(MessageBox.text)
 	else:
 		current_mail_object.pages[current_page-1] = MessageBox.text
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 
@@ -141,13 +141,13 @@ func _on_sender_line_edit_text_changed(new_text):
 	if loading_mail:
 		return
 	current_mail_object.sender = new_text
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_subject_line_edit_text_changed(new_text):
 	if loading_mail:
 		return
 	current_mail_object.subject = new_text
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_message_lines_edited_from(from_line, to_line):
 	pass

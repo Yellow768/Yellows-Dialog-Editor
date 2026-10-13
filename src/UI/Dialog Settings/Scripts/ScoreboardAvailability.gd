@@ -36,16 +36,16 @@ func set_value(val : int):
 
 
 func _on_LineEdit_text_changed(new_text : String):
-	emit_signal("objective_name_changed",self,new_text)
+	objective_name_changed.emit(self,new_text)
 
 
 
 
 func _on_SpinBox_value_changed(value : int):
-	emit_signal("value_changed",self,value)
+	value_changed.emit(self,value)
 	
 
 
 
 func _on_OptionButton_item_selected(index : int):
-	emit_signal("comparison_type_changed",self,index)
+	comparison_type_changed.emit(self,index)

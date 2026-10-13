@@ -16,7 +16,7 @@ func create_dialog_buttons(importing_category_name : String):
 	var dialog_json_loader := dialog_jsons_loader.new()
 	all_dialogs = dialog_json_loader.get_dialog_jsons(category_name)
 	if all_dialogs.is_empty():
-		emit_signal("no_dialogs")
+		no_dialogs.emit()
 		queue_free()
 		
 		return
@@ -30,12 +30,12 @@ func create_dialog_buttons(importing_category_name : String):
 	visible = true
 	
 func emit_initial_dialog_chosen(index_chosen : int):
-	emit_signal("initial_dialog_chosen",category_name,all_dialogs,index_chosen)
+	initial_dialog_chosen.emit(category_name,all_dialogs,index_chosen)
 	queue_free()
 
 
 func _on_CancelButton_pressed():
-	emit_signal("import_canceled")
+	import_canceled.emit()
 	queue_free()
 
 

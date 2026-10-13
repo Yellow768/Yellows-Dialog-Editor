@@ -137,7 +137,7 @@ func _on_check_button_toggled(button_pressed):
 
 func _on_undo_button_toggled(button_pressed):
 	GlobalDeclarations.snap_enabled = button_pressed
-	emit_signal("snap_enabled_changed",button_pressed)
+	snap_enabled_changed.emit(button_pressed)
 
 
 func _on_autosave_value_edit_text_changed(new_text):
@@ -180,13 +180,13 @@ func _on_language_option_item_selected(index):
 	TranslationServer.set_locale(TranslationServer.get_loaded_locales()[index])
 	GlobalDeclarations.language = TranslationServer.get_locale()
 	
-	emit_signal("language_changed")
+	language_changed.emit()
 
 
 func _on_cnpc_check_toggled(button_pressed):
 	GlobalDeclarations.enable_customnpcs_plus_options = button_pressed
 	$"Preferences/Default Spacing Preset".visible = button_pressed
-	emit_signal("custom_npcs_plus_changed")
+	custom_npcs_plus_changed.emit()
 
 
 func _on_visual_preset_button_item_selected(index):

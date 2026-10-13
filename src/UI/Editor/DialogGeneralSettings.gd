@@ -175,21 +175,21 @@ func set_title_text(title_text : String,node_index : int):
 
 func _on_HideNPC_pressed():
 	current_dialog.hide_npc = HideNpcCheckbox.button_pressed
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 	
 func _on_ShowDialogWheel_pressed():
 	current_dialog.show_wheel = ShowWheelCheckbox.button_pressed
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_DisableEsc_pressed():
 	current_dialog.disable_esc = DisableEscCheckbox.button_pressed
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 func FactionChange_faction_id_changed(id : int,faction_change):
 	var slot = FactionChanges.get_children().find(faction_change)
 	current_dialog.faction_changes[slot].faction_id = id
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func FactionChange_faction_points_changed(points : int,faction_change):
 	var slot = FactionChanges.get_children().find(faction_change)
@@ -198,16 +198,16 @@ func FactionChange_faction_points_changed(points : int,faction_change):
 		current_dialog.faction_changes[slot].operator = 1
 	else:
 		current_dialog.faction_changes[slot].operator = 0
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func command_text_changed(command):
 	var slot = Commands.get_children().find(command)
 	current_dialog.commands[slot] = command.text
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 	
 func _on_DialogText_text_changed():
 	current_dialog.set_dialog_text(DialogTextEdit.text)
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func update_text():
 	DialogTextEdit.text = current_dialog.text
@@ -217,7 +217,7 @@ func update_title(_text):
 	
 func _on_StartQuest_id_changed(value : int):
 	current_dialog.start_quest = value
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 	
 func _on_soundfile_text_changed():
 	current_dialog.sound = PlaysoundEdit.text
@@ -228,37 +228,37 @@ func _on_soundfile_text_changed():
 
 func _on_darken_screen_pressed():
 	current_dialog.darken_screen = DarkenScreenCheckbox.button_pressed
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 func _on_render_type_item_selected(index):
 	current_dialog.render_gradual = index
 	TextSoundOptions.visible = bool(index)
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_text_sound_text_changed():
 	current_dialog.text_sound = TextSound.text
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_text_pitch_value_changed(value):
 	current_dialog.text_pitch = value
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_show_previous_dialog_toggled(button_pressed):
 	current_dialog.show_previous_dialog = button_pressed
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_show_response_options_toggled(button_pressed):
 	current_dialog.show_response_options = button_pressed
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_color_color_changed(color):
 	current_dialog.dialog_color = color.to_html(false).hex_to_int() 
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 func _on_title_color_color_changed(color):
 	current_dialog.title_color = color.to_html(false).hex_to_int() 
-	InformationPanel.emit_signal("unsaved_change")
+	InformationPanel.unsaved_change.emit()
 
 
 func _on_title_color_pressed():

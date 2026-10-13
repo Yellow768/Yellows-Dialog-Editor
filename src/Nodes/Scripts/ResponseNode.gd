@@ -122,7 +122,7 @@ func set_focus_on_title():
 	if not is_inside_tree(): await self.ready
 	ResponseTextNode.grab_focus()
 	selected = true
-	emit_signal("request_set_scroll_offset",position_offset)
+	request_set_scroll_offset.emit(position_offset)
 
 func set_response_slot(value : int):
 	var original_value = slot
@@ -130,7 +130,7 @@ func set_response_slot(value : int):
 	title = tr("RESPONSE_OPTION")
 	if IndexSpinBox:
 		IndexSpinBox.set_value_no_signal(value+1)
-	emit_signal("unsaved_change")
+	unsaved_change.emit()
 	
 func update_max_size_id(value):
 	IndexSpinBox.max_value = value
@@ -170,19 +170,19 @@ func set_option_type(new_type : int):
 		IdSpinbox.value = -1
 		RemoteConnectionContainer.visible = false
 		if connected_dialog != null:
-			emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
-	emit_signal("unsaved_change")
-	emit_signal("type_changed")
+			disconnect_from_dialog_request.emit(self,0,connected_dialog,0)
+	unsaved_change.emit()
+	type_changed.emit()
 	
 func set_color_decimal(new_color : int):
 	color_decimal = new_color
-	emit_signal("unsaved_change")
+	unsaved_change.emit()
 
 func set_command(new_command : String):
 	option_command = new_command
 	if not is_inside_tree(): await self.ready
 	CommandTextNode.text = new_command
-	emit_signal("unsaved_change")
+	unsaved_change.emit()
 
 func set_connected_dialog(new_connected_dialog):
 	if connected_dialog != null:
@@ -201,7 +201,7 @@ func set_connected_dialog(new_connected_dialog):
 
 func set_to_dialog_id(new_id : int):
 	to_dialog_id = new_id
-	emit_signal("to_id_changed")
+	to_id_changed.emit()
 
 func set_parent_dialog(new_parent_dialog):
 	parent_dialog = new_parent_dialog
@@ -246,7 +246,7 @@ func check_dialog_distance():
 			set_connection_shown()
 
 func set_connection_hidden():
-	emit_signal("request_connection_line_hidden",self,connected_dialog)
+	request_connection_line_hidden.emit(self,connected_dialog)
 	connection_hidden = true
 	RemoteConnectionContainer.visible = true
 	RemoteConnectionVSeparator.visible = true
@@ -258,7 +258,7 @@ func set_connection_hidden():
 
 func set_connection_shown():
 	
-	emit_signal("request_connection_line_shown",self,connected_dialog)
+	request_connection_line_shown.emit(self,connected_dialog)
 	connection_hidden = false
 	set_slot_color_right(0,GlobalDeclarations.response_right_slot_color)
 	connected_dialog.set_slot_color_left(0,GlobalDeclarations.dialog_left_slot_color)
@@ -270,7 +270,7 @@ func set_connection_shown():
 func disconnect_from_dialog(commit_to_undo := true):
 	if connected_dialog!=null:
 		connected_dialog.remove_connected_response(self)
-		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0,commit_to_undo)
+		disconnect_from_dialog_request.emit(self,0,connected_dialog,0,commit_to_undo)
 		connected_dialog = null
 	to_dialog_id = -1
 	IdSpinbox.value = 0
@@ -280,7 +280,7 @@ func disconnect_from_dialog(commit_to_undo := true):
 func delete_self(commit_to_undo := true):
 	if(connected_dialog != null):
 		connected_dialog.remove_connected_response(self)
-	emit_signal("request_delete_self",parent_dialog,self,commit_to_undo)
+	request_delete_self.emit(parent_dialog,self,commit_to_undo)
 	
 func set_orphaned(orphaned):
 	if orphaned:
@@ -296,7 +296,7 @@ func set_orphaned(orphaned):
 
 func _on_PlayerResponseNode_gui_input(event):
 	if event is InputEventMouseButton and event.double_click:
-		emit_signal("response_double_clicked")
+		response_double_clicked.emit()
 	
 	
 
@@ -335,9 +335,9 @@ func add_new_connected_dialog(commit_to_undo := true):
 	var new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.instantiate()
 	new_dialog.position_offset = position_offset + Vector2(GlobalDeclarations.DIALOG_NODE_HORIZONTAL_OFFSET,0)
 	connected_dialog = new_dialog
-	emit_signal("request_add_dialog",new_dialog,true,commit_to_undo)
+	request_add_dialog.emit(new_dialog,true,commit_to_undo)
 	new_dialog.determine_name(self)
-	emit_signal("connect_to_dialog_request",self,0,connected_dialog,0,false)
+	connect_to_dialog_request.emit(self,0,connected_dialog,0,false)
 
 func _on_OptionButton_item_selected(index : int):
 	set_option_type(index)
@@ -347,7 +347,7 @@ func _on_ColorPickerButton_color_changed(color : Color):
 	var colorHex = "0x"+String(color.to_html(false))
 	color_decimal = colorHex.hex_to_int()
 	update_color(color)
-	emit_signal("color_changed",color)
+	color_changed.emit(color)
 	
 func update_color(color):
 	ColorPickerNode.color = color
@@ -358,13 +358,13 @@ func set_response_title(text: String):
 
 func _on_ResponseText_text_changed(new_text : String):
 	response_title = ResponseTextNode.text
-	emit_signal("title_changed")
-	emit_signal("unsaved_change")
+	title_changed.emit()
+	unsaved_change.emit()
 
 func _on_CommandText_text_changed():
 	option_command = CommandTextNode.text
-	emit_signal("option_command_changed")
-	emit_signal("unsaved_change")
+	option_command_changed.emit()
+	unsaved_change.emit()
 
 
 func _on_DisconnectButton_pressed():
@@ -374,7 +374,7 @@ func _on_DisconnectButton_pressed():
 
 func _on_JumpButton_pressed():
 	var dialog_location = connected_dialog.position_offset
-	emit_signal("request_set_scroll_offset",dialog_location)
+	request_set_scroll_offset.emit(dialog_location)
 	connected_dialog.selected = true
 
 
@@ -398,7 +398,7 @@ func attempt_to_connect_to_dialog_from_id(id):
 		if dialog.node_type == "Dialog Node" && dialog.dialog_id == to_dialog_id:
 			disconnect_from_dialog(true)
 			set_connected_dialog(dialog)
-			emit_signal("connect_to_dialog_request",self,0,dialog,0,false)
+			connect_to_dialog_request.emit(self,0,dialog,0,false)
 			dialog.connected_responses.append(self)
 			return
 	RemoteConnectionContainer.visible = true
@@ -408,7 +408,7 @@ func attempt_to_connect_to_dialog_from_id(id):
 	
 	if connected_dialog != null:
 		connected_dialog.remove_connected_response(self)
-		emit_signal("disconnect_from_dialog_request",self,0,connected_dialog,0)
+		disconnect_from_dialog_request.emit(self,0,connected_dialog,0)
 
 func update_to_id_spinbox(value):
 	IdSpinbox.value = value
