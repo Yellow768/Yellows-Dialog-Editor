@@ -122,7 +122,7 @@ func add_dialog_node(new_dialog : dialog_node = GlobalDeclarations.DIALOG_NODE.i
 	new_dialog.connect("set_self_as_selected", Callable(self, "select_node"))
 	new_dialog.connect("node_double_clicked", Callable(self, "handle_double_click").bind(new_dialog))
 	new_dialog.connect("position_offset_changed",Callable(self,"relay_unsaved_changes"))
-	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offset"))
+	new_dialog.connect("request_set_scroll_offset", Callable(self, "set_scroll_offs"))
 	new_dialog.connect("unsaved_changes", Callable(self, "relay_unsaved_changes"))
 	emit_signal("request_add_dialog_to_environment_index",new_dialog)
 	if commit_to_undo:

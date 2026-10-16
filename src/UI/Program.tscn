@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn0mdw6dceat0"]
+[gd_scene format=3 uid="uid://dn0mdw6dceat0"]
 
 [ext_resource type="PackedScene" uid="uid://b3koueh5166hj" path="res://src/UI/LandingScreen.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://cmskr47qlp4v7" path="res://Assets/UITheme.tres" id="2"]
 
-[node name="Program" type="Control"]
+[node name="Program" type="Control" unique_id=640568380]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,5 +13,5 @@ grow_vertical = 2
 theme = ExtResource("2")
 metadata/_edit_use_anchors_ = true
 
-[node name="LandingScreen" parent="." instance=ExtResource("1")]
+[node name="LandingScreen" parent="." unique_id=1196395746 instance=ExtResource("1")]
 layout_mode = 1

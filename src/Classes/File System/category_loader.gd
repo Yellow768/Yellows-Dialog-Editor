@@ -165,8 +165,6 @@ func create_new_dialog_node_from_ydec(node_data : Dictionary):
 	if node_data.has("image_dictionary"):
 		for key in JSON.parse_string(node_data["image_dictionary"]):
 			currently_loaded_dialog.image_dictionary[int(key)] = JSON.parse_string(node_data["image_dictionary"])[key]
-	if node_data.has("attribute_check"):
-		currently_loaded_dialog.attribute_check = JSON.parse_string(node_data["attribute_check"])
 	return currently_loaded_dialog
 
 func create_response_node_from_ydec(response_data):
